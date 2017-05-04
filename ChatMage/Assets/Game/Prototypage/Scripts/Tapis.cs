@@ -2,15 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tapis : MonoBehaviour {
+public class Tapis : MonoBehaviour
+{
+    public float currentSpeed;
+    public float currentDirection;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    private Transform tr;
+
+    void Start()
+    {
+        tr = GetComponent<Transform>();
+    }
+
+    void Update()
+    {
+        tr.position += WorldDirection() * currentSpeed * Time.deltaTime;
+    }
+
+    Vector3 WorldDirection()
+    {
+        return new Vector3(Mathf.Cos(currentDirection), Mathf.Sin(currentDirection), 0);
+    }
 }
