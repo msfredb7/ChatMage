@@ -10,10 +10,10 @@ public class Movement : MonoBehaviour {
 
         if (Input.GetKey(KeyCode.A))
         {
-            transform.Rotate(new Vector3(0, -2.5f, 0));
+            transform.Rotate(new Vector3(0, 0, -2.5f));
         } else if (Input.GetKey(KeyCode.D))
         {
-            transform.Rotate(new Vector3(0, 2.5f, 0));
+            transform.Rotate(new Vector3(0, 0, 2.5f));
         }
     }
 }
