@@ -21,12 +21,14 @@ namespace CCC.Utility
         {
             if (skippedUpdates == 0)
             {
+                deltaTime = Time.deltaTime * (skippedUpdates + 1);
                 SlowUpdate();
                 return;
             }
 
             if (counter <= 0)
             {
+                deltaTime = Time.deltaTime * (skippedUpdates + 1);
                 SlowUpdate();
                 counter = skippedUpdates;
             }
@@ -38,12 +40,14 @@ namespace CCC.Utility
         {
             if (skippedFixedUpdates <= 0)
             {
+                fixedDeltaTime = Time.fixedDeltaTime * (skippedFixedUpdates + 1);
                 SlowFixedUpdate();
                 return;
             }
 
             if (fixedCounter <= 0)
             {
+                fixedDeltaTime = Time.fixedDeltaTime * (skippedFixedUpdates + 1);
                 SlowFixedUpdate();
                 fixedCounter = skippedFixedUpdates;
             }

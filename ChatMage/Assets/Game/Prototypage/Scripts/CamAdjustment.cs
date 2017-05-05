@@ -7,8 +7,9 @@ public class CamAdjustment : MonoBehaviour {
 
     void Start ()
     {
-        float ratio = cam.aspect;
-        print("aspect: " + ratio);
-        transform.position = new Vector3(cam.orthographicSize * ratio, cam.orthographicSize, -100);
+        transform.position = new Vector3(
+            cam.orthographicSize * cam.aspect,  //x
+            cam.orthographicSize,               //y
+            -100);                              //z
 	}
 }
