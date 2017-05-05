@@ -1,12 +1,15 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
+using FullInspector;
 
-public class PublicSingleton<T> : MonoBehaviour where T : class
+public class PublicSingleton<T> : BaseBehavior where T : class
 {
     public static T instance;
 
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         if (!(this is T))
         {
             Debug.LogError("Trying to make a Singleton<" + typeof(T).Name + "> but instance is a " + this.GetType().Name + ".");
@@ -22,8 +25,6 @@ public class PublicSingleton<T> : MonoBehaviour where T : class
             Destroy(this.gameObject);
         }
     }
-
-
 
     void OnDestroy()
     {

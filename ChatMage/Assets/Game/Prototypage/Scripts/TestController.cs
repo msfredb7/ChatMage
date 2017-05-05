@@ -1,6 +1,7 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TestController : MonoBehaviour
 {
@@ -8,6 +9,17 @@ public class TestController : MonoBehaviour
     public Tapis tapis;
     public Transform visuals;
     public Camera cam;
+    public Ball ballPrefab;
+    [Header("Controllers")]
+    public PointerListener hor_LeftButton;
+    public PointerListener hor_MiddleButton;
+    public PointerListener hor_RightButton;
+    public PointerListener vert_LeftButton;
+    public PointerListener vert_MiddleButton;
+    public PointerListener vert_RightButton;
+    public PointerListener vertSlider_MiddleButton;
+    public Slider vertSlider_Slider;
+    public Text turnAccText;
     [Header("Settings")]
     public ControlMode mode;
     public bool slowsOnTurns = false;
@@ -27,7 +39,17 @@ public class TestController : MonoBehaviour
     void Start()
     {
         originalSpeed = tapis.speed;
-        tapis.bounds = new Vector2(cam.aspect * cam.orthographicSize * 2, cam.orthographicSize * 2);
+        tapis.bounds = Game.instance.ScreenBounds;
+        hor_MiddleButton.onClick.AddListener(OnMiddleClick);
+        vert_MiddleButton.onClick.AddListener(OnMiddleClick);
+        vertSlider_MiddleButton.onClick.AddListener(OnMiddleClick);
+    }
+
+    void OnMiddleClick()
+    {
+        GameObject ball = Instantiate(ballPrefab.gameObject);
+        ball.transform.position = transform.position;
+        ball.GetComponent<Rigidbody2D>().velocity = tapis.CurrentVelocity*0.5f + tapis.WorldDirection() *tapis.speed*1.75f;
     }
 
     void Update()
@@ -78,10 +100,27 @@ public class TestController : MonoBehaviour
 
     float GetRigidAddHorizontal()
     {
-        int horizontal = 0;
-        if (Input.GetKey(KeyCode.LeftArrow))
+        float horizontal = 0;
+
+        //Slider
+        if(vertSlider_Slider.gameObject.activeInHierarchy)
+        {
+            if (vertSlider_Slider.GetComponent<PointerListener>().isIn)
+            {
+                horizontal = vertSlider_Slider.value;
+                if (horizontal > 1)
+                    horizontal = 1;
+                else if (horizontal < -1)
+                    horizontal = -1;
+            }
+            else
+                horizontal = 0;
+        }
+
+        //Keys
+        if (Input.GetKey(KeyCode.LeftArrow) || hor_LeftButton.isIn || vert_LeftButton.isIn)
             horizontal -= 1;
-        if (Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.RightArrow) || hor_RightButton.isIn || vert_RightButton.isIn)
             horizontal += 1;
         return horizontal;
     }
@@ -94,6 +133,12 @@ public class TestController : MonoBehaviour
         if (Input.GetKey(KeyCode.UpArrow))
             vertical += 1;
         return vertical;
+    }
+
+    public void SetTurnAcceleration(float value)
+    {
+        turnAcceleration = value;
+        turnAccText.text = "Turn Acceleration: " + ((float)((int)(value * 100))) / 100;
     }
 
 }
