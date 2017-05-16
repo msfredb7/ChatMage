@@ -6,7 +6,10 @@ public class CamAdjustment : MonoBehaviour
 {
     void Start()
     {
-        Vector2 bounds = Game.instance.ScreenBounds;
+    }
+
+    public void Adjust(Vector2 bounds)
+    {
         transform.position = new Vector3(
             bounds.x / 2,               //x
             bounds.y / 2,               //y

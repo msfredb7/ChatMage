@@ -20,8 +20,15 @@ public class Framework : MonoBehaviour
 
     void Start()
     {
+        //Screen bounds
         screenBounds = new Vector2(cam.orthographicSize * cam.aspect * 2, cam.orthographicSize * 2);
 
+        //Camera adjustment
+        CamAdjustment camAdjustment = cam.GetComponent<CamAdjustment>();
+        if (camAdjustment != null)
+            camAdjustment.Adjust(screenBounds);
+
+        //Debug Init
         if (Scenes.SceneCount() == 1)
             Init();
     }
