@@ -158,8 +158,10 @@ GameObject:
   m_Component:
   - component: {fileID: 986166560}
   - component: {fileID: 986166559}
+  - component: {fileID: 986166561}
+  - component: {fileID: 986166562}
   m_Layer: 0
-  m_Name: Framework
+  m_Name: Framework & Game
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -177,7 +179,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loadScenesAsync: 0
-  cam: {fileID: 1614933836}
+  game: {fileID: 986166561}
   defaultLevel: {fileID: 11400000, guid: b9bd2e88b7678a446beaf0475ca82ba0, type: 2}
 --- !u!4 &986166560
 Transform:
@@ -192,6 +194,61 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &986166561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 986166558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 669ef613583eb8345930b0325352ccfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectReferences: []
+  _serializedStateKeys:
+  - defaultBounds
+  - onGameReady
+  - onGameStarted
+  - units
+  _serializedStateValues:
+  - '{"x":16.0,"y":9.0}'
+  - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  - '[]'
+  cam: {fileID: 1614933836}
+  defaultBounds: {x: 16, y: 9}
+  onGameReady:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  onGameStarted:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  units: []
+--- !u!114 &986166562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 986166558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c12ce9f34b7a60e4db1351b311e39651, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectReferences: []
+  _serializedStateKeys:
+  - onCompleteInit
+  _serializedStateValues:
+  - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"CCC.Manager.BaseManager+BaseManagerEvent,
+    Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  initComplete: 0
 --- !u!1 &1405175278
 GameObject:
   m_ObjectHideFlags: 1
@@ -233,8 +290,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be205b8c5a2f88c408c5e5343719637c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _keys: []
-  _values: []
+  _keys:
+  - {fileID: 986166561}
+  - {fileID: 986166562}
+  _values:
+  - _keys: []
+    _values: []
+    _target: {fileID: 986166561}
+  - _keys: []
+    _values: []
+    _target: {fileID: 986166562}
 --- !u!114 &1405175281
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -246,8 +311,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3b5fe0e79f64584a83676f21be2d2a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _keys: []
-  _values: []
+  _keys:
+  - {fileID: 986166561}
+  - {fileID: 986166562}
+  _values:
+  - _keys:
+    - DefaultBehaviorEditor.onGameReady.EditProperty
+    - DefaultBehaviorEditor.onGameStarted.EditProperty
+    _values:
+    - _showDropdown: 1
+      _serializedIsActive: 0
+    - _showDropdown: 1
+      _serializedIsActive: 0
+    _target: {fileID: 986166561}
+  - _keys: []
+    _values: []
+    _target: {fileID: 986166562}
 --- !u!1 &1614933832
 GameObject:
   m_ObjectHideFlags: 0
