@@ -66,13 +66,13 @@ public class Framework : MonoBehaviour
         isLoadingMap = false;
 
         //Spawn Character
-        MovingUnit player = playerbuilder.BuildPlayer();
+        Vehicle player = playerbuilder.BuildPlayer();
         
         //Game Init
         game.Init();
 
         //Add player to list
-        game.AddExistingUnit(player);
+        game.AddPlayer(player);
 
         //Init map
         GameObject[] rootObjs = scene.GetRootGameObjects();
