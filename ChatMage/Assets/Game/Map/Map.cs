@@ -45,12 +45,10 @@ public class Map : MonoBehaviour {
     /// <param name="height"></param>
     /// <param name="width"></param>
 	public void Init (float height, float width) {
-        for(int i = 0; i< mapObjects.Count; i++)
+        for(int i = 0; i < mapObjects.Count; i++)
         {
             Adjust(mapObjects[i]);
         }
-        foreach(GameObject obj in mapObjects)
-            Adjust(obj);
 
         map.Init(height, width);
 
