@@ -9,6 +9,8 @@ public class Framework : MonoBehaviour
 {
     public bool loadScenesAsync = false;
     public Game game;
+    [Header("Temporaire")]
+    public PlayerBuilder playerbuilder;
 
     [Header("Debug")]
     public LevelScript defaultLevel;
@@ -63,6 +65,13 @@ public class Framework : MonoBehaviour
     {
         isLoadingMap = false;
 
+        //Spawn Character
+        MovingUnit player = playerbuilder.BuildPlayer();
+
+        //Game Init
         game.Init();
+
+        //Add player to list
+        game.AddExistingUnit(player);
     }
 }
