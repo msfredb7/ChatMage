@@ -9,7 +9,9 @@ public class Game : PublicSingleton<Game>
 
     public float Aspect { get { return cam.aspect; } }
     public Vector2 ScreenBounds { get { return screenBounds; } }
+    public Vector2 defaultBounds;
     private Vector2 screenBounds;
+    private Vector2 defaultToRealRatio;
 
     public UnityEvent onGameReady = new UnityEvent();
     public UnityEvent onGameStarted = new UnityEvent();
@@ -20,6 +22,7 @@ public class Game : PublicSingleton<Game>
     {
         //Screen bounds
         screenBounds = new Vector2(cam.orthographicSize * cam.aspect * 2, cam.orthographicSize * 2);
+        defaultToRealRatio = new Vector2(defaultBounds.x / screenBounds.x, defaultBounds.y / screenBounds.y);
 
         //Camera adjustment
         CamAdjustment camAdjustment = cam.GetComponent<CamAdjustment>();
@@ -28,11 +31,19 @@ public class Game : PublicSingleton<Game>
 
         //Game ready
         onGameReady.Invoke();
-        print("hello");
     }
 
     public void SpawnUnit(GameObject reference, Vector2 position)
     {
 
+    }
+
+    public Vector3 ConvertToRealPos(Vector3 position)
+    {
+        return new Vector3(position.x / defaultToRealRatio.x, position.y / defaultToRealRatio.y, 0);
+    }
+    public Vector2 ConvertToRealPos(Vector2 position)
+    {
+        return new Vector2(position.x / defaultToRealRatio.x, position.y / defaultToRealRatio.y);
     }
 }
