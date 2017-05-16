@@ -17,6 +17,8 @@ public class Game : PublicSingleton<Game>
     public UnityEvent onGameStarted = new UnityEvent();
 
     public List<Unit> units = new List<Unit>();
+    public Vehicle Player { get { return player; } }
+    private Vehicle player;
 
     public void Init()
     {
@@ -69,6 +71,12 @@ public class Game : PublicSingleton<Game>
 
         //Ajoute les listeners
         unit.onDestroy.AddListener(OnUnitDestroy);
+    }
+
+    public void AddPlayer(Vehicle player)
+    {
+        AddExistingUnit(player);
+        this.player = player;
     }
 
     private void OnUnitDestroy(Unit unit)
