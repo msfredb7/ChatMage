@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using CCC.Manager;
+using UnityEngine.Events;
 
 public class Framework : MonoBehaviour
 {
     public bool loadScenesAsync = false;
-    public Camera cam;
-    public float Aspect { get { return cam.aspect; } }
-    public Vector2 ScreenBounds { get { return screenBounds; } }
+    public Game game;
 
     [Header("Debug")]
     public LevelScript defaultLevel;
@@ -20,17 +19,9 @@ public class Framework : MonoBehaviour
 
     void Start()
     {
-        //Screen bounds
-        screenBounds = new Vector2(cam.orthographicSize * cam.aspect * 2, cam.orthographicSize * 2);
-
-        //Camera adjustment
-        CamAdjustment camAdjustment = cam.GetComponent<CamAdjustment>();
-        if (camAdjustment != null)
-            camAdjustment.Adjust(screenBounds);
-
         //Debug Init
         if (Scenes.SceneCount() == 1)
-            Init();
+            MasterManager.Sync(Init);
     }
 
     /// <summary>
@@ -61,5 +52,6 @@ public class Framework : MonoBehaviour
     {
         isLoadingMap = false;
 
+        game.Init();
     }
 }
