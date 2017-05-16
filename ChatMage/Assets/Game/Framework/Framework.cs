@@ -29,7 +29,7 @@ public class Framework : MonoBehaviour
     /// <summary>
     /// Va loader le default level
     /// </summary>
-    void Init()
+    public void Init()
     {
         Init(defaultLevel);
     }
@@ -37,16 +37,25 @@ public class Framework : MonoBehaviour
     /// <summary>
     /// Start la game avec le level spécifié
     /// </summary>
-    void Init(LevelScript level)
+    public void Init(LevelScript level)
     {
         isLoadingMap = true;
-        if (loadScenesAsync)
+
+        //La map est déjà loadé, probablement du au mode debug. On ne la reload pas
+        if (Scenes.Exists(level.sceneName))
         {
-            Scenes.LoadAsync(level.sceneName, LoadSceneMode.Additive, OnMapLoaded);
+            OnMapLoaded(Scenes.GetActive(level.sceneName));
         }
         else
         {
-            Scenes.Load(level.sceneName, LoadSceneMode.Additive, OnMapLoaded);
+            if (loadScenesAsync)
+            {
+                Scenes.LoadAsync(level.sceneName, LoadSceneMode.Additive, OnMapLoaded);
+            }
+            else
+            {
+                Scenes.Load(level.sceneName, LoadSceneMode.Additive, OnMapLoaded);
+            }
         }
     }
 

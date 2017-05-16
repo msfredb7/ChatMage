@@ -72,7 +72,7 @@ namespace CCC.Manager
             {
                 if (SceneManager.GetSceneAt(i).name == sceneName) return SceneManager.GetSceneAt(i);
             }
-            throw new System.Exception("No active scene by that name");
+            throw new System.Exception("No active scene by that name: " + sceneName);
         }
 
         static public int SceneCount()
