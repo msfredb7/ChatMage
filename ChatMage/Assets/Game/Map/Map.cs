@@ -8,8 +8,7 @@ public class Map : MonoBehaviour {
 
     [SerializeField]
     private MapInfo mapInfo; // information a propos de la map
-    [SerializeField]
-    private Mapping map; // limite de la map, waypoints, etc.
+    public Mapping map; // limite de la map, waypoints, etc.
     [SerializeField]
     private Playground playground; // Zone jouable
 

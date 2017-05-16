@@ -7,6 +7,8 @@ public class Game : PublicSingleton<Game>
 {
     public Camera cam;
 
+    public Map map;
+
     public float Aspect { get { return cam.aspect; } }
     public Vector2 ScreenBounds { get { return screenBounds; } }
     public Vector2 defaultBounds;

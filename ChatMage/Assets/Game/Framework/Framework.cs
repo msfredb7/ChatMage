@@ -79,7 +79,11 @@ public class Framework : MonoBehaviour
         for (int i = 0; i < rootObjs.Length; i++)
         {
             if (rootObjs[i].GetComponent<Map>() != null)
+            {
                 rootObjs[i].GetComponent<Map>().Init(game.ScreenBounds.x, game.ScreenBounds.y);
+                game.map = rootObjs[i].GetComponent<Map>();
+            }
+                
         }
     }
 }
