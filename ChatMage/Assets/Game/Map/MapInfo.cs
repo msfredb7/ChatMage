@@ -5,7 +5,7 @@ using UnityEngine;
 // Information a propos d'une map
 public class MapInfo : MonoBehaviour {
 
-    private string MapName;
+    public string MapName;
 
     
 }

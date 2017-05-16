@@ -41,6 +41,7 @@ public class Framework : MonoBehaviour
     /// </summary>
     public void Init(LevelScript level)
     {
+        print("Test");
         isLoadingMap = true;
 
         //La map est déjà loadé, probablement du au mode debug. On ne la reload pas

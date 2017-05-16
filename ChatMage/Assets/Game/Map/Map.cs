@@ -1,19 +1,57 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using CCC.Manager;
+using UnityEngine.SceneManagement;
 
 public class Map : MonoBehaviour {
 
-    private MapInfo mapInfo;
-    private Mapping map;
-    private Playground playground;
+    [SerializeField]
+    private MapInfo mapInfo; // information a propos de la map
+    [SerializeField]
+    private Mapping map; // limite de la map, waypoints, etc.
+    [SerializeField]
+    private Playground playground; // Zone jouable
+
+    [SerializeField]
+    private List<GameObject> mapObjects;
+
+    public LevelScript defaultLevelScript;
+
+    void Start()
+    {
+        if(Scenes.SceneCount() == 1)
+        {
+            MasterManager.Sync(delegate ()
+            {
+                Scenes.Load("Framework", LoadSceneMode.Additive, DebugInit);
+            });
+        }
+    }
+
+    void DebugInit(Scene scene)
+    {
+        GameObject[] objects = scene.GetRootGameObjects();
+        for(int i = 0; i < objects.Length; i++)
+        {
+            if (objects[i].GetComponent<Framework>() != null)
+                objects[i].GetComponent<Framework>().Init(defaultLevelScript);
+        }
+    }
 
     /// <summary>
     /// Initialise les settings de la map
     /// </summary>
     /// <param name="height"></param>
     /// <param name="width"></param>
-	void Init (float height, float width) {
+	public void Init (float height, float width) {
+        for(int i = 0; i< mapObjects.Count; i++)
+        {
+            Adjust(mapObjects[i]);
+        }
+        foreach(GameObject obj in mapObjects)
+            Adjust(obj);
+
         map.Init(height, width);
 
         // On va chercher le playground et on set ca dans mapping
@@ -24,4 +62,10 @@ public class Map : MonoBehaviour {
 
         // Ajustement de la map a faire en fonction du height et width
 	}
+
+    private void Adjust(GameObject obj)
+    {
+        if(obj != null)
+            obj.transform.position = Game.instance.ConvertToRealPos(obj.transform.position);
+    }
 }
