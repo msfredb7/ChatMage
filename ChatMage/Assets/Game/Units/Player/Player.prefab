@@ -19,8 +19,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4653197447256510}
-  - component: {fileID: 114594410882608518}
-  - component: {fileID: 114765738690124608}
+  - component: {fileID: 114205213275445300}
+  - component: {fileID: 114514873651363592}
+  - component: {fileID: 114610826915755818}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -95,12 +96,12 @@ Transform:
   m_GameObject: {fileID: 1490485703124542}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 4642053433449958}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114594410882608518
+--- !u!114 &114205213275445300
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -112,11 +113,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeScale: 1
-  moveSpeed: 1
-  direction: 0
-  useWeight: 0
-  weight: 0.1
---- !u!114 &114765738690124608
+  moveSpeed: 6
+  targetDirection: 0
+  useWeight: 1
+  weight: 0.2
+--- !u!114 &114514873651363592
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -127,6 +128,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f0a5417afc0cfa4695ad22b78946c3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vehicle: {fileID: 114205213275445300}
+  body: {fileID: 4642053433449958}
+--- !u!114 &114610826915755818
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1378382693515414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6bbb1bf4a2141546b8edb90b32d393a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 114514873651363592}
 --- !u!212 &212512362363063922
 SpriteRenderer:
   m_ObjectHideFlags: 1

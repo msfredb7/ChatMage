@@ -8,7 +8,6 @@ public class MovingUnit : Unit
     [System.NonSerialized]
     public Vector3 speed;
     public Locker canMove = new Locker();
-    public Locker isAffectedByTimeScale = new Locker();
     
     protected Transform tr;
 
@@ -19,6 +18,19 @@ public class MovingUnit : Unit
 
     protected virtual void Update()
     {
-        tr.position += speed * Time.deltaTime * (isAffectedByTimeScale ? timeScale : 1);
+        tr.position += speed * DeltaTime();
+    }
+
+    public override Vector3 Speed()
+    {
+        return speed;
+    }
+    public override Vector3 WorldDirection()
+    {
+        return speed.normalized;
+    }
+    public override Vector2 WorldDirection2D()
+    {
+        return speed.normalized;
     }
 }
