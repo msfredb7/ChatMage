@@ -41,7 +41,6 @@ public class Framework : MonoBehaviour
     /// </summary>
     public void Init(LevelScript level)
     {
-        print("Test");
         isLoadingMap = true;
 
         //La map est déjà loadé, probablement du au mode debug. On ne la reload pas
@@ -68,11 +67,19 @@ public class Framework : MonoBehaviour
 
         //Spawn Character
         MovingUnit player = playerbuilder.BuildPlayer();
-
+        
         //Game Init
         game.Init();
 
         //Add player to list
         game.AddExistingUnit(player);
+
+        //Init map
+        GameObject[] rootObjs = scene.GetRootGameObjects();
+        for (int i = 0; i < rootObjs.Length; i++)
+        {
+            if (rootObjs[i].GetComponent<Map>() != null)
+                rootObjs[i].GetComponent<Map>().Init(game.ScreenBounds.x, game.ScreenBounds.y);
+        }
     }
 }

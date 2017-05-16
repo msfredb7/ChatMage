@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public class FixedLerp
 {
-    private const float baseFPS = 120;
+    public const float defaultFPS = 120;
     private static float FPS
     {
         get { return 1f / Time.deltaTime; }
@@ -24,7 +24,7 @@ public class FixedLerp
 
     public static float Fix(float lerpAmount, float customFPS)
     {
-        return 1 - Mathf.Pow(1 - lerpAmount, baseFPS / customFPS);
+        return 1 - Mathf.Pow(1 - lerpAmount, defaultFPS / customFPS);
     }
 
     public static float UnscaledFix(float lerpAmount)

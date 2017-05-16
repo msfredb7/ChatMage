@@ -48,17 +48,27 @@ public class Game : PublicSingleton<Game>
 
     #region Unit Managment
 
-    //Spawn une unit dans la map
+    /// <summary>
+    /// Spawn une unit dans la map
+    /// </summary>
     public Unit SpawnUnit(Unit prefab, Vector2 position)
     {
         Unit newUnit = Instantiate(prefab.gameObject).GetComponent<Unit>();
 
-        units.Add(prefab);
-
-        //Ajoute les listeners
-        newUnit.onDestroy.AddListener(OnUnitDestroy);
+        AddExistingUnit(newUnit);
 
         return newUnit;
+    }
+
+    /// <summary>
+    /// Ajoute une unit existante
+    /// </summary>
+    public void AddExistingUnit(Unit unit)
+    {
+        units.Add(unit);
+
+        //Ajoute les listeners
+        unit.onDestroy.AddListener(OnUnitDestroy);
     }
 
     private void OnUnitDestroy(Unit unit)

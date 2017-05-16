@@ -9,15 +9,15 @@ public class MovingUnit : Unit
     public Vector3 speed;
     public Locker canMove = new Locker();
     public Locker isAffectedByTimeScale = new Locker();
+    
+    protected Transform tr;
 
-    private Transform tr;
-
-    private void Start()
+    protected virtual void Start()
     {
         tr = GetComponent<Transform>();
     }
 
-    void Update()
+    protected virtual void Update()
     {
         tr.position += speed * Time.deltaTime * (isAffectedByTimeScale ? timeScale : 1);
     }
