@@ -16,7 +16,7 @@ public class Game : PublicSingleton<Game>
     public UnityEvent onGameReady = new UnityEvent();
     public UnityEvent onGameStarted = new UnityEvent();
 
-    public List<GameObject> units = new List<GameObject>();
+    public List<Unit> units = new List<Unit>();
 
     public void Init()
     {
@@ -33,10 +33,7 @@ public class Game : PublicSingleton<Game>
         onGameReady.Invoke();
     }
 
-    public void SpawnUnit(GameObject reference, Vector2 position)
-    {
-
-    }
+    #region Bounds
 
     public Vector3 ConvertToRealPos(Vector3 position)
     {
@@ -46,4 +43,28 @@ public class Game : PublicSingleton<Game>
     {
         return new Vector2(position.x / defaultToRealRatio.x, position.y / defaultToRealRatio.y);
     }
+
+    #endregion
+
+    #region Unit Managment
+
+    //Spawn une unit dans la map
+    public Unit SpawnUnit(Unit prefab, Vector2 position)
+    {
+        Unit newUnit = Instantiate(prefab.gameObject).GetComponent<Unit>();
+
+        units.Add(prefab);
+
+        //Ajoute les listeners
+        newUnit.onDestroy.AddListener(OnUnitDestroy);
+
+        return newUnit;
+    }
+
+    private void OnUnitDestroy(Unit unit)
+    {
+        units.Remove(unit);
+    }
+
+    #endregion
 }

@@ -20,6 +20,8 @@ public class Framework : MonoBehaviour
     void Start()
     {
         //Debug Init
+        //Note: c'est important de sync avec le mastermanager.
+        //Sinon, partir de la scène 'Framework' ne marcherait pas
         if (Scenes.SceneCount() == 1)
             MasterManager.Sync(Init);
     }
