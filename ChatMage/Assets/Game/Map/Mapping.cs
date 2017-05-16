@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using CCC;
+using CCC.Utility;
 
 public class Mapping : MonoBehaviour {
 
@@ -42,5 +44,153 @@ public class Mapping : MonoBehaviour {
             limitLeft = left;
         else
             limitLeft = 0;
+    }
+
+    /// <summary>
+    /// Retourne un waypoint aleatoire parmis la liste disponible en fonction de votre type
+    /// </summary>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    public Waypoint GetRandomSpawnPoint(Waypoint.WaypointType type)
+    {
+        Lottery lottery = new Lottery();
+        for(int i = 0; i < waypoints.Count; i++)
+        {
+            if(waypoints[i].GetWaypointType() == type)
+                lottery.Add(waypoints[i],1);
+        }
+        if (lottery.Count > 0)
+            return (Waypoint)lottery.Pick();
+        else
+            return null;
+    }
+
+    /// <summary>
+    /// Retourne une quantite aleatoire de waypoints selon votre type
+    /// </summary>
+    /// <param name="type"></param>
+    /// <param name="amount"></param>
+    /// <returns></returns>
+    public List<Waypoint> GetRandomMultipleSpawnPoint(Waypoint.WaypointType type, int amount)
+    {
+        List<Waypoint> spawnpoints = new List<Waypoint>();
+        List<Waypoint> spawnpointsResult = new List<Waypoint>();
+
+        for (int i = 0; i < waypoints.Count; i++)
+        {
+            if (waypoints[i].GetWaypointType() == type)
+                spawnpoints.Add(waypoints[i]);
+        }
+
+        if (amount > spawnpoints.Count)
+            return spawnpoints;
+
+        int winner;
+
+        for (int i = 0; i < amount; i++)
+        {
+            bool winnerNotFound;
+            do
+            {
+                winnerNotFound = false;
+                winner = Random.Range(0, spawnpoints.Count - 1);
+                for (int j = 0; j < spawnpointsResult.Count; j++)
+                {
+                    // S'il s'agit d'un spawnpoint qui a deja gagner
+                    if (spawnpoints[winner] == spawnpointsResult[j])
+                        winnerNotFound = true;
+                }
+            } while (winnerNotFound);
+
+            spawnpointsResult.Add(spawnpoints[winner]);
+        }
+
+        return spawnpointsResult;
+    }
+
+    /// <summary>
+    /// Retourne une quantite aleatoire de waypoints selon votre type et dans un intervalle d'index
+    /// </summary>
+    /// <param name="type"></param>
+    /// <param name="amount"></param>
+    /// <returns></returns>
+    public List<Waypoint> GetRandomMultipleSpawnPoint(Waypoint.WaypointType type, int amount, int indexStart, int indexEnd)
+    {
+        List<Waypoint> spawnpoints = new List<Waypoint>();
+        List<Waypoint> spawnpointsResult = new List<Waypoint>();
+
+        for (int i = indexStart; i < indexEnd; i++)
+        {
+            if (waypoints[i].GetWaypointType() == type)
+                spawnpoints.Add(waypoints[i]);
+        }
+
+        if (amount > spawnpoints.Count)
+            return spawnpoints;
+
+        int winner;
+
+        for (int i = 0; i < amount; i++)
+        {
+            bool winnerNotFound;
+            do
+            {
+                winnerNotFound = false;
+                winner = Random.Range(0, spawnpoints.Count - 1);
+                for (int j = 0; j < spawnpointsResult.Count; j++)
+                {
+                    // S'il s'agit d'un spawnpoint qui a deja gagner
+                    if (spawnpoints[winner] == spawnpointsResult[j])
+                        winnerNotFound = true;
+                }
+            } while (winnerNotFound);
+
+            spawnpointsResult.Add(spawnpoints[winner]);
+        }
+
+        return spawnpointsResult;
+    }
+
+    /// <summary>
+    /// Retourne une quantite aleatoire de waypoints selon votre type et tag
+    /// </summary>
+    /// <param name="type"></param>
+    /// <param name="amount"></param>
+    /// <returns></returns>
+    public List<Waypoint> GetRandomMultipleSpawnPoint(Waypoint.WaypointType type, string tag, int amount)
+    {
+        List<Waypoint> spawnpoints = new List<Waypoint>();
+        List<Waypoint> spawnpointsResult = new List<Waypoint>();
+
+        for (int i = 0; i < waypoints.Count; i++)
+        {
+            if ((waypoints[i].GetWaypointType() == type) && waypoints[i].CompareTag(tag))
+                spawnpoints.Add(waypoints[i]);
+        }
+
+        if (amount > spawnpoints.Count)
+            return spawnpoints;
+
+        int winner;
+
+        for (int i = 0; i < amount; i++)
+        {
+            bool winnerNotFound;
+            do
+            {
+                winnerNotFound = false;
+                winner = Random.Range(0, spawnpoints.Count - 1);
+                for (int j = 0; j < spawnpointsResult.Count; j++)
+                {
+                    // S'il s'agit d'un spawnpoint qui a deja gagner
+                    if (spawnpoints[winner] == spawnpointsResult[j])
+                        winnerNotFound = true;
+                }
+            } while (winnerNotFound);
+
+            spawnpointsResult.Add(spawnpoints[winner]);
+        }
+
+        return spawnpointsResult;
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using CCC.Manager;
+using UnityEngine.SceneManagement;
 
 public class Map : MonoBehaviour {
 
@@ -14,12 +16,39 @@ public class Map : MonoBehaviour {
     [SerializeField]
     private List<GameObject> mapObjects;
 
+    public LevelScript defaultLevelScript;
+
+    void Start()
+    {
+        if(Scenes.SceneCount() == 1)
+        {
+            MasterManager.Sync(delegate ()
+            {
+                Scenes.Load("Framework", LoadSceneMode.Additive, DebugInit);
+            });
+        }
+    }
+
+    void DebugInit(Scene scene)
+    {
+        GameObject[] objects = scene.GetRootGameObjects();
+        for(int i = 0; i < objects.Length; i++)
+        {
+            if (objects[i].GetComponent<Framework>() != null)
+                objects[i].GetComponent<Framework>().Init(defaultLevelScript);
+        }
+    }
+
     /// <summary>
     /// Initialise les settings de la map
     /// </summary>
     /// <param name="height"></param>
     /// <param name="width"></param>
-	void Init (float height, float width) {
+	public void Init (float height, float width) {
+        for(int i = 0; i< mapObjects.Count; i++)
+        {
+            Adjust(mapObjects[i]);
+        }
         foreach(GameObject obj in mapObjects)
             Adjust(obj);
 
@@ -36,6 +65,7 @@ public class Map : MonoBehaviour {
 
     private void Adjust(GameObject obj)
     {
-
+        if(obj != null)
+            obj.transform.position = Game.instance.ConvertToRealPos(obj.transform.position);
     }
 }

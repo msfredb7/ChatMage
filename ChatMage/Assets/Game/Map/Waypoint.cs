@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class Waypoint : MonoBehaviour {
 
-    private enum WaypointType
+    public enum WaypointType
     {
-        items = 0,
-        enemySpawn = 1,
-        PlayerSpawn = 2,
+        PlayerSpawn = 0,
+        items = 1,
+        enemySpawn = 2,
         BossSpawn = 3
     }
 
     [SerializeField]
     private WaypointType type;
+
+    public WaypointType GetWaypointType()
+    {
+        return type;
+    }
 }
