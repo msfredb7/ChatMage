@@ -66,6 +66,11 @@ namespace CCC.Manager
             return false;
         }
 
+        static public int SceneCount()
+        {
+            return SceneManager.sceneCount;
+        }
+
         #endregion
 
         #region InLoading Events
