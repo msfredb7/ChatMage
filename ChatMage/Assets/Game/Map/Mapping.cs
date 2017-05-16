@@ -7,15 +7,40 @@ public class Mapping : MonoBehaviour {
     private float mapHeight;
     private float mapWidth;
 
-    private float offsetTop;
-    private float offsetBottom;
-    private float offsetRight;
-    private float offsetLeft;
+    private float limitTop;
+    private float limitBottom;
+    private float limitRight;
+    private float limitLeft;
+
+    [SerializeField]
+    private List<Waypoint> waypoints;
 
     public void Init(float height, float width)
     {
-        // ajustement de la map
+        mapHeight = height;
+        mapWidth = width;
     }
 
-    
+    public void SetOffsets(float top, float bottom, float right, float left)
+    {
+        if (top >= mapHeight)
+            limitTop = top;
+        else
+            limitTop = mapHeight;
+
+        if (bottom >= 0)
+            limitBottom = bottom;
+        else
+            limitBottom = 0;
+
+        if (right >= mapWidth)
+            limitRight = right;
+        else
+            limitRight = mapWidth;
+
+        if (left >= 0)
+            limitLeft = left;
+        else
+            limitLeft = 0;
+    }
 }
