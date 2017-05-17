@@ -5,9 +5,13 @@ using UnityEngine;
 
 public class MainMenu : MonoBehaviour {
 
+    void Start()
+    {
+        CCC.Manager.MasterManager.Sync();
+    }
 	public void LoadScene(string name)
     {
-        Scenes.Load(name);
+        LoadingScreen.TransitionTo(name, null);
     }
 
     public void Quit()

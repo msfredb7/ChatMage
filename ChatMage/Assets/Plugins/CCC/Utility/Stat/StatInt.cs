@@ -72,6 +72,8 @@ namespace CCC.Utility
             GUIStyle gray = new GUIStyle();
             gray.fontStyle = FontStyle.Italic;
 
+            EditorGUI.BeginChangeCheck();
+
             StatInt element = (StatInt)fieldInfo.GetValue(property.serializedObject.targetObject);
             float x = position.x;
             float y = position.y;
@@ -171,7 +173,9 @@ namespace CCC.Utility
                 GUI.enabled = true;
             }
             GUI.color = StdColor();
-            
+
+            if (EditorGUI.EndChangeCheck())
+                property.serializedObject.SetIsDifferentCacheDirty();
         }
 
         private Color StdColor()
