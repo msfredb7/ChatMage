@@ -19,12 +19,14 @@ public class Mapping : MonoBehaviour {
 
     public void Init(float height, float width)
     {
+        Debug.Log("Mapping Init");
         mapHeight = height;
         mapWidth = width;
     }
 
     public void SetOffsets(float top, float bottom, float right, float left)
     {
+        Debug.Log("Setting Offsets in the map");
         if (top >= mapHeight)
             limitTop = top;
         else
@@ -46,6 +48,27 @@ public class Mapping : MonoBehaviour {
             limitLeft = 0;
     }
 
+    private Waypoint PickWaypointInLottery(Lottery lot)
+    {
+        if (lot.Count > 0)
+        {
+            Waypoint result = (Waypoint)lot.Pick();
+            return result.alreadyConverted ? result : result.Convert();
+        }
+        else
+            return null;
+    }
+
+    private List<Waypoint> ConvertAllNotConverted(List<Waypoint> waypointsNotConverted)
+    {
+        for(int i = 0; i < waypointsNotConverted.Count; i++)
+        {
+            if (!waypointsNotConverted[i].alreadyConverted)
+                waypointsNotConverted[i].Convert();
+        }
+        return waypointsNotConverted;
+    }
+
     /// <summary>
     /// Retourne un waypoint aleatoire parmis la liste disponible en fonction de votre type
     /// </summary>
@@ -59,10 +82,7 @@ public class Mapping : MonoBehaviour {
             if(waypoints[i].GetWaypointType() == type)
                 lottery.Add(waypoints[i],1);
         }
-        if (lottery.Count > 0)
-            return (Waypoint)lottery.Pick();
-        else
-            return null;
+        return PickWaypointInLottery(lottery);
     }
 
     /// <summary>
@@ -104,8 +124,8 @@ public class Mapping : MonoBehaviour {
 
             spawnpointsResult.Add(spawnpoints[winner]);
         }
-
-        return spawnpointsResult;
+        
+        return ConvertAllNotConverted(spawnpointsResult);
     }
 
     /// <summary>
@@ -148,7 +168,7 @@ public class Mapping : MonoBehaviour {
             spawnpointsResult.Add(spawnpoints[winner]);
         }
 
-        return spawnpointsResult;
+        return ConvertAllNotConverted(spawnpointsResult);
     }
 
     /// <summary>
@@ -191,6 +211,6 @@ public class Mapping : MonoBehaviour {
             spawnpointsResult.Add(spawnpoints[winner]);
         }
 
-        return spawnpointsResult;
+        return ConvertAllNotConverted(spawnpointsResult);
     }
 }

@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4653197447256510}
   - component: {fileID: 114205213275445300}
   - component: {fileID: 114514873651363592}
+  - component: {fileID: 114092423616463960}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -100,6 +101,60 @@ Transform:
   m_Father: {fileID: 4642053433449958}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114092423616463960
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1378382693515414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab4e1c3ffedab7840bc32399fcfeb54e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health:
+    value: 3
+    min: -2147483648
+    max: 2147483647
+    minSet: 1
+    maxSet: 1
+    beforeBuffsByDefault: 1
+    boundMode: 0
+  healthLimit:
+    value: 3
+    min: -2147483648
+    max: 2147483647
+    minSet: 1
+    maxSet: 1
+    beforeBuffsByDefault: 1
+    boundMode: 0
+  armor:
+    value: 0
+    min: -2147483648
+    max: 2147483647
+    minSet: 1
+    maxSet: 1
+    beforeBuffsByDefault: 1
+    boundMode: 0
+  frontDamage:
+    value: 1
+    min: -2147483648
+    max: 2147483647
+    minSet: 1
+    maxSet: 1
+    beforeBuffsByDefault: 1
+    boundMode: 0
+  damagable: 1
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  onHit:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!114 &114205213275445300
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -8,6 +8,7 @@ public class Spawner : MonoBehaviour {
 
     public void Init()
     {
+        Debug.Log("Spawner Init");
         map = Game.instance.map.map;
     }
 
