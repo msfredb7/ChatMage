@@ -28,6 +28,21 @@ namespace CCC.Manager
             CompleteInit();
         }
 
+        #region QualityOfLife
+
+        static public T FindRootObject<T>(Scene scene)
+        {
+            GameObject[] rootObjs = scene.GetRootGameObjects();
+            for (int i = 0; i < rootObjs.Length; i++)
+            {
+                if (rootObjs[i].GetComponent<T>() != null)
+                    return rootObjs[i].GetComponent<T>();
+            }
+            return default(T);
+        }
+
+        #endregion
+
         #region Load/Unload Methods
 
         static public void Load(string name, LoadSceneMode mode = LoadSceneMode.Single, UnityAction<Scene> callback = null, bool unique = true)
