@@ -15,15 +15,13 @@ public class MenuSelection : MonoBehaviour
             return;
 
         isLoading = true;
-        Scenes.Load(Framework.SCENENAME, LoadSceneMode.Additive, OnLoadComplete);
+
+        PlayLevelMessage message = new PlayLevelMessage(level);
+        LoadingScreen.TransitionTo(Framework.SCENENAME, message);
     }
 
-    void OnLoadComplete(Scene scene)
+    void OnDestroy()
     {
-        Scenes.UnloadAsync("MenuSelection");
-
-        Framework framework = Scenes.FindRootObject<Framework>(scene);
-        framework.Init(level);
         isLoading = false;
     }
 }

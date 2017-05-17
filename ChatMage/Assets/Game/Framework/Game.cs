@@ -13,6 +13,7 @@ public class Game : PublicSingleton<Game>
     public Camera cam;
     public PlayerInput playerInput;
     public Spawner spawner;
+    public Transform unitsContainer;
 
     //Dynamic references
     [fsIgnore]
@@ -56,6 +57,7 @@ public class Game : PublicSingleton<Game>
         CamAdjustment camAdjustment = cam.GetComponent<CamAdjustment>();
         if (camAdjustment != null)
             camAdjustment.Adjust(screenBounds);
+        //cam.gameObject.SetActive(true);
 
         // Init LevelScript
         currentLevel = level;
@@ -96,7 +98,7 @@ public class Game : PublicSingleton<Game>
 
     public void Quit()
     {
-        Scenes.Load("MenuSelection");
+        LoadingScreen.TransitionTo("MenuSelection", null);
     }
 
 
@@ -143,6 +145,8 @@ public class Game : PublicSingleton<Game>
     /// </summary>
     public void AddExistingUnit(Unit unit)
     {
+        unit.transform.SetParent(unitsContainer);
+
         units.Add(unit);
 
         //Ajoute les listeners
