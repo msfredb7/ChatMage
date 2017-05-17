@@ -372,6 +372,7 @@ GameObject:
   m_Component:
   - component: {fileID: 986070096}
   - component: {fileID: 986070095}
+  - component: {fileID: 986070097}
   m_Layer: 0
   m_Name: Enemy Spawner
   m_TagString: Untagged
@@ -404,6 +405,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &986070097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 986070094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce29cb859d78b634c9d7b447327d88d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectReferences: []
+  _serializedStateKeys: []
+  _serializedStateValues: []
 --- !u!1 &986166558
 GameObject:
   m_ObjectHideFlags: 0
@@ -638,14 +653,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _keys:
   - {fileID: 986166561}
-  - {fileID: 0}
+  - {fileID: 986070097}
   _values:
   - _keys: []
     _values: []
     _target: {fileID: 986166561}
   - _keys: []
     _values: []
-    _target: {fileID: 0}
+    _target: {fileID: 986070097}
 --- !u!114 &1405175281
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -659,7 +674,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _keys:
   - {fileID: 986166561}
-  - {fileID: 0}
+  - {fileID: 986070097}
   _values:
   - _keys:
     - DefaultBehaviorEditor.cam.EditProperty
@@ -681,7 +696,7 @@ MonoBehaviour:
     _target: {fileID: 986166561}
   - _keys: []
     _values: []
-    _target: {fileID: 0}
+    _target: {fileID: 986070097}
 --- !u!1 &1405652219
 GameObject:
   m_ObjectHideFlags: 0
