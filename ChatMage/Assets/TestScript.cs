@@ -9,10 +9,9 @@ using FullInspector;
 
 public class TestScript : BaseBehavior
 {
-    public RectTransform rect;
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.T))
         {
         }
     }
