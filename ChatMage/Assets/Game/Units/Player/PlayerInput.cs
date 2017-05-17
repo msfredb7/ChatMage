@@ -4,13 +4,36 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
-    public PlayerController controller;
+    private PlayerController controller;
+    public PointerListener leftButton;
+    public PointerListener middleButton;
+    public PointerListener rightButton;
+
+    void Start()
+    {
+        middleButton.onClick.AddListener(OnMiddleClick);
+    }
+
+    public void Init(PlayerController controller)
+    {
+        this.controller = controller;
+        if (controller == null)
+            Debug.LogError("PlayerController is null");
+    }
+
+    void OnMiddleClick()
+    {
+
+    }
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.RightArrow))
+        if (controller == null)
+            return;
+
+        if (rightButton.isIn || Input.GetKey(KeyCode.RightArrow))
             controller.TurnRight();
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (leftButton.isIn || Input.GetKey(KeyCode.LeftArrow))
             controller.TurnLeft();
     }
 }

@@ -42,13 +42,17 @@ public class Vehicle : MovingUnit
 
     void GroundedUpdate()
     {
+        if (timeScale <= 0)
+            return;
+
         Vector3 vDir = WorldDirection() * moveSpeed;
         if (useWeight)
             speed = Vector3.Lerp(
                 speed,  //Current
                 vDir,   //target
                 FixedLerp.Fix(
-                    weight >= 1f ? 1 : weight / 10));
+                    weight >= 1f ? 1 : weight / 10,
+                    FPSCounter.GetFPS()/timeScale));
         else
             speed = vDir;
     }
