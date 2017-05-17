@@ -9,6 +9,7 @@ public class TestScriptSpawnEnemy : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+        /* TODO: A refaire en utilisant le spawner
         map = Game.instance.map.map;
         if (Input.GetKeyDown(KeyCode.A))
         {
@@ -17,5 +18,6 @@ public class TestScriptSpawnEnemy : MonoBehaviour {
             direction.Normalize();
             Instantiate(enemyTest,position,Quaternion.Euler(direction));
         }
+        */
 	}
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using FullInspector;
 using FullSerializer;
+using CCC.Manager;
 
 public class Game : PublicSingleton<Game>
 {
@@ -16,6 +17,8 @@ public class Game : PublicSingleton<Game>
     [fsIgnore]
     public Map map;
 
+    private LevelScript currentLevel;
+
     public float Aspect { get { return cam.aspect; } }
     public Vector2 ScreenBounds { get { return screenBounds; } }
     [InspectorHeader("Settings")]
@@ -23,15 +26,15 @@ public class Game : PublicSingleton<Game>
     private Vector2 screenBounds;
     private Vector2 defaultToRealRatio;
 
-    public UnityEvent onGameReady = new UnityEvent();
-    public UnityEvent onGameStarted = new UnityEvent();
+    public bool gameReady = false;
+    public bool gameStarted = false;
 
     [InspectorDisabled]
     public List<Unit> units = new List<Unit>();
     public Vehicle Player { get { return player; } }
     private Vehicle player;
 
-    public void Init()
+    public void Init(LevelScript level)
     {
         //Screen bounds
         screenBounds = new Vector2(cam.orthographicSize * cam.aspect * 2, cam.orthographicSize * 2);
@@ -42,8 +45,27 @@ public class Game : PublicSingleton<Game>
         if (camAdjustment != null)
             camAdjustment.Adjust(screenBounds);
 
-        //Game ready
-        onGameReady.Invoke();
+        // Init LevelScript
+        currentLevel = level;
+        level.Init();
+    }
+
+    private void Update()
+    {
+        if (gameReady)
+        {
+            // Coutdown 1-2-3 ??
+            gameStarted = true;
+            if (gameStarted)
+            {
+                currentLevel.Update();
+            }
+        }
+    }
+
+    public void Quit()
+    {
+        Scenes.Load("MenuSelection");
     }
 
     #region Bounds

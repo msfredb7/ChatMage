@@ -32,6 +32,7 @@ namespace CCC.Manager
 
         static public void Load(string name, LoadSceneMode mode = LoadSceneMode.Single, UnityAction<Scene> callback = null, bool unique = true)
         {
+            Debug.Log(Exists(name));
             if (unique && Exists(name)) return;
 
             ScenePromise scenePromise = new ScenePromise(name, callback);
@@ -92,7 +93,7 @@ namespace CCC.Manager
             promise.scene = scene;
 
             if (!scene.isLoaded) instance.StartCoroutine(WaitForSceneLoad(scene, promise));
-            else if (promise.callback != null) Execute(promise);
+            else Execute(promise);
         }
 
         static IEnumerator WaitForSceneLoad(Scene scene, ScenePromise promise)

@@ -15,9 +15,10 @@ public class Framework : MonoBehaviour
     [Header("Debug")]
     public LevelScript defaultLevel;
 
+    private LevelScript currentLevel;
+
     private bool isLoadingMap;
     private Vector2 screenBounds;
-
 
     void Start()
     {
@@ -42,6 +43,7 @@ public class Framework : MonoBehaviour
     public void Init(LevelScript level)
     {
         isLoadingMap = true;
+        currentLevel = level;
 
         //La map est déjà loadé, probablement du au mode debug. On ne la reload pas
         if (Scenes.Exists(level.sceneName))
@@ -69,7 +71,7 @@ public class Framework : MonoBehaviour
         Vehicle player = playerbuilder.BuildPlayer();
         
         //Game Init
-        game.Init();
+        game.Init(currentLevel);
 
         //Add player to list
         game.AddPlayer(player);
@@ -85,5 +87,8 @@ public class Framework : MonoBehaviour
             }
                 
         }
+
+        //Game ready
+        game.gameReady = true;
     }
 }
