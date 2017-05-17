@@ -486,9 +486,19 @@ MonoBehaviour:
   playerInput: {fileID: 1547185840}
   map: {fileID: 0}
   defaultBounds: {x: 16, y: 9}
+  units: []
   gameReady: 0
   gameStarted: 0
-  units: []
+  onGameReady:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  onGameStarted:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!1 &1266736241
 GameObject:
   m_ObjectHideFlags: 0
@@ -640,7 +650,6 @@ MonoBehaviour:
   _keys:
   - {fileID: 986166561}
   - {fileID: 986070097}
-  - {fileID: 0}
   _values:
   - _keys: []
     _values: []
@@ -648,9 +657,6 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 986070097}
-  - _keys: []
-    _values: []
-    _target: {fileID: 0}
 --- !u!114 &1405175281
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -665,7 +671,6 @@ MonoBehaviour:
   _keys:
   - {fileID: 986166561}
   - {fileID: 986070097}
-  - {fileID: 0}
   _values:
   - _keys: []
     _values: []
@@ -673,9 +678,6 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 986070097}
-  - _keys: []
-    _values: []
-    _target: {fileID: 0}
 --- !u!1 &1405652219
 GameObject:
   m_ObjectHideFlags: 0

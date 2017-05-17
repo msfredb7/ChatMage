@@ -4,25 +4,32 @@ using UnityEngine;
 using FullInspector;
 using UnityEngine.Events;
 using CCC.Manager;
+using FullSerializer;
 
-public class LevelScript : BaseScriptableObject
+public abstract class LevelScript : BaseScriptableObject
 {
     public string displayName;
     public string sceneName;
 
-    public virtual void Init()
+    [fsIgnore]
+    public UnityEvent onObjectiveComplete = new UnityEvent();
+    [fsIgnore]
+    public UnityEvent onObjectiveFailed = new UnityEvent();
+    public bool IsOver { get { return isOver; } }
+    [fsIgnore]
+    public bool isOver = false;
+
+
+    public void Init()
     {
-        Debug.Log("LevelScript " + displayName + " starting");
+        isOver = false;
+        Game.instance.onGameReady.AddListener(OnGameReady);
+        Game.instance.onGameStarted.AddListener(OnGameStarted);
     }
 
-    public virtual void Update()
-    {
-        Debug.Log("LevelScript " + displayName + " updating");
-    }
+    public abstract void OnGameReady();
 
-    public virtual void EndLevel()
-    {
-        Debug.Log("Ending level");
-        Game.instance.Quit();
-    }
+    public abstract void OnGameStarted();
+
+    public abstract void Update();
 }

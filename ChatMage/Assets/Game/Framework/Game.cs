@@ -26,16 +26,28 @@ public class Game : PublicSingleton<Game>
     private Vector2 screenBounds;
     private Vector2 defaultToRealRatio;
 
-    public bool gameReady = false;
-    public bool gameStarted = false;
-
     [InspectorDisabled]
     public List<Unit> units = new List<Unit>();
+
+
+    // NON AFFICHÉ
+
     public Vehicle Player { get { return player; } }
     private Vehicle player;
+    
+    [fsIgnore]
+    public bool gameReady = false;
+    [fsIgnore]
+    public bool gameStarted = false;
+    [fsIgnore]
+    public UnityEvent onGameReady = new UnityEvent();
+    [fsIgnore]
+    public UnityEvent onGameStarted = new UnityEvent();
 
     public void Init(LevelScript level)
     {
+        LevelScript levelClone = Object.Instantiate(level) as LevelScript;
+        
         //Screen bounds
         screenBounds = new Vector2(cam.orthographicSize * cam.aspect * 2, cam.orthographicSize * 2);
         defaultToRealRatio = new Vector2(defaultBounds.x / screenBounds.x, defaultBounds.y / screenBounds.y);
@@ -47,7 +59,27 @@ public class Game : PublicSingleton<Game>
 
         // Init LevelScript
         currentLevel = level;
+        level.onObjectiveComplete.AddListener(OnObjectiveComplete);
+        level.onObjectiveFailed.AddListener(OnObjectiveFailed);
         level.Init();
+    }
+
+    public void ReadyGame()
+    {
+        gameReady = true;
+        onGameReady.Invoke();
+
+        // countdown ?
+        StartGame();
+    }
+
+    /// <summary>
+    /// Demare la partie
+    /// </summary>
+    public void StartGame()
+    {
+        gameStarted = true;
+        onGameStarted.Invoke();
     }
 
     private void Update()
@@ -55,7 +87,6 @@ public class Game : PublicSingleton<Game>
         if (gameReady)
         {
             // Coutdown 1-2-3 ??
-            gameStarted = true;
             if (gameStarted)
             {
                 currentLevel.Update();
@@ -66,6 +97,18 @@ public class Game : PublicSingleton<Game>
     public void Quit()
     {
         Scenes.Load("MenuSelection");
+    }
+
+
+    private void OnObjectiveComplete()
+    {
+        //Win screen !
+        Quit();
+    }
+    private void OnObjectiveFailed()
+    {
+        // Lose screen !
+        Quit();
     }
 
     #region Bounds
