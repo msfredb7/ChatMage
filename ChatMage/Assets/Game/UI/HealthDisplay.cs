@@ -57,7 +57,10 @@ public class HealthDisplay : MonoBehaviour {
         else
             realAmount = (amount + player.health);
 
-        for (int i = player.health-1; i < realAmount; i++)
+        int startingHearth = player.health - 1;
+        if (startingHearth < 0)
+            startingHearth = 0;
+        for (int i = startingHearth; i < realAmount; i++)
         {
             hearths[i].GetComponent<HearthScript>().On();
         }

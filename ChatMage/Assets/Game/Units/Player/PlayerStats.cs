@@ -16,7 +16,9 @@ public class PlayerStats : MonoBehaviour {
 
     public void Init()
     {
-        //health = healthLimit;
+        health.Set(0);
+        health.MAX = 3;
+        health.MIN = 0;
     }
 
     public void Hit()

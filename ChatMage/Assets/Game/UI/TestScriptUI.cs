@@ -15,6 +15,7 @@ public class TestScriptUI : MonoBehaviour {
         }
         if (Input.GetKeyDown(KeyCode.I))
         {
+            Game.instance.Player.GetComponent<PlayerStats>().Init();
             display.Init();
         }
     }
