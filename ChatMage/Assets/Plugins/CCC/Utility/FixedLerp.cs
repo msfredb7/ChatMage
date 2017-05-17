@@ -22,6 +22,11 @@ public class FixedLerp
         return Fix(lerpAmount, FPS);
     }
 
+    public static float FixScaled(float lerpAmount, float timeScale)
+    {
+        return Fix(lerpAmount, FPS*timeScale);
+    }
+
     public static float Fix(float lerpAmount, float customFPS)
     {
         return 1 - Mathf.Pow(1 - lerpAmount, defaultFPS / customFPS);

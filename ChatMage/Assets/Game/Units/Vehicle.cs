@@ -6,7 +6,7 @@ using CCC.Utility;
 public class Vehicle : MovingUnit
 {
     public float moveSpeed = 1;
-    public float direction;
+    public float targetDirection;
     public bool useWeight;
     [Range(0, 1)]
     public float weight = 0.1f;
@@ -37,19 +37,22 @@ public class Vehicle : MovingUnit
             RestrainToBounds();
 
         //record actual speed
-        speed = (tr.position - wasPos) / Time.deltaTime;
+        speed = (tr.position - wasPos) / DeltaTime();
     }
 
     void GroundedUpdate()
     {
+        if (timeScale <= 0)
+            return;
+
         Vector3 vDir = WorldDirection() * moveSpeed;
         if (useWeight)
             speed = Vector3.Lerp(
-                speed, //Current
+                speed,  //Current
                 vDir,   //target
                 FixedLerp.Fix(
-                    weight >= 1f ? 1 : weight / 10, //lerp speed
-                    FixedLerp.defaultFPS * (isAffectedByTimeScale ? Mathf.Min(0, timeScale) : 1)));
+                    weight >= 1f ? 1 : weight / 10,
+                    FPSCounter.GetFPS()/timeScale));
         else
             speed = vDir;
     }
@@ -68,14 +71,14 @@ public class Vehicle : MovingUnit
         useBounds = true;
     }
 
-    public Vector3 WorldDirection()
+    public override Vector3 WorldDirection()
     {
-        float rad = direction * Mathf.Deg2Rad;
+        float rad = targetDirection * Mathf.Deg2Rad;
         return new Vector3(Mathf.Cos(rad), Mathf.Sin(rad), 0);
     }
-    public Vector2 WorldDirection2D()
+    public override Vector2 WorldDirection2D()
     {
-        float rad = direction * Mathf.Deg2Rad;
+        float rad = targetDirection * Mathf.Deg2Rad;
         return new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
     }
 }

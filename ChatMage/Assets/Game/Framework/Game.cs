@@ -2,15 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using FullInspector;
+using FullSerializer;
 
 public class Game : PublicSingleton<Game>
 {
+    //Linked references
+    [InspectorHeader("References")]
     public Camera cam;
+    public PlayerInput playerInput;
 
+    //Dynamic references
+    [fsIgnore]
     public Map map;
 
     public float Aspect { get { return cam.aspect; } }
     public Vector2 ScreenBounds { get { return screenBounds; } }
+    [InspectorHeader("Settings")]
     public Vector2 defaultBounds;
     private Vector2 screenBounds;
     private Vector2 defaultToRealRatio;
@@ -18,6 +26,7 @@ public class Game : PublicSingleton<Game>
     public UnityEvent onGameReady = new UnityEvent();
     public UnityEvent onGameStarted = new UnityEvent();
 
+    [InspectorDisabled]
     public List<Unit> units = new List<Unit>();
     public Vehicle Player { get { return player; } }
     private Vehicle player;
@@ -79,6 +88,7 @@ public class Game : PublicSingleton<Game>
     {
         AddExistingUnit(player);
         this.player = player;
+        playerInput.Init(player.GetComponent<PlayerController>());
     }
 
     private void OnUnitDestroy(Unit unit)
