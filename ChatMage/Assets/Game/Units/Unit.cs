@@ -28,4 +28,9 @@ public class Unit : MonoBehaviour
     {
         return isAffectedByTimeScale ? Time.deltaTime * timeScale : Time.deltaTime;
     }
+
+    void OnDestroy()
+    {
+        onDestroy.Invoke(this);
+    }
 }
