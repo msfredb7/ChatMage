@@ -15,8 +15,17 @@ public class Waypoint : MonoBehaviour {
     [SerializeField]
     private WaypointType type;
 
+    public bool alreadyConverted = false;
+
     public WaypointType GetWaypointType()
     {
         return type;
+    }
+
+    public Waypoint Convert()
+    {
+        alreadyConverted = true;
+        Game.instance.map.Adjust(gameObject);
+        return this;
     }
 }

@@ -62,7 +62,7 @@ public class Map : MonoBehaviour {
         // Ajustement de la map a faire en fonction du height et width
 	}
 
-    private void Adjust(GameObject obj)
+    public void Adjust(GameObject obj)
     {
         if(obj != null)
             obj.transform.position = Game.instance.ConvertToRealPos(obj.transform.position);
