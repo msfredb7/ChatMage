@@ -88,6 +88,9 @@ public class Framework : MonoBehaviour
                 
         }
 
+        //Spawner Init
+        Game.instance.spawner.Init();
+
         //Game ready
         game.ReadyGame();
     }

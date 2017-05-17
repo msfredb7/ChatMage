@@ -12,6 +12,7 @@ public class Game : PublicSingleton<Game>
     [InspectorHeader("References")]
     public Camera cam;
     public PlayerInput playerInput;
+    public Spawner spawner;
 
     //Dynamic references
     [fsIgnore]
@@ -28,7 +29,6 @@ public class Game : PublicSingleton<Game>
 
     [InspectorDisabled]
     public List<Unit> units = new List<Unit>();
-
 
     // NON AFFICHÉ
 
