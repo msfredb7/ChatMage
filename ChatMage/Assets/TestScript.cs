@@ -9,6 +9,7 @@ using FullInspector;
 
 public class TestScript : BaseBehavior
 {
+    //public StatInt hello;
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.T))
