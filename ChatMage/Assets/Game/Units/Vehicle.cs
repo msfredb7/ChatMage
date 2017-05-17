@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using CCC.Utility;
 
 public class Vehicle : MovingUnit
@@ -15,16 +16,25 @@ public class Vehicle : MovingUnit
     /// </summary>
     public Locker isGrounded = new Locker();
 
-
     public Vector3 CurrentVelocity
     {
         get { return speed; }
     }
     private Vector2 bounds = new Vector2(10, 10);
     private bool useBounds = false;
+    private float bumpTime = 0;
+
+    //Events
+    public class VehicleEvent : UnityEvent<Vehicle> { }
+    [System.NonSerialized]
+    public VehicleEvent onBump = new VehicleEvent();
+    [System.NonSerialized]
+    public VehicleEvent onBumpComplete = new VehicleEvent();
 
     protected override void Update()
     {
+        UpdateBumpTime();
+
         if (isGrounded)
             GroundedUpdate();
 
@@ -40,6 +50,22 @@ public class Vehicle : MovingUnit
         speed = (tr.position - wasPos) / DeltaTime();
     }
 
+    void UpdateBumpTime()
+    {
+        bool wasBumped = bumpTime > 0;
+        if (bumpTime > 0)
+            bumpTime -= DeltaTime();
+
+        if (bumpTime <= 0 && wasBumped)
+            OnCompleteBump();
+    }
+
+    void OnCompleteBump()
+    {
+        isGrounded.Unlock("bump");
+        onBumpComplete.Invoke(this);
+    }
+
     void GroundedUpdate()
     {
         if (timeScale <= 0)
@@ -52,7 +78,7 @@ public class Vehicle : MovingUnit
                 vDir,   //target
                 FixedLerp.Fix(
                     weight >= 1f ? 1 : weight / 10,
-                    FPSCounter.GetFPS()/timeScale));
+                    FPSCounter.GetFPS() / timeScale));
         else
             speed = vDir;
     }
@@ -63,6 +89,28 @@ public class Vehicle : MovingUnit
             Mathf.Max(0, Mathf.Min(bounds.x, tr.position.x)),       //x
             Mathf.Max(0, Mathf.Min(bounds.y, tr.position.y)),       //y
             tr.position.z);                                         //z
+    }
+
+    public void Bump(Vector2 velocity, float duration, BumpMode bumpMode)
+    {
+        Vector3 vel3 = new Vector3(velocity.x, velocity.y, 0);
+        switch (bumpMode)
+        {
+            default:
+            case BumpMode.VelocityAdd:
+                speed += velocity;
+                break;
+            case BumpMode.VelocityChange:
+                speed = velocity;
+                break;
+        }
+        if (duration > bumpTime)
+        {
+            bumpTime = duration;
+            isGrounded.LockUnique("bump");
+        }
+
+        onBump.Invoke(this);
     }
 
     public void SetWorldBounds(Vector2 bounds)
@@ -82,3 +130,5 @@ public class Vehicle : MovingUnit
         return new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
     }
 }
+
+public enum BumpMode { VelocityAdd, VelocityChange }
