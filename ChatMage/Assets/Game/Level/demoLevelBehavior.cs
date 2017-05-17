@@ -4,23 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class demoLevelBehavior : LevelBehavior {
+public class demoLevelScript : LevelScript {
 
-    public override void OnBegin(LevelScript levelScript)
+    public override void Update()
     {
-        this.levelScript = levelScript;
-        onEnding = new UnityEvent();
-        DelayManager.CallTo(delegate ()
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            OnComplete();
-        }, 5);
-    }
-    public override void OnUpdate()
-    {
-
-    }
-    public override void OnComplete()
-    {
-        onEnding.Invoke();
+            EndLevel();
+        }
     }
 }
