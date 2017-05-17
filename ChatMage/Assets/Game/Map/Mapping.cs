@@ -19,12 +19,14 @@ public class Mapping : MonoBehaviour {
 
     public void Init(float height, float width)
     {
+        Debug.Log("Mapping Init");
         mapHeight = height;
         mapWidth = width;
     }
 
     public void SetOffsets(float top, float bottom, float right, float left)
     {
+        Debug.Log("Setting Offsets in the map");
         if (top >= mapHeight)
             limitTop = top;
         else

@@ -30,6 +30,7 @@ public class Map : MonoBehaviour {
 
     void DebugInit(Scene scene)
     {
+        Debug.Log("Running Map in Debug Mode");
         GameObject[] objects = scene.GetRootGameObjects();
         for(int i = 0; i < objects.Length; i++)
         {
@@ -44,6 +45,7 @@ public class Map : MonoBehaviour {
     /// <param name="height"></param>
     /// <param name="width"></param>
 	public void Init (float height, float width) {
+        Debug.Log("Map Init");
         for(int i = 0; i < mapObjects.Count; i++)
         {
             Adjust(mapObjects[i]);

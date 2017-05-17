@@ -131,7 +131,7 @@ public class Game : PublicSingleton<Game>
     /// </summary>
     public Unit SpawnUnit(Unit prefab, Vector2 position)
     {
-        Unit newUnit = Instantiate(prefab.gameObject).GetComponent<Unit>();
+        Unit newUnit = Instantiate(prefab.gameObject,position, Quaternion.identity).GetComponent<Unit>();
 
         AddExistingUnit(newUnit);
 
