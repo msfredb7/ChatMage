@@ -7,6 +7,7 @@ using UnityEngine.Events;
 
 public class Framework : MonoBehaviour
 {
+    public const string SCENENAME = "Framework";
     public bool loadScenesAsync = false;
     public Game game;
     [Header("Temporaire")]
@@ -19,13 +20,14 @@ public class Framework : MonoBehaviour
 
     private bool isLoadingMap;
     private Vector2 screenBounds;
+    private bool hasInit = false;
 
     void Start()
     {
         //Debug Init
         //Note: c'est important de sync avec le mastermanager.
         //Sinon, partir de la scène 'Framework' ne marcherait pas
-        if (Scenes.SceneCount() == 1)
+        if (Scenes.SceneCount() == 1 && !hasInit)
             MasterManager.Sync(Init);
     }
 
@@ -42,6 +44,7 @@ public class Framework : MonoBehaviour
     /// </summary>
     public void Init(LevelScript level)
     {
+        hasInit = true;
         isLoadingMap = true;
         currentLevel = level;
 
@@ -77,16 +80,9 @@ public class Framework : MonoBehaviour
         game.AddPlayer(player);
 
         //Init map
-        GameObject[] rootObjs = scene.GetRootGameObjects();
-        for (int i = 0; i < rootObjs.Length; i++)
-        {
-            if (rootObjs[i].GetComponent<Map>() != null)
-            {
-                rootObjs[i].GetComponent<Map>().Init(game.ScreenBounds.x, game.ScreenBounds.y);
-                game.map = rootObjs[i].GetComponent<Map>();
-            }
-                
-        }
+        Map map = Scenes.FindRootObject<Map>(scene);
+        game.map = map;
+        map.Init(game.ScreenBounds.x, game.ScreenBounds.y);
 
         //Spawner Init
         Game.instance.spawner.Init();

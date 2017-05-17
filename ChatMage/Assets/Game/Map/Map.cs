@@ -30,19 +30,13 @@ public class Map : MonoBehaviour {
 
     void DebugInit(Scene scene)
     {
-        GameObject[] objects = scene.GetRootGameObjects();
-        for(int i = 0; i < objects.Length; i++)
-        {
-            if (objects[i].GetComponent<Framework>() != null)
-                objects[i].GetComponent<Framework>().Init(defaultLevelScript);
-        }
+        Framework framework = Scenes.FindRootObject<Framework>(scene);
+        framework.Init(defaultLevelScript);
     }
 
     /// <summary>
     /// Initialise les settings de la map
     /// </summary>
-    /// <param name="height"></param>
-    /// <param name="width"></param>
 	public void Init (float height, float width) {
         for(int i = 0; i < mapObjects.Count; i++)
         {
