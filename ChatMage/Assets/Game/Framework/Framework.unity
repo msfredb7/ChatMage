@@ -450,7 +450,7 @@ MonoBehaviour:
   loadScenesAsync: 0
   game: {fileID: 986166561}
   playerbuilder: {fileID: 1461222806}
-  defaultLevel: {fileID: 11400000, guid: b9bd2e88b7678a446beaf0475ca82ba0, type: 2}
+  defaultLevel: {fileID: 11400000, guid: fdf791a12b63faa42a4f6380b1b9edb7, type: 2}
 --- !u!4 &986166560
 Transform:
   m_ObjectHideFlags: 0
@@ -478,30 +478,16 @@ MonoBehaviour:
   _objectReferences: []
   _serializedStateKeys:
   - defaultBounds
-  - onGameReady
-  - onGameStarted
   - units
   _serializedStateValues:
   - '{"x":16.0,"y":9.0}'
-  - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
-    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
-  - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
-    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
   - '[]'
   cam: {fileID: 1614933836}
   playerInput: {fileID: 1547185840}
   map: {fileID: 0}
   defaultBounds: {x: 16, y: 9}
-  onGameReady:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  onGameStarted:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+  gameReady: 0
+  gameStarted: 0
   units: []
 --- !u!1 &1266736241
 GameObject:
@@ -654,6 +640,7 @@ MonoBehaviour:
   _keys:
   - {fileID: 986166561}
   - {fileID: 986070097}
+  - {fileID: 0}
   _values:
   - _keys: []
     _values: []
@@ -661,6 +648,9 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 986070097}
+  - _keys: []
+    _values: []
+    _target: {fileID: 0}
 --- !u!114 &1405175281
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -675,28 +665,17 @@ MonoBehaviour:
   _keys:
   - {fileID: 986166561}
   - {fileID: 986070097}
+  - {fileID: 0}
   _values:
-  - _keys:
-    - DefaultBehaviorEditor.cam.EditProperty
-    - DefaultBehaviorEditor.defaultBounds.EditProperty
-    - DefaultBehaviorEditor.onGameReady.EditProperty
-    - DefaultBehaviorEditor.onGameStarted.EditProperty
-    - DefaultBehaviorEditor.units.EditProperty
-    _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 1
-      _serializedIsActive: 0
-    - _showDropdown: 1
-      _serializedIsActive: 0
-    - _showDropdown: 0
-      _serializedIsActive: 1
+  - _keys: []
+    _values: []
     _target: {fileID: 986166561}
   - _keys: []
     _values: []
     _target: {fileID: 986070097}
+  - _keys: []
+    _values: []
+    _target: {fileID: 0}
 --- !u!1 &1405652219
 GameObject:
   m_ObjectHideFlags: 0

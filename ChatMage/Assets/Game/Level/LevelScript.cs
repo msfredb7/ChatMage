@@ -3,28 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using FullInspector;
 using UnityEngine.Events;
+using CCC.Manager;
 
 public class LevelScript : BaseScriptableObject
 {
     public string displayName;
     public string sceneName;
-    [SerializeField]
-    private LevelBehavior levelBehavior;
 
-    public void Init()
+    public virtual void Init()
     {
-        Debug.Log("LevelScript" + displayName + " starting");
-        levelBehavior.OnBegin(this);
-        levelBehavior.onEnding.AddListener(EndLevel);
+        Debug.Log("LevelScript " + displayName + " starting");
     }
 
-    public void Update()
+    public virtual void Update()
     {
-        Debug.Log("LevelScript" + displayName + " updating");
-        levelBehavior.OnUpdate();
+        Debug.Log("LevelScript " + displayName + " updating");
     }
 
-    public void EndLevel()
+    public virtual void EndLevel()
     {
         Debug.Log("Ending level");
         Game.instance.Quit();

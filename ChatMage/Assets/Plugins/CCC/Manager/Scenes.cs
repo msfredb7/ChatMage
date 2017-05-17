@@ -32,7 +32,6 @@ namespace CCC.Manager
 
         static public void Load(string name, LoadSceneMode mode = LoadSceneMode.Single, UnityAction<Scene> callback = null, bool unique = true)
         {
-            Debug.Log(Exists(name));
             if (unique && Exists(name)) return;
 
             ScenePromise scenePromise = new ScenePromise(name, callback);
