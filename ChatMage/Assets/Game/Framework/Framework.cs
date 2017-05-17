@@ -89,6 +89,6 @@ public class Framework : MonoBehaviour
         }
 
         //Game ready
-        game.gameReady = true;
+        game.ReadyGame();
     }
 }
