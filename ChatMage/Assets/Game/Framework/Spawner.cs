@@ -11,30 +11,31 @@ public class Spawner : MonoBehaviour {
         map = Game.instance.map.map;
     }
 
-    public GameObject SpawnUnitAtRandomLocation(string unitName, Waypoint.WaypointType spawnType)
+    public Unit SpawnUnitAtRandomLocation(Unit unitPrefab, Waypoint.WaypointType spawnType)
     {
-        Vector3 position = map.GetRandomSpawnPoint(spawnType).transform.position;
-        return Instantiate((Resources.Load(unitName,typeof(GameObject)) as GameObject), position, Quaternion.identity);
+        return SpawnUnitAtLocation(unitPrefab, map.GetRandomSpawnPoint(spawnType));
     }
 
-    /* TODO : A FAIRE AVEC LA FACADE
-
-    public GameObject SpawnUnitAtLocation(string unitName, Waypoint waypoint)
+    public Unit SpawnUnitAtLocation(Unit unitPrefab, Waypoint waypoint)
     {
-
+        return Game.instance.SpawnUnit(unitPrefab, new Vector2(waypoint.transform.position.x, waypoint.transform.position.y));
     }
 
-    public GameObject SpawnUnitAtMultipleLocation(string unitName, List<Waypoint> waypoint)
+    public List<Unit> SpawnUnitAtMultipleLocation(Unit unitPrefab, List<Waypoint> waypoint)
     {
-
+        List<Unit> units = new List<Unit>();
+        for(int i = 0; i < waypoint.Count; i++)
+        {
+            units.Add(Game.instance.SpawnUnit(unitPrefab, new Vector2(waypoint[i].transform.position.x, waypoint[i].transform.position.y)));
+        }
+        return units;
     }
 
-    public GameObject SpawnUnitAtRandomMultipleLocation(string unitName, List<Waypoint> waypoint)
+    public List<Unit> SpawnUnitAtRandomMultipleLocation(Unit unitPrefab, Waypoint.WaypointType spawnType, int amount)
     {
-
+        List<Waypoint> waypoints = map.GetRandomMultipleSpawnPoint(spawnType, amount);
+        return SpawnUnitAtMultipleLocation(unitPrefab, waypoints);
     }
-
-    */
 
     /* AU BESOIN
 
