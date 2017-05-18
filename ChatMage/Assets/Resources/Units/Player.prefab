@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 114092423616463960}
   - component: {fileID: 114852341602202102}
   - component: {fileID: 114152142234575788}
+  - component: {fileID: 114502578881808192}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -153,6 +154,18 @@ MonoBehaviour:
   targetDirection: 0
   useWeight: 1
   weight: 0.2
+--- !u!114 &114502578881808192
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1378382693515414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7870ebc2e7f28fa44a538af68b07b0ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultItem: {fileID: 11400000, guid: 1f191ee9de7ac094eb26ad70f73e3867, type: 2}
 --- !u!114 &114514873651363592
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -168,6 +181,7 @@ MonoBehaviour:
   body: {fileID: 4642053433449958}
   playerSmash: {fileID: 114152142234575788}
   playerDriver: {fileID: 114852341602202102}
+  playerItems: {fileID: 114502578881808192}
 --- !u!114 &114852341602202102
 MonoBehaviour:
   m_ObjectHideFlags: 1
