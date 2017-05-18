@@ -7,7 +7,7 @@ using UnityEngine.Events;
 public class PlayerStats : MonoBehaviour {
     
     [System.NonSerialized]
-    public StatInt health = new StatInt(0,0,3,BoundMode.Cap);
+    public StatInt health = new StatInt(3,0,3,BoundMode.Cap);
     [System.NonSerialized]
     public StatInt armor = new StatInt(0, 0, 0, BoundMode.Cap);
     [System.NonSerialized]
