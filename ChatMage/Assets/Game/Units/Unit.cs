@@ -6,6 +6,7 @@ using UnityEngine.Events;
 
 public class Unit : MonoBehaviour
 {
+    [System.Serializable]
     public class Unit_Event : UnityEvent<Unit> { }
     public Unit_Event onDestroy = new Unit_Event();
     public float timeScale = 1;
