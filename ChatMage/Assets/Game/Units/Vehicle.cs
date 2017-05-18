@@ -31,6 +31,9 @@ public class Vehicle : MovingUnit
 
     protected override void Update()
     {
+        if (DeltaTime() <= 0)
+            return;
+
         UpdateBumpTime();
 
         if (isGrounded)

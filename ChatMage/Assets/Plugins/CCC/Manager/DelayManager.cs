@@ -6,7 +6,7 @@ namespace CCC.Manager
 {
     public class DelayManager : BaseManager<DelayManager>
     {
-        static public void CallTo(UnityAction action, float delay, bool realTime = true)
+        static public void CallTo(UnityAction action, float delay, bool realTime = false)
         {
             if (instance == null)
             {

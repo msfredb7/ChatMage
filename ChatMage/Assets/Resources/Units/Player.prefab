@@ -40,7 +40,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4731011782372154}
-  - component: {fileID: 212512362363063922}
   - component: {fileID: 50036586509599816}
   m_Layer: 0
   m_Name: Vehicle
@@ -61,6 +60,22 @@ GameObject:
   - component: {fileID: 114607955330547470}
   m_Layer: 0
   m_Name: Collider1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1807493542819672
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4180891754763810}
+  - component: {fileID: 212447806428814966}
+  m_Layer: 0
+  m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -98,6 +113,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &4180891754763810
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1807493542819672}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
+  m_Children: []
+  m_Father: {fileID: 4642053433449958}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4322016922771200
 Transform:
   m_ObjectHideFlags: 1
@@ -135,6 +163,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4731011782372154}
+  - {fileID: 4180891754763810}
   m_Father: {fileID: 4653197447256510}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -249,6 +278,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damagable: 1
+  isVisible: 1
   onDeath:
     m_PersistentCalls:
       m_Calls: []
@@ -259,6 +289,12 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+  onRegen:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  isNotDead: 1
 --- !u!114 &114188179037213396
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -360,12 +396,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parentUnit: {fileID: 114205213275445300}
   groupParent: {fileID: 1490485703124542}
---- !u!212 &212512362363063922
+--- !u!212 &212447806428814966
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1490485703124542}
+  m_GameObject: {fileID: 1807493542819672}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -389,14 +425,14 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -36297773
-  m_SortingLayer: 2
+  m_SortingLayerID: -852012283
+  m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 99d277ac246f1344ba5f869f265b69c1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b056bcae5ea0dbe4c8531829ad0bba23, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 3.22, y: 1.57}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
