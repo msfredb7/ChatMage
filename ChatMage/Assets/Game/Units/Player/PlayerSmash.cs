@@ -5,10 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class PlayerSmash : PlayerComponent
-{
-    [Header("Debug")]
-    public Smash defaultSmash;
-    
+{    
     [System.NonSerialized]
     public UnityEvent onSmashAppear = new UnityEvent();
     [System.NonSerialized]
@@ -22,14 +19,6 @@ public class PlayerSmash : PlayerComponent
 
     [System.NonSerialized]
     private Smash smash;
-
-    public override void Init(PlayerController controller)
-    {
-        base.Init(controller);
-
-        //Temporaire
-        SetSmash(defaultSmash);
-    }
 
     public override void OnGameReady()
     {
@@ -82,6 +71,6 @@ public class PlayerSmash : PlayerComponent
     private void StartSmashCooldown()
     {
         //TODO Mettre un vrai system de cooldown ou countdown
-        DelayManager.CallTo(OnSmashRefresh, 3);
+        DelayManager.CallTo(OnSmashRefresh, 3, false);
     }
 }

@@ -5,17 +5,20 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
 
-public class PlayLevelMessage : SceneMessage
+public class LaunchGameMessage : SceneMessage
 {
     private LevelScript chosenLevel;
-    public PlayLevelMessage(LevelScript chosenLevel)
+    private LoadoutResult loadoutResult;
+
+    public LaunchGameMessage(LevelScript chosenLevel, LoadoutResult loadoutResult)
     {
         this.chosenLevel = chosenLevel;
+        this.loadoutResult = loadoutResult;
     }
     public void OnLoaded(Scene scene)
     {
         Framework framework = Scenes.FindRootObject<Framework>(scene);
-        framework.Init(chosenLevel);
+        framework.Init(chosenLevel, loadoutResult);
     }
 
     public void OnOutroComplete()

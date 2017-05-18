@@ -24,7 +24,7 @@ public class UiSystem : MonoBehaviour {
     void DebugInit(Scene scene)
     {
         Framework framework = Scenes.FindRootObject<Framework>(scene);
-        framework.Init(defaultLevelScript);
+        framework.Init(defaultLevelScript, null);
     }
 
     public void Init()

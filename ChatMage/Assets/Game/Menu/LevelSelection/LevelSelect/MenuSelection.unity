@@ -394,6 +394,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1301260478}
+  - component: {fileID: 1301260480}
+  - component: {fileID: 1301260479}
   m_Layer: 0
   m_Name: fiPersistentEditorStorage
   m_TagString: Untagged
@@ -414,6 +416,40 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1301260479
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1301260477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be205b8c5a2f88c408c5e5343719637c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _keys:
+  - {fileID: 1963925043}
+  _values:
+  - _keys: []
+    _values: []
+    _target: {fileID: 1963925043}
+--- !u!114 &1301260480
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1301260477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3b5fe0e79f64584a83676f21be2d2a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _keys:
+  - {fileID: 1963925043}
+  _values:
+  - _keys: []
+    _values: []
+    _target: {fileID: 1963925043}
 --- !u!1 &1490161086
 GameObject:
   m_ObjectHideFlags: 0
@@ -425,7 +461,6 @@ GameObject:
   - component: {fileID: 1490161090}
   - component: {fileID: 1490161089}
   - component: {fileID: 1490161088}
-  - component: {fileID: 1490161091}
   m_Layer: 5
   m_Name: Level2Button
   m_TagString: Untagged
@@ -491,8 +526,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1490161091}
-        m_MethodName: LoadLevel
+      - m_Target: {fileID: 1963925044}
+        m_MethodName: LaunchGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -537,18 +572,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1490161086}
---- !u!114 &1490161091
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1490161086}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1226eca7095b72b42b7ede4bf0457029, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  level: {fileID: 11400000, guid: fdf791a12b63faa42a4f6380b1b9edb7, type: 2}
 --- !u!1 &1735458921
 GameObject:
   m_ObjectHideFlags: 0
@@ -730,7 +753,6 @@ GameObject:
   - component: {fileID: 1781533802}
   - component: {fileID: 1781533801}
   - component: {fileID: 1781533800}
-  - component: {fileID: 1781533803}
   m_Layer: 5
   m_Name: Level1Button
   m_TagString: Untagged
@@ -796,8 +818,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1781533803}
-        m_MethodName: LoadLevel
+      - m_Target: {fileID: 1963925044}
+        m_MethodName: LaunchGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -842,18 +864,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1781533798}
---- !u!114 &1781533803
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1781533798}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1226eca7095b72b42b7ede4bf0457029, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  level: {fileID: 11400000, guid: fdf791a12b63faa42a4f6380b1b9edb7, type: 2}
 --- !u!1 &1787225230
 GameObject:
   m_ObjectHideFlags: 0
@@ -865,7 +875,6 @@ GameObject:
   - component: {fileID: 1787225234}
   - component: {fileID: 1787225233}
   - component: {fileID: 1787225232}
-  - component: {fileID: 1787225235}
   m_Layer: 5
   m_Name: Level3Button
   m_TagString: Untagged
@@ -931,8 +940,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1787225235}
-        m_MethodName: LoadLevel
+      - m_Target: {fileID: 1963925044}
+        m_MethodName: LaunchGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -977,18 +986,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1787225230}
---- !u!114 &1787225235
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1787225230}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1226eca7095b72b42b7ede4bf0457029, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  level: {fileID: 11400000, guid: fdf791a12b63faa42a4f6380b1b9edb7, type: 2}
 --- !u!1 &1963925040
 GameObject:
   m_ObjectHideFlags: 0
@@ -998,6 +995,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1963925042}
   - component: {fileID: 1963925041}
+  - component: {fileID: 1963925043}
+  - component: {fileID: 1963925044}
   m_Layer: 0
   m_Name: Menu Bidon
   m_TagString: Untagged
@@ -1029,3 +1028,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1963925043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1963925040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce29cb859d78b634c9d7b447327d88d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectReferences: []
+  _serializedStateKeys: []
+  _serializedStateValues: []
+  eqPreview: {fileID: 11400000, guid: 32a19937235d6fb45be40c11367ddd22, type: 2}
+--- !u!114 &1963925044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1963925040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f1a427a857524045b23cf8eda5a4256, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chosenLevel: {fileID: 11400000, guid: fdf791a12b63faa42a4f6380b1b9edb7, type: 2}
+  chosenCar: {fileID: 11400000, guid: 32a19937235d6fb45be40c11367ddd22, type: 2}
+  chosenSmash: {fileID: 11400000, guid: 43aafa3473f75094e9e822530bde2307, type: 2}
+  chosenItems:
+  - {fileID: 11400000, guid: 2fd9f81ce9f0f6043b84c617d913b8eb, type: 2}

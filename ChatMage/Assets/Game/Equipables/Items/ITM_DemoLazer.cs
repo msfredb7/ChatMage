@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ITM_DemoLazer : Item
+public class Itm_DemoLazer : Item
 {
     public GameObject lazerVisuals;
 

@@ -31,7 +31,7 @@ public class Map : MonoBehaviour {
     void DebugInit(Scene scene)
     {
         Framework framework = Scenes.FindRootObject<Framework>(scene);
-        framework.Init(defaultLevelScript);
+        framework.Init(defaultLevelScript, null);
     }
 
     /// <summary>

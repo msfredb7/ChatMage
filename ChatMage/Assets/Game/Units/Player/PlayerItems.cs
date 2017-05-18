@@ -5,17 +5,16 @@ using UnityEngine;
 
 public class PlayerItems : PlayerComponent
 {
-    [Header("Debug")]
-    public List<Item> defaultItems = new List<Item>();
-
     private List<Item> items = new List<Item>();
 
     public override void Init(PlayerController controller)
     {
         base.Init(controller);
+    }
 
-        //Temporaire
-        foreach (Item item in defaultItems)
+    public void SetItems(List<Item> items)
+    {
+        foreach (Item item in items)
         {
             AddItem(item);
         }

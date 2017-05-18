@@ -16,7 +16,6 @@ public class Framework : MonoBehaviour
     [Header("Debug")]
     public LevelScript defaultLevel;
 
-    private LevelScript currentLevel;
 
     private Vector2 screenBounds;
     private bool hasInit = false;
@@ -24,10 +23,10 @@ public class Framework : MonoBehaviour
     private UiSystem uiSystem;
     private Map map;
 
-    [System.NonSerialized]
     private bool mapLoaded = false;
-    [System.NonSerialized]
     private bool uiLoaded = false;
+    private bool playerAssetsLoaded = false;
+    private LevelScript currentLevel = null;
 
     void Start()
     {
@@ -43,16 +42,18 @@ public class Framework : MonoBehaviour
     /// </summary>
     public void Init()
     {
-        Init(defaultLevel);
+        Init(defaultLevel, null);
     }
 
     /// <summary>
     /// Start la game avec le level spécifié
     /// </summary>
-    public void Init(LevelScript level)
+    public void Init(LevelScript level, LoadoutResult loadoutResult)
     {
         hasInit = true;
         currentLevel = level;
+
+        playerbuilder.LoadAssets(loadoutResult, OnPlayerAssetsLoaded);
 
         //La map est déjà loadé, probablement du au mode debug. On ne la reload pas
         if (Scenes.Exists(level.sceneName))
@@ -89,21 +90,31 @@ public class Framework : MonoBehaviour
         }
     }
 
+    void OnAnyModuleLoaded()
+    {
+        if (mapLoaded && uiLoaded && playerAssetsLoaded)
+            OnAllLoaded();
+    }
+
     void OnMapLoaded(Scene scene)
     {
         map = Scenes.FindRootObject<Map>(scene);
         mapLoaded = true;
 
-        if (uiLoaded)
-            OnAllLoaded();
+        OnAnyModuleLoaded();
     }
     void OnUILoaded(Scene scene)
     {
         uiSystem = Scenes.FindRootObject<UiSystem>(scene);
         uiLoaded = true;
 
-        if (mapLoaded)
-            OnAllLoaded();
+        OnAnyModuleLoaded();
+    }
+
+    void OnPlayerAssetsLoaded()
+    {
+        playerAssetsLoaded = true;
+        OnAnyModuleLoaded();
     }
 
     void OnAllLoaded()

@@ -55,6 +55,7 @@ public class ResourceLoader : BaseManager<ResourceLoader>
 
     public const string ENEMY = "Units/Enemies/";
     public const string PLAYER = "Units/Player";
+    public const string EQUIPABLES = "Equipables/";
 
     static private T Load<T>(string path) where T : UnityEngine.Object
     {
@@ -104,5 +105,30 @@ public class ResourceLoader : BaseManager<ResourceLoader>
             if (callback != null)
                 callback.Invoke(obj.GetComponent<Vehicle>());
         });
+    }
+
+    static private string EquipableTypeToPath(EquipableType type)
+    {
+        switch (type)
+        {
+            default:
+                throw new Exception("Unable to convert equipableType to path. Unsupported equipable type.");
+            case EquipableType.Car:
+                return "Cars/";
+            case EquipableType.Smash:
+                return "Smash/";
+            case EquipableType.Item:
+                return "Items/";
+        }
+    }
+
+    static public Equipable LoadEquipable(string name, EquipableType type)
+    {
+        return Load<Equipable>(EQUIPABLES + EquipableTypeToPath(type) + name);
+    }
+
+    static public void LoadEquipableAsync(string name, EquipableType type, UnityAction<Equipable> callback)
+    {
+        LoadAsync(EQUIPABLES + EquipableTypeToPath(type) + name, callback);
     }
 }

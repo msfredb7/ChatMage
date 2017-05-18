@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SM_InstaKill : Smash
+public class Sm_InstaKill : Smash
 {
     public override void OnGameReady()
     {

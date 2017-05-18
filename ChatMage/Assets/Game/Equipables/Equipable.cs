@@ -9,9 +9,6 @@ public abstract class Equipable : BaseScriptableObject
     [fsIgnore]
     public PlayerController player;
 
-    public string displayName;
-    public string description;
-
     public virtual void Init(PlayerController player)
     {
         this.player = player;
