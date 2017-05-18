@@ -20,8 +20,6 @@ public class Vehicle : MovingUnit
     {
         get { return speed; }
     }
-    private Vector2 bounds = new Vector2(10, 10);
-    private bool useBounds = false;
     private float bumpTime = 0;
 
     //Events
@@ -42,9 +40,6 @@ public class Vehicle : MovingUnit
 
         //update position
         base.Update();
-
-        if (useBounds)
-            RestrainToBounds();
 
         //record actual speed
         speed = (tr.position - wasPos) / DeltaTime();
@@ -82,15 +77,7 @@ public class Vehicle : MovingUnit
         else
             speed = vDir;
     }
-
-    void RestrainToBounds()
-    {
-        tr.position = new Vector3(
-            Mathf.Max(0, Mathf.Min(bounds.x, tr.position.x)),       //x
-            Mathf.Max(0, Mathf.Min(bounds.y, tr.position.y)),       //y
-            tr.position.z);                                         //z
-    }
-
+    
     public void Bump(Vector2 velocity, float duration, BumpMode bumpMode)
     {
         Vector3 vel3 = new Vector3(velocity.x, velocity.y, 0);
@@ -111,12 +98,6 @@ public class Vehicle : MovingUnit
         }
 
         onBump.Invoke(this);
-    }
-
-    public void SetWorldBounds(Vector2 bounds)
-    {
-        this.bounds = bounds;
-        useBounds = true;
     }
 
     public override Vector3 WorldDirection()

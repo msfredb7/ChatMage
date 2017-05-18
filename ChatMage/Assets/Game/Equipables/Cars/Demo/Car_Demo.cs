@@ -2,22 +2,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FullSerializer;
 
-public class DemoDriver : PlayerDriver
+public class Car_Demo : Car
 {
-    const float turnClutch = 0;
-    const float turnAcceleration = 5;
-    const float turnSpeed = 185;
+    //NE PAS MODIFIER IN-GAME
+    public float turnClutch = 0;
+    public float turnAcceleration = 5;
+    public float turnSpeed = 185;
+
+    [fsIgnore]
     float horizontal = 0;
+    [fsIgnore]
     float lastHorizontal = 0;
-    float rotation;
+    [fsIgnore]
+    float rotation = 0;
 
-    public DemoDriver(PlayerController player) : base(player)
-    {
-        rotation = player.vehicle.targetDirection;
-    }
-
-    public override void Update(float horizontalInput)
+    public override void OnInputUpdate(float horizontalInput)
     {
         if (horizontalInput == 0)
             horizontal = 0;
@@ -31,7 +32,7 @@ public class DemoDriver : PlayerDriver
 
             horizontal = Mathf.MoveTowards(lastHorizontal, horizontalInput, player.vehicle.DeltaTime() * turnAcceleration);
         }
-        
+
         rotation += -horizontal * turnSpeed * player.vehicle.DeltaTime();
 
         lastHorizontal = horizontal;
@@ -39,5 +40,20 @@ public class DemoDriver : PlayerDriver
 
         player.body.localRotation = Quaternion.Euler(0, 0, rotation);
         player.vehicle.targetDirection = rotation;
+    }
+
+    public override void OnGameReady()
+    {
+        rotation = player.vehicle.targetDirection;
+    }
+
+    public override void OnGameStarted()
+    {
+
+    }
+
+    public override void OnUpdate()
+    {
+
     }
 }
