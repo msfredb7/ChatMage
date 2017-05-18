@@ -62,6 +62,8 @@ public class demoLevelScript : LevelScript
 
     void EndLevel()
     {
+        if (isOver)
+            return;
         isOver = true;
         Game.instance.Quit();
     }
