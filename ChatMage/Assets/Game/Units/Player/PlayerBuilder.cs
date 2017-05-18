@@ -5,13 +5,16 @@ using UnityEngine;
 public class PlayerBuilder : MonoBehaviour {
 
     [Header("Temporaire")]
-    public Vehicle playerPrefab;
+    public PlayerController playerPrefab;
     
     /// <summary>
     /// TODO: Prendre le loadout en parametre
     /// </summary>
     public Vehicle BuildPlayer()
     {
-        return Instantiate(playerPrefab.gameObject).GetComponent<Vehicle>();
+        PlayerController playerController = Instantiate(playerPrefab.gameObject).GetComponent<PlayerController>();
+        playerController.Init();
+
+        return playerController.GetComponent<Vehicle>();
     }
 }

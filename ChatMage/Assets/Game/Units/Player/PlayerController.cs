@@ -1,18 +1,15 @@
-﻿using System.Collections;
+﻿using CCC.Manager;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
     public Vehicle vehicle;
     public Transform body;
-
-    [Header("Temporaire")]
-    public Car defaultCar;
-
-    [System.NonSerialized]
-    private Car car;
-    private float horizontalInput;
+    public PlayerSmash playerSmash;
+    public PlayerDriver playerDriver;
 
     void Awake()
     {
@@ -29,42 +26,24 @@ public class PlayerController : MonoBehaviour
             OnGameStarted();
     }
 
+    /// <summary>
+    /// TODO: Prendre un loadout kit en parametre, ou qqchose du genre
+    /// </summary>
+    public void Init()
+    {
+        playerSmash.Init(this);
+        playerDriver.Init(this);
+    }
+
     void OnGameReady()
     {
-        //Temporaire
-        SetCar(defaultCar);
-
-        car.OnGameReady();
+        playerSmash.OnGameReady();
+        playerDriver.OnGameReady();
     }
 
     void OnGameStarted()
     {
-        car.OnGameStarted();
-    }
-    
-    public void SetCar(Car car)
-    {
-        this.car = car;
-        car.Init(this);
-    }
-
-    private void Update()
-    {
-        car.OnUpdate();
-
-        if (car != null)
-            car.OnInputUpdate(horizontalInput);
-
-        horizontalInput = 0;
-    }
-
-    public void TurnLeft()
-    {
-        horizontalInput -= 1;
-    }
-
-    public void TurnRight()
-    {
-        horizontalInput += 1;
+        playerSmash.OnGameStarted();
+        playerDriver.OnGameStarted();
     }
 }

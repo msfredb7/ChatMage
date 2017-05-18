@@ -23,7 +23,7 @@ public class PlayerInput : MonoBehaviour
 
     void OnMiddleClick()
     {
-
+        controller.playerSmash.SmashClick();
     }
 
     void Update()
@@ -32,8 +32,8 @@ public class PlayerInput : MonoBehaviour
             return;
 
         if (rightButton.isIn || Input.GetKey(KeyCode.RightArrow))
-            controller.TurnRight();
+            controller.playerDriver.TurnRight();
         if (leftButton.isIn || Input.GetKey(KeyCode.LeftArrow))
-            controller.TurnLeft();
+            controller.playerDriver.TurnLeft();
     }
 }
