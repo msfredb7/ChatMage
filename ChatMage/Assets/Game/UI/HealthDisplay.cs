@@ -12,25 +12,6 @@ public class HealthDisplay : MonoBehaviour {
 
     private List<GameObject> hearths = new List<GameObject>();
 
-    public LevelScript defaultLevelScript;
-
-    void Start()
-    {
-        if (Scenes.SceneCount() == 1)
-        {
-            MasterManager.Sync(delegate ()
-            {
-                Scenes.Load("Framework", LoadSceneMode.Additive, DebugInit);
-            });
-        }
-    }
-
-    void DebugInit(Scene scene)
-    {
-        Framework framework = Scenes.FindRootObject<Framework>(scene);
-        framework.Init(defaultLevelScript);
-    }
-
     public void Init()
     {
         player = Game.instance.Player.GetComponent<PlayerStats>();
@@ -68,6 +49,42 @@ public class HealthDisplay : MonoBehaviour {
 
     void ChangeHP()
     {
+        for(int i = 0; i < player.health; i++)
+        {
+            hearths[i].GetComponent<HearthScript>().On();
+        }
 
+        int start = player.health - 1;
+        if (start < 0)
+            start = 0;
+        for (int i = start; i < hearths.Count; i++)
+        {
+            hearths[i].GetComponent<HearthScript>().Off();
+        }
+    }
+
+    public void ChangeMaxHP()
+    {
+        int amount = player.health.MAX - hearthCountainer.transform.childCount;
+        if (amount == 0)
+            return;
+        if (amount < 0)
+        {
+            for(int i = 0; i < (-1 * amount); i++)
+            {
+                GameObject deletedHearths = hearths[hearths.Count - 1];
+                hearths.Remove(deletedHearths);
+                Destroy(deletedHearths);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < amount; i++)
+            {
+                GameObject newHearth = Instantiate(hearth, hearthCountainer.transform);
+                hearths.Add(newHearth);
+                hearths[hearths.Count - 1].GetComponent<HearthScript>().Off();
+            }
+        }
     }
 }

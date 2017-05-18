@@ -18,9 +18,16 @@ public class Framework : MonoBehaviour
 
     private LevelScript currentLevel;
 
-    private bool isLoadingMap;
     private Vector2 screenBounds;
     private bool hasInit = false;
+
+    private UiSystem uiSystem;
+    private Map map;
+
+    [System.NonSerialized]
+    private bool mapLoaded = false;
+    [System.NonSerialized]
+    private bool uiLoaded = false;
 
     void Start()
     {
@@ -45,7 +52,6 @@ public class Framework : MonoBehaviour
     public void Init(LevelScript level)
     {
         hasInit = true;
-        isLoadingMap = true;
         currentLevel = level;
 
         //La map est déjà loadé, probablement du au mode debug. On ne la reload pas
@@ -64,15 +70,47 @@ public class Framework : MonoBehaviour
                 Scenes.Load(level.sceneName, LoadSceneMode.Additive, OnMapLoaded);
             }
         }
+
+        //Le UI est déjà loadé, probablement du au mode debug. On ne la reload pas
+        if (Scenes.Exists(UiSystem.SCENENAME))
+        {
+            OnUILoaded(Scenes.GetActive(UiSystem.SCENENAME));
+        }
+        else
+        {
+            if (loadScenesAsync)
+            {
+                Scenes.LoadAsync(UiSystem.SCENENAME, LoadSceneMode.Additive, OnUILoaded);
+            }
+            else
+            {
+                Scenes.Load(UiSystem.SCENENAME, LoadSceneMode.Additive, OnUILoaded);
+            }
+        }
     }
 
     void OnMapLoaded(Scene scene)
     {
-        isLoadingMap = false;
+        map = Scenes.FindRootObject<Map>(scene);
+        mapLoaded = true;
 
+        if (uiLoaded)
+            OnAllLoaded();
+    }
+    void OnUILoaded(Scene scene)
+    {
+        uiSystem = Scenes.FindRootObject<UiSystem>(scene);
+        uiLoaded = true;
+
+        if (mapLoaded)
+            OnAllLoaded();
+    }
+
+    void OnAllLoaded()
+    {
         //Spawn Character
         Vehicle player = playerbuilder.BuildPlayer();
-        
+
         //Game Init
         game.Init(currentLevel);
 
@@ -80,12 +118,14 @@ public class Framework : MonoBehaviour
         game.AddPlayer(player);
 
         //Init map
-        Map map = Scenes.FindRootObject<Map>(scene);
         game.map = map;
         map.Init(game.ScreenBounds.x, game.ScreenBounds.y);
 
         //Spawner Init
         Game.instance.spawner.Init();
+
+        // UI Init
+        uiSystem.Init();
 
         //Game ready
         game.ReadyGame();

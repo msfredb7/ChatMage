@@ -17,4 +17,9 @@ public class HearthScript : MonoBehaviour {
     {
         GetComponent<Image>().sprite = emptyHearth;
     }
+
+    public void Armor()
+    {
+        
+    }
 }

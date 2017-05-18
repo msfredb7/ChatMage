@@ -18,5 +18,21 @@ public class TestScriptUI : MonoBehaviour {
             Game.instance.Player.GetComponent<PlayerStats>().Init();
             display.Init();
         }
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            Game.instance.Player.GetComponent<PlayerStats>().Hit();
+        }
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            Game.instance.Player.GetComponent<PlayerStats>().health.MAX++;
+            Debug.Log(Game.instance.Player.GetComponent<PlayerStats>().health.MAX);
+            display.ChangeMaxHP();
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            Game.instance.Player.GetComponent<PlayerStats>().health.MAX--;
+            Debug.Log(Game.instance.Player.GetComponent<PlayerStats>().health.MAX);
+            display.ChangeMaxHP();
+        }
     }
 }

@@ -120,6 +120,7 @@ GameObject:
   - component: {fileID: 51192039}
   - component: {fileID: 51192038}
   - component: {fileID: 51192042}
+  - component: {fileID: 51192043}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -216,7 +217,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hearthCountainer: {fileID: 1657258006}
   hearth: {fileID: 1140146662425088, guid: 119334f0dade8f341aefcddb86996ec9, type: 2}
+--- !u!114 &51192043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 51192037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 999d6bf33c3b1ff41bc3d81fdacdd293, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   defaultLevelScript: {fileID: 11400000, guid: fdf791a12b63faa42a4f6380b1b9edb7, type: 2}
+  healthdisplay: {fileID: 51192042}
 --- !u!1 &1027404654
 GameObject:
   m_ObjectHideFlags: 1
