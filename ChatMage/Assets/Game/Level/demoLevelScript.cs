@@ -14,6 +14,7 @@ public class demoLevelScript : LevelScript
     public override void OnGameReady()
     {
         myUnit = ResourceLoader.LoadEnemy("Enemy");
+        Game.instance.ApplyBoundsOnUnits(Game.instance.ScreenBounds);
     }
 
     public override void OnGameStarted()
@@ -23,7 +24,7 @@ public class demoLevelScript : LevelScript
 
     public override void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !LoadingScreen.IsInTransition)
         {
             if (!isOver)
             {

@@ -22,10 +22,11 @@ public class Game : PublicSingleton<Game>
     private LevelScript currentLevel;
 
     public float Aspect { get { return cam.aspect; } }
-    public Vector2 ScreenBounds { get { return screenBounds; } }
     [InspectorHeader("Settings")]
     public Vector2 defaultBounds;
     private Vector2 screenBounds;
+    private Vector2 worldBounds;
+    private bool applyBounds;
     private Vector2 defaultToRealRatio;
 
     [InspectorDisabled]
@@ -51,6 +52,7 @@ public class Game : PublicSingleton<Game>
         
         //Screen bounds
         screenBounds = new Vector2(cam.orthographicSize * cam.aspect * 2, cam.orthographicSize * 2);
+        worldBounds = new Vector2(screenBounds.x, screenBounds.y);
         defaultToRealRatio = new Vector2(defaultBounds.x / screenBounds.x, defaultBounds.y / screenBounds.y);
 
         //Camera adjustment
@@ -115,6 +117,9 @@ public class Game : PublicSingleton<Game>
 
     #region Bounds
 
+    public Vector2 ScreenBounds { get { return screenBounds; } }
+    public Vector2 WorldBounds { get { return worldBounds; } }
+
     public Vector3 ConvertToRealPos(Vector3 position)
     {
         return new Vector3(position.x / defaultToRealRatio.x, position.y / defaultToRealRatio.y, 0);
@@ -122,6 +127,23 @@ public class Game : PublicSingleton<Game>
     public Vector2 ConvertToRealPos(Vector2 position)
     {
         return new Vector2(position.x / defaultToRealRatio.x, position.y / defaultToRealRatio.y);
+    }
+
+    public void ApplyBoundsOnUnits(Vector2 worldBounds)
+    {
+        this.worldBounds = worldBounds;
+        applyBounds = true;
+
+        for (int i = 0; i < units.Count; i++)
+        {
+            if (units[i] is MovingUnit)
+                (units[i] as MovingUnit).SetWorldBounds(worldBounds);
+        }
+    }
+
+    public void DoNotApplyBoundsOnUnits()
+    {
+        applyBounds = false;
     }
 
     #endregion
@@ -146,6 +168,10 @@ public class Game : PublicSingleton<Game>
     public void AddExistingUnit(Unit unit)
     {
         unit.transform.SetParent(unitsContainer);
+
+        if (applyBounds && unit is MovingUnit)
+            (unit as MovingUnit).SetWorldBounds(worldBounds);
+            
 
         units.Add(unit);
 
