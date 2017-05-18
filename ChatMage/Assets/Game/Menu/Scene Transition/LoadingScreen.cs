@@ -21,7 +21,7 @@ public class LoadingScreen
     {
         if (isInTransition)
         {
-            Debug.LogWarning("Cannot transition to " + sceneName + ". We are already transitioning.");
+            throw new System.Exception("Cannot transition to " + sceneName + ". We are already transitioning.");
             return;
         }
 
