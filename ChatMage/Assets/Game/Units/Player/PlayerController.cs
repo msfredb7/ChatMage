@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public Transform body;
     public PlayerSmash playerSmash;
     public PlayerDriver playerDriver;
+    public PlayerItems playerItems;
 
     void Awake()
     {
@@ -31,19 +32,22 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public void Init()
     {
-        playerSmash.Init(this);
         playerDriver.Init(this);
+        playerSmash.Init(this);
+        playerItems.Init(this);
     }
 
     void OnGameReady()
     {
-        playerSmash.OnGameReady();
         playerDriver.OnGameReady();
+        playerSmash.OnGameReady();
+        playerItems.OnGameReady();
     }
 
     void OnGameStarted()
     {
-        playerSmash.OnGameStarted();
         playerDriver.OnGameStarted();
+        playerSmash.OnGameStarted();
+        playerItems.OnGameStarted();
     }
 }
