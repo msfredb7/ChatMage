@@ -3,11 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using System;
 
-public class PlayerStats : MonoBehaviour {
+public class PlayerStats : PlayerComponent
+{
     
     [System.NonSerialized]
-    public StatInt health = new StatInt(0,0,3,BoundMode.Cap);
+    public StatInt health = new StatInt(3,0,3,BoundMode.Cap);
     [System.NonSerialized]
     public StatInt armor = new StatInt(0, 0, 0, BoundMode.Cap);
     [System.NonSerialized]
@@ -54,6 +56,14 @@ public class PlayerStats : MonoBehaviour {
         }
         if (health <= 0)
             onDeath.Invoke();
+    }
+
+    public override void OnGameReady()
+    {
+    }
+
+    public override void OnGameStarted()
+    {
     }
 
     public void Regen()

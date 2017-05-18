@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerItems : PlayerComponent
 {
     [Header("Debug")]
-    public Item defaultItem;
+    public List<Item> defaultItems = new List<Item>();
 
     private List<Item> items = new List<Item>();
 
@@ -15,7 +15,10 @@ public class PlayerItems : PlayerComponent
         base.Init(controller);
 
         //Temporaire
-        AddItem(defaultItem);
+        foreach (Item item in defaultItems)
+        {
+            AddItem(item);
+        }
     }
 
     public override void OnGameReady()

@@ -8,7 +8,9 @@ public class TestScriptEnemy : MonoBehaviour {
 
     void Update()
     {
-        transform.right = Game.instance.Player.transform.position - transform.position;
-        GetComponent<MovingUnit>().speed = transform.right.normalized * speed;
+        var dir = Game.instance.Player.transform.position - transform.position;
+        var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        GetComponent<MovingUnit>().speed = transform.rotation.eulerAngles.normalized * speed;
     }
 }
