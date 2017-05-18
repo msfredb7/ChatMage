@@ -110,6 +110,12 @@ public class Vehicle : MovingUnit
         float rad = targetDirection * Mathf.Deg2Rad;
         return new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
     }
+    public static float VectorToAngle(Vector2 dir)
+    {
+        if (dir.x < 0)
+            return Mathf.Atan(dir.y / dir.x)* Mathf.Rad2Deg + 180;
+        return Mathf.Atan(dir.y / dir.x) * Mathf.Rad2Deg;
+    }
 }
 
 public enum BumpMode { VelocityAdd, VelocityChange }
