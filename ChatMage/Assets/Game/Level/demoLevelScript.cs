@@ -8,18 +8,39 @@ using FullSerializer;
 
 public class demoLevelScript : LevelScript
 {
-    Unit myUnit;
+    Unit charger;
+    Unit healthPacks;
 
     //TRES IMPORTANT DE RESET NOS VARIABLE ICI
     public override void OnGameReady()
     {
-        myUnit = ResourceLoader.LoadEnemy("Enemy");
+        charger = ResourceLoader.LoadEnemy("Charger");
+        healthPacks = ResourceLoader.LoadMisc("HealthPacks");
         Game.instance.ApplyBoundsOnUnits(Game.instance.ScreenBounds);
+        Game.instance.Player.GetComponent<PlayerStats>().onDeath.AddListener(EndLevel);
     }
 
     public override void OnGameStarted()
     {
-
+        for(int i = 0; i < 1000; i++)
+        {
+            if (i == 0)
+                continue;
+            DelayManager.CallTo(delegate ()
+            {
+                if(!isOver)
+                    Game.instance.spawner.SpawnUnitAtRandomLocation(charger, Waypoint.WaypointType.enemySpawn);
+            }, 2 * i);
+            DelayManager.CallTo(delegate ()
+            {
+                if (!isOver)
+                    Game.instance.spawner.SpawnUnitAtRandomLocation(healthPacks, Waypoint.WaypointType.enemySpawn);
+            }, 4 * i);
+        }
+        DelayManager.CallTo(delegate ()
+        {
+            EndLevel();
+        }, 20);
     }
 
     public override void Update()
@@ -35,7 +56,13 @@ public class demoLevelScript : LevelScript
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            Game.instance.spawner.SpawnUnitAtRandomLocation(myUnit, Waypoint.WaypointType.enemySpawn);
+            Game.instance.spawner.SpawnUnitAtRandomLocation(charger, Waypoint.WaypointType.enemySpawn);
         }
+    }
+
+    void EndLevel()
+    {
+        isOver = true;
+        Game.instance.Quit();
     }
 }

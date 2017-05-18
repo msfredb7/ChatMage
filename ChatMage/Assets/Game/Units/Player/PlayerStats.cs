@@ -15,9 +15,13 @@ public class PlayerStats : PlayerComponent
     [System.NonSerialized]
     public StatInt frontDamage = new StatInt(1, 1, 1, BoundMode.Cap);
     public bool damagable;
+    public bool isVisible = true; // TODO
 
     public UnityEvent onDeath = new UnityEvent();
     public UnityEvent onHit = new UnityEvent();
+    public UnityEvent onRegen = new UnityEvent();
+
+    public bool isNotDead = true;
 
     public void Hit()
     {
@@ -31,7 +35,7 @@ public class PlayerStats : PlayerComponent
             onHit.Invoke();
         }
         if (health <= 0)
-            onDeath.Invoke();
+            Death();
     }
 
     public void Hit(int amount)
@@ -55,7 +59,7 @@ public class PlayerStats : PlayerComponent
             onHit.Invoke();
         }
         if (health <= 0)
-            onDeath.Invoke();
+            Death();
     }
 
     public override void OnGameReady()
@@ -70,11 +74,23 @@ public class PlayerStats : PlayerComponent
     {
         Debug.Log("Player regeneration!");
         health++;
+        onRegen.Invoke();
     }
 
     public void Regen(int amount)
     {
         Debug.Log("Player regeneration!");
         health.Set(health + amount);
+        onRegen.Invoke();
+    }
+
+    void Death()
+    {
+        if (isNotDead)
+        {
+            isNotDead = false;
+            onDeath.Invoke();
+            Destroy(gameObject);
+        }
     }
 }

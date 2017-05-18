@@ -23,6 +23,7 @@ public class MovingUnit : Unit
     protected virtual void Update()
     {
         Vector2 v = speed * DeltaTime();
+        Debug.Log(speed + " / " + DeltaTime());
         Move(v);
 
         if (useBounds)

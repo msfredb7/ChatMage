@@ -55,6 +55,7 @@ public class ResourceLoader : BaseManager<ResourceLoader>
 
     public const string ENEMY = "Units/Enemies/";
     public const string PLAYER = "Units/Player";
+    public const string MISC = "Units/Misc/";
 
     static private T Load<T>(string path) where T : UnityEngine.Object
     {
@@ -103,6 +104,19 @@ public class ResourceLoader : BaseManager<ResourceLoader>
         {
             if (callback != null)
                 callback.Invoke(obj.GetComponent<Vehicle>());
+        });
+    }
+
+    static public Unit LoadMisc(string name)
+    {
+        return LoadPrefab(MISC + name).GetComponent<Unit>();
+    }
+    static public void LoadMiscAsync(string name, UnityAction<Unit> callback)
+    {
+        LoadPrefabAsync(MISC + name, delegate (GameObject obj)
+        {
+            if (callback != null)
+                callback.Invoke(obj.GetComponent<Unit>());
         });
     }
 }

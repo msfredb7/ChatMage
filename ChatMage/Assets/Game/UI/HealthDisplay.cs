@@ -1,7 +1,7 @@
 ﻿using CCC.Manager;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using UnityEngine; 
 using UnityEngine.SceneManagement;
 
 public class HealthDisplay : MonoBehaviour {
@@ -16,6 +16,7 @@ public class HealthDisplay : MonoBehaviour {
     {
         player = Game.instance.Player.GetComponent<PlayerStats>();
         player.onHit.AddListener(ChangeHP);
+        player.onRegen.AddListener(ChangeHP);
 
         for (int i = 0; i < player.health.MAX; i++)
         {
@@ -49,15 +50,18 @@ public class HealthDisplay : MonoBehaviour {
 
     void ChangeHP()
     {
-        for(int i = 0; i < player.health; i++)
+        if (player.health == 0)
+            ClearHearths();
+
+        for (int i = 0; i < player.health; i++)
         {
             hearths[i].GetComponent<HearthScript>().On();
         }
 
-        int start = player.health - 1;
-        if (start < 0)
-            start = 0;
-        for (int i = start; i < hearths.Count-1; i++)
+        int end = player.health - 1;
+        if (end < 0)
+            end = 0;
+        for (int i = (hearths.Count - 1); i > end ; i--)
         {
             hearths[i].GetComponent<HearthScript>().Off();
         }
@@ -85,6 +89,14 @@ public class HealthDisplay : MonoBehaviour {
                 hearths.Add(newHearth);
                 hearths[hearths.Count - 1].GetComponent<HearthScript>().Off();
             }
+        }
+    }
+
+    public void ClearHearths()
+    {
+        for (int i = 0; i < hearths.Count; i++)
+        {
+            hearths[i].GetComponent<HearthScript>().Off();
         }
     }
 }
