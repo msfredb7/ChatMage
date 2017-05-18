@@ -13,6 +13,7 @@ public class LoadingScreen
     }
     private const string SCENENAME = "LoadingScreen";
     private static Wish wish;
+    public static bool IsInTransition { get { return isInTransition; } }
     private static bool isInTransition = false;
     private static LoadingScreenAnimation animator;
 

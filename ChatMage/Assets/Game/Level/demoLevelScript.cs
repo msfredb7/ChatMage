@@ -23,7 +23,7 @@ public class demoLevelScript : LevelScript
 
     public override void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !LoadingScreen.IsInTransition)
         {
             if (!isOver)
             {
