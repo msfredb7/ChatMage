@@ -24,7 +24,7 @@ public class HealthDisplay : MonoBehaviour {
         }
 
         // Set initial HP
-        GiveHP(player.health);
+        ChangeHP();
     }
 
     public void GiveHP(int amount)
@@ -57,7 +57,7 @@ public class HealthDisplay : MonoBehaviour {
         int start = player.health - 1;
         if (start < 0)
             start = 0;
-        for (int i = start; i < hearths.Count; i++)
+        for (int i = start; i < hearths.Count-1; i++)
         {
             hearths[i].GetComponent<HearthScript>().Off();
         }
