@@ -1,4 +1,4 @@
-﻿using CCC.Utility;
+using CCC.Utility;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,10 +8,11 @@ public class Unit : MonoBehaviour
 {
     [System.Serializable]
     public class Unit_Event : UnityEvent<Unit> { }
-    public Unit_Event onDestroy = new Unit_Event();
     public float timeScale = 1;
     public Locker isAffectedByTimeScale = new Locker();
 
+    public Unit_Event onTeleportPosition = new Unit_Event();
+    public Unit_Event onDestroy = new Unit_Event();
 
     public virtual Vector3 Speed()
     {
@@ -33,5 +34,11 @@ public class Unit : MonoBehaviour
     void OnDestroy()
     {
         onDestroy.Invoke(this);
+    }
+
+    public void TeleportPosition(Vector2 newPosition)
+    {
+        transform.position = newPosition;
+        onTeleportPosition.Invoke(this);
     }
 }

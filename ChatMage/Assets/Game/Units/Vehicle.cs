@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -28,6 +28,8 @@ public class Vehicle : MovingUnit
     public VehicleEvent onBump = new VehicleEvent();
     [System.NonSerialized]
     public VehicleEvent onBumpComplete = new VehicleEvent();
+    [System.NonSerialized]
+    public VehicleEvent onTeleportDirection = new VehicleEvent();
 
     protected override void Update()
     {
@@ -118,6 +120,12 @@ public class Vehicle : MovingUnit
         if (dir.x < 0)
             return Mathf.Atan(dir.y / dir.x)* Mathf.Rad2Deg + 180;
         return Mathf.Atan(dir.y / dir.x) * Mathf.Rad2Deg;
+    }
+
+    public void TeleportDirection(float newDirection)
+    {
+        targetDirection = newDirection;
+        onTeleportDirection.Invoke(this);
     }
 }
 

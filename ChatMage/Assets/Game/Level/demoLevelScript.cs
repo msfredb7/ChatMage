@@ -19,18 +19,33 @@ public class demoLevelScript : LevelScript
         Game.instance.ApplyBoundsOnUnits(Game.instance.ScreenBounds);
         Game.instance.Player.playerStats.onDeath.AddListener(EndLevel);
 
-        //Game.instance.Player
+        Vector2 bounds = Game.instance.WorldBounds;
+        Vector3 startPos = new Vector3(bounds.x / 2, bounds.y / 3);
+        Game.instance.Player.transform.position = startPos;
+        Game.instance.Player.vehicle.canMove.Lock("intro");
+        Game.instance.Player.vehicle.targetDirection = 90;
+
+        DelayManager.CallTo(delegate () { Debug.Log("3"); }, 0);
+        DelayManager.CallTo(delegate () { Debug.Log("2"); }, 1);
+        DelayManager.CallTo(delegate () { Debug.Log("1"); }, 2);
+        DelayManager.CallTo(delegate ()
+        {
+            Debug.Log("Go!");
+            Game.instance.StartGame();
+        }, 3);
     }
 
     public override void OnGameStarted()
     {
-        for(int i = 0; i < 1000; i++)
+        Game.instance.Player.vehicle.canMove.Unlock("intro");
+
+        for (int i = 0; i < 1000; i++)
         {
             if (i == 0)
                 continue;
             DelayManager.CallTo(delegate ()
             {
-                if(!isOver)
+                if (!isOver)
                     Game.instance.spawner.SpawnUnitAtRandomLocation(charger, Waypoint.WaypointType.enemySpawn);
             }, 2 * i);
             DelayManager.CallTo(delegate ()

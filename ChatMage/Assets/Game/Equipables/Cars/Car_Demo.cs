@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,8 +15,6 @@ public class Car_Demo : Car
     float horizontal = 0;
     [fsIgnore]
     float lastHorizontal = 0;
-    [fsIgnore]
-    float rotation = 0;
 
     public override void OnInputUpdate(float horizontalInput)
     {
@@ -33,18 +31,17 @@ public class Car_Demo : Car
             horizontal = Mathf.MoveTowards(lastHorizontal, horizontalInput, player.vehicle.DeltaTime() * turnAcceleration);
         }
 
-        rotation += -horizontal * turnSpeed * player.vehicle.DeltaTime();
+        player.vehicle.targetDirection += -horizontal * turnSpeed * player.vehicle.DeltaTime();
 
         lastHorizontal = horizontal;
 
 
-        player.body.localRotation = Quaternion.Euler(0, 0, rotation);
-        player.vehicle.targetDirection = rotation;
+        player.body.localRotation = Quaternion.Euler(0, 0, player.vehicle.targetDirection);
     }
 
     public override void OnGameReady()
     {
-        rotation = player.vehicle.targetDirection;
+
     }
 
     public override void OnGameStarted()

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CCC.Utility;
@@ -31,7 +31,8 @@ public class MovingUnit : Unit
 
     public void Move(Vector2 delta)
     {
-        tr.position += new Vector3(delta.x, delta.y, 0);
+        if (canMove)
+            tr.position += new Vector3(delta.x, delta.y, 0);
     }
 
     void RestrainToBounds()

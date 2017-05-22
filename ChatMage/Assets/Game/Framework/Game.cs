@@ -72,9 +72,6 @@ public class Game : PublicSingleton<Game>
     {
         gameReady = true;
         onGameReady.Invoke();
-
-        // countdown ?
-        StartGame();
     }
 
     /// <summary>
