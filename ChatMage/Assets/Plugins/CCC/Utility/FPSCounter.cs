@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 
@@ -22,6 +22,11 @@ namespace CCC.Utility
         public static float GetFPS()
         {
             return 1f / Time.deltaTime;
+        }
+
+        public static float GetFixedFPS()
+        {
+            return 1f / Time.fixedDeltaTime;
         }
     }
 }

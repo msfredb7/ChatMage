@@ -16,7 +16,6 @@ public class demoLevelScript : LevelScript
     {
         charger = ResourceLoader.LoadEnemy("Charger");
         healthPacks = ResourceLoader.LoadMiscUnit("HealthPacks");
-        Game.instance.ApplyBoundsOnUnits(Game.instance.ScreenBounds);
         Game.instance.Player.playerStats.onDeath.AddListener(EndLevel);
 
         Vector2 bounds = Game.instance.WorldBounds;

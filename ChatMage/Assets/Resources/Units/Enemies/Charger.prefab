@@ -35,7 +35,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4335788992696858}
-  - component: {fileID: 114980979723989034}
   - component: {fileID: 114998335933582480}
   - component: {fileID: 50859523036222684}
   - component: {fileID: 114383844212410570}
@@ -146,33 +145,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c62b2af88ea9c7649a23db3786696505, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeScale: 1
+  onTeleportPosition:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Unit+Unit_Event, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
   onDestroy:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: Unit+Unit_Event, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  timeScale: 1
   moveSpeed: 2
   targetDirection: 0
   useWeight: 0
   weight: 0.1
---- !u!114 &114980979723989034
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1782732936645334}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a112aba55474e44ea39f0d3e6b748fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onDestroy:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Unit+Unit_Event, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  timeScale: 1
 --- !u!114 &114998335933582480
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -206,6 +193,7 @@ MonoBehaviour:
     m_TypeName: Unit+Unit_Event, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   inContactWith: []
+  forgetList: []
   isIntersecting: 0
 --- !u!212 &212594072016843134
 SpriteRenderer:

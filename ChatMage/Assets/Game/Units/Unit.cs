@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class Unit : MonoBehaviour
 {
     [System.Serializable]
@@ -14,10 +15,13 @@ public class Unit : MonoBehaviour
     public Unit_Event onTeleportPosition = new Unit_Event();
     public Unit_Event onDestroy = new Unit_Event();
 
-    public virtual Vector3 Speed()
+    protected Rigidbody2D rb;
+
+    protected virtual void Start()
     {
-        return Vector3.zero;
+        rb = GetComponent<Rigidbody2D>();
     }
+
     public virtual Vector3 WorldDirection()
     {
         return Vector3.up;
@@ -30,6 +34,10 @@ public class Unit : MonoBehaviour
     {
         return isAffectedByTimeScale ? Time.deltaTime * timeScale : Time.deltaTime;
     }
+    public float FixedDeltaTime()
+    {
+        return isAffectedByTimeScale ? Time.fixedDeltaTime * timeScale : Time.fixedDeltaTime;
+    }
 
     void OnDestroy()
     {
@@ -38,7 +46,7 @@ public class Unit : MonoBehaviour
 
     public void TeleportPosition(Vector2 newPosition)
     {
-        transform.position = newPosition;
+        rb.position = newPosition;
         onTeleportPosition.Invoke(this);
     }
 }

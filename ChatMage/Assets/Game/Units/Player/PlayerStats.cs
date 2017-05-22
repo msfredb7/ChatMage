@@ -1,4 +1,4 @@
-﻿using CCC.Utility;
+using CCC.Utility;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,7 +25,6 @@ public class PlayerStats : PlayerComponent
 
     public void Hit()
     {
-        Debug.Log("Player has been hit!");
         if (damagable)
         {
             if (armor > 0)

@@ -10,13 +10,13 @@ public class CollisionListener : MonoBehaviour
     {
         public GameObject group;
         public int collisionCount;
+        public List<Collider2D> includedColliders = new List<Collider2D>();
         public Unit unit;
 
-        public ObjectCollider(GameObject group, Unit unit, int collisionCount = 0)
+        public ObjectCollider(GameObject group, Unit unit)
         {
             this.unit = unit;
             this.group = group;
-            this.collisionCount = collisionCount;
         }
     }
 
@@ -25,35 +25,16 @@ public class CollisionListener : MonoBehaviour
     public Unit.Unit_Event onExit = new Unit.Unit_Event();
 
     public List<ObjectCollider> inContactWith = new List<ObjectCollider>();
+    public List<Collider2D> forgetList = new List<Collider2D>(3);
 
     public bool isIntersecting = false;
 
 
-
-    public void OnTriggerEnter2D(Collider2D other)
+    void Update()
     {
-        //Info du collider
-        ColliderInfo info = other.GetComponent<ColliderInfo>();
-
-        if (info == null)
-            return;
-
-        GameObject group = other.gameObject;
-        if (info.groupParent != null)
-            group = info.groupParent;
-
-        //Objet parent
-        ObjectCollider obj = GetObjectByGroup(group);
-
-        //Déjà là ?
-        if (obj != null)
-            obj.collisionCount++;
-        else
-        {
-            inContactWith.Add(new ObjectCollider(group, info.parentUnit, 1));
-            OnEnter(info.parentUnit);
-        }
+        forgetList.Clear();
     }
+
 
     public void OnTriggerExit2D(Collider2D other)
     {
@@ -68,11 +49,57 @@ public class CollisionListener : MonoBehaviour
             group = info.groupParent;
 
         ObjectCollider obj = GetObjectByGroup(group);
-        obj.collisionCount--;
-        if (obj.collisionCount <= 0)
+
+
+        if (obj == null || !obj.includedColliders.Contains(other))
         {
-            inContactWith.Remove(obj);
-            OnExit(obj.unit);
+            forgetList.Add(other);  //L'objet est entré et sortie dans la même frame
+        }
+        else
+        {
+            obj.includedColliders.Remove(other);
+            obj.collisionCount--;
+            if (obj.collisionCount <= 0)
+            {
+                inContactWith.Remove(obj);
+                OnExit(obj.unit);
+            }
+        }
+    }
+
+    public void OnTriggerEnter2D(Collider2D other)
+    {
+        //Est-ce que l'objet est entré/sortie dans la même frame ?
+        int i = forgetList.IndexOf(other);
+        if (i >= 0)
+        {
+            forgetList.RemoveAt(i);
+            return;
+        }
+
+
+        //Info du collider
+        ColliderInfo info = other.GetComponent<ColliderInfo>();
+
+        if (info == null)
+            return;
+
+        GameObject group = other.gameObject;
+        if (info.groupParent != null)
+            group = info.groupParent;
+
+        //Objet parent
+        ObjectCollider obj = GetObjectByGroup(group);
+
+        if (obj == null)
+            obj = new ObjectCollider(group, info.parentUnit);
+
+        obj.includedColliders.Add(other);
+        obj.collisionCount++;
+        if(obj.collisionCount == 1)
+        {
+            inContactWith.Add(obj);
+            OnEnter(info.parentUnit);
         }
     }
 

@@ -16,9 +16,9 @@ public class Vehicle : MovingUnit
     /// </summary>
     public Locker isGrounded = new Locker();
 
-    public Vector3 CurrentVelocity
+    public Vector2 CurrentVelocity
     {
-        get { return speed; }
+        get { return rb.velocity; }
     }
     private float bumpTime = 0;
 
@@ -31,23 +31,17 @@ public class Vehicle : MovingUnit
     [System.NonSerialized]
     public VehicleEvent onTeleportDirection = new VehicleEvent();
 
-    protected override void Update()
+    protected override void FixedUpdate()
     {
-        if (DeltaTime() <= 0)
+        if (FixedDeltaTime() <= 0)
             return;
 
         UpdateBumpTime();
 
         if (isGrounded)
             GroundedUpdate();
-
-        Vector3 wasPos = tr.position;
-
-        //update position
-        base.Update();
-
-        //record actual speed
-        speed = (tr.position - wasPos) / DeltaTime();
+        
+        base.FixedUpdate();
     }
 
     void UpdateBumpTime()
@@ -71,16 +65,16 @@ public class Vehicle : MovingUnit
         if (timeScale <= 0)
             return;
 
-        Vector3 vDir = WorldDirection() * moveSpeed;
+        Vector2 vDir = WorldDirection2D() * moveSpeed;
         if (useWeight)
-            speed = Vector3.Lerp(
-                speed,  //Current
+            Speed = Vector2.Lerp(
+                Speed,  //Current
                 vDir,   //target
                 FixedLerp.Fix(
                     weight >= 1f ? 1 : weight / 10,
-                    FPSCounter.GetFPS() / timeScale));
+                    FPSCounter.GetFixedFPS() / timeScale));
         else
-            speed = vDir;
+            Speed = vDir;
     }
     
     public void Bump(Vector2 velocity, float duration, BumpMode bumpMode)
@@ -90,10 +84,10 @@ public class Vehicle : MovingUnit
         {
             default:
             case BumpMode.VelocityAdd:
-                speed += velocity;
+                Speed += velocity;
                 break;
             case BumpMode.VelocityChange:
-                speed = velocity;
+                Speed = velocity;
                 break;
         }
         if (duration > bumpTime)

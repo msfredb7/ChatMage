@@ -126,18 +126,6 @@ public class Game : PublicSingleton<Game>
         return new Vector2(position.x / defaultToRealRatio.x, position.y / defaultToRealRatio.y);
     }
 
-    public void ApplyBoundsOnUnits(Vector2 worldBounds)
-    {
-        this.worldBounds = worldBounds;
-        applyBounds = true;
-
-        for (int i = 0; i < units.Count; i++)
-        {
-            if (units[i] is MovingUnit)
-                (units[i] as MovingUnit).SetWorldBounds(worldBounds);
-        }
-    }
-
     public void DoNotApplyBoundsOnUnits()
     {
         applyBounds = false;
@@ -164,11 +152,7 @@ public class Game : PublicSingleton<Game>
     /// </summary>
     public void AddExistingUnit(Unit unit)
     {
-        unit.transform.SetParent(unitsContainer);
-
-        if (applyBounds && unit is MovingUnit)
-            (unit as MovingUnit).SetWorldBounds(worldBounds);
-            
+        unit.transform.SetParent(unitsContainer);            
 
         units.Add(unit);
 
