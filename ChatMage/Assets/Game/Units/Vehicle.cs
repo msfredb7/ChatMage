@@ -14,11 +14,15 @@ public class Vehicle : MovingUnit
     /// <summary>
     /// Si locked, le véhicule n'accélaire pas.
     /// </summary>
-    public Locker isGrounded = new Locker();
+    public Locker canAccelerate = new Locker();
 
-    public Vector2 CurrentVelocity
+    public Vector2 Velocity
     {
         get { return rb.velocity; }
+    }
+    public Vector2 Position
+    {
+        get { return rb.position; }
     }
     private float bumpTime = 0;
 
@@ -38,7 +42,7 @@ public class Vehicle : MovingUnit
 
         UpdateBumpTime();
 
-        if (isGrounded)
+        if (canAccelerate)
             GroundedUpdate();
         
         base.FixedUpdate();
@@ -56,7 +60,7 @@ public class Vehicle : MovingUnit
 
     void OnCompleteBump()
     {
-        isGrounded.Unlock("bump");
+        canAccelerate.Unlock("bump");
         onBumpComplete.Invoke(this);
     }
 
@@ -93,7 +97,7 @@ public class Vehicle : MovingUnit
         if (duration > bumpTime)
         {
             bumpTime = duration;
-            isGrounded.LockUnique("bump");
+            canAccelerate.LockUnique("bump");
         }
 
         onBump.Invoke(this);

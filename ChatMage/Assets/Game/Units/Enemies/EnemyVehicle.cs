@@ -1,51 +1,54 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyVehicle : Vehicle {
+public class EnemyVehicle : Vehicle
+{
+    protected bool arrived = false;
+    protected Vector2 targetPosition;
 
     public void Goto(Vector2 position)
     {
-        targetDirection = VectorToAngle(position - new Vector2(transform.position.x, transform.position.y));
+        targetPosition = position;
     }
 
-    public void Teleport(Vector2 position)
+    protected override void FixedUpdate()
     {
-        Teleport(position);
-    }
-
-    public void FleePlayer()
-    {
-        if(Game.instance.Player.transform.position.x > 8)
+        Vector2 v = targetPosition - rb.position;
+        if (v.magnitude > 0.01f)
         {
-            if (Game.instance.Player.transform.position.y > 4.5f)
+            if (arrived)
             {
-                Goto(new Vector2(0, 0));
-            } else
-            {
-                Goto(new Vector2(0, 9));
+                arrived = false;
+                canAccelerate.Unlock("arrived");
             }
-        } else
+            targetDirection = VectorToAngle(targetPosition - rb.position);
+        }
+        else
         {
-            if (Game.instance.Player.transform.position.y > 4.5f)
+            if (!arrived)
             {
-                Goto(new Vector2(16, 0));
-            }
-            else
-            {
-                Goto(new Vector2(16, 9));
+                if (canAccelerate)
+                    rb.velocity = Vector3.zero;
+                arrived = true;
+                canAccelerate.Lock("arrived");
             }
         }
+
+        base.FixedUpdate();
     }
 
-    public void ChargePlayer()
+    public Vector2 GetPositionAwayFromPlayer(float length)
     {
-        if(Game.instance.Player != null && Game.instance.Player.GetComponent<PlayerStats>().isVisible)
-            Goto(Game.instance.Player.transform.position);
+        Vector2 v = rb.position - Game.instance.Player.vehicle.Position;
+        if (v.magnitude > 0.01f)
+            return v.normalized * length;
+        else
+            return Vector2.up * length;
     }
 
     public void Idle()
     {
-        Goto(transform.position);
+        Goto(rb.position);
     }
 }

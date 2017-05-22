@@ -10,4 +10,10 @@ public class ChargerVehicle : EnemyVehicle
             Game.instance.Player.GetComponent<PlayerStats>().Hit();
         Destroy(gameObject);
     }
+
+    public void ChargePlayer()
+    {
+        if (Game.instance.Player != null && Game.instance.Player.GetComponent<PlayerStats>().isVisible)
+            Goto(Game.instance.Player.transform.position);
+    }
 }
