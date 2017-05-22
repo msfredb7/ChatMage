@@ -6,6 +6,9 @@ using UnityEngine.Events;
 
 public class Account : BaseManager<Account> {
 
+    // Compte externe comme google ou paiement etc.
+    // public GoogleAccount account;
+
     // Money
     private int money;
     public UnityEvent onMoneyChanged = new UnityEvent();
