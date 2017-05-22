@@ -8,7 +8,6 @@ public class PauseButton : MonoBehaviour {
 
 	public void OnClick()
     {
-        Debug.Log("CA MARCHE");
         if (!onPause)
             Pause();
         else
