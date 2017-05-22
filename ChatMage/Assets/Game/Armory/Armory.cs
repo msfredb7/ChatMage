@@ -8,10 +8,6 @@ public class Armory : MonoBehaviour {
 
     // On a des previews qu'on affichera dans le UI pour ensuite 
 
-    // Money
-    private int money;
-    public UnityEvent onMoneyChanged = new UnityEvent();
-
     // Items
     private int slots;
     public List<EquipablePreview> items = new List<EquipablePreview>(); // catalogue des items
@@ -22,18 +18,15 @@ public class Armory : MonoBehaviour {
     // Smashs
     public List<EquipablePreview> smashes = new List<EquipablePreview>(); // catalogue des smash
 
-    public static int GetLastSavedMoney() { return PlayerPrefs.GetInt("Money"); }
     public static int GetLastSavedSlots() { return PlayerPrefs.GetInt("Slots"); }
 
     public void Load()
     {
-        money = PlayerPrefs.GetInt("Money");
         slots = PlayerPrefs.GetInt("Slots");
     }
 
     public void Save()
     {
-        PlayerPrefs.SetInt("Money",money);
         PlayerPrefs.SetInt("Slots", slots);
         PlayerPrefs.Save();
     }
@@ -104,23 +97,9 @@ public class Armory : MonoBehaviour {
         return result;
     }
 
-    /// <summary>
-    /// Ajout ou retire un certain montant d'argent au compte du joueur
-    /// </summary>
-    /// <returns>Retourne si le changement a reussi ou pas</returns>
-    public bool ChangeMoney(int amount)
-    {
-        int moneyResult = money - amount;
-        if (moneyResult < 0)
-            return false;
-        else money = moneyResult;
-        onMoneyChanged.Invoke();
-        return true;
-    }
-
     public bool BuySlots(int amount, int slotCost)
     {
-        if(ChangeMoney(amount * slotCost))
+        if(Account.instance.ChangeMoney(amount * slotCost))
         {
             slots += amount;
             return true;

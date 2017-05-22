@@ -20,9 +20,19 @@ public class LootBox {
     {
 
         possibleItems = armory.GetAllNonAvailablesItems();
+        if(possibleItems.Count <= 0)
+        {
+            Debug.Log("Vous avez tous les items du jeu deja");
+            return;
+        }
         this.type = type;
 
         rewards = GetRewards(type);
+
+        for(int i = 0; i < rewards.Count; i++)
+        {
+            Debug.Log("You got " + rewards[i].displayName);
+        }
     }
 
     private List<EquipablePreview> GetRewards(LootBoxType type)
