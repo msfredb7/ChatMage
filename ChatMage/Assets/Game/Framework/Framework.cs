@@ -120,7 +120,7 @@ public class Framework : MonoBehaviour
     void OnAllModulesLoaded()
     {
         //Spawn Character
-        Vehicle player = playerbuilder.BuildPlayer();
+        PlayerController player = playerbuilder.BuildPlayer();
 
         //Game Init
         game.Init(currentLevel);

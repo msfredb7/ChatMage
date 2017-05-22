@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -85,7 +85,7 @@ public class PlayerBuilder : MonoBehaviour
     /// <summary>
     /// TODO: Prendre le loadout en parametre
     /// </summary>
-    public Vehicle BuildPlayer()
+    public PlayerController BuildPlayer()
     {
         PlayerController playerController = Instantiate(playerPrefab.gameObject).GetComponent<PlayerController>();
         playerController.Init();
@@ -94,6 +94,6 @@ public class PlayerBuilder : MonoBehaviour
         playerController.playerSmash.SetSmash(smash);
         playerController.playerItems.SetItems(items);
 
-        return playerController.GetComponent<Vehicle>();
+        return playerController;
     }
 }

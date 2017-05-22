@@ -1,4 +1,4 @@
-﻿using CCC.Manager;
+using CCC.Manager;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,7 +17,9 @@ public class demoLevelScript : LevelScript
         charger = ResourceLoader.LoadEnemy("Charger");
         healthPacks = ResourceLoader.LoadMiscUnit("HealthPacks");
         Game.instance.ApplyBoundsOnUnits(Game.instance.ScreenBounds);
-        Game.instance.Player.GetComponent<PlayerStats>().onDeath.AddListener(EndLevel);
+        Game.instance.Player.playerStats.onDeath.AddListener(EndLevel);
+
+        //Game.instance.Player
     }
 
     public override void OnGameStarted()

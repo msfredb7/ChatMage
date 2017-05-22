@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,10 +11,5 @@ public class Enemy : MonoBehaviour {
     {
         brain = GetComponent<EnemyBrain>();
         vehicle = GetComponent<EnemyVehicle>();
-    }
-
-    void Update()
-    {
-        brain.Update();
     }
 }

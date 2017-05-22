@@ -32,10 +32,10 @@ public class Game : PublicSingleton<Game>
     [InspectorDisabled]
     public List<Unit> units = new List<Unit>();
 
-    // NON AFFICHÉ
+    // NON AFFICHï¿½
 
-    public Vehicle Player { get { return player; } }
-    private Vehicle player;
+    public PlayerController Player { get { return player; } }
+    private PlayerController player;
     
     [fsIgnore]
     public bool gameReady = false;
@@ -179,9 +179,9 @@ public class Game : PublicSingleton<Game>
         unit.onDestroy.AddListener(OnUnitDestroy);
     }
 
-    public void AddPlayer(Vehicle player)
+    public void AddPlayer(PlayerController player)
     {
-        AddExistingUnit(player);
+        AddExistingUnit(player.vehicle);
         this.player = player;
         playerInput.Init(player.GetComponent<PlayerController>());
     }
