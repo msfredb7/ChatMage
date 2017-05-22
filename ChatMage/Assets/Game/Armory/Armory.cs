@@ -1,4 +1,4 @@
-﻿using FullInspector;
+using FullInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +9,7 @@ public class Armory : MonoBehaviour {
     // On a des previews qu'on affichera dans le UI pour ensuite 
 
     // Items
-    private int slots;
+    private int itemSlots;
     public List<EquipablePreview> items = new List<EquipablePreview>(); // catalogue des items
 
     // Cars
@@ -22,12 +22,12 @@ public class Armory : MonoBehaviour {
 
     public void Load()
     {
-        slots = PlayerPrefs.GetInt("Slots");
+        itemSlots = PlayerPrefs.GetInt("Slots");
     }
 
     public void Save()
     {
-        PlayerPrefs.SetInt("Slots", slots);
+        PlayerPrefs.SetInt("Slots", itemSlots);
         PlayerPrefs.Save();
     }
 
@@ -101,7 +101,7 @@ public class Armory : MonoBehaviour {
     {
         if(Account.instance.ChangeMoney(amount * slotCost))
         {
-            slots += amount;
+            itemSlots += amount;
             return true;
         } else return false;
     }
