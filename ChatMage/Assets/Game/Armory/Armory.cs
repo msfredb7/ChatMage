@@ -31,73 +31,73 @@ public class Armory : MonoBehaviour {
         PlayerPrefs.Save();
     }
 
-    public List<EquipablePreview> GetAllAvailablesItems()
+    public List<EquipablePreview> GetAllUnlockedItems()
     {
         List<EquipablePreview> result = new List<EquipablePreview>();
         for(int i = 0; i < items.Count; i++)
         {
-            if (items[i].available == true)
+            if (items[i].unlocked == true)
                 result.Add(items[i]);
         }
         return result;
     }
 
-    public List<EquipablePreview> GetAllAvailablesCars()
+    public List<EquipablePreview> GetAllUnlockedCars()
     {
         List<EquipablePreview> result = new List<EquipablePreview>();
         for (int i = 0; i < cars.Count; i++)
         {
-            if (cars[i].available == true)
+            if (cars[i].unlocked == true)
                 result.Add(cars[i]);
         }
         return result;
     }
 
-    public List<EquipablePreview> GetAllAvailablesSmash()
+    public List<EquipablePreview> GetAllUnlockedSmash()
     {
         List<EquipablePreview> result = new List<EquipablePreview>();
         for (int i = 0; i < smashes.Count; i++)
         {
-            if (smashes[i].available == true)
+            if (smashes[i].unlocked == true)
                 result.Add(smashes[i]);
         }
         return result;
     }
 
-    public List<EquipablePreview> GetAllNonAvailablesItems()
+    public List<EquipablePreview> GetAllLockedItems()
     {
         List<EquipablePreview> result = new List<EquipablePreview>();
         for (int i = 0; i < items.Count; i++)
         {
-            if (items[i].available == false)
+            if (items[i].unlocked == false)
                 result.Add(items[i]);
         }
         return result;
     }
 
-    public List<EquipablePreview> GetAllNonAvailablesCars()
+    public List<EquipablePreview> GetAllLockedCars()
     {
         List<EquipablePreview> result = new List<EquipablePreview>();
         for (int i = 0; i < cars.Count; i++)
         {
-            if (cars[i].available == false)
+            if (cars[i].unlocked == false)
                 result.Add(cars[i]);
         }
         return result;
     }
 
-    public List<EquipablePreview> GetAllNonAvailablesSmash()
+    public List<EquipablePreview> GetAllLockedSmash()
     {
         List<EquipablePreview> result = new List<EquipablePreview>();
         for (int i = 0; i < smashes.Count; i++)
         {
-            if (smashes[i].available == false)
+            if (smashes[i].unlocked == false)
                 result.Add(smashes[i]);
         }
         return result;
     }
 
-    public bool BuySlots(int amount, int slotCost)
+    public bool BuyItemSlots(int amount, int slotCost)
     {
         if(Account.instance.ChangeMoney(amount * slotCost))
         {

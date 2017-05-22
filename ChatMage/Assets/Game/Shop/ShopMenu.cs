@@ -1,4 +1,4 @@
-﻿using CCC.Manager;
+using CCC.Manager;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,7 +18,7 @@ public class ShopMenu : MonoBehaviour {
 
     public void BuySlots()
     {
-        Account.instance.armory.BuySlots(1,-10);
+        Account.instance.armory.BuyItemSlots(1,-10);
     }
 
     public void GetMoney()

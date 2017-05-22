@@ -1,4 +1,4 @@
-﻿using CCC.Manager;
+using CCC.Manager;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -49,8 +49,10 @@ public class Account : BaseManager<Account> {
         int moneyResult = money + amount;
         if (moneyResult < 0)
             return false;
-        else money = moneyResult;
+
+        money = moneyResult;
         onMoneyChanged.Invoke();
+
         return true;
     }
 }

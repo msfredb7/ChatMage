@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,7 +19,7 @@ public class LootBox {
     public LootBox(Armory armory, LootBoxType type)
     {
 
-        possibleItems = armory.GetAllNonAvailablesItems();
+        possibleItems = armory.GetAllLockedItems();
         if(possibleItems.Count <= 0)
         {
             Debug.Log("Vous avez tous les items du jeu deja");
@@ -41,7 +41,7 @@ public class LootBox {
         for (int i = 0; i < (int)LootBoxType.rare; i++)
         {
             pickedItems.Add(GetRandomItemsWithout(pickedItems));
-            pickedItems[pickedItems.Count - 1].available = true;
+            pickedItems[pickedItems.Count - 1].unlocked = true;
         }
         return pickedItems;
     }
