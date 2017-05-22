@@ -1,11 +1,11 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class CollisionListener : MonoBehaviour
 {
-
+    [System.Serializable]
     public class ObjectCollider
     {
         public GameObject group;
@@ -26,17 +26,19 @@ public class CollisionListener : MonoBehaviour
 
     public List<ObjectCollider> inContactWith = new List<ObjectCollider>();
 
-    public bool onInside = false;
+    public bool isIntersecting = false;
 
-    public void OnTriggerEnter2D(Collider2D collision)
+
+
+    public void OnTriggerEnter2D(Collider2D other)
     {
         //Info du collider
-        ColliderInfo info = collision.GetComponent<ColliderInfo>();
+        ColliderInfo info = other.GetComponent<ColliderInfo>();
 
         if (info == null)
             return;
 
-        GameObject group = collision.gameObject;
+        GameObject group = other.gameObject;
         if (info.groupParent != null)
             group = info.groupParent;
 
@@ -48,21 +50,20 @@ public class CollisionListener : MonoBehaviour
             obj.collisionCount++;
         else
         {
-
             inContactWith.Add(new ObjectCollider(group, info.parentUnit, 1));
             OnEnter(info.parentUnit);
         }
     }
 
-    public void OnTriggerExit2D(Collider2D collision)
+    public void OnTriggerExit2D(Collider2D other)
     {
         //Info du collider
-        ColliderInfo info = collision.GetComponent<ColliderInfo>();
+        ColliderInfo info = other.GetComponent<ColliderInfo>();
 
         if (info == null)
             return;
 
-        GameObject group = collision.gameObject;
+        GameObject group = other.gameObject;
         if (info.groupParent != null)
             group = info.groupParent;
 
@@ -75,32 +76,21 @@ public class CollisionListener : MonoBehaviour
         }
     }
 
-    /*
-    public void OnTriggerStay2D(Collider2D collision)
-    {
-        OnStay();
-    }
-
-    public void OnStay()
-    {
-        onStay.Invoke();
-    }
-    */
-
     public void OnEnter(Unit unit)
     {
+        isIntersecting = true;
+
         onEnter.Invoke(unit);
-        onInside = true;
     }
 
     public void OnExit(Unit unit)
     {
-        onExit.Invoke(unit);
-
         if (inContactWith.Count > 0)
-            onInside = true;
+            isIntersecting = true;
         else
-            onInside = false;
+            isIntersecting = false;
+
+        onExit.Invoke(unit);
     }
 
     public ObjectCollider GetObjectByGroup(GameObject group)

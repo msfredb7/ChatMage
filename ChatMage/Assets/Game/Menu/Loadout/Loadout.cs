@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,6 +23,6 @@ public class Loadout : MonoBehaviour
         }
         LaunchGameMessage message = new LaunchGameMessage(chosenLevel, loadoutResult);
 
-        LoadingScreen.TransitionTo(Framework.SCENENAME, message);
+        LoadingScreen.TransitionTo(Framework.SCENENAME, message, true);
     }
 }

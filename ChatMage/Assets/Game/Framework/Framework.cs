@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -93,7 +93,7 @@ public class Framework : MonoBehaviour
     void OnAnyModuleLoaded()
     {
         if (mapLoaded && uiLoaded && playerAssetsLoaded)
-            OnAllLoaded();
+            OnAllModulesLoaded();
     }
 
     void OnMapLoaded(Scene scene)
@@ -117,7 +117,7 @@ public class Framework : MonoBehaviour
         OnAnyModuleLoaded();
     }
 
-    void OnAllLoaded()
+    void OnAllModulesLoaded()
     {
         //Spawn Character
         Vehicle player = playerbuilder.BuildPlayer();
@@ -140,5 +140,7 @@ public class Framework : MonoBehaviour
 
         //Game ready
         game.ReadyGame();
+
+        LoadingScreen.OnNewSetupComplete();
     }
 }

@@ -1,4 +1,4 @@
-﻿using CCC.Manager;
+using CCC.Manager;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,15 +16,16 @@ public class LoadingScreen
     public static bool IsInTransition { get { return isInTransition; } }
     private static bool isInTransition = false;
     private static LoadingScreenAnimation animator;
+    private static bool waitForNextSceneSetup = false;
 
-    public static void TransitionTo(string sceneName, SceneMessage message)
+    public static void TransitionTo(string sceneName, SceneMessage message, bool waitForNextSceneSetup = false)
     {
         if (isInTransition)
         {
             throw new System.Exception("Cannot transition to " + sceneName + ". We are already transitioning.");
-            return;
         }
 
+        LoadingScreen.waitForNextSceneSetup = waitForNextSceneSetup;
         isInTransition = true;
 
         wish = new Wish();
@@ -32,6 +33,13 @@ public class LoadingScreen
         wish.sceneName = sceneName;
 
         Scenes.LoadAsync(SCENENAME, LoadSceneMode.Additive, OnLoadingScreenLoaded);
+    }
+    public static void OnNewSetupComplete()
+    {
+        if (!isInTransition)
+            return;
+
+        animator.Outro(OnOutroComplete);
     }
 
     private static void OnLoadingScreenLoaded(Scene scene)
@@ -54,7 +62,9 @@ public class LoadingScreen
 
     private static void OnDestinationLoaded(Scene scene)
     {
-        animator.Outro(OnOutroComplete);
+        if (!waitForNextSceneSetup)
+            OnNewSetupComplete();
+        animator.OnNewSceneLoaded();
         if (wish.message != null)
             wish.message.OnLoaded(scene);
     }
