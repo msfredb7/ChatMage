@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -9,20 +9,31 @@ using FullInspector;
 
 public class TestScript : BaseBehavior
 {
-    public EquipablePreview eqPreview;
-
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            Equipable eq = ResourceLoader.LoadEquipable(eqPreview.equipableAssetName, eqPreview.type);
-            print("name: " + eq.name);
-            ResourceLoader.LoadEquipableAsync(eqPreview.equipableAssetName, eqPreview.type, OnResourceLoaded);
+            DelayManager.LocalCallTo(delegate () { print("hello"); }, 3, this);
         }
-    }
-
-    void OnResourceLoaded(Equipable eq)
-    {
-        print("async name: " + eq.name);
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            StopAllCoroutines();
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            Game.instance.Player.vehicle.TimeScale = 0.5f;
+        }
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            Game.instance.Player.vehicle.TimeScale = 2;
+        }
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            Game.instance.Player.vehicle.TimeScale = 1f;
+        }
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            Game.instance.Player.vehicle.Bump(Vector2.right*5,0.1f, BumpMode.VelocityAdd);
+        }
     }
 }

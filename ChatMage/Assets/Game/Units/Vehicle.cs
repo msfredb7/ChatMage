@@ -8,6 +8,7 @@ public class Vehicle : MovingUnit
 {
     public float moveSpeed = 1;
     public float targetDirection;
+    public bool rotationSetsTargetDirection = false;
     public bool useWeight;
     [Range(0, 1)]
     public float weight = 0.1f;
@@ -40,6 +41,12 @@ public class Vehicle : MovingUnit
         if (FixedDeltaTime() <= 0)
             return;
 
+        if (rotationSetsTargetDirection)
+        {
+            Vector3 forward = tr.right;
+            targetDirection =  VectorToAngle(forward);
+        }
+
         UpdateBumpTime();
 
         if (canAccelerate)
@@ -69,7 +76,7 @@ public class Vehicle : MovingUnit
         if (timeScale <= 0)
             return;
 
-        Vector2 vDir = WorldDirection2D() * moveSpeed;
+        Vector2 vDir = WorldDirection2D() * moveSpeed * timeScale;
         if (useWeight)
             Speed = Vector2.Lerp(
                 Speed,  //Current

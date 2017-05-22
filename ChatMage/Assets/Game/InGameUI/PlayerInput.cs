@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -35,5 +35,7 @@ public class PlayerInput : MonoBehaviour
             controller.playerDriver.TurnRight();
         if (leftButton.isIn || Input.GetKey(KeyCode.LeftArrow))
             controller.playerDriver.TurnLeft();
+        if (Input.GetKey(KeyCode.Space))
+            OnMiddleClick();
     }
 }

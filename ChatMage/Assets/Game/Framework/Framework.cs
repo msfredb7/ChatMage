@@ -136,7 +136,8 @@ public class Framework : MonoBehaviour
         Game.instance.spawner.Init();
 
         // UI Init
-        uiSystem.Init();
+        uiSystem.Init(player);
+        game.ui = uiSystem;
 
         //Game ready
         game.ReadyGame();

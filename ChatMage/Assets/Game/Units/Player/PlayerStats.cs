@@ -7,12 +7,13 @@ using System;
 
 public class PlayerStats : PlayerComponent
 {
-    
-    [System.NonSerialized]
+    [NonSerialized]
+    public Locker canTurn = new Locker();
+    [NonSerialized]
     public StatInt health = new StatInt(3,0,3,BoundMode.Cap);
-    [System.NonSerialized]
+    [NonSerialized]
     public StatInt armor = new StatInt(0, 0, 0, BoundMode.Cap);
-    [System.NonSerialized]
+    [NonSerialized]
     public StatInt frontDamage = new StatInt(1, 1, 1, BoundMode.Cap);
     public bool damagable;
     public bool isVisible = true; // TODO
@@ -71,14 +72,11 @@ public class PlayerStats : PlayerComponent
 
     public void Regen()
     {
-        Debug.Log("Player regeneration!");
-        health++;
-        onRegen.Invoke();
+        Regen(1);
     }
 
     public void Regen(int amount)
     {
-        Debug.Log("Player regeneration!");
         health.Set(health + amount);
         onRegen.Invoke();
     }

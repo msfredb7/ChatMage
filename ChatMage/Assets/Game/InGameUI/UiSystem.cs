@@ -1,4 +1,4 @@
-﻿using CCC.Manager;
+using CCC.Manager;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +9,7 @@ public class UiSystem : MonoBehaviour {
     public const string SCENENAME = "UI";
     public LevelScript defaultLevelScript;
     public HealthDisplay healthdisplay;
+    public PlayerInput playerInputs;
 
     void Start()
     {
@@ -27,8 +28,9 @@ public class UiSystem : MonoBehaviour {
         framework.Init(defaultLevelScript, null);
     }
 
-    public void Init()
+    public void Init(PlayerController playerController)
     {
         healthdisplay.Init();
+        playerInputs.Init(playerController);
     }
 }

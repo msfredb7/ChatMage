@@ -12,14 +12,17 @@ public class Unit : MonoBehaviour
     public float timeScale = 1;
     public Locker isAffectedByTimeScale = new Locker();
 
+    public Unit_Event onTimeScaleChange = new Unit_Event();
     public Unit_Event onTeleportPosition = new Unit_Event();
     public Unit_Event onDestroy = new Unit_Event();
 
     protected Rigidbody2D rb;
+    protected Transform tr;
 
     protected virtual void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        tr = GetComponent<Transform>();
     }
 
     public virtual Vector3 WorldDirection()
@@ -48,5 +51,16 @@ public class Unit : MonoBehaviour
     {
         rb.position = newPosition;
         onTeleportPosition.Invoke(this);
+    }
+
+    public float TimeScale
+    {
+        get { return timeScale; }
+        set
+        {
+            rb.velocity *= value / timeScale;
+            timeScale = value;
+            onTimeScaleChange.Invoke(this);
+        }
     }
 }

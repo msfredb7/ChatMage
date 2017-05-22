@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FullSerializer;
+using CCC.Utility;
 
 public class Car_Demo : Car
 {
@@ -18,7 +19,7 @@ public class Car_Demo : Car
 
     public override void OnInputUpdate(float horizontalInput)
     {
-        if (horizontalInput == 0)
+        if (horizontalInput == 0 || !player.playerStats.canTurn)
             horizontal = 0;
         else
         {
@@ -31,12 +32,9 @@ public class Car_Demo : Car
             horizontal = Mathf.MoveTowards(lastHorizontal, horizontalInput, player.vehicle.DeltaTime() * turnAcceleration);
         }
 
-        player.vehicle.targetDirection += -horizontal * turnSpeed * player.vehicle.DeltaTime();
+        player.GetComponent<Rigidbody2D>().rotation += -horizontal * turnSpeed * player.vehicle.DeltaTime();
 
         lastHorizontal = horizontal;
-
-
-        player.body.localRotation = Quaternion.Euler(0, 0, player.vehicle.targetDirection);
     }
 
     public override void OnGameReady()

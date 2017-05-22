@@ -14,10 +14,13 @@ public class Game : PublicSingleton<Game>
     public PlayerInput playerInput;
     public Spawner spawner;
     public Transform unitsContainer;
+    public GameBounds gameBounds;
 
     //Dynamic references
     [fsIgnore]
     public Map map;
+    [fsIgnore]
+    public UiSystem ui;
 
     private LevelScript currentLevel;
 
@@ -59,7 +62,7 @@ public class Game : PublicSingleton<Game>
         CamAdjustment camAdjustment = cam.GetComponent<CamAdjustment>();
         if (camAdjustment != null)
             camAdjustment.Adjust(screenBounds);
-        //cam.gameObject.SetActive(true);
+        gameBounds.Resize(screenBounds);
 
         // Init LevelScript
         currentLevel = level;
@@ -164,7 +167,6 @@ public class Game : PublicSingleton<Game>
     {
         AddExistingUnit(player.vehicle);
         this.player = player;
-        playerInput.Init(player.GetComponent<PlayerController>());
     }
 
     private void OnUnitDestroy(Unit unit)
