@@ -2,15 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class EnemyBrain : MonoBehaviour {
+/// <summary>
+/// Enemy Brain, with vehicle type T
+/// </summary>
+/// <typeparam name="T">Vehicle Type</typeparam>
+public abstract class EnemyBrain<T> : MonoBehaviour where T :EnemyVehicle
+{
 
-    protected Enemy mySelf;
+    protected T vehicle;
     protected PlayerController player;
 
     protected virtual void Start()
     {
-        mySelf = GetComponent<Enemy>();
+        vehicle = GetComponent<T>();
+        if (vehicle == null)
+            Debug.LogError("Could not find vehicle of type: " + typeof(T) + ".");
         player = Game.instance.Player;
-        mySelf.vehicle.Idle();
+        vehicle.Idle();
     }
 }
