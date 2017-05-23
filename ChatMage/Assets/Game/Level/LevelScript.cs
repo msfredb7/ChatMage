@@ -8,7 +8,7 @@ using FullSerializer;
 
 public abstract class LevelScript : BaseScriptableObject
 {
-    public string displayName;
+    public bool hasWin;
     public string sceneName;
 
     [fsIgnore]
@@ -19,20 +19,53 @@ public abstract class LevelScript : BaseScriptableObject
     [fsIgnore]
     public bool isOver = false;
 
+    public InGameEvents events;
 
-    public void Init(System.Action onComplete)
+    // Init Level Script
+    public void Init(System.Action onComplete, InGameEvents events)
     {
         isOver = false;
-        Game.instance.onGameReady.AddListener(OnGameReady);
-        Game.instance.onGameStarted.AddListener(OnGameStarted);
+        hasWin = false;
+        Game.instance.onGameReady.AddListener(GameReady);
+        Game.instance.onGameStarted.AddListener(GameStarted);
+        this.events = events;
+        events.Init(this);
         OnInit(onComplete);
     }
 
     public abstract void OnInit(System.Action onComplete);
 
-    public abstract void OnGameReady();
+    // Game Ready for Level Script
+    public void GameReady()
+    {
+        OnGameReady();
+    }
 
-    public abstract void OnGameStarted();
+    protected abstract void OnGameReady();
 
-    public abstract void Update();
+    // Game Started for Level Script
+    public void GameStarted()
+    {
+        Game.instance.Player.playerStats.onDeath.AddListener(End);
+        OnGameStarted();
+    }
+
+    protected abstract void OnGameStarted();
+
+    // Update Level Script
+    public void Update()
+    {
+        OnUpdate();
+    }
+
+    protected abstract void OnUpdate();
+
+    // End Level Script
+    public void End()
+    {
+        events.End();
+        OnEnd();
+    }
+
+    protected abstract void OnEnd();
 }

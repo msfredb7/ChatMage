@@ -23,6 +23,6 @@ public class LaunchGameMessage : SceneMessage
 
     public void OnOutroComplete()
     {
-        //Start la game
+
     }
 }

@@ -10,6 +10,7 @@ public class Framework : MonoBehaviour
     public const string SCENENAME = "Framework";
     public bool loadScenesAsync = false;
     public Game game;
+    public InGameEvents events;
     [Header("Temporaire")]
     public PlayerBuilder playerbuilder;
 
@@ -113,7 +114,7 @@ public class Framework : MonoBehaviour
         initQueue.canTriggerAction = false;
 
         //Ajouter dautre module ici si nécessaire
-        level.Init(initQueue.Register());
+        level.Init(initQueue.Register(), events);
         playerbuilder.LoadAssets(loadoutResult, initQueue.Register());
 
         if (initQueue.IsDone)
@@ -128,7 +129,7 @@ public class Framework : MonoBehaviour
         PlayerController player = playerbuilder.BuildPlayer();
 
         //Game Init
-        game.Init(level);
+        game.Init(level,this);
 
         //Add player to list
         game.AddPlayer(player);
@@ -148,5 +149,10 @@ public class Framework : MonoBehaviour
         game.ReadyGame();
 
         LoadingScreen.OnNewSetupComplete();
+    }
+
+    public void RestartLevel()
+    {
+        LoadingScreen.TransitionTo(SCENENAME,new LaunchGameMessage(level,loadoutResult),true);
     }
 }
