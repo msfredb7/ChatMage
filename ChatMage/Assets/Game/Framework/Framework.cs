@@ -26,7 +26,8 @@ public class Framework : MonoBehaviour
     private bool mapLoaded = false;
     private bool uiLoaded = false;
     private bool playerAssetsLoaded = false;
-    private LevelScript currentLevel = null;
+    private LevelScript level = null;
+    private LoadoutResult loadoutResult;
 
     void Start()
     {
@@ -51,9 +52,8 @@ public class Framework : MonoBehaviour
     public void Init(LevelScript level, LoadoutResult loadoutResult)
     {
         hasInit = true;
-        currentLevel = level;
-
-        playerbuilder.LoadAssets(loadoutResult, OnPlayerAssetsLoaded);
+        this.level = level;
+        this.loadoutResult = loadoutResult;
 
         //La map est déjà loadé, probablement du au mode debug. On ne la reload pas
         if (Scenes.Exists(level.sceneName))
@@ -90,31 +90,36 @@ public class Framework : MonoBehaviour
         }
     }
 
-    void OnAnyModuleLoaded()
-    {
-        if (mapLoaded && uiLoaded && playerAssetsLoaded)
-            OnAllModulesLoaded();
-    }
-
     void OnMapLoaded(Scene scene)
     {
         map = Scenes.FindRootObject<Map>(scene);
         mapLoaded = true;
 
-        OnAnyModuleLoaded();
+        if (uiLoaded)
+            OnAllScenesLoaded();
     }
     void OnUILoaded(Scene scene)
     {
         uiSystem = Scenes.FindRootObject<UiSystem>(scene);
         uiLoaded = true;
 
-        OnAnyModuleLoaded();
+        if (mapLoaded)
+            OnAllScenesLoaded();
     }
 
-    void OnPlayerAssetsLoaded()
+    void OnAllScenesLoaded()
     {
-        playerAssetsLoaded = true;
-        OnAnyModuleLoaded();
+        InitQueue initQueue = new InitQueue(OnAllModulesLoaded);
+        initQueue.canTriggerAction = false;
+
+        //Ajouter dautre module ici si nécessaire
+        level.Init(initQueue.Register());
+        playerbuilder.LoadAssets(loadoutResult, initQueue.Register());
+
+        if (initQueue.IsDone)
+            OnAllModulesLoaded();
+        else
+            initQueue.canTriggerAction = true;
     }
 
     void OnAllModulesLoaded()
@@ -123,7 +128,7 @@ public class Framework : MonoBehaviour
         PlayerController player = playerbuilder.BuildPlayer();
 
         //Game Init
-        game.Init(currentLevel);
+        game.Init(level);
 
         //Add player to list
         game.AddPlayer(player);

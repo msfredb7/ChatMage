@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FullInspector;
@@ -20,12 +20,15 @@ public abstract class LevelScript : BaseScriptableObject
     public bool isOver = false;
 
 
-    public void Init()
+    public void Init(System.Action onComplete)
     {
         isOver = false;
         Game.instance.onGameReady.AddListener(OnGameReady);
         Game.instance.onGameStarted.AddListener(OnGameStarted);
+        OnInit(onComplete);
     }
+
+    public abstract void OnInit(System.Action onComplete);
 
     public abstract void OnGameReady();
 

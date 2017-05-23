@@ -30,13 +30,7 @@ public class demoLevelScript : LevelScript
     //TRES IMPORTANT DE RESET NOS VARIABLE ICI
     public override void OnGameReady()
     {
-        charger = ResourceLoader.LoadEnemy("Charger");
-        healthPacks = ResourceLoader.LoadMiscUnit("HealthPacks");
         Game.instance.Player.playerStats.onDeath.AddListener(Win);
-
-        enemySpawnAction = SpawnEnemy;
-        hpSpawnAction = SpawnHP;
-        winAction = Win;
 
         Vector2 bounds = Game.instance.WorldBounds;
         Vector3 startPos = new Vector3(bounds.x / 2, bounds.y / 3);
@@ -113,5 +107,16 @@ public class demoLevelScript : LevelScript
         DelayManager.Cancel(hpSpawnRoutine);
 
         Game.instance.Quit();
+    }
+
+    public override void OnInit(Action onComplete)
+    {
+        LoadQueue queue = new LoadQueue(onComplete);
+        queue.AddEnemy("Charger", (x) => charger = x);
+        queue.AddMiscUnit("HealthPacks", (x) => healthPacks = x);
+
+        enemySpawnAction = SpawnEnemy;
+        hpSpawnAction = SpawnHP;
+        winAction = Win;
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,9 +21,9 @@ public class PlayerBuilder : MonoBehaviour
     private int loadingItemsCount = 0;
 
     [System.NonSerialized]
-    UnityAction onAllAssetsLoadedCallback = null;
+    Action onAllAssetsLoadedCallback = null;
 
-    public void LoadAssets(LoadoutResult loadoutResult, UnityAction callback)
+    public void LoadAssets(LoadoutResult loadoutResult, Action callback)
     {
         onAllAssetsLoadedCallback = callback;
         if (loadoutResult == null)
@@ -33,15 +34,16 @@ public class PlayerBuilder : MonoBehaviour
         }
 
         items = new List<Item>();
+        LoadQueue queue = new LoadQueue(callback);
 
         loadingItemsCount = 0;
         for (int i = 0; i < loadoutResult.itemOrders.Count; i++)
         {
             loadingItemsCount++;
-            ResourceLoader.LoadEquipableAsync(loadoutResult.itemOrders[i].equipableName, loadoutResult.itemOrders[i].type, OnItemLoaded);
+            queue.AddEquipable(loadoutResult.itemOrders[i].equipableName, loadoutResult.itemOrders[i].type, OnItemLoaded);
         }
-        ResourceLoader.LoadEquipableAsync(loadoutResult.carOrder.equipableName, loadoutResult.carOrder.type, OnCarLoaded);
-        ResourceLoader.LoadEquipableAsync(loadoutResult.smashOrder.equipableName, loadoutResult.smashOrder.type, OnSmashLoaded);
+        queue.AddEquipable(loadoutResult.carOrder.equipableName, loadoutResult.carOrder.type, OnCarLoaded);
+        queue.AddEquipable(loadoutResult.smashOrder.equipableName, loadoutResult.smashOrder.type, OnSmashLoaded);
     }
 
     void OnAnyAssetLoaded()
@@ -58,8 +60,6 @@ public class PlayerBuilder : MonoBehaviour
             Debug.LogError("Failed to load a car");
         else
             this.car = car as Car;
-        carLoaded = true;
-        OnAnyAssetLoaded();
     }
 
     void OnSmashLoaded(Equipable smash)
@@ -68,8 +68,6 @@ public class PlayerBuilder : MonoBehaviour
             Debug.LogError("Failed to load a smash");
         else
             this.smash = smash as Smash;
-        smashLoaded = true;
-        OnAnyAssetLoaded();
     }
 
     void OnItemLoaded(Equipable item)
@@ -78,8 +76,6 @@ public class PlayerBuilder : MonoBehaviour
             Debug.LogError("Failed to load an item");
         else
             items.Add(item as Item);
-        loadingItemsCount--;
-        OnAnyAssetLoaded();
     }
 
     /// <summary>

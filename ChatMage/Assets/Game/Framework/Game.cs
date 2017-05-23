@@ -5,6 +5,7 @@ using UnityEngine.Events;
 using FullInspector;
 using FullSerializer;
 using CCC.Manager;
+using System;
 
 public class Game : PublicSingleton<Game>
 {
@@ -50,9 +51,7 @@ public class Game : PublicSingleton<Game>
     public UnityEvent onGameStarted = new UnityEvent();
 
     public void Init(LevelScript level)
-    {
-        LevelScript levelClone = Object.Instantiate(level) as LevelScript;
-        
+    {        
         //Screen bounds
         screenBounds = new Vector2(cam.orthographicSize * cam.aspect * 2, cam.orthographicSize * 2);
         worldBounds = new Vector2(screenBounds.x, screenBounds.y);
@@ -68,7 +67,6 @@ public class Game : PublicSingleton<Game>
         currentLevel = level;
         level.onObjectiveComplete.AddListener(OnObjectiveComplete);
         level.onObjectiveFailed.AddListener(OnObjectiveFailed);
-        level.Init();
     }
 
     public void ReadyGame()

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -10,13 +11,13 @@ namespace CCC.Manager
     {
         class ScenePromise
         {
-            public ScenePromise(string name, UnityAction<Scene> callback)
+            public ScenePromise(string name, Action<Scene> callback)
             {
                 this.name = name;
                 this.callback = callback;
             }
             public string name;
-            public UnityAction<Scene> callback;
+            public Action<Scene> callback;
             public Scene scene;
         }
 
@@ -45,7 +46,7 @@ namespace CCC.Manager
 
         #region Load/Unload Methods
 
-        static public void Load(string name, LoadSceneMode mode = LoadSceneMode.Single, UnityAction<Scene> callback = null, bool unique = true)
+        static public void Load(string name, LoadSceneMode mode = LoadSceneMode.Single, Action<Scene> callback = null, bool unique = true)
         {
             if (unique && Exists(name)) return;
 
@@ -54,7 +55,7 @@ namespace CCC.Manager
             SceneManager.LoadScene(name, mode);
         }
 
-        static public void LoadAsync(string name, LoadSceneMode mode = LoadSceneMode.Single, UnityAction<Scene> callback = null, bool unique = true)
+        static public void LoadAsync(string name, LoadSceneMode mode = LoadSceneMode.Single, Action<Scene> callback = null, bool unique = true)
         {
             if (unique && Exists(name)) return;
 
