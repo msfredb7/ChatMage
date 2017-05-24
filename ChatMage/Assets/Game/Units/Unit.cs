@@ -19,10 +19,19 @@ public class Unit : MonoBehaviour
     protected Rigidbody2D rb;
     protected Transform tr;
 
-    protected virtual void Start()
+    public bool useMovingPlatform = true;
+    public MovingPlatform movingPlatform;
+
+    protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         tr = GetComponent<Transform>();
+    }
+
+    protected virtual void FixedUpdate()
+    {
+        if (movingPlatform != null && useMovingPlatform)
+            tr.position += Vector3.up * movingPlatform.GetVerticalSpeed() * Time.fixedDeltaTime;
     }
 
     public virtual Vector3 WorldDirection()

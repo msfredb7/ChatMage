@@ -156,7 +156,8 @@ public class Game : PublicSingleton<Game>
     /// </summary>
     public void AddExistingUnit(Unit unit)
     {
-        unit.transform.SetParent(unitsContainer);            
+        unit.transform.SetParent(unitsContainer);
+        unit.movingPlatform = map.rubanPlayer;
 
         units.Add(unit);
 

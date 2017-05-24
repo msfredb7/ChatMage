@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FullInspector;
 
+[RequireComponent(typeof(RubanPlayer))]
 public class MapFollower : BaseBehavior
 {
     public bool isFollowing = true;
@@ -17,9 +18,14 @@ public class MapFollower : BaseBehavior
     private Transform target;
     private RubanPlayer rubanPlayer;
 
-    public void Follow(Transform target, RubanPlayer rubanPlayer)
+    protected override void Awake()
     {
-        this.rubanPlayer = rubanPlayer;
+        base.Awake();
+        rubanPlayer = GetComponent<RubanPlayer>();
+    }
+
+    public void Follow(Transform target)
+    {
         this.target = target;
         isFollowing = true;
     }

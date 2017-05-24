@@ -130,6 +130,7 @@ public class Vehicle : MovingUnit
     public void TeleportDirection(float newDirection)
     {
         targetDirection = newDirection;
+        rb.rotation = newDirection;
         onTeleportDirection.Invoke(this);
     }
 }

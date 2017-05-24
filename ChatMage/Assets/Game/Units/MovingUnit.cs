@@ -8,8 +8,6 @@ public class MovingUnit : Unit
     [System.NonSerialized]
     public Locker canMove = new Locker();
 
-    public MovingPlatform movingPlatform;
-
     public Vector2 Speed
     {
         get { return rb.velocity; }
@@ -18,13 +16,12 @@ public class MovingUnit : Unit
 
     protected Vector2 bounds = new Vector2(10, 10);
 
-    protected virtual void FixedUpdate()
+    protected override void FixedUpdate()
     {
         if (!canMove)
             Speed = Vector2.zero;
 
-        if (movingPlatform != null)
-            tr.position += Vector3.up * movingPlatform.GetVerticalSpeed() * Time.fixedDeltaTime;
+        base.FixedUpdate();
     }
     public override Vector3 WorldDirection()
     {

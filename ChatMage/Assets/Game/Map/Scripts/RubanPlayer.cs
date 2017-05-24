@@ -8,9 +8,11 @@ public class RubanPlayer : MonoBehaviour, MovingPlatform
 {
     public List<RubanPlaylist> playlists = new List<RubanPlaylist>();
 
-    public float playSpeed = 1;
-    public float stopMinSpeed = 3;
-    public float timeScale;
+    [Header("Settings")]
+    public float playSpeed = 0;
+    public float timeScale = 1;
+    [Header("Default")]
+    public string defaultPlaylist;
 
     private double heightAnchor;
     private bool isStopped = false;
@@ -21,6 +23,11 @@ public class RubanPlayer : MonoBehaviour, MovingPlatform
     private int activePlaylistCount = 0;
 
     private List<RubanPlaylist> queue = new List<RubanPlaylist>();
+
+    void Start()
+    {
+        StartNewPlaylist(defaultPlaylist);
+    }
 
     void FixedUpdate()
     {

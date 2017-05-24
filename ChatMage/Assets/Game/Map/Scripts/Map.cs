@@ -4,7 +4,8 @@ using UnityEngine;
 using CCC.Manager;
 using UnityEngine.SceneManagement;
 
-public class Map : MonoBehaviour {
+public class Map : MonoBehaviour
+{
 
     [SerializeField]
     private MapInfo mapInfo; // information a propos de la map
@@ -15,11 +16,16 @@ public class Map : MonoBehaviour {
     [SerializeField]
     private List<GameObject> mapObjects;
 
+    [Header("Optional")]
+    public RubanPlayer rubanPlayer;
+    public MapFollower mapFollower;
+
+    [Header("Debug")]
     public LevelScript defaultLevelScript;
 
     void Start()
     {
-        if(Scenes.SceneCount() == 1)
+        if (Scenes.SceneCount() == 1)
         {
             MasterManager.Sync(delegate ()
             {
@@ -37,8 +43,9 @@ public class Map : MonoBehaviour {
     /// <summary>
     /// Initialise les settings de la map
     /// </summary>
-	public void Init (float height, float width) {
-        for(int i = 0; i < mapObjects.Count; i++)
+	public void Init(float height, float width)
+    {
+        for (int i = 0; i < mapObjects.Count; i++)
         {
             Adjust(mapObjects[i]);
         }
@@ -52,11 +59,11 @@ public class Map : MonoBehaviour {
                        playground.GetLeftLimit());
 
         // Ajustement de la map a faire en fonction du height et width
-	}
+    }
 
     public void Adjust(GameObject obj)
     {
-        if(obj != null)
+        if (obj != null)
             obj.transform.position = Game.instance.ConvertToRealPos(obj.transform.position);
     }
 }
