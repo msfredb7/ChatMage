@@ -6,12 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class Map : MonoBehaviour
 {
-
-    [SerializeField]
-    private MapInfo mapInfo; // information a propos de la map
-    public Mapping map; // limite de la map, waypoints, etc.
-    [SerializeField]
-    private Playground playground; // Zone jouable
+    
+    public MapInfo mapInfo; // information a propos de la map
+    public Mapping mapping; // limite de la map, waypoints, etc.
+    public Playground playground; // Zone jouable
 
     [SerializeField]
     private List<GameObject> mapObjects;
@@ -50,10 +48,10 @@ public class Map : MonoBehaviour
             Adjust(mapObjects[i]);
         }
 
-        map.Init(height, width);
+        mapping.Init(height, width);
 
         // On va chercher le playground et on set ca dans mapping
-        map.SetOffsets(playground.GetTopLimit(),
+        mapping.SetOffsets(playground.GetTopLimit(),
                        playground.GetBottomLimit(),
                        playground.GetRightLimit(),
                        playground.GetLeftLimit());

@@ -8,7 +8,7 @@ public class Spawner : MonoBehaviour {
 
     public void Init()
     {
-        map = Game.instance.map.map;
+        map = Game.instance.map.mapping;
     }
 
     public Unit SpawnUnitAtRandomLocation(Unit unitPrefab, Waypoint.WaypointType spawnType)
