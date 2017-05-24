@@ -40,7 +40,7 @@ public class demoLevelScript : LevelScript
         Game.instance.Player.vehicle.targetDirection = 90;
 
 
-        winRoutine = DelayManager.CallTo(winAction, 20);
+        //winRoutine = DelayManager.CallTo(winAction, 20);
 
         DelayManager.CallTo(delegate () { Debug.Log("3"); }, 0);
         DelayManager.CallTo(delegate () { Debug.Log("2"); }, 1);
@@ -57,8 +57,8 @@ public class demoLevelScript : LevelScript
         Game.instance.Player.vehicle.canMove.Unlock("intro");
         Game.instance.Player.playerStats.canTurn.Unlock("intro");
 
-        enemySpawnAction();
-        DelayManager.CallTo(hpSpawnAction, hpSpawnDelay);
+        //enemySpawnAction();
+        //DelayManager.CallTo(hpSpawnAction, hpSpawnDelay);
     }
 
     void SpawnHP()
