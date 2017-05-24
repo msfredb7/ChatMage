@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class Map : MonoBehaviour
 {
-    
     public MapInfo mapInfo; // information a propos de la map
     public Mapping mapping; // limite de la map, waypoints, etc.
     public Playground playground; // Zone jouable

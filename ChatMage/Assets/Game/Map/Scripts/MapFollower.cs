@@ -50,6 +50,6 @@ public class MapFollower : BaseBehavior
 
         slider = strength;
 
-        rubanPlayer.playSpeed = strength * maxPlaySpeed;
+        rubanPlayer.PlaySpeed = strength * maxPlaySpeed;
     }
 }

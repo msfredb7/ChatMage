@@ -9,11 +9,12 @@ public class RubanPlayer : MonoBehaviour, MovingPlatform
     public List<RubanPlaylist> playlists = new List<RubanPlaylist>();
 
     [Header("Settings")]
-    public float playSpeed = 0;
     public float timeScale = 1;
+    public bool canScrollDown = true;
     [Header("Default")]
     public string defaultPlaylist;
 
+    private float playSpeed = 0;
     private double heightAnchor;
     private bool isStopped = false;
     private double targetStopDistance;
@@ -34,6 +35,9 @@ public class RubanPlayer : MonoBehaviour, MovingPlatform
         if (playSpeed == 0 || isStopped)
             return;
 
+        if (!canScrollDown)
+            playSpeed = Mathf.Max(0, playSpeed);
+
         //Anchor move
         heightAnchor -= Time.fixedDeltaTime * playSpeed * timeScale;
         if (heightAnchor < ANCHORCAP)
@@ -47,6 +51,18 @@ public class RubanPlayer : MonoBehaviour, MovingPlatform
     }
 
     #region Public
+
+    public float PlaySpeed
+    {
+        get { return playSpeed; }
+        set
+        {
+            if (!canScrollDown)
+                playSpeed = Mathf.Max(0, value);
+            else
+                playSpeed = value;
+        }
+    }
 
     public void SetPlaySpeed()
     {
