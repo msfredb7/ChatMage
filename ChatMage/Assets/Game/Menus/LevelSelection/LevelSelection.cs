@@ -47,7 +47,7 @@ public class LevelSelection : MonoBehaviour {
 	void Start () {
         regionChangeRight.onClick.AddListener(GoRight);
         regionChangeLeft.onClick.AddListener(GoLeft);
-        currentRegion = world.GetRegion(0);
+        currentRegion = world.GetRegion(1);
         regionDisplay.text = currentRegion.displayName;
         SettupLevelPanel(currentRegion);
     }

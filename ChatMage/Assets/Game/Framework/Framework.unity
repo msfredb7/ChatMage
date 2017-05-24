@@ -306,8 +306,10 @@ MonoBehaviour:
   spawner: {fileID: 986166562}
   unitsContainer: {fileID: 1763591741}
   gameBounds: {fileID: 545472434}
+  world: {fileID: 11400000, guid: 8fdbfae15a3af484cb41f46abdd802af, type: 2}
   map: {fileID: 0}
   ui: {fileID: 0}
+  framework: {fileID: 0}
   defaultBounds: {x: 16, y: 9}
   units: []
   gameReady: 0
@@ -471,14 +473,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _keys:
   - {fileID: 986166561}
-  - {fileID: 0}
   _values:
   - _keys: []
     _values: []
     _target: {fileID: 986166561}
-  - _keys: []
-    _values: []
-    _target: {fileID: 0}
 --- !u!114 &1405175281
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -492,14 +490,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _keys:
   - {fileID: 986166561}
-  - {fileID: 0}
   _values:
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.cam.EditProperty
+    - DefaultBehaviorEditor.defaultBounds.EditProperty
+    - DefaultBehaviorEditor.units.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
     _target: {fileID: 986166561}
-  - _keys: []
-    _values: []
-    _target: {fileID: 0}
 --- !u!1 &1461222805
 GameObject:
   m_ObjectHideFlags: 0

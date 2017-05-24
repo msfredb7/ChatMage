@@ -52,6 +52,8 @@ public class demoLevelScript : LevelScript
         if (isOver)
             return;
         isOver = true;
+        
+        Game.instance.world.UnlockLevel(1,2);
     }
 
     public override void OnInit(Action onComplete)

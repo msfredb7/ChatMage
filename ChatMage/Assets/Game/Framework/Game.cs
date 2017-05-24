@@ -15,6 +15,7 @@ public class Game : PublicSingleton<Game>
     public Spawner spawner;
     public Transform unitsContainer;
     public GameBounds gameBounds;
+    public World world;
 
     //Dynamic references
     [fsIgnore]

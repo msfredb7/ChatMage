@@ -11,17 +11,17 @@ public class World : BaseScriptableObject {
     public Level GetLevel(int regionNumber, int levelNumber)
     {
         Level result = null;
-        for (int i = 0; i < regions[regionNumber].levels.Count; i++)
+        for (int i = 0; i < regions[regionNumber-1].levels.Count; i++)
         {
-            if (regions[regionNumber].levels[i].levelNumber == levelNumber)
-                result = regions[regionNumber].levels[i];
+            if (regions[regionNumber-1].levels[i].levelNumber == (levelNumber - 1))
+                result = regions[regionNumber-1].levels[i];
         }
         return result;
     }
 
     public Region GetRegion(int regionNumber)
     {
-        return regions[regionNumber];
+        return regions[regionNumber-1];
     }
 
     public void UnlockLevel(int regionNumber, int levelNumber)

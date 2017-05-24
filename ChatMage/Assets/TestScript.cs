@@ -21,7 +21,7 @@ public class TestScript : BaseBehavior
         if (Input.GetKeyDown(KeyCode.T))
         {
             Game.instance.Player.vehicle.movingPlatform = rubanPlayer;
-            follower.Follow(Game.instance.Player.transform, rubanPlayer);
+            //follower.Follow(Game.instance.Player.transform, rubanPlayer);
         }
         if (Input.GetKeyDown(KeyCode.O))
         {
