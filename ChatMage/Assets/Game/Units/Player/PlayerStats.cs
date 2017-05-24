@@ -12,7 +12,7 @@ public class PlayerStats : PlayerComponent
     [NonSerialized]
     public StatInt health = new StatInt(3,0,3,BoundMode.Cap);
     [NonSerialized]
-    public StatInt armor = new StatInt(0, 0, 0, BoundMode.Cap);
+    public StatInt armor = new StatInt(1, 0, 3, BoundMode.Cap);
     [NonSerialized]
     public StatInt frontDamage = new StatInt(1, 1, 1, BoundMode.Cap);
     public bool damagable = true;

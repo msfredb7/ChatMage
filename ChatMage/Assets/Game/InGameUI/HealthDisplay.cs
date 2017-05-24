@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine; 
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class HealthDisplay : MonoBehaviour {
 
@@ -11,6 +12,7 @@ public class HealthDisplay : MonoBehaviour {
     public GameObject hearth;
 
     private List<GameObject> hearths = new List<GameObject>();
+    private List<GameObject> armor = new List<GameObject>();
 
     public void Init()
     {
@@ -28,6 +30,7 @@ public class HealthDisplay : MonoBehaviour {
         ChangeHP();
     }
 
+    // vieu truc pas utiliser
     public void GiveHP(int amount)
     {
         if (amount <= 0)
@@ -50,6 +53,8 @@ public class HealthDisplay : MonoBehaviour {
 
     void ChangeHP()
     {
+        ChangeArmor();
+
         if (player.health == 0)
             ClearHearths();
 
@@ -64,6 +69,21 @@ public class HealthDisplay : MonoBehaviour {
         for (int i = (hearths.Count - 1); i > end ; i--)
         {
             hearths[i].GetComponent<HearthScript>().Off();
+        }
+    }
+
+    void ChangeArmor()
+    {
+        if (player.armor == 0)
+            RemoveArmor(armor.Count);
+
+        if(player.armor < armor.Count)
+        {
+            RemoveArmor(armor.Count - player.armor);
+        }
+        else
+        {
+            AddArmor(player.armor - armor.Count);
         }
     }
 
@@ -97,6 +117,27 @@ public class HealthDisplay : MonoBehaviour {
         for (int i = 0; i < hearths.Count; i++)
         {
             hearths[i].GetComponent<HearthScript>().Off();
+        }
+    }
+
+    public void AddArmor(int amount)
+    {
+        for (int i = 0; i < amount; i++)
+        {
+            GameObject newHearth = Instantiate(hearth, hearthCountainer.transform);
+            armor.Add(newHearth);
+            armor[armor.Count - 1].GetComponent<HearthScript>().On();
+            newHearth.GetComponent<Image>().color = Color.black;
+        }
+    }
+
+    public void RemoveArmor(int amount)
+    {
+        for (int i = 0; i < amount; i++)
+        {
+            GameObject deletedHearths = armor[armor.Count - 1];
+            armor.Remove(deletedHearths);
+            Destroy(deletedHearths);
         }
     }
 }
