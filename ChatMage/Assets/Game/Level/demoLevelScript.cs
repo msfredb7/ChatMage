@@ -62,4 +62,14 @@ public class demoLevelScript : LevelScript
         queue.AddEnemy("Charger", (x) => charger = x);
         queue.AddMiscUnit("HealthPacks", (x) => healthPacks = x);
     }
+
+    public override void ReceiveEvent(string message)
+    {
+        switch (message)
+        {
+            default:
+                Debug.LogWarning("Demo level script received an unhandled event: " + message);
+                break;
+        }
+    }
 }

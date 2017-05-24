@@ -22,9 +22,9 @@ public class Game : PublicSingleton<Game>
     public Map map;
     [fsIgnore]
     public UiSystem ui;
-
-    private LevelScript currentLevel;
-
+    [fsIgnore]
+    public LevelScript currentLevel;
+    [fsIgnore]
     public Framework framework;
 
     public float Aspect { get { return cam.aspect; } }

@@ -24,6 +24,17 @@ public class MapFollower : BaseBehavior
         rubanPlayer = GetComponent<RubanPlayer>();
     }
 
+    public void StopFollowing()
+    {
+        isFollowing = false;
+    }
+
+    public void FollowPlayer()
+    {
+        target = Game.instance.Player.transform;
+        isFollowing = true;
+    }
+
     public void Follow(Transform target)
     {
         this.target = target;

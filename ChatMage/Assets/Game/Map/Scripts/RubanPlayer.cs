@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using System;
+using CCC.Utility;
 
 public class RubanPlayer : MonoBehaviour, MovingPlatform
 {
@@ -10,13 +11,15 @@ public class RubanPlayer : MonoBehaviour, MovingPlatform
 
     [Header("Settings")]
     public float timeScale = 1;
-    public bool canScrollDown = true;
+    private bool canScrollDown = true;
+    private bool canScrollUp = true;
+    private bool preventScrollDownFromTransition = false;
+    private bool stopped = false;
     [Header("Default")]
     public string defaultPlaylist;
 
     private float playSpeed = 0;
     private double heightAnchor;
-    private bool isStopped = false;
     private double targetStopDistance;
     private const double ANCHORCAP = -999.99;
 
@@ -32,11 +35,8 @@ public class RubanPlayer : MonoBehaviour, MovingPlatform
 
     void FixedUpdate()
     {
-        if (playSpeed == 0 || isStopped)
+        if (playSpeed == 0)
             return;
-
-        if (!canScrollDown)
-            playSpeed = Mathf.Max(0, playSpeed);
 
         //Anchor move
         heightAnchor -= Time.fixedDeltaTime * playSpeed * timeScale;
@@ -57,30 +57,54 @@ public class RubanPlayer : MonoBehaviour, MovingPlatform
         get { return playSpeed; }
         set
         {
-            if (!canScrollDown)
+            if (stopped)
+            {
+                playSpeed = 0;
+                return;
+            }
+            playSpeed = value;
+            if (!canScrollDown || preventScrollDownFromTransition)
                 playSpeed = Mathf.Max(0, value);
-            else
-                playSpeed = value;
+            if(!canScrollUp)
+                playSpeed = Mathf.Min(0, value);
         }
     }
 
-    public void SetPlaySpeed()
+    public bool CanScrollDown
     {
-        if (isStopped)
-            return;
+        get
+        {
+            return canScrollDown;
+        }
+        set
+        {
+            canScrollDown = value;
+            PlaySpeed = playSpeed;
+        }
     }
-
-    public void UnStop()
+    public bool CanScrollUp
     {
-        isStopped = false;
+        get
+        {
+            return canScrollUp;
+        }
+        set
+        {
+            canScrollUp = value;
+            PlaySpeed = playSpeed;
+        }
     }
-
-    public void Stop()
+    public bool Stopped
     {
-        if (isStopped)
-            return;
-        playSpeed = 0;
-        isStopped = true;
+        get
+        {
+            return stopped;
+        }
+        set
+        {
+            stopped = value;
+            PlaySpeed = playSpeed;
+        }
     }
 
     //public void Stop(float remainingDistance)
@@ -169,6 +193,7 @@ public class RubanPlayer : MonoBehaviour, MovingPlatform
 
         //heightAnchor = 0;
         activePlaylists[0].deltaHeightAnchor = -heightAnchor;
+        activePlaylists[0].fromATransition = false;
         activePlaylists[0].StartAt(0);
         activePlaylists[0].shouldLoop = true;
     }
@@ -200,6 +225,10 @@ public class RubanPlayer : MonoBehaviour, MovingPlatform
         CheckIfActive(playlist);
         CheckIfTransitioning();
 
+        //Prevent player from scrolling down
+        preventScrollDownFromTransition = true;
+        PlaySpeed = playSpeed;
+
         activePlaylists[0].End(delegate (float height)
         {
             //Add new playlist
@@ -210,6 +239,7 @@ public class RubanPlayer : MonoBehaviour, MovingPlatform
 
             //heightAnchor = 0;
             activePlaylists[1].deltaHeightAnchor = -heightAnchor;
+            activePlaylists[1].fromATransition = true;
             activePlaylists[1].StartAt(height);
             activePlaylists[1].shouldLoop = true;
         },
@@ -217,8 +247,13 @@ public class RubanPlayer : MonoBehaviour, MovingPlatform
         {
             //Remove old playlist
             activePlaylists[0] = activePlaylists[1];
+            activePlaylists[0].fromATransition = false;
             activePlaylists[1] = null;
             activePlaylistCount--;
+
+            //Re-enable player to potentialy scroll down
+            preventScrollDownFromTransition = false;
+            PlaySpeed = playSpeed;
         });
     }
     #endregion

@@ -22,6 +22,7 @@ public class RubanPlaylist
     public bool shouldLoop;
     public double deltaHeightAnchor;
     public Action<float> onBoutDuRouleau;
+    public bool fromATransition = false;
 
     public void End(Action<float> onReadyForNextPlaylist, Action onComplete)
     {
@@ -67,17 +68,38 @@ public class RubanPlaylist
         activeRubansCount = 0;
         currentRubanDeltaHeight = height;
 
-        ActivateNewRuban(height);
+        ActivateNewRuban(height, true);
     }
 
-    void ActivateNewRuban(float height)
+    void ActivateNewRuban(float height, bool onTop)
     {
-        if (nextRubanIndex >= rubans.Count)
-            nextRubanIndex = 0;
+        while (nextRubanIndex >= rubans.Count)
+            nextRubanIndex -= rubans.Count;
 
-        activeRubans[activeRubansCount] = rubans[nextRubanIndex];
-        rubans[nextRubanIndex].gameObject.SetActive(true);
-        rubans[nextRubanIndex].PutAt(height);
+        if (onTop)
+        {
+            activeRubans[activeRubansCount] = rubans[nextRubanIndex];
+            rubans[nextRubanIndex].gameObject.SetActive(true);
+            rubans[nextRubanIndex].PutAt(height, true);
+        }
+        else
+        {
+            if (activeRubans[1] != null)
+                DeactivateLastRuban();
+
+            activeRubans[1] = activeRubans[0]; // 0 -> 1
+
+            nextRubanIndex -= 2;
+            while (nextRubanIndex < 0)
+                nextRubanIndex += rubans.Count;
+
+            activeRubans[0] = rubans[nextRubanIndex];
+            activeRubans[0].gameObject.SetActive(true);
+            activeRubans[0].PutAt(height - activeRubans[0].length);
+            currentRubanDeltaHeight = activeRubans[0].GetBottomHeight() - currentHeight;
+
+            nextRubanIndex++;
+        }
 
         activeRubansCount++;
         nextRubanIndex++;
@@ -93,6 +115,14 @@ public class RubanPlaylist
             currentRubanDeltaHeight = activeRubans[0].GetBottomHeight() - currentHeight;
         else
             currentRubanDeltaHeight = 0;
+    }
+
+    void DeactivateLastRuban()
+    {
+        activeRubans[1].gameObject.SetActive(false);
+        activeRubans[1] = null;
+        activeRubansCount--;
+        nextRubanIndex--;
     }
 
     /// <summary>
@@ -118,7 +148,7 @@ public class RubanPlaylist
     void OnProgressChange()
     {
         //Le premier ruban active arrive à sa fin ?
-        if (activeRubans[0].GetProgress() > 1)
+        if (activeRubans[0].GetProgress() == 1)
         {
             //Gotta activate new ruban ?
             if (activeRubansCount == 1)
@@ -142,7 +172,7 @@ public class RubanPlaylist
                         }
                         //Transition vers une nouvelle playlist ou on loop ?
                         if (shouldLoop)
-                            ActivateNewRuban(activeRubans[0].GetTopHeight());
+                            ActivateNewRuban(activeRubans[0].GetTopHeight(), true);
                         else
                         {
                             OnProgressChange();
@@ -150,7 +180,7 @@ public class RubanPlaylist
                         }
                     }
                     else
-                        ActivateNewRuban(activeRubans[0].GetTopHeight());
+                        ActivateNewRuban(activeRubans[0].GetTopHeight(), true);
                 }
             }
 
@@ -166,6 +196,21 @@ public class RubanPlaylist
                     }
                 }
                 DeactivateFirstRuban();
+            }
+        }
+        else if (!fromATransition)
+        {
+            if (activeRubans[0].GetProgress() == -1)
+            {
+                ActivateNewRuban(activeRubans[0].GetBottomHeight(), false);
+            }
+            else
+            {
+                //Remove top ruban ?
+                if (activeRubansCount > 1 && activeRubans[1].HasExitedScreen())
+                {
+                    DeactivateLastRuban();
+                }
             }
         }
     }

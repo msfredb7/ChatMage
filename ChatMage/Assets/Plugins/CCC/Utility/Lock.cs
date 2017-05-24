@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace CCC.Utility
 {
@@ -9,6 +10,7 @@ namespace CCC.Utility
     /// </summary>
     public class Locker
     {
+        public UnityEvent onChange = new UnityEvent();
         private List<string> keys = new List<string>();
         public Locker() { }
 
@@ -18,6 +20,7 @@ namespace CCC.Utility
         public void Unlock(string key)
         {
             keys.Remove(key);
+            onChange.Invoke();
         }
 
         /// <summary>
@@ -26,6 +29,7 @@ namespace CCC.Utility
         public void UnlockAll(string key)
         {
             keys.RemoveAll(x => x.Equals(key));
+            onChange.Invoke();
         }
 
         /// <summary>
@@ -34,6 +38,7 @@ namespace CCC.Utility
         public void Lock(string key)
         {
             keys.Add(key);
+            onChange.Invoke();
         }
 
         /// <summary>
@@ -42,7 +47,10 @@ namespace CCC.Utility
         public void LockUnique(string key)
         {
             if (!keys.Contains(key))
+            {
                 keys.Add(key);
+                onChange.Invoke();
+            }
         }
 
         /// <summary>

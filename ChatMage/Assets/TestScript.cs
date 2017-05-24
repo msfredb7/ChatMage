@@ -12,26 +12,16 @@ public class TestScript : BaseBehavior
     public RubanPlayer rubanPlayer;
     public MapFollower follower;
 
-    void Start()
-    {
-       rubanPlayer.StartNewPlaylist("test 1");
-    }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            Game.instance.Player.vehicle.movingPlatform = rubanPlayer;
-            //follower.Follow(Game.instance.Player.transform, rubanPlayer);
+            rubanPlayer.TransitionToNewPlaylist("test 2");
         }
-        if (Input.GetKeyDown(KeyCode.O))
+        if (Input.GetKeyDown(KeyCode.Y))
         {
-            rubanPlayer.UnStop();
+            rubanPlayer.QueueNewPlaylist("test 2");
         }
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            rubanPlayer.Stop();
-        }
-
         if (Input.GetKeyDown(KeyCode.S))
         {
             Game.instance.Player.vehicle.TimeScale = 0.5f;

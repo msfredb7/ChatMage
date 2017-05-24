@@ -68,4 +68,6 @@ public abstract class LevelScript : BaseScriptableObject
     }
 
     protected abstract void OnEnd();
+
+    public abstract void ReceiveEvent(string message);
 }

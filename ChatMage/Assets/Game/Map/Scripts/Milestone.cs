@@ -5,43 +5,53 @@ using FullInspector;
 
 public class Milestone : BaseBehavior
 {
-    public enum StopType { At, Before, WhenMet}
+    public enum TriggerType { BottomOfScreen, TopOfScreen }
+    [InspectorHeader("Trigger")]
+    public TriggerType triggerOn;
+    public bool disapearAfterTrigger = true;
+
+
     [InspectorHeader("Map Stop")]
-    public bool stopMap;
-    [InspectorShowIf("stopMap")]
-    public StopType type;
+    public bool completlyStopMap;
+    public bool modifyCanScrollUp = false;
+    [InspectorMargin(5), InspectorShowIf("modifyCanScrollUp")]
+    public bool canScrollUpEffect = true;
+    [InspectorMargin(5)]
+    public bool modifyCanScrollDown = false;
+    [InspectorShowIf("modifyCanScrollDown")]
+    public bool canScrollDownEffect = true;
+
+
     [InspectorHeader("Event")]
     public bool fireEventToLevelScript;
-    [InspectorShowIf("fireEvent")]
+    [InspectorShowIf("fireEventToLevelScript")]
     public string eventMessage;
 
 
     public void Execute()
     {
-        if (stopMap)
+        if (modifyCanScrollDown)
         {
-            switch (type)
-            {
-                case StopType.At:
-                    break;
-                case StopType.Before:
-                    break;
-                case StopType.WhenMet:
-                    break;
-                default:
-                    break;
-            }
+            Game.instance.map.rubanPlayer.CanScrollDown = canScrollDownEffect;
+        }
+        if (modifyCanScrollUp)
+        {
+            Game.instance.map.rubanPlayer.CanScrollUp = canScrollUpEffect;
+        }
+        if (completlyStopMap)
+        {
+            Game.instance.map.rubanPlayer.Stopped = true;
         }
 
         if (fireEventToLevelScript)
         {
-
+            Game.instance.currentLevel.ReceiveEvent(eventMessage);
         }
     }
 
     void OnDrawGizmosSelected()
     {
-        Gizmos.color = new Color(0, 1, 0, 0.5F);
-        Gizmos.DrawCube(transform.position, new Vector3(16, 0.25f, 1));
+        Gizmos.color = new Color(triggerOn == TriggerType.BottomOfScreen ? 1 : 0, triggerOn == TriggerType.TopOfScreen ? 1 : 0, 0, 1);
+        Gizmos.DrawCube(transform.position, new Vector3(16, disapearAfterTrigger ? 0.25f : 0.5f, 1));
     }
 }
