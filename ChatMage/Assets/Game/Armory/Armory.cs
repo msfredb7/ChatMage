@@ -105,4 +105,19 @@ public class Armory : MonoBehaviour {
             return true;
         } else return false;
     }
+
+    public EquipablePreview DebugGetItem()
+    {
+        return items[0];
+    }
+
+    public EquipablePreview DebugGetSmash()
+    {
+        return smashes[0];
+    }
+
+    public EquipablePreview DebugGetCar()
+    {
+        return cars[0];
+    }
 }
