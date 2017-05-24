@@ -21,7 +21,7 @@ public class Spawner : MonoBehaviour {
         return Game.instance.SpawnUnit(unitPrefab, new Vector2(waypoint.transform.position.x, waypoint.transform.position.y));
     }
 
-    public List<Unit> SpawnUnitAtMultipleLocation(Unit unitPrefab, List<Waypoint> waypoint)
+    public List<Unit> SpawnUnitAtMultipleDefinedLocation(Unit unitPrefab, List<Waypoint> waypoint)
     {
         List<Unit> units = new List<Unit>();
         for(int i = 0; i < waypoint.Count; i++)
@@ -31,10 +31,20 @@ public class Spawner : MonoBehaviour {
         return units;
     }
 
+    public List<Unit> SpawnUnitAtRandomMultipleDefinedLocation(Unit unitPrefab, List<Waypoint> waypoint)
+    {
+        List<Unit> units = new List<Unit>();
+        for (int i = 0; i < waypoint.Count; i++)
+        {
+            units.Add(SpawnUnitAtLocation(unitPrefab, waypoint[Random.Range(0,waypoint.Count-1)]));
+        }
+        return units;
+    }
+
     public List<Unit> SpawnUnitAtRandomMultipleLocation(Unit unitPrefab, Waypoint.WaypointType spawnType, int amount)
     {
         List<Waypoint> waypoints = map.GetRandomMultipleSpawnPoint(spawnType, amount);
-        return SpawnUnitAtMultipleLocation(unitPrefab, waypoints);
+        return SpawnUnitAtMultipleDefinedLocation(unitPrefab, waypoints);
     }
 
     /* AU BESOIN

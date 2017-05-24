@@ -12,7 +12,6 @@ public class Game : PublicSingleton<Game>
     //Linked references
     [InspectorHeader("References")]
     public Camera cam;
-    public PlayerInput playerInput;
     public Spawner spawner;
     public Transform unitsContainer;
     public GameBounds gameBounds;
@@ -24,6 +23,8 @@ public class Game : PublicSingleton<Game>
     public UiSystem ui;
 
     private LevelScript currentLevel;
+
+    public Framework framework;
 
     public float Aspect { get { return cam.aspect; } }
     [InspectorHeader("Settings")]
@@ -50,12 +51,15 @@ public class Game : PublicSingleton<Game>
     [fsIgnore]
     public UnityEvent onGameStarted = new UnityEvent();
 
-    public void Init(LevelScript level)
+    public void Init(LevelScript level, Framework framework)
     {        
         //Screen bounds
         screenBounds = new Vector2(cam.orthographicSize * cam.aspect * 2, cam.orthographicSize * 2);
         worldBounds = new Vector2(screenBounds.x, screenBounds.y);
         defaultToRealRatio = new Vector2(defaultBounds.x / screenBounds.x, defaultBounds.y / screenBounds.y);
+
+        // Framework
+        this.framework = framework;
 
         //Camera adjustment
         CamAdjustment camAdjustment = cam.GetComponent<CamAdjustment>();
@@ -100,7 +104,6 @@ public class Game : PublicSingleton<Game>
     {
         LoadingScreen.TransitionTo("MenuSelection", null);
     }
-
 
     private void OnObjectiveComplete()
     {

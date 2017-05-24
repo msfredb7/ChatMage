@@ -15,7 +15,7 @@ public class PlayerStats : PlayerComponent
     public StatInt armor = new StatInt(0, 0, 0, BoundMode.Cap);
     [NonSerialized]
     public StatInt frontDamage = new StatInt(1, 1, 1, BoundMode.Cap);
-    public bool damagable;
+    public bool damagable = true;
     public bool isVisible = true; // TODO
 
     public UnityEvent onDeath = new UnityEvent();

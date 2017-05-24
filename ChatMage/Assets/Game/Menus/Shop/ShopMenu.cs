@@ -28,7 +28,6 @@ public class ShopMenu : MonoBehaviour {
 
     public void LoadScene(string name)
     {
-        Debug.Log("Going To Main Menu");
-        Scenes.Load(name);
+        LoadingScreen.TransitionTo(name, null);
     }
 }
