@@ -23,4 +23,14 @@ public class World : BaseScriptableObject {
     {
         return regions[regionNumber];
     }
+
+    public void UnlockLevel(int regionNumber, int levelNumber)
+    {
+        GetLevel(regionNumber, levelNumber).unlock = true;
+    }
+
+    public void LockLevel(int regionNumber, int levelNumber)
+    {
+        GetLevel(regionNumber, levelNumber).unlock = false;
+    }
 }

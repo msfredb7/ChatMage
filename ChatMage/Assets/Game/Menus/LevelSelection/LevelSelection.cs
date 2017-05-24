@@ -25,18 +25,16 @@ public class LevelSelection : MonoBehaviour {
     public class LevelMessage : SceneMessage
     {
         private LevelScript chosenLevel;
-        private LoadoutResult loadoutResult;
 
-        public LevelMessage(LevelScript level, LoadoutResult loadoutResult)
+        public LevelMessage(LevelScript level)
         {
             chosenLevel = level;
-            this.loadoutResult = loadoutResult;
         }
 
         public void OnLoaded(Scene scene)
         {
-            Framework framework = Scenes.FindRootObject<Framework>(scene);
-            framework.Init(chosenLevel, loadoutResult);
+            Loadout loadOut = Scenes.FindRootObject<Loadout>(scene);
+            loadOut.Init(chosenLevel);
         }
 
         public void OnOutroComplete()
@@ -77,14 +75,17 @@ public class LevelSelection : MonoBehaviour {
         Clear();
         for (int i = 0; i < region.levels.Count; i++)
         {
-            GameObject newButton = Instantiate(button, countainer.transform);
-            newButton.GetComponentInChildren<Text>().text = "Niveau " + (i + 1);
-            int localI = i;
-            newButton.GetComponent<Button>().onClick.AddListener(delegate ()
+            if (region.levels[i].unlock)
             {
-                if(region.levels[localI].levelScript != null)
-                    LoadingScreen.TransitionTo("Framework", new LevelMessage(region.levels[localI].levelScript, GetBasicLoadout()), true);
-            });
+                GameObject newButton = Instantiate(button, countainer.transform);
+                newButton.GetComponentInChildren<Text>().text = "Niveau " + (i + 1);
+                int localI = i;
+                newButton.GetComponent<Button>().onClick.AddListener(delegate ()
+                {
+                    if (region.levels[localI].levelScript != null)
+                        LoadingScreen.TransitionTo("LoadoutMenu", new LevelMessage(region.levels[localI].levelScript), false);
+                });
+            }
         }
     }
 
@@ -94,17 +95,5 @@ public class LevelSelection : MonoBehaviour {
         {
             Destroy(child.gameObject);
         }
-    }
-
-    LoadoutResult GetBasicLoadout()
-    {
-        LoadoutResult loadoutResult = new LoadoutResult();
-        loadoutResult.AddEquipable(chosenCar.equipableAssetName, chosenCar.type);
-        loadoutResult.AddEquipable(chosenSmash.equipableAssetName, chosenSmash.type);
-        for (int i = 0; i < chosenItems.Count; i++)
-        {
-            loadoutResult.AddEquipable(chosenItems[i].equipableAssetName, chosenItems[i].type);
-        }
-        return loadoutResult;
     }
 }

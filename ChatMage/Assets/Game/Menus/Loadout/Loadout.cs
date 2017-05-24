@@ -1,28 +1,49 @@
+using CCC.Manager;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Loadout : MonoBehaviour
 {
-    [Header("TEMPORAIRE")]
-    public LevelScript chosenLevel;
+    public Armory armory;
 
-    [Header("Incomplet")]
-    public EquipablePreview chosenCar;
-    public EquipablePreview chosenSmash;
-    public List<EquipablePreview> chosenItems;
+    private LevelScript currentLevel;
 
-    public void LaunchGame()
+    public class LoadoutMessage : SceneMessage
+    {
+        private LevelScript chosenLevel;
+        private LoadoutResult loadoutResult;
+
+        public LoadoutMessage(LevelScript level, LoadoutResult loadoutResult)
+        {
+            chosenLevel = level;
+            this.loadoutResult = loadoutResult;
+        }
+
+        public void OnLoaded(Scene scene)
+        {
+            Framework framework = Scenes.FindRootObject<Framework>(scene);
+            framework.Init(chosenLevel, loadoutResult);
+        }
+
+        public void OnOutroComplete()
+        {
+
+        }
+    }
+
+    public void Init(LevelScript level)
+    {
+        currentLevel = level;
+    }
+
+    public void TestClick()
     {
         LoadoutResult loadoutResult = new LoadoutResult();
-        loadoutResult.AddEquipable(chosenCar.equipableAssetName, chosenCar.type);
-        loadoutResult.AddEquipable(chosenSmash.equipableAssetName, chosenSmash.type);
-        for (int i = 0; i < chosenItems.Count; i++)
-        {
-            loadoutResult.AddEquipable(chosenItems[i].equipableAssetName, chosenItems[i].type);
-        }
-        LaunchGameMessage message = new LaunchGameMessage(chosenLevel, loadoutResult);
-
-        LoadingScreen.TransitionTo(Framework.SCENENAME, message, true);
+        loadoutResult.AddEquipable(armory.DebugGetCar().equipableAssetName, armory.DebugGetCar().type);
+        loadoutResult.AddEquipable(armory.DebugGetSmash().equipableAssetName, armory.DebugGetSmash().type);
+        loadoutResult.AddEquipable(armory.DebugGetItem().equipableAssetName, armory.DebugGetItem().type);
+        LoadingScreen.TransitionTo("Framework", new LoadoutMessage(currentLevel, loadoutResult), false);
     }
 }
