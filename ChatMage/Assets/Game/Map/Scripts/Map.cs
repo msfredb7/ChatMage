@@ -6,12 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class Map : MonoBehaviour
 {
-    public MapInfo mapInfo; // information a propos de la map
     public Mapping mapping; // limite de la map, waypoints, etc.
-    public Playground playground; // Zone jouable
 
     [SerializeField]
-    private List<GameObject> mapObjects;
+    private List<GameObject> mapObjectsToAjust;
 
     [Header("Optional")]
     public RubanPlayer rubanPlayer;
@@ -42,18 +40,12 @@ public class Map : MonoBehaviour
     /// </summary>
 	public void Init(float height, float width)
     {
-        for (int i = 0; i < mapObjects.Count; i++)
+        for (int i = 0; i < mapObjectsToAjust.Count; i++)
         {
-            Adjust(mapObjects[i]);
+            Adjust(mapObjectsToAjust[i]);
         }
 
         mapping.Init(height, width);
-
-        // On va chercher le playground et on set ca dans mapping
-        mapping.SetOffsets(playground.GetTopLimit(),
-                       playground.GetBottomLimit(),
-                       playground.GetRightLimit(),
-                       playground.GetLeftLimit());
 
         // Ajustement de la map a faire en fonction du height et width
     }
