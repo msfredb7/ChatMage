@@ -28,7 +28,7 @@ public class demoLevelScript : LevelScript
 
         WinIn(20);
 
-        events.ShowUI(countdownUI).GetComponent<IntroCountdown>().onCountdownOver.AddListener(GameStarted);
+        events.ShowUI(countdownUI).GetComponent<IntroCountdown>().onCountdownOver.AddListener(Game.instance.StartGame);
     }
 
     protected override void OnGameStarted()

@@ -5,9 +5,12 @@ using CCC.Manager;
 using System;
 using CCC.Utility;
 using FullSerializer;
+using FullInspector;
 
 public class GameSaves : BaseManager<GameSaves>
 {
+    [fiInspectorOnly]
+    public OpenSavesButton locationButton;
     public int saveVersion = 1;
 
     [Serializable]

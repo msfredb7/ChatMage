@@ -9,23 +9,12 @@ using FullInspector;
 
 public class TestScript : BaseBehavior
 {
+    public SmashManager smasher;
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            GameSaves.instance.SetInt(GameSaves.Type.Loadout, "pogo", 45);
-        }
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            print(GameSaves.instance.GetInt(GameSaves.Type.Loadout, "pogo"));
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            GameSaves.instance.SaveAll(delegate() { print("save completed"); });
-        }
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            GameSaves.instance.LoadAll(null);
+            smasher.SHITNIGGA();
         }
     }
 }

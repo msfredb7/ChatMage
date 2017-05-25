@@ -29,7 +29,7 @@ public class Level3 : LevelScript {
         events.LockPlayer();
         dodgerKilled = 0;
 
-        events.ShowUI(countdownUI).GetComponent<IntroCountdown>().onCountdownOver.AddListener(GameStarted);
+        events.ShowUI(countdownUI).GetComponent<IntroCountdown>().onCountdownOver.AddListener(Game.instance.StartGame);
     }
 
     protected override void OnGameStarted()

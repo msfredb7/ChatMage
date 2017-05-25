@@ -160,7 +160,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea6d9aea1262743428b1e40ae63d2389, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ballPrefab: {fileID: 0}
+  ballPrefab: {fileID: 114085357807114524, guid: 6bd4a16ab543608429759f50a4be6b88,
+    type: 2}
+  totalCooldown: 10
 --- !u!1 &545472433
 GameObject:
   m_ObjectHideFlags: 0
@@ -319,6 +321,7 @@ MonoBehaviour:
   spawner: {fileID: 986166562}
   unitsContainer: {fileID: 1763591741}
   gameBounds: {fileID: 545472434}
+  smashManager: {fileID: 218698580}
   map: {fileID: 0}
   ui: {fileID: 0}
   currentLevel: {fileID: 0}
@@ -486,10 +489,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _keys:
   - {fileID: 986166561}
+  - {fileID: 1707316992}
   _values:
   - _keys: []
     _values: []
     _target: {fileID: 986166561}
+  - _keys: []
+    _values: []
+    _target: {fileID: 1707316992}
 --- !u!114 &1405175281
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -503,10 +510,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _keys:
   - {fileID: 986166561}
+  - {fileID: 1707316992}
   _values:
   - _keys: []
     _values: []
     _target: {fileID: 986166561}
+  - _keys: []
+    _values: []
+    _target: {fileID: 1707316992}
 --- !u!1 &1461222805
 GameObject:
   m_ObjectHideFlags: 0
@@ -843,6 +854,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 545472435}
   m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1707316991
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1707316993}
+  - component: {fileID: 1707316992}
+  m_Layer: 0
+  m_Name: TestScript
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1707316992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1707316991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce29cb859d78b634c9d7b447327d88d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectReferences: []
+  _serializedStateKeys: []
+  _serializedStateValues: []
+  smasher: {fileID: 218698580}
+--- !u!4 &1707316993
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1707316991}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.8252025, y: 2.194831, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1763591740
 GameObject:
