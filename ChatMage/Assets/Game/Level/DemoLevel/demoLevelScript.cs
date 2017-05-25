@@ -21,7 +21,7 @@ public class demoLevelScript : LevelScript
     protected override void OnGameReady()
     {
         events.LockPlayer();
-        
+
         WinIn(20);
 
         events.IntroCountdown();
@@ -52,8 +52,9 @@ public class demoLevelScript : LevelScript
         if (isOver)
             return;
         isOver = true;
-        
-        Game.instance.world.UnlockLevel(1,2);
+
+        if (hasWon)
+            Game.instance.world.UnlockLevel(1, 2);
     }
 
     public override void OnInit(Action onComplete)

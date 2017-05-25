@@ -22,27 +22,6 @@ public class LevelSelection : MonoBehaviour {
     public EquipablePreview chosenSmash;
     public List<EquipablePreview> chosenItems;
 
-    public class LevelMessage : SceneMessage
-    {
-        private LevelScript chosenLevel;
-
-        public LevelMessage(LevelScript level)
-        {
-            chosenLevel = level;
-        }
-
-        public void OnLoaded(Scene scene)
-        {
-            Loadout loadOut = Scenes.FindRootObject<Loadout>(scene);
-            loadOut.Init(chosenLevel);
-        }
-
-        public void OnOutroComplete()
-        {
-
-        }
-    }
-
 	// Use this for initialization
 	void Start () {
         regionChangeRight.onClick.AddListener(GoRight);
@@ -83,7 +62,7 @@ public class LevelSelection : MonoBehaviour {
                 newButton.GetComponent<Button>().onClick.AddListener(delegate ()
                 {
                     if (region.levels[localI].levelScript != null)
-                        LoadingScreen.TransitionTo("LoadoutMenu", new LevelMessage(region.levels[localI].levelScript), false);
+                        LoadingScreen.TransitionTo("LoadoutMenu", new ToLoadoutMessage(region.levels[localI].levelScript), false);
                 });
             }
         }

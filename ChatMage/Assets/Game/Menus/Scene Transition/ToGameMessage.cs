@@ -5,12 +5,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
 
-public class LaunchGameMessage : SceneMessage
+public class ToGameMessage : SceneMessage
 {
     private LevelScript chosenLevel;
     private LoadoutResult loadoutResult;
 
-    public LaunchGameMessage(LevelScript chosenLevel, LoadoutResult loadoutResult)
+    public ToGameMessage(LevelScript chosenLevel, LoadoutResult loadoutResult)
     {
         this.chosenLevel = chosenLevel;
         this.loadoutResult = loadoutResult;

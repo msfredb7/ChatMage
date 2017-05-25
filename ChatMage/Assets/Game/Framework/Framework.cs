@@ -153,6 +153,6 @@ public class Framework : MonoBehaviour
 
     public void RestartLevel()
     {
-        LoadingScreen.TransitionTo(SCENENAME,new LaunchGameMessage(level,loadoutResult),true);
+        LoadingScreen.TransitionTo(SCENENAME,new ToGameMessage(level,loadoutResult),true);
     }
 }
