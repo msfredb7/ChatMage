@@ -11,15 +11,13 @@ public class DodgerVehicle : EnemyVehicle {
     {
         startingPosition = transform.position;
         SetBounds(Game.instance.ScreenBounds, 1);
+        GetComponent<CollisionListener>().onEnter += Hit;
     }
 
     public void Hit(Unit unit)
     {
         if (unit.gameObject == Game.instance.Player.gameObject)
-        {
-
             Destroy(gameObject);
-        }
     }
 
     public void DodgeLeft()
