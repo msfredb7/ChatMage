@@ -142,11 +142,9 @@ public class Game : PublicSingleton<Game>
     /// <summary>
     /// Spawn une unit dans la map
     /// </summary>
-    public Unit SpawnUnit(Unit prefab, Vector2 position, Action<Unit> function = null)
+    public Unit SpawnUnit(Unit prefab, Vector2 position)
     {
         Unit newUnit = Instantiate(prefab.gameObject, position, Quaternion.identity).GetComponent<Unit>();
-        if (function != null)
-            function.Invoke(newUnit);
         AddExistingUnit(newUnit);
 
         return newUnit;

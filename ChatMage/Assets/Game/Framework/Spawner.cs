@@ -12,14 +12,14 @@ public class Spawner : MonoBehaviour {
         map = Game.instance.map.mapping;
     }
 
-    public Unit SpawnUnitAtRandomLocation(Unit unitPrefab, Waypoint.WaypointType spawnType, Action<Unit> function = null)
+    public Unit SpawnUnitAtRandomLocation(Unit unitPrefab, Waypoint.WaypointType spawnType)
     {
-        return SpawnUnitAtLocation(unitPrefab, map.GetRandomSpawnPoint(spawnType), function);
+        return SpawnUnitAtLocation(unitPrefab, map.GetRandomSpawnPoint(spawnType));
     }
 
-    public Unit SpawnUnitAtLocation(Unit unitPrefab, Waypoint waypoint, Action<Unit> function = null)
+    public Unit SpawnUnitAtLocation(Unit unitPrefab, Waypoint waypoint)
     {
-        return Game.instance.SpawnUnit(unitPrefab, new Vector2(waypoint.transform.position.x, waypoint.transform.position.y), function);
+        return Game.instance.SpawnUnit(unitPrefab, new Vector2(waypoint.transform.position.x, waypoint.transform.position.y));
     }
 
     public List<Unit> SpawnUnitAtMultipleDefinedLocation(Unit unitPrefab, List<Waypoint> waypoint, Action<Unit> function = null)
@@ -27,7 +27,9 @@ public class Spawner : MonoBehaviour {
         List<Unit> units = new List<Unit>();
         for(int i = 0; i < waypoint.Count; i++)
         {
-            units.Add(Game.instance.SpawnUnit(unitPrefab, new Vector2(waypoint[i].transform.position.x, waypoint[i].transform.position.y), function));
+            units.Add(Game.instance.SpawnUnit(unitPrefab, new Vector2(waypoint[i].transform.position.x, waypoint[i].transform.position.y)));
+            if (function != null)
+                function(units[i]);
         }
         return units;
     }
@@ -37,15 +39,17 @@ public class Spawner : MonoBehaviour {
         List<Unit> units = new List<Unit>();
         for (int i = 0; i < waypoint.Count; i++)
         {
-            units.Add(SpawnUnitAtLocation(unitPrefab, waypoint[UnityEngine.Random.Range(0,waypoint.Count-1)], function));
+            units.Add(SpawnUnitAtLocation(unitPrefab, waypoint[UnityEngine.Random.Range(0,waypoint.Count-1)]));
+            if (function != null)
+                function(units[i]);
         }
         return units;
     }
 
-    public List<Unit> SpawnUnitAtRandomMultipleLocation(Unit unitPrefab, Waypoint.WaypointType spawnType, int amount, Action<Unit> function = null)
+    public List<Unit> SpawnUnitAtRandomMultipleLocation(Unit unitPrefab, Waypoint.WaypointType spawnType, int amount)
     {
         List<Waypoint> waypoints = map.GetRandomMultipleSpawnPoint(spawnType, amount);
-        return SpawnUnitAtMultipleDefinedLocation(unitPrefab, waypoints, function);
+        return SpawnUnitAtMultipleDefinedLocation(unitPrefab, waypoints);
     }
 
     /* AU BESOIN

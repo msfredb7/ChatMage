@@ -90,7 +90,9 @@ public class InGameEvents : MonoBehaviour
             // On fait spawn les entity a des endroits random 
             DelayManager.LocalCallTo(delegate ()
             {
-                Game.instance.spawner.SpawnUnitAtRandomLocation(unit, locationType, function);
+                Unit newUnit = Game.instance.spawner.SpawnUnitAtRandomLocation(unit, locationType);
+                if (function != null)
+                    function(newUnit);
             }, time, this);
         }
         else // Si on a defini des waypoints
@@ -104,7 +106,7 @@ public class InGameEvents : MonoBehaviour
                     // On spawn l'entity a un endroit random parmis des position defini
                     DelayManager.LocalCallTo(delegate ()
                     {
-                        Game.instance.spawner.SpawnUnitAtRandomMultipleDefinedLocation(unit, waypoints, function);
+                         Game.instance.spawner.SpawnUnitAtRandomMultipleDefinedLocation(unit, waypoints, function);
                     }, time, this);
                 }
                 else // Mais qu'on veut pas que ce soit random
@@ -120,7 +122,9 @@ public class InGameEvents : MonoBehaviour
             {
                 DelayManager.LocalCallTo(delegate ()
                 {
-                    Game.instance.spawner.SpawnUnitAtLocation(unit, waypoints[0], function);
+                    Unit newUnit = Game.instance.spawner.SpawnUnitAtLocation(unit, waypoints[0]);
+                    if (function != null)
+                        function(newUnit);
                 }, time, this);
             }
         }
