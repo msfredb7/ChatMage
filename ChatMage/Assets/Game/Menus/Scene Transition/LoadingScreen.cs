@@ -53,10 +53,14 @@ public class LoadingScreen
         //Unload all past scenes
         for (int i = 0; i < SceneManager.sceneCount; i++)
         {
-            Debug.Log("Unloading : " + SceneManager.GetSceneAt(i).name);
             if (SceneManager.GetSceneAt(i).name != SCENENAME)
                 Scenes.UnloadAsync(SceneManager.GetSceneAt(i).name);
         }
+        DelayManager.CallTo(LateLoad, 0, true);
+    }
+
+    private static void LateLoad()
+    {
         Scenes.LoadAsync(wish.sceneName, LoadSceneMode.Additive, OnDestinationLoaded);
     }
 
