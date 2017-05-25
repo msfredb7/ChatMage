@@ -4,6 +4,8 @@ using UnityEngine;
 using CCC.Manager;
 using System;
 using CCC.Utility;
+using FullSerializer;
+
 public class GameSaves : BaseManager<GameSaves>
 {
     public int saveVersion = 1;
@@ -24,7 +26,7 @@ public class GameSaves : BaseManager<GameSaves>
 
     private string GetPath()
     {
-        return Application.persistentDataPath + "/v" + saveVersion + "/";
+        return Application.persistentDataPath + "/v1_";
     }
 
     #region Get Value
@@ -34,7 +36,7 @@ public class GameSaves : BaseManager<GameSaves>
         if (data.ints.ContainsKey(key))
             return data.ints[key];
         else
-            throw new Exception(type.ToString() + " - key: " + key + "does not exist.");
+            throw new Exception(type.ToString() + ": '" + key + "' does not exist.");
     }
     public float GetFloat(Type type, string key)
     {
@@ -42,7 +44,7 @@ public class GameSaves : BaseManager<GameSaves>
         if (data.floats.ContainsKey(key))
             return data.floats[key];
         else
-            throw new Exception(type.ToString() + " - key: " + key + "does not exist.");
+            throw new Exception(type.ToString() + ": '" + key + "' does not exist.");
     }
     public string GetString(Type type, string key)
     {
@@ -50,7 +52,7 @@ public class GameSaves : BaseManager<GameSaves>
         if (data.strings.ContainsKey(key))
             return data.strings[key];
         else
-            throw new Exception(type.ToString() + " - key: " + key + "does not exist.");
+            throw new Exception(type.ToString() + ": '" + key + "' does not exist.");
     }
     public bool GetBool(Type type, string key)
     {
@@ -58,12 +60,12 @@ public class GameSaves : BaseManager<GameSaves>
         if (data.bools.ContainsKey(key))
             return data.bools[key];
         else
-            throw new Exception(type.ToString() + " - key: " + key + "does not exist.");
+            throw new Exception(type.ToString() + ": '" + key + "' does not exist.");
     }
     #endregion
 
     #region Set Value
-    public void SetInt(Type type,string key, int value)
+    public void SetInt(Type type, string key, int value)
     {
         Data data = TypeToData(type);
         if (data.ints.ContainsKey(key))
@@ -143,14 +145,24 @@ public class GameSaves : BaseManager<GameSaves>
     public void LoadData(Type type, Action onLoadComplete)
     {
         string ext = TypeToFileName(type);
+        string path = GetPath() + ext;
 
-        Saves.ThreadLoad(GetPath() + ext,
-            delegate (object graph)
-            {
-                ApplyDataByType(type, (Data)graph);
-                if (onLoadComplete != null)
-                    onLoadComplete();
-            });
+        //Exists ?
+        if (Saves.Exists(path))
+            Saves.ThreadLoad(GetPath() + ext,
+                delegate (object graph)
+                {
+                    ApplyDataByType(type, (Data)graph);
+                    if (onLoadComplete != null)
+                        onLoadComplete();
+                });
+        else
+        {
+            //Nouveau fichier !
+            NewOfType(type);
+            SaveData(type, onLoadComplete);
+        }
+            
     }
 
     public void SaveData(Type type, Action onSaveComplete)
@@ -170,8 +182,10 @@ public class GameSaves : BaseManager<GameSaves>
 
     public enum Type { World, Loadout }
 
-    private Data worldData;
-    private Data loadoutData;
+    [fsIgnore]
+    private Data worldData = new Data();
+    [fsIgnore]
+    private Data loadoutData = new Data();
 
     private string TypeToFileName(Type type)
     {
@@ -206,6 +220,19 @@ public class GameSaves : BaseManager<GameSaves>
                 break;
             case Type.Loadout:
                 loadoutData = newData;
+                break;
+        }
+    }
+
+    private void NewOfType(Type type)
+    {
+        switch (type)
+        {
+            case Type.World:
+                worldData = new Data();
+                break;
+            case Type.Loadout:
+                loadoutData = new Data();
                 break;
         }
     }
