@@ -15,6 +15,15 @@ public class PlayerStats : PlayerComponent
     public StatInt armor = new StatInt(1, 0, 3, BoundMode.Cap);
     [NonSerialized]
     public StatInt frontDamage = new StatInt(1, 1, 1, BoundMode.Cap);
+
+    //À quel vitesse le smash s'unlock-t-il
+    [NonSerialized]
+    public StatInt smashRefreshRate = new StatInt(1, 0, int.MaxValue, BoundMode.Cap);
+
+    //À combien de % est-ce que le cooldown se reset
+    [NonSerialized]
+    public StatFloat smashCooldownRate = new StatFloat(1, 0, float.MaxValue, BoundMode.Cap);
+
     public bool damagable = true;
     public bool isVisible = true; // TODO
 

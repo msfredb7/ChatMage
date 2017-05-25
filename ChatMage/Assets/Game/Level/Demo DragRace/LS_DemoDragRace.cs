@@ -38,7 +38,7 @@ public class LS_DemoDragRace : LevelScript
         player.vehicle.TeleportDirection(90);
         player.vehicle.TeleportPosition(Game.instance.map.mapping.GetRandomSpawnPoint(Waypoint.WaypointType.PlayerSpawn).transform.position);
 
-        events.ShowUI(countdownUI).GetComponent<IntroCountdown>().onCountdownOver.AddListener(GameStarted);
+        events.ShowUI(countdownUI).GetComponent<IntroCountdown>().onCountdownOver.AddListener(Game.instance.StartGame);
     }
 
     protected override void OnGameStarted()
@@ -46,7 +46,7 @@ public class LS_DemoDragRace : LevelScript
         player.playerStats.canTurn.Unlock("lvl");
         player.vehicle.canMove.Unlock("lvl");
 
-        Game.instance.map.mapFollower.FollowPlayer();
+        //Game.instance.map.mapFollower.FollowPlayer();
     }
 
     protected override void OnUpdate()

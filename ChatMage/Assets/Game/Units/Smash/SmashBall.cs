@@ -27,10 +27,36 @@ public class SmashBall : Unit
         OnCollisionWithPlayer();
     }
 
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        ColliderInfo info = other.GetComponent<ColliderInfo>();
+        if (info == null)
+            return;
+
+        if (info.parentUnit != Game.instance.Player.vehicle)
+            return;
+
+        //Is player !
+        OnCollisionWithPlayer();
+    }
+
     void OnCollisionWithPlayer()
     {
         hp--;
         if (onHitPlayer != null)
             onHitPlayer();
+
+        if (hp <= 0)
+            Die();
+    }
+
+    protected override void Die()
+    {
+        //Call base event
+        base.Die();
+
+
+        //Death animation !
+        Destroy(gameObject);
     }
 }

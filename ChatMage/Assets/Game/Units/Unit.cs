@@ -14,6 +14,7 @@ public class Unit : MonoBehaviour
     public event Unit_Event onTimeScaleChange;
     public event Unit_Event onTeleportPosition;
     public event Unit_Event onDestroy;
+    public event Unit_Event onDeath;
 
     [System.NonSerialized]
     public Rigidbody2D rb;
@@ -76,6 +77,12 @@ public class Unit : MonoBehaviour
         rb.position = newPosition;
         if (onTeleportPosition != null)
             onTeleportPosition.Invoke(this);
+    }
+
+    protected virtual void Die()
+    {
+        if(onDeath != null)
+            onDeath(this);
     }
 
     public float TimeScale
