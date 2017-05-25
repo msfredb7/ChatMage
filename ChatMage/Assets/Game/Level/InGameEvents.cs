@@ -17,7 +17,7 @@ public class InGameEvents : MonoBehaviour
     public void End()
     {
         StopAllCoroutines();
-        Outro(currentLevel.hasWin);
+        Outro(currentLevel.hasWon);
     }
 
     public void LockPlayer()

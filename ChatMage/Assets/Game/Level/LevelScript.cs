@@ -8,24 +8,28 @@ using FullSerializer;
 
 public abstract class LevelScript : BaseScriptableObject
 {
-    public bool hasWin;
+    [fsIgnore]
+    public bool hasWon;
     public string sceneName;
 
     [fsIgnore]
     public UnityEvent onObjectiveComplete = new UnityEvent();
     [fsIgnore]
     public UnityEvent onObjectiveFailed = new UnityEvent();
+
+
     public bool IsOver { get { return isOver; } }
     [fsIgnore]
     public bool isOver = false;
 
+    [fsIgnore]
     public InGameEvents events;
 
     // Init Level Script
     public void Init(System.Action onComplete, InGameEvents events)
     {
         isOver = false;
-        hasWin = false;
+        hasWon = false;
         Game.instance.onGameReady.AddListener(GameReady);
         Game.instance.onGameStarted.AddListener(GameStarted);
         this.events = events;
@@ -73,13 +77,13 @@ public abstract class LevelScript : BaseScriptableObject
 
     protected void Win()
     {
-        hasWin = false;
+        hasWon = false;
         End();
     }
 
     protected void Lose()
     {
-        hasWin = false;
+        hasWon = false;
         End();
     }
 
