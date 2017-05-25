@@ -9,34 +9,23 @@ using FullInspector;
 
 public class TestScript : BaseBehavior
 {
-    public RubanPlayer rubanPlayer;
-    public MapFollower follower;
-
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            rubanPlayer.TransitionToNewPlaylist("test 2");
+            GameSaves.instance.SetInt(GameSaves.Type.Loadout, "pogo", 45);
         }
         if (Input.GetKeyDown(KeyCode.Y))
         {
-            rubanPlayer.QueueNewPlaylist("test 2");
+            print(GameSaves.instance.GetInt(GameSaves.Type.Loadout, "pogo"));
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
-            Game.instance.Player.vehicle.TimeScale = 0.5f;
+            GameSaves.instance.SaveAll(delegate() { print("save completed"); });
         }
-        if (Input.GetKeyDown(KeyCode.V))
+        if (Input.GetKeyDown(KeyCode.L))
         {
-            Game.instance.Player.vehicle.TimeScale = 2;
-        }
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            Game.instance.Player.vehicle.TimeScale = 1f;
-        }
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            Game.instance.Player.vehicle.Bump(Vector2.right*5,0.1f, BumpMode.VelocityAdd);
+            GameSaves.instance.LoadAll(null);
         }
     }
 }
