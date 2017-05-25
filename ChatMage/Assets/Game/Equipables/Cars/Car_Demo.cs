@@ -32,7 +32,7 @@ public class Car_Demo : Car
             horizontal = Mathf.MoveTowards(lastHorizontal, horizontalInput, player.vehicle.DeltaTime() * turnAcceleration);
         }
 
-        player.GetComponent<Rigidbody2D>().rotation += -horizontal * turnSpeed * player.vehicle.DeltaTime();
+        player.vehicle.Rotation += -horizontal * turnSpeed * player.vehicle.DeltaTime();
 
         lastHorizontal = horizontal;
     }

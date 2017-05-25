@@ -17,10 +17,6 @@ public class Vehicle : MovingUnit
     /// </summary>
     public Locker canAccelerate = new Locker();
 
-    public Vector2 Position
-    {
-        get { return rb.position; }
-    }
     private float bumpTime = 0;
 
     //Events

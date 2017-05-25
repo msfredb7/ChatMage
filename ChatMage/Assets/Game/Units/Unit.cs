@@ -19,6 +19,19 @@ public class Unit : MonoBehaviour
     protected Rigidbody2D rb;
     protected Transform tr;
 
+    public Vector2 Speed
+    {
+        get { return rb.velocity; }
+        set { rb.velocity = value; }
+    }
+
+    public Vector2 Position
+    {
+        get { return rb.position; }
+    }
+
+    public float Rotation { get { return rb.rotation} set{ rb.rotation = value; } }
+
     public bool useMovingPlatform = true;
     public MovingPlatform movingPlatform;
 
