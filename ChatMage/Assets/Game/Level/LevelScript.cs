@@ -60,8 +60,31 @@ public abstract class LevelScript : BaseScriptableObject
 
     protected abstract void OnUpdate();
 
+
+    protected void WinIn(float time)
+    {
+        DelayManager.CallTo(Win, time);
+    }
+
+    protected void LoseIn(float time)
+    {
+        DelayManager.CallTo(Lose, time);
+    }
+
+    protected void Win()
+    {
+        hasWin = false;
+        End();
+    }
+
+    protected void Lose()
+    {
+        hasWin = false;
+        End();
+    }
+
     // End Level Script
-    public void End()
+    private void End()
     {
         events.End();
         OnEnd();

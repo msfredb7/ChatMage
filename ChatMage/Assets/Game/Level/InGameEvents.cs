@@ -140,11 +140,6 @@ public class InGameEvents : MonoBehaviour
         DelayManager.LocalCallTo(delegate () { Game.instance.StartGame(); }, 3, this);
     }
 
-    public void EndGameEvent(float delay)
-    {
-        DelayManager.LocalCallTo(delegate () { currentLevel.hasWin = true;  currentLevel.End(); }, delay, this);
-    }
-
     public void PauseGame(float timeStart, float timeEnd)
     {
         DelayManager.LocalCallTo(delegate () { Time.timeScale = 0; }, timeStart, this);

@@ -22,7 +22,7 @@ public class demoLevelScript : LevelScript
     {
         events.LockPlayer();
         
-        events.EndGameEvent(20);
+        WinIn(20);
 
         events.IntroCountdown();
     }

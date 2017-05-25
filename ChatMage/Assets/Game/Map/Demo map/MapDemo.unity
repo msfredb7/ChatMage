@@ -1575,11 +1575,13 @@ MonoBehaviour:
   _serializedStateKeys: []
   _serializedStateValues: []
   isFollowing: 1
-  slider: 0
   marginSize: 4
   centerSize: 0
-  height: 2
+  forwardHeight: 2
+  reverseHeight: 7
   maxPlaySpeed: 10
+  reverseSpeedThreshold: 0
+  canGoReverse: 1
 --- !u!1 &742933839
 GameObject:
   m_ObjectHideFlags: 0
@@ -3299,6 +3301,7 @@ MonoBehaviour:
   - {fileID: 1484914519}
   - {fileID: 1237816615}
   - {fileID: 1693894639}
+  - {fileID: 705074835}
   _values:
   - _keys: []
     _values: []
@@ -3318,6 +3321,9 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 1693894639}
+  - _keys: []
+    _values: []
+    _target: {fileID: 705074835}
 --- !u!114 &1649213853
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3336,12 +3342,13 @@ MonoBehaviour:
   - {fileID: 1484914519}
   - {fileID: 1237816615}
   - {fileID: 1693894639}
+  - {fileID: 705074835}
   _values:
   - _keys: []
     _values: []
     _target: {fileID: 1259704452}
   - _keys:
-    - DefaultBehaviorEditor.slider.EditProperty
+    - DefaultBehaviorEditor.reverseSpeedThreshold.EditProperty
     _values:
     - _showDropdown: 0
       _serializedIsActive: 1
@@ -3370,6 +3377,9 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 1693894639}
+  - _keys: []
+    _values: []
+    _target: {fileID: 705074835}
 --- !u!1 &1668148737
 GameObject:
   m_ObjectHideFlags: 0
