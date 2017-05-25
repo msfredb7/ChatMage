@@ -31,7 +31,7 @@ public class Unit : MonoBehaviour
         protected set { rb.position = value; }
     }
 
-    public float Rotation { get { return rb.rotation; } set{ rb.rotation = value; } }
+    public float Rotation { get { return rb.rotation; } set { rb.rotation = value; } }
 
     public bool useMovingPlatform = true;
     public MovingPlatform movingPlatform;
@@ -67,13 +67,15 @@ public class Unit : MonoBehaviour
 
     void OnDestroy()
     {
-        onDestroy(this);
+        if (onDestroy != null)
+            onDestroy(this);
     }
 
     public void TeleportPosition(Vector2 newPosition)
     {
         rb.position = newPosition;
-        onTeleportPosition.Invoke(this);
+        if (onTeleportPosition != null)
+            onTeleportPosition.Invoke(this);
     }
 
     public float TimeScale
@@ -83,7 +85,8 @@ public class Unit : MonoBehaviour
         {
             rb.velocity *= value / timeScale;
             timeScale = value;
-            onTimeScaleChange.Invoke(this);
+            if (onTimeScaleChange != null)
+                onTimeScaleChange.Invoke(this);
         }
     }
 }

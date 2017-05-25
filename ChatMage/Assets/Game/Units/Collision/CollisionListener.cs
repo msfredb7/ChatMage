@@ -96,7 +96,7 @@ public class CollisionListener : MonoBehaviour
 
         obj.includedColliders.Add(other);
         obj.collisionCount++;
-        if(obj.collisionCount == 1)
+        if (obj.collisionCount == 1)
         {
             inContactWith.Add(obj);
             OnEnter(info.parentUnit);
@@ -107,7 +107,8 @@ public class CollisionListener : MonoBehaviour
     {
         isIntersecting = true;
 
-        onEnter.Invoke(unit);
+        if (onEnter != null)
+            onEnter.Invoke(unit);
     }
 
     public void OnExit(Unit unit)
@@ -117,7 +118,8 @@ public class CollisionListener : MonoBehaviour
         else
             isIntersecting = false;
 
-        onExit.Invoke(unit);
+        if (onExit != null)
+            onExit.Invoke(unit);
     }
 
     public ObjectCollider GetObjectByGroup(GameObject group)

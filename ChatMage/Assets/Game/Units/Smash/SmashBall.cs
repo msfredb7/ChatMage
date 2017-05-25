@@ -6,7 +6,7 @@ public class SmashBall : Unit
 {
     public int hp = 3;
     public float startSpeed;
-    
+
     public event SimpleEvent onHitPlayer;
 
     void Start()
@@ -16,7 +16,7 @@ public class SmashBall : Unit
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        ColliderInfo info = collision.otherCollider.GetComponent<ColliderInfo>();
+        ColliderInfo info = collision.collider.GetComponent<ColliderInfo>();
         if (info == null)
             return;
 
@@ -30,6 +30,7 @@ public class SmashBall : Unit
     void OnCollisionWithPlayer()
     {
         hp--;
-        onHitPlayer();
+        if (onHitPlayer != null)
+            onHitPlayer();
     }
 }
