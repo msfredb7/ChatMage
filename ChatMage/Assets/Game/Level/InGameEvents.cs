@@ -52,13 +52,13 @@ public class InGameEvents : MonoBehaviour
     /// <param name="amount"></param>
     /// <param name="multipleWaypoints"></param>
     /// <param name="waypoints"></param>
-    public void SpawnEntityFixedTime(Unit unit, float time, Waypoint.WaypointType locationType, int amount = 1, bool random = true, List<Waypoint> waypoints = null)
+    public void SpawnEntityFixedTime(Unit unit, float time, Waypoint.WaypointType locationType, int amount = 1, bool random = true, Action<Unit> function = null, List<Waypoint> waypoints = null)
     {
         if (currentLevel.isOver) return;
 
         for (int i = 0; i < amount; i++)
         {
-            SpawnEntity(unit, time, locationType, random, waypoints);
+            SpawnEntity(unit, time, locationType, random, function, waypoints);
         }
     }
 
@@ -72,18 +72,18 @@ public class InGameEvents : MonoBehaviour
     /// <param name="amount"></param>
     /// <param name="multipleWaypoints"></param>
     /// <param name="waypoints"></param>
-    public void SpawnEntitySpreadTime(Unit unit, float time, Waypoint.WaypointType locationType, int amount = 1, bool random = true, List<Waypoint> waypoints = null)
+    public void SpawnEntitySpreadTime(Unit unit, float time, Waypoint.WaypointType locationType, int amount = 1, bool random = true, Action<Unit> function = null, List<Waypoint> waypoints = null)
     {
         if (currentLevel.isOver) return;
 
         for (int i = 0; i < amount; i++)
         {
             float newTime = (time / amount) * i;
-            SpawnEntity(unit, newTime, locationType, random, waypoints);
+            SpawnEntity(unit, newTime, locationType, random, function, waypoints);
         }
     }
 
-    private void SpawnEntity(Unit unit, float time, Waypoint.WaypointType locationType, bool random = true, List<Waypoint> waypoints = null)
+    private void SpawnEntity(Unit unit, float time, Waypoint.WaypointType locationType, bool random = true, Action<Unit> function = null, List<Waypoint> waypoints = null)
     {
         // Si on a defini aucun waypoints
         if (waypoints == null)
@@ -91,7 +91,7 @@ public class InGameEvents : MonoBehaviour
             // On fait spawn les entity a des endroits random 
             DelayManager.LocalCallTo(delegate ()
             {
-                Game.instance.spawner.SpawnUnitAtRandomLocation(unit, locationType);
+                Game.instance.spawner.SpawnUnitAtRandomLocation(unit, locationType, function);
             }, time, this);
         }
         else // Si on a defini des waypoints
@@ -105,7 +105,7 @@ public class InGameEvents : MonoBehaviour
                     // On spawn l'entity a un endroit random parmis des position defini
                     DelayManager.LocalCallTo(delegate ()
                     {
-                        Game.instance.spawner.SpawnUnitAtRandomMultipleDefinedLocation(unit, waypoints);
+                        Game.instance.spawner.SpawnUnitAtRandomMultipleDefinedLocation(unit, waypoints, function);
                     }, time, this);
                 }
                 else // Mais qu'on veut pas que ce soit random
@@ -113,7 +113,7 @@ public class InGameEvents : MonoBehaviour
                     // On fait spawn l'entity a un endroit defini selon un ordonnancement de position
                     DelayManager.LocalCallTo(delegate ()
                     {
-                        Game.instance.spawner.SpawnUnitAtMultipleDefinedLocation(unit, waypoints);
+                        Game.instance.spawner.SpawnUnitAtMultipleDefinedLocation(unit, waypoints, function);
                     }, time, this);
                 }
             }
@@ -121,7 +121,7 @@ public class InGameEvents : MonoBehaviour
             {
                 DelayManager.LocalCallTo(delegate ()
                 {
-                    Game.instance.spawner.SpawnUnitAtLocation(unit, waypoints[0]);
+                    Game.instance.spawner.SpawnUnitAtLocation(unit, waypoints[0], function);
                 }, time, this);
             }
         }
@@ -172,11 +172,11 @@ public class InGameEvents : MonoBehaviour
 
     void OutroWin(UnityEngine.SceneManagement.Scene scene)
     {
-        Scenes.FindRootObject<ResultTextScript>(scene).UpdateResult(true);
+        Scenes.FindRootObject<ResultTextScript>(scene).UpdateResult(true, currentLevel);
     }
 
     void OutroLost(UnityEngine.SceneManagement.Scene scene)
     {
-        Scenes.FindRootObject<ResultTextScript>(scene).UpdateResult(false);
+        Scenes.FindRootObject<ResultTextScript>(scene).UpdateResult(false, currentLevel);
     }
 }

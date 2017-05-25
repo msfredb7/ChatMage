@@ -7,23 +7,23 @@ using System;
 using FullSerializer;
 using FullInspector;
 
-public class Level3 : LevelScript {
-
+public class demoLevelScript2 : LevelScript
+{
     public float enemySpawnDelay = 4f;
     public float hpSpawnDelay = 8f;
 
     [fsIgnore]
-    Unit dodger;
+    Unit charger;
     [fsIgnore]
     Unit healthPacks;
-    [fsIgnore]
-    int dodgerKilled;
 
     //TRES IMPORTANT DE RESET NOS VARIABLE ICI
     protected override void OnGameReady()
     {
         events.LockPlayer();
-        dodgerKilled = 0;
+
+        WinIn(20);
+
         events.IntroCountdown();
     }
 
@@ -31,12 +31,8 @@ public class Level3 : LevelScript {
     {
         events.UnLockPlayer();
 
-        events.SpawnEntitySpreadTime(dodger, 100, Waypoint.WaypointType.enemySpawn, 35, true, AddDeathListener);
-    }
-
-    void AddDeathListener(Unit unit)
-    {
-        (unit as DodgerVehicle).onDestroy.AddListener(DodgerKilled);
+        events.SpawnEntitySpreadTime(charger, 20, Waypoint.WaypointType.enemySpawn, 10, true);
+        events.SpawnEntitySpreadTime(healthPacks, 20, Waypoint.WaypointType.enemySpawn, 5, true);
     }
 
     protected override void OnUpdate()
@@ -49,8 +45,6 @@ public class Level3 : LevelScript {
                 onObjectiveComplete.Invoke();
             }
         }
-        if(dodgerKilled > 10)
-            WinIn(0);
     }
 
     protected override void OnEnd()
@@ -63,7 +57,7 @@ public class Level3 : LevelScript {
     public override void OnInit(Action onComplete)
     {
         LoadQueue queue = new LoadQueue(onComplete);
-        queue.AddEnemy("Dodger", (x) => dodger = x);
+        queue.AddEnemy("Charger", (x) => charger = x);
         queue.AddMiscUnit("HealthPacks", (x) => healthPacks = x);
     }
 
@@ -75,10 +69,5 @@ public class Level3 : LevelScript {
                 Debug.LogWarning("Demo level script received an unhandled event: " + message);
                 break;
         }
-    }
-
-    void DodgerKilled(Unit unit)
-    {
-        dodgerKilled++;
     }
 }

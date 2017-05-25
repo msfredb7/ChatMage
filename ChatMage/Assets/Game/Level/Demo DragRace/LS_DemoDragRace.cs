@@ -18,8 +18,7 @@ public class LS_DemoDragRace : LevelScript
 
     protected override void OnEnd()
     {
-        if (hasWon)
-            Game.instance.world.UnlockLevel(1, 3);
+
     }
 
     protected override void OnGameReady()

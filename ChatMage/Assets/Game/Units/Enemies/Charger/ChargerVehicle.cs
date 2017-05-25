@@ -14,6 +14,6 @@ public class ChargerVehicle : EnemyVehicle
     public void ChargePlayer()
     {
         if (Game.instance.Player != null && Game.instance.Player.GetComponent<PlayerStats>().isVisible)
-            Goto(Game.instance.Player.transform.position);
+            GotoPosition(Game.instance.Player.transform.position);
     }
 }

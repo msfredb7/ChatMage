@@ -15,7 +15,6 @@ public class Game : PublicSingleton<Game>
     public Spawner spawner;
     public Transform unitsContainer;
     public GameBounds gameBounds;
-    public World world;
 
     //Dynamic references
     [fsIgnore]
@@ -143,10 +142,11 @@ public class Game : PublicSingleton<Game>
     /// <summary>
     /// Spawn une unit dans la map
     /// </summary>
-    public Unit SpawnUnit(Unit prefab, Vector2 position)
+    public Unit SpawnUnit(Unit prefab, Vector2 position, Action<Unit> function = null)
     {
         Unit newUnit = Instantiate(prefab.gameObject,position, Quaternion.identity).GetComponent<Unit>();
-
+        if(function != null)
+            function.Invoke(newUnit);
         AddExistingUnit(newUnit);
 
         return newUnit;

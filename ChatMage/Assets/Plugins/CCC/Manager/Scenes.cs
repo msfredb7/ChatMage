@@ -50,6 +50,7 @@ namespace CCC.Manager
         {
             if (unique && Exists(name)) return;
 
+            Debug.Log("INSTANT loading: " + name);
             ScenePromise scenePromise = new ScenePromise(name, callback);
             loadingScenes.Add(scenePromise);
             SceneManager.LoadScene(name, mode);
@@ -59,6 +60,7 @@ namespace CCC.Manager
         {
             if (unique && Exists(name)) return;
 
+            Debug.Log("loading: " + name);
             ScenePromise scenePromise = new ScenePromise(name, callback);
             loadingScenes.Add(scenePromise);
             SceneManager.LoadSceneAsync(name, mode);
@@ -113,13 +115,16 @@ namespace CCC.Manager
 
         static IEnumerator WaitForSceneLoad(Scene scene, ScenePromise promise)
         {
-            while (!scene.isLoaded) yield return null;
+            while (!scene.isLoaded)
+                yield return null;
             Execute(promise);
         }
 
         static void Execute(ScenePromise promise)
         {
-            if (promise.callback != null) promise.callback(promise.scene);
+            if (promise.callback != null)
+                promise.callback(promise.scene);
+            Debug.Log("done loading: " + promise.name);
             loadingScenes.Remove(promise);
         }
 

@@ -31,7 +31,7 @@ public class LevelSelection : MonoBehaviour {
 	void Start () {
         regionChangeRight.onClick.AddListener(GoRight);
         regionChangeLeft.onClick.AddListener(GoLeft);
-        currentRegion = world.GetRegion(1);
+        currentRegion = world.GetRegion(0);
         regionDisplay.text = currentRegion.displayName;
         SettupLevelPanel(currentRegion);
     }
@@ -39,6 +39,8 @@ public class LevelSelection : MonoBehaviour {
     void GoRight()
     {
         if (currentRegion.regionNumber + 1 >= world.regions.Count)
+            return;
+        if (!IsRegionAccessible(world.regions[currentRegion.regionNumber + 1]))
             return;
         currentRegion = world.GetRegion(currentRegion.regionNumber + 1);
         regionDisplay.text = currentRegion.displayName;
@@ -79,5 +81,34 @@ public class LevelSelection : MonoBehaviour {
         {
             Destroy(child.gameObject);
         }
+    }
+
+    bool IsRegionAccessible(Region region)
+    {
+        bool result = false;
+        for (int i = 0; i < region.levels.Count; i++)
+        {
+            if (region.levels[i].unlock == true)
+                result = true;
+        }
+        return result;
+    }
+
+    public void UpdateWorld(LevelScript level, bool result)
+    {
+        if (!result)
+            return;
+
+        Level completedLevel = world.GetLevelByLevelScript(level);
+
+        for (int i = 0; i < completedLevel.nextLevels.Count; i++)
+        {
+            completedLevel.nextLevels[i].unlock = true;
+        }
+    }
+
+    public void LoadScene(string name)
+    {
+        LoadingScreen.TransitionTo(name, null);
     }
 }

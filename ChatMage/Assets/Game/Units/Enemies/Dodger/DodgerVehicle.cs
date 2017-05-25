@@ -10,6 +10,7 @@ public class DodgerVehicle : EnemyVehicle {
     public void Init()
     {
         startingPosition = transform.position;
+        SetBounds(Game.instance.ScreenBounds, 1);
     }
 
     public void Hit(Unit unit)
@@ -20,18 +21,18 @@ public class DodgerVehicle : EnemyVehicle {
 
     public void DodgeLeft()
     {
-        Goto(transform.up);
+        GotoDirection(VectorToAngle(GetPlayerPosition() - GetPosition()) + 90);
     }
 
     public void DodgeRight()
     {
-        Goto(-transform.up);
+        GotoDirection(VectorToAngle(GetPlayerPosition() - GetPosition()) - 90);
     }
 
     public void LookAtPlayer()
     {
         // Rotation du sprite vers le joueur
-        visualAspect.transform.RotateAround(tr.position,tr.forward,VectorToAngle(GetPlayerPosition() - GetPosition()));
+        visualAspect.transform.rotation = Quaternion.Euler(0,0,VectorToAngle(GetPlayerPosition() - GetPosition()));
     }
 
     public Vector2 GetPlayerPosition()

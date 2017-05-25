@@ -4,22 +4,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Advertisements;
 
-public class ShopMenu : MonoBehaviour {
-
+public class ShopMenu : MonoBehaviour
+{
+    
     void Start()
+    {
+        MasterManager.Sync(OnSync);
+    }
+
+    void OnSync()
     {
         if (Account.instance == null)
             Scenes.Load("MainMenu");
     }
 
-	public void BuyLootBox()
+    public void BuyLootBox()
     {
-        new LootBox(Account.instance.armory,LootBox.LootBoxType.common);
+        new LootBox(Account.instance.armory, LootBox.LootBoxType.common);
     }
 
     public void BuySlots()
     {
-        Account.instance.armory.BuyItemSlots(1,-10);
+        Account.instance.armory.BuyItemSlots(1, -10);
     }
 
     public void GetMoney()

@@ -77,7 +77,7 @@ public abstract class LevelScript : BaseScriptableObject
 
     protected void Win()
     {
-        hasWon = false;
+        hasWon = true;
         End();
     }
 

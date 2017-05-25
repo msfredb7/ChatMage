@@ -4,34 +4,48 @@ using UnityEngine;
 
 public class EnemyVehicle : Vehicle
 {
-    protected bool arrived = false;
     protected Vector2 targetPosition;
+    protected bool goingTo = false;
+    protected bool arrivedAtDestination = false;
 
-    public void Goto(Vector2 position)
+    public void GotoPosition(Vector2 position)
     {
         targetPosition = position;
+        goingTo = true;
+    }
+    public void GotoDirection(float direction)
+    {
+        goingTo = false;
+        targetDirection = direction;
+    }
+    public void GotoDirection(Vector2 direction)
+    {
+        GotoDirection(VectorToAngle(direction));
     }
 
     protected override void FixedUpdate()
     {
-        Vector2 v = targetPosition - rb.position;
-        if (v.magnitude > 0.01f)
+        if (goingTo)
         {
-            if (arrived)
+            Vector2 v = targetPosition - rb.position;
+            if (v.magnitude > 0.01f)
             {
-                arrived = false;
-                canAccelerate.Unlock("arrived");
+                if (arrivedAtDestination)
+                {
+                    arrivedAtDestination = false;
+                    canAccelerate.Unlock("arrived");
+                }
+                targetDirection = VectorToAngle(targetPosition - rb.position);
             }
-            targetDirection = VectorToAngle(targetPosition - rb.position);
-        }
-        else
-        {
-            if (!arrived)
+            else
             {
-                if (canAccelerate)
-                    rb.velocity = Vector3.zero;
-                arrived = true;
-                canAccelerate.Lock("arrived");
+                if (!arrivedAtDestination)
+                {
+                    if (canAccelerate)
+                        rb.velocity = Vector3.zero;
+                    arrivedAtDestination = true;
+                    canAccelerate.Lock("arrived");
+                }
             }
         }
 
@@ -49,6 +63,6 @@ public class EnemyVehicle : Vehicle
 
     public void Idle()
     {
-        Goto(rb.position);
+        GotoPosition(rb.position);
     }
 }

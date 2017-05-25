@@ -28,9 +28,10 @@ public class Unit : MonoBehaviour
     public Vector2 Position
     {
         get { return rb.position; }
+        protected set { rb.position = value; }
     }
 
-    public float Rotation { get { return rb.rotation} set{ rb.rotation = value; } }
+    public float Rotation { get { return rb.rotation; } set{ rb.rotation = value; } }
 
     public bool useMovingPlatform = true;
     public MovingPlatform movingPlatform;
