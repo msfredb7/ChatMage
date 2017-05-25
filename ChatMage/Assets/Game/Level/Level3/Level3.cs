@@ -54,7 +54,7 @@ public class Level3 : LevelScript {
                 onObjectiveComplete.Invoke();
             }
         }
-        if(dodgerKilled > 10)
+        if(dodgerKilled > 4)
             events.WinIn(0);
     }
 

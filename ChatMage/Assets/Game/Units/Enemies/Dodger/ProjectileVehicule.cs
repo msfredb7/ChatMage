@@ -19,6 +19,7 @@ public class ProjectileVehicule : Unit {
     {
         if (Game.instance.Player != null)
             rb.velocity = (Game.instance.Player.vehicle.Position - Position).normalized * speed;
+        GetComponent<SimpleCollisionListener>().onTriggerEnter += Hit;
     }
 
 }
