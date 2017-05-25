@@ -5,18 +5,49 @@ using UnityEngine.Events;
 
 public class SimpleCollisionListener : MonoBehaviour
 {
-    public class GameObjectEvent : UnityEvent<GameObject> { }
-    public GameObjectEvent onEnter = new GameObjectEvent();
-    public GameObjectEvent onExit = new GameObjectEvent();
+    public event Unit.Unit_Event onTriggerEnter;
+    public event Unit.Unit_Event onTriggerExit;
+    public event Unit.Unit_Event onCollisionEnter;
+    public event Unit.Unit_Event onCollisionExit;
 
 
     public void OnTriggerExit2D(Collider2D other)
     {
-        onExit.Invoke(other.gameObject);
+        ColliderInfo info = other.GetComponent<ColliderInfo>();
+        if (info == null)
+            return;
+
+        if (onTriggerExit != null)
+            onTriggerExit.Invoke(info.parentUnit);
     }
 
     public void OnTriggerEnter2D(Collider2D other)
     {
-        onEnter.Invoke(other.gameObject);
+        ColliderInfo info = other.GetComponent<ColliderInfo>();
+        if (info == null)
+            return;
+
+        if (onTriggerEnter != null)
+            onTriggerEnter.Invoke(info.parentUnit);
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        ColliderInfo info = collision.collider.GetComponent<ColliderInfo>();
+        if (info == null)
+            return;
+
+        if (onCollisionEnter != null)
+            onCollisionEnter(info.parentUnit);
+    }
+
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        ColliderInfo info = collision.collider.GetComponent<ColliderInfo>();
+        if (info == null)
+            return;
+
+        if (onCollisionEnter != null)
+            onCollisionEnter(info.parentUnit);
     }
 }

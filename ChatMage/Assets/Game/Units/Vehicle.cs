@@ -117,6 +117,11 @@ public class Vehicle : MovingUnit
             return Mathf.Atan(dir.y / dir.x)* Mathf.Rad2Deg + 180;
         return Mathf.Atan(dir.y / dir.x) * Mathf.Rad2Deg;
     }
+    public static Vector2 AngleToVector(float angle)
+    {
+        float rad = angle * Mathf.Deg2Rad;
+        return new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
+    }
 
     public void TeleportDirection(float newDirection)
     {
