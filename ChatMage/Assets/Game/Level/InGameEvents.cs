@@ -17,7 +17,7 @@ public class InGameEvents : MonoBehaviour
     public void End()
     {
         StopAllCoroutines();
-        Outro(currentLevel.hasWin);
+        Outro(currentLevel.hasWon);
     }
 
     public void LockPlayer()
@@ -138,11 +138,6 @@ public class InGameEvents : MonoBehaviour
     {
         Scenes.Load("IntroCountDown",UnityEngine.SceneManagement.LoadSceneMode.Additive);
         DelayManager.LocalCallTo(delegate () { Game.instance.StartGame(); }, 3, this);
-    }
-
-    public void EndGameEvent(float delay)
-    {
-        DelayManager.LocalCallTo(delegate () { currentLevel.hasWin = true;  currentLevel.End(); }, delay, this);
     }
 
     public void PauseGame(float timeStart, float timeEnd)

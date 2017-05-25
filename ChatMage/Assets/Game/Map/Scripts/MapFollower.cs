@@ -11,13 +11,16 @@ public class MapFollower : BaseBehavior
     [InspectorHeader("Settings")]
     public float marginSize = 9;
     public float centerSize = 0;
+    public float maxPlaySpeed = 10;
+    [InspectorHeader("Reverse Function")]
     public float forwardHeight = 4.5f;
     public float reverseHeight = 4.5f;
-    public float maxPlaySpeed = 10;
+    public float heightChangeSpeed = 1;
     [InspectorRange(-2, 0)]
     public float reverseSpeedThreshold = 0;
     public bool canGoReverse = true;
 
+    private bool forward = true;
     private float height = 4.5f;
     private Vehicle target;
     private RubanPlayer rubanPlayer;
@@ -26,6 +29,19 @@ public class MapFollower : BaseBehavior
     {
         base.Awake();
         rubanPlayer = GetComponent<RubanPlayer>();
+        SetToForwardHeight();
+    }
+
+    public void SetToForwardHeight()
+    {
+        forward = true;
+        height = forwardHeight;
+    }
+
+    public void SetToReverseHeight()
+    {
+        forward = false;
+        height = reverseHeight;
     }
 
     public void StopFollowing()
@@ -64,16 +80,55 @@ public class MapFollower : BaseBehavior
 
     void UpdateZonePosition()
     {
-        if (canGoReverse)
+
+        if (!canGoReverse)
         {
-            if (target.Speed.y >= reverseSpeedThreshold)
-                height = forwardHeight;
+            height = Mathf.MoveTowards(height, forwardHeight, ChangeRate());
+            forward = true;
+            return;
+        }
+        
+        //Le joueur va vers l'avant ?
+        if (forward)
+        {
+            //Going reverse ?
+            if(target.Speed.y < reverseSpeedThreshold)
+            {
+                forward = false;
+                HeightReverse();
+            }
             else
-                height = reverseHeight;
+            {
+                HeightForward();
+            }
         }
         else
         {
-            height = forwardHeight;
+            //Going forward ?
+            if (target.Speed.y >= reverseSpeedThreshold)
+            {
+                forward = true;
+                HeightForward();
+            }
+            else
+            {
+                HeightReverse();
+            }
         }
+    }
+
+    private void HeightForward()
+    {
+        height = Mathf.MoveTowards(height, forwardHeight, ChangeRate());
+    }
+
+    private void HeightReverse()
+    {
+        height = Mathf.MoveTowards(height, reverseHeight, ChangeRate());
+    }
+
+    private float ChangeRate()
+    {
+        return Mathf.Abs(target.Speed.y) * Time.fixedDeltaTime * heightChangeSpeed;
     }
 }
