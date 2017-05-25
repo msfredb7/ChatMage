@@ -7,15 +7,19 @@ using FullInspector;
 public class MapFollower : BaseBehavior
 {
     public bool isFollowing = true;
-
-    [InspectorRange(0, 1)]
-    public float slider = 0;
+    
+    [InspectorHeader("Settings")]
     public float marginSize = 9;
     public float centerSize = 0;
-    public float height = 4.5f;
+    public float forwardHeight = 4.5f;
+    public float reverseHeight = 4.5f;
     public float maxPlaySpeed = 10;
+    [InspectorRange(-2, 0)]
+    public float reverseSpeedThreshold = 0;
+    public bool canGoReverse = true;
 
-    private Transform target;
+    private float height = 4.5f;
+    private Vehicle target;
     private RubanPlayer rubanPlayer;
 
     protected override void Awake()
@@ -31,13 +35,7 @@ public class MapFollower : BaseBehavior
 
     public void FollowPlayer()
     {
-        target = Game.instance.Player.transform;
-        isFollowing = true;
-    }
-
-    public void Follow(Transform target)
-    {
-        this.target = target;
+        target = Game.instance.Player.vehicle;
         isFollowing = true;
     }
 
@@ -46,7 +44,9 @@ public class MapFollower : BaseBehavior
         if (!isFollowing || target == null || rubanPlayer == null)
             return;
 
-        float tHeight = target.position.y;
+        UpdateZonePosition();
+        
+        float tHeight = target.Position.y;
         float relativeHeight = tHeight - height;
 
         int dir = relativeHeight < 0 ? -1 : 1;
@@ -59,8 +59,21 @@ public class MapFollower : BaseBehavior
             strength = dir * Mathf.Min((Mathf.Abs(relativeHeight) - centerSize / 2) / (marginSize / 2 - centerSize / 2), 1);
         }
 
-        slider = strength;
-
         rubanPlayer.PlaySpeed = strength * maxPlaySpeed;
+    }
+
+    void UpdateZonePosition()
+    {
+        if (canGoReverse)
+        {
+            if (target.Speed.y >= reverseSpeedThreshold)
+                height = forwardHeight;
+            else
+                height = reverseHeight;
+        }
+        else
+        {
+            height = forwardHeight;
+        }
     }
 }
