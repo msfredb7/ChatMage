@@ -30,7 +30,7 @@ public class Unit : MonoBehaviour
         get { return rb.position; }
     }
 
-    public float Rotation { get { return rb.rotation} set{ rb.rotation = value; } }
+    public float Rotation { get { return rb.rotation; }  set{ rb.rotation = value; } }
 
     public bool useMovingPlatform = true;
     public MovingPlatform movingPlatform;

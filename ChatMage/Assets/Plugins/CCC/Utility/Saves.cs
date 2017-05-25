@@ -3,18 +3,19 @@ using System.IO;
 using System.Threading;
 using UnityEngine.Events;
 using CCC.Manager;
+using System;
 
 namespace CCC.Utility
 {
     public class Saves
     {
-        static public void ThreadSave(string path, object graph, UnityAction onComplete = null)
+        static public void ThreadSave(string path, object graph, Action onComplete = null)
         {
             Thread t = new Thread(new ThreadStart(() => ThreadSaveMethod(path, graph, onComplete)));
             t.Start();
         }
 
-        static void ThreadSaveMethod(string path, object graph, UnityAction onComplete = null)
+        static void ThreadSaveMethod(string path, object graph, Action onComplete = null)
         {
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Open(path, FileMode.OpenOrCreate);
@@ -29,13 +30,13 @@ namespace CCC.Utility
             }
         }
 
-        static public void ThreadLoad(string path, UnityAction<object> onComplete)
+        static public void ThreadLoad(string path, Action<object> onComplete)
         {
             Thread t = new Thread(new ThreadStart(delegate () { ThreadLoadMethod(path, onComplete); }));
             t.Start();
         }
 
-        static void ThreadLoadMethod(string path, UnityAction<object> onComplete)
+        static void ThreadLoadMethod(string path, Action<object> onComplete)
         {
             if (!Exists(path))
             {
