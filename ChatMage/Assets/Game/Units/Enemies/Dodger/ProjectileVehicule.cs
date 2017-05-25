@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileVehicule : EnemyVehicle {
+public class ProjectileVehicule : Unit {
+
+    public float speed;
 
     public void Hit(Unit unit)
     {
@@ -13,19 +15,10 @@ public class ProjectileVehicule : EnemyVehicle {
         }
     }
 
-    public void SetDestination()
+    public void Start()
     {
-        GotoDirection(VectorToAngle(GetPlayerPosition() - GetPosition()));
-    }
-
-    Vector2 GetPlayerPosition()
-    {
-        return new Vector2(Game.instance.Player.transform.position.x, Game.instance.Player.transform.position.y);
-    }
-
-    Vector2 GetPosition()
-    {
-        return new Vector2(tr.position.x, tr.position.y);
+        if (Game.instance.Player != null)
+            rb.velocity = (Game.instance.Player.vehicle.Position - Position).normalized * speed;
     }
 
 }

@@ -57,6 +57,8 @@ public class ResultTextScript : MonoBehaviour {
 
     public void GoToMenu()
     {
-        LoadingScreen.TransitionTo("MenuSelection", new GameResultMessage(hasWin, levelScript));
+        LoadingScreen.TransitionTo("MenuSelection", null);
+        // A utiliser au besoin
+        //LoadingScreen.TransitionTo("MenuSelection", new GameResultMessage(hasWin, levelScript));
     }
 }

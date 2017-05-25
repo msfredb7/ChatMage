@@ -55,10 +55,10 @@ public class Level3 : LevelScript {
             }
         }
         if(dodgerKilled > 10)
-            WinIn(0);
+            events.WinIn(0);
     }
 
-    protected override void OnEnd()
+    public override void onQuit()
     {
         if (isOver)
             return;

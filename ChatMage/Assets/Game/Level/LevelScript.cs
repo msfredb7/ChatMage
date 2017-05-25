@@ -12,6 +12,14 @@ public abstract class LevelScript : BaseScriptableObject
     public bool hasWon;
     public string sceneName;
 
+    public List<NextLevel> nextLevels = new List<NextLevel>();
+
+    public class NextLevel
+    {
+        public int regionNumber;
+        public int levelNumber;
+    }
+
     [fsIgnore]
     public UnityEvent onObjectiveComplete = new UnityEvent();
     [fsIgnore]
@@ -50,7 +58,7 @@ public abstract class LevelScript : BaseScriptableObject
     // Game Started for Level Script
     public void GameStarted()
     {
-        Game.instance.Player.playerStats.onDeath.AddListener(End);
+        Game.instance.Player.playerStats.onDeath.AddListener(OnQuit);
         OnGameStarted();
     }
 
@@ -64,37 +72,13 @@ public abstract class LevelScript : BaseScriptableObject
 
     protected abstract void OnUpdate();
 
-
-    protected void WinIn(float time)
-    {
-        DelayManager.CallTo(Win, time);
-    }
-
-    protected void LoseIn(float time)
-    {
-        DelayManager.CallTo(Lose, time);
-    }
-
-    protected void Win()
-    {
-        hasWon = true;
-        End();
-    }
-
-    protected void Lose()
-    {
-        hasWon = false;
-        End();
-    }
-
     // End Level Script
-    private void End()
+    public void OnQuit()
     {
-        events.End();
-        OnEnd();
+        onQuit();
     }
 
-    protected abstract void OnEnd();
+    public abstract void onQuit();
 
     public abstract void ReceiveEvent(string message);
 }

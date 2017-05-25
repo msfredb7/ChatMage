@@ -47,4 +47,21 @@ public class World : BaseScriptableObject {
     {
         GetLevel(regionNumber, levelNumber).unlock = false;
     }
+
+    public void LoadUnlockInformation(GameSaves saves)
+    {
+        for (int i = 0; i < regions.Count; i++)
+        {
+            for (int j = 0; j < regions[i].levels.Count; j++)
+            {
+                if(saves.ContainsBool(GameSaves.Type.World, i + "-" + j))
+                {
+                    regions[i].levels[j].unlock = saves.GetBool(GameSaves.Type.World, i + "-" + j);
+                } else
+                {
+                    GameSaves.instance.SetBool(GameSaves.Type.World, i + "-" + j, regions[i].levels[j].unlock);
+                }
+            }
+        }
+    }
 }
