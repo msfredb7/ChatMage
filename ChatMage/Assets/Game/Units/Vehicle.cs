@@ -17,10 +17,6 @@ public class Vehicle : MovingUnit
     /// </summary>
     public Locker canAccelerate = new Locker();
 
-    public Vector2 Velocity
-    {
-        get { return rb.velocity; }
-    }
     public Vector2 Position
     {
         get { return rb.position; }
