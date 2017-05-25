@@ -17,7 +17,6 @@ public class InGameEvents : MonoBehaviour
     public void End()
     {
         StopAllCoroutines();
-        Outro(currentLevel.hasWon);
     }
 
     public void LockPlayer()
@@ -133,11 +132,9 @@ public class InGameEvents : MonoBehaviour
         // TODO : Faire une classe Discussion qui determine le dialogue (qui parle, il dit quoi et quand)
     }
 
-    // Intro Countdown
-    public void IntroCountdown()
+    public GameObject ShowUI(GameObject prefab)
     {
-        Scenes.Load("IntroCountDown",UnityEngine.SceneManagement.LoadSceneMode.Additive);
-        DelayManager.LocalCallTo(delegate () { Game.instance.StartGame(); }, 3, this);
+        return Instantiate(prefab, Game.instance.ui.gameObject.transform);
     }
 
     public void PauseGame(float timeStart, float timeEnd)
@@ -159,24 +156,14 @@ public class InGameEvents : MonoBehaviour
     }
 
     // Outro
-    public void Outro(bool result)
+    public void Outro(bool result, GameObject uiPrefab)
     {
         LockPlayer(Game.instance.Player.vehicle.transform.position);
         Game.instance.Player.playerStats.damagable = false;
         // Si on a gagner
         if (result)
-            Scenes.LoadAsync("OutroUI", UnityEngine.SceneManagement.LoadSceneMode.Additive, OutroWin);
+            ShowUI(uiPrefab).GetComponent<ResultTextScript>().UpdateResult(true, currentLevel);
         else // Si on a perdu
-            Scenes.LoadAsync("OutroUI", UnityEngine.SceneManagement.LoadSceneMode.Additive, OutroLost);
-    }
-
-    void OutroWin(UnityEngine.SceneManagement.Scene scene)
-    {
-        Scenes.FindRootObject<ResultTextScript>(scene).UpdateResult(true, currentLevel);
-    }
-
-    void OutroLost(UnityEngine.SceneManagement.Scene scene)
-    {
-        Scenes.FindRootObject<ResultTextScript>(scene).UpdateResult(false, currentLevel);
+            ShowUI(uiPrefab).GetComponent<ResultTextScript>().UpdateResult(false, currentLevel);
     }
 }

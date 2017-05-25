@@ -57,6 +57,7 @@ public class ResourceLoader : BaseManager<ResourceLoader>
     public const string PLAYER = "Units/Player";
     public const string MISC = "Units/Misc/";
     public const string EQUIPABLES = "Equipables/";
+    public const string UI = "UI/";
 
     static private T Load<T>(string path) where T : UnityEngine.Object
     {
@@ -75,6 +76,15 @@ public class ResourceLoader : BaseManager<ResourceLoader>
     static public GameObject LoadPrefab(string path)
     {
         return Load<GameObject>(path);
+    }
+
+    static public void LoadUIAsync(string name, Action<GameObject> callback)
+    {
+        LoadPrefabAsync(UI + name, delegate (GameObject obj)
+        {
+            if (callback != null)
+                callback.Invoke(obj);
+        });
     }
 
     static public void LoadPrefabAsync(string path, UnityAction<GameObject> callback)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FullSerializer;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,9 +8,16 @@ public class LS_DemoDragRace : LevelScript
 {
     PlayerController player;
 
+    [fsIgnore]
+    GameObject countdownUI;
+    [fsIgnore]
+    GameObject outroUI;
+
     public override void OnInit(Action onComplete)
     {
-        onComplete();
+        LoadQueue queue = new LoadQueue(onComplete);
+        queue.AddUI("Countdown", (x) => countdownUI = x);
+        queue.AddUI("Outro", (x) => outroUI = x);
     }
 
     public override void ReceiveEvent(string message)
@@ -18,7 +26,7 @@ public class LS_DemoDragRace : LevelScript
 
     protected override void OnEnd()
     {
-
+        events.Outro(hasWon, outroUI);
     }
 
     protected override void OnGameReady()
@@ -30,7 +38,7 @@ public class LS_DemoDragRace : LevelScript
         player.vehicle.TeleportDirection(90);
         player.vehicle.TeleportPosition(Game.instance.map.mapping.GetRandomSpawnPoint(Waypoint.WaypointType.PlayerSpawn).transform.position);
 
-        events.IntroCountdown();
+        events.ShowUI(countdownUI).GetComponent<IntroCountdown>().onCountdownOver.AddListener(GameStarted);
     }
 
     protected override void OnGameStarted()

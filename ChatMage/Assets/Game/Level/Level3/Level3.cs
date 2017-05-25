@@ -13,6 +13,10 @@ public class Level3 : LevelScript {
     public float hpSpawnDelay = 8f;
 
     [fsIgnore]
+    GameObject countdownUI;
+    [fsIgnore]
+    GameObject outroUI;
+    [fsIgnore]
     Unit dodger;
     [fsIgnore]
     Unit healthPacks;
@@ -24,7 +28,8 @@ public class Level3 : LevelScript {
     {
         events.LockPlayer();
         dodgerKilled = 0;
-        events.IntroCountdown();
+
+        events.ShowUI(countdownUI).GetComponent<IntroCountdown>().onCountdownOver.AddListener(GameStarted);
     }
 
     protected override void OnGameStarted()
@@ -58,6 +63,8 @@ public class Level3 : LevelScript {
         if (isOver)
             return;
         isOver = true;
+
+        events.Outro(hasWon, outroUI);
     }
 
     public override void OnInit(Action onComplete)
@@ -65,6 +72,8 @@ public class Level3 : LevelScript {
         LoadQueue queue = new LoadQueue(onComplete);
         queue.AddEnemy("Dodger", (x) => dodger = x);
         queue.AddMiscUnit("HealthPacks", (x) => healthPacks = x);
+        queue.AddUI("Countdown", (x) => countdownUI = x);
+        queue.AddUI("Outro", (x) => outroUI = x);
     }
 
     public override void ReceiveEvent(string message)
