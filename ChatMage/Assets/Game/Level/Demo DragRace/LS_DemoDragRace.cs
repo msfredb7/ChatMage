@@ -24,7 +24,7 @@ public class LS_DemoDragRace : LevelScript
     {
     }
 
-    protected override void OnEnd()
+    public override void onQuit()
     {
         events.Outro(hasWon, outroUI);
     }

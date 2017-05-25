@@ -14,9 +14,13 @@ public class InGameEvents : MonoBehaviour
         this.currentLevel = currentLevel;
     }
 
-    public void End()
+    public void OnDestroy()
     {
         StopAllCoroutines();
+        for (int i = 0; i < currentLevel.nextLevels.Count; i++)
+        {
+            GameSaves.instance.SetBool(GameSaves.Type.World, (currentLevel.nextLevels[i].regionNumber) + "-" + (currentLevel.nextLevels[i].levelNumber), true);
+        }
     }
 
     public void LockPlayer()
@@ -136,11 +140,6 @@ public class InGameEvents : MonoBehaviour
         // TODO : Faire une classe Discussion qui determine le dialogue (qui parle, il dit quoi et quand)
     }
 
-    public GameObject ShowUI(GameObject prefab)
-    {
-        return Instantiate(prefab, Game.instance.ui.gameObject.transform);
-    }
-
     public void PauseGame(float timeStart, float timeEnd)
     {
         DelayManager.LocalCallTo(delegate () { Time.timeScale = 0; }, timeStart, this);
@@ -157,6 +156,33 @@ public class InGameEvents : MonoBehaviour
     public void Reward()
     {
         // TODO : A determiner
+    }
+
+    public void WinIn(float time)
+    {
+        DelayManager.LocalCallTo(Win, time, this);
+    }
+
+    public void LoseIn(float time)
+    {
+        DelayManager.LocalCallTo(Lose, time, this);
+    }
+
+    protected void Win()
+    {
+        currentLevel.hasWon = true;
+        currentLevel.OnQuit();
+    }
+
+    protected void Lose()
+    {
+        currentLevel.hasWon = false;
+        currentLevel.OnQuit();
+    }
+
+    public GameObject ShowUI(GameObject prefab)
+    {
+        return Instantiate(prefab, Game.instance.ui.gameObject.transform);
     }
 
     // Outro

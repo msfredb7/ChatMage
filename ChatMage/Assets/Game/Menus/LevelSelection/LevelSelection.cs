@@ -33,6 +33,10 @@ public class LevelSelection : MonoBehaviour {
         regionChangeLeft.onClick.AddListener(GoLeft);
         currentRegion = world.GetRegion(0);
         regionDisplay.text = currentRegion.displayName;
+
+        currentRegion.levels[0].unlock = true;
+        world.LoadUnlockInformation(GameSaves.instance);
+
         SettupLevelPanel(currentRegion);
     }
 

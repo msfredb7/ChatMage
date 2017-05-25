@@ -16,7 +16,10 @@ public class DodgerVehicle : EnemyVehicle {
     public void Hit(Unit unit)
     {
         if (unit.gameObject == Game.instance.Player.gameObject)
+        {
+
             Destroy(gameObject);
+        }
     }
 
     public void DodgeLeft()

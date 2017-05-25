@@ -26,7 +26,7 @@ public class demoLevelScript : LevelScript
     {
         events.LockPlayer();
 
-        WinIn(20);
+        events.WinIn(20);
 
         events.ShowUI(countdownUI).GetComponent<IntroCountdown>().onCountdownOver.AddListener(Game.instance.StartGame);
     }
@@ -51,7 +51,7 @@ public class demoLevelScript : LevelScript
         }
     }
 
-    protected override void OnEnd()
+    public override void onQuit()
     {
         if (isOver)
             return;
