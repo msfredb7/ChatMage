@@ -22,6 +22,11 @@ public class LevelSelection : MonoBehaviour {
     public EquipablePreview chosenSmash;
     public List<EquipablePreview> chosenItems;
 
+    void Awake()
+    {
+        MasterManager.Sync();
+    }
+
 	// Use this for initialization
 	void Start () {
         regionChangeRight.onClick.AddListener(GoRight);
