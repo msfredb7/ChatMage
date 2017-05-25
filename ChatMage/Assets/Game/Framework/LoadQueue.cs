@@ -57,6 +57,18 @@ public class LoadQueue
         });
     }
 
+    public void AddUI(string name, Action<GameObject> setter)
+    {
+        requestCount++;
+        ResourceLoader.LoadUIAsync(name, delegate (GameObject obj)
+        {
+            setter(obj);
+            requestCount--;
+            Check();
+        });
+        
+    }
+
     void Check()
     {
         if (requestCount <= 0 && onComplete != null)

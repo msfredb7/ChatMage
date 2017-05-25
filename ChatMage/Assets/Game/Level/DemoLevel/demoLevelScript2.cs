@@ -13,6 +13,10 @@ public class demoLevelScript2 : LevelScript
     public float hpSpawnDelay = 8f;
 
     [fsIgnore]
+    GameObject countdownUI;
+    [fsIgnore]
+    GameObject outroUI;
+    [fsIgnore]
     Unit charger;
     [fsIgnore]
     Unit healthPacks;
@@ -24,7 +28,7 @@ public class demoLevelScript2 : LevelScript
 
         WinIn(20);
 
-        events.IntroCountdown();
+        events.ShowUI(countdownUI).GetComponent<IntroCountdown>().onCountdownOver.AddListener(GameStarted);
     }
 
     protected override void OnGameStarted()
@@ -52,6 +56,8 @@ public class demoLevelScript2 : LevelScript
         if (isOver)
             return;
         isOver = true;
+
+        events.Outro(hasWon, outroUI);
     }
 
     public override void OnInit(Action onComplete)
@@ -59,6 +65,8 @@ public class demoLevelScript2 : LevelScript
         LoadQueue queue = new LoadQueue(onComplete);
         queue.AddEnemy("Charger", (x) => charger = x);
         queue.AddMiscUnit("HealthPacks", (x) => healthPacks = x);
+        queue.AddUI("Countdown", (x) => countdownUI = x);
+        queue.AddUI("Outro", (x) => outroUI = x);
     }
 
     public override void ReceiveEvent(string message)
