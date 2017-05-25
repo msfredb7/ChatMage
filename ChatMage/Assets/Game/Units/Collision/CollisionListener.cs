@@ -21,8 +21,8 @@ public class CollisionListener : MonoBehaviour
     }
 
     //public UnityEvent onStay = new UnityEvent();
-    public Unit.Unit_Event onEnter = new Unit.Unit_Event();
-    public Unit.Unit_Event onExit = new Unit.Unit_Event();
+    public event Unit.Unit_Event onEnter;
+    public event Unit.Unit_Event onExit;
 
     public List<ObjectCollider> inContactWith = new List<ObjectCollider>();
     public List<Collider2D> forgetList = new List<Collider2D>(3);

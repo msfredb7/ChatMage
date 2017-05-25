@@ -36,7 +36,7 @@ public class Level3 : LevelScript {
 
     void AddDeathListener(Unit unit)
     {
-        (unit as DodgerVehicle).onDestroy.AddListener(DodgerKilled);
+        (unit as DodgerVehicle).onDestroy += DodgerKilled;
     }
 
     protected override void OnUpdate()

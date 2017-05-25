@@ -41,7 +41,7 @@ public class Game : PublicSingleton<Game>
 
     public PlayerController Player { get { return player; } }
     private PlayerController player;
-    
+
     [fsIgnore]
     public bool gameReady = false;
     [fsIgnore]
@@ -52,7 +52,7 @@ public class Game : PublicSingleton<Game>
     public UnityEvent onGameStarted = new UnityEvent();
 
     public void Init(LevelScript level, Framework framework)
-    {        
+    {
         //Screen bounds
         screenBounds = new Vector2(cam.orthographicSize * cam.aspect * 2, cam.orthographicSize * 2);
         worldBounds = new Vector2(screenBounds.x, screenBounds.y);
@@ -144,8 +144,8 @@ public class Game : PublicSingleton<Game>
     /// </summary>
     public Unit SpawnUnit(Unit prefab, Vector2 position, Action<Unit> function = null)
     {
-        Unit newUnit = Instantiate(prefab.gameObject,position, Quaternion.identity).GetComponent<Unit>();
-        if(function != null)
+        Unit newUnit = Instantiate(prefab.gameObject, position, Quaternion.identity).GetComponent<Unit>();
+        if (function != null)
             function.Invoke(newUnit);
         AddExistingUnit(newUnit);
 
@@ -163,7 +163,7 @@ public class Game : PublicSingleton<Game>
         units.Add(unit);
 
         //Ajoute les listeners
-        unit.onDestroy.AddListener(OnUnitDestroy);
+        unit.onDestroy += OnUnitDestroy;
     }
 
     public void AddPlayer(PlayerController player)

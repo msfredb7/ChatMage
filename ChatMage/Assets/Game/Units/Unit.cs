@@ -7,16 +7,16 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Unit : MonoBehaviour
 {
-    [System.Serializable]
-    public class Unit_Event : UnityEvent<Unit> { }
     public float timeScale = 1;
     public Locker isAffectedByTimeScale = new Locker();
 
-    public Unit_Event onTimeScaleChange = new Unit_Event();
-    public Unit_Event onTeleportPosition = new Unit_Event();
-    public Unit_Event onDestroy = new Unit_Event();
+    public delegate void Unit_Event(Unit unit);
+    public event Unit_Event onTimeScaleChange;
+    public event Unit_Event onTeleportPosition;
+    public event Unit_Event onDestroy;
 
-    protected Rigidbody2D rb;
+    [System.NonSerialized]
+    public Rigidbody2D rb;
     protected Transform tr;
 
     public Vector2 Speed
@@ -67,7 +67,7 @@ public class Unit : MonoBehaviour
 
     void OnDestroy()
     {
-        onDestroy.Invoke(this);
+        onDestroy(this);
     }
 
     public void TeleportPosition(Vector2 newPosition)
