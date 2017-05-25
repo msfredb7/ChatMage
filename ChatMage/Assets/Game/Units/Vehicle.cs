@@ -82,7 +82,6 @@ public class Vehicle : MovingUnit
     
     public void Bump(Vector2 velocity, float duration, BumpMode bumpMode)
     {
-        Vector3 vel3 = new Vector3(velocity.x, velocity.y, 0);
         switch (bumpMode)
         {
             default:

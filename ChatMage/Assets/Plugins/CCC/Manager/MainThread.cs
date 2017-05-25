@@ -2,12 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Events;
+using System;
 
 namespace CCC.Manager
 {
     public class MainThread : BaseManager<MainThread>
     {
-        static List<UnityAction> actionList = new List<UnityAction>();
+        static List<Action> actionList = new List<Action>();
         public override void Init()
         {
             CompleteInit();
@@ -26,7 +27,7 @@ namespace CCC.Manager
             }
         }
 
-        static public void AddAction(UnityAction action)
+        static public void AddAction(Action action)
         {
             if (action == null) return;
             actionList.Add(action);
