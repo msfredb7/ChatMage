@@ -4,7 +4,13 @@ using UnityEngine;
 
 public class ChargerBrain : EnemyBrain<ChargerVehicle>
 {
-	public void Update ()
+    protected override void Start()
+    {
+        base.Start();
+        vehicle.Init();
+    }
+
+    public void Update ()
     {
         vehicle.ChargePlayer();
 	}

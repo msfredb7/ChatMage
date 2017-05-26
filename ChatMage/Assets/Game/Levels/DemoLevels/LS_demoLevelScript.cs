@@ -17,6 +17,8 @@ public class LD_demoLevelScript : LevelScript
     [fsIgnore]
     GameObject outroUI;
     [fsIgnore]
+    GameObject objectiveUI;
+    [fsIgnore]
     Unit charger;
     [fsIgnore]
     Unit healthPacks;
@@ -29,6 +31,8 @@ public class LD_demoLevelScript : LevelScript
         events.WinIn(20);
 
         events.ShowUI(countdownUI).GetComponent<IntroCountdown>().onCountdownOver.AddListener(Game.instance.StartGame);
+
+        events.ShowUI(objectiveUI).GetComponent<ShowObjectives>().AddObjective("Survive 20 seconds !");
     }
 
     protected override void OnGameStarted()
@@ -67,6 +71,7 @@ public class LD_demoLevelScript : LevelScript
         queue.AddMiscUnit("HealthPacks", (x) => healthPacks = x);
         queue.AddUI("Countdown", (x) => countdownUI = x);
         queue.AddUI("Outro", (x) => outroUI = x);
+        queue.AddUI("Objectives", (x) => objectiveUI = x);
     }
 
     public override void ReceiveEvent(string message)
