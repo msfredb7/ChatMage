@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class ChargerVehicle : EnemyVehicle
 {
+    public void Init()
+    {
+        SetBounds(Game.instance.ScreenBounds, 1);
+        GetComponent<CollisionListener>().onEnter += Hit;
+    }
+
 	public void Hit(Unit unit)
     {
         if(unit.gameObject == Game.instance.Player.gameObject)
