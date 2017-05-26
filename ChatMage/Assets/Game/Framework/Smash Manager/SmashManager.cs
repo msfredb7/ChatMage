@@ -8,6 +8,10 @@ public class SmashManager : MonoBehaviour
     private SmashBall ballPrefab;
     [SerializeField]
     private float totalCooldown;
+    [SerializeField]
+    private Animator followTarget;
+    [SerializeField]
+    private Transform followTargetParent;
 
     [System.NonSerialized]
     private SmashBall currentSmashBall;
@@ -27,7 +31,17 @@ public class SmashManager : MonoBehaviour
     void Start()
     {
         Game.instance.onGameStarted.AddListener(OnGameStarted);
+        Game.instance.onGameReady.AddListener(OnGameReady);
         enabled = false;
+
+        if (followTargetParent != null)
+            followTargetParent.gameObject.SetActive(false);
+    }
+
+    void OnGameReady()
+    {
+        if (followTarget != null)
+            followTargetParent.localScale = Game.instance.ConvertToRealPos(Vector3.one);
     }
 
     void OnGameStarted()
@@ -63,6 +77,7 @@ public class SmashManager : MonoBehaviour
 
     private void SpawnSmashBall()
     {
+
         inCooldown = false;
         Vector2 borders = Game.instance.ScreenBounds;
         Vector2 spawnPoint = new Vector2(Random.Range(0, borders.x), Random.Range(0, borders.y));
@@ -70,10 +85,19 @@ public class SmashManager : MonoBehaviour
         currentSmashBall = Game.instance.SpawnUnit(ballPrefab, spawnPoint) as SmashBall;
 
         currentSmashBall.onDeath += OnSmashTaken;
+
+        if (followTargetParent != null)
+        {
+            followTargetParent.gameObject.SetActive(true);
+            currentSmashBall.followTarget = followTarget.transform;
+        }
     }
 
     private void OnSmashTaken(Unit smashUnit)
     {
+        if (followTargetParent != null)
+            followTargetParent.gameObject.SetActive(false);
+
         Game.instance.Player.playerSmash.GainSmash();
         Game.instance.Player.playerSmash.onSmashUsed += OnSmashUsed;
     }

@@ -179,10 +179,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeScale: 1
-  useMovingPlatform: 1
+  useMovingPlatform: 0
   hp: 3
   startSpeed: 4
-  collider: {fileID: 0}
+  followTarget: {fileID: 0}
+  followSpeed: 10
 --- !u!212 &212296571496412650
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -214,7 +215,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 85be59f18cb1eb74dbe44654e02c0903, type: 3}
   m_Color: {r: 0.48018402, g: 0.49427164, b: 0.772, a: 1}
   m_FlipX: 0
@@ -294,7 +295,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 85be59f18cb1eb74dbe44654e02c0903, type: 3}
   m_Color: {r: 0.8014706, g: 0.81105477, b: 1, a: 1}
   m_FlipX: 0
