@@ -23,6 +23,37 @@ public class InGameEvents : MonoBehaviour
         }
     }
 
+    // Dialogue (A faire)
+    public void Dialogue()
+    {
+        // TODO : Faire une classe Discussion qui determine le dialogue (qui parle, il dit quoi et quand)
+    }
+
+    // Boss
+    public void BossBattle()
+    {
+        // TODO : Enum du type de boss ??
+    }
+
+    // Cienamtic
+    public void CienamticEvent()
+    {
+        // TODO : On doit loader une scene puis revenir ou on etait ???
+    }
+
+    public void PauseGame(float timeStart, float timeEnd)
+    {
+        DelayManager.LocalCallTo(delegate () { Time.timeScale = 0; }, timeStart, this);
+        DelayManager.LocalCallTo(delegate () { Time.timeScale = 1; }, timeEnd, this);
+    }
+
+    public GameObject ShowUI(GameObject prefab)
+    {
+        return Instantiate(prefab, Game.instance.ui.gameObject.transform);
+    }
+
+    #region Lock Player
+
     public void LockPlayer()
     {
         Vector2 bounds = Game.instance.WorldBounds;
@@ -45,16 +76,67 @@ public class InGameEvents : MonoBehaviour
         Game.instance.Player.playerStats.canTurn.Unlock("intro");
     }
 
+#endregion
+
+
+
+    #region Spawn Units
+
+    /// <summary>
+    /// WAVE - Spawn des entity d'un certain type a un temp precis a des endroits selon un type
+    /// </summary>
+    public void SpawnEntityFixedTime(Unit unit, float time, Waypoint.WaypointType locationType, int amount)
+    {
+        if (currentLevel.isOver) return;
+
+        for (int i = 0; i < amount; i++)
+        {
+            SpawnEntity(unit, time, locationType, false);
+        }
+    }
+
+    /// <summary>
+    /// WAVE - Spawn des entity d'un certain type a un temp precis a des endroits randoms selon un type
+    /// </summary>
+    public void SpawnEntityFixedTimeRandom(Unit unit, float time, Waypoint.WaypointType locationType, int amount)
+    {
+        if (currentLevel.isOver) return;
+
+        for (int i = 0; i < amount; i++)
+        {
+            SpawnEntity(unit, time, locationType, true);
+        }
+    }
+
+    /// <summary>
+    /// WAVE - Spawn des entity d'un certain type a un temp precis a des endroits predefinit selon un type
+    /// </summary>
+    public void SpawnEntityFixedTimeNotRandom(Unit unit, float time, List<Waypoint> waypoints, int amount)
+    {
+        if (currentLevel.isOver) return;
+
+        for (int i = 0; i < amount; i++)
+        {
+            SpawnEntity(unit, time, Waypoint.WaypointType.enemySpawn, false);
+        }
+    }
+
+    /// <summary>
+    /// WAVE - Spawn des entity d'un certain type a un temp precis a des endroits predefinit selon un type
+    /// </summary>
+    public void SpawnEntityFixedTimeWithLocationRandom(Unit unit, float time, List<Waypoint> waypoints, int amount)
+    {
+        if (currentLevel.isOver) return;
+
+        for (int i = 0; i < amount; i++)
+        {
+            SpawnEntity(unit, time, Waypoint.WaypointType.enemySpawn, true);
+        }
+    }
+
     /// <summary>
     /// WAVE - Spawn des entity d'un certain type a un temp precis de maniere random (ou pas) a des endroits predefinit (ou pas) 
     /// </summary>
-    /// <param name="unit"></param>
-    /// <param name="time"></param>
-    /// <param name="random"></param>
-    /// <param name="locationType"></param>
-    /// <param name="amount"></param>
-    /// <param name="multipleWaypoints"></param>
-    /// <param name="waypoints"></param>
     public void SpawnEntityFixedTime(Unit unit, float time, Waypoint.WaypointType locationType, int amount = 1, bool random = true, Action<Unit> function = null, List<Waypoint> waypoints = null)
     {
         if (currentLevel.isOver) return;
@@ -68,13 +150,62 @@ public class InGameEvents : MonoBehaviour
     /// <summary>
     /// FILE - Spawn des entity d'un certain type au fil du temps de maniere random (ou pas) a des endroits predefinit (ou pas) 
     /// </summary>
-    /// <param name="unit"></param>
-    /// <param name="time"></param>
-    /// <param name="random"></param>
-    /// <param name="locationType"></param>
-    /// <param name="amount"></param>
-    /// <param name="multipleWaypoints"></param>
-    /// <param name="waypoints"></param>
+    public void SpawnEntitySpreadTime(Unit unit, float time, Waypoint.WaypointType locationType, int amount)
+    {
+        if (currentLevel.isOver) return;
+
+        for (int i = 0; i < amount; i++)
+        {
+            float newTime = (time / amount) * i;
+            SpawnEntity(unit, time, locationType, false);
+        }
+    }
+
+    /// <summary>
+    /// FILE - Spawn des entity d'un certain type au fil du temps de maniere random (ou pas) a des endroits predefinit (ou pas) 
+    /// </summary>
+    public void SpawnEntitySpreadTimeRandom(Unit unit, float time, Waypoint.WaypointType locationType, int amount)
+    {
+        if (currentLevel.isOver) return;
+
+        for (int i = 0; i < amount; i++)
+        {
+            float newTime = (time / amount) * i;
+            SpawnEntity(unit, time, locationType, true);
+        }
+    }
+
+    /// <summary>
+    /// FILE - Spawn des entity d'un certain type au fil du temps de maniere random (ou pas) a des endroits predefinit (ou pas) 
+    /// </summary>
+    public void SpawnEntitySpreadTimeNotRandom(Unit unit, float time, List<Waypoint> waypoints, int amount)
+    {
+        if (currentLevel.isOver) return;
+
+        for (int i = 0; i < amount; i++)
+        {
+            float newTime = (time / amount) * i;
+            SpawnEntity(unit, time, Waypoint.WaypointType.enemySpawn, false);
+        }
+    }
+
+    /// <summary>
+    /// FILE - Spawn des entity d'un certain type au fil du temps de maniere random (ou pas) a des endroits predefinit (ou pas) 
+    /// </summary>
+    public void SpawnEntitySpreadTimeWithLocationRandom(Unit unit, float time, List<Waypoint> waypoints, int amount)
+    {
+        if (currentLevel.isOver) return;
+
+        for (int i = 0; i < amount; i++)
+        {
+            float newTime = (time / amount) * i;
+            SpawnEntity(unit, time, Waypoint.WaypointType.enemySpawn, true);
+        }
+    }
+
+    /// <summary>
+    /// FILE - Spawn des entity d'un certain type au fil du temps de maniere random (ou pas) a des endroits predefinit (ou pas) 
+    /// </summary>
     public void SpawnEntitySpreadTime(Unit unit, float time, Waypoint.WaypointType locationType, int amount = 1, bool random = true, Action<Unit> function = null, List<Waypoint> waypoints = null)
     {
         if (currentLevel.isOver) return;
@@ -134,23 +265,11 @@ public class InGameEvents : MonoBehaviour
         }
     }
 
-    // Dialogue (A faire)
-    public void Dialogue()
-    {
-        // TODO : Faire une classe Discussion qui determine le dialogue (qui parle, il dit quoi et quand)
-    }
+#endregion
 
-    public void PauseGame(float timeStart, float timeEnd)
-    {
-        DelayManager.LocalCallTo(delegate () { Time.timeScale = 0; }, timeStart, this);
-        DelayManager.LocalCallTo(delegate () { Time.timeScale = 1; }, timeEnd, this);
-    }
 
-    // Boss
-    public void BossBattle()
-    {
-        // TODO : Enum du type de boss ??
-    }
+
+    #region Game Ending
 
     // Box in center
     public void Reward()
@@ -180,11 +299,6 @@ public class InGameEvents : MonoBehaviour
         currentLevel.Quit();
     }
 
-    public GameObject ShowUI(GameObject prefab)
-    {
-        return Instantiate(prefab, Game.instance.ui.gameObject.transform);
-    }
-
     // Outro
     public void Outro(bool result, GameObject uiPrefab)
     {
@@ -196,4 +310,7 @@ public class InGameEvents : MonoBehaviour
         else // Si on a perdu
             ShowUI(uiPrefab).GetComponent<ResultTextScript>().UpdateResult(false, currentLevel);
     }
+
+#endregion
+
 }
