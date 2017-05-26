@@ -21,9 +21,8 @@ GameObject:
   - component: {fileID: 4533276923913474}
   - component: {fileID: 50867498336791124}
   - component: {fileID: 58138964539925116}
-  - component: {fileID: 114560098179018954}
-  - component: {fileID: 114104197219998990}
   - component: {fileID: 114118608437473210}
+  - component: {fileID: 114391616043132670}
   m_Layer: 0
   m_Name: Projectile
   m_TagString: Untagged
@@ -81,14 +80,14 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1495213913023716}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
+  m_Mass: 0.0001
+  m_LinearDrag: 1
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -109,17 +108,6 @@ CircleCollider2D:
   m_Offset: {x: 0.00000011920929, y: 0}
   serializedVersion: 2
   m_Radius: 0.12019026
---- !u!114 &114104197219998990
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1495213913023716}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b6c7f404a33bbf48823dd394d621076, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114118608437473210
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -132,28 +120,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeScale: 1
-  onTimeScaleChange:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Unit+Unit_Event, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  onTeleportPosition:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Unit+Unit_Event, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  onDestroy:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Unit+Unit_Event, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
   useMovingPlatform: 1
-  moveSpeed: 5
-  targetDirection: 0
-  rotationSetsTargetDirection: 0
-  useWeight: 0
-  weight: 0.1
---- !u!114 &114560098179018954
+  speed: 5
+--- !u!114 &114391616043132670
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -161,33 +130,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1495213913023716}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0da55a318388dfe4fabdab4774d73759, type: 3}
+  m_Script: {fileID: 11500000, guid: 65d05512cab53054d8a0b20414ee7974, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onEnter:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 114118608437473210}
-        m_MethodName: Hit
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: Unit+Unit_Event, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  onExit:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Unit+Unit_Event, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  inContactWith: []
-  forgetList: []
-  isIntersecting: 0
 --- !u!212 &212768335276693634
 SpriteRenderer:
   m_ObjectHideFlags: 1
