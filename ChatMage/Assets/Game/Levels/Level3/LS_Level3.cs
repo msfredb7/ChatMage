@@ -1,4 +1,4 @@
-using CCC.Manager;
+﻿using CCC.Manager;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,8 +7,8 @@ using System;
 using FullSerializer;
 using FullInspector;
 
-public class demoLevelScript : LevelScript
-{
+public class LS_Level3 : LevelScript {
+
     public float enemySpawnDelay = 4f;
     public float hpSpawnDelay = 8f;
 
@@ -17,16 +17,15 @@ public class demoLevelScript : LevelScript
     [fsIgnore]
     GameObject outroUI;
     [fsIgnore]
-    Unit charger;
+    Unit dodger;
     [fsIgnore]
-    Unit healthPacks;
+    int dodgerKilled;
 
     //TRES IMPORTANT DE RESET NOS VARIABLE ICI
     protected override void OnGameReady()
     {
         events.LockPlayer();
-
-        events.WinIn(20);
+        dodgerKilled = 0;
 
         events.ShowUI(countdownUI).GetComponent<IntroCountdown>().onCountdownOver.AddListener(Game.instance.StartGame);
     }
@@ -35,8 +34,12 @@ public class demoLevelScript : LevelScript
     {
         events.UnLockPlayer();
 
-        events.SpawnEntitySpreadTime(charger, 20, Waypoint.WaypointType.enemySpawn, 10, true);
-        events.SpawnEntitySpreadTime(healthPacks, 20, Waypoint.WaypointType.enemySpawn, 5, true);
+        events.SpawnEntitySpreadTime(dodger, 100, Waypoint.WaypointType.enemySpawn, 35, true, AddDeathListener);
+    }
+
+    void AddDeathListener(Unit unit)
+    {
+        (unit as DodgerVehicle).onDestroy += DodgerKilled;
     }
 
     protected override void OnUpdate()
@@ -49,6 +52,8 @@ public class demoLevelScript : LevelScript
                 onObjectiveComplete.Invoke();
             }
         }
+        if(dodgerKilled > 4)
+            events.WinIn(0);
     }
 
     public override void OnQuit()
@@ -63,8 +68,7 @@ public class demoLevelScript : LevelScript
     public override void OnInit(Action onComplete)
     {
         LoadQueue queue = new LoadQueue(onComplete);
-        queue.AddEnemy("Charger", (x) => charger = x);
-        queue.AddMiscUnit("HealthPacks", (x) => healthPacks = x);
+        queue.AddEnemy("Dodger", (x) => dodger = x);
         queue.AddUI("Countdown", (x) => countdownUI = x);
         queue.AddUI("Outro", (x) => outroUI = x);
     }
@@ -77,5 +81,10 @@ public class demoLevelScript : LevelScript
                 Debug.LogWarning("Demo level script received an unhandled event: " + message);
                 break;
         }
+    }
+
+    void DodgerKilled(Unit unit)
+    {
+        dodgerKilled++;
     }
 }

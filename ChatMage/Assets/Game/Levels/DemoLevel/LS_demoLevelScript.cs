@@ -1,4 +1,4 @@
-﻿using CCC.Manager;
+using CCC.Manager;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +7,7 @@ using System;
 using FullSerializer;
 using FullInspector;
 
-public class demoLevelScript2 : LevelScript
+public class LD_demoLevelScript : LevelScript
 {
     public float enemySpawnDelay = 4f;
     public float hpSpawnDelay = 8f;

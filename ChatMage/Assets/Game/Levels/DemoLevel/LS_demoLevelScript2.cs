@@ -7,8 +7,8 @@ using System;
 using FullSerializer;
 using FullInspector;
 
-public class Level3 : LevelScript {
-
+public class LS_demoLevelScript2 : LevelScript
+{
     public float enemySpawnDelay = 4f;
     public float hpSpawnDelay = 8f;
 
@@ -17,15 +17,16 @@ public class Level3 : LevelScript {
     [fsIgnore]
     GameObject outroUI;
     [fsIgnore]
-    Unit dodger;
+    Unit charger;
     [fsIgnore]
-    int dodgerKilled;
+    Unit healthPacks;
 
     //TRES IMPORTANT DE RESET NOS VARIABLE ICI
     protected override void OnGameReady()
     {
         events.LockPlayer();
-        dodgerKilled = 0;
+
+        events.WinIn(20);
 
         events.ShowUI(countdownUI).GetComponent<IntroCountdown>().onCountdownOver.AddListener(Game.instance.StartGame);
     }
@@ -34,12 +35,8 @@ public class Level3 : LevelScript {
     {
         events.UnLockPlayer();
 
-        events.SpawnEntitySpreadTime(dodger, 100, Waypoint.WaypointType.enemySpawn, 35, true, AddDeathListener);
-    }
-
-    void AddDeathListener(Unit unit)
-    {
-        (unit as DodgerVehicle).onDestroy += DodgerKilled;
+        events.SpawnEntitySpreadTime(charger, 20, Waypoint.WaypointType.enemySpawn, 10, true);
+        events.SpawnEntitySpreadTime(healthPacks, 20, Waypoint.WaypointType.enemySpawn, 5, true);
     }
 
     protected override void OnUpdate()
@@ -52,8 +49,6 @@ public class Level3 : LevelScript {
                 onObjectiveComplete.Invoke();
             }
         }
-        if(dodgerKilled > 4)
-            events.WinIn(0);
     }
 
     public override void OnQuit()
@@ -68,7 +63,8 @@ public class Level3 : LevelScript {
     public override void OnInit(Action onComplete)
     {
         LoadQueue queue = new LoadQueue(onComplete);
-        queue.AddEnemy("Dodger", (x) => dodger = x);
+        queue.AddEnemy("Charger", (x) => charger = x);
+        queue.AddMiscUnit("HealthPacks", (x) => healthPacks = x);
         queue.AddUI("Countdown", (x) => countdownUI = x);
         queue.AddUI("Outro", (x) => outroUI = x);
     }
@@ -81,10 +77,5 @@ public class Level3 : LevelScript {
                 Debug.LogWarning("Demo level script received an unhandled event: " + message);
                 break;
         }
-    }
-
-    void DodgerKilled(Unit unit)
-    {
-        dodgerKilled++;
     }
 }
