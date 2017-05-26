@@ -24,15 +24,24 @@ public class Account : BaseManager<Account> {
         armory = GetComponent<Armory>();
     }
 
+    private void OnDestroy()
+    {
+        Save();
+    }
+
+    private void OnApplicationQuit()
+    {
+        Save();
+    }
+
     public void Load()
     {
-        money = PlayerPrefs.GetInt("Money");
+        money = GameSaves.instance.GetInt(GameSaves.Type.Account, "money");
     }
 
     public void Save()
     {
-        PlayerPrefs.SetInt("Money", money);
-        PlayerPrefs.Save();
+        GameSaves.instance.SetInt(GameSaves.Type.Account,"money",money);
     }
 
     public int GetMoney()

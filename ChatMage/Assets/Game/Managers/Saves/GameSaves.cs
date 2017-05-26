@@ -24,7 +24,12 @@ public class GameSaves : BaseManager<GameSaves>
 
     public override void Init()
     {
-        LoadAll(CompleteInit);
+        LoadAllAsync(CompleteInit);
+    }
+
+    private void OnApplicationQuit()
+    {
+        SaveAll();
     }
 
     private string GetPath()
@@ -129,23 +134,37 @@ public class GameSaves : BaseManager<GameSaves>
     #endregion
 
     #region Save/Load
-    public void LoadAll(Action onComplete)
+    public void LoadAllAsync(Action onComplete)
     {
         InitQueue queue = new InitQueue(onComplete);
-        LoadData(Type.Loadout, queue.Register());
-        LoadData(Type.World, queue.Register());
-        //On ajoute les autres aussi
+        LoadDataAsync(Type.Loadout, queue.Register());
+        LoadDataAsync(Type.World, queue.Register());
+        LoadDataAsync(Type.Account, queue.Register());
     }
 
-    public void SaveAll(Action onComplete)
+    public void LoadAll()
+    {
+        LoadData(Type.Loadout);
+        LoadData(Type.World);
+        LoadData(Type.Account);
+    }
+
+    public void SaveAllAsync(Action onComplete)
     {
         InitQueue queue = new InitQueue(onComplete);
-        SaveData(Type.Loadout, queue.Register());
-        SaveData(Type.World, queue.Register());
-        //On ajoute les autres aussi
+        SaveDataAsync(Type.Loadout, queue.Register());
+        SaveDataAsync(Type.World, queue.Register());
+        SaveDataAsync(Type.Account, queue.Register());
     }
 
-    public void LoadData(Type type, Action onLoadComplete)
+    public void SaveAll()
+    {
+        SaveData(Type.Loadout);
+        SaveData(Type.World);
+        SaveData(Type.Account);
+    }
+
+    public void LoadDataAsync(Type type, Action onLoadComplete)
     {
         string ext = TypeToFileName(type);
         string path = GetPath() + ext;
@@ -163,17 +182,43 @@ public class GameSaves : BaseManager<GameSaves>
         {
             //Nouveau fichier !
             NewOfType(type);
-            SaveData(type, onLoadComplete);
+            SaveDataAsync(type, onLoadComplete);
         }
             
     }
 
-    public void SaveData(Type type, Action onSaveComplete)
+    public void LoadData(Type type)
+    {
+        string ext = TypeToFileName(type);
+        string path = GetPath() + ext;
+
+        //Exists ?
+        if (Saves.Exists(path))
+        {
+            object graph = Saves.InstantLoad(GetPath() + ext);
+            ApplyDataByType(type, (Data)graph);
+        }
+        else
+        {
+            //Nouveau fichier !
+            NewOfType(type);
+            SaveData(type);
+        }
+    }
+
+    public void SaveDataAsync(Type type, Action onSaveComplete)
     {
         string ext = TypeToFileName(type);
         Data data = TypeToData(type);
 
         Saves.ThreadSave(GetPath() + ext, data, onSaveComplete);
+    }
+
+    public void SaveData(Type type)
+    {
+        string ext = TypeToFileName(type);
+        Data data = TypeToData(type);
+        Saves.InstantSave(GetPath() + ext, data);
     }
 
     #endregion
@@ -182,13 +227,16 @@ public class GameSaves : BaseManager<GameSaves>
 
     private const string WORLD_FILE = "world.dat";
     private const string LOADOUT_FILE = "loadout.dat";
+    private const string ACCOUNT_FILE = "account.dat";
 
-    public enum Type { World, Loadout }
+    public enum Type { World, Loadout, Account }
 
     [fsIgnore]
     private Data worldData = new Data();
     [fsIgnore]
     private Data loadoutData = new Data();
+    [fsIgnore]
+    private Data accountData = new Data();
 
     private string TypeToFileName(Type type)
     {
@@ -198,6 +246,8 @@ public class GameSaves : BaseManager<GameSaves>
                 return WORLD_FILE;
             case Type.Loadout:
                 return LOADOUT_FILE;
+            case Type.Account:
+                return ACCOUNT_FILE;
         }
         return "";
     }
@@ -210,6 +260,8 @@ public class GameSaves : BaseManager<GameSaves>
                 return worldData;
             case Type.Loadout:
                 return loadoutData;
+            case Type.Account:
+                return accountData;
         }
         return null;
     }
@@ -224,6 +276,9 @@ public class GameSaves : BaseManager<GameSaves>
             case Type.Loadout:
                 loadoutData = newData;
                 break;
+            case Type.Account:
+                accountData = newData;
+                break;
         }
     }
 
@@ -236,6 +291,9 @@ public class GameSaves : BaseManager<GameSaves>
                 break;
             case Type.Loadout:
                 loadoutData = new Data();
+                break;
+            case Type.Account:
+                accountData = new Data();
                 break;
         }
     }
