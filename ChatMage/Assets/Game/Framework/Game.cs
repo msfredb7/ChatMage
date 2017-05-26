@@ -32,7 +32,6 @@ public class Game : PublicSingleton<Game>
     public Vector2 defaultBounds;
     private Vector2 screenBounds;
     private Vector2 worldBounds;
-    private bool applyBounds;
     private Vector2 defaultToRealRatio;
 
     [InspectorDisabled]
@@ -47,10 +46,8 @@ public class Game : PublicSingleton<Game>
     public bool gameReady = false;
     [fsIgnore]
     public bool gameStarted = false;
-    [fsIgnore]
-    public UnityEvent onGameReady = new UnityEvent();
-    [fsIgnore]
-    public UnityEvent onGameStarted = new UnityEvent();
+    public event SimpleEvent onGameReady;
+    public event SimpleEvent onGameStarted;
 
     public void Init(LevelScript level, Framework framework)
     {
@@ -77,7 +74,8 @@ public class Game : PublicSingleton<Game>
     public void ReadyGame()
     {
         gameReady = true;
-        onGameReady.Invoke();
+        if (onGameReady != null)
+            onGameReady();
     }
 
     /// <summary>
@@ -86,7 +84,8 @@ public class Game : PublicSingleton<Game>
     public void StartGame()
     {
         gameStarted = true;
-        onGameStarted.Invoke();
+        if (onGameStarted != null)
+            onGameStarted();
     }
 
     private void Update()
@@ -129,11 +128,6 @@ public class Game : PublicSingleton<Game>
     public Vector2 ConvertToRealPos(Vector2 position)
     {
         return new Vector2(position.x / defaultToRealRatio.x, position.y / defaultToRealRatio.y);
-    }
-
-    public void DoNotApplyBoundsOnUnits()
-    {
-        applyBounds = false;
     }
 
     #endregion

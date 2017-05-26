@@ -30,8 +30,8 @@ public class SmashManager : MonoBehaviour
 
     void Start()
     {
-        Game.instance.onGameStarted.AddListener(OnGameStarted);
-        Game.instance.onGameReady.AddListener(OnGameReady);
+        Game.instance.onGameStarted += OnGameStarted;
+        Game.instance.onGameReady += OnGameReady;
         enabled = false;
 
         if (followTargetParent != null)

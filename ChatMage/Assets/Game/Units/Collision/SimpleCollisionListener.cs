@@ -47,7 +47,7 @@ public class SimpleCollisionListener : MonoBehaviour
         if (info == null)
             return;
 
-        if (onCollisionEnter != null)
-            onCollisionEnter(info.parentUnit);
+        if (onCollisionExit != null)
+            onCollisionExit(info.parentUnit);
     }
 }

@@ -19,8 +19,6 @@ public class Level3 : LevelScript {
     [fsIgnore]
     Unit dodger;
     [fsIgnore]
-    Unit healthPacks;
-    [fsIgnore]
     int dodgerKilled;
 
     //TRES IMPORTANT DE RESET NOS VARIABLE ICI
@@ -58,7 +56,7 @@ public class Level3 : LevelScript {
             events.WinIn(0);
     }
 
-    public override void onQuit()
+    public override void OnQuit()
     {
         if (isOver)
             return;
@@ -71,7 +69,6 @@ public class Level3 : LevelScript {
     {
         LoadQueue queue = new LoadQueue(onComplete);
         queue.AddEnemy("Dodger", (x) => dodger = x);
-        queue.AddMiscUnit("HealthPacks", (x) => healthPacks = x);
         queue.AddUI("Countdown", (x) => countdownUI = x);
         queue.AddUI("Outro", (x) => outroUI = x);
     }

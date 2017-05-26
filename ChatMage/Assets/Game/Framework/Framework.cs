@@ -26,7 +26,6 @@ public class Framework : MonoBehaviour
 
     private bool mapLoaded = false;
     private bool uiLoaded = false;
-    private bool playerAssetsLoaded = false;
     private LevelScript level = null;
     private LoadoutResult loadoutResult;
 

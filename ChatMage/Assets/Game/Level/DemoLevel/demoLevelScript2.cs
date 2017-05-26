@@ -51,7 +51,7 @@ public class demoLevelScript2 : LevelScript
         }
     }
 
-    public override void onQuit()
+    public override void OnQuit()
     {
         if (isOver)
             return;

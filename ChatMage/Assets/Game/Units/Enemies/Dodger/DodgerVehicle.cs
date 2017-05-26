@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DodgerVehicle : EnemyVehicle {
-
-    private Vector2 startingPosition;
+public class DodgerVehicle : EnemyVehicle
+{
     public GameObject visualAspect; // sprite qui regarde vers ou on tire
 
     public void Init()
     {
-        startingPosition = transform.position;
         SetBounds(Game.instance.ScreenBounds, 1);
         GetComponent<CollisionListener>().onEnter += Hit;
     }
@@ -33,7 +31,7 @@ public class DodgerVehicle : EnemyVehicle {
     public void LookAtPlayer()
     {
         // Rotation du sprite vers le joueur
-        visualAspect.transform.rotation = Quaternion.Euler(0,0,VectorToAngle(GetPlayerPosition() - GetPosition()));
+        visualAspect.transform.rotation = Quaternion.Euler(0, 0, VectorToAngle(GetPlayerPosition() - GetPosition()));
     }
 
     public Vector2 GetPlayerPosition()

@@ -44,10 +44,6 @@ public class Map : MonoBehaviour
         {
             Adjust(mapObjectsToAjust[i]);
         }
-
-        mapping.Init(height, width);
-
-        // Ajustement de la map a faire en fonction du height et width
     }
 
     public void Adjust(GameObject obj)

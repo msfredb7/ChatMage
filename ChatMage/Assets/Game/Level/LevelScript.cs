@@ -38,8 +38,8 @@ public abstract class LevelScript : BaseScriptableObject
     {
         isOver = false;
         hasWon = false;
-        Game.instance.onGameReady.AddListener(GameReady);
-        Game.instance.onGameStarted.AddListener(GameStarted);
+        Game.instance.onGameReady += GameReady;
+        Game.instance.onGameStarted += GameStarted;
         this.events = events;
         events.Init(this);
         OnInit(onComplete);
@@ -58,7 +58,7 @@ public abstract class LevelScript : BaseScriptableObject
     // Game Started for Level Script
     public void GameStarted()
     {
-        Game.instance.Player.playerStats.onDeath.AddListener(OnQuit);
+        Game.instance.Player.playerStats.onDeath.AddListener(Quit);
         OnGameStarted();
     }
 
@@ -73,12 +73,12 @@ public abstract class LevelScript : BaseScriptableObject
     protected abstract void OnUpdate();
 
     // End Level Script
-    public void OnQuit()
+    public void Quit()
     {
-        onQuit();
+        OnQuit();
     }
 
-    public abstract void onQuit();
+    public abstract void OnQuit();
 
     public abstract void ReceiveEvent(string message);
 }
