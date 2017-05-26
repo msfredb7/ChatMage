@@ -171,13 +171,13 @@ public class InGameEvents : MonoBehaviour
     protected void Win()
     {
         currentLevel.hasWon = true;
-        currentLevel.OnQuit();
+        currentLevel.Quit();
     }
 
     protected void Lose()
     {
         currentLevel.hasWon = false;
-        currentLevel.OnQuit();
+        currentLevel.Quit();
     }
 
     public GameObject ShowUI(GameObject prefab)

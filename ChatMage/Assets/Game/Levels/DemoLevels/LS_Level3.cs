@@ -7,7 +7,7 @@ using System;
 using FullSerializer;
 using FullInspector;
 
-public class Level3 : LevelScript {
+public class LS_Level3 : LevelScript {
 
     public float enemySpawnDelay = 4f;
     public float hpSpawnDelay = 8f;
@@ -18,8 +18,6 @@ public class Level3 : LevelScript {
     GameObject outroUI;
     [fsIgnore]
     Unit dodger;
-    [fsIgnore]
-    Unit healthPacks;
     [fsIgnore]
     int dodgerKilled;
 
@@ -58,7 +56,7 @@ public class Level3 : LevelScript {
             events.WinIn(0);
     }
 
-    public override void onQuit()
+    public override void OnQuit()
     {
         if (isOver)
             return;
@@ -71,7 +69,6 @@ public class Level3 : LevelScript {
     {
         LoadQueue queue = new LoadQueue(onComplete);
         queue.AddEnemy("Dodger", (x) => dodger = x);
-        queue.AddMiscUnit("HealthPacks", (x) => healthPacks = x);
         queue.AddUI("Countdown", (x) => countdownUI = x);
         queue.AddUI("Outro", (x) => outroUI = x);
     }

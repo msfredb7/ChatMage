@@ -17,13 +17,13 @@ public class PlayerController : MonoBehaviour
     {
         //Game ready event
         if (!Game.instance.gameReady)
-            Game.instance.onGameReady.AddListener(OnGameReady);
+            Game.instance.onGameReady += OnGameReady;
         else
             OnGameReady();
 
         //Game started event
         if (!Game.instance.gameStarted)
-            Game.instance.onGameStarted.AddListener(OnGameStarted);
+            Game.instance.onGameStarted += OnGameStarted;
         else
             OnGameStarted();
     }

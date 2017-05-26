@@ -1,4 +1,4 @@
-﻿using CCC.Manager;
+using CCC.Manager;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +7,7 @@ using System;
 using FullSerializer;
 using FullInspector;
 
-public class demoLevelScript2 : LevelScript
+public class LD_demoLevelScript : LevelScript
 {
     public float enemySpawnDelay = 4f;
     public float hpSpawnDelay = 8f;
@@ -16,6 +16,8 @@ public class demoLevelScript2 : LevelScript
     GameObject countdownUI;
     [fsIgnore]
     GameObject outroUI;
+    [fsIgnore]
+    GameObject objectiveUI;
     [fsIgnore]
     Unit charger;
     [fsIgnore]
@@ -29,6 +31,8 @@ public class demoLevelScript2 : LevelScript
         events.WinIn(20);
 
         events.ShowUI(countdownUI).GetComponent<IntroCountdown>().onCountdownOver.AddListener(Game.instance.StartGame);
+
+        events.ShowUI(objectiveUI).GetComponent<ShowObjectives>().AddObjective("Survive 20 seconds !");
     }
 
     protected override void OnGameStarted()
@@ -51,7 +55,7 @@ public class demoLevelScript2 : LevelScript
         }
     }
 
-    public override void onQuit()
+    public override void OnQuit()
     {
         if (isOver)
             return;
@@ -67,6 +71,7 @@ public class demoLevelScript2 : LevelScript
         queue.AddMiscUnit("HealthPacks", (x) => healthPacks = x);
         queue.AddUI("Countdown", (x) => countdownUI = x);
         queue.AddUI("Outro", (x) => outroUI = x);
+        queue.AddUI("Objectives", (x) => objectiveUI = x);
     }
 
     public override void ReceiveEvent(string message)

@@ -16,7 +16,6 @@ public class RubanPlaylist
     private Action<float> onEnd = null;
     private Action onComplete = null;
     private bool ending = true;
-    private bool running = false;
     private double currentRubanDeltaHeight = 0;
     [System.NonSerialized]
     public bool shouldLoop;

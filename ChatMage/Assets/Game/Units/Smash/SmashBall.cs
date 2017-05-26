@@ -6,12 +6,25 @@ public class SmashBall : Unit
 {
     public int hp = 3;
     public float startSpeed;
+    public Transform followTarget;
+    public float followSpeed = 10;
 
     public event SimpleEvent onHitPlayer;
 
     void Start()
     {
         rb.velocity = Vehicle.AngleToVector(Random.Range(0, 360)) * startSpeed;
+    }
+
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
+
+        if(followTarget != null)
+        {
+            Vector2 v = followTarget.position - tr.position;
+            rb.velocity = Vector2.MoveTowards(rb.velocity, v * 2, FixedDeltaTime() * followSpeed);
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
