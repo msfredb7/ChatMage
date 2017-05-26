@@ -7,7 +7,7 @@ using System;
 using FullSerializer;
 using FullInspector;
 
-public class LD_demoLevelScript : LevelScript
+public class LS_demoLevelScript : LevelScript
 {
     public float enemySpawnDelay = 4f;
     public float hpSpawnDelay = 8f;
