@@ -5,13 +5,9 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class PlayerSmash : PlayerComponent
-{    
-    [System.NonSerialized]
-    public UnityEvent onSmashAppear = new UnityEvent();
-    [System.NonSerialized]
-    public UnityEvent onSmashGained = new UnityEvent();
-    [System.NonSerialized]
-    public UnityEvent onSmashUsed = new UnityEvent();
+{
+    public event SimpleEvent onSmashGained;
+    public event SimpleEvent onSmashUsed;
 
 
     public bool HasSmash { get { return hasSmash; } }
@@ -28,9 +24,6 @@ public class PlayerSmash : PlayerComponent
     public override void OnGameStarted()
     {
         smash.OnGameStarted();
-
-        //Temporaire
-        StartSmashCooldown();
     }
 
     public void SetSmash(Smash smash)
@@ -39,20 +32,12 @@ public class PlayerSmash : PlayerComponent
         smash.Init(controller);
     }
 
-    //Appartion de la boule !
-    void OnSmashRefresh()
-    {
-        onSmashAppear.Invoke();
-
-        //Temporaire
-        GainSmash();
-    }
-
     //Smash gained !
     public void GainSmash()
     {
         hasSmash = true;
-        onSmashGained.Invoke();
+        if (onSmashGained != null)
+            onSmashGained();
     }
 
     //Utilisation du smash !
@@ -63,14 +48,7 @@ public class PlayerSmash : PlayerComponent
         hasSmash = false;
 
         smash.OnSmash();
-        onSmashUsed.Invoke();
-
-        StartSmashCooldown();
-    }
-
-    private void StartSmashCooldown()
-    {
-        //TODO Mettre un vrai system de cooldown ou countdown
-        DelayManager.CallTo(OnSmashRefresh, 3, false);
+        if (onSmashUsed != null)
+            onSmashUsed.Invoke();
     }
 }

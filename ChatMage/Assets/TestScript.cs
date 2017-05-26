@@ -14,7 +14,7 @@ public class TestScript : BaseBehavior
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            smasher.SHITNIGGA();
+
         }
     }
 }

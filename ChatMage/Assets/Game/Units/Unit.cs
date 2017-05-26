@@ -81,7 +81,7 @@ public class Unit : MonoBehaviour
 
     protected virtual void Die()
     {
-        if(onDeath != null)
+        if (onDeath != null)
             onDeath(this);
     }
 
