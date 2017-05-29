@@ -10,6 +10,8 @@ using FullInspector;
 public class TestScript : BaseBehavior
 {
     public SmashManager smasher;
+    public InGameEvents ingameEvents;
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.T))

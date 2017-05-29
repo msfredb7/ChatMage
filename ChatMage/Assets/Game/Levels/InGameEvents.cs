@@ -8,10 +8,67 @@ using UnityEngine.Events;
 public class InGameEvents : MonoBehaviour
 {
     LevelScript currentLevel;
+    float timer = 0;
+
+    private class DelayedAction
+    {
+        public float at;
+        public Action action;
+    }
+
+    LinkedList<DelayedAction> delayedActions = new LinkedList<DelayedAction>();
 
     public void Init(LevelScript currentLevel)
     {
         this.currentLevel = currentLevel;
+    }
+
+    void Update()
+    {
+        timer += Time.deltaTime * Game.instance.worldTimeScale;
+        CheckActionList();
+    }
+
+    void CheckActionList()
+    {
+        while (delayedActions.First != null)
+        {
+            LinkedListNode<DelayedAction> node = delayedActions.First;
+
+            if (node.Value.at <= timer)
+            {
+                node.Value.action();
+                delayedActions.RemoveFirst();
+            }
+            else
+                break;
+        }
+    }
+
+    public void AddDelayedAction(Action action, float delay)
+    {
+        DelayedAction da = new DelayedAction() { at = delay + timer, action = action };
+        LinkedListNode<DelayedAction> node = delayedActions.First;
+
+        if (node == null)
+        {
+            delayedActions.AddFirst(da);
+        }
+        else
+            while (true)
+            {
+                if (node.Value.at > da.at)
+                {
+                    delayedActions.AddBefore(node, da);
+                    break;
+                }
+                if (node.Next == null)
+                {
+                    delayedActions.AddAfter(node, da);
+                    break;
+                }
+                node = node.Next;
+            }
     }
 
     public void OnDestroy()
@@ -39,8 +96,8 @@ public class InGameEvents : MonoBehaviour
 
     public void PauseGame(float timeStart, float timeEnd)
     {
-        DelayManager.LocalCallTo(delegate () { Time.timeScale = 0; }, timeStart, this);
-        DelayManager.LocalCallTo(delegate () { Time.timeScale = 1; }, timeEnd, this);
+        AddDelayedAction(delegate () { Time.timeScale = 0; }, timeStart);
+        AddDelayedAction(delegate () { Time.timeScale = 1; }, timeEnd);
     }
 
     public GameObject ShowUI(GameObject prefab)
@@ -72,7 +129,7 @@ public class InGameEvents : MonoBehaviour
         Game.instance.Player.playerStats.canTurn.Unlock("intro");
     }
 
-#endregion
+    #endregion
 
 
 
@@ -219,12 +276,12 @@ public class InGameEvents : MonoBehaviour
         if (waypoints == null)
         {
             // On fait spawn les entity a des endroits random 
-            DelayManager.LocalCallTo(delegate ()
+            AddDelayedAction(delegate ()
             {
                 Unit newUnit = Game.instance.spawner.SpawnUnitAtRandomLocation(unit, locationType);
                 if (function != null)
                     function(newUnit);
-            }, time, this);
+            }, time);
         }
         else // Si on a defini des waypoints
         {
@@ -235,33 +292,33 @@ public class InGameEvents : MonoBehaviour
                 if (random)
                 {
                     // On spawn l'entity a un endroit random parmis des position defini
-                    DelayManager.LocalCallTo(delegate ()
+                    AddDelayedAction(delegate ()
                     {
-                         Game.instance.spawner.SpawnUnitAtRandomMultipleDefinedLocation(unit, waypoints, function);
-                    }, time, this);
+                        Game.instance.spawner.SpawnUnitAtRandomMultipleDefinedLocation(unit, waypoints, function);
+                    }, time);
                 }
                 else // Mais qu'on veut pas que ce soit random
                 {
                     // On fait spawn l'entity a un endroit defini selon un ordonnancement de position
-                    DelayManager.LocalCallTo(delegate ()
+                    AddDelayedAction(delegate ()
                     {
                         Game.instance.spawner.SpawnUnitAtMultipleDefinedLocation(unit, waypoints, function);
-                    }, time, this);
+                    }, time);
                 }
             }
             else // Si on a defini un waypoint
             {
-                DelayManager.LocalCallTo(delegate ()
+                AddDelayedAction(delegate ()
                 {
                     Unit newUnit = Game.instance.spawner.SpawnUnitAtLocation(unit, waypoints[0]);
                     if (function != null)
                         function(newUnit);
-                }, time, this);
+                }, time);
             }
         }
     }
 
-#endregion
+    #endregion
 
 
 
@@ -275,12 +332,12 @@ public class InGameEvents : MonoBehaviour
 
     public void WinIn(float time)
     {
-        DelayManager.LocalCallTo(Win, time, this);
+        AddDelayedAction(Win, time);
     }
 
     public void LoseIn(float time)
     {
-        DelayManager.LocalCallTo(Lose, time, this);
+        AddDelayedAction(Lose, time);
     }
 
     protected void Win()
@@ -307,6 +364,6 @@ public class InGameEvents : MonoBehaviour
             ShowUI(uiPrefab).GetComponent<GameResultUI>().UpdateResult(false, currentLevel);
     }
 
-#endregion
+    #endregion
 
 }

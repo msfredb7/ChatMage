@@ -41,7 +41,7 @@ public class Game : PublicSingleton<Game>
     // NON AFFICH�
 
     [fsIgnore]
-    public StatFloat defaultSpawnTimeScale = new StatFloat(1, 0, float.MaxValue, BoundMode.Cap);
+    public StatFloat worldTimeScale = new StatFloat(1, 0, float.MaxValue, BoundMode.Cap);
     public PlayerController Player { get { return player; } }
     private PlayerController player;
 
@@ -155,7 +155,7 @@ public class Game : PublicSingleton<Game>
     {
         unit.transform.SetParent(unitsContainer);
         unit.movingPlatform = map.rubanPlayer;
-        unit.TimeScale = defaultSpawnTimeScale;
+        unit.TimeScale = worldTimeScale;
 
         units.Add(unit);
 

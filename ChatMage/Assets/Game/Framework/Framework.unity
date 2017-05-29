@@ -376,7 +376,7 @@ MonoBehaviour:
   framework: {fileID: 0}
   defaultBounds: {x: 16, y: 9}
   units: []
-  defaultSpawnTimeScale:
+  worldTimeScale:
     value: 1
     min: 0
     max: 3.4028235e+38
@@ -558,8 +558,17 @@ MonoBehaviour:
   - {fileID: 986166561}
   - {fileID: 1707316992}
   _values:
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.cam.EditProperty
+    - DefaultBehaviorEditor.defaultBounds.EditProperty
+    - DefaultBehaviorEditor.units.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
     _target: {fileID: 986166561}
   - _keys: []
     _values: []
@@ -961,6 +970,7 @@ MonoBehaviour:
   _serializedStateKeys: []
   _serializedStateValues: []
   smasher: {fileID: 218698580}
+  ingameEvents: {fileID: 218698578}
 --- !u!4 &1707316993
 Transform:
   m_ObjectHideFlags: 0
