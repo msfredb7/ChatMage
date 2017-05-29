@@ -1,11 +1,10 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FullSerializer;
 using CCC.Utility;
-
-public class Car_Demo : Car
+public class Car_Mustang : Car
 {
     //NE PAS MODIFIER IN-GAME
     public float turnClutch = 0;

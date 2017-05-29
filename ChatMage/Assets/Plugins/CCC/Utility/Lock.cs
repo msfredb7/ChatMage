@@ -23,6 +23,20 @@ namespace CCC.Utility
             onChange.Invoke();
         }
 
+
+        /// <summary>
+        /// Vérifie si la clé existe
+        /// </summary>
+        public bool HasKey(string key)
+        {
+            for (int i = 0; i < keys.Count; i++)
+            {
+                if(keys[i] == key)
+                    return true;
+            }
+            return false;
+        }
+
         /// <summary>
         /// Enlève tous les instances de clé de ce nom
         /// </summary>
