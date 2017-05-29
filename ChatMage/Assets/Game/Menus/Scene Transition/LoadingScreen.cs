@@ -28,10 +28,11 @@ public class LoadingScreen
         LoadingScreen.waitForNextSceneSetup = waitForNextSceneSetup;
         isInTransition = true;
 
-        wish = new Wish();
-        wish.message = message;
-        wish.sceneName = sceneName;
-
+        wish = new Wish()
+        {
+            message = message,
+            sceneName = sceneName
+        };
         Scenes.LoadAsync(SCENENAME, LoadSceneMode.Additive, OnLoadingScreenLoaded);
     }
     public static void OnNewSetupComplete()

@@ -306,9 +306,9 @@ public class InGameEvents : MonoBehaviour
         Game.instance.Player.playerStats.damagable = false;
         // Si on a gagner
         if (result)
-            ShowUI(uiPrefab).GetComponent<ResultTextScript>().UpdateResult(true, currentLevel);
+            ShowUI(uiPrefab).GetComponent<GameResultUI>().UpdateResult(true, currentLevel);
         else // Si on a perdu
-            ShowUI(uiPrefab).GetComponent<ResultTextScript>().UpdateResult(false, currentLevel);
+            ShowUI(uiPrefab).GetComponent<GameResultUI>().UpdateResult(false, currentLevel);
     }
 
 #endregion

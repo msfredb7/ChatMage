@@ -17,4 +17,9 @@ public class TestScript : BaseBehavior
             smasher.DecreaseCooldown(30);
         }
     }
+
+    void OnComplete()
+    {
+
+    }
 }

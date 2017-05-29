@@ -38,10 +38,19 @@ public class Framework : MonoBehaviour
             MasterManager.Sync(Init);
     }
 
+    //LE init utilisé pour start tout
+    public void Init(string levelScriptName, LoadoutResult loadoutResult)
+    {
+        ResourceLoader.LoadLevelScriptAsync(levelScriptName, delegate (LevelScript levelScript)
+        {
+            Init(levelScript, loadoutResult);
+        });
+    }
+
     /// <summary>
     /// Va loader le default level
     /// </summary>
-    public void Init()
+    private void Init()
     {
         Init(defaultLevel, null);
     }
@@ -49,7 +58,7 @@ public class Framework : MonoBehaviour
     /// <summary>
     /// Start la game avec le level spécifié
     /// </summary>
-    public void Init(LevelScript level, LoadoutResult loadoutResult)
+    private void Init(LevelScript level, LoadoutResult loadoutResult)
     {
         hasInit = true;
         this.level = level;
@@ -152,7 +161,6 @@ public class Framework : MonoBehaviour
 
     public void RestartLevel()
     {
-        // TODO FIX THIS SHIT
-        LoadingScreen.TransitionTo(SCENENAME,new ToGameMessage(level,loadoutResult),true);
+        LoadingScreen.TransitionTo(SCENENAME,new ToGameMessage(level.name,loadoutResult),true);
     }
 }

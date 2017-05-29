@@ -102,7 +102,7 @@ public class Game : PublicSingleton<Game>
 
     public void Quit()
     {
-        LoadingScreen.TransitionTo("MenuSelection", null);
+        LoadingScreen.TransitionTo(LevelSelection.SCENENAME, null);
     }
 
     private void OnObjectiveComplete()
