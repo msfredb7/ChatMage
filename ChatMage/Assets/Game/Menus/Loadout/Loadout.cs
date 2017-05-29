@@ -25,7 +25,7 @@ public class Loadout : MonoBehaviour
     {
         this.levelScriptName = levelScriptName;
         armory.Load();
-        armory.DebugSetItemSlot(5);
+        armory.DebugSetItemSlot(5); // A enlever !
         currentLoadout = new LoadoutResult(armory.GetItemSlots());
 
         List<EquipablePreview> unlockItems = armory.GetAllUnlockedItems();
@@ -64,6 +64,11 @@ public class Loadout : MonoBehaviour
                 Debug.Log(currentEquipable.displayName + " selected");
             });
         }
+    }
+
+    private void OnDestroy()
+    {
+        // Sauvegarde du Loadout !
     }
 
     public void ChargeLoadoutAndGame()
