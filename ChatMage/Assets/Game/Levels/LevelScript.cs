@@ -75,6 +75,7 @@ public abstract class LevelScript : BaseScriptableObject
     public void End()
     {
         GameSaves.instance.SetBool(GameSaves.Type.LevelSelect, WINRESULT_KEY, hasWon);
+        GameSaves.instance.SaveData(GameSaves.Type.LevelSelect);
         OnEnd();
     }
 

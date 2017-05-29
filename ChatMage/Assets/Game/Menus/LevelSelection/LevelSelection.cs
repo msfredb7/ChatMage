@@ -26,7 +26,7 @@ public class LevelSelection : MonoBehaviour
         // Should we mark a level as 'completed' ?
         bool lastGameResult = GetLastGameResult();
 
-        if (lastGameResult)
+        if (lastGameResult && GameSaves.instance.ContainsString(GameSaves.Type.LevelSelect, LASTLEVELSELECTED_KEY))
         {
             string lastLevelSelected = GameSaves.instance.GetString(GameSaves.Type.LevelSelect, LASTLEVELSELECTED_KEY);
             SetAsCompleted(lastLevelSelected);

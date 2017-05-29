@@ -63,6 +63,11 @@ public class SmashBall : Unit
             Die();
     }
 
+    public void ForceDeath()
+    {
+        Die();
+    }
+
     protected override void Die()
     {
         //Call base event

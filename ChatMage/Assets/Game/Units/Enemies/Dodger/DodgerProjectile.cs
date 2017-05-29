@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileVehicule : Unit {
+public class DodgerProjectile : Unit {
 
     public float speed;
 
@@ -20,6 +20,17 @@ public class ProjectileVehicule : Unit {
         if (Game.instance.Player != null)
             rb.velocity = (Game.instance.Player.vehicle.Position - Position).normalized * speed;
         GetComponent<SimpleCollisionListener>().onTriggerEnter += Hit;
+    }
+
+    public void Kill()
+    {
+        Die();
+    }
+
+    protected override void Die()
+    {
+        base.Die();
+        Destroy(gameObject);
     }
 
 }

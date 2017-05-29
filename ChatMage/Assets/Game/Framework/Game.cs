@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using FullInspector;
 using FullSerializer;
+using CCC.Utility;
 using CCC.Manager;
 using System;
 
@@ -39,6 +40,8 @@ public class Game : PublicSingleton<Game>
 
     // NON AFFICH�
 
+    [fsIgnore]
+    public StatFloat worldTimeScale = new StatFloat(1, 0, float.MaxValue, BoundMode.Cap);
     public PlayerController Player { get { return player; } }
     private PlayerController player;
 
@@ -137,9 +140,9 @@ public class Game : PublicSingleton<Game>
     /// <summary>
     /// Spawn une unit dans la map
     /// </summary>
-    public Unit SpawnUnit(Unit prefab, Vector2 position)
+    public T SpawnUnit<T>(T prefab, Vector2 position) where T : Unit
     {
-        Unit newUnit = Instantiate(prefab.gameObject, position, Quaternion.identity).GetComponent<Unit>();
+        T newUnit = Instantiate(prefab.gameObject, position, Quaternion.identity).GetComponent<T>();
         AddExistingUnit(newUnit);
 
         return newUnit;
@@ -152,6 +155,7 @@ public class Game : PublicSingleton<Game>
     {
         unit.transform.SetParent(unitsContainer);
         unit.movingPlatform = map.rubanPlayer;
+        unit.TimeScale = worldTimeScale;
 
         units.Add(unit);
 

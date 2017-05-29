@@ -7,7 +7,7 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Unit : MonoBehaviour
 {
-    public float timeScale = 1;
+    protected float timeScale = 1;
     public Locker isAffectedByTimeScale = new Locker();
 
     public delegate void Unit_Event(Unit unit);
@@ -85,13 +85,42 @@ public class Unit : MonoBehaviour
             onDeath(this);
     }
 
+    [System.NonSerialized]
+    private Vector2 referenceVelocity;
+    [System.NonSerialized]
+    private bool wasStopped = false;
+
     public float TimeScale
     {
         get { return timeScale; }
         set
         {
-            rb.velocity *= value / timeScale;
+            if (value == timeScale)
+                return;
+
+            if (value < 0)
+                value = 0;
+
+            //On stoppe le temps ? Si oui, prendre en note la velocité original
+            if(value == 0)
+            {
+                referenceVelocity = rb.velocity / timeScale;
+
+                rb.velocity = Vector2.zero;
+                wasStopped = true;
+            }
+            else if (wasStopped) // Sinon, est-ce qu'on était arreté auparavant ? Si oui, utilisé la formule
+            {
+                rb.velocity = referenceVelocity * value;
+                wasStopped = false;
+            }
+            else    // Sinon, formule standard
+            {
+                rb.velocity *= value / timeScale;
+            }
+
             timeScale = value;
+
             if (onTimeScaleChange != null)
                 onTimeScaleChange.Invoke(this);
         }

@@ -10,11 +10,16 @@ using FullInspector;
 public class TestScript : BaseBehavior
 {
     public SmashManager smasher;
+    public InGameEvents ingameEvents;
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            smasher.DecreaseCooldown(30);
+            if (smasher.CurrentSmashBall != null)
+                smasher.CurrentSmashBall.ForceDeath();
+            else
+                smasher.DecreaseCooldown(30);
         }
     }
 

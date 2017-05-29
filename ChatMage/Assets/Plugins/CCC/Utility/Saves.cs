@@ -38,16 +38,20 @@ namespace CCC.Utility
 
         static void ThreadLoadMethod(string path, Action<object> onComplete)
         {
+            //UnityEngine.Debug.Log("load about to start" + path);
             if (!Exists(path))
             {
                 onComplete.Invoke(null);
                 return;
             }
+            //UnityEngine.Debug.Log("load started: " + path);
 
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Open(path, FileMode.Open);
             object obj = bf.Deserialize(file);
             file.Close();
+
+            //UnityEngine.Debug.Log("load completed" + path);
 
             lock (MainThread.instance)
             {

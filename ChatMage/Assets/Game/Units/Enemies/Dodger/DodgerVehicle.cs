@@ -5,11 +5,28 @@ using UnityEngine;
 public class DodgerVehicle : EnemyVehicle
 {
     public GameObject visualAspect; // sprite qui regarde vers ou on tire
+    private float shootCooldown = 1;
+
+    public DodgerProjectile projectilePrefab;
+
+    private DodgerProjectile lastProjectile;
 
     public void Init()
     {
         SetBounds(Game.instance.ScreenBounds, 1);
-        GetComponent<CollisionListener>().onEnter += Hit;
+        GetComponent<SimpleCollisionListener>().onTriggerEnter += Hit;
+    }
+
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
+
+        shootCooldown -= FixedDeltaTime();
+    }
+
+    public bool CanShoot()
+    {
+        return shootCooldown < 0;
     }
 
     public void Hit(Unit unit)
@@ -42,5 +59,17 @@ public class DodgerVehicle : EnemyVehicle
     public Vector2 GetPosition()
     {
         return new Vector2(tr.position.x, tr.position.y);
+    }
+
+    public void Shoot()
+    {
+        if (lastProjectile != null)
+            lastProjectile.Kill();
+
+        Vector3 spawnPosition = transform.position;
+
+        lastProjectile = Game.instance.SpawnUnit(projectilePrefab, spawnPosition);
+
+        shootCooldown = 5;
     }
 }

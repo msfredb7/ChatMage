@@ -27,11 +27,6 @@ public class GameSaves : BaseManager<GameSaves>
         LoadAllAsync(CompleteInit);
     }
 
-    private void OnApplicationQuit()
-    {
-        SaveAll();
-    }
-
     private string GetPath()
     {
         return Application.persistentDataPath + "/v1_";
@@ -189,7 +184,7 @@ public class GameSaves : BaseManager<GameSaves>
             NewOfType(type);
             SaveDataAsync(type, onLoadComplete);
         }
-            
+
     }
 
     public void LoadData(Type type)

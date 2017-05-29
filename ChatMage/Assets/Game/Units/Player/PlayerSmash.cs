@@ -9,6 +9,7 @@ public class PlayerSmash : PlayerComponent
     public event SimpleEvent onSmashGained;
     public event SimpleEvent onSmashUsed;
 
+    public bool SmashEquipped { get { return smash != null; } }
 
     public bool HasSmash { get { return hasSmash; } }
     private bool hasSmash;
@@ -18,18 +19,21 @@ public class PlayerSmash : PlayerComponent
 
     public override void OnGameReady()
     {
-        smash.OnGameReady();
+        if (smash != null)
+            smash.OnGameReady();
     }
 
     public override void OnGameStarted()
     {
-        smash.OnGameStarted();
+        if (smash != null)
+            smash.OnGameStarted();
     }
 
     public void SetSmash(Smash smash)
     {
         this.smash = smash;
-        smash.Init(controller);
+        if (smash != null)
+            smash.Init(controller);
     }
 
     //Smash gained !
@@ -43,7 +47,7 @@ public class PlayerSmash : PlayerComponent
     //Utilisation du smash !
     public void SmashClick()
     {
-        if (!hasSmash)
+        if (!hasSmash || smash == null)
             return;
         hasSmash = false;
 

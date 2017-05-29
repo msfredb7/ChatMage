@@ -67,13 +67,14 @@ public class Loadout : BaseBehavior
         }
     }
 
-    private void OnDestroy()
-    {
-        // Sauvegarde du Loadout !
-    }
-
     public void ChargeLoadoutAndGame()
     {
+        if (currentLoadout.carOrder == null)
+        {
+            currentLoadout.AddEquipable(armory.cars[0].equipableAssetName, EquipableType.Car);
+            Debug.LogWarning("No car selected -> default car");
+        }
         LoadingScreen.TransitionTo(Framework.SCENENAME, new ToGameMessage(levelScriptName, currentLoadout), false);
+        // Sauvegarde du Loadout !
     }
 }

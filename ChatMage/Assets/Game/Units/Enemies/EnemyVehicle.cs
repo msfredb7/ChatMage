@@ -28,7 +28,9 @@ public class EnemyVehicle : Vehicle
         if (goingTo)
         {
             Vector2 v = targetPosition - rb.position;
-            if (v.magnitude > 0.01f)
+
+            //Arrived ?
+            if (v.magnitude > 0.01f) // Yes
             {
                 if (arrivedAtDestination)
                 {
@@ -37,9 +39,9 @@ public class EnemyVehicle : Vehicle
                 }
                 targetDirection = VectorToAngle(targetPosition - rb.position);
             }
-            else
+            else //No
             {
-                if (!arrivedAtDestination)
+                if (!arrivedAtDestination) 
                 {
                     if (canAccelerate)
                         rb.velocity = Vector3.zero;
