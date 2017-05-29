@@ -11,9 +11,6 @@ public class Level : BaseScriptableObject
     public List<Level> previousLevels;
     public string levelScriptName;
 
-    [InspectorHeader("Temporaire"), InspectorMargin(25)]
-    public LevelScript levelScript;
-
     [InspectorHeader("Data"), InspectorMargin(25)]
     [InspectorDisabled, fsProperty]
     private bool hasBeenCompleted;

@@ -13,8 +13,6 @@ public abstract class LevelScript : BaseScriptableObject
     public bool hasWon;
     public string sceneName;
 
-    public List<NextLevel> nextLevels = new List<NextLevel>();
-
     public class NextLevel
     {
         public int regionNumber;

@@ -17,10 +17,6 @@ public class InGameEvents : MonoBehaviour
     public void OnDestroy()
     {
         StopAllCoroutines();
-        for (int i = 0; i < currentLevel.nextLevels.Count; i++)
-        {
-            GameSaves.instance.SetBool(GameSaves.Type.LevelSelect, (currentLevel.nextLevels[i].regionNumber) + "-" + (currentLevel.nextLevels[i].levelNumber), true);
-        }
     }
 
     // Dialogue (A faire)
