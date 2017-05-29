@@ -210,7 +210,7 @@ public class InGameEvents : MonoBehaviour
         for (int i = 0; i < amount; i++)
         {
             float newTime = (time / amount) * i;
-            SpawnEntity(unit, time, locationType, false);
+            SpawnEntity(unit, newTime, locationType, false);
         }
     }
 
@@ -224,7 +224,7 @@ public class InGameEvents : MonoBehaviour
         for (int i = 0; i < amount; i++)
         {
             float newTime = (time / amount) * i;
-            SpawnEntity(unit, time, locationType, true);
+            SpawnEntity(unit, newTime, locationType, true);
         }
     }
 
@@ -238,7 +238,7 @@ public class InGameEvents : MonoBehaviour
         for (int i = 0; i < amount; i++)
         {
             float newTime = (time / amount) * i;
-            SpawnEntity(unit, time, Waypoint.WaypointType.enemySpawn, false);
+            SpawnEntity(unit, newTime, Waypoint.WaypointType.enemySpawn, false);
         }
     }
 
@@ -252,7 +252,7 @@ public class InGameEvents : MonoBehaviour
         for (int i = 0; i < amount; i++)
         {
             float newTime = (time / amount) * i;
-            SpawnEntity(unit, time, Waypoint.WaypointType.enemySpawn, true);
+            SpawnEntity(unit, newTime, Waypoint.WaypointType.enemySpawn, true);
         }
     }
 

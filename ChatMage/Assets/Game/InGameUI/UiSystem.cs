@@ -9,9 +9,11 @@ public class UiSystem : MonoBehaviour {
     public const string SCENENAME = "UI";
     public HealthDisplay healthdisplay;
     public PlayerInput playerInputs;
+    public SmashDisplay smashDisplay;
 
     public void Init(PlayerController playerController)
     {
+        smashDisplay.Init();
         healthdisplay.Init();
         playerInputs.Init(playerController);
     }
