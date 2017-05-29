@@ -138,14 +138,16 @@ public class GameSaves : BaseManager<GameSaves>
     {
         InitQueue queue = new InitQueue(onComplete);
         LoadDataAsync(Type.Loadout, queue.Register());
-        LoadDataAsync(Type.World, queue.Register());
+        LoadDataAsync(Type.LevelSelect, queue.Register());
         LoadDataAsync(Type.Account, queue.Register());
+
+        queue.MarkEnd();
     }
 
     public void LoadAll()
     {
         LoadData(Type.Loadout);
-        LoadData(Type.World);
+        LoadData(Type.LevelSelect);
         LoadData(Type.Account);
     }
 
@@ -153,14 +155,17 @@ public class GameSaves : BaseManager<GameSaves>
     {
         InitQueue queue = new InitQueue(onComplete);
         SaveDataAsync(Type.Loadout, queue.Register());
-        SaveDataAsync(Type.World, queue.Register());
+        SaveDataAsync(Type.LevelSelect, queue.Register());
         SaveDataAsync(Type.Account, queue.Register());
+
+        queue.MarkEnd();
     }
 
     public void SaveAll()
     {
+        print("saving data");
         SaveData(Type.Loadout);
-        SaveData(Type.World);
+        SaveData(Type.LevelSelect);
         SaveData(Type.Account);
     }
 
@@ -225,14 +230,14 @@ public class GameSaves : BaseManager<GameSaves>
 
     #region ADD NEW CATEGORIES HERE
 
-    private const string WORLD_FILE = "world.dat";
+    private const string LEVELSELECT_FILE = "levelSelect.dat";
     private const string LOADOUT_FILE = "loadout.dat";
     private const string ACCOUNT_FILE = "account.dat";
 
-    public enum Type { World, Loadout, Account }
+    public enum Type { LevelSelect, Loadout, Account }
 
     [fsIgnore]
-    private Data worldData = new Data();
+    private Data levelSelectData = new Data();
     [fsIgnore]
     private Data loadoutData = new Data();
     [fsIgnore]
@@ -242,8 +247,8 @@ public class GameSaves : BaseManager<GameSaves>
     {
         switch (type)
         {
-            case Type.World:
-                return WORLD_FILE;
+            case Type.LevelSelect:
+                return LEVELSELECT_FILE;
             case Type.Loadout:
                 return LOADOUT_FILE;
             case Type.Account:
@@ -256,8 +261,8 @@ public class GameSaves : BaseManager<GameSaves>
     {
         switch (type)
         {
-            case Type.World:
-                return worldData;
+            case Type.LevelSelect:
+                return levelSelectData;
             case Type.Loadout:
                 return loadoutData;
             case Type.Account:
@@ -270,8 +275,8 @@ public class GameSaves : BaseManager<GameSaves>
     {
         switch (type)
         {
-            case Type.World:
-                worldData = newData;
+            case Type.LevelSelect:
+                levelSelectData = newData;
                 break;
             case Type.Loadout:
                 loadoutData = newData;
@@ -286,8 +291,8 @@ public class GameSaves : BaseManager<GameSaves>
     {
         switch (type)
         {
-            case Type.World:
-                worldData = new Data();
+            case Type.LevelSelect:
+                levelSelectData = new Data();
                 break;
             case Type.Loadout:
                 loadoutData = new Data();

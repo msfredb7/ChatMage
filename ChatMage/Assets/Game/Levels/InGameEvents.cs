@@ -19,7 +19,7 @@ public class InGameEvents : MonoBehaviour
         StopAllCoroutines();
         for (int i = 0; i < currentLevel.nextLevels.Count; i++)
         {
-            GameSaves.instance.SetBool(GameSaves.Type.World, (currentLevel.nextLevels[i].regionNumber) + "-" + (currentLevel.nextLevels[i].levelNumber), true);
+            GameSaves.instance.SetBool(GameSaves.Type.LevelSelect, (currentLevel.nextLevels[i].regionNumber) + "-" + (currentLevel.nextLevels[i].levelNumber), true);
         }
     }
 
@@ -290,13 +290,13 @@ public class InGameEvents : MonoBehaviour
     protected void Win()
     {
         currentLevel.hasWon = true;
-        currentLevel.Quit();
+        currentLevel.End();
     }
 
     protected void Lose()
     {
         currentLevel.hasWon = false;
-        currentLevel.Quit();
+        currentLevel.End();
     }
 
     // Outro

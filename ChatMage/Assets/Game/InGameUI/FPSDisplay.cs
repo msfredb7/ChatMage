@@ -8,6 +8,6 @@ public class FPSDisplay : BaseManager<FPSDisplay> {
 
     public override void Init()
     {
-        Debug.Log("FPS init");
+        CompleteInit();
     }
 }
