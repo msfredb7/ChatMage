@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     public PlayerDriver playerDriver;
     public PlayerItems playerItems;
     public PlayerStats playerStats;
+    public PlayerLocations playerLocations;
 
     void Awake()
     {
@@ -37,6 +38,7 @@ public class PlayerController : MonoBehaviour
         playerSmash.Init(this);
         playerItems.Init(this);
         playerStats.Init(this);
+        playerLocations.Init(this);
     }
 
     void OnGameReady()
@@ -45,6 +47,7 @@ public class PlayerController : MonoBehaviour
         playerSmash.OnGameReady();
         playerItems.OnGameReady();
         playerStats.OnGameReady();
+        playerLocations.OnGameReady();
     }
 
     void OnGameStarted()
@@ -53,5 +56,6 @@ public class PlayerController : MonoBehaviour
         playerSmash.OnGameStarted();
         playerItems.OnGameStarted();
         playerStats.OnGameStarted();
+        playerLocations.OnGameStarted();
     }
 }

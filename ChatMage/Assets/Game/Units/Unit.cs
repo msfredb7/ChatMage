@@ -11,8 +11,9 @@ public class Unit : MonoBehaviour
     public Locker isAffectedByTimeScale = new Locker();
 
     public delegate void Unit_Event(Unit unit);
+    public delegate void UnitMove_Event(Unit unit, Vector2 delta);
     public event Unit_Event onTimeScaleChange;
-    public event Unit_Event onTeleportPosition;
+    public event UnitMove_Event onTeleportPosition;
     public event Unit_Event onDestroy;
     public event Unit_Event onDeath;
 
@@ -74,9 +75,10 @@ public class Unit : MonoBehaviour
 
     public void TeleportPosition(Vector2 newPosition)
     {
+        Vector2 delta = newPosition - rb.position;
         rb.position = newPosition;
         if (onTeleportPosition != null)
-            onTeleportPosition.Invoke(this);
+            onTeleportPosition.Invoke(this, delta);
     }
 
     protected virtual void Die()
