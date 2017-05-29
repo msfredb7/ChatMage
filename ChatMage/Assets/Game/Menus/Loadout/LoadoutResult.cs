@@ -15,9 +15,16 @@ public class LoadoutResult
         public EquipableType type;
     }
 
+    public LoadoutResult(int itemSlotAmount)
+    {
+        this.itemSlotAmount = itemSlotAmount;
+    }
+
     public EquipableOrder smashOrder;
     public EquipableOrder carOrder;
     public List<EquipableOrder> itemOrders = new List<EquipableOrder>();
+
+    public int itemSlotAmount;
 
     public void AddEquipable(string name, EquipableType type)
     {
@@ -30,6 +37,13 @@ public class LoadoutResult
                 smashOrder = new EquipableOrder(name, type);
                 break;
             case EquipableType.Item:
+                for (int i = 0; i < itemOrders.Count; i++)
+                {
+                    if(itemOrders[i].equipableName == name)
+                    {
+                        throw new System.Exception("Item Already In Loadout");
+                    }
+                }
                 itemOrders.Add(new EquipableOrder(name, type));
                 break;
             default:

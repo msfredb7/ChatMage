@@ -106,6 +106,16 @@ public class Armory : MonoBehaviour {
         } else return false;
     }
 
+    public int GetItemSlots()
+    {
+        return itemSlots;
+    }
+
+    public void DebugSetItemSlot(int number)
+    {
+        itemSlots = number;
+    }
+
     public EquipablePreview DebugGetItem()
     {
         return items[0];
