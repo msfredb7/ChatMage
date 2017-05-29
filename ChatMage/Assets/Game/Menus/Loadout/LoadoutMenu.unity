@@ -304,6 +304,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2fd9f81ce9f0f6043b84c617d913b8eb, type: 2}
   cars:
   - {fileID: 11400000, guid: 32a19937235d6fb45be40c11367ddd22, type: 2}
+  - {fileID: 11400000, guid: 11f0703b95296724d81cb9e0b8bb7a33, type: 2}
   smashes:
   - {fileID: 11400000, guid: 43aafa3473f75094e9e822530bde2307, type: 2}
 --- !u!4 &406682746
@@ -418,6 +419,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 531520345}
+  - component: {fileID: 531520347}
+  - component: {fileID: 531520346}
   m_Layer: 0
   m_Name: fiPersistentEditorStorage
   m_TagString: Untagged
@@ -438,6 +441,40 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &531520346
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 531520344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be205b8c5a2f88c408c5e5343719637c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _keys:
+  - {fileID: 0}
+  _values:
+  - _keys: []
+    _values: []
+    _target: {fileID: 0}
+--- !u!114 &531520347
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 531520344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3b5fe0e79f64584a83676f21be2d2a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _keys:
+  - {fileID: 0}
+  _values:
+  - _keys: []
+    _values: []
+    _target: {fileID: 0}
 --- !u!1 &771806249
 GameObject:
   m_ObjectHideFlags: 0
