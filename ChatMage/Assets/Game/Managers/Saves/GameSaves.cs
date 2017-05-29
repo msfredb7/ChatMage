@@ -226,6 +226,34 @@ public class GameSaves : BaseManager<GameSaves>
         Saves.InstantSave(GetPath() + ext, data);
     }
 
+    public void ClearAllSaves()
+    {
+        ClearSave(Type.Account);
+        ClearSave(Type.LevelSelect);
+        ClearSave(Type.Loadout);
+    }
+
+    [InspectorButton()]
+    public void ClearLoadout()
+    {
+        ClearSave(Type.Loadout);
+    }
+    [InspectorButton()]
+    public void ClearLevelSelect()
+    {
+        ClearSave(Type.LevelSelect);
+    }
+    [InspectorButton()]
+    public void ClearAccount()
+    {
+        ClearSave(Type.Account);
+    }
+
+    public void ClearSave(Type type)
+    {
+        Saves.Delete(GetPath() + TypeToFileName(type));
+    }
+
     #endregion
 
     #region ADD NEW CATEGORIES HERE

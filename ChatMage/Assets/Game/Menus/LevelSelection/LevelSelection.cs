@@ -20,7 +20,6 @@ public class LevelSelection : MonoBehaviour
 
     void OnSync()
     {
-        print("sync complete");
         AddListeners();
 
 
