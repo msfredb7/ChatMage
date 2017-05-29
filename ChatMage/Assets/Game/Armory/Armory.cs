@@ -18,17 +18,16 @@ public class Armory : MonoBehaviour {
     // Smashs
     public List<EquipablePreview> smashes = new List<EquipablePreview>(); // catalogue des smash
 
-    public static int GetLastSavedSlots() { return PlayerPrefs.GetInt("Slots"); }
+    public static int GetLastSavedSlots() { return GameSaves.instance.GetInt(GameSaves.Type.Account, "Slots"); }
 
     public void Load()
     {
-        itemSlots = PlayerPrefs.GetInt("Slots");
+        itemSlots = GameSaves.instance.GetInt(GameSaves.Type.Account, "Slots");
     }
 
     public void Save()
     {
-        PlayerPrefs.SetInt("Slots", itemSlots);
-        PlayerPrefs.Save();
+        GameSaves.instance.SetInt(GameSaves.Type.Account, "Slots", itemSlots);
     }
 
     public List<EquipablePreview> GetAllUnlockedItems()
