@@ -42,8 +42,10 @@ public class PlayerBuilder : MonoBehaviour
             loadingItemsCount++;
             queue.AddEquipable(loadoutResult.itemOrders[i].equipableName, loadoutResult.itemOrders[i].type, OnItemLoaded);
         }
-        queue.AddEquipable(loadoutResult.carOrder.equipableName, loadoutResult.carOrder.type, OnCarLoaded);
-        queue.AddEquipable(loadoutResult.smashOrder.equipableName, loadoutResult.smashOrder.type, OnSmashLoaded);
+        if(loadoutResult.carOrder != null)
+            queue.AddEquipable(loadoutResult.carOrder.equipableName, loadoutResult.carOrder.type, OnCarLoaded);
+        if (loadoutResult.smashOrder != null)
+            queue.AddEquipable(loadoutResult.smashOrder.equipableName, loadoutResult.smashOrder.type, OnSmashLoaded);
     }
 
     void OnAnyAssetLoaded()
