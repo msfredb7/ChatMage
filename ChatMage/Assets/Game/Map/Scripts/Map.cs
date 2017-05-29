@@ -20,20 +20,20 @@ public class Map : MonoBehaviour
 
     void Start()
     {
-        if (Scenes.SceneCount() == 1)
-        {
-            MasterManager.Sync(delegate ()
-            {
-                Scenes.Load("Framework", LoadSceneMode.Additive, DebugInit);
-            });
-        }
+        //if (Scenes.SceneCount() == 1)
+        //{
+        //    MasterManager.Sync(delegate ()
+        //    {
+        //        Scenes.Load("Framework", LoadSceneMode.Additive, DebugInit);
+        //    });
+        //}
     }
 
-    void DebugInit(Scene scene)
-    {
-        Framework framework = Scenes.FindRootObject<Framework>(scene);
-        framework.Init(defaultLevelScript, null);
-    }
+    //void DebugInit(Scene scene)
+    //{
+    //    Framework framework = Scenes.FindRootObject<Framework>(scene);
+    //    framework.Init(defaultLevelScript, null);
+    //}
 
     /// <summary>
     /// Initialise les settings de la map

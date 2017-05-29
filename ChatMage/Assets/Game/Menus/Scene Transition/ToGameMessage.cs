@@ -7,18 +7,18 @@ using System;
 
 public class ToGameMessage : SceneMessage
 {
-    private LevelScript chosenLevel;
+    private string levelScriptName;
     private LoadoutResult loadoutResult;
 
-    public ToGameMessage(LevelScript chosenLevel, LoadoutResult loadoutResult)
+    public ToGameMessage(string levelScriptName, LoadoutResult loadoutResult)
     {
-        this.chosenLevel = chosenLevel;
+        this.levelScriptName = levelScriptName;
         this.loadoutResult = loadoutResult;
     }
     public void OnLoaded(Scene scene)
     {
         Framework framework = Scenes.FindRootObject<Framework>(scene);
-        framework.Init(chosenLevel, loadoutResult);
+        framework.Init(levelScriptName, loadoutResult);
     }
 
     public void OnOutroComplete()

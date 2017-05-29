@@ -3,17 +3,17 @@ using UnityEngine.SceneManagement;
 
 public class ToLoadoutMessage : SceneMessage
 {
-    private LevelScript chosenLevel;
+    private string levelScriptName;
 
-    public ToLoadoutMessage(LevelScript level)
+    public ToLoadoutMessage(string levelScriptName)
     {
-        chosenLevel = level;
+        this.levelScriptName = levelScriptName;
     }
 
     public void OnLoaded(Scene scene)
     {
         Loadout loadOut = Scenes.FindRootObject<Loadout>(scene);
-        loadOut.Init(chosenLevel);
+        loadOut.Init(levelScriptName);
     }
 
     public void OnOutroComplete()

@@ -5,114 +5,54 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class LevelSelection : MonoBehaviour {
+public class LevelSelection : MonoBehaviour
+{
+    public const string SCENENAME = "LevelSelect";
+    public List<LevelSelect_Region> regions;
+    public Button backButton;
 
-    public GameObject countainer;
-    public GameObject button;
-
-    public World world;
-    private Region currentRegion;
-
-    public Button regionChangeRight;
-    public Button regionChangeLeft;
-    public Text regionDisplay;
-
-    [Header("TEMPORAIRE")]
-    public EquipablePreview chosenCar;
-    public EquipablePreview chosenSmash;
-    public List<EquipablePreview> chosenItems;
-
-    void Awake()
+    void Start()
     {
-        MasterManager.Sync();
+        MasterManager.Sync(OnSync);
+        backButton.onClick.AddListener(OnBackClicked);
     }
 
-	// Use this for initialization
-	void Start () {
-        regionChangeRight.onClick.AddListener(GoRight);
-        regionChangeLeft.onClick.AddListener(GoLeft);
-        currentRegion = world.GetRegion(0);
-        regionDisplay.text = currentRegion.displayName;
+    void OnSync()
+    {
+        AddListeners();
 
-        currentRegion.levels[0].unlock = true;
-        world.LoadUnlockInformation(GameSaves.instance);
-
-        SettupLevelPanel(currentRegion);
+        //Un peu lourd ? Peut-être qu'on pourrait faire ça AVANT que le loading screen disparaisse (comme Framework)
+        LoadAllData();
     }
 
-    void GoRight()
+    void AddListeners()
     {
-        if (currentRegion.regionNumber + 1 >= world.regions.Count)
-            return;
-        if (!IsRegionAccessible(world.regions[currentRegion.regionNumber + 1]))
-            return;
-        currentRegion = world.GetRegion(currentRegion.regionNumber + 1);
-        regionDisplay.text = currentRegion.displayName;
-        SettupLevelPanel(currentRegion);
-    }
-
-    void GoLeft()
-    {
-        if (currentRegion.regionNumber - 1 < 0)
-            return;
-        currentRegion = world.GetRegion(currentRegion.regionNumber - 1);
-        regionDisplay.text = currentRegion.displayName;
-        SettupLevelPanel(currentRegion);
-    }
-
-    void SettupLevelPanel(Region region)
-    {
-        Clear();
-        for (int i = 0; i < region.levels.Count; i++)
+        for (int i = 0; i < regions.Count; i++)
         {
-            if (region.levels[i].unlock)
-            {
-                GameObject newButton = Instantiate(button, countainer.transform);
-                newButton.GetComponentInChildren<Text>().text = "Niveau " + (i + 1);
-                int localI = i;
-                newButton.GetComponent<Button>().onClick.AddListener(delegate ()
-                {
-                    if (region.levels[localI].levelScript != null)
-                        LoadingScreen.TransitionTo("LoadoutMenu", new ToLoadoutMessage(region.levels[localI].levelScript), false);
-                });
-            }
+            regions[i].onLevelSelected += OnLevelSelected;
         }
     }
 
-    void Clear()
+    void LoadAllData()
     {
-        foreach (Transform child in countainer.transform)
+        for (int i = 0; i < regions.Count; i++)
         {
-            Destroy(child.gameObject);
+            regions[i].LoadData();
         }
     }
 
-    bool IsRegionAccessible(Region region)
+    void OnLevelSelected(Level level)
     {
-        bool result = false;
-        for (int i = 0; i < region.levels.Count; i++)
-        {
-            if (region.levels[i].unlock == true)
-                result = true;
-        }
-        return result;
+        //Go to loadout !
+        print("Level selected: " + level.name);
+
+        ToLoadoutMessage message = new ToLoadoutMessage(level.levelScriptName);
+        LoadingScreen.TransitionTo(Loadout.SCENENAME, message);
     }
 
-    public void UpdateWorld(LevelScript level, bool result)
+    void OnBackClicked()
     {
-        if (!result)
-            return;
-
-        Level completedLevel = world.GetLevelByLevelScript(level);
-
-        for (int i = 0; i < completedLevel.nextLevels.Count; i++)
-        {
-            completedLevel.nextLevels[i].unlock = true;
-        }
+        LoadingScreen.TransitionTo(MainMenu.SCENENAME, null);
     }
 
-    public void LoadScene(string name)
-    {
-        LoadingScreen.TransitionTo(name, null);
-    }
 }
