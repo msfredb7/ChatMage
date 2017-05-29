@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using FullInspector;
 
-public class Loadout : MonoBehaviour
+public class Loadout : BaseBehavior
 {
     public Armory armory;
 
@@ -17,6 +18,7 @@ public class Loadout : MonoBehaviour
     public GameObject smashButtonsCountainer;
     public GameObject carButtonsCountainer;
 
+    [InspectorDisabled()]
     public LoadoutResult currentLoadout;
 
     public const string SCENENAME = "LoadoutMenu";
@@ -25,7 +27,6 @@ public class Loadout : MonoBehaviour
     {
         this.levelScriptName = levelScriptName;
         armory.Load();
-        armory.DebugSetItemSlot(5); // A enlever !
         currentLoadout = new LoadoutResult(armory.GetItemSlots());
 
         List<EquipablePreview> unlockItems = armory.GetAllUnlockedItems();

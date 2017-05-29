@@ -3041,6 +3041,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1644651696}
   - component: {fileID: 1644651695}
+  - component: {fileID: 1644651697}
   m_Layer: 0
   m_Name: Map
   m_TagString: Untagged
@@ -3063,7 +3064,6 @@ MonoBehaviour:
   mapObjectsToAjust: []
   rubanPlayer: {fileID: 705074833}
   mapFollower: {fileID: 705074836}
-  defaultLevelScript: {fileID: 11400000, guid: fdf791a12b63faa42a4f6380b1b9edb7, type: 2}
 --- !u!4 &1644651696
 Transform:
   m_ObjectHideFlags: 0
@@ -3077,6 +3077,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1644651697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1644651694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ebb0894d9c341046aa5e3855778e87b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultLevelScript: LS_demoLevelScript
 --- !u!1 &1649213850
 GameObject:
   m_ObjectHideFlags: 1
@@ -3125,7 +3137,6 @@ MonoBehaviour:
   - {fileID: 1484914519}
   - {fileID: 1237816615}
   - {fileID: 1693894639}
-  - {fileID: 0}
   _values:
   - _keys: []
     _values: []
@@ -3145,9 +3156,6 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 1693894639}
-  - _keys: []
-    _values: []
-    _target: {fileID: 0}
 --- !u!114 &1649213853
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3166,7 +3174,6 @@ MonoBehaviour:
   - {fileID: 1484914519}
   - {fileID: 1237816615}
   - {fileID: 1693894639}
-  - {fileID: 0}
   _values:
   - _keys: []
     _values: []
@@ -3198,9 +3205,6 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 1693894639}
-  - _keys: []
-    _values: []
-    _target: {fileID: 0}
 --- !u!1 &1668148737
 GameObject:
   m_ObjectHideFlags: 0

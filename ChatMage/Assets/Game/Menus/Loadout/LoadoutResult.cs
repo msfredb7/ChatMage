@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class LoadoutResult
 {
+    [System.Serializable]
     public class EquipableOrder
     {
         public EquipableOrder(string equipableName, EquipableType type)
@@ -37,14 +39,15 @@ public class LoadoutResult
                 smashOrder = new EquipableOrder(name, type);
                 break;
             case EquipableType.Item:
+                if (itemOrders.Count >= itemSlotAmount)
+                    throw new System.Exception("All item slots full");
+
                 for (int i = 0; i < itemOrders.Count; i++)
-                {
-                    if(itemOrders[i].equipableName == name)
-                    {
+                    if (itemOrders[i].equipableName == name)
                         throw new System.Exception("Item Already In Loadout");
-                    }
-                }
+
                 itemOrders.Add(new EquipableOrder(name, type));
+
                 break;
             default:
                 throw new System.Exception("Unhandeled equipable type");
