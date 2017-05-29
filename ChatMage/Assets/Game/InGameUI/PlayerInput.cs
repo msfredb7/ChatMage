@@ -23,12 +23,14 @@ public class PlayerInput : MonoBehaviour
 
     void OnMiddleClick()
     {
+        if (!Game.instance.gameStarted)
+            return;
         controller.playerSmash.SmashClick();
     }
 
     void Update()
     {
-        if (controller == null)
+        if (controller == null || !Game.instance.gameStarted)
             return;
 
         if (rightButton.isIn || Input.GetKey(KeyCode.RightArrow))

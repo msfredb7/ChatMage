@@ -48,7 +48,7 @@ public class SmashManager : MonoBehaviour
 
     void OnGameStarted()
     {
-        enabled = true;
+        enabled = Game.instance.Player.playerSmash.SmashEquipped;
         ResetCooldown();
     }
 

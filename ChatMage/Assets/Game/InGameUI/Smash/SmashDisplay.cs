@@ -9,9 +9,11 @@ public class SmashDisplay : MonoBehaviour
 
     SmashManager smasher;
 
-    public void Init()
+    public void Init(PlayerController player)
     {
         smasher = Game.instance.smashManager;
+        if (!player.playerSmash.SmashEquipped)
+            gameObject.SetActive(false);
     }
 
     void Update()

@@ -13,7 +13,7 @@ public class UiSystem : MonoBehaviour {
 
     public void Init(PlayerController playerController)
     {
-        smashDisplay.Init();
+        smashDisplay.Init(playerController);
         healthdisplay.Init();
         playerInputs.Init(playerController);
     }
