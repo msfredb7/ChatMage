@@ -14,7 +14,7 @@ public class PlayerStats : PlayerComponent
     [NonSerialized]
     public StatInt armor = new StatInt(1, 0, 3, BoundMode.Cap);
     [NonSerialized]
-    public StatInt frontDamage = new StatInt(1, 1, 1, BoundMode.Cap);
+    public StatInt damage = new StatInt(1, 1, 1, BoundMode.Cap);
 
     //À quel vitesse le smash s'unlock-t-il
     [NonSerialized]
