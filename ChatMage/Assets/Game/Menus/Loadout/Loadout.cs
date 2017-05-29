@@ -9,7 +9,7 @@ public class Loadout : MonoBehaviour
 {
     public Armory armory;
 
-    private LevelScript currentLevel;
+    private string levelScriptName;
 
     public GameObject button;
 
@@ -19,32 +19,11 @@ public class Loadout : MonoBehaviour
 
     public LoadoutResult currentLoadout;
 
-    public class LoadoutMessage : SceneMessage
+    public const string SCENENAME = "LoadoutMenu";
+
+    public void Init(string levelScriptName)
     {
-        private LevelScript chosenLevel;
-        private LoadoutResult loadoutResult;
-
-        public LoadoutMessage(LevelScript level, LoadoutResult loadoutResult)
-        {
-            chosenLevel = level;
-            this.loadoutResult = loadoutResult;
-        }
-
-        public void OnLoaded(Scene scene)
-        {
-            Framework framework = Scenes.FindRootObject<Framework>(scene);
-            framework.Init(chosenLevel, loadoutResult);
-        }
-
-        public void OnOutroComplete()
-        {
-
-        }
-    }
-
-    public void Init(LevelScript level)
-    {
-        currentLevel = level;
+        this.levelScriptName = levelScriptName;
         armory.Load();
         armory.DebugSetItemSlot(5);
         currentLoadout = new LoadoutResult(armory.GetItemSlots());
@@ -89,6 +68,6 @@ public class Loadout : MonoBehaviour
 
     public void ChargeLoadoutAndGame()
     {
-        LoadingScreen.TransitionTo("Framework", new LoadoutMessage(currentLevel, currentLoadout), false);
+        LoadingScreen.TransitionTo(Framework.SCENENAME, new ToGameMessage(levelScriptName, currentLoadout), false);
     }
 }
