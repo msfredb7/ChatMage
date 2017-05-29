@@ -15,26 +15,6 @@ public class Map : MonoBehaviour
     public RubanPlayer rubanPlayer;
     public MapFollower mapFollower;
 
-    [Header("Debug")]
-    public LevelScript defaultLevelScript;
-
-    void Start()
-    {
-        //if (Scenes.SceneCount() == 1)
-        //{
-        //    MasterManager.Sync(delegate ()
-        //    {
-        //        Scenes.Load("Framework", LoadSceneMode.Additive, DebugInit);
-        //    });
-        //}
-    }
-
-    //void DebugInit(Scene scene)
-    //{
-    //    Framework framework = Scenes.FindRootObject<Framework>(scene);
-    //    framework.Init(defaultLevelScript, null);
-    //}
-
     /// <summary>
     /// Initialise les settings de la map
     /// </summary>

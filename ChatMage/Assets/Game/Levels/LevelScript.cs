@@ -8,6 +8,7 @@ using FullSerializer;
 
 public abstract class LevelScript : BaseScriptableObject
 {
+    public const string WINRESULT_KEY = "winr";
     [fsIgnore]
     public bool hasWon;
     public string sceneName;
@@ -58,7 +59,7 @@ public abstract class LevelScript : BaseScriptableObject
     // Game Started for Level Script
     public void GameStarted()
     {
-        Game.instance.Player.playerStats.onDeath.AddListener(Quit);
+        Game.instance.Player.playerStats.onDeath.AddListener(End);
         OnGameStarted();
     }
 
@@ -72,13 +73,14 @@ public abstract class LevelScript : BaseScriptableObject
 
     protected abstract void OnUpdate();
 
-    // End Level Script
-    public void Quit()
+    // End Level Script. WE DO NOT QUIT YET
+    public void End()
     {
-        OnQuit();
+        GameSaves.instance.SetBool(GameSaves.Type.LevelSelect, WINRESULT_KEY, hasWon);
+        OnEnd();
     }
 
-    public abstract void OnQuit();
+    public abstract void OnEnd();
 
     public abstract void ReceiveEvent(string message);
 }

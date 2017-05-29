@@ -119,16 +119,12 @@ public class Framework : MonoBehaviour
     void OnAllScenesLoaded()
     {
         InitQueue initQueue = new InitQueue(OnAllModulesLoaded);
-        initQueue.canTriggerAction = false;
 
         //Ajouter dautre module ici si nécessaire
         level.Init(initQueue.Register(), events);
         playerbuilder.LoadAssets(loadoutResult, initQueue.Register());
 
-        if (initQueue.IsDone)
-            OnAllModulesLoaded();
-        else
-            initQueue.canTriggerAction = true;
+        initQueue.MarkEnd();
     }
 
     void OnAllModulesLoaded()

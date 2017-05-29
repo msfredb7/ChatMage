@@ -7,12 +7,7 @@ public class InitQueue
 {
     Action onComplete;
     int count = 0;
-    public bool canTriggerAction = true;
-    public bool IsDone
-    {
-        get { return isDone; }
-    }
-    bool isDone = false;
+    private bool endSpecified = false;
 
     public InitQueue(Action onComplete)
     {
@@ -23,14 +18,16 @@ public class InitQueue
         count++;
         return OnCompleteAnyInit;
     }
+    public void MarkEnd()
+    {
+        endSpecified = true;
+        if (count <= 0)
+            onComplete();
+    }
     void OnCompleteAnyInit()
     {
         count--;
-        if (count <= 0 && !isDone)
-        {
-            isDone = true;
-            if (canTriggerAction)
-                onComplete();
-        }
+        if (count <= 0 && endSpecified)
+            onComplete();
     }
 }

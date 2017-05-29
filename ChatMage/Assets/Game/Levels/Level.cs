@@ -43,8 +43,8 @@ public class Level : BaseScriptableObject
     {
         string completedCompleteKey = SAVE_PREFIX + name + COMPLETED_KEY;
 
-        if (GameSaves.instance.ContainsBool(GameSaves.Type.World, completedCompleteKey))
-            hasBeenCompleted = GameSaves.instance.GetBool(GameSaves.Type.World, completedCompleteKey);
+        if (GameSaves.instance.ContainsBool(GameSaves.Type.LevelSelect, completedCompleteKey))
+            hasBeenCompleted = GameSaves.instance.GetBool(GameSaves.Type.LevelSelect, completedCompleteKey);
         else
         {
             hasBeenCompleted = false;
@@ -55,7 +55,7 @@ public class Level : BaseScriptableObject
     private void SaveData()
     {
         string completedCompleteKey = SAVE_PREFIX + name + COMPLETED_KEY;
-        GameSaves.instance.SetBool(GameSaves.Type.World, completedCompleteKey, hasBeenCompleted);
+        GameSaves.instance.SetBool(GameSaves.Type.LevelSelect, completedCompleteKey, hasBeenCompleted);
     }
 
     public void Complete()

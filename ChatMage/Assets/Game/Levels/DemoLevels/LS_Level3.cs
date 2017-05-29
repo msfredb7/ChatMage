@@ -56,7 +56,7 @@ public class LS_Level3 : LevelScript {
             events.WinIn(0);
     }
 
-    public override void OnQuit()
+    public override void OnEnd()
     {
         if (isOver)
             return;

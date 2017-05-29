@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using System;
 
 namespace CCC.Manager
 {
@@ -20,6 +21,7 @@ namespace CCC.Manager
         static List<System.Action> onAllInitComplete = new List<System.Action>();
 
         int inLoadingManagers = 0;
+        bool allManagersAdded = false;
 
         static public void Sync(System.Action initCallback = null)
         {
@@ -44,6 +46,7 @@ namespace CCC.Manager
             DontDestroyOnLoad(gameObject);
             DOTween.Init();
             initComplete = false;
+            allManagersAdded = false;
 
             foreach (BaseManager managerPrefab in managersPrefab)
             {
@@ -56,6 +59,7 @@ namespace CCC.Manager
                 }
                 actualManager.Init();
             }
+            allManagersAdded = true;
             CheckCompletion();
         }
 
@@ -82,14 +86,16 @@ namespace CCC.Manager
         /// </summary>
         void CheckCompletion()
         {
-            if (initComplete) return;
+            if (!allManagersAdded || initComplete) return;
 
             if (inLoadingManagers <= 0)
             {
-                foreach (System.Action action in onAllInitComplete)
+                for (int i = 0; i < onAllInitComplete.Count; i++)
                 {
+                    Action action = onAllInitComplete[i];
                     action();
                     onAllInitComplete.Remove(action);
+                    i--;
                 }
                 initComplete = true;
             }

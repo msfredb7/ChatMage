@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class LevelSelection : MonoBehaviour
 {
     public const string SCENENAME = "LevelSelect";
+    private const string LASTLEVELSELECTED_KEY = "lls";
     public List<LevelSelect_Region> regions;
     public Button backButton;
 
@@ -21,8 +22,27 @@ public class LevelSelection : MonoBehaviour
     {
         AddListeners();
 
+
+        // Should we mark a level as 'completed' ?
+        bool lastGameResult = GetLastGameResult();
+
+        if (lastGameResult)
+        {
+            string lastLevelSelected = GameSaves.instance.GetString(GameSaves.Type.LevelSelect, LASTLEVELSELECTED_KEY);
+            SetAsCompleted(lastLevelSelected);
+        }
+
         //Un peu lourd ? Peut-être qu'on pourrait faire ça AVANT que le loading screen disparaisse (comme Framework)
         LoadAllData();
+    }
+
+    bool GetLastGameResult()
+    {
+        if (GameSaves.instance.ContainsBool(GameSaves.Type.LevelSelect, LevelScript.WINRESULT_KEY))
+        {
+            return GameSaves.instance.GetBool(GameSaves.Type.LevelSelect, LevelScript.WINRESULT_KEY);
+        }
+        return false;
     }
 
     void AddListeners()
@@ -46,6 +66,8 @@ public class LevelSelection : MonoBehaviour
         //Go to loadout !
         print("Level selected: " + level.name);
 
+        GameSaves.instance.SetString(GameSaves.Type.LevelSelect, LASTLEVELSELECTED_KEY, level.name);
+
         ToLoadoutMessage message = new ToLoadoutMessage(level.levelScriptName);
         LoadingScreen.TransitionTo(Loadout.SCENENAME, message);
     }
@@ -53,6 +75,15 @@ public class LevelSelection : MonoBehaviour
     void OnBackClicked()
     {
         LoadingScreen.TransitionTo(MainMenu.SCENENAME, null);
+    }
+    
+    private void SetAsCompleted(string levelName)
+    {
+        for (int i = 0; i < regions.Count; i++)
+        {
+            if (regions[i].SetAsCompleted(levelName))
+                return;
+        }
     }
 
 }

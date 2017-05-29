@@ -55,7 +55,7 @@ public class LS_demoLevelScript : LevelScript
         }
     }
 
-    public override void OnQuit()
+    public override void OnEnd()
     {
         if (isOver)
             return;

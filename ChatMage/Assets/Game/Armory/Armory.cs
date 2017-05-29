@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Armory : MonoBehaviour {
+public class Armory : MonoBehaviour
+{
 
     // On a des previews qu'on affichera dans le UI pour ensuite 
 
     // Items
     private int itemSlots;
+    public int defaultItemSlots = 3;
     public List<EquipablePreview> items = new List<EquipablePreview>(); // catalogue des items
 
     // Cars
@@ -18,11 +20,20 @@ public class Armory : MonoBehaviour {
     // Smashs
     public List<EquipablePreview> smashes = new List<EquipablePreview>(); // catalogue des smash
 
-    public static int GetLastSavedSlots() { return GameSaves.instance.GetInt(GameSaves.Type.Account, "Slots"); }
+    public int GetLastSavedSlots()
+    {
+        if (GameSaves.instance.ContainsInt(GameSaves.Type.Account, "Slots"))
+            return GameSaves.instance.GetInt(GameSaves.Type.Account, "Slots");
+        else
+        {
+            GameSaves.instance.SetInt(GameSaves.Type.Account, "Slots", defaultItemSlots);
+            return defaultItemSlots;
+        }
+    }
 
     public void Load()
     {
-        itemSlots = GameSaves.instance.GetInt(GameSaves.Type.Account, "Slots");
+        itemSlots = GetLastSavedSlots();
     }
 
     public void Save()
@@ -33,7 +44,7 @@ public class Armory : MonoBehaviour {
     public List<EquipablePreview> GetAllUnlockedItems()
     {
         List<EquipablePreview> result = new List<EquipablePreview>();
-        for(int i = 0; i < items.Count; i++)
+        for (int i = 0; i < items.Count; i++)
         {
             if (items[i].unlocked == true)
                 result.Add(items[i]);
@@ -98,11 +109,12 @@ public class Armory : MonoBehaviour {
 
     public bool BuyItemSlots(int amount, int slotCost)
     {
-        if(Account.instance.ChangeMoney(amount * slotCost))
+        if (Account.instance.ChangeMoney(amount * slotCost))
         {
             itemSlots += amount;
             return true;
-        } else return false;
+        }
+        else return false;
     }
 
     public int GetItemSlots()
