@@ -24,6 +24,8 @@ public class SmashManager : MonoBehaviour
         remainingTime -= amount;
     }
 
+    public SmashBall CurrentSmashBall { get { return currentSmashBall; } }
+
     public bool IsInCooldown { get { return inCooldown; } }
 
     public float RemainingTime { get { return remainingTime; } }

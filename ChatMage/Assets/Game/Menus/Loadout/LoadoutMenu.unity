@@ -300,6 +300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d36582ac412483140a8f93a119567a0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultItemSlots: 3
   items:
   - {fileID: 11400000, guid: 2fd9f81ce9f0f6043b84c617d913b8eb, type: 2}
   cars:
@@ -307,6 +308,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 11f0703b95296724d81cb9e0b8bb7a33, type: 2}
   smashes:
   - {fileID: 11400000, guid: 43aafa3473f75094e9e822530bde2307, type: 2}
+  - {fileID: 11400000, guid: 12b777d6414858342ac4da6d12ffb4d8, type: 2}
 --- !u!4 &406682746
 Transform:
   m_ObjectHideFlags: 0
@@ -452,12 +454,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be205b8c5a2f88c408c5e5343719637c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _keys:
-  - {fileID: 0}
-  _values:
-  - _keys: []
-    _values: []
-    _target: {fileID: 0}
+  _keys: []
+  _values: []
 --- !u!114 &531520347
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -469,12 +467,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3b5fe0e79f64584a83676f21be2d2a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _keys:
-  - {fileID: 0}
-  _values:
-  - _keys: []
-    _values: []
-    _target: {fileID: 0}
+  _keys: []
+  _values: []
 --- !u!1 &771806249
 GameObject:
   m_ObjectHideFlags: 0
@@ -1017,11 +1011,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f1a427a857524045b23cf8eda5a4256, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _objectReferences: []
+  _serializedStateKeys:
+  - currentLoadout
+  _serializedStateValues:
+  - '{"smashOrder":null,"carOrder":null,"itemOrders":null,"itemSlotAmount":0}'
   armory: {fileID: 406682745}
   button: {fileID: 1212572284829482, guid: 39ac80abed290ba4ea376b2a129c0686, type: 2}
   itemButtonsCountainer: {fileID: 450662276}
   smashButtonsCountainer: {fileID: 972510497}
   carButtonsCountainer: {fileID: 90075937}
+  currentLoadout:
+    smashOrder:
+      equipableName: 
+      type: 0
+    carOrder:
+      equipableName: 
+      type: 0
+    itemOrders: []
+    itemSlotAmount: 0
 --- !u!1 &1615912229
 GameObject:
   m_ObjectHideFlags: 0

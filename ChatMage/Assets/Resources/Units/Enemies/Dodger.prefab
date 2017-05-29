@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 61139767811306298}
   - component: {fileID: 114158471552112764}
   - component: {fileID: 114851794184961944}
-  - component: {fileID: 114076497430048420}
+  - component: {fileID: 114113847008714870}
   m_Layer: 0
   m_Name: Dodger
   m_TagString: Untagged
@@ -119,7 +119,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.2697754, y: 2.1790771}
   m_EdgeRadius: 0
---- !u!114 &114076497430048420
+--- !u!114 &114113847008714870
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -127,33 +127,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1871222452349014}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0da55a318388dfe4fabdab4774d73759, type: 3}
+  m_Script: {fileID: 11500000, guid: 65d05512cab53054d8a0b20414ee7974, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onEnter:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 114851794184961944}
-        m_MethodName: Hit
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: Unit+Unit_Event, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  onExit:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Unit+Unit_Event, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  inContactWith: []
-  forgetList: []
-  isIntersecting: 0
 --- !u!114 &114158471552112764
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -170,7 +146,6 @@ MonoBehaviour:
   minShootDelay: 4
   maxShootDelay: 5
   currentDirection: 0
-  projectile: {fileID: 1495213913023716, guid: 6d251e00ba775f44197c14ae89063249, type: 2}
 --- !u!114 &114851794184961944
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -182,22 +157,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17c4038c4a2a5154db74411554bcb6ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeScale: 1
-  onTimeScaleChange:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Unit+Unit_Event, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  onTeleportPosition:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Unit+Unit_Event, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  onDestroy:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Unit+Unit_Event, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
   useMovingPlatform: 1
   moveSpeed: 2.5
   targetDirection: 0
@@ -205,6 +164,8 @@ MonoBehaviour:
   useWeight: 0
   weight: 0.1
   visualAspect: {fileID: 1506230730778840}
+  projectilePrefab: {fileID: 114118608437473210, guid: 6d251e00ba775f44197c14ae89063249,
+    type: 2}
 --- !u!212 &212368842169423508
 SpriteRenderer:
   m_ObjectHideFlags: 1

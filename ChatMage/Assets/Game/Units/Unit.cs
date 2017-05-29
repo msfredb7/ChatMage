@@ -7,7 +7,7 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Unit : MonoBehaviour
 {
-    public float timeScale = 1;
+    protected float timeScale = 1;
     public Locker isAffectedByTimeScale = new Locker();
 
     public delegate void Unit_Event(Unit unit);

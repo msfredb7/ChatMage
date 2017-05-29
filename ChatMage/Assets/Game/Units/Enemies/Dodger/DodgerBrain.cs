@@ -18,21 +18,22 @@ public class DodgerBrain : EnemyBrain<DodgerVehicle>
 
     public Direction currentDirection = Direction.left;
 
-    public GameObject projectile;
-
     protected override void Start()
     {
         base.Start();
         vehicle.Init();
         ChangeDirection();
-        ThrowProjectile();
     }
 
     public void Update()
     {
-        if (Game.instance.Player == null)
+        if (Game.instance.Player == null || vehicle.TimeScale <= 0)
             return;
+
         vehicle.LookAtPlayer();
+
+        if (vehicle.CanShoot())
+            vehicle.Shoot();
     }
 
     void ChangeDirection()
@@ -52,12 +53,5 @@ public class DodgerBrain : EnemyBrain<DodgerVehicle>
                 break;
         }
         DelayManager.LocalCallTo(ChangeDirection, Random.Range(minDodgeDelay, maxDodgeDelay),this);
-    }
-
-    void ThrowProjectile()
-    {
-        Vector3 spawnPosition = vehicle.transform.position + vehicle.transform.right;
-        Instantiate(projectile, spawnPosition, projectile.transform.rotation);
-        DelayManager.LocalCallTo(ThrowProjectile, Random.Range(minShootDelay, maxShootDelay), this);
     }
 }

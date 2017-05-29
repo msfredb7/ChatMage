@@ -333,7 +333,7 @@ MonoBehaviour:
   game: {fileID: 986166561}
   events: {fileID: 218698578}
   playerbuilder: {fileID: 1461222806}
-  defaultLevel: {fileID: 11400000, guid: b6123b7b25629e342aca1d94c9d254ca, type: 2}
+  defaultLevel: {fileID: 11400000, guid: 3ee4dddb64211c54ca41a99fcc233d72, type: 2}
 --- !u!4 &986166560
 Transform:
   m_ObjectHideFlags: 0
@@ -376,6 +376,14 @@ MonoBehaviour:
   framework: {fileID: 0}
   defaultBounds: {x: 16, y: 9}
   units: []
+  defaultSpawnTimeScale:
+    value: 1
+    min: 0
+    max: 3.4028235e+38
+    minSet: 1
+    maxSet: 1
+    beforeBuffsByDefault: 1
+    boundMode: 0
   gameReady: 0
   gameStarted: 0
 --- !u!114 &986166562
@@ -528,7 +536,6 @@ MonoBehaviour:
   _keys:
   - {fileID: 986166561}
   - {fileID: 1707316992}
-  - {fileID: 0}
   _values:
   - _keys: []
     _values: []
@@ -536,9 +543,6 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 1707316992}
-  - _keys: []
-    _values: []
-    _target: {fileID: 0}
 --- !u!114 &1405175281
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -553,7 +557,6 @@ MonoBehaviour:
   _keys:
   - {fileID: 986166561}
   - {fileID: 1707316992}
-  - {fileID: 0}
   _values:
   - _keys: []
     _values: []
@@ -561,9 +564,6 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 1707316992}
-  - _keys: []
-    _values: []
-    _target: {fileID: 0}
 --- !u!1 &1461222805
 GameObject:
   m_ObjectHideFlags: 0
@@ -594,7 +594,7 @@ MonoBehaviour:
   playerPrefab: {fileID: 114514873651363592, guid: c63ecbff488b6f74fa84698936c74580,
     type: 2}
   car: {fileID: 11400000, guid: 5ec48ef9ded4cbd41a7f67f29b1030a2, type: 2}
-  smash: {fileID: 11400000, guid: 9054bb9d33d35af43b9801106cfe1c52, type: 2}
+  smash: {fileID: 11400000, guid: 5805026d5cd333a4e947df8e4f1771ce, type: 2}
   items:
   - {fileID: 11400000, guid: 1f191ee9de7ac094eb26ad70f73e3867, type: 2}
 --- !u!4 &1461222807

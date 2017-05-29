@@ -14,7 +14,10 @@ public class TestScript : BaseBehavior
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            smasher.DecreaseCooldown(30);
+            if (smasher.CurrentSmashBall != null)
+                smasher.CurrentSmashBall.ForceDeath();
+            else
+                smasher.DecreaseCooldown(30);
         }
     }
 
