@@ -57,7 +57,7 @@ public abstract class LevelScript : BaseScriptableObject
     // Game Started for Level Script
     public void GameStarted()
     {
-        Game.instance.Player.playerStats.onDeath.AddListener(End);
+        Game.instance.Player.vehicle.onDeath += End;
         OnGameStarted();
     }
 
@@ -72,7 +72,7 @@ public abstract class LevelScript : BaseScriptableObject
     protected abstract void OnUpdate();
 
     // End Level Script. WE DO NOT QUIT YET
-    public void End()
+    public void End(Unit player = null)
     {
         GameSaves.instance.SetBool(GameSaves.Type.LevelSelect, WINRESULT_KEY, hasWon);
         GameSaves.instance.SaveData(GameSaves.Type.LevelSelect);

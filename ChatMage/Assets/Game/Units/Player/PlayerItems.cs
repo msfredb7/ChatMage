@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerItems : PlayerComponent
 {
-    private List<Item> items = new List<Item>();
+    public List<Item> items = new List<Item>();
 
     public override void Init(PlayerController controller)
     {

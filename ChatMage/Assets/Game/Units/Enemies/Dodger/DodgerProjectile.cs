@@ -6,12 +6,12 @@ public class DodgerProjectile : Unit {
 
     public float speed;
 
-    public void Hit(Unit unit)
+    public void Hit(ColliderInfo info, ColliderListener listener)
     {
-        if (unit.gameObject == Game.instance.Player.gameObject)
+        if (info.parentUnit.gameObject == Game.instance.Player.gameObject)
         {
+            Game.instance.Player.playerStats.Attacked(info, 1, this);
             Destroy(gameObject);
-            Game.instance.Player.playerStats.Hit();
         }
     }
 
@@ -19,7 +19,7 @@ public class DodgerProjectile : Unit {
     {
         if (Game.instance.Player != null)
             rb.velocity = (Game.instance.Player.vehicle.Position - Position).normalized * speed;
-        GetComponent<SimpleCollisionListener>().onTriggerEnter += Hit;
+        GetComponent<SimpleColliderListener>().onTriggerEnter += Hit;
     }
 
     public void Kill()

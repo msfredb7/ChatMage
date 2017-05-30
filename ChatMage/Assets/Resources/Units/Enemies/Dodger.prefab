@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4408294251267548}
   - component: {fileID: 212368842169423508}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,8 +39,8 @@ GameObject:
   - component: {fileID: 61139767811306298}
   - component: {fileID: 114158471552112764}
   - component: {fileID: 114851794184961944}
-  - component: {fileID: 114113847008714870}
-  m_Layer: 0
+  - component: {fileID: 114281818282303750}
+  m_Layer: 10
   m_Name: Dodger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -119,17 +119,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.2697754, y: 2.1790771}
   m_EdgeRadius: 0
---- !u!114 &114113847008714870
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1871222452349014}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65d05512cab53054d8a0b20414ee7974, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114158471552112764
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -146,6 +135,19 @@ MonoBehaviour:
   minShootDelay: 4
   maxShootDelay: 5
   currentDirection: 0
+--- !u!114 &114281818282303750
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1871222452349014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75c6e7122024f1b439a1e42789a30e5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentUnit: {fileID: 114851794184961944}
+  groupParent: {fileID: 1871222452349014}
 --- !u!114 &114851794184961944
 MonoBehaviour:
   m_ObjectHideFlags: 1

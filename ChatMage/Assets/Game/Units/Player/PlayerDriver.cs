@@ -7,6 +7,7 @@ public class PlayerDriver : PlayerComponent
 {
     [System.NonSerialized]
     private Car car;
+    public Car Car { get { return car; } }
     private float horizontalInput;
 
     public override void OnGameReady()

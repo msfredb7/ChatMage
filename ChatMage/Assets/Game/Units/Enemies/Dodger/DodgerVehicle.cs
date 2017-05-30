@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,7 +15,6 @@ public class DodgerVehicle : EnemyVehicle
     public void Init()
     {
         SetBounds(Game.instance.ScreenBounds, 1);
-        GetComponent<SimpleCollisionListener>().onTriggerEnter += Hit;
     }
 
     protected override void FixedUpdate()
@@ -27,12 +27,6 @@ public class DodgerVehicle : EnemyVehicle
     public bool CanShoot()
     {
         return shootCooldown < 0;
-    }
-
-    public void Hit(Unit unit)
-    {
-        if (unit.gameObject == Game.instance.Player.gameObject)
-            Destroy(gameObject);
     }
 
     public void DodgeLeft()
@@ -71,5 +65,18 @@ public class DodgerVehicle : EnemyVehicle
         lastProjectile = Game.instance.SpawnUnit(projectilePrefab, spawnPosition);
 
         shootCooldown = 5;
+    }
+
+    protected override void Die()
+    {
+        base.Die();
+
+        Destroy(gameObject);
+    }
+
+    public override int Attacked(ColliderInfo on, int amount, MonoBehaviour source)
+    {
+        Die();
+        return 0;
     }
 }

@@ -9,7 +9,7 @@ public class ITM_DblDmg : Item
     {
         base.Init(player);
 
-        player.playerStats.damage.Set(player.playerStats.damage * 2);
+        player.playerStats.damageMultiplier.Set(player.playerStats.damageMultiplier * 2);
 
         // Ajouter les collider
     }

@@ -6,13 +6,14 @@ using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
-    public Vehicle vehicle;
+    public PlayerVehicle vehicle;
     public Transform body;
     public PlayerSmash playerSmash;
     public PlayerDriver playerDriver;
     public PlayerItems playerItems;
     public PlayerStats playerStats;
     public PlayerLocations playerLocations;
+    public PlayerCarTriggers playerCarTriggers;
 
     void Awake()
     {
@@ -39,6 +40,7 @@ public class PlayerController : MonoBehaviour
         playerItems.Init(this);
         playerStats.Init(this);
         playerLocations.Init(this);
+        playerCarTriggers.Init(this);
     }
 
     void OnGameReady()
@@ -48,6 +50,7 @@ public class PlayerController : MonoBehaviour
         playerItems.OnGameReady();
         playerStats.OnGameReady();
         playerLocations.OnGameReady();
+        playerCarTriggers.OnGameReady();
     }
 
     void OnGameStarted()
@@ -57,5 +60,6 @@ public class PlayerController : MonoBehaviour
         playerItems.OnGameStarted();
         playerStats.OnGameStarted();
         playerLocations.OnGameStarted();
+        playerCarTriggers.OnGameStarted();
     }
 }

@@ -1,9 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class CollisionListener : MonoBehaviour
+public class CompositeColliderListener : ColliderListener
 {
     [System.Serializable]
     public class ObjectCollider
@@ -20,34 +21,40 @@ public class CollisionListener : MonoBehaviour
         }
     }
 
-    //public UnityEvent onStay = new UnityEvent();
-    public event Unit.Unit_Event onEnter;
-    public event Unit.Unit_Event onExit;
+    public event TriggerEvent onTriggerEnter;
+    public event TriggerEvent onTriggerExit;
+    public event CollisionEvent onCollisionEnter;
+    public event CollisionEvent onCollisionExit;
+    [Header("Settings")]
+    public bool useTrigger;
+    public bool useCollision;
 
+    [Header("Dynamic List")]
     public List<ObjectCollider> inContactWith = new List<ObjectCollider>();
-    public List<Collider2D> forgetList = new List<Collider2D>(3);
+    private List<Collider2D> forgetList = new List<Collider2D>(3);
 
-    public bool isIntersecting = false;
-
+    public override TriggerEvent OnTriggerEnter { get { return onTriggerEnter; } set { onTriggerEnter = value; } }
+    public override TriggerEvent OnTriggerExit { get { return onTriggerExit; } set { onTriggerExit = value; } }
+    public override CollisionEvent OnCollisionEnter { get { return onCollisionEnter; } set { onCollisionEnter = value; } }
+    public override CollisionEvent OnCollisionExit { get { return onCollisionExit; } set { onCollisionExit = value; } }
 
     void Update()
     {
         forgetList.Clear();
     }
 
-
     public void OnTriggerExit2D(Collider2D other)
     {
+        if (!useTrigger)
+            return;
+
         //Info du collider
         ColliderInfo info = other.GetComponent<ColliderInfo>();
 
         if (info == null)
             return;
 
-        GameObject group = other.gameObject;
-        if (info.groupParent != null)
-            group = info.groupParent;
-
+        GameObject group = info.GroupParent;
         ObjectCollider obj = GetObjectByGroup(group);
 
 
@@ -62,13 +69,16 @@ public class CollisionListener : MonoBehaviour
             if (obj.collisionCount <= 0)
             {
                 inContactWith.Remove(obj);
-                OnExit(obj.unit);
+                OnExit(info);
             }
         }
     }
 
     public void OnTriggerEnter2D(Collider2D other)
     {
+        if (!useTrigger)
+            return;
+
         //Est-ce que l'objet est entré/sortie dans la même frame ?
         int i = forgetList.IndexOf(other);
         if (i >= 0)
@@ -84,11 +94,7 @@ public class CollisionListener : MonoBehaviour
         if (info == null)
             return;
 
-        GameObject group = other.gameObject;
-        if (info.groupParent != null)
-            group = info.groupParent;
-
-        //Objet parent
+        GameObject group = info.GroupParent;
         ObjectCollider obj = GetObjectByGroup(group);
 
         if (obj == null)
@@ -99,27 +105,46 @@ public class CollisionListener : MonoBehaviour
         if (obj.collisionCount == 1)
         {
             inContactWith.Add(obj);
-            OnEnter(info.parentUnit);
+            OnEnter(info);
         }
     }
 
-    public void OnEnter(Unit unit)
+    public void OnEnter(ColliderInfo otherInfo)
     {
-        isIntersecting = true;
-
-        if (onEnter != null)
-            onEnter.Invoke(unit);
+        if (onTriggerEnter != null)
+            onTriggerEnter(otherInfo, this);
     }
 
-    public void OnExit(Unit unit)
+    public void OnExit(ColliderInfo otherInfo)
     {
-        if (inContactWith.Count > 0)
-            isIntersecting = true;
-        else
-            isIntersecting = false;
+        if (onTriggerExit != null)
+            onTriggerExit(otherInfo, this);
+    }
 
-        if (onExit != null)
-            onExit.Invoke(unit);
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (!useCollision)
+            return;
+
+        ColliderInfo info = collision.collider.GetComponent<ColliderInfo>();
+        if (info == null)
+            return;
+
+        if (onCollisionEnter != null)
+            onCollisionEnter(info, collision, this);
+    }
+
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        if (!useCollision)
+            return;
+
+        ColliderInfo info = collision.collider.GetComponent<ColliderInfo>();
+        if (info == null)
+            return;
+
+        if (onCollisionExit != null)
+            onCollisionEnter(info, collision, this);
     }
 
     public ObjectCollider GetObjectByGroup(GameObject group)

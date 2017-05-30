@@ -6,4 +6,5 @@ public class ColliderInfo : MonoBehaviour
 {
     public Unit parentUnit;
     public GameObject groupParent;
+    public GameObject GroupParent { get { return groupParent == null ? gameObject : groupParent; } }
 }

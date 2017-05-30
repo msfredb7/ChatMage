@@ -6,13 +6,20 @@ public class HealthPacks : MovingUnit {
 
     private void Start()
     {
-        GetComponentInChildren<CollisionListener>().onEnter += PickUp;
+        GetComponent<SimpleColliderListener>().onTriggerEnter += PickUp;
     }
 
-    public void PickUp(Unit unit)
+    public void PickUp(ColliderInfo info, ColliderListener listener)
     {
-        if (unit == Game.instance.Player.vehicle)
-            Game.instance.Player.GetComponent<PlayerStats>().Regen();
+        if (info.parentUnit == Game.instance.Player.vehicle)
+            Game.instance.Player.playerStats.Regen();
+        Die();
+    }
+
+    protected override void Die()
+    {
+        base.Die();
+
         Destroy(gameObject);
     }
 }

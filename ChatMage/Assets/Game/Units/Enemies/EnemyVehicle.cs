@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyVehicle : Vehicle
+public abstract class EnemyVehicle : Vehicle, IAttackable
 {
     protected Vector2 targetPosition;
     protected bool goingTo = false;
@@ -67,4 +67,6 @@ public class EnemyVehicle : Vehicle
     {
         GotoPosition(rb.position);
     }
+
+    public abstract int Attacked(ColliderInfo on, int amount, MonoBehaviour source);
 }

@@ -23,7 +23,8 @@ GameObject:
   - component: {fileID: 58138964539925116}
   - component: {fileID: 114118608437473210}
   - component: {fileID: 114391616043132670}
-  m_Layer: 0
+  - component: {fileID: 114304459724478118}
+  m_Layer: 12
   m_Name: DodgerProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +40,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4795458168121366}
   - component: {fileID: 212768335276693634}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -119,8 +120,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cd4e925a7c8ae54ebe6adc42743827e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useMovingPlatform: 0
+  useMovingPlatform: 1
   speed: 5
+--- !u!114 &114304459724478118
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1495213913023716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75c6e7122024f1b439a1e42789a30e5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentUnit: {fileID: 114118608437473210}
+  groupParent: {fileID: 1495213913023716}
 --- !u!114 &114391616043132670
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -132,6 +146,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65d05512cab53054d8a0b20414ee7974, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  info: {fileID: 114304459724478118}
+  useTrigger: 1
+  useCollision: 0
 --- !u!212 &212768335276693634
 SpriteRenderer:
   m_ObjectHideFlags: 1

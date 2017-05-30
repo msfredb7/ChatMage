@@ -10,7 +10,7 @@ public class PlayerSmash : PlayerComponent
     public event SimpleEvent onSmashUsed;
 
     public bool SmashEquipped { get { return smash != null; } }
-
+    public Smash Smash { get { return smash; } }
     public bool HasSmash { get { return hasSmash; } }
     private bool hasSmash;
 
