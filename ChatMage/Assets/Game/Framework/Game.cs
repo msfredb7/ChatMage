@@ -54,6 +54,9 @@ public class Game : PublicSingleton<Game>
 
     public void Init(LevelScript level, Framework framework)
     {
+        // Time Scale Reset
+        Time.timeScale = 1;
+
         //Screen bounds
         screenBounds = new Vector2(cam.orthographicSize * cam.aspect * 2, cam.orthographicSize * 2);
         worldBounds = new Vector2(screenBounds.x, screenBounds.y);

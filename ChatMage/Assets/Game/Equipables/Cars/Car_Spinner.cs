@@ -12,6 +12,8 @@ public class Car_Spinner : Car
     public float turnAcceleration = 5;
     public float turnSpeed = 185;
     public float moveSpeed = 6;
+    public float startTurnSpeed = 185;
+    public float startTurnAcceleration = 5;
     public int comboAmountRequire = 6;
     public float spinAcceleration = 5;
     public float spinSpeed = 500;
@@ -23,8 +25,6 @@ public class Car_Spinner : Car
     [fsIgnore]
     float lastHorizontal = 0;
 
-    float startTurnSpeed;
-    float startTurnAcceleration;
 
     bool listenningLeft;
     bool listenningRight;
@@ -142,8 +142,6 @@ public class Car_Spinner : Car
         spinning = false;
         comboAmount = 0;
         countdown = 0;
-        startTurnSpeed = turnSpeed;
-        startTurnAcceleration = turnAcceleration;
         turnSpeed = startTurnSpeed;
         turnAcceleration = startTurnAcceleration;
     }
