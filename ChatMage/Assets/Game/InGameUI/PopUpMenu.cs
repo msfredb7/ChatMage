@@ -1,4 +1,5 @@
 ﻿using CCC.Manager;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +10,7 @@ public class PopUpMenu {
 
     private static string SCENENAME = "PopUp";
 
-	public static void ShowOKPopUpMenu(string text)
+	public static void ShowOKPopUpMenu(string text, Action onOK = null)
     {
         bool popUpExist = false;
         Scenes.LoadAsync(SCENENAME,LoadSceneMode.Additive, delegate(Scene scene)
@@ -25,6 +26,8 @@ public class PopUpMenu {
                     currentPopUp.ok.GetComponent<Button>().onClick.AddListener(delegate ()
                     {
                         currentPopUp.Close();
+                        if(onOK != null)
+                            onOK.Invoke();
                     });
                 }
             }
@@ -33,10 +36,9 @@ public class PopUpMenu {
             Scenes.UnloadAsync(SCENENAME);
     }
 
-    public static bool ShowChoicePopUpMenu(string text)
+    public static void ShowChoicePopUpMenu(string text, Action onCancel = null, Action onConfirm = null)
     {
         bool popUpExist = false;
-        bool result = false;
         Scenes.LoadAsync(SCENENAME, LoadSceneMode.Additive, delegate (Scene scene)
         {
             GameObject[] rootObjects = scene.GetRootGameObjects();
@@ -52,9 +54,10 @@ public class PopUpMenu {
                     {
                         cancelButton.onClick.AddListener(delegate ()
                         {
-                            result = false;
                             popUpExist = true;
                             currentPopUp.Close();
+                            if (onCancel != null)
+                                onCancel.Invoke();
                         });
                     }
                     Button confirmButton = currentPopUp.confirm.GetComponent<Button>();
@@ -62,24 +65,20 @@ public class PopUpMenu {
                     {
                         confirmButton.onClick.AddListener(delegate ()
                         {
-                            result = true;
                             popUpExist = true;
                             currentPopUp.Close();
+                            if (onConfirm != null)
+                                onConfirm.Invoke();
                         });
                     }
                 }
             }
         });
         if (!popUpExist)
-        {
             Scenes.UnloadAsync(SCENENAME);
-            return false;
-        }
-        else
-            return result;
     }
 
-    public static void ShowPopUpMenu(string text, float cooldown)
+    public static void ShowPopUpMenu(string text, float cooldown, Action onOver = null)
     {
         bool popUpExist = false;
         Scenes.LoadAsync(SCENENAME, LoadSceneMode.Additive, delegate (Scene scene)
@@ -94,8 +93,10 @@ public class PopUpMenu {
                     currentPopUp.SetText(text);
                     DelayManager.LocalCallTo(delegate ()
                     {
-                        currentPopUp.Close();
                         popUpExist = true;
+                        currentPopUp.Close();
+                        if (onOver != null)
+                            onOver.Invoke();
                     }, cooldown, currentPopUp);
                 }
             }

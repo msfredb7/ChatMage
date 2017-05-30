@@ -44,6 +44,7 @@ public class LS_demoLevelScript : LevelScript
         events.AddDelayedAction(delegate () {
             newTutorialUI.gameObject.SetActive(true);
             newTutorialUI.GetComponentInChildren<Text>().text = "Here you can see the current objectives of the level. You need to achieve them in order to win! Keep an eye on them because some will update depending on your actions.";
+            // tu peux acceder a la fleche avec newTutorialUI.GetComponentInChildren<Image>()
         }, 5);
         events.AddDelayedAction(delegate () {
             Destroy(newTutorialUI);
