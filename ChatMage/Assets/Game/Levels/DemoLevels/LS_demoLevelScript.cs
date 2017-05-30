@@ -6,6 +6,7 @@ using UnityEngine.Events;
 using System;
 using FullSerializer;
 using FullInspector;
+using UnityEngine.UI;
 
 public class LS_demoLevelScript : LevelScript
 {
@@ -18,6 +19,8 @@ public class LS_demoLevelScript : LevelScript
     GameObject outroUI;
     [fsIgnore]
     GameObject objectiveUI;
+    [fsIgnore]
+    GameObject tutorialUI;
     [fsIgnore]
     Unit charger;
     [fsIgnore]
@@ -32,7 +35,19 @@ public class LS_demoLevelScript : LevelScript
 
         events.ShowUI(countdownUI).GetComponent<IntroCountdown>().onCountdownOver.AddListener(Game.instance.StartGame);
 
-        events.ShowUI(objectiveUI).GetComponent<ShowObjectives>().AddObjective("Survive 20 seconds !");
+        // Objective
+        GameObject newObjectiveUI = events.ShowUI(objectiveUI);
+        newObjectiveUI.GetComponent<ShowObjectives>().AddObjective("Survive 20 seconds !");
+
+        // Tutorial
+        GameObject newTutorialUI = events.ShowUIAtLocation(tutorialUI, new Vector2(newObjectiveUI.transform.position.x - 100, newObjectiveUI.transform.position.y - 100));
+        events.AddDelayedAction(delegate () {
+            newTutorialUI.gameObject.SetActive(true);
+            newTutorialUI.GetComponentInChildren<Text>().text = "Here you can see the current objectives of the level. You need to achieve them in order to win! Keep an eye on them because some will update depending on your actions.";
+        }, 5);
+        events.AddDelayedAction(delegate () {
+            Destroy(newTutorialUI);
+        }, 15);
     }
 
     protected override void OnGameStarted()
@@ -72,6 +87,7 @@ public class LS_demoLevelScript : LevelScript
         queue.AddUI("Countdown", (x) => countdownUI = x);
         queue.AddUI("Outro", (x) => outroUI = x);
         queue.AddUI("Objectives", (x) => objectiveUI = x);
+        queue.AddUI("Tutorial", (x) => tutorialUI = x);
     }
 
     public override void ReceiveEvent(string message)

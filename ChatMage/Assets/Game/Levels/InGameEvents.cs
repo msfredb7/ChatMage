@@ -105,6 +105,13 @@ public class InGameEvents : MonoBehaviour
         return Instantiate(prefab, Game.instance.ui.gameObject.transform);
     }
 
+    public GameObject ShowUIAtLocation(GameObject prefab, Vector2 position)
+    {
+        GameObject newUI = Instantiate(prefab, Game.instance.ui.gameObject.transform);
+        newUI.transform.position = position;
+        return newUI;
+    }
+
     #region Lock Player
 
     public void LockPlayer()
