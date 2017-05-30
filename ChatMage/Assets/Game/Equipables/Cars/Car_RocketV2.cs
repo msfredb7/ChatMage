@@ -12,6 +12,9 @@ public class Car_RocketV2 : Car
     public float turnAcceleration = 5;
     public float turnSpeed = 185;
     public float moveSpeed = 6;
+    public float maxBoost = 4f;
+    public float dragWhileTurning = 1;
+    public float speedReductionSpam = 0.5f;
 
     [fsIgnore]
     float horizontal = 0;
@@ -30,8 +33,8 @@ public class Car_RocketV2 : Car
             {
                 // boost !
                 player.vehicle.canAccelerate.Unlock("car");
-                player.vehicle.Speed = player.vehicle.WorldDirection2D() * moveSpeed * Mathf.Min(charge, 4f);
-                charge = 0.5f;
+                player.vehicle.Speed = player.vehicle.WorldDirection2D() * moveSpeed * Mathf.Min(charge, maxBoost);
+                charge = speedReductionSpam;
                 player.vehicle.rb.drag = 0;
                 wasTurning = false;
             }
@@ -46,7 +49,7 @@ public class Car_RocketV2 : Car
             {
                 //disable acc
                 player.vehicle.canAccelerate.Lock("car");
-                player.vehicle.rb.drag = 1;
+                player.vehicle.rb.drag = dragWhileTurning;
 
                 wasTurning = true;
             }

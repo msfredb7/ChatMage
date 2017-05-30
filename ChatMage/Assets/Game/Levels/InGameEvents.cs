@@ -29,6 +29,11 @@ public class InGameEvents : MonoBehaviour
         CheckActionList();
     }
 
+    public void OnDestroy()
+    {
+        StopAllCoroutines();
+    }
+
     void CheckActionList()
     {
         while (delayedActions.First != null)
@@ -71,24 +76,19 @@ public class InGameEvents : MonoBehaviour
             }
     }
 
-    public void OnDestroy()
-    {
-        StopAllCoroutines();
-    }
-
     // Dialogue (A faire)
     public void Dialogue()
     {
         // TODO : Faire une classe Discussion qui determine le dialogue (qui parle, il dit quoi et quand)
     }
 
-    // Boss
+    // Boss (A faire)
     public void BossBattle()
     {
         // TODO : Enum du type de boss ??
     }
 
-    // Cienamtic
+    // Cinematic (A faire)
     public void CienamticEvent()
     {
         // TODO : On doit loader une scene puis revenir ou on etait ???
@@ -130,9 +130,7 @@ public class InGameEvents : MonoBehaviour
     }
 
     #endregion
-
-
-
+    
     #region Spawn Units
 
     /// <summary>
@@ -320,8 +318,6 @@ public class InGameEvents : MonoBehaviour
 
     #endregion
 
-
-
     #region Game Ending
 
     // Box in center
@@ -365,5 +361,4 @@ public class InGameEvents : MonoBehaviour
     }
 
     #endregion
-
 }
