@@ -6,10 +6,12 @@ using UnityEngine.Advertisements;
 
 public class ShopMenu : MonoBehaviour
 {
-    
+    public GameObject deactivateScenePanel;
+
     void Start()
     {
         MasterManager.Sync(OnSync);
+        deactivateScenePanel.SetActive(false);
     }
 
     void OnSync()
@@ -25,7 +27,10 @@ public class ShopMenu : MonoBehaviour
 
     public void BuySlots()
     {
-        Account.instance.armory.BuyItemSlots(1, -10);
+        if((Account.instance.GetMoney() - 10) < 0)
+            PopUpMenu.ShowOKPopUpMenu("You don't have enough money. Open loot boxes or win levels to gain money. See you later!");
+        else
+            Account.instance.armory.BuyItemSlots(1, -10);
     }
 
     public void GetMoney()
@@ -42,8 +47,12 @@ public class ShopMenu : MonoBehaviour
     {
         if (Advertisement.IsReady("rewardedVideo"))
         {
+            deactivateScenePanel.SetActive(true);
             var options = new ShowOptions { resultCallback = HandleShowResult };
             Advertisement.Show("rewardedVideo", options);
+        } else
+        {
+            PopUpMenu.ShowOKPopUpMenu("You are not connected to the internet. Please verify your connection and come back again.");
         }
     }
 
@@ -59,10 +68,17 @@ public class ShopMenu : MonoBehaviour
                 break;
             case ShowResult.Skipped:
                 Debug.Log("The ad was skipped before reaching the end.");
+                //
+                // YOUR CODE TO SAY FUCK OFF TO PLAYER
+                // Give shit etc.
                 break;
             case ShowResult.Failed:
                 Debug.LogError("The ad failed to be shown.");
+                //
+                // YOUR CODE TO SAY BEAT THE ASS OF THE PLAYER
+                // Give handicap etc.
                 break;
         }
+        deactivateScenePanel.SetActive(false);
     }
 }
