@@ -13,7 +13,7 @@ public class TestScript : BaseBehavior
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            Game.instance.Player.vehicle.canMove.Lock("shit");
+            Game.instance.Player.vehicle.TeleportPosition(Vector2.one * 2);
         }
     }
 }

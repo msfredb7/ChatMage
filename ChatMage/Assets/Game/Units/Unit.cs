@@ -4,9 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+public enum Allegiance { Ally = 0, Neutral = 1, Enemy = 2 }
+
 [RequireComponent(typeof(Rigidbody2D))]
-public class Unit : MonoBehaviour
+public abstract class Unit : MonoBehaviour
 {
+    public Allegiance allegiance = Allegiance.Enemy;
     protected float timeScale = 1;
     public Locker isAffectedByTimeScale = new Locker();
 
@@ -46,7 +49,7 @@ public class Unit : MonoBehaviour
 
     protected virtual void FixedUpdate()
     {
-        if (movingPlatform != null && useMovingPlatform)
+        if (useMovingPlatform && movingPlatform != null)
             tr.position += Vector3.up * movingPlatform.GetVerticalSpeed() * Time.fixedDeltaTime;
     }
 
@@ -104,7 +107,7 @@ public class Unit : MonoBehaviour
                 value = 0;
 
             //On stoppe le temps ? Si oui, prendre en note la velocité original
-            if(value == 0)
+            if (value == 0)
             {
                 referenceVelocity = rb.velocity / timeScale;
 

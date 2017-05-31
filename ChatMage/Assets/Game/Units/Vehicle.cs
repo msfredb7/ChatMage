@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using CCC.Utility;
 
-public class Vehicle : MovingUnit
+public abstract class Vehicle : MovingUnit
 {
     public float moveSpeed = 1;
     public float targetDirection;

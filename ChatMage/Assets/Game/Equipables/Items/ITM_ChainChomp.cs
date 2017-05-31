@@ -12,7 +12,7 @@ public class ITM_ChainChomp : Item
 
     public override void OnGameReady()
     {
-        chainChomp = Instantiate(prefab.gameObject, Game.instance.Player.vehicle.Position, Quaternion.identity).GetComponent<ChainChomp>();
+        chainChomp = Game.instance.SpawnUnit(prefab, Game.instance.Player.vehicle.Position);
         chainChomp.Init(Game.instance.Player.playerLocations.boule);
     }
 

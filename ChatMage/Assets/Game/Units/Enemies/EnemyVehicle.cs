@@ -30,7 +30,7 @@ public abstract class EnemyVehicle : Vehicle, IAttackable
             Vector2 v = targetPosition - rb.position;
 
             //Arrived ?
-            if (v.magnitude > 0.01f) // Yes
+            if (v.magnitude > 0.01f) // No
             {
                 if (arrivedAtDestination)
                 {
@@ -39,7 +39,7 @@ public abstract class EnemyVehicle : Vehicle, IAttackable
                 }
                 targetDirection = VectorToAngle(targetPosition - rb.position);
             }
-            else //No
+            else //Yes
             {
                 if (!arrivedAtDestination) 
                 {
@@ -67,6 +67,5 @@ public abstract class EnemyVehicle : Vehicle, IAttackable
     {
         GotoPosition(rb.position);
     }
-
     public abstract int Attacked(ColliderInfo on, int amount, MonoBehaviour source);
 }
