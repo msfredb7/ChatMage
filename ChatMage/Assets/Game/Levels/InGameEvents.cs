@@ -116,6 +116,7 @@ public class InGameEvents : MonoBehaviour
     {
         GameObject newUI = Instantiate(prefab, Game.instance.ui.gameObject.transform);
         newUI.transform.position = position;
+        Game.instance.map.Adjust(newUI);
         return newUI;
     }
 

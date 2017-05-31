@@ -10,6 +10,7 @@ public class UiSystem : MonoBehaviour {
     public HealthDisplay healthdisplay;
     public PlayerInput playerInputs;
     public SmashDisplay smashDisplay;
+    public OptionMenu menuOption;
 
     public void Init(PlayerController playerController)
     {
