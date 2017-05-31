@@ -11,9 +11,18 @@ public class ChainChomp : Unit
     public SimpleColliderListener colliderListener;
     public int hitDamage = 1;
     public GameObject container;
+    public float drag = 2;
 
     private bool teleported = false;
     private Transform target;
+    private float lastVerticalSpeed;
+    private float parentVelocity;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        rb = realBall;
+    }
 
     public void Init(Transform target)
     {
@@ -26,12 +35,6 @@ public class ChainChomp : Unit
 
     void OnPlayerDestroyed(Unit unit)
     {
-        Die();
-    }
-
-    protected override void Die()
-    {
-        base.Die();
         Destroy(gameObject);
     }
 
@@ -62,7 +65,19 @@ public class ChainChomp : Unit
 
     protected override void FixedUpdate()
     {
-        base.FixedUpdate();
+        //Artificial drag
+        if (useMovingPlatform && movingPlatform != null)
+        {
+            parentVelocity = movingPlatform.GetVerticalSpeed();
+            float delta = parentVelocity - lastVerticalSpeed;
+
+            Vector2 totalVel = realBall.velocity - Vector2.up * parentVelocity;
+            realBall.AddForce(totalVel.sqrMagnitude * drag * -totalVel.normalized * TimeScale, ForceMode2D.Force);
+
+            realBall.velocity += delta * Vector2.up;
+
+            lastVerticalSpeed = parentVelocity;
+        }
 
         if (!container.activeSelf)
         {

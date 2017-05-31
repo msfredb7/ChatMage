@@ -41,7 +41,6 @@ GameObject:
   - component: {fileID: 212864974663637092}
   - component: {fileID: 50518181289965380}
   - component: {fileID: 58012086550151340}
-  - component: {fileID: 58522507489261846}
   - component: {fileID: 232054584547004210}
   - component: {fileID: 114836624163874968}
   - component: {fileID: 114413519890898582}
@@ -456,10 +455,10 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 10
-  m_LinearDrag: 2
+  m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 1bd786b960211484991f961706ee7d6d, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -572,23 +571,8 @@ CircleCollider2D:
   m_GameObject: {fileID: 1095320400805732}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 1bd786b960211484991f961706ee7d6d, type: 2}
   m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
---- !u!58 &58522507489261846
-CircleCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1095320400805732}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -613,6 +597,7 @@ MonoBehaviour:
   colliderListener: {fileID: 114836624163874968}
   hitDamage: 1
   container: {fileID: 1545689508392118}
+  drag: 4
 --- !u!114 &114413519890898582
 MonoBehaviour:
   m_ObjectHideFlags: 1
