@@ -81,13 +81,13 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1871222452349014}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 0.0001
+  m_Mass: 0.5
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 2
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -103,10 +103,10 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.010070801, y: -0.015106201}
+  m_Offset: {x: 0.25, y: -0.12}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -117,7 +117,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.2697754, y: 2.1790771}
+  m_Size: {x: 1.49, y: 1.9}
   m_EdgeRadius: 0
 --- !u!114 &114158471552112764
 MonoBehaviour:
@@ -159,12 +159,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17c4038c4a2a5154db74411554bcb6ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allegiance: 2
   useMovingPlatform: 1
   moveSpeed: 2.5
   targetDirection: 0
   rotationSetsTargetDirection: 0
-  useWeight: 0
-  weight: 0.1
+  useWeight: 1
+  weight: 0.35
   visualAspect: {fileID: 1506230730778840}
   projectilePrefab: {fileID: 114118608437473210, guid: 6d251e00ba775f44197c14ae89063249,
     type: 2}

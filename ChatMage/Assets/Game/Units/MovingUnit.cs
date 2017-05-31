@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using CCC.Utility;
 
-public class MovingUnit : Unit
+public abstract class MovingUnit : Unit
 {
     [System.NonSerialized]
     public Locker canMove = new Locker();

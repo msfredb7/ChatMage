@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class LS_DemoDragRace : LevelScript
 {
+    public bool followPlayer = false;
     PlayerController player;
 
     [fsIgnore]
@@ -46,7 +47,8 @@ public class LS_DemoDragRace : LevelScript
         player.playerStats.canTurn.Unlock("lvl");
         player.vehicle.canMove.Unlock("lvl");
 
-        //Game.instance.map.mapFollower.FollowPlayer();
+        if (followPlayer)
+            Game.instance.map.mapFollower.FollowPlayer();
     }
 
     protected override void OnUpdate()

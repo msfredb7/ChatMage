@@ -39,7 +39,7 @@ public class SM_Warudo : Smash
         List<Unit> units = Game.instance.units;
         for (int i = 0; i < units.Count; i++)
         {
-            if (units[i] == Game.instance.Player.vehicle)
+            if (units[i].allegiance == Allegiance.Ally)
                 continue;
 
             units[i].TimeScale = amount;
