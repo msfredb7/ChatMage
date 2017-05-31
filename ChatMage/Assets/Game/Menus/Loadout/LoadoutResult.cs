@@ -34,9 +34,11 @@ public class LoadoutResult
         {
             case EquipableType.Car:
                 carOrder = new EquipableOrder(name, type);
+                Debug.Log("Car " + name + " selected");
                 break;
             case EquipableType.Smash:
                 smashOrder = new EquipableOrder(name, type);
+                Debug.Log("Smash " + name + " selected");
                 break;
             case EquipableType.Item:
                 if (itemOrders.Count >= itemSlotAmount)
@@ -47,6 +49,7 @@ public class LoadoutResult
                         throw new System.Exception("Item Already In Loadout");
 
                 itemOrders.Add(new EquipableOrder(name, type));
+                Debug.Log("Item " + name + " added");
 
                 break;
             default:

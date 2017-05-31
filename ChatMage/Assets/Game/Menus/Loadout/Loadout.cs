@@ -40,7 +40,6 @@ public class Loadout : BaseBehavior
             newButton.GetComponent<LoadoutButton>().ChangeLoadoutButton(currentEquipable.displayName);
             newButton.GetComponent<Button>().onClick.AddListener(delegate() {
                 currentLoadout.AddEquipable(currentEquipable.equipableAssetName, currentEquipable.type);
-                Debug.Log(currentEquipable.displayName + " added");
             });
         }
 
@@ -51,7 +50,6 @@ public class Loadout : BaseBehavior
             newButton.GetComponent<LoadoutButton>().ChangeLoadoutButton(currentEquipable.displayName);
             newButton.GetComponent<Button>().onClick.AddListener(delegate () {
                 currentLoadout.AddEquipable(currentEquipable.equipableAssetName, currentEquipable.type);
-                Debug.Log(currentEquipable.displayName + " selected");
             });
         }
 
@@ -62,7 +60,6 @@ public class Loadout : BaseBehavior
             newButton.GetComponent<LoadoutButton>().ChangeLoadoutButton(currentEquipable.displayName);
             newButton.GetComponent<Button>().onClick.AddListener(delegate () {
                 currentLoadout.AddEquipable(currentEquipable.equipableAssetName, currentEquipable.type);
-                Debug.Log(currentEquipable.displayName + " selected");
             });
         }
     }
