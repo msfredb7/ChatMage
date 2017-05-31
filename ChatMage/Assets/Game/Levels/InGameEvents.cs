@@ -76,6 +76,13 @@ public class InGameEvents : MonoBehaviour
             }
     }
 
+    public void SetPlayerOnSpawn(float lookAngle)
+    {
+        Game.instance.Player.vehicle.TeleportPosition(Game.instance.map.mapping.GetRandomSpawnPoint(Waypoint.WaypointType.PlayerSpawn).transform.position);
+        Game.instance.Player.vehicle.TeleportDirection(lookAngle);
+        LockPlayer();
+    }
+
     // Dialogue (A faire)
     public void Dialogue()
     {
@@ -116,24 +123,14 @@ public class InGameEvents : MonoBehaviour
 
     public void LockPlayer()
     {
-        Vector2 bounds = Game.instance.WorldBounds;
-        Vector3 startPos = new Vector3(bounds.x / 2, bounds.y / 3);
-        LockPlayer(startPos);
-    }
-
-    public void LockPlayer(Vector3 position)
-    {
-        Vector3 startPos = position;
-        Game.instance.Player.transform.position = startPos;
-        Game.instance.Player.vehicle.canMove.Lock("intro");
-        Game.instance.Player.playerStats.canTurn.Lock("intro");
-        Game.instance.Player.vehicle.targetDirection = 90;
+        Game.instance.Player.vehicle.canMove.Lock("ige");
+        Game.instance.Player.playerStats.canTurn.Lock("ige");
     }
 
     public void UnLockPlayer()
     {
-        Game.instance.Player.vehicle.canMove.Unlock("intro");
-        Game.instance.Player.playerStats.canTurn.Unlock("intro");
+        Game.instance.Player.vehicle.canMove.Unlock("ige");
+        Game.instance.Player.playerStats.canTurn.Unlock("ige");
     }
 
     #endregion
@@ -358,8 +355,10 @@ public class InGameEvents : MonoBehaviour
     // Outro
     public void Outro(bool result, GameObject uiPrefab)
     {
-        LockPlayer(Game.instance.Player.vehicle.transform.position);
+        LockPlayer();
+
         Game.instance.Player.playerStats.damagable = false;
+
         // Si on a gagner
         if (result)
             ShowUI(uiPrefab).GetComponent<GameResultUI>().UpdateResult(true, currentLevel);

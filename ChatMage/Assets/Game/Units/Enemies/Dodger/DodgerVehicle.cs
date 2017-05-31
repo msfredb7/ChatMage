@@ -14,7 +14,6 @@ public class DodgerVehicle : EnemyVehicle
 
     public void Init()
     {
-        SetBounds(Game.instance.ScreenBounds, 1);
     }
 
     protected override void FixedUpdate()

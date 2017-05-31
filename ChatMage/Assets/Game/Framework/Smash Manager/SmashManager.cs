@@ -43,7 +43,7 @@ public class SmashManager : MonoBehaviour
     void OnGameReady()
     {
         if (followTarget != null)
-            followTargetParent.localScale = Game.instance.ConvertToRealPos(Vector3.one);
+            followTargetParent.localScale = Game.instance.gameCamera.AdjustVector(Vector3.one);
     }
 
     void OnGameStarted()
@@ -81,7 +81,7 @@ public class SmashManager : MonoBehaviour
     {
 
         inCooldown = false;
-        Vector2 borders = Game.instance.ScreenBounds;
+        Vector2 borders = Game.instance.gameCamera.ScreenSize;
         Vector2 spawnPoint = new Vector2(Random.Range(0, borders.x), Random.Range(0, borders.y));
 
         currentSmashBall = Game.instance.SpawnUnit(ballPrefab, spawnPoint) as SmashBall;

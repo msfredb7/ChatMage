@@ -8,8 +8,6 @@ public class ChargerVehicle : EnemyVehicle
     bool aboutToDie = false;
     public void Init()
     {
-        SetBounds(Game.instance.ScreenBounds, 1);
-        //GetComponentInChildren<SimpleColliderListener>().onTriggerEnter += Hit;
     }
 
     public void Hit(ColliderInfo info, ColliderListener listener)

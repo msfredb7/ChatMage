@@ -134,13 +134,10 @@ public class Framework : MonoBehaviour
 
         //Game Init
         game.map = map;
-        game.Init(level,this);
-
-        //Add player to list
-        game.AddPlayer(player);
+        game.Init(level,this, player);
 
         //Init map
-        map.Init(game.ScreenBounds.x, game.ScreenBounds.y);
+        map.Init();
 
         //Spawner Init
         Game.instance.spawner.Init();
