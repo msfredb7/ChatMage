@@ -18,7 +18,7 @@ public class Map : MonoBehaviour
     /// <summary>
     /// Initialise les settings de la map
     /// </summary>
-	public void Init(float height, float width)
+	public void Init()
     {
         for (int i = 0; i < mapObjectsToAjust.Count; i++)
         {
@@ -29,6 +29,6 @@ public class Map : MonoBehaviour
     public void Adjust(GameObject obj)
     {
         if (obj != null)
-            obj.transform.position = Game.instance.ConvertToRealPos(obj.transform.position);
+            obj.transform.position = Game.instance.gameCamera.AdjustVector(obj.transform.position);
     }
 }

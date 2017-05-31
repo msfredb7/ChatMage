@@ -11,12 +11,9 @@ public class ChainChomp : Unit
     public SimpleColliderListener colliderListener;
     public int hitDamage = 1;
     public GameObject container;
-    public float drag = 2;
 
     private bool teleported = false;
     private Transform target;
-    private float lastVerticalSpeed;
-    private float parentVelocity;
 
     protected override void Awake()
     {
@@ -65,20 +62,6 @@ public class ChainChomp : Unit
 
     protected override void FixedUpdate()
     {
-        //Artificial drag
-        if (useMovingPlatform && Game.instance.map.rubanPlayer != null)
-        {
-            parentVelocity = Game.instance.map.rubanPlayer.GetVerticalSpeed();
-            float delta = parentVelocity - lastVerticalSpeed;
-
-            Vector2 totalVel = realBall.velocity - Vector2.up * parentVelocity;
-            realBall.AddForce(totalVel.sqrMagnitude * drag * -totalVel.normalized * TimeScale, ForceMode2D.Force);
-
-            realBall.velocity += delta * Vector2.up;
-
-            lastVerticalSpeed = parentVelocity;
-        }
-
         if (!container.activeSelf)
         {
             if (teleported)

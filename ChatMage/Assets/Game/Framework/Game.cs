@@ -12,7 +12,7 @@ public class Game : PublicSingleton<Game>
 {
     //Linked references
     [InspectorHeader("References")]
-    public Camera cam;
+    public GameCamera gameCamera;
     public Spawner spawner;
     public Transform unitsContainer;
     public GameBounds gameBounds;
@@ -27,13 +27,6 @@ public class Game : PublicSingleton<Game>
     public LevelScript currentLevel;
     [fsIgnore]
     public Framework framework;
-
-    public float Aspect { get { return cam.aspect; } }
-    [InspectorHeader("Settings")]
-    public Vector2 defaultBounds;
-    private Vector2 screenBounds;
-    private Vector2 worldBounds;
-    private Vector2 defaultToRealRatio;
 
     [InspectorDisabled]
     public List<Unit> units = new List<Unit>();
@@ -51,30 +44,30 @@ public class Game : PublicSingleton<Game>
     public bool gameStarted = false;
     public event SimpleEvent onGameReady;
     public event SimpleEvent onGameStarted;
+    
+    public bool default_horizontalBound;
+    public float default_horizontalBorderWidth;
+    public bool default_verticalBound;
+    public float default_verticalBorderWidth;
 
-    public void Init(LevelScript level, Framework framework)
+    public void Init(LevelScript level, Framework framework, PlayerController player)
     {
         // Time Scale Reset
         Time.timeScale = 1;
 
-        //Screen bounds
-        screenBounds = new Vector2(cam.orthographicSize * cam.aspect * 2, cam.orthographicSize * 2);
-        worldBounds = new Vector2(screenBounds.x, screenBounds.y);
-        defaultToRealRatio = new Vector2(defaultBounds.x / screenBounds.x, defaultBounds.y / screenBounds.y);
-
         // Framework
         this.framework = framework;
-
-        //Camera adjustment
-        CamAdjustment camAdjustment = cam.GetComponent<CamAdjustment>();
-        if (camAdjustment != null)
-            camAdjustment.Adjust(screenBounds);
-        gameBounds.Resize(screenBounds);
 
         // Init LevelScript
         currentLevel = level;
         level.onObjectiveComplete.AddListener(OnObjectiveComplete);
         level.onObjectiveFailed.AddListener(OnObjectiveFailed);
+
+        AddPlayer(player);
+
+        gameCamera.Init(player.transform);
+
+        gameBounds.Resize(gameCamera.ScreenSize.x, -gameCamera.distance);
     }
 
     public void ReadyGame()
@@ -122,22 +115,6 @@ public class Game : PublicSingleton<Game>
         Quit();
     }
 
-    #region Bounds
-
-    public Vector2 ScreenBounds { get { return screenBounds; } }
-    public Vector2 WorldBounds { get { return worldBounds; } }
-
-    public Vector3 ConvertToRealPos(Vector3 position)
-    {
-        return new Vector3(position.x / defaultToRealRatio.x, position.y / defaultToRealRatio.y, 0);
-    }
-    public Vector2 ConvertToRealPos(Vector2 position)
-    {
-        return new Vector2(position.x / defaultToRealRatio.x, position.y / defaultToRealRatio.y);
-    }
-
-    #endregion
-
     #region Unit Managment
 
     /// <summary>
@@ -157,8 +134,12 @@ public class Game : PublicSingleton<Game>
     public void AddExistingUnit(Unit unit)
     {
         unit.transform.SetParent(unitsContainer);
-        //unit.movingPlatform = map.rubanPlayer;
         unit.TimeScale = worldTimeScale;
+
+        unit.horizontalBorderWidth = default_horizontalBorderWidth;
+        unit.horizontalBound = default_horizontalBound;
+        unit.verticalBound = default_verticalBound;
+        unit.verticalBorderWidth = default_verticalBorderWidth;
 
         units.Add(unit);
 
@@ -175,6 +156,14 @@ public class Game : PublicSingleton<Game>
     private void OnUnitDestroy(Unit unit)
     {
         units.Remove(unit);
+    }
+
+    public void SetDefaultBorders(bool horizontalBound, float horizontalBorderWidth, bool verticalBound, float verticalBorderWidth)
+    {
+        default_horizontalBound = horizontalBound;
+        default_horizontalBorderWidth = horizontalBorderWidth;
+        default_verticalBound = verticalBound;
+        default_verticalBorderWidth = verticalBorderWidth;
     }
 
     #endregion

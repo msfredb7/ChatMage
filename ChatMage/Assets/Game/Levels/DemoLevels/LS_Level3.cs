@@ -24,7 +24,10 @@ public class LS_Level3 : LevelScript {
     //TRES IMPORTANT DE RESET NOS VARIABLE ICI
     protected override void OnGameReady()
     {
-        events.LockPlayer();
+        events.SetPlayerOnSpawn(90);
+
+        Game.instance.SetDefaultBorders(true, 0, true, 0);
+
         dodgerKilled = 0;
 
         events.ShowUI(countdownUI).GetComponent<IntroCountdown>().onCountdownOver.AddListener(Game.instance.StartGame);

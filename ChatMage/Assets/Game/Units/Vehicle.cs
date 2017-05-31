@@ -6,6 +6,7 @@ using CCC.Utility;
 
 public abstract class Vehicle : MovingUnit
 {
+    [Header("Vehicle")]
     public float moveSpeed = 1;
     public float targetDirection;
     public bool rotationSetsTargetDirection = false;

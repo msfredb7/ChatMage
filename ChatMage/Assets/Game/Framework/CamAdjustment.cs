@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CamAdjustment : MonoBehaviour
 {
+    //NON UTILISÉ
     public void Adjust(Vector2 bounds)
     {
         transform.position = new Vector3(

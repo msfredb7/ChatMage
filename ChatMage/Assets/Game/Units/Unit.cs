@@ -9,6 +9,7 @@ public enum Allegiance { Ally = 0, Neutral = 1, Enemy = 2 }
 [RequireComponent(typeof(Rigidbody2D))]
 public abstract class Unit : MonoBehaviour
 {
+    [Header("Unit")]
     public Allegiance allegiance = Allegiance.Enemy;
     protected float timeScale = 1;
     public Locker isAffectedByTimeScale = new Locker();
@@ -19,6 +20,15 @@ public abstract class Unit : MonoBehaviour
     public event UnitMove_Event onTeleportPosition;
     public event Unit_Event onDestroy;
     public event Unit_Event onDeath;
+
+    [Header("Border")]
+    public bool mightMove = true;
+    public float unitWidth;
+    [Header("Border(will be changed on spawn)")]
+    public bool horizontalBound;
+    public float horizontalBorderWidth;
+    public bool verticalBound;
+    public float verticalBorderWidth;
 
     [System.NonSerialized]
     public Rigidbody2D rb;
@@ -38,9 +48,6 @@ public abstract class Unit : MonoBehaviour
 
     public float Rotation { get { return rb.rotation; } set { rb.rotation = value; } }
 
-    public bool useMovingPlatform = true;
-    //public MovingPlatform movingPlatform;
-
     protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -49,8 +56,27 @@ public abstract class Unit : MonoBehaviour
 
     protected virtual void FixedUpdate()
     {
-        if (useMovingPlatform && Game.instance.map.rubanPlayer != null)
-            tr.position += Vector3.up * Game.instance.map.rubanPlayer.GetVerticalSpeed() * Time.fixedDeltaTime;
+        if (mightMove || horizontalBound || verticalBound)
+            RestrainToBounds();
+    }
+
+    void RestrainToBounds()
+    {
+        float x = Position.x;
+        float y = Position.y;
+
+        if (horizontalBound)
+        {
+            float rightBorder = Game.instance.gameCamera.ScreenSize.x / 2 - horizontalBorderWidth - (unitWidth / 2);
+            x = Mathf.Clamp(x, -rightBorder, rightBorder);
+        }
+        if (verticalBound)
+        {
+            float halfHeight = Game.instance.gameCamera.ScreenSize.y / 2 - verticalBorderWidth - (unitWidth / 2);
+            y = Mathf.Clamp(y, Game.instance.gameCamera.Height - halfHeight, Game.instance.gameCamera.Height + halfHeight);
+        }
+
+        Position = new Vector2(x, y);
     }
 
     public virtual Vector3 WorldDirection()

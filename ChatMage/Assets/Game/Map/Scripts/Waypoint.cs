@@ -28,4 +28,26 @@ public class Waypoint : MonoBehaviour {
         Game.instance.map.Adjust(gameObject);
         return this;
     }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = TypeToColor();
+        Gizmos.DrawSphere(transform.position, 0.5f);
+    }
+
+    Color TypeToColor()
+    {
+        switch (type)
+        {
+            case WaypointType.PlayerSpawn:
+                return Color.blue;
+            case WaypointType.items:
+                return Color.green;
+            case WaypointType.enemySpawn:
+                return Color.red;
+            case WaypointType.BossSpawn:
+                return Color.black;
+        }
+        return Color.gray;
+    }
 }

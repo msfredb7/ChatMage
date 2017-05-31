@@ -7,6 +7,7 @@ using UnityEngine;
 public class LS_DemoDragRace : LevelScript
 {
     public bool followPlayer = false;
+    public DodgerVehicle dodger;
     PlayerController player;
 
     [fsIgnore]
@@ -19,6 +20,8 @@ public class LS_DemoDragRace : LevelScript
         LoadQueue queue = new LoadQueue(onComplete);
         queue.AddUI("Countdown", (x) => countdownUI = x);
         queue.AddUI("Outro", (x) => outroUI = x);
+
+        Game.instance.SetDefaultBorders(true, 0, true, 0);
     }
 
     public override void ReceiveEvent(string message)
@@ -33,17 +36,22 @@ public class LS_DemoDragRace : LevelScript
     protected override void OnGameReady()
     {
         player = Game.instance.Player;
-
         player.playerStats.canTurn.Lock("lvl");
         player.vehicle.canMove.Lock("lvl");
         player.vehicle.TeleportDirection(90);
-        player.vehicle.TeleportPosition(Game.instance.map.mapping.GetRandomSpawnPoint(Waypoint.WaypointType.PlayerSpawn).transform.position);
+
+        events.SetPlayerOnSpawn(90);
+
+        Game.instance.gameCamera.followPlayer = true;
 
         events.ShowUI(countdownUI).GetComponent<IntroCountdown>().onCountdownOver.AddListener(Game.instance.StartGame);
     }
 
     protected override void OnGameStarted()
     {
+
+        events.SpawnEntitySpreadTime(dodger, 100, Waypoint.WaypointType.enemySpawn, 35, true);
+
         player.playerStats.canTurn.Unlock("lvl");
         player.vehicle.canMove.Unlock("lvl");
 
