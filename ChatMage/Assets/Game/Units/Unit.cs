@@ -39,7 +39,7 @@ public abstract class Unit : MonoBehaviour
     public float Rotation { get { return rb.rotation; } set { rb.rotation = value; } }
 
     public bool useMovingPlatform = true;
-    public MovingPlatform movingPlatform;
+    //public MovingPlatform movingPlatform;
 
     protected virtual void Awake()
     {
@@ -49,8 +49,8 @@ public abstract class Unit : MonoBehaviour
 
     protected virtual void FixedUpdate()
     {
-        if (useMovingPlatform && movingPlatform != null)
-            tr.position += Vector3.up * movingPlatform.GetVerticalSpeed() * Time.fixedDeltaTime;
+        if (useMovingPlatform && Game.instance.map.rubanPlayer != null)
+            tr.position += Vector3.up * Game.instance.map.rubanPlayer.GetVerticalSpeed() * Time.fixedDeltaTime;
     }
 
     public virtual Vector3 WorldDirection()

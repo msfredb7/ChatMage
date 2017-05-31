@@ -24,11 +24,11 @@ public class ChainChomp : Unit
         rb = realBall;
     }
 
-    public void Init(Transform target)
+    public void Init(Transform target, PlayerController player)
     {
         colliderListener.onCollisionEnter += ColliderListener_onCollisionEnter;
-        Game.instance.Player.vehicle.onTeleportPosition += OnPlayerTeleport;
-        Game.instance.Player.vehicle.onDestroy += OnPlayerDestroyed;
+        player.vehicle.onTeleportPosition += OnPlayerTeleport;
+        player.vehicle.onDestroy += OnPlayerDestroyed;
 
         this.target = target;
     }
@@ -66,9 +66,9 @@ public class ChainChomp : Unit
     protected override void FixedUpdate()
     {
         //Artificial drag
-        if (useMovingPlatform && movingPlatform != null)
+        if (useMovingPlatform && Game.instance.map.rubanPlayer != null)
         {
-            parentVelocity = movingPlatform.GetVerticalSpeed();
+            parentVelocity = Game.instance.map.rubanPlayer.GetVerticalSpeed();
             float delta = parentVelocity - lastVerticalSpeed;
 
             Vector2 totalVel = realBall.velocity - Vector2.up * parentVelocity;

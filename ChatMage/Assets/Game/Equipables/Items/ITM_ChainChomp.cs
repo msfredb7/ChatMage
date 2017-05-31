@@ -10,10 +10,14 @@ public class ITM_ChainChomp : Item
     [FullSerializer.fsIgnore]
     private ChainChomp chainChomp;
 
+    public override void Init(PlayerController player)
+    {
+        base.Init(player);
+        chainChomp = Game.instance.SpawnUnit(prefab, player.vehicle.Position);
+        chainChomp.Init(player.playerLocations.boule, player);
+    }
     public override void OnGameReady()
     {
-        chainChomp = Game.instance.SpawnUnit(prefab, Game.instance.Player.vehicle.Position);
-        chainChomp.Init(Game.instance.Player.playerLocations.boule);
     }
 
     public override void OnGameStarted()
