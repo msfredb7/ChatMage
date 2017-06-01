@@ -24,7 +24,7 @@ public class LS_Level3 : LevelScript {
     //TRES IMPORTANT DE RESET NOS VARIABLE ICI
     protected override void OnGameReady()
     {
-        events.SetPlayerOnSpawn(90);
+        events.LockPlayerOnSpawn(90);
 
         Game.instance.SetDefaultBorders(true, 0, true, 0);
 

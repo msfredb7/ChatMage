@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SmashBall : Unit
+public class SmashBall : Unit, IAttackable
 {
     public int hp = 3;
     public float startSpeed;
@@ -13,7 +14,7 @@ public class SmashBall : Unit
 
     void Start()
     {
-        rb.velocity = Vehicle.AngleToVector(Random.Range(0, 360)) * startSpeed;
+        rb.velocity = Vehicle.AngleToVector(UnityEngine.Random.Range(0, 360)) * startSpeed;
     }
 
     protected override void FixedUpdate()
@@ -25,42 +26,6 @@ public class SmashBall : Unit
             Vector2 v = followTarget.position - tr.position;
             rb.velocity = Vector2.MoveTowards(rb.velocity, v * 2, FixedDeltaTime() * followSpeed);
         }
-    }
-
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        ColliderInfo info = collision.collider.GetComponent<ColliderInfo>();
-        if (info == null)
-            return;
-
-        if (info.parentUnit != Game.instance.Player.vehicle)
-            return;
-
-        //Is player !
-        OnCollisionWithPlayer();
-    }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        ColliderInfo info = other.GetComponent<ColliderInfo>();
-        if (info == null)
-            return;
-
-        if (info.parentUnit != Game.instance.Player.vehicle)
-            return;
-
-        //Is player !
-        OnCollisionWithPlayer();
-    }
-
-    void OnCollisionWithPlayer()
-    {
-        hp--;
-        if (onHitPlayer != null)
-            onHitPlayer();
-
-        if (hp <= 0)
-            Die();
     }
 
     public void ForceDeath()
@@ -76,5 +41,17 @@ public class SmashBall : Unit
 
         //Death animation !
         Destroy(gameObject);
+    }
+
+    public int Attacked(ColliderInfo on, int amount, MonoBehaviour source)
+    {
+        hp--;
+        if (onHitPlayer != null)
+            onHitPlayer();
+
+        if (hp <= 0)
+            Die();
+
+        return hp;
     }
 }

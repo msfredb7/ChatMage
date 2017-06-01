@@ -32,15 +32,15 @@ public class Milestone : BaseBehavior
     {
         if (modifyCanScrollDown)
         {
-            Game.instance.map.rubanPlayer.CanScrollDown = canScrollDownEffect;
+            //Game.instance.map.rubanPlayer.CanScrollDown = canScrollDownEffect;
         }
         if (modifyCanScrollUp)
         {
-            Game.instance.map.rubanPlayer.CanScrollUp = canScrollUpEffect;
+            //Game.instance.map.rubanPlayer.CanScrollUp = canScrollUpEffect;
         }
         if (completlyStopMap)
         {
-            Game.instance.map.rubanPlayer.Stopped = true;
+            //Game.instance.map.rubanPlayer.Stopped = true;
         }
 
         if (fireEventToLevelScript)

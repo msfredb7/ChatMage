@@ -137,7 +137,7 @@ public class Framework : MonoBehaviour
         game.Init(level,this, player);
 
         //Init map
-        map.Init();
+        map.Init(player);
 
         //Spawner Init
         Game.instance.spawner.Init();

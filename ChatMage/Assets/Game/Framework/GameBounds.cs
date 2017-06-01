@@ -15,4 +15,6 @@ public class GameBounds : MonoBehaviour
         right.transform.localPosition = new Vector3(width / 2 + 0.5f, 0, z);
         left.transform.position = new Vector3(-width / 2 - 0.5f, 0, z);
     }
+
+    
 }

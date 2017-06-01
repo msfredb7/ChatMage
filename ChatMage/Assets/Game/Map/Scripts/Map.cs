@@ -12,14 +12,16 @@ public class Map : MonoBehaviour
     private List<GameObject> mapObjectsToAjust;
 
     [Header("Optional")]
-    public RubanPlayer rubanPlayer;
-    public MapFollower mapFollower;
+    public RoadPlayer roadPlayer;
 
     /// <summary>
     /// Initialise les settings de la map
     /// </summary>
-	public void Init()
+	public void Init(PlayerController player)
     {
+        if (roadPlayer != null)
+            roadPlayer.Init(player.transform);
+
         for (int i = 0; i < mapObjectsToAjust.Count; i++)
         {
             Adjust(mapObjectsToAjust[i]);

@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class ChainChomp : Unit
 {
+    [Header("Chain Chomp")]
     public Rigidbody2D anchor;
     public Rigidbody2D followingBall;
     public Rigidbody2D realBall;
@@ -37,7 +38,7 @@ public class ChainChomp : Unit
 
     private void ColliderListener_onCollisionEnter(ColliderInfo other, Collision2D collision, ColliderListener listener)
     {
-        if (other.parentUnit.allegiance == Allegiance.Enemy)
+        if (other.parentUnit.allegiance == Allegiance.Enemy || other.parentUnit.allegiance == Allegiance.SmashBall)
         {
             //Bump !
             if (other.parentUnit is Vehicle)

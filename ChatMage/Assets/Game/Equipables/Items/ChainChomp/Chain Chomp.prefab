@@ -455,7 +455,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 10
-  m_LinearDrag: 0
+  m_LinearDrag: 1.5
   m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: 1bd786b960211484991f961706ee7d6d, type: 2}
@@ -590,14 +590,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allegiance: 0
-  useMovingPlatform: 1
+  canUseBorder: 1
+  unitWidth: 0
+  horizontalBound: 0
+  horizontalBorderWidth: 0
+  verticalBound: 0
+  verticalBorderWidth: 0
   anchor: {fileID: 50279094001520078}
   followingBall: {fileID: 50428285855302716}
   realBall: {fileID: 50518181289965380}
   colliderListener: {fileID: 114836624163874968}
   hitDamage: 1
   container: {fileID: 1545689508392118}
-  drag: 4
 --- !u!114 &114413519890898582
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -920,7 +924,7 @@ DistanceJoint2D:
   m_AutoConfigureConnectedAnchor: 0
   m_Anchor: {x: 0, y: 0}
   m_ConnectedAnchor: {x: 0, y: 0}
-  m_AutoConfigureDistance: 1
+  m_AutoConfigureDistance: 0
   m_Distance: 2
   m_MaxDistanceOnly: 1
 --- !u!233 &233149511538072976

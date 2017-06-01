@@ -36,27 +36,19 @@ public class LS_DemoDragRace : LevelScript
     protected override void OnGameReady()
     {
         player = Game.instance.Player;
-        player.playerStats.canTurn.Lock("lvl");
-        player.vehicle.canMove.Lock("lvl");
-        player.vehicle.TeleportDirection(90);
 
-        events.SetPlayerOnSpawn(90);
-
-        Game.instance.gameCamera.followPlayer = true;
+        events.LockPlayerOnSpawn(90);
 
         events.ShowUI(countdownUI).GetComponent<IntroCountdown>().onCountdownOver.AddListener(Game.instance.StartGame);
     }
 
     protected override void OnGameStarted()
     {
+        //events.SpawnEntitySpreadTime(dodger, 100, Waypoint.WaypointType.enemySpawn, 35, true);
 
-        events.SpawnEntitySpreadTime(dodger, 100, Waypoint.WaypointType.enemySpawn, 35, true);
+        events.UnLockPlayer();
 
-        player.playerStats.canTurn.Unlock("lvl");
-        player.vehicle.canMove.Unlock("lvl");
-
-        if (followPlayer)
-            Game.instance.map.mapFollower.FollowPlayer();
+        Game.instance.gameCamera.followPlayer = followPlayer;
     }
 
     protected override void OnUpdate()
