@@ -43,7 +43,10 @@ public class SmashManager : MonoBehaviour
     void OnGameReady()
     {
         if (followTarget != null)
+        {
             followTargetParent.localScale = Game.instance.gameCamera.AdjustVector(Vector3.one);
+            followTargetParent.transform.localPosition = Game.instance.gameCamera.AdjustVector(followTargetParent.transform.localPosition);
+        }
     }
 
     void OnGameStarted()

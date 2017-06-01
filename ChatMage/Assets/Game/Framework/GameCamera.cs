@@ -54,7 +54,7 @@ public class GameCamera : MonoBehaviour
 
     public Vector3 AdjustVector(Vector3 position)
     {
-        return new Vector3(position.x / defaultToRealRatio.x, position.y / defaultToRealRatio.y, 0);
+        return new Vector3(position.x / defaultToRealRatio.x, position.y / defaultToRealRatio.y, position.z);
     }
     public Vector2 AdjustVector(Vector2 position)
     {

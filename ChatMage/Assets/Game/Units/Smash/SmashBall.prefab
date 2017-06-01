@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4089338614410534}
   - component: {fileID: 212896706102845978}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Sprite (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4894217277522834}
   - component: {fileID: 212296571496412650}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,7 +54,8 @@ GameObject:
   - component: {fileID: 114085357807114524}
   - component: {fileID: 50613862399156622}
   - component: {fileID: 58870457971584888}
-  m_Layer: 10
+  - component: {fileID: 114337831590171584}
+  m_Layer: 11
   m_Name: SmashBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,7 +71,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4888246039994296}
   - component: {fileID: 212740939067074912}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: X
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,11 +179,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b252545e5051d9d4997077d3cac93b7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useMovingPlatform: 0
+  allegiance: 3
+  canUseBorder: 0
+  unitWidth: 1
+  horizontalBound: 0
+  horizontalBorderWidth: 0
+  verticalBound: 0
+  verticalBorderWidth: 0
   hp: 3
   startSpeed: 4
   followTarget: {fileID: 0}
   followSpeed: 10
+--- !u!114 &114337831590171584
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1561043133623540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75c6e7122024f1b439a1e42789a30e5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentUnit: {fileID: 114085357807114524}
+  groupParent: {fileID: 1561043133623540}
 --- !u!212 &212296571496412650
 SpriteRenderer:
   m_ObjectHideFlags: 1

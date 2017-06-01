@@ -24,7 +24,7 @@ public class LS_demoLevelScript2 : LevelScript
     //TRES IMPORTANT DE RESET NOS VARIABLE ICI
     protected override void OnGameReady()
     {
-        events.SetPlayerOnSpawn(90);
+        events.LockPlayerOnSpawn(90);
 
         events.WinIn(20);
 

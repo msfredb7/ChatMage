@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public enum Allegiance { Ally = 0, Neutral = 1, Enemy = 2 }
+public enum Allegiance { Ally = 0, Neutral = 1, Enemy = 2, SmashBall = 3 }
 
 [RequireComponent(typeof(Rigidbody2D))]
 public abstract class Unit : MonoBehaviour
@@ -22,7 +22,7 @@ public abstract class Unit : MonoBehaviour
     public event Unit_Event onDeath;
 
     [Header("Border")]
-    public bool mightMove = true;
+    public bool canUseBorder = true;
     public float unitWidth;
     [Header("Border(will be changed on spawn)")]
     public bool horizontalBound;
@@ -34,6 +34,9 @@ public abstract class Unit : MonoBehaviour
     public Rigidbody2D rb;
     protected Transform tr;
 
+    protected Vector2 sleepRbVelocity = Vector2.zero;
+    protected float sleepRbAngVelocity = 0;
+    
     public Vector2 Speed
     {
         get { return rb.velocity; }
@@ -56,7 +59,7 @@ public abstract class Unit : MonoBehaviour
 
     protected virtual void FixedUpdate()
     {
-        if (mightMove || horizontalBound || verticalBound)
+        if (canUseBorder || horizontalBound || verticalBound)
             RestrainToBounds();
     }
 
@@ -114,6 +117,24 @@ public abstract class Unit : MonoBehaviour
     {
         if (onDeath != null)
             onDeath(this);
+    }
+
+    public virtual void SaveRigidbody()
+    {
+        if (rb.bodyType == RigidbodyType2D.Static)
+            return;
+        
+        sleepRbVelocity = rb.velocity;
+        sleepRbAngVelocity = rb.angularVelocity;
+    }
+
+    public virtual void LoadRigidbody()
+    {
+        if (rb.bodyType == RigidbodyType2D.Static)
+            return;
+        
+        rb.velocity = sleepRbVelocity;
+        rb.angularVelocity = sleepRbAngVelocity;
     }
 
     [System.NonSerialized]
