@@ -22,7 +22,16 @@ public class ShopMenu : MonoBehaviour
 
     public void BuyLootBox()
     {
-        new LootBox(Account.instance.armory, LootBox.LootBoxType.common);
+        // Animation apparition Lootbox
+
+        new LootBox(Account.instance.armory, LootBox.LootBoxType.small, delegate(List<EquipablePreview> rewards) {
+            // Disparition du Lootbox
+            for (int i = 0; i < rewards.Count; i++)
+            {
+                // Afficher recompense ?
+                //rewards[i]
+            }
+        });
     }
 
     public void BuySlots()

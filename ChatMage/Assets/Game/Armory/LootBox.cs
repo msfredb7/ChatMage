@@ -1,28 +1,34 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Objet utile pour généré l'effet d'un lootbox, ceci ne gère pas les animations
 public class LootBox {
 
 	public enum LootBoxType
     {
-        common = 1,
-        rare = 2,
-        epic = 3,
-        legendary = 4
+        small = 1,
+        medium = 2,
+        large = 3
     }
 
     private List<EquipablePreview> possibleItems = new List<EquipablePreview>();
     public List<EquipablePreview> rewards = new List<EquipablePreview>();
     private LootBoxType type;
 
-    public LootBox(Armory armory, LootBoxType type)
+    public LootBox(Armory armory, LootBoxType type, Action<List<EquipablePreview>> callback, bool gold = false)
     {
+        // Calcul des objets possibles
+        if (!gold)
+            possibleItems = armory.GetAllEquipables();
+        else
+            possibleItems = armory.GetAllEquipablesLock();
 
-        possibleItems = armory.GetAllLockedItems();
         if(possibleItems.Count <= 0)
         {
             Debug.Log("Vous avez tous les items du jeu deja");
+            callback.Invoke(null);
             return;
         }
         this.type = type;
@@ -30,15 +36,15 @@ public class LootBox {
         rewards = GetRewards(type);
 
         for(int i = 0; i < rewards.Count; i++)
-        {
             Debug.Log("You got " + rewards[i].displayName);
-        }
+
+        callback.Invoke(rewards);
     }
 
     private List<EquipablePreview> GetRewards(LootBoxType type)
     {
         List<EquipablePreview> pickedItems = new List<EquipablePreview>();
-        for (int i = 0; i < (int)LootBoxType.rare; i++)
+        for (int i = 0; i < (int)LootBoxType.medium; i++)
         {
             pickedItems.Add(GetRandomItemsWithout(pickedItems));
             pickedItems[pickedItems.Count - 1].unlocked = true;
@@ -53,7 +59,7 @@ public class LootBox {
         do
         {
             keepGoing = false;
-            result = possibleItems[Random.Range(0, possibleItems.Count - 1)];
+            result = possibleItems[UnityEngine.Random.Range(0, possibleItems.Count - 1)];
             for(int i = 0; i < pickedItems.Count; i++)
             {
                 if (result == pickedItems[i])

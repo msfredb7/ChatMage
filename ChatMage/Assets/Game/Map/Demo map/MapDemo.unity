@@ -273,11 +273,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cc06a4b36bf8bc4fb703c895d675ed5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waypoints:
+  waypoints: []
+  enemyWaypoints:
   - {fileID: 2128911724}
-  - {fileID: 376287710}
-  - {fileID: 2054831370}
-  - {fileID: 1553431134}
   - {fileID: 984009600}
   - {fileID: 1013136071}
   - {fileID: 866277889}
@@ -299,6 +297,14 @@ MonoBehaviour:
   - {fileID: 1429644478}
   - {fileID: 261532786}
   - {fileID: 177292259}
+  playerWaypoints:
+  - {fileID: 376287710}
+  bossWaypoints:
+  - {fileID: 1553431134}
+  itemWaypoints:
+  - {fileID: 2054831370}
+  otherWaypoints: []
+  tagsWaypoints: []
 --- !u!4 &153121007
 Transform:
   m_ObjectHideFlags: 0
@@ -2662,6 +2668,7 @@ MonoBehaviour:
   - {fileID: 1237816615}
   - {fileID: 163467854}
   - {fileID: 1391270309}
+  - {fileID: 153121006}
   _values:
   - _keys: []
     _values: []
@@ -2684,6 +2691,9 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 1391270309}
+  - _keys: []
+    _values: []
+    _target: {fileID: 153121006}
 --- !u!114 &1649213853
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2703,6 +2713,7 @@ MonoBehaviour:
   - {fileID: 1237816615}
   - {fileID: 163467854}
   - {fileID: 1391270309}
+  - {fileID: 153121006}
   _values:
   - _keys:
     - DefaultBehaviorEditor.triggerOn.EditProperty
@@ -2767,6 +2778,27 @@ MonoBehaviour:
     - _showDropdown: 0
       _serializedIsActive: 1
     _target: {fileID: 1391270309}
+  - _keys:
+    - DefaultBehaviorEditor.enemyWaypoints.EditProperty
+    - DefaultBehaviorEditor.playerWaypoints.EditProperty
+    - DefaultBehaviorEditor.bossWaypoints.EditProperty
+    - DefaultBehaviorEditor.itemWaypoints.EditProperty
+    - DefaultBehaviorEditor.otherWaypoints.EditProperty
+    - DefaultBehaviorEditor.tagsWaypoints.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    _target: {fileID: 153121006}
 --- !u!1 &1668148737
 GameObject:
   m_ObjectHideFlags: 0

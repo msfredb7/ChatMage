@@ -156,6 +156,7 @@ public class GameSaves : BaseManager<GameSaves>
         queue.MarkEnd();
     }
 
+    [InspectorButton()]
     public void SaveAll()
     {
         print("saving data");

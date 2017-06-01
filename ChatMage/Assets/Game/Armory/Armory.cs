@@ -41,6 +41,45 @@ public class Armory : MonoBehaviour
         GameSaves.instance.SetInt(GameSaves.Type.Account, "Slots", itemSlots);
     }
 
+    public List<EquipablePreview> GetAllEquipables()
+    {
+        List<EquipablePreview> result = new List<EquipablePreview>();
+        // Lourd ???
+        for (int i = 0; i < items.Count; i++)
+        {
+            result.Add(items[i]);
+        }
+        for (int i = 0; i < cars.Count; i++)
+        {
+            result.Add(cars[i]);
+        }
+        for (int i = 0; i < smashes.Count; i++)
+        {
+            result.Add(smashes[i]);
+        }
+        return result;
+    }
+
+    public List<EquipablePreview> GetAllEquipablesLock()
+    {
+        List<EquipablePreview> result = new List<EquipablePreview>();
+        // Lourd ???
+        result.CopyTo(GetAllLockedItems().ToArray());
+        result.CopyTo(GetAllLockedCars().ToArray());
+        result.CopyTo(GetAllLockedSmash().ToArray());
+        return result;
+    }
+
+    public List<EquipablePreview> GetAllEquipablesUnlock()
+    {
+        List<EquipablePreview> result = new List<EquipablePreview>();
+        // Lourd ???
+        result.CopyTo(GetAllUnlockedItems().ToArray());
+        result.CopyTo(GetAllUnlockedCars().ToArray());
+        result.CopyTo(GetAllUnlockedSmash().ToArray());
+        return result;
+    }
+
     public List<EquipablePreview> GetAllUnlockedItems()
     {
         List<EquipablePreview> result = new List<EquipablePreview>();

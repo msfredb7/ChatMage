@@ -12,7 +12,7 @@ public class Level : BaseScriptableObject
     public string levelScriptName;
 
     [InspectorHeader("Data"), InspectorMargin(25)]
-    [InspectorDisabled, fsProperty]
+    [fsProperty]
     private bool hasBeenCompleted;
 
     public bool HasBeenCompleted
@@ -49,6 +49,7 @@ public class Level : BaseScriptableObject
         }
     }
 
+    [InspectorButton]
     private void SaveData()
     {
         string completedCompleteKey = SAVE_PREFIX + name + COMPLETED_KEY;

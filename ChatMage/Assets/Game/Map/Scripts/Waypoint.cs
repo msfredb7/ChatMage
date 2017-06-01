@@ -9,7 +9,9 @@ public class Waypoint : MonoBehaviour {
         PlayerSpawn = 0,
         items = 1,
         enemySpawn = 2,
-        BossSpawn = 3
+        BossSpawn = 3,
+        Other = 4,
+        Tags = 5,
     }
 
     [SerializeField]
@@ -47,6 +49,10 @@ public class Waypoint : MonoBehaviour {
                 return Color.red;
             case WaypointType.BossSpawn:
                 return Color.black;
+            case WaypointType.Other:
+                return Color.white;
+            case WaypointType.Tags:
+                return Color.yellow;
         }
         return Color.gray;
     }
