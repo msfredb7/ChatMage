@@ -6,7 +6,10 @@ using UnityEngine.Advertisements;
 
 public class ShopMenu : MonoBehaviour
 {
+    public const string SCENENAME = "Shop";
+
     public GameObject deactivateScenePanel;
+    public Armory armory;
 
     void Start()
     {
@@ -24,7 +27,7 @@ public class ShopMenu : MonoBehaviour
     {
         // Animation apparition Lootbox
 
-        new LootBox(Account.instance.armory, LootBox.LootBoxType.small, delegate(List<EquipablePreview> rewards) {
+        new LootBox(armory, LootBox.LootBoxType.small, delegate(List<EquipablePreview> rewards) {
             // Disparition du Lootbox
             for (int i = 0; i < rewards.Count; i++)
             {
@@ -39,7 +42,7 @@ public class ShopMenu : MonoBehaviour
         if((Account.instance.GetMoney() - 10) < 0)
             PopUpMenu.ShowOKPopUpMenu("You don't have enough money. Open loot boxes or win levels to gain money. See you later!");
         else
-            Account.instance.armory.BuyItemSlots(1, -10);
+            armory.BuyItemSlots(1, -10);
     }
 
     public void GetMoney()

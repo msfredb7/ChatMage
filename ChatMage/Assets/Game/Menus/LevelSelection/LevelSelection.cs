@@ -88,11 +88,16 @@ public class LevelSelection : MonoBehaviour
         LoadingScreen.TransitionTo(Loadout.SCENENAME, message);
     }
 
-    void OnBackClicked()
+    public void OnBackClicked()
     {
         LoadingScreen.TransitionTo(MainMenu.SCENENAME, null);
     }
-    
+
+    public void OnShopClicked()
+    {
+        LoadingScreen.TransitionTo(ShopMenu.SCENENAME, null);
+    }
+
     private void SetAsCompleted(string levelName)
     {
         for (int i = 0; i < regions.Count; i++)

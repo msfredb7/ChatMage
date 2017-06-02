@@ -76,7 +76,12 @@ public class BaseTutorial : BaseScriptableObject
         if (stopTime)
             Time.timeScale = 0;
         if (currentSpotLight == null)
-            currentSpotLight = Instantiate(spotLight, currentCanvas.transform);
+        {
+            if (currentCanvas != null)
+                currentSpotLight = Instantiate(spotLight, currentCanvas.transform);
+            else
+                return;
+        }
 
         currentSpotLight.transform.position = position;
         currentSpotLight.GetComponent<SpotlightAnimation>().Init(currentCanvas);
@@ -107,7 +112,12 @@ public class BaseTutorial : BaseScriptableObject
         FocusSpotLight(obj.transform.position, true, stopTime);
 
         if (currentButtonPrefab == null)
-            currentButtonPrefab = Instantiate(buttonPrefab, currentCanvas.transform);
+        {
+            if (currentCanvas != null)
+                    currentButtonPrefab = Instantiate(buttonPrefab, currentCanvas.transform);
+                else
+                return;
+        }
 
         currentButtonPrefab.transform.position = obj.transform.position;
         currentButtonPrefab.SetActive(true);
@@ -124,7 +134,12 @@ public class BaseTutorial : BaseScriptableObject
     protected void ShowInfo(string text)
     {
         if (currentTutorialInfoDisplay == null)
-            currentTutorialInfoDisplay = Instantiate(tutorialInfoDisplay, currentCanvas.transform);
+        {
+            if (currentCanvas != null)
+                    currentTutorialInfoDisplay = Instantiate(tutorialInfoDisplay, currentCanvas.transform);
+                else
+                return;
+        }
 
         TutorialInfo info = currentTutorialInfoDisplay.GetComponent<TutorialInfo>();
         info.DisplayInfo(text);

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Armory : MonoBehaviour
+public class Armory : ScriptableObject
 {
 
     // On a des previews qu'on affichera dans le UI pour ensuite 

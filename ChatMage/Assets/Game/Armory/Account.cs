@@ -10,18 +10,15 @@ public class Account : BaseManager<Account> {
     // public GoogleAccount account;
 
     // Money
-    private int money;
+    private int money = 0;
     public UnityEvent onMoneyChanged = new UnityEvent();
-
-    // Armory
-    public Armory armory;
 
     public static int GetLastSavedMoney() { return PlayerPrefs.GetInt("Money"); }
 
     public override void Init()
     {
         Load();
-        armory = GetComponent<Armory>();
+        CompleteInit();
     }
 
     private void OnDestroy()
@@ -36,7 +33,10 @@ public class Account : BaseManager<Account> {
 
     public void Load()
     {
-        money = GameSaves.instance.GetInt(GameSaves.Type.Account, "money");
+        if(GameSaves.instance.ContainsInt(GameSaves.Type.Account, "money"))
+            money = GameSaves.instance.GetInt(GameSaves.Type.Account, "money");
+        else
+            GameSaves.instance.SetInt(GameSaves.Type.Account, "money", money);
     }
 
     public void Save()
