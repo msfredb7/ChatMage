@@ -342,11 +342,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cc06a4b36bf8bc4fb703c895d675ed5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waypoints:
+  waypoints: []
+  enemyWaypoints:
   - {fileID: 2128911724}
-  - {fileID: 376287710}
-  - {fileID: 2054831370}
-  - {fileID: 1553431134}
   - {fileID: 984009600}
   - {fileID: 1013136071}
   - {fileID: 866277889}
@@ -368,6 +366,14 @@ MonoBehaviour:
   - {fileID: 1429644478}
   - {fileID: 261532786}
   - {fileID: 177292259}
+  playerWaypoints:
+  - {fileID: 376287710}
+  bossWaypoints:
+  - {fileID: 1553431134}
+  itemWaypoints:
+  - {fileID: 2054831370}
+  otherWaypoints: []
+  tagsWaypoints: []
 --- !u!4 &153121007
 Transform:
   m_ObjectHideFlags: 0
@@ -676,7 +682,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 914aebc8b10f48949bd6b9ad2cf0c25a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _objectReferences: []
+  _serializedStateKeys:
+  - milestones
+  - milestoneRelativeHeights
+  _serializedStateValues:
+  - '[]'
+  - '[]'
   length: 40
+  milestones: []
 --- !u!1 &326019592
 GameObject:
   m_ObjectHideFlags: 0
@@ -1770,7 +1784,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 914aebc8b10f48949bd6b9ad2cf0c25a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _objectReferences: []
+  _serializedStateKeys:
+  - milestones
+  - milestoneRelativeHeights
+  _serializedStateValues:
+  - '[]'
+  - '[]'
   length: 40
+  milestones: []
 --- !u!4 &938340727
 Transform:
   m_ObjectHideFlags: 0
@@ -2129,7 +2151,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1237816615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2141,7 +2163,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 914aebc8b10f48949bd6b9ad2cf0c25a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  length: 40
+  _objectReferences: []
+  _serializedStateKeys:
+  - milestones
+  - milestoneRelativeHeights
+  _serializedStateValues:
+  - '[]'
+  - '[]'
+  length: 60
+  milestones: []
 --- !u!4 &1237816616
 Transform:
   m_ObjectHideFlags: 0
@@ -2825,8 +2855,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be205b8c5a2f88c408c5e5343719637c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _keys: []
-  _values: []
+  _keys:
+  - {fileID: 938340726}
+  - {fileID: 1237816615}
+  - {fileID: 291499225}
+  _values:
+  - _keys: []
+    _values: []
+    _target: {fileID: 938340726}
+  - _keys: []
+    _values: []
+    _target: {fileID: 1237816615}
+  - _keys: []
+    _values: []
+    _target: {fileID: 291499225}
 --- !u!114 &1649213853
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2838,8 +2880,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3b5fe0e79f64584a83676f21be2d2a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _keys: []
-  _values: []
+  _keys:
+  - {fileID: 938340726}
+  - {fileID: 1237816615}
+  - {fileID: 291499225}
+  _values:
+  - _keys:
+    - DefaultBehaviorEditor.milestoneRelativeHeights.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    _target: {fileID: 938340726}
+  - _keys: []
+    _values: []
+    _target: {fileID: 1237816615}
+  - _keys: []
+    _values: []
+    _target: {fileID: 291499225}
 --- !u!1 &1668148737
 GameObject:
   m_ObjectHideFlags: 0

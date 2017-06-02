@@ -123,7 +123,7 @@ public abstract class Unit : MonoBehaviour
     {
         if (rb.bodyType == RigidbodyType2D.Static)
             return;
-        
+
         sleepRbVelocity = rb.velocity;
         sleepRbAngVelocity = rb.angularVelocity;
     }
@@ -153,7 +153,7 @@ public abstract class Unit : MonoBehaviour
             if (value < 0)
                 value = 0;
 
-            //On stoppe le temps ? Si oui, prendre en note la velocité original
+            //On stoppe le temps ? Si oui, prendre en note la velocitï¿½ original
             if (value == 0)
             {
                 referenceVelocity = rb.velocity / timeScale;
@@ -161,7 +161,7 @@ public abstract class Unit : MonoBehaviour
                 rb.velocity = Vector2.zero;
                 wasStopped = true;
             }
-            else if (wasStopped) // Sinon, est-ce qu'on était arreté auparavant ? Si oui, utilisé la formule
+            else if (wasStopped) // Sinon, est-ce qu'on ï¿½tait arretï¿½ auparavant ? Si oui, utilisï¿½ la formule
             {
                 rb.velocity = referenceVelocity * value;
                 wasStopped = false;

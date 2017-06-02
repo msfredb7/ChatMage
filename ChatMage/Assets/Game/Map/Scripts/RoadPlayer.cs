@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -30,8 +30,6 @@ public class RoadPlayer : MonoBehaviour
             if (justTeleported)
             {
                 justTeleported = false;
-                if (changeRoadOnTeleport)
-                    SetRoad(++currentRoadIndex % roads.Count);
             }
             else
             {
@@ -50,12 +48,12 @@ public class RoadPlayer : MonoBehaviour
         if (currentRoad.IsTargetAboveRoad(playerHeight))
         {
             //Teleport from top to bottom !
-            TeleportTo(currentRoad.TopHeight, currentRoad.GetTeleportingBottom());
+            Teleport(false);
         }
         else if (currentRoad.IsTargetUnderRoad(playerHeight))
         {
             //Teleport from bottom to top !
-            TeleportTo(currentRoad.BottomHeight, currentRoad.GetTeleportingTop());
+            Teleport(true);
         }
     }
 
@@ -63,7 +61,7 @@ public class RoadPlayer : MonoBehaviour
     {
         Game.instance.unitsContainer.gameObject.SetActive(true);
 
-        //Save rigidbods data
+        //Load rigidbods data
         for (int i = 0; i < Game.instance.unitsContainer.childCount; i++)
         {
             Unit unit = Game.instance.unitsContainer.GetChild(i).GetComponent<Unit>();
@@ -72,9 +70,13 @@ public class RoadPlayer : MonoBehaviour
         }
     }
 
-    void TeleportTo(float from, float to)
+    void Teleport(bool fromBottomToTop)
     {
-        teleportingContainer.position = new Vector3(0, from, 0);
+        teleportingContainer.position = 
+            new Vector3(
+                0,
+                fromBottomToTop ? currentRoad.BottomHeight : currentRoad.TopHeight,
+                0);
         teleportingContainer.gameObject.SetActive(false);
 
         Transform unitContainer = Game.instance.unitsContainer;
@@ -96,8 +98,16 @@ public class RoadPlayer : MonoBehaviour
             i--;
         }
 
+        //Change Road ?
+        if (changeRoadOnTeleport)
+            SetRoad(fromBottomToTop ? --currentRoadIndex : ++currentRoadIndex);
+
         //Move teleporter
-        teleportingContainer.position = new Vector3(0, to, 0);
+        teleportingContainer.position = 
+            new Vector3(
+                0,
+                fromBottomToTop ? currentRoad.GetTeleportingTop() : currentRoad.GetTeleportingBottom(),
+                0);
 
         //Get out of teleporter
         for (int i = 0; i < teleportingContainer.childCount; i++)
@@ -112,6 +122,11 @@ public class RoadPlayer : MonoBehaviour
 
     public void SetRoad(int index)
     {
+        while (index > 0)
+            index -= roads.Count;
+        while (index < 0)
+            index += roads.Count;
+
         if (currentRoad == roads[index])
             return;
 
@@ -121,6 +136,7 @@ public class RoadPlayer : MonoBehaviour
 
         //Enable new road
         currentRoad = roads[index];
+        currentRoad.Init(Game.instance.gameCamera);
         currentRoad.gameObject.SetActive(true);
         currentRoadIndex = index;
     }

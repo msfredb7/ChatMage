@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,19 +9,29 @@ public class GameCamera : MonoBehaviour
     [Header("Settings")]
     public Vector2 defaultBounds;
     public float distance = -10;
+    public bool canScrollUp = true;
+    public bool canScrollDown = true;
+    [Header("Follow")]
     public bool followPlayer = false;
+    public float maxTurnSpeed = 2;
+    public float lerpSpeed = 1;
+    public float followForwardDistance = 2;
 
     private Vector2 screenSize;
     private Vector2 defaultToRealRatio;
     private Transform tr;
-    private Transform player;
+    private PlayerVehicle player;
+
+    //Follow
+    private Vector2 forwardVector;
+    private float followTargetDeltaHeight = 0;
 
     void Awake()
     {
         tr = transform;
     }
 
-    public void Init(Transform player)
+    public void Init(PlayerVehicle player)
     {
         this.player = player;
 
@@ -32,24 +42,38 @@ public class GameCamera : MonoBehaviour
 
     public void CenterOnPlayer()
     {
-        SetToHeight(player.position.y);
+        SetToHeight(player.Position.y);
     }
-
-    public float Height { get { return tr.position.y; } }
 
     public void SetToHeight(float height)
     {
+        if (!canScrollUp)
+            height = Mathf.Min(tr.position.y, height);
+        if(!canScrollDown)
+            height = Mathf.Max(tr.position.y, height);
+
         tr.position = new Vector3(0, height, distance);
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (followPlayer && player != null)
-            SetToHeight(player.position.y);
+        {
+            forwardVector = Vector2.MoveTowards(forwardVector, player.WorldDirection2D() * followForwardDistance, Time.fixedDeltaTime * maxTurnSpeed);
+            followTargetDeltaHeight = Mathf.Lerp(followTargetDeltaHeight, forwardVector.y, FixedLerp.FixedFix(0.01f* 1));
+            float targetHeight = player.Position.y + followTargetDeltaHeight;
+            
+
+
+            SetToHeight(targetHeight);
+        }
     }
 
     #region Bounds
 
+    public float Top { get { return Height + screenSize.y / 2; } }
+    public float Bottom { get { return Height - screenSize.y / 2; } }
+    public float Height { get { return tr.position.y; } }
     public Vector2 ScreenSize { get { return screenSize; } }
 
     public Vector3 AdjustVector(Vector3 position)

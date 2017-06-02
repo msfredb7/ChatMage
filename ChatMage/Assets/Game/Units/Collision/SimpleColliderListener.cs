@@ -49,6 +49,7 @@ public class SimpleColliderListener : ColliderListener
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+        //print("collision between: " + collision.collider.gameObject.name + " / " + collision.otherCollider.gameObject.name);
         if (!useCollision)
             return;
 

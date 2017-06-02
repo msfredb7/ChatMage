@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -82,5 +82,6 @@ public class ChainChomp : Unit
         container.SetActive(false);
         container.transform.position += new Vector3(delta.x, delta.y);
         teleported = true;
+        rb.velocity = Vector3.zero;
     }
 }

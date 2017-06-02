@@ -1,4 +1,4 @@
-﻿using FullSerializer;
+using FullSerializer;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -37,18 +37,20 @@ public class LS_DemoDragRace : LevelScript
     {
         player = Game.instance.Player;
 
-        events.LockPlayerOnSpawn(90);
+        Game.instance.gameCamera.SetToHeight(events.LockPlayerOnSpawn(90).y);
 
         events.ShowUI(countdownUI).GetComponent<IntroCountdown>().onCountdownOver.AddListener(Game.instance.StartGame);
+
+        Game.instance.gameCamera.followPlayer = followPlayer;
     }
 
     protected override void OnGameStarted()
     {
+        Game.instance.gameBounds.EnableAll();
         //events.SpawnEntitySpreadTime(dodger, 100, Waypoint.WaypointType.enemySpawn, 35, true);
 
         events.UnLockPlayer();
 
-        Game.instance.gameCamera.followPlayer = followPlayer;
     }
 
     protected override void OnUpdate()

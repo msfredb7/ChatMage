@@ -65,7 +65,7 @@ public class Game : PublicSingleton<Game>
 
         AddPlayer(player);
 
-        gameCamera.Init(player.transform);
+        gameCamera.Init(player.vehicle);
 
         gameBounds.Resize(gameCamera.ScreenSize.x, -gameCamera.distance);
     }

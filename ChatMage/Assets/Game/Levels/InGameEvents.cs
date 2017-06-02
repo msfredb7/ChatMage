@@ -1,4 +1,4 @@
-﻿using CCC.Manager;
+using CCC.Manager;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -76,11 +76,18 @@ public class InGameEvents : MonoBehaviour
             }
     }
 
-    public void LockPlayerOnSpawn(float lookAngle)
+    /// <summary>
+    /// Retounr la hauteur du waypoint (la coordonné en y)
+    /// </summary>
+    /// <param name="lookAngle"></param>
+    /// <returns></returns>
+    public Vector2 LockPlayerOnSpawn(float lookAngle)
     {
-        Game.instance.Player.vehicle.TeleportPosition(Game.instance.map.mapping.GetRandomSpawnPoint(Waypoint.WaypointType.PlayerSpawn).transform.position);
+        Vector3 pos = Game.instance.map.mapping.GetRandomSpawnPoint(Waypoint.WaypointType.PlayerSpawn).transform.position;
+        Game.instance.Player.vehicle.TeleportPosition(pos);
         Game.instance.Player.vehicle.TeleportDirection(lookAngle);
         LockPlayer();
+        return pos;
     }
 
     // Dialogue (A faire)

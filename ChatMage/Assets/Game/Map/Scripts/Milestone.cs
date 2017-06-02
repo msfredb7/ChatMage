@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FullInspector;
@@ -12,9 +12,12 @@ public class Milestone : BaseBehavior
 
 
     [InspectorHeader("Map Stop")]
-    public bool completlyStopMap;
+    public bool modifyFollowPlayer;
+    [InspectorShowIf("modifyFollowPlayer")]
+    public bool followPlayerEffect = false;
+    [InspectorMargin(5)]
     public bool modifyCanScrollUp = false;
-    [InspectorMargin(5), InspectorShowIf("modifyCanScrollUp")]
+    [InspectorShowIf("modifyCanScrollUp")]
     public bool canScrollUpEffect = true;
     [InspectorMargin(5)]
     public bool modifyCanScrollDown = false;
@@ -32,15 +35,15 @@ public class Milestone : BaseBehavior
     {
         if (modifyCanScrollDown)
         {
-            //Game.instance.map.rubanPlayer.CanScrollDown = canScrollDownEffect;
+            Game.instance.gameCamera.canScrollDown = canScrollDownEffect;
         }
         if (modifyCanScrollUp)
         {
-            //Game.instance.map.rubanPlayer.CanScrollUp = canScrollUpEffect;
+            Game.instance.gameCamera.canScrollUp = canScrollUpEffect;
         }
-        if (completlyStopMap)
+        if (modifyFollowPlayer)
         {
-            //Game.instance.map.rubanPlayer.Stopped = true;
+            Game.instance.gameCamera.followPlayer = canScrollDownEffect;
         }
 
         if (fireEventToLevelScript)

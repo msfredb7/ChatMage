@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +12,7 @@ public class Car_Robot : Car
     public float turnAcceleration = 5;
     public float turnSpeed = 185;
     public float moveSpeed = 6;
-    public float changeDirectionCooldown = 0.5f;
+    public float changeDirectionCooldown = 0.25f;
 
     [fsIgnore]
     float horizontal = 0;
@@ -29,19 +29,29 @@ public class Car_Robot : Car
             if (Input.touchCount == 1 && Input.GetTouch(0).phase == TouchPhase.Began)
             {
                 // Get movement of the finger since last frame
-                Vector2 touchDeltaPosition = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
-
-                player.vehicle.Rotation = Vehicle.VectorToAngle(touchDeltaPosition - player.vehicle.Position);
+                Vector2 touchDeltaPosition = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position) - player.transform.position;
+                RotateTo(touchDeltaPosition);
             }
             else if (Input.GetMouseButton(0))
             {
                 // Get movement of the mouse since last frame
-                Vector2 mouseDeltaPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-                player.vehicle.Rotation = Vehicle.VectorToAngle(mouseDeltaPosition - player.vehicle.Position);
+                Vector2 mouseDeltaPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition) - player.transform.position;
+                RotateTo(mouseDeltaPosition);
             }
-            cooldown = changeDirectionCooldown;
         }
+    }
+
+    void RotateTo(Vector2 direction)
+    {
+        player.vehicle.TeleportDirection(Vehicle.VectorToAngle(direction));
+        cooldown = changeDirectionCooldown;
+    }
+
+    public override void Init(PlayerController player)
+    {
+        base.Init(player);
+        //On met la boule à 0 pour ne pas fuck les truc qu'on tire
+        player.playerLocations.boule.localPosition = Vector3.zero;
     }
 
     public override void OnGameReady()

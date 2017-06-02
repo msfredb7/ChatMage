@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311926, g: 0.38074008, b: 0.35872707, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -238,6 +238,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 342ce2694bd6d1b4ab1b267ef0d52da6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enabledByDefault: 0
   top: {fileID: 1496702097}
   bottom: {fileID: 1618090393}
   right: {fileID: 1806213637}
@@ -421,7 +422,7 @@ BoxCollider2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1101745399}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 6200000, guid: ede9721a8f3e9754cbef3c3bfb6522f1, type: 2}
   m_IsTrigger: 0
@@ -602,8 +603,7 @@ MonoBehaviour:
     type: 2}
   car: {fileID: 11400000, guid: 5ec48ef9ded4cbd41a7f67f29b1030a2, type: 2}
   smash: {fileID: 11400000, guid: 5805026d5cd333a4e947df8e4f1771ce, type: 2}
-  items:
-  - {fileID: 11400000, guid: e9934c509f41f20478c8992e4248029a, type: 2}
+  items: []
 --- !u!4 &1461222807
 Transform:
   m_ObjectHideFlags: 0
@@ -640,7 +640,7 @@ BoxCollider2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1496702096}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 6200000, guid: ede9721a8f3e9754cbef3c3bfb6522f1, type: 2}
   m_IsTrigger: 0
@@ -818,7 +818,12 @@ MonoBehaviour:
   cam: {fileID: 1614933836}
   defaultBounds: {x: 16, y: 9}
   distance: -10
+  canScrollUp: 1
+  canScrollDown: 1
   followPlayer: 0
+  maxTurnSpeed: 2
+  lerpSpeed: 1
+  followForwardDistance: 3
 --- !u!1 &1618090392
 GameObject:
   m_ObjectHideFlags: 0
@@ -842,7 +847,7 @@ BoxCollider2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1618090392}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 6200000, guid: ede9721a8f3e9754cbef3c3bfb6522f1, type: 2}
   m_IsTrigger: 0
@@ -1037,7 +1042,7 @@ BoxCollider2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1806213636}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 6200000, guid: ede9721a8f3e9754cbef3c3bfb6522f1, type: 2}
   m_IsTrigger: 0

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -37,6 +37,8 @@ public class SM_Warudo : Smash
     void SetTimeScale(float amount)
     {
         List<Unit> units = Game.instance.units;
+        if (units == null)
+            return;
         for (int i = 0; i < units.Count; i++)
         {
             if (units[i].allegiance == Allegiance.Ally)
