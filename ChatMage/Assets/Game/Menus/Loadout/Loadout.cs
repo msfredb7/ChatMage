@@ -74,4 +74,9 @@ public class Loadout : BaseBehavior
         LoadingScreen.TransitionTo(Framework.SCENENAME, new ToGameMessage(levelScriptName, currentLoadout), false);
         // Sauvegarde du Loadout !
     }
+
+    public void BackToLevelSelect()
+    {
+        LoadingScreen.TransitionTo(LevelSelection.SCENENAME, null);
+    }
 }
