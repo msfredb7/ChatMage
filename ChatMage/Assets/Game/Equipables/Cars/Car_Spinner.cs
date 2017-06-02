@@ -47,7 +47,7 @@ public class Car_Spinner : Car
             }
             // set le spin
             horizontal = Mathf.MoveTowards(0, 1, player.vehicle.DeltaTime() * turnAcceleration);
-        }else if (horizontalInput == 0 || !player.playerStats.canTurn)
+        }else if (horizontalInput == 0 || !player.playerStats.receivesTurnInput)
             horizontal = 0; // tout drette
         else
         {

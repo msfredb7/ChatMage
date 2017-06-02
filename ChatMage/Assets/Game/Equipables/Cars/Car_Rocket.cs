@@ -38,7 +38,7 @@ public class Car_Rocket : Car
                 {
                     // On relâche le véhicule, il peut maintenant avancer
                     player.vehicle.canMove.Unlock("rocket");
-                    player.vehicle.canAccelerate.Unlock("rocket");
+                    player.vehicle.wheelsOnTheGround.Unlock("rocket");
 
                     // Vitesse initiale au max
                     player.vehicle.moveSpeed = maxSpeed;
@@ -68,7 +68,7 @@ public class Car_Rocket : Car
                 UpdateAcceleration();
             } else
             {
-                if (!player.vehicle.canAccelerate || !player.vehicle.canMove)
+                if (!player.vehicle.wheelsOnTheGround || !player.vehicle.canMove)
                     UpdateRotation(horizontalInput);
                 if (firstime)
                     UpdateAcceleration();
@@ -111,7 +111,7 @@ public class Car_Rocket : Car
                 // On immobilise le véhicule
                 player.vehicle.moveSpeed = minSpeed;
                 player.vehicle.canMove.LockUnique("rocket");
-                player.vehicle.canAccelerate.Unlock("rocket");
+                player.vehicle.wheelsOnTheGround.Unlock("rocket");
                 wasAccelerating = false;
             }
         }
@@ -136,7 +136,7 @@ public class Car_Rocket : Car
             if (!wasAccelerating)
             {
                 // On peut tourner comme on veut en même temps d'avancer dans la même direction qu'avant
-                player.vehicle.canAccelerate.LockUnique("rocket");
+                player.vehicle.wheelsOnTheGround.LockUnique("rocket");
                 wasAccelerating = true;
 
                 if (firstime)

@@ -18,6 +18,6 @@ public abstract class EnemyBrain<T> : MonoBehaviour where T :EnemyVehicle
         if (vehicle == null)
             Debug.LogError("Could not find vehicle of type: " + typeof(T) + ".");
         player = Game.instance.Player;
-        vehicle.Idle();
+        vehicle.Stop();
     }
 }

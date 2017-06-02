@@ -26,13 +26,13 @@ public class Car_RocketV2 : Car
 
     public override void OnInputUpdate(float horizontalInput)
     {
-        if (horizontalInput == 0 || !player.playerStats.canTurn)
+        if (horizontalInput == 0 || !player.playerStats.receivesTurnInput)
         {
             //ICI
             if (wasTurning)
             {
                 // boost !
-                player.vehicle.canAccelerate.Unlock("car");
+                player.vehicle.wheelsOnTheGround.Unlock("car");
                 player.vehicle.Speed = player.vehicle.WorldDirection2D() * moveSpeed * Mathf.Min(charge, maxBoost);
                 charge = speedReductionSpam;
                 player.vehicle.rb.drag = 0;
@@ -48,7 +48,7 @@ public class Car_RocketV2 : Car
             if (!wasTurning)
             {
                 //disable acc
-                player.vehicle.canAccelerate.Lock("car");
+                player.vehicle.wheelsOnTheGround.Lock("car");
                 player.vehicle.rb.drag = dragWhileTurning;
 
                 wasTurning = true;

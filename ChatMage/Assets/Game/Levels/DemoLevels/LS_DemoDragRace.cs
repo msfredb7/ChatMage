@@ -7,7 +7,7 @@ using UnityEngine;
 public class LS_DemoDragRace : LevelScript
 {
     public bool followPlayer = false;
-    public DodgerVehicle dodger;
+    public GourdinierVehicle gourdinier;
     PlayerController player;
 
     [fsIgnore]
@@ -21,7 +21,7 @@ public class LS_DemoDragRace : LevelScript
         queue.AddUI("Countdown", (x) => countdownUI = x);
         queue.AddUI("Outro", (x) => outroUI = x);
 
-        Game.instance.SetDefaultBorders(true, 0, true, 0);
+        Game.instance.SetDefaultBorders(false, 0, false, 0);
     }
 
     public override void ReceiveEvent(string message)
@@ -37,7 +37,8 @@ public class LS_DemoDragRace : LevelScript
     {
         player = Game.instance.Player;
 
-        Game.instance.gameCamera.SetToHeight(events.LockPlayerOnSpawn(90).y);
+        Game.instance.gameCamera.SetToHeight(
+            events.LockPlayerOnSpawn(90).y);
 
         events.ShowUI(countdownUI).GetComponent<IntroCountdown>().onCountdownOver.AddListener(Game.instance.StartGame);
 
@@ -47,6 +48,7 @@ public class LS_DemoDragRace : LevelScript
     protected override void OnGameStarted()
     {
         Game.instance.gameBounds.EnableAll();
+        Game.instance.SpawnUnit(gourdinier, Vector2.left * 5);
         //events.SpawnEntitySpreadTime(dodger, 100, Waypoint.WaypointType.enemySpawn, 35, true);
 
         events.UnLockPlayer();
@@ -55,5 +57,7 @@ public class LS_DemoDragRace : LevelScript
 
     protected override void OnUpdate()
     {
+        if(Input.GetKeyDown(KeyCode.S))
+            Game.instance.SpawnUnit(gourdinier, Vector2.left * 5);
     }
 }

@@ -132,13 +132,13 @@ public class InGameEvents : MonoBehaviour
     public void LockPlayer()
     {
         Game.instance.Player.vehicle.canMove.Lock("ige");
-        Game.instance.Player.playerStats.canTurn.Lock("ige");
+        Game.instance.Player.vehicle.canTurn.Lock("ige");
     }
 
     public void UnLockPlayer()
     {
         Game.instance.Player.vehicle.canMove.Unlock("ige");
-        Game.instance.Player.playerStats.canTurn.Unlock("ige");
+        Game.instance.Player.vehicle.canTurn.Unlock("ige");
     }
 
     #endregion
