@@ -10,7 +10,8 @@ namespace CCC.Utility
     /// </summary>
     public class Locker
     {
-        public UnityEvent onChange = new UnityEvent();
+        public delegate void LockerEvent(bool state);
+        public event LockerEvent onLockStateChange;
         private List<string> keys = new List<string>();
         public Locker() { }
 
@@ -19,8 +20,12 @@ namespace CCC.Utility
         /// </summary>
         public void Unlock(string key)
         {
+            bool wasUnlocked = IsUnlocked();
+
             keys.Remove(key);
-            onChange.Invoke();
+
+            if(IsUnlocked() && !wasUnlocked && onLockStateChange != null)
+                onLockStateChange(true);
         }
 
 
@@ -42,8 +47,12 @@ namespace CCC.Utility
         /// </summary>
         public void UnlockAll(string key)
         {
+            bool wasUnlocked = IsUnlocked();
+
             keys.RemoveAll(x => x.Equals(key));
-            onChange.Invoke();
+
+            if (IsUnlocked() && !wasUnlocked && onLockStateChange != null)
+                onLockStateChange(true);
         }
 
         /// <summary>
@@ -51,8 +60,12 @@ namespace CCC.Utility
         /// </summary>
         public void Lock(string key)
         {
+            bool wasUnlocked = IsUnlocked();
+
             keys.Add(key);
-            onChange.Invoke();
+
+            if (!IsUnlocked() && wasUnlocked && onLockStateChange != null)
+                onLockStateChange(false);
         }
 
         /// <summary>
@@ -60,10 +73,14 @@ namespace CCC.Utility
         /// </summary>
         public void LockUnique(string key)
         {
+            bool wasUnlocked = IsUnlocked();
+
             if (!keys.Contains(key))
             {
                 keys.Add(key);
-                onChange.Invoke();
+
+                if (!IsUnlocked() && wasUnlocked && onLockStateChange != null)
+                    onLockStateChange(false);
             }
         }
 

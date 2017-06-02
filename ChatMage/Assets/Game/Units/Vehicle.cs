@@ -16,9 +16,10 @@ public abstract class Vehicle : MovingUnit
     /// <summary>
     /// Si locked, le véhicule n'accélaire pas.
     /// </summary>
-    public Locker canAccelerate = new Locker();
+    public Locker wheelsOnTheGround = new Locker();
 
     private float bumpTime = 0;
+    private float currentMoveSpeed;
 
     //Events
     public class VehicleEvent : UnityEvent<Vehicle> { }
@@ -28,6 +29,21 @@ public abstract class Vehicle : MovingUnit
     public VehicleEvent onBumpComplete = new VehicleEvent();
     [System.NonSerialized]
     public VehicleEvent onTeleportDirection = new VehicleEvent();
+
+    protected override void Awake()
+    {
+        base.Awake();
+        EngineOn();
+    }
+
+    public void EngineOn()
+    {
+        currentMoveSpeed = moveSpeed;
+    }
+    public void EngineOff()
+    {
+        currentMoveSpeed = 0;
+    }
 
     protected override void FixedUpdate()
     {
@@ -42,7 +58,7 @@ public abstract class Vehicle : MovingUnit
 
         UpdateBumpTime();
 
-        if (canAccelerate)
+        if (wheelsOnTheGround)
             GroundedUpdate();
         
         base.FixedUpdate();
@@ -60,7 +76,7 @@ public abstract class Vehicle : MovingUnit
 
     void OnCompleteBump()
     {
-        canAccelerate.Unlock("bump");
+        wheelsOnTheGround.Unlock("bump");
         onBumpComplete.Invoke(this);
     }
 
@@ -69,7 +85,7 @@ public abstract class Vehicle : MovingUnit
         if (timeScale <= 0)
             return;
 
-        Vector2 vDir = WorldDirection2D() * moveSpeed * timeScale;
+        Vector2 vDir = WorldDirection2D() * currentMoveSpeed * timeScale;
         if (useWeight)
             Speed = Vector2.Lerp(
                 Speed,  //Current
@@ -96,7 +112,7 @@ public abstract class Vehicle : MovingUnit
         if (duration > bumpTime)
         {
             bumpTime = duration;
-            canAccelerate.LockUnique("bump");
+            wheelsOnTheGround.LockUnique("bump");
         }
 
         onBump.Invoke(this);

@@ -20,7 +20,7 @@ public class Car_Demo : Car
 
     public override void OnInputUpdate(float horizontalInput)
     {
-        if (horizontalInput == 0 || !player.playerStats.canTurn)
+        if (horizontalInput == 0 || !player.playerStats.receivesTurnInput)
             horizontal = 0;
         else
         {

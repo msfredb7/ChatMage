@@ -31,6 +31,11 @@ public abstract class Unit : MonoBehaviour
     public float verticalBorderWidth;
 
     [System.NonSerialized]
+    public Locker canMove = new Locker();
+    [System.NonSerialized]
+    public Locker canTurn = new Locker();
+
+    [System.NonSerialized]
     public Rigidbody2D rb;
     protected Transform tr;
 
@@ -55,6 +60,20 @@ public abstract class Unit : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         tr = GetComponent<Transform>();
+        canMove.onLockStateChange += OnLockMoveChange;
+        canTurn.onLockStateChange += OnLockTurnChange;
+    }
+
+    void OnLockTurnChange(bool state)
+    {
+        rb.freezeRotation = !state;
+    }
+    void OnLockMoveChange(bool state)
+    {
+        if (rb.freezeRotation)
+            rb.constraints = state ? RigidbodyConstraints2D.FreezeRotation : RigidbodyConstraints2D.FreezeAll;
+        else
+            rb.constraints = state ? RigidbodyConstraints2D.None : RigidbodyConstraints2D.FreezePosition;
     }
 
     protected virtual void FixedUpdate()

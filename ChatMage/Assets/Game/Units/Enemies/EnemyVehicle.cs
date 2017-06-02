@@ -4,49 +4,80 @@ using UnityEngine;
 
 public abstract class EnemyVehicle : Vehicle, IAttackable
 {
+    protected bool tryToStayAtTargetPosition = false;
     protected Vector2 targetPosition;
-    protected bool goingTo = false;
+    protected bool goingToTargetPosition = false;
     protected bool arrivedAtDestination = false;
+
+
+    #region Public Move Methods
+    public void Stop()
+    {
+        EngineOff();
+        goingToTargetPosition = false;
+    }
+
+    public void GoAndStayAtPosition(Vector2 position)
+    {
+        targetPosition = position;
+        tryToStayAtTargetPosition = true;
+    }
 
     public void GotoPosition(Vector2 position)
     {
         targetPosition = position;
-        goingTo = true;
+        tryToStayAtTargetPosition = false;
     }
+
     public void GotoDirection(float direction)
     {
-        goingTo = false;
-        targetDirection = direction;
+        EngineOn();
+        goingToTargetPosition = false;
+        SetDirection(direction);
     }
+
     public void GotoDirection(Vector2 direction)
     {
         GotoDirection(VectorToAngle(direction));
     }
+    #endregion
+
+    #region Internal Move Methods
+    protected void SetDirection(float direction)
+    {
+        if (rotationSetsTargetDirection)
+            Rotation = direction;
+        else
+            targetDirection = direction;
+    }
+    protected void SetDirection(Vector2 direction)
+    {
+        SetDirection(VectorToAngle(direction));
+    }
 
     protected override void FixedUpdate()
     {
-        if (goingTo)
+        if (goingToTargetPosition)
         {
             Vector2 v = targetPosition - rb.position;
 
-            //Arrived ?
-            if (v.magnitude > 0.01f) // No
+            //Distance to target ?
+            if (v.magnitude > 0.01f)
             {
-                if (arrivedAtDestination)
-                {
-                    arrivedAtDestination = false;
-                    canAccelerate.Unlock("arrived");
-                }
-                targetDirection = VectorToAngle(targetPosition - rb.position);
+                // Going to
+                EngineOn();
+
+                SetDirection(targetPosition - rb.position);
             }
-            else //Yes
+            else
             {
-                if (!arrivedAtDestination) 
+                EngineOff();
+
+                //Arrived !
+                if (!tryToStayAtTargetPosition)
                 {
-                    if (canAccelerate)
-                        rb.velocity = Vector3.zero;
-                    arrivedAtDestination = true;
-                    canAccelerate.Lock("arrived");
+                    //Dont have to stay...
+                    Stop();
                 }
             }
         }
@@ -54,6 +85,7 @@ public abstract class EnemyVehicle : Vehicle, IAttackable
         base.FixedUpdate();
     }
 
+    #endregion
     public Vector2 GetPositionAwayFromPlayer(float length)
     {
         Vector2 v = rb.position - Game.instance.Player.vehicle.Position;
@@ -61,11 +93,6 @@ public abstract class EnemyVehicle : Vehicle, IAttackable
             return v.normalized * length;
         else
             return Vector2.up * length;
-    }
-
-    public void Idle()
-    {
-        GotoPosition(rb.position);
     }
     public abstract int Attacked(ColliderInfo on, int amount, MonoBehaviour source);
 }

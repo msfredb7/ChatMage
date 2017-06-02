@@ -8,7 +8,7 @@ using System;
 public class PlayerStats : PlayerComponent, IAttackable
 {
     [NonSerialized]
-    public Locker canTurn = new Locker();
+    public Locker receivesTurnInput = new Locker();
     [NonSerialized]
     public StatInt health = new StatInt(3, 0, 3, BoundMode.Cap);
     [NonSerialized]
