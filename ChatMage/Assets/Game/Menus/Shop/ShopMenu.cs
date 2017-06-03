@@ -50,6 +50,11 @@ public class ShopMenu : MonoBehaviour
         Account.instance.ChangeMoney(10);
     }
 
+    public void BackButton()
+    {
+        Scenes.UnloadAsync(SCENENAME);
+    }
+
     public void LoadScene(string name)
     {
         LoadingScreen.TransitionTo(name, null);

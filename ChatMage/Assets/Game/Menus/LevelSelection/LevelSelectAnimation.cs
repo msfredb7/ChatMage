@@ -23,6 +23,10 @@ public class LevelSelectAnimation : MonoBehaviour {
     {
         rct = background.GetComponent<RectTransform>();
         trf = background.GetComponent<Transform>();
+
+        // Formule pour trouver l'emplace de depart de la camera
+        limit[0] = (-306.91f * Mathf.Pow(Camera.main.aspect,2)) + (335.58f * Camera.main.aspect) + 372.96f;
+        rct.anchoredPosition = new Vector2(limit[0], 0);
     }
 
     void Update()

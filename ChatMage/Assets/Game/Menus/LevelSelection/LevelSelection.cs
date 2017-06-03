@@ -95,7 +95,8 @@ public class LevelSelection : MonoBehaviour
 
     public void OnShopClicked()
     {
-        LoadingScreen.TransitionTo(ShopMenu.SCENENAME, null);
+        Scenes.LoadAsync(ShopMenu.SCENENAME, LoadSceneMode.Additive);
+        //LoadingScreen.TransitionTo(ShopMenu.SCENENAME, null);
     }
 
     private void SetAsCompleted(string levelName)

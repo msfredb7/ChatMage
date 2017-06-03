@@ -51,7 +51,8 @@ public class BaseTutorial : BaseScriptableObject
     public virtual void End()
     {
         TutorialStarter.tutorialScriptObject.StopAllCoroutines();
-        currentTutorialInfoDisplay.GetComponent<TutorialInfo>().OnEnd();
+        if(currentTutorialInfoDisplay != null) // Si on arretait la partie avant d'avoir display un seul text dans le tutoriel, il y avait erreur ici
+            currentTutorialInfoDisplay.GetComponent<TutorialInfo>().OnEnd();
         Scenes.UnloadAsync("Tutorial");
     }
 

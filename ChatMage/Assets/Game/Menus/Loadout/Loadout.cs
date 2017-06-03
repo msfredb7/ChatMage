@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using FullInspector;
+using DG.Tweening;
 
 public class Loadout : BaseBehavior
 {
@@ -12,7 +13,11 @@ public class Loadout : BaseBehavior
 
     private string levelScriptName;
 
-    public GameObject button;
+    public GameObject buttonPrefab;
+
+    public Button backButton;
+    public Button nextButton;
+    public float buttonIntroDuration = 4;
 
     public GameObject itemButtonsCountainer;
     public GameObject smashButtonsCountainer;
@@ -20,8 +25,11 @@ public class Loadout : BaseBehavior
 
     [InspectorDisabled()]
     public LoadoutResult currentLoadout;
+    public LoadoutTab tab;
 
     public const string SCENENAME = "LoadoutMenu";
+
+    private LoadoutTab.LoadoutTab_Type currentTab;
 
     public void Init(string levelScriptName)
     {
@@ -36,32 +44,57 @@ public class Loadout : BaseBehavior
         for (int i = 0; i < unlockItems.Count; i++)
         {
             EquipablePreview currentEquipable = unlockItems[i];
-            GameObject newButton = Instantiate(button, itemButtonsCountainer.transform);
+            GameObject newButton = Instantiate(buttonPrefab, itemButtonsCountainer.transform);
             newButton.GetComponent<LoadoutButton>().ChangeLoadoutButton(currentEquipable.displayName);
-            newButton.GetComponent<Button>().onClick.AddListener(delegate() {
-                currentLoadout.AddEquipable(currentEquipable.equipableAssetName, currentEquipable.type);
+            newButton.GetComponent<Button>().onClick.AddListener(delegate ()
+            {
+                Equip(currentEquipable);
             });
         }
 
         for (int i = 0; i < unlockCars.Count; i++)
         {
             EquipablePreview currentEquipable = unlockCars[i];
-            GameObject newButton = Instantiate(button, carButtonsCountainer.transform);
+            GameObject newButton = Instantiate(buttonPrefab, carButtonsCountainer.transform);
             newButton.GetComponent<LoadoutButton>().ChangeLoadoutButton(currentEquipable.displayName);
-            newButton.GetComponent<Button>().onClick.AddListener(delegate () {
-                currentLoadout.AddEquipable(currentEquipable.equipableAssetName, currentEquipable.type);
+            newButton.GetComponent<Button>().onClick.AddListener(delegate ()
+            {
+                Equip(currentEquipable);
             });
         }
 
         for (int i = 0; i < unlockSmashes.Count; i++)
         {
             EquipablePreview currentEquipable = unlockSmashes[i];
-            GameObject newButton = Instantiate(button, smashButtonsCountainer.transform);
+            GameObject newButton = Instantiate(buttonPrefab, smashButtonsCountainer.transform);
             newButton.GetComponent<LoadoutButton>().ChangeLoadoutButton(currentEquipable.displayName);
-            newButton.GetComponent<Button>().onClick.AddListener(delegate () {
-                currentLoadout.AddEquipable(currentEquipable.equipableAssetName, currentEquipable.type);
+            newButton.GetComponent<Button>().onClick.AddListener(delegate ()
+            {
+                Equip(currentEquipable);
             });
         }
+
+        // Back Button
+        if (!backButton.gameObject.activeSelf)
+        {
+            backButton.gameObject.SetActive(true);
+            backButton.image.color = new Color(backButton.image.color.r, backButton.image.color.g, backButton.image.color.b,0);
+            backButton.image.DOFade(1, buttonIntroDuration);
+        }
+        backButton.onClick.AddListener(Back);
+
+        // Next Nutton
+        if (!nextButton.gameObject.activeSelf)
+        {
+            nextButton.gameObject.SetActive(true);
+            nextButton.image.color = new Color(nextButton.image.color.r, nextButton.image.color.g, nextButton.image.color.b, 0);
+            nextButton.image.DOFade(1, buttonIntroDuration);
+        }
+        nextButton.onClick.AddListener(Next);
+
+        // Load First Tab
+        currentTab = LoadoutTab.LoadoutTab_Type.Car;
+        tab.DisplayStart(armory.cars, currentTab, true);
     }
 
     public void ChargeLoadoutAndGame()
@@ -78,5 +111,56 @@ public class Loadout : BaseBehavior
     public void BackToLevelSelect()
     {
         LoadingScreen.TransitionTo(LevelSelection.SCENENAME, null);
+    }
+
+    public void Equip(EquipablePreview equipable)
+    {
+        currentLoadout.AddEquipable(equipable.equipableAssetName, equipable.type);
+    }
+
+    public void Back()
+    {
+        if (currentTab == LoadoutTab.LoadoutTab_Type.Car)
+        {
+            tab.PanelOutro(delegate ()
+            {
+                BackToLevelSelect();
+            });
+        }
+
+        currentTab--;
+        switch (currentTab)
+        {
+            case LoadoutTab.LoadoutTab_Type.Car:
+                tab.DisplayStart(armory.cars, currentTab);
+                break;
+            case LoadoutTab.LoadoutTab_Type.Smash:
+                tab.DisplayStart(armory.smashes, currentTab);
+                break;
+        }
+        tab.ResetPreview();
+    }
+
+    public void Next()
+    {
+        if (currentTab == LoadoutTab.LoadoutTab_Type.Items)
+        {
+            tab.PanelOutro(delegate ()
+            {
+                ChargeLoadoutAndGame();
+            });
+        }
+
+        currentTab++;
+        switch (currentTab)
+        {
+            case LoadoutTab.LoadoutTab_Type.Smash:
+                tab.DisplayStart(armory.smashes, currentTab);
+                break;
+            case LoadoutTab.LoadoutTab_Type.Items:
+                tab.DisplayStart(armory.items, currentTab);
+                break;
+        }
+        tab.ResetPreview();
     }
 }
