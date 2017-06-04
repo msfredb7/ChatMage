@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LookPlayerBehavior : EnemyBehavior
+public class LookPlayerBehavior : EnemyBehavior<EnemyVehicle>
 {
     public LookPlayerBehavior(EnemyVehicle v) : base(v) { }
 

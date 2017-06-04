@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IdleBehavior : EnemyBehavior
+public class IdleBehavior : EnemyBehavior<EnemyVehicle>
 {
     public IdleBehavior(EnemyVehicle v) : base(v) { }
 

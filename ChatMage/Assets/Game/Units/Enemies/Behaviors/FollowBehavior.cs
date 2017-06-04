@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FollowBehavior : EnemyBehavior
+public class FollowBehavior : EnemyBehavior<EnemyVehicle>
 {
     public FollowBehavior(EnemyVehicle v) : base(v) { }
 

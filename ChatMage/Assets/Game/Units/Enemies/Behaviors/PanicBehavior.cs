@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PanicBehavior : EnemyBehavior
+public class PanicBehavior : EnemyBehavior<EnemyVehicle>
 {
     const float CHOOSE_INTERVAL = 1.5f;
 

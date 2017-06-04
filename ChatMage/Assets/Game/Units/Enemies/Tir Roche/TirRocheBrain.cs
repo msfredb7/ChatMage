@@ -9,6 +9,7 @@ public class TirRocheBrain : EnemyBrain<TirRocheVehicle>
     public float tooCloseRange = 3;
 
     private float minFleeStay = -1;
+    private bool isReloading = false;
 
     void OnDrawGizmosSelected()
     {
@@ -27,7 +28,16 @@ public class TirRocheBrain : EnemyBrain<TirRocheVehicle>
             vehicle.WalkMode();
             vehicle.useTurnSpeed = true;
 
-            SetBehavior(BehaviorType.Follow);
+            if (vehicle.Ammo == 0 || isReloading)
+            {
+                //Si on a pas d'ammo OU on est entrain de reload, restont dans cet �tat
+                SetBehavior(BehaviorType.Wander);
+            }
+            else
+            {
+                //Va vers le joueur
+                SetBehavior(BehaviorType.Follow);
+            }
         }
         else if (dist > tooCloseRange && minFleeStay < 0)
         {
@@ -35,7 +45,16 @@ public class TirRocheBrain : EnemyBrain<TirRocheVehicle>
             vehicle.WalkMode();
             vehicle.useTurnSpeed = true;
 
-            SetBehavior(BehaviorType.LookPlayer);
+            if (vehicle.Ammo == 0 || isReloading)
+            {
+                //Si on a pas d'ammo OU on est entrain de reload, restont dans cet �tat
+                SetBehavior(BehaviorType.Wander);
+            }
+            else
+            {
+                //Regarde le joueur et shoot !
+                SetBehavior(BehaviorType.LookPlayer);
+            }
         }
         else
         {
@@ -55,5 +74,16 @@ public class TirRocheBrain : EnemyBrain<TirRocheVehicle>
     {
         vehicle.useTurnSpeed = true;
         SetBehavior(BehaviorType.Wander);
+    }
+
+    void OnStoppedReloading()
+    {
+        isReloading = false;
+    }
+
+    protected override EnemyBehavior NewWanderBehavior()
+    {
+        isReloading = true;
+        return new TirRocheReloadBehavior(vehicle, OnStoppedReloading, OnStoppedReloading);
     }
 }

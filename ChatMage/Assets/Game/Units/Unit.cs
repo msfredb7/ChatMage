@@ -79,13 +79,13 @@ public abstract class Unit : MonoBehaviour
     protected virtual void FixedUpdate()
     {
         if (canUseBorder || horizontalBound || verticalBound)
-            RestrainToBounds();
+            Position =  RestrainToBounds(Position);
     }
 
-    void RestrainToBounds()
+    protected Vector2 RestrainToBounds(Vector2 vector)
     {
-        float x = Position.x;
-        float y = Position.y;
+        float x = vector.x;
+        float y = vector.y;
 
         if (horizontalBound)
         {
@@ -98,7 +98,7 @@ public abstract class Unit : MonoBehaviour
             y = Mathf.Clamp(y, Game.instance.gameCamera.Height - halfHeight, Game.instance.gameCamera.Height + halfHeight);
         }
 
-        Position = new Vector2(x, y);
+        return new Vector2(x, y);
     }
 
     public virtual Vector3 WorldDirection()
