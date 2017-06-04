@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,7 @@ public abstract class EnemyVehicle : Vehicle, IAttackable
     protected Vector2 targetPosition;
     protected bool goingToTargetPosition = false;
     protected bool arrivedAtDestination = false;
+    protected Action onReach = null;
 
 
     #region Public Move Methods
@@ -21,18 +23,28 @@ public abstract class EnemyVehicle : Vehicle, IAttackable
         goingToTargetPosition = false;
     }
 
-    public void GoAndStayAtPosition(Vector2 position)
+    public void GoAndStayAtPosition(Vector2 position, Action onReach = null, bool restrainToScreenIfApplies = true)
     {
-        targetPosition = position;
         tryToStayAtTargetPosition = true;
-        goingToTargetPosition = true;
+        QuickGotoPos(position, onReach, restrainToScreenIfApplies);
     }
 
-    public void GotoPosition(Vector2 position)
+    public void GotoPosition(Vector2 position, Action onReach = null, bool restrainToScreenIfApplies = true)
     {
-        targetPosition = position;
         tryToStayAtTargetPosition = false;
+        QuickGotoPos(position, onReach, restrainToScreenIfApplies);
+    }
+
+    private void QuickGotoPos(Vector2 position, Action onReach = null, bool restrainToScreenIfApplies = true)
+    {
+        if (restrainToScreenIfApplies)
+        {
+            position = RestrainToBounds(position);
+        }
+
+        targetPosition = position;
         goingToTargetPosition = true;
+        this.onReach = onReach;
     }
 
     public void GotoDirection(float direction, float deltaTime)
@@ -95,6 +107,12 @@ public abstract class EnemyVehicle : Vehicle, IAttackable
                     //Dont have to stay...
                     Stop();
                 }
+
+                if (onReach != null)
+                {
+                    onReach();
+                    onReach = null;
+                }
             }
         }
 
@@ -102,6 +120,7 @@ public abstract class EnemyVehicle : Vehicle, IAttackable
     }
 
     #endregion
+
     public Vector2 GetPositionAwayFromPlayer(float length)
     {
         Vector2 v = rb.position - Game.instance.Player.vehicle.Position;
@@ -110,5 +129,18 @@ public abstract class EnemyVehicle : Vehicle, IAttackable
         else
             return Vector2.up * length;
     }
+
+    public override void SaveRigidbody()
+    {
+        targetPosition = Position - targetPosition;
+        base.SaveRigidbody();
+    }
+
+    public override void LoadRigidbody()
+    {
+        targetPosition = Position + targetPosition;
+        base.LoadRigidbody();
+    }
+
     public abstract int Attacked(ColliderInfo on, int amount, MonoBehaviour source);
 }

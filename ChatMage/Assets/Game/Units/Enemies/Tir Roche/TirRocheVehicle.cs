@@ -8,6 +8,9 @@ public class TirRocheVehicle : EnemyVehicle
     [Header("Tir Roche")]
     public float walkSpeed = 2;
     public float fleeSpeed = 4;
+    public int maxAmmo = 1;
+
+    private int ammo = 0;
 
     public void WalkMode()
     {
@@ -17,6 +20,27 @@ public class TirRocheVehicle : EnemyVehicle
     {
         MoveSpeed = fleeSpeed;
     }
+
+    public void Shoot()
+    {
+        if (ammo <= 0)
+            return;
+
+        ammo--;
+    }
+
+    public int Ammo { get { return ammo; } }
+
+    public void Reload(Action onComplete)
+    {
+        if (ammo == maxAmmo)
+            return;
+
+        ammo++;
+        if (onComplete != null)
+            onComplete();
+    }
+
     public override int Attacked(ColliderInfo on, int amount, MonoBehaviour source)
     {
         if (amount <= 0)

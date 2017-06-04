@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FleeBehavior : EnemyBehavior
+public class FleeBehavior : EnemyBehavior<EnemyVehicle>
 {
     public FleeBehavior(EnemyVehicle v) : base(v) { }
 

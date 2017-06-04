@@ -49,6 +49,9 @@ public abstract class EnemyBrain : BaseBehavior
 
     void Update()
     {
+        if (player == null)
+            player = Game.instance.Player;
+
         noPlayerOnThisFrame = player == null || !player.playerStats.isVisible || player.playerStats.isDead || !player.gameObject.activeSelf;
 
         if (!noPlayerOnThisFrame)

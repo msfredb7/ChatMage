@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WanderBehavior : EnemyBehavior
+public class WanderBehavior : EnemyBehavior<EnemyVehicle>
 {
-    const float CHOOSE_INTERVAL = 1.5f;
+    const float CHOOSE_INTERVAL = 4f;
     const float DISTANCE_MIN = 0.75f;
     const float DISTANCE_MAX = 3.5f;
 
