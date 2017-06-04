@@ -49,7 +49,7 @@ public class LS_DemoDragRace : LevelScript
     protected override void OnGameStarted()
     {
         Game.instance.gameBounds.EnableAll();
-        Game.instance.SpawnUnit(tirRoche, Vector2.left * 5);
+        Game.instance.SpawnUnit(gourdinier, Vector2.left * 5);
         //events.SpawnEntitySpreadTime(dodger, 100, Waypoint.WaypointType.enemySpawn, 35, true);
 
         events.UnLockPlayer();
@@ -59,6 +59,6 @@ public class LS_DemoDragRace : LevelScript
     protected override void OnUpdate()
     {
         if(Input.GetKeyDown(KeyCode.S))
-            Game.instance.SpawnUnit(tirRoche, Vector2.left * 5);
+            Game.instance.SpawnUnit(gourdinier, Vector2.left * 5);
     }
 }

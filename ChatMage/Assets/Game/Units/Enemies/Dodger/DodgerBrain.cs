@@ -23,7 +23,7 @@ public class DodgerBrain : EnemyBrain<DodgerVehicle>
     {
         base.Start();
         vehicle.Init();
-        ChangeDirection();
+        //ChangeDirection();
     }
 
     public void Update()
@@ -37,24 +37,24 @@ public class DodgerBrain : EnemyBrain<DodgerVehicle>
             vehicle.Shoot();
     }
 
-    void ChangeDirection()
-    {
-        if (Game.instance.Player == null)
-            return;
+    //void ChangeDirection()
+    //{
+    //    if (Game.instance.Player == null)
+    //        return;
 
-        switch (currentDirection)
-        {
-            case Direction.right:
-                vehicle.DodgeLeft();
-                currentDirection = Direction.left;
-                break;
-            case Direction.left:
-                vehicle.DodgeRight();
-                currentDirection = Direction.right;
-                break;
-        }
-        DelayManager.LocalCallTo(ChangeDirection, UnityEngine.Random.Range(minDodgeDelay, maxDodgeDelay),this);
-    }
+    //    switch (currentDirection)
+    //    {
+    //        case Direction.right:
+    //            vehicle.DodgeLeft();
+    //            currentDirection = Direction.left;
+    //            break;
+    //        case Direction.left:
+    //            vehicle.DodgeRight();
+    //            currentDirection = Direction.right;
+    //            break;
+    //    }
+    //    DelayManager.LocalCallTo(ChangeDirection, UnityEngine.Random.Range(minDodgeDelay, maxDodgeDelay),this);
+    //}
 
     protected override void UpdatePlayer()
     {

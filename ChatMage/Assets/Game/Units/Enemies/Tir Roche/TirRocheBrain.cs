@@ -26,31 +26,34 @@ public class TirRocheBrain : EnemyBrain<TirRocheVehicle>
             //Get closer or reload!
             vehicle.WalkMode();
             vehicle.useTurnSpeed = true;
-            moveState = EnemyMoveState.FollowPlayer;
+
+            SetBehavior(BehaviorType.Follow);
         }
         else if (dist > tooCloseRange && minFleeStay < 0)
         {
             //Attack or reload
             vehicle.WalkMode();
             vehicle.useTurnSpeed = true;
-            moveState = EnemyMoveState.LookAtPlayer;
+
+            SetBehavior(BehaviorType.LookPlayer);
         }
         else
         {
             //flee
-            if (moveState != EnemyMoveState.Flee)
+            if (CurrentBehaviorType != BehaviorType.Flee)
                 minFleeStay = 0.5f;
 
             vehicle.RunMode();
             vehicle.useTurnSpeed = false;
             minFleeStay -= vehicle.DeltaTime();
-            moveState = EnemyMoveState.Flee;
+
+            SetBehavior(BehaviorType.Flee);
         }
     }
 
     protected override void UpdateNoPlayer()
     {
         vehicle.useTurnSpeed = true;
-        moveState = EnemyMoveState.Wander;
+        SetBehavior(BehaviorType.Wander);
     }
 }

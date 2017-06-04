@@ -21,42 +21,42 @@ public abstract class EnemyVehicle : Vehicle, IAttackable
         goingToTargetPosition = false;
     }
 
-    public void GoAndStayAtPosition(Vector2 position, bool fixedUpdate = false)
+    public void GoAndStayAtPosition(Vector2 position)
     {
         targetPosition = position;
         tryToStayAtTargetPosition = true;
         goingToTargetPosition = true;
     }
 
-    public void GotoPosition(Vector2 position, bool fixedUpdate = false)
+    public void GotoPosition(Vector2 position)
     {
         targetPosition = position;
         tryToStayAtTargetPosition = false;
         goingToTargetPosition = true;
     }
 
-    public void GotoDirection(float direction, bool fixedUpdate = false)
+    public void GotoDirection(float direction, float deltaTime)
     {
         EngineOn();
         goingToTargetPosition = false;
-        TurnToDirection(direction, fixedUpdate);
+        TurnToDirection(direction, deltaTime);
     }
 
-    public void GotoDirection(Vector2 direction, bool fixedUpdate = false)
+    public void GotoDirection(Vector2 direction, float deltaTime)
     {
-        GotoDirection(VectorToAngle(direction), fixedUpdate);
+        GotoDirection(VectorToAngle(direction), deltaTime);
     }
     #endregion
 
     #region Internal Move Methods
-    public void TurnToDirection(float direction, bool fixedUpdate = false)
+    public void TurnToDirection(float direction, float deltaTime)
     {
         if (useTurnSpeed)
         {
             if (rotationSetsTargetDirection)
-                Rotation = Mathf.MoveTowardsAngle(Rotation, direction, turnSpeed * (fixedUpdate ? FixedDeltaTime() : DeltaTime()));
+                Rotation = Mathf.MoveTowardsAngle(Rotation, direction, turnSpeed * deltaTime);
             else
-                targetDirection = Mathf.MoveTowardsAngle(targetDirection, direction, turnSpeed * (fixedUpdate ? FixedDeltaTime() : DeltaTime()));
+                targetDirection = Mathf.MoveTowardsAngle(targetDirection, direction, turnSpeed * deltaTime);
         }
         else
         {
@@ -66,9 +66,9 @@ public abstract class EnemyVehicle : Vehicle, IAttackable
                 targetDirection = direction;
         }
     }
-    public void TurnToDirection(Vector2 direction, bool fixedUpdate = false)
+    public void TurnToDirection(Vector2 direction, float deltaTime)
     {
-        TurnToDirection(VectorToAngle(direction), fixedUpdate);
+        TurnToDirection(VectorToAngle(direction), deltaTime);
     }
 
     protected override void FixedUpdate()
@@ -83,7 +83,7 @@ public abstract class EnemyVehicle : Vehicle, IAttackable
                 // Going to
                 EngineOn();
 
-                TurnToDirection(targetPosition - rb.position, true);
+                TurnToDirection(targetPosition - rb.position, FixedDeltaTime());
             }
             else
             {
