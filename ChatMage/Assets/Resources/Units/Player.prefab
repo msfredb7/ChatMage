@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 61806281349942158}
   - component: {fileID: 114042441829215028}
   - component: {fileID: 114903325524438406}
-  m_Layer: 13
+  m_Layer: 18
   m_Name: Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 61733408043134142}
   - component: {fileID: 114557053990781268}
   - component: {fileID: 114807926642835480}
-  m_Layer: 13
+  m_Layer: 18
   m_Name: Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 58717009563980344}
   - component: {fileID: 114716408346660532}
   - component: {fileID: 114849616138446804}
-  m_Layer: 13
+  m_Layer: 18
   m_Name: Front
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -201,7 +201,7 @@ GameObject:
   - component: {fileID: 58100914213942494}
   - component: {fileID: 114487203161945264}
   - component: {fileID: 114035032438942712}
-  m_Layer: 13
+  m_Layer: 18
   m_Name: Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -722,7 +722,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allegiance: 0
-  useMovingPlatform: 1
+  canUseBorder: 1
+  unitWidth: 0
+  horizontalBound: 0
+  horizontalBorderWidth: 0
+  verticalBound: 0
+  verticalBorderWidth: 0
   moveSpeed: 6
   targetDirection: 0
   rotationSetsTargetDirection: 1
@@ -966,11 +971,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f86c6641aa2dfa448822fb69e172d873, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  masterListener: {fileID: 114923130231249826}
-  front: {fileID: 114849616138446804}
-  back: {fileID: 114035032438942712}
-  right: {fileID: 114807926642835480}
-  left: {fileID: 114903325524438406}
+  masterTriggerListener: {fileID: 114923130231249826}
+  frontTrig: {fileID: 114849616138446804}
+  backTrig: {fileID: 114035032438942712}
+  rightTrig: {fileID: 114807926642835480}
+  leftTrig: {fileID: 114903325524438406}
+  masterCollisionListener: {fileID: 114799566218658014}
+  frontCol: {fileID: 114836793111075628}
+  backCol: {fileID: 114970508991572392}
+  rightCol: {fileID: 114326711091388710}
+  leftCol: {fileID: 114016206751695754}
 --- !u!114 &114968654834071110
 MonoBehaviour:
   m_ObjectHideFlags: 1

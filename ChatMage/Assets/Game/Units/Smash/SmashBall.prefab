@@ -55,6 +55,7 @@ GameObject:
   - component: {fileID: 50613862399156622}
   - component: {fileID: 58870457971584888}
   - component: {fileID: 114337831590171584}
+  - component: {fileID: 114062407402443508}
   m_Layer: 11
   m_Name: SmashBall
   m_TagString: Untagged
@@ -168,6 +169,23 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &114062407402443508
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1561043133623540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d70458f55bb118f40878da36a6679917, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ballRenderers:
+  - {fileID: 212296571496412650}
+  - {fileID: 212896706102845978}
+  - {fileID: 212740939067074912}
+  flashSpeed: 7
+  unhitableDuration: 1.5
 --- !u!114 &114085357807114524
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -190,6 +208,7 @@ MonoBehaviour:
   startSpeed: 4
   followTarget: {fileID: 0}
   followSpeed: 10
+  hitSelfImpulse: 7
 --- !u!114 &114337831590171584
 MonoBehaviour:
   m_ObjectHideFlags: 1

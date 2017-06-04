@@ -49,9 +49,9 @@ public class ChargerVehicle : EnemyVehicle
                 playerCol = source as ColliderInfo;
             else
             {
-                playerCol = Game.instance.Player.playerCarTriggers.front.info;
-                Debug.LogWarning("Ça serait meilleur si la source était le colliderlistener du char." +
-                    " Je suis obligé de mettre 'front' arbitrairement.");
+                playerCol = Game.instance.Player.playerCarTriggers.frontTrig.info;
+                Debug.LogWarning("ï¿½a serait meilleur si la source ï¿½tait le colliderlistener du char." +
+                    " Je suis obligï¿½ de mettre 'front' arbitrairement.");
             }
 
             Game.instance.Player.playerStats.Attacked(playerCol, 1, this);

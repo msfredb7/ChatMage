@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FullInspector;
 
 /// <summary>
 /// Enemy Brain, with vehicle type T
 /// </summary>
 /// <typeparam name="T">Vehicle Type</typeparam>
-public abstract class EnemyBrain<T> : MonoBehaviour where T :EnemyVehicle
+public abstract class EnemyBrain<T> : BaseBehavior where T :EnemyVehicle
 {
 
     protected T vehicle;

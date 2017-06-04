@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,13 +7,13 @@ public class GourdinierVehicle : EnemyVehicle
 {
     [Header("Gourdinier")]
     public float attackCooldown = 3;
+    public GourdinierAnimator animator;
     public SpriteRenderer bodySprite;
 
     [System.NonSerialized]
     public bool isAttacking;
 
     private float currentCooldown = 0;
-    private GourdinierAttackAnim attackAnim;
 
     void Update()
     {
@@ -45,12 +45,12 @@ public class GourdinierVehicle : EnemyVehicle
     public void Attack()
     {
         isAttacking = true;
-        attackAnim = new GourdinierAttackAnim(this);
-        attackAnim.Charge(OnChargeComplete);
+        animator.Charge(OnChargeComplete);
     }
 
     void OnChargeComplete()
     {
+        animator.Attack(OnCompleteAttack);
         //attackAnim.
     }
 

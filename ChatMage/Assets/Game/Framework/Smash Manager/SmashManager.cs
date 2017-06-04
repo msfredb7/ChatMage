@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -34,10 +34,16 @@ public class SmashManager : MonoBehaviour
     {
         Game.instance.onGameStarted += OnGameStarted;
         Game.instance.onGameReady += OnGameReady;
+        Game.instance.worldTimeScale.onSet.AddListener(OnWorldTimeScaleChanged);
         enabled = false;
 
         if (followTargetParent != null)
             followTargetParent.gameObject.SetActive(false);
+    }
+
+    void OnWorldTimeScaleChanged(float newValue)
+    {
+        followTarget.speed = newValue;
     }
 
     void OnGameReady()
@@ -85,7 +91,9 @@ public class SmashManager : MonoBehaviour
 
         inCooldown = false;
         Vector2 borders = Game.instance.gameCamera.ScreenSize;
-        Vector2 spawnPoint = new Vector2(Random.Range(0, borders.x), Random.Range(0, borders.y));
+        Vector2 spawnPoint = new Vector2(
+            Random.Range(Game.instance.gameCamera.Left, Game.instance.gameCamera.Right), 
+            Random.Range(Game.instance.gameCamera.Bottom, Game.instance.gameCamera.Top));
 
         currentSmashBall = Game.instance.SpawnUnit(ballPrefab, spawnPoint) as SmashBall;
 

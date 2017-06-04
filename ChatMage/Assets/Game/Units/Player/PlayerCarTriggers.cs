@@ -1,85 +1,119 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum CarTrigger { Front = 0, Back = 1, Right = 2, Left = 3 }
+public enum CarSide { Front = 0, Back = 1, Right = 2, Left = 3 }
 
 public class PlayerCarTriggers : PlayerComponent
 {
-    public delegate void UnitDetectionEvent(Unit unit, CarTrigger carTrigger);
-    public event UnitDetectionEvent onEnter;
-    public event UnitDetectionEvent onExit;
+    public delegate void UnitDetectionEvent(Unit unit, CarSide carTrigger);
+    public event UnitDetectionEvent onHitUnit;
 
-    [Header("Collider Listeners")]
-    public MultipleColliderListener masterListener;
-    public ColliderListener front;
-    public ColliderListener back;
-    public ColliderListener right;
-    public ColliderListener left;
+    [Header("Trigger Listeners")]
+    public MultipleColliderListener masterTriggerListener;
+    public ColliderListener frontTrig;
+    public ColliderListener backTrig;
+    public ColliderListener rightTrig;
+    public ColliderListener leftTrig;
+
+    [Header("Collision Listeners")]
+    public MultipleColliderListener masterCollisionListener;
+    public ColliderListener frontCol;
+    public ColliderListener backCol;
+    public ColliderListener rightCol;
+    public ColliderListener leftCol;
 
     void Awake()
     {
-        masterListener.onTriggerEnter += OnEnter;
-        masterListener.onTriggerExit += OnExit;
+        masterTriggerListener.onTriggerEnter += MasterTriggerListener_onTriggerEnter;
+
+        masterCollisionListener.onCollisionEnter += MasterCollisionListener_onCollisionEnter;
     }
 
-    private void OnEnter(ColliderInfo otherInfo, ColliderListener listener)//Unit unit, RemoteTriggerListener source, GameObject other)
+    private void MasterCollisionListener_onCollisionEnter(ColliderInfo other, Collision2D collision, ColliderListener listener)
     {
-        CarTrigger trigger = RemoteToTrigger(listener);
-        
-        if (onEnter != null)
-        {
-            onEnter.Invoke(otherInfo.parentUnit, trigger);
-        }
+        if (other.parentUnit.allegiance != Allegiance.Enemy
+            && other.parentUnit.allegiance != Allegiance.SmashBall)
+            return;
+
+        CarSide side = ColliderToSide(listener);
 
         //Damage the enemy
-        IAttackable attackable = otherInfo.parentUnit.GetComponent<IAttackable>();
+        IAttackable attackable = other.parentUnit.GetComponent<IAttackable>();
         if (attackable == null)
             return;
 
-        int damage = 0;
-        switch (trigger)
+        HitUnit(other.parentUnit, attackable, side, other, listener.info);
+    }
+
+    private void MasterTriggerListener_onTriggerEnter(ColliderInfo other, ColliderListener listener)//Unit unit, RemoteTriggerListener source, GameObject other)
+    {
+        if (other.parentUnit.allegiance != Allegiance.Enemy
+            && other.parentUnit.allegiance != Allegiance.SmashBall)
+            return;
+
+        CarSide trigger = TriggerToSide(listener);
+
+        //Damage the enemy
+        IAttackable attackable = other.parentUnit.GetComponent<IAttackable>();
+        if (attackable == null)
+            return;
+
+        HitUnit(other.parentUnit, attackable, trigger, other, listener.info);
+    }
+
+    private void HitUnit(Unit unit, IAttackable attackable, CarSide side, ColliderInfo on, MonoBehaviour source)
+    {
+        if (onHitUnit != null)
         {
-            case CarTrigger.Front:
+            onHitUnit.Invoke(unit, side);
+        }
+
+        int damage = 0;
+        switch (side)
+        {
+            case CarSide.Front:
                 damage = controller.playerStats.frontDamage;
                 break;
-            case CarTrigger.Back:
+            case CarSide.Back:
                 damage = controller.playerStats.backDamage;
                 break;
-            case CarTrigger.Right:
+            case CarSide.Right:
                 damage = controller.playerStats.rightDamage;
                 break;
-            case CarTrigger.Left:
+            case CarSide.Left:
                 damage = controller.playerStats.leftDamage;
                 break;
         }
         damage *= controller.playerStats.damageMultiplier;
-        if(damage > 0)
+        if (damage > 0)
         {
-            attackable.Attacked(otherInfo, damage, listener.info);
+            attackable.Attacked(on, damage, source);
         }
     }
 
-    private void OnExit(ColliderInfo otherInfo, ColliderListener listener)
+    private CarSide TriggerToSide(ColliderListener remote)
     {
-        if (onExit != null)
-        {
-            onExit.Invoke(otherInfo.parentUnit, RemoteToTrigger(listener));
-        }
+        if (remote == backTrig)
+            return CarSide.Back;
+        else if (remote == leftTrig)
+            return CarSide.Left;
+        else if (remote == rightTrig)
+            return CarSide.Right;
+        return CarSide.Front;
     }
 
-    private CarTrigger RemoteToTrigger(ColliderListener remote)
+    private CarSide ColliderToSide(ColliderListener remote)
     {
-        if (remote == back)
-            return CarTrigger.Back;
-        else if (remote == left)
-            return CarTrigger.Left;
-        else if (remote == right)
-            return CarTrigger.Right;
-        return CarTrigger.Front;
+        if (remote == backCol)
+            return CarSide.Back;
+        else if (remote == leftCol)
+            return CarSide.Left;
+        else if (remote == rightCol)
+            return CarSide.Right;
+        return CarSide.Front;
     }
-
     public override void OnGameReady()
     {
     }
