@@ -21,6 +21,9 @@ public class TirRocheBrain : EnemyBrain<TirRocheVehicle>
 
     protected override void UpdatePlayer()
     {
+        if (vehicle.IsShooting)
+            return;
+
         float dist = meToPlayer.magnitude;
         if (dist > attackingMaxRange && minFleeStay < 0)
         {
@@ -54,6 +57,9 @@ public class TirRocheBrain : EnemyBrain<TirRocheVehicle>
             {
                 //Regarde le joueur et shoot !
                 SetBehavior(BehaviorType.LookPlayer);
+
+                if (vehicle.CanShoot && Mathf.Abs(Vector2.Angle(meToPlayer, vehicle.WorldDirection2D())) < 4) // < 4 degrée pour aim
+                    vehicle.Shoot(player.vehicle);
             }
         }
         else

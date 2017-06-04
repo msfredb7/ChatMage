@@ -17,7 +17,7 @@ public class SmashBall : Unit, IAttackable
 
     void Start()
     {
-        rb.velocity = Vehicle.AngleToVector(UnityEngine.Random.Range(0, 360)) * startSpeed;
+        rb.velocity = Vehicle.AngleToVector(UnityEngine.Random.Range(0, 360)) * startSpeed * TimeScale;
     }
 
     protected override void FixedUpdate()
