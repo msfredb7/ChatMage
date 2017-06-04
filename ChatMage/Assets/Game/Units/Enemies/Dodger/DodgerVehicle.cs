@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,15 +28,15 @@ public class DodgerVehicle : EnemyVehicle
         return shootCooldown < 0;
     }
 
-    public void DodgeLeft()
-    {
-        GotoDirection(VectorToAngle(GetPlayerPosition() - GetPosition()) + 90);
-    }
+    //public void DodgeLeft()
+    //{
+    //    GotoDirection(VectorToAngle(GetPlayerPosition() - GetPosition()) + 90);
+    //}
 
-    public void DodgeRight()
-    {
-        GotoDirection(VectorToAngle(GetPlayerPosition() - GetPosition()) - 90);
-    }
+    //public void DodgeRight()
+    //{
+    //    GotoDirection(VectorToAngle(GetPlayerPosition() - GetPosition()) - 90);
+    //}
 
     public void LookAtPlayer()
     {

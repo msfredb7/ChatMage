@@ -26,7 +26,7 @@ public class GourdinierBrain : EnemyBrain<GourdinierVehicle>
         if (dist <= startAttackRange || (movementPrediction && meToPPredic.magnitude <= startAttackRange) || vehicle.isAttacking)
         {
             //Attack mode
-            moveState = EnemyMoveState.LookAtPlayer;
+            SetBehavior(BehaviorType.LookPlayer);
 
             if (vehicle.CanAttack())
                 vehicle.Attack();
@@ -34,12 +34,12 @@ public class GourdinierBrain : EnemyBrain<GourdinierVehicle>
         else
         {
             //Go to player
-            moveState = EnemyMoveState.FollowPlayer;
+            SetBehavior(BehaviorType.Follow);
         }
     }
 
     protected override void UpdateNoPlayer()
     {
-        moveState = EnemyMoveState.Wander;
+        SetBehavior(BehaviorType.Wander);
     }
 }

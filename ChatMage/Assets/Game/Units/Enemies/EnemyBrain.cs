@@ -2,39 +2,49 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FullInspector;
+using System.Reflection;
+using System;
 
 
-public enum EnemyMoveState { Custom = 0, Wander = 1, Panic = 2, Flee = 3, FollowPlayer = 4, Idle = 5, LookAtPlayer = 6 }
 
 /// <summary>
 /// Enemy Brain, with vehicle type T
 /// </summary>
 /// <typeparam name="T">Vehicle Type</typeparam>
-public abstract class EnemyBrain<T> : BaseBehavior where T : EnemyVehicle
+public abstract class EnemyBrain<T> : EnemyBrain where T : EnemyVehicle
 {
-    [InspectorHeader("Enemy Brain")]
-    public EnemyMoveState moveState;
-
     protected T vehicle;
-    protected PlayerController player;
-    protected Vector2 meToPlayer = Vector2.zero;
 
-    private const float PanicInterval = 1.5f;
-    private const float WanderInterval = 4;
-    private const float WanderDistanceMax = 3.5f;
-    private const float WanderDistanceMin = 0.75f;
-
-    private bool noPlayerOnThisFrame = false;
-    private float panicOrWanderRemains = -1;
-    private float lastPanicPick = 0;
-
-    protected virtual void Start()
+    protected override void Start()
     {
         vehicle = GetComponent<T>();
         if (vehicle == null)
-            Debug.LogError("Could not find vehicle of type: " + typeof(T) + ".");
+            throw new Exception("Could not find vehicle of type: " + typeof(T).ToString());
+        base.Start();
+    }
+    protected override EnemyVehicle Vehicle
+    {
+        get
+        {
+            return vehicle;
+        }
+    }
+}
+
+public abstract class EnemyBrain : BaseBehavior
+{
+    protected PlayerController player;
+    protected Vector2 meToPlayer = Vector2.zero;
+
+    private bool noPlayerOnThisFrame = false;
+
+    private EnemyBehavior currentBehavior;
+    private float forcedInStateDuration = -1;
+
+    protected virtual void Start()
+    {
         player = Game.instance.Player;
-        vehicle.Stop();
+        Vehicle.Stop();
     }
 
     void Update()
@@ -42,104 +52,136 @@ public abstract class EnemyBrain<T> : BaseBehavior where T : EnemyVehicle
         noPlayerOnThisFrame = player == null || !player.playerStats.isVisible || player.playerStats.isDead || !player.gameObject.activeSelf;
 
         if (!noPlayerOnThisFrame)
-            meToPlayer = player.vehicle.Position - vehicle.Position;
+            meToPlayer = player.vehicle.Position - Vehicle.Position;
 
         if (noPlayerOnThisFrame)
             UpdateNoPlayer();
         else
             UpdatePlayer();
 
+        if (currentBehavior != null)
+            currentBehavior.Update(player, Vehicle.DeltaTime());
 
-        switch (moveState)
-        {
-            default:
-            case EnemyMoveState.Custom:
-                break;
-            case EnemyMoveState.Wander:
-                WanderUpdate();
-                break;
-            case EnemyMoveState.Panic:
-                PanicUpdate();
-                break;
-            case EnemyMoveState.Flee:
-                FleeUpdate();
-                break;
-            case EnemyMoveState.FollowPlayer:
-                FollowUpdate();
-                break;
-            case EnemyMoveState.Idle:
-                IdleUpdate();
-                break;
-            case EnemyMoveState.LookAtPlayer:
-                LookAtPlayerUpdate();
-                break;
-        }
+        forcedInStateDuration -= Vehicle.DeltaTime();
     }
 
     protected abstract void UpdatePlayer();
     protected abstract void UpdateNoPlayer();
+    protected abstract EnemyVehicle Vehicle { get; }
 
-    void WanderUpdate()
+    public bool IsForcedIntoState { get { return forcedInStateDuration > 0; } }
+
+    private void EnterBehavior(EnemyBehavior newBehaviour)
     {
-        panicOrWanderRemains -= vehicle.DeltaTime();
+        if (currentBehavior != null)
+            currentBehavior.Exit(player);
 
-        if (panicOrWanderRemains < 0)
+        currentBehavior = newBehaviour;
+
+        if (newBehaviour != null)
+            newBehaviour.Enter(player);
+    }
+
+    public void SetBehavior(BehaviorType type)
+    {
+        //Already in that type of state ?
+        if (currentBehavior != null && currentBehavior.Type == type)
+            return;
+
+        //If forced into another behavior, return
+        if (IsForcedIntoState)
+            return;
+
+        //New instance
+        EnemyBehavior newBehavior = NewBehaviorByType(type);
+
+        //Enter behavior
+        EnterBehavior(newBehavior);
+    }
+
+    public void ForceBehavior(BehaviorType type, float duration, bool overridePreviousForcedState = false)
+    {
+        //Already in that type of state ?
+        if (currentBehavior != null && currentBehavior.Type == type)
         {
-            //Pick new destination
-            if (lastPanicPick > 360)
-                lastPanicPick -= 360;
+            //Update duration
+            forcedInStateDuration = Math.Max(forcedInStateDuration, duration);
+            return;
+        }
 
-            Vector2 randomVector = Vehicle.AngleToVector(Random.Range(0, 360));
+        //Already in another state ? Can it override it ?
+        if (IsForcedIntoState && !overridePreviousForcedState)
+            return;
 
-            vehicle.GotoPosition(vehicle.Position + randomVector * Random.Range(WanderDistanceMin, WanderDistanceMax));
+        //New instance
+        EnemyBehavior newBehavior = NewBehaviorByType(type);
 
-            panicOrWanderRemains = WanderInterval;
+        //Enter behavior
+        EnterBehavior(newBehavior);
+
+        //Set duration
+        forcedInStateDuration = duration;
+    }
+
+    public BehaviorType CurrentBehaviorType
+    {
+        get
+        {
+            if (currentBehavior != null)
+                return currentBehavior.Type;
+            return BehaviorType.Null;
         }
     }
 
-    void PanicUpdate()
+    private EnemyBehavior NewBehaviorByType(BehaviorType type)
     {
-        panicOrWanderRemains -= vehicle.DeltaTime();
-
-        if (panicOrWanderRemains < 0)
+        switch (type)
         {
-            //Pick new destination
-            if (lastPanicPick > 360)
-                lastPanicPick -= 360;
-
-            //On met cette petite formule pour ne pas pick 2 fois des direction semblable
-            vehicle.GotoDirection(lastPanicPick = Random.Range(lastPanicPick + 60, lastPanicPick + 300));
-            panicOrWanderRemains = PanicInterval;
+            default:
+            case BehaviorType.Null:
+                return null;
+            case BehaviorType.Idle:
+                return NewIdleBehavior();
+            case BehaviorType.Flee:
+                return NewFleeBehavior();
+            case BehaviorType.Follow:
+                return NewFollowBehavior();
+            case BehaviorType.Panic:
+                return NewPanicBehaviour();
+            case BehaviorType.Wander:
+                return NewWanderBehavior();
+            case BehaviorType.LookPlayer:
+                return NewLookPlayerBehavior();
         }
     }
 
-    void FleeUpdate()
+    protected virtual EnemyBehavior NewFleeBehavior()
     {
-        if (noPlayerOnThisFrame)
-            return;
-
-        vehicle.GotoDirection(-meToPlayer);
+        return new FleeBehavior(Vehicle);
     }
 
-    void FollowUpdate()
+    protected virtual EnemyBehavior NewFollowBehavior()
     {
-        if (noPlayerOnThisFrame)
-            return;
-
-        vehicle.GotoDirection(meToPlayer);
+        return new FollowBehavior(Vehicle);
     }
 
-    void IdleUpdate()
+    protected virtual EnemyBehavior NewPanicBehaviour()
     {
-        vehicle.Stop();
+        return new PanicBehavior(Vehicle);
     }
 
-    void LookAtPlayerUpdate()
+    protected virtual EnemyBehavior NewWanderBehavior()
     {
-        if (noPlayerOnThisFrame)
-            return;
+        return new WanderBehavior(Vehicle);
+    }
 
-        vehicle.Stop();
-        vehicle.TurnToDirection(meToPlayer);
+    protected virtual EnemyBehavior NewIdleBehavior()
+    {
+        return new IdleBehavior(Vehicle);
+    }
+
+    protected virtual EnemyBehavior NewLookPlayerBehavior()
+    {
+        return new LookPlayerBehavior(Vehicle);
     }
 }
