@@ -25,9 +25,11 @@ public class PopUpMenu {
                     currentPopUp.SetText(text);
                     currentPopUp.ok.GetComponent<Button>().onClick.AddListener(delegate ()
                     {
-                        currentPopUp.Close();
-                        if(onOK != null)
-                            onOK.Invoke();
+                        currentPopUp.Close(delegate() {
+                            Scenes.Unload(SCENENAME);
+                            if (onOK != null)
+                                onOK.Invoke();
+                        });
                     });
                 }
             }
@@ -66,9 +68,11 @@ public class PopUpMenu {
                         confirmButton.onClick.AddListener(delegate ()
                         {
                             popUpExist = true;
-                            currentPopUp.Close();
-                            if (onConfirm != null)
-                                onConfirm.Invoke();
+                            currentPopUp.Close(delegate () {
+                                Scenes.Unload(SCENENAME);
+                                if (onConfirm != null)
+                                    onConfirm.Invoke();
+                            });
                         });
                     }
                 }
@@ -94,9 +98,11 @@ public class PopUpMenu {
                     DelayManager.LocalCallTo(delegate ()
                     {
                         popUpExist = true;
-                        currentPopUp.Close();
-                        if (onOver != null)
-                            onOver.Invoke();
+                        currentPopUp.Close(delegate () {
+                            Scenes.Unload(SCENENAME);
+                            if (onOver != null)
+                                onOver.Invoke();
+                        });
                     }, cooldown, currentPopUp);
                 }
             }

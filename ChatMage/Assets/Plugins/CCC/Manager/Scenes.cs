@@ -69,6 +69,11 @@ namespace CCC.Manager
             SceneManager.UnloadSceneAsync(name);
         }
 
+        static public void Unload(string name)
+        {
+            SceneManager.UnloadScene(name);
+        }
+
         static public bool Exists(string sceneName)
         {
             for (int i = 0; i < SceneManager.sceneCount; i++)
