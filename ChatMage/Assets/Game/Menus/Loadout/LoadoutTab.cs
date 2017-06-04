@@ -45,6 +45,7 @@ public class LoadoutTab : MonoBehaviour
                 if (firstEntry)
                 {
                     title.text = "Step 1: Select Your Car";
+                    preview.Disable();
                     CreateGrid(equipables);
                     remainingSlots.gameObject.SetActive(false);
                     PanelIntro(null);
@@ -59,11 +60,13 @@ public class LoadoutTab : MonoBehaviour
                         PanelIntro(null);
                     });
                 }
+                currentType = LoadoutTab_Type.Car;
                 break;
             case LoadoutTab_Type.Smash:
                 if (firstEntry)
                 {
                     title.text = "Step 2: Select Your Smash";
+                    preview.Disable();
                     CreateGrid(equipables);
                     remainingSlots.gameObject.SetActive(false);
                     PanelIntro(null);
@@ -78,11 +81,13 @@ public class LoadoutTab : MonoBehaviour
                         PanelIntro(null);
                     });
                 }
+                currentType = LoadoutTab_Type.Smash;
                 break;
             case LoadoutTab_Type.Items:
                 if (firstEntry)
                 {
                     title.text = "Final Step: Select Your Items";
+                    preview.Disable();
                     CreateGrid(equipables);
                     remainingSlots.gameObject.SetActive(true);
                     remainingSlots.text = "Slots : " + (loadout.currentLoadout.itemSlotAmount - loadout.currentLoadout.itemOrders.Count);
@@ -99,6 +104,7 @@ public class LoadoutTab : MonoBehaviour
                         PanelIntro(null);
                     });
                 }
+                currentType = LoadoutTab_Type.Items;
                 break;
             case LoadoutTab_Type.NotSet:
                 DisplayStart(equipables, currentType);
@@ -111,12 +117,18 @@ public class LoadoutTab : MonoBehaviour
         switch (type)
         {
             case LoadoutTab_Type.Car:
+                currentType = LoadoutTab_Type.Car;
+                preview.Disable();
                 CreateGrid(loadout.armory.cars);
                 break;
             case LoadoutTab_Type.Smash:
+                currentType = LoadoutTab_Type.Smash;
+                preview.Disable();
                 CreateGrid(loadout.armory.smashes);
                 break;
             case LoadoutTab_Type.Items:
+                currentType = LoadoutTab_Type.Items;
+                preview.Disable();
                 CreateGrid(loadout.armory.items);
                 break;
         }
@@ -127,12 +139,18 @@ public class LoadoutTab : MonoBehaviour
         switch (type)
         {
             case LoadoutTab_Type.Car:
+                currentType = LoadoutTab_Type.Car;
+                preview.Disable();
                 CreateGrid(loadout.armory.GetAllUnlockedCars());
                 break;
             case LoadoutTab_Type.Smash:
+                currentType = LoadoutTab_Type.Smash;
+                preview.Disable();
                 CreateGrid(loadout.armory.GetAllUnlockedSmash());
                 break;
             case LoadoutTab_Type.Items:
+                currentType = LoadoutTab_Type.Items;
+                preview.Disable();
                 CreateGrid(loadout.armory.GetAllUnlockedItems());
                 break;
         }
@@ -143,12 +161,18 @@ public class LoadoutTab : MonoBehaviour
         switch (type)
         {
             case LoadoutTab_Type.Car:
+                currentType = LoadoutTab_Type.Car;
+                preview.Disable();
                 CreateGrid(loadout.armory.GetAllLockedCars());
                 break;
             case LoadoutTab_Type.Smash:
+                currentType = LoadoutTab_Type.Smash;
+                preview.Disable();
                 CreateGrid(loadout.armory.GetAllLockedSmash());
                 break;
             case LoadoutTab_Type.Items:
+                currentType = LoadoutTab_Type.Items;
+                preview.Disable();
                 CreateGrid(loadout.armory.GetAllLockedItems());
                 break;
         }
@@ -209,7 +233,7 @@ public class LoadoutTab : MonoBehaviour
                         if (loadout.Equip(currentPreview))
                         {
                             currentButton.GetComponent<Image>().color = Color.red;  // A changer
-
+                            loadout.currentLoadout.Save();
                             remainingSlots.text = "Slots : " + (loadout.currentLoadout.itemSlotAmount - loadout.currentLoadout.itemOrders.Count);
                         }
                     });
@@ -220,9 +244,7 @@ public class LoadoutTab : MonoBehaviour
 
     private void GoToShop()
     {
-        ClearFocus();
-        Scenes.LoadAsync(ShopMenu.SCENENAME, UnityEngine.SceneManagement.LoadSceneMode.Additive);
-        //LoadingScreen.TransitionTo(ShopMenu.SCENENAME, null); // A changer pour additif
+        LoadingScreen.TransitionTo(ShopMenu.SCENENAME, new ToShopMessage(Loadout.SCENENAME,currentType));
     }
 
     public void Clear()

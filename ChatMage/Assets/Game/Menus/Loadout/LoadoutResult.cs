@@ -15,6 +15,12 @@ public class LoadoutResult
         }
         public string equipableName;
         public EquipableType type;
+
+        public void Save(int ID = 0)
+        {
+            GameSaves.instance.SetString(GameSaves.Type.Loadout, "equipableName" + type + "" + ID, equipableName);
+            Debug.Log("Saving " + "equipableName" + type + "" + ID);
+        }
     }
 
     public LoadoutResult(int itemSlotAmount)
@@ -44,14 +50,12 @@ public class LoadoutResult
                 if (itemOrders.Count >= itemSlotAmount)
                 {
                     throw new System.Exception("All item slots full");
-                    return false;
                 }
 
                 for (int i = 0; i < itemOrders.Count; i++)
                     if (itemOrders[i].equipableName == name)
                     {
                         throw new System.Exception("Item Already In Loadout");
-                        return false;
                     }
 
                 itemOrders.Add(new EquipableOrder(name, type));
@@ -60,7 +64,6 @@ public class LoadoutResult
                 return true;
             default:
                 throw new System.Exception("Unhandeled equipable type");
-                return false;
         }
     }
 
@@ -93,7 +96,35 @@ public class LoadoutResult
                 return false;
             default:
                 throw new System.Exception("Unhandeled equipable type");
-                return false;
+        }
+    }
+
+    public void Save()
+    {
+        if(smashOrder != null)
+            smashOrder.Save();
+        if(carOrder != null)
+            carOrder.Save();
+        if (itemOrders.Count >= 1)
+        {
+            for (int i = 0; i < itemOrders.Count; i++)
+            {
+                itemOrders[i].Save();
+            }
+        }
+        GameSaves.instance.SaveData(GameSaves.Type.Loadout);
+    }
+
+    public void Load()
+    {
+        if (GameSaves.instance.ContainsString(GameSaves.Type.Loadout, "equipableNameSmash0"))
+            AddEquipable(GameSaves.instance.GetString(GameSaves.Type.Loadout, "equipableNameSmash0"), EquipableType.Smash);
+        if (GameSaves.instance.ContainsString(GameSaves.Type.Loadout, "equipableNameCar0"))
+            AddEquipable(GameSaves.instance.GetString(GameSaves.Type.Loadout, "equipableNameCar0"), EquipableType.Car);
+        for (int i = 0; i < itemSlotAmount; i++)
+        {
+            if (GameSaves.instance.ContainsString(GameSaves.Type.Loadout, "equipableNameItem" + i))
+                AddEquipable(GameSaves.instance.GetString(GameSaves.Type.Loadout, "equipableNameItem" + i), EquipableType.Item);
         }
     }
 }

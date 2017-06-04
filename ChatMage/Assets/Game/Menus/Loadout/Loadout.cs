@@ -31,11 +31,14 @@ public class Loadout : BaseBehavior
 
     private LoadoutTab.LoadoutTab_Type currentTab;
 
-    public void Init(string levelScriptName)
+    public void Init(string levelScriptName, LoadoutTab.LoadoutTab_Type startTab = LoadoutTab.LoadoutTab_Type.Car)
     {
         this.levelScriptName = levelScriptName;
         armory.Load();
         currentLoadout = new LoadoutResult(armory.GetItemSlots());
+        currentLoadout.Load();
+
+        //// ANCIEN SYSTEME ////
 
         List<EquipablePreview> unlockItems = armory.GetAllUnlockedItems();
         List<EquipablePreview> unlockCars = armory.GetAllUnlockedCars();
@@ -74,6 +77,8 @@ public class Loadout : BaseBehavior
             });
         }
 
+        /////////
+
         // Back Button
         if (!backButton.gameObject.activeSelf)
         {
@@ -93,8 +98,9 @@ public class Loadout : BaseBehavior
         nextButton.onClick.AddListener(Next);
 
         // Load First Tab
-        currentTab = LoadoutTab.LoadoutTab_Type.Car;
-        tab.DisplayStart(armory.cars, currentTab, true);
+        currentTab = startTab;
+        tab.equipButton.gameObject.SetActive(false);
+        tab.DisplayAll(currentTab);
     }
 
     public void ChargeLoadoutAndGame()
@@ -105,7 +111,7 @@ public class Loadout : BaseBehavior
             Debug.LogWarning("No car selected -> default car");
         }
         LoadingScreen.TransitionTo(Framework.SCENENAME, new ToGameMessage(levelScriptName, currentLoadout), false);
-        // Sauvegarde du Loadout !
+        currentLoadout.Save();
     }
 
     public void BackToLevelSelect()
@@ -164,7 +170,6 @@ public class Loadout : BaseBehavior
         tab.ResetPreview();
     }
 
-    // TODO: Deplacer dans loadout tab item
     public void BuySlots()
     {
         PopUpMenu.ShowOKPopUpMenu("Are you sure you want to buy an extra slots for items ?", delegate ()

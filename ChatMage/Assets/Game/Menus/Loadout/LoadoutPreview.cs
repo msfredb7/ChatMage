@@ -33,17 +33,24 @@ public class LoadoutPreview : MonoBehaviour
             effect.text = preview.effects;
             if (preview.affectSmash)
                 smashIcon.SetActive(true);
+            else
+                smashIcon.SetActive(false);
             if (preview.specialInput)
             {
                 specialInputIcon.SetActive(true);
                 specialInputTooltip = preview.specialInputTooltipText;
                 // TODO: Tooltip a terminer au besoin
+            } else
+            {
+                specialInputIcon.SetActive(false);
             }
         }else
         {
             imagePreview.sprite = imageUnkown;
             effect.gameObject.SetActive(false);
             effectTitle.gameObject.SetActive(false);
+            specialInputIcon.SetActive(false);
+            smashIcon.SetActive(false);
         }
         // A remettre
         //SoundManager.Play(preview.selectSound);

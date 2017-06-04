@@ -17,6 +17,10 @@ public class ShopMenu : MonoBehaviour
     public Button mediumLootbox;
     public Button largeLootbox;
 
+    private string previousScene;
+    private LoadoutTab.LoadoutTab_Type previousTab;
+    private string previousLevel;
+
     void Start()
     {
         MasterManager.Sync(OnSync);
@@ -85,7 +89,10 @@ public class ShopMenu : MonoBehaviour
 
     public void BackButton()
     {
-        Scenes.UnloadAsync(SCENENAME);
+        if (previousScene == Loadout.SCENENAME)
+            LoadingScreen.TransitionTo(previousScene,new ToLoadoutMessage(previousScene,previousTab));
+        else
+            LoadingScreen.TransitionTo(previousScene,null);
     }
 
     public void ShowRewardedAd()
@@ -121,5 +128,12 @@ public class ShopMenu : MonoBehaviour
                 break;
         }
         deactivateScenePanel.SetActive(false);
+    }
+
+    public void SetPreviousContext(string previousScene, LoadoutTab.LoadoutTab_Type previousTab, string previousLevel = null)
+    {
+        this.previousScene = previousScene;
+        this.previousTab = previousTab;
+        this.previousLevel = previousLevel;
     }
 }
