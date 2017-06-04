@@ -113,9 +113,9 @@ public class Loadout : BaseBehavior
         LoadingScreen.TransitionTo(LevelSelection.SCENENAME, null);
     }
 
-    public void Equip(EquipablePreview equipable)
+    public bool Equip(EquipablePreview equipable)
     {
-        currentLoadout.AddEquipable(equipable.equipableAssetName, equipable.type);
+        return currentLoadout.AddEquipable(equipable.equipableAssetName, equipable.type);
     }
 
     public void Back()
@@ -162,5 +162,17 @@ public class Loadout : BaseBehavior
                 break;
         }
         tab.ResetPreview();
+    }
+
+    // TODO: Deplacer dans loadout tab item
+    public void BuySlots()
+    {
+        PopUpMenu.ShowOKPopUpMenu("Are you sure you want to buy an extra slots for items ?", delegate ()
+        {
+            if ((Account.instance.GetMoney() - 10) < 0)
+                PopUpMenu.ShowPopUpMenu("You don't have enough money. Open loot boxes or win levels to gain money. See you later!",2);
+            else
+                armory.BuyItemSlots(1, -10);
+        });
     }
 }

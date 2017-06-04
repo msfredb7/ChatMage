@@ -24,6 +24,7 @@ public class LoadoutTab : MonoBehaviour
     public GameObject gridButtonPrefab;
     public Button equipButton;
     public Dropdown sortBy;
+    public Text remainingSlots;
 
     public float startX;
     public float exitX;
@@ -45,6 +46,7 @@ public class LoadoutTab : MonoBehaviour
                 {
                     title.text = "Step 1: Select Your Car";
                     CreateGrid(equipables);
+                    remainingSlots.gameObject.SetActive(false);
                     PanelIntro(null);
                 }
                 else
@@ -53,6 +55,7 @@ public class LoadoutTab : MonoBehaviour
                     {
                         title.text = "Step 1: Select Your Car";
                         CreateGrid(equipables);
+                        remainingSlots.gameObject.SetActive(false);
                         PanelIntro(null);
                     });
                 }
@@ -62,6 +65,7 @@ public class LoadoutTab : MonoBehaviour
                 {
                     title.text = "Step 2: Select Your Smash";
                     CreateGrid(equipables);
+                    remainingSlots.gameObject.SetActive(false);
                     PanelIntro(null);
                 }
                 else
@@ -70,6 +74,7 @@ public class LoadoutTab : MonoBehaviour
                     {
                         title.text = "Step 2: Select Your Smash";
                         CreateGrid(equipables);
+                        remainingSlots.gameObject.SetActive(false);
                         PanelIntro(null);
                     });
                 }
@@ -79,6 +84,8 @@ public class LoadoutTab : MonoBehaviour
                 {
                     title.text = "Final Step: Select Your Items";
                     CreateGrid(equipables);
+                    remainingSlots.gameObject.SetActive(true);
+                    remainingSlots.text = "Slots : " + (loadout.currentLoadout.itemSlotAmount - loadout.currentLoadout.itemOrders.Count);
                     PanelIntro(null);
                 }
                 else
@@ -87,6 +94,8 @@ public class LoadoutTab : MonoBehaviour
                     {
                         title.text = "Final Step: Select Your Items";
                         CreateGrid(equipables);
+                        remainingSlots.gameObject.SetActive(true);
+                        remainingSlots.text = "Slots : " + (loadout.currentLoadout.itemSlotAmount - loadout.currentLoadout.itemOrders.Count);
                         PanelIntro(null);
                     });
                 }
@@ -156,20 +165,31 @@ public class LoadoutTab : MonoBehaviour
 
             // Ajout du Boutton
             GameObject newButton = Instantiate(gridButtonPrefab, countainer);
+
+            // Apparence (unlock/equip)
             if(!newPreview.unlocked)
                 newButton.GetComponent<Image>().color = Color.gray;
+            if(loadout.currentLoadout.AlreadyEquip(newPreview.equipableAssetName,newPreview.type))
+                newButton.GetComponent<Image>().color = Color.red;
             newButton.GetComponent<Image>().sprite = newPreview.icon;
             newButton.GetComponentInChildren<Text>().text = newPreview.displayName;
 
             // Gestion des evennements
             newButton.GetComponent<Button>().onClick.AddListener(delegate ()
             {
+                // Transfert des variables locales
                 EquipablePreview currentPreview = newPreview;
                 GameObject currentButton = newButton;
+
+                // Display du EquipablePreview
                 preview.DisplayPreview(currentPreview);
+
+                // Ajustement au niveau du equipButton
                 if (!equipButton.gameObject.activeSelf)
                     equipButton.gameObject.SetActive(true);
                 equipButton.onClick.RemoveAllListeners();
+
+                // Equip Button est un equip ou shop
                 if (!currentPreview.unlocked)
                 {
                     equipButton.image.color = Color.yellow;
@@ -180,11 +200,18 @@ public class LoadoutTab : MonoBehaviour
                 {
                     equipButton.image.color = Color.white;
                     equipButton.GetComponentInChildren<Text>().text = "EQUIP";
+
+                    // Gestion de l'evennement de lorsque l'objet est equiper
                     equipButton.onClick.AddListener(delegate ()
                     {
-                        ClearFocus();
-                        currentButton.GetComponent<Image>().color = Color.red;  // A changer
-                        loadout.Equip(currentPreview);
+                        if(currentPreview.type != EquipableType.Item)
+                            ClearFocus();
+                        if (loadout.Equip(currentPreview))
+                        {
+                            currentButton.GetComponent<Image>().color = Color.red;  // A changer
+
+                            remainingSlots.text = "Slots : " + (loadout.currentLoadout.itemSlotAmount - loadout.currentLoadout.itemOrders.Count);
+                        }
                     });
                 }
             });
@@ -233,7 +260,7 @@ public class LoadoutTab : MonoBehaviour
         loadout.backButton.interactable = false;
         loadout.nextButton.interactable = false;
         title.DOFade(0, transitionDuration);
-        Tween animation = panel.gameObject.GetComponent<RectTransform>().DOMoveX(exitX, transitionDuration);
+        Tween animation = panel.gameObject.GetComponent<RectTransform>().DOAnchorPosX(exitX, transitionDuration);
         animation.OnComplete(callback);
     }
 
@@ -245,7 +272,7 @@ public class LoadoutTab : MonoBehaviour
             panel.gameObject.SetActive(true);
         title.DOFade(1, transitionDuration);
         panel.gameObject.GetComponent<RectTransform>().position = new Vector2(introX, panel.GetComponent<RectTransform>().position.y);
-        Tween animation = panel.gameObject.GetComponent<RectTransform>().DOMoveX(startX, transitionDuration);
+        Tween animation = panel.gameObject.GetComponent<RectTransform>().DOAnchorPosX(startX, transitionDuration);
         loadout.backButton.interactable = true;
         loadout.nextButton.interactable = true;
         animation.OnComplete(callback);
@@ -255,7 +282,9 @@ public class LoadoutTab : MonoBehaviour
     {
         foreach (Transform child in countainer.transform)
         {
-            child.GetComponent<Image>().color = Color.white; // A changer
+            // A changer
+            if(child.GetComponent<Image>().color != Color.gray)
+                child.GetComponent<Image>().color = Color.white; 
         }
     }
 }

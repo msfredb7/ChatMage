@@ -73,18 +73,6 @@ public class ShopMenu : MonoBehaviour
         });
     }
 
-    // TODO: Deplacer dans loadout tab item
-    public void BuySlots()
-    {
-        PopUpMenu.ShowOKPopUpMenu("Are you sure you want to buy an extra slots for items ?", delegate ()
-        {
-            if ((Account.instance.GetMoney() - 10) < 0)
-                PopUpMenu.ShowOKPopUpMenu("You don't have enough money. Open loot boxes or win levels to gain money. See you later!");
-            else
-                armory.BuyItemSlots(1, -10);
-        });
-    }
-
     public void GetMoney()
     {
         Account.instance.ChangeMoney(10);
@@ -119,9 +107,7 @@ public class ShopMenu : MonoBehaviour
         {
             case ShowResult.Finished:
                 Debug.Log("The ad was successfully shown.");
-                //
-                // YOUR CODE TO REWARD THE GAMER
-                // Give coins etc.
+                Account.instance.ChangeMoney(10);
                 break;
             case ShowResult.Skipped:
                 Debug.Log("The ad was skipped before reaching the end.");
@@ -131,9 +117,7 @@ public class ShopMenu : MonoBehaviour
                 break;
             case ShowResult.Failed:
                 Debug.LogError("The ad failed to be shown.");
-                //
-                // YOUR CODE TO SAY BEAT THE ASS OF THE PLAYER
-                // Give handicap etc.
+                PopUpMenu.ShowPopUpMenu("A problem has occured and the ad could not be shown.",2);
                 break;
         }
         deactivateScenePanel.SetActive(false);
