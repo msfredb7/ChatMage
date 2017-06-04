@@ -1044,8 +1044,11 @@ MonoBehaviour:
   _keys:
   - {fileID: 1607752547}
   _values:
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.currentLoadout.EditProperty
+    _values:
+    - _showDropdown: 1
+      _serializedIsActive: 1
     _target: {fileID: 1607752547}
 --- !u!1 &555939215
 GameObject:
@@ -1135,6 +1138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0779e1b6de217041b7d489a7cfb0ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  imageUnkown: {fileID: 21300000, guid: 5d48a1b96e99d924b9653a14d7084067, type: 3}
   panel: {fileID: 555939215}
   imagePreview: {fileID: 1337511217}
   title: {fileID: 1041118100}
@@ -1636,12 +1640,12 @@ Prefab:
     - target: {fileID: 224152152612340484, guid: ca3a2a3977962f043ae743589dead644,
         type: 2}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224152152612340484, guid: ca3a2a3977962f043ae743589dead644,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224152152612340484, guid: ca3a2a3977962f043ae743589dead644,
         type: 2}
@@ -1651,7 +1655,7 @@ Prefab:
     - target: {fileID: 224152152612340484, guid: ca3a2a3977962f043ae743589dead644,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -65.85
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224152152612340484, guid: ca3a2a3977962f043ae743589dead644,
         type: 2}
@@ -1661,7 +1665,7 @@ Prefab:
     - target: {fileID: 224152152612340484, guid: ca3a2a3977962f043ae743589dead644,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 131.7
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ca3a2a3977962f043ae743589dead644, type: 2}

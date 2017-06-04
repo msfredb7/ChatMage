@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class LoadoutPreview : MonoBehaviour
 {
-
+    public Sprite imageUnkown;
     public GameObject panel;
     public Image imagePreview;
     public Text title;
@@ -41,10 +41,12 @@ public class LoadoutPreview : MonoBehaviour
             }
         }else
         {
+            imagePreview.sprite = imageUnkown;
             effect.gameObject.SetActive(false);
             effectTitle.gameObject.SetActive(false);
         }
-        SoundManager.Play(preview.selectSound);
+        // A remettre
+        //SoundManager.Play(preview.selectSound);
     }
 
     public void Disable()
