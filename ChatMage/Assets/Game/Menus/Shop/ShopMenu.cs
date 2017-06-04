@@ -77,9 +77,9 @@ public class ShopMenu : MonoBehaviour
         });
     }
 
-    public void GetMoney()
+    public void GetMoney(int money)
     {
-        Account.instance.ChangeMoney(10);
+        Account.instance.ChangeMoney(money);
     }
 
     public void BuyMoney(int amount)

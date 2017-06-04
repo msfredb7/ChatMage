@@ -61,6 +61,7 @@ public class Account : BaseManager<Account> {
 
         money = moneyResult;
         onMoneyChanged.Invoke();
+        Save();
 
         return true;
     }
