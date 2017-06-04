@@ -156,6 +156,8 @@ public class LoadoutTab : MonoBehaviour
 
             // Ajout du Boutton
             GameObject newButton = Instantiate(gridButtonPrefab, countainer);
+            if(!newPreview.unlocked)
+                newButton.GetComponent<Image>().color = Color.gray;
             newButton.GetComponent<Image>().sprite = newPreview.icon;
             newButton.GetComponentInChildren<Text>().text = newPreview.displayName;
 
@@ -165,6 +167,8 @@ public class LoadoutTab : MonoBehaviour
                 EquipablePreview currentPreview = newPreview;
                 GameObject currentButton = newButton;
                 preview.DisplayPreview(currentPreview);
+                if (!equipButton.gameObject.activeSelf)
+                    equipButton.gameObject.SetActive(true);
                 equipButton.onClick.RemoveAllListeners();
                 if (!currentPreview.unlocked)
                 {
@@ -174,10 +178,10 @@ public class LoadoutTab : MonoBehaviour
                 }
                 else
                 {
+                    equipButton.image.color = Color.white;
+                    equipButton.GetComponentInChildren<Text>().text = "EQUIP";
                     equipButton.onClick.AddListener(delegate ()
                     {
-                        if (!equipButton.gameObject.activeSelf)
-                            equipButton.gameObject.SetActive(true);
                         ClearFocus();
                         currentButton.GetComponent<Image>().color = Color.red;  // A changer
                         loadout.Equip(currentPreview);
@@ -189,8 +193,6 @@ public class LoadoutTab : MonoBehaviour
 
     private void GoToShop()
     {
-        if (!equipButton.gameObject.activeSelf)
-            equipButton.gameObject.SetActive(true);
         ClearFocus();
         Scenes.LoadAsync(ShopMenu.SCENENAME, UnityEngine.SceneManagement.LoadSceneMode.Additive);
         //LoadingScreen.TransitionTo(ShopMenu.SCENENAME, null); // A changer pour additif
