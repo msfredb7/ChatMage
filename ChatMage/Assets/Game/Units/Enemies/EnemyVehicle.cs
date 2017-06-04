@@ -4,6 +4,10 @@ using UnityEngine;
 
 public abstract class EnemyVehicle : Vehicle, IAttackable
 {
+    [Header("Enemy Vehicle")]
+    public bool useTurnSpeed;
+    public float turnSpeed = 150;
+
     protected bool tryToStayAtTargetPosition = false;
     protected Vector2 targetPosition;
     protected bool goingToTargetPosition = false;
@@ -17,42 +21,54 @@ public abstract class EnemyVehicle : Vehicle, IAttackable
         goingToTargetPosition = false;
     }
 
-    public void GoAndStayAtPosition(Vector2 position)
+    public void GoAndStayAtPosition(Vector2 position, bool fixedUpdate = false)
     {
         targetPosition = position;
         tryToStayAtTargetPosition = true;
+        goingToTargetPosition = true;
     }
 
-    public void GotoPosition(Vector2 position)
+    public void GotoPosition(Vector2 position, bool fixedUpdate = false)
     {
         targetPosition = position;
         tryToStayAtTargetPosition = false;
+        goingToTargetPosition = true;
     }
 
-    public void GotoDirection(float direction)
+    public void GotoDirection(float direction, bool fixedUpdate = false)
     {
         EngineOn();
         goingToTargetPosition = false;
-        SetDirection(direction);
+        TurnToDirection(direction, fixedUpdate);
     }
 
-    public void GotoDirection(Vector2 direction)
+    public void GotoDirection(Vector2 direction, bool fixedUpdate = false)
     {
-        GotoDirection(VectorToAngle(direction));
+        GotoDirection(VectorToAngle(direction), fixedUpdate);
     }
     #endregion
 
     #region Internal Move Methods
-    protected void SetDirection(float direction)
+    public void TurnToDirection(float direction, bool fixedUpdate = false)
     {
-        if (rotationSetsTargetDirection)
-            Rotation = direction;
+        if (useTurnSpeed)
+        {
+            if (rotationSetsTargetDirection)
+                Rotation = Mathf.MoveTowardsAngle(Rotation, direction, turnSpeed * (fixedUpdate ? FixedDeltaTime() : DeltaTime()));
+            else
+                targetDirection = Mathf.MoveTowardsAngle(targetDirection, direction, turnSpeed * (fixedUpdate ? FixedDeltaTime() : DeltaTime()));
+        }
         else
-            targetDirection = direction;
+        {
+            if (rotationSetsTargetDirection)
+                Rotation = direction;
+            else
+                targetDirection = direction;
+        }
     }
-    protected void SetDirection(Vector2 direction)
+    public void TurnToDirection(Vector2 direction, bool fixedUpdate = false)
     {
-        SetDirection(VectorToAngle(direction));
+        TurnToDirection(VectorToAngle(direction), fixedUpdate);
     }
 
     protected override void FixedUpdate()
@@ -67,7 +83,7 @@ public abstract class EnemyVehicle : Vehicle, IAttackable
                 // Going to
                 EngineOn();
 
-                SetDirection(targetPosition - rb.position);
+                TurnToDirection(targetPosition - rb.position, true);
             }
             else
             {

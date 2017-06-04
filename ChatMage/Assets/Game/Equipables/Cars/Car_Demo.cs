@@ -40,7 +40,7 @@ public class Car_Demo : Car
 
     public override void OnGameReady()
     {
-        player.vehicle.moveSpeed = moveSpeed;
+        player.vehicle.MoveSpeed = moveSpeed;
     }
 
     public override void OnGameStarted()

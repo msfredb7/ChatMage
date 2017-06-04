@@ -1,4 +1,4 @@
-﻿using FullSerializer;
+using FullSerializer;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,7 +31,7 @@ public class Car_Moto : Car
     public override void OnGameReady()
     {
         player.vehicle.useWeight = false;
-        player.vehicle.moveSpeed = moveSpeed;
+        player.vehicle.MoveSpeed = moveSpeed;
     }
 
     public override void OnGameStarted()

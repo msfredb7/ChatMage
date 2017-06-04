@@ -1,4 +1,4 @@
-﻿using CCC.Utility;
+using CCC.Utility;
 using FullSerializer;
 using System.Collections;
 using System.Collections.Generic;
@@ -41,7 +41,7 @@ public class Car_Rocket : Car
                     player.vehicle.wheelsOnTheGround.Unlock("rocket");
 
                     // Vitesse initiale au max
-                    player.vehicle.moveSpeed = maxSpeed;
+                    player.vehicle.MoveSpeed = maxSpeed;
                 }
                 wasTurning = false;
             }
@@ -81,7 +81,7 @@ public class Car_Rocket : Car
     public override void OnGameReady()
     {
         player.vehicle.weight = rocketWeight;
-        player.vehicle.moveSpeed = maxSpeed;
+        player.vehicle.MoveSpeed = maxSpeed;
         wasAccelerating = false;
         wasTurning = false;
         firstime = true;
@@ -103,13 +103,13 @@ public class Car_Rocket : Car
         if (player.vehicle.canMove)
         {
             // On réduit ca vitesse graduellement
-            float speedReduction = (player.vehicle.moveSpeed - minSpeed) / (FPSCounter.GetFPS() * boostDuration);
-            if ((player.vehicle.moveSpeed - speedReduction) > (minSpeed + intervalFromMinimum))
-                player.vehicle.moveSpeed -= speedReduction;
+            float speedReduction = (player.vehicle.MoveSpeed - minSpeed) / (FPSCounter.GetFPS() * boostDuration);
+            if ((player.vehicle.MoveSpeed - speedReduction) > (minSpeed + intervalFromMinimum))
+                player.vehicle.MoveSpeed -= speedReduction;
             else // Si le vehicule a atteint sa vitesse minimum
             {
                 // On immobilise le véhicule
-                player.vehicle.moveSpeed = minSpeed;
+                player.vehicle.MoveSpeed = minSpeed;
                 player.vehicle.canMove.LockUnique("rocket");
                 player.vehicle.wheelsOnTheGround.Unlock("rocket");
                 wasAccelerating = false;
@@ -131,7 +131,7 @@ public class Car_Rocket : Car
     void UpdateAcceleration()
     {
         // Si on est proche d'être à la vitesse minimum
-        if (player.vehicle.moveSpeed < (maxSpeed - minSpeed) / startRotatingRatio)
+        if (player.vehicle.MoveSpeed < (maxSpeed - minSpeed) / startRotatingRatio)
         {
             if (!wasAccelerating)
             {

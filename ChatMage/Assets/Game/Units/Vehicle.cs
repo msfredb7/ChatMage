@@ -7,7 +7,21 @@ using CCC.Utility;
 public abstract class Vehicle : MovingUnit
 {
     [Header("Vehicle")]
-    public float moveSpeed = 1;
+    [SerializeField]
+    private float moveSpeed = 1;
+    public float MoveSpeed
+    {
+        set
+        {
+            moveSpeed = value;
+            if (currentMoveSpeed != 0)
+                currentMoveSpeed = moveSpeed;
+        }
+        get
+        {
+            return moveSpeed;
+        }
+    }
     public float targetDirection;
     public bool rotationSetsTargetDirection = false;
     public bool useWeight;
@@ -53,14 +67,14 @@ public abstract class Vehicle : MovingUnit
         if (rotationSetsTargetDirection)
         {
             Vector3 forward = tr.right;
-            targetDirection =  VectorToAngle(forward);
+            targetDirection = VectorToAngle(forward);
         }
 
         UpdateBumpTime();
 
         if (wheelsOnTheGround)
             GroundedUpdate();
-        
+
         base.FixedUpdate();
     }
 
@@ -96,7 +110,7 @@ public abstract class Vehicle : MovingUnit
         else
             Speed = vDir;
     }
-    
+
     public void Bump(Vector2 velocity, float duration, BumpMode bumpMode)
     {
         switch (bumpMode)
@@ -131,7 +145,7 @@ public abstract class Vehicle : MovingUnit
     public static float VectorToAngle(Vector2 dir)
     {
         if (dir.x < 0)
-            return Mathf.Atan(dir.y / dir.x)* Mathf.Rad2Deg + 180;
+            return Mathf.Atan(dir.y / dir.x) * Mathf.Rad2Deg + 180;
         return Mathf.Atan(dir.y / dir.x) * Mathf.Rad2Deg;
     }
     public static Vector2 AngleToVector(float angle)

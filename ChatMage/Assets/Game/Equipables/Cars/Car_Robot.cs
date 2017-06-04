@@ -56,7 +56,7 @@ public class Car_Robot : Car
 
     public override void OnGameReady()
     {
-        player.vehicle.moveSpeed = moveSpeed;
+        player.vehicle.MoveSpeed = moveSpeed;
         player.vehicle.useWeight = false;
     }
 

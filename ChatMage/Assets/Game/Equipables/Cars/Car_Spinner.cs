@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -136,7 +136,7 @@ public class Car_Spinner : Car
     public override void OnGameReady()
     {
         // On reset toute au cas ou
-        player.vehicle.moveSpeed = moveSpeed;
+        player.vehicle.MoveSpeed = moveSpeed;
         listenningLeft = false;
         listenningRight = false;
         spinning = false;

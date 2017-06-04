@@ -8,6 +8,7 @@ public class LS_DemoDragRace : LevelScript
 {
     public bool followPlayer = false;
     public GourdinierVehicle gourdinier;
+    public TirRocheVehicle tirRoche;
     PlayerController player;
 
     [fsIgnore]
@@ -21,7 +22,7 @@ public class LS_DemoDragRace : LevelScript
         queue.AddUI("Countdown", (x) => countdownUI = x);
         queue.AddUI("Outro", (x) => outroUI = x);
 
-        Game.instance.SetDefaultBorders(false, 0, false, 0);
+        Game.instance.SetDefaultBorders(true, 0, true, 0);
     }
 
     public override void ReceiveEvent(string message)
@@ -48,7 +49,7 @@ public class LS_DemoDragRace : LevelScript
     protected override void OnGameStarted()
     {
         Game.instance.gameBounds.EnableAll();
-        Game.instance.SpawnUnit(gourdinier, Vector2.left * 5);
+        Game.instance.SpawnUnit(tirRoche, Vector2.left * 5);
         //events.SpawnEntitySpreadTime(dodger, 100, Waypoint.WaypointType.enemySpawn, 35, true);
 
         events.UnLockPlayer();
@@ -58,6 +59,6 @@ public class LS_DemoDragRace : LevelScript
     protected override void OnUpdate()
     {
         if(Input.GetKeyDown(KeyCode.S))
-            Game.instance.SpawnUnit(gourdinier, Vector2.left * 5);
+            Game.instance.SpawnUnit(tirRoche, Vector2.left * 5);
     }
 }

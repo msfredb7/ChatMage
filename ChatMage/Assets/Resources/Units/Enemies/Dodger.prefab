@@ -130,6 +130,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a26198f687662654494323eccf9b4bc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _objectReferences: []
+  _serializedStateKeys:
+  - moveState
+  - currentDirection
+  _serializedStateValues:
+  - '"Custom"'
+  - '"right"'
+  moveState: 0
   minDodgeDelay: 1
   maxDodgeDelay: 2
   minShootDelay: 4
@@ -160,7 +168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allegiance: 2
-  mightMove: 1
+  canUseBorder: 1
   unitWidth: 0.45
   horizontalBound: 0
   horizontalBorderWidth: 0
@@ -171,6 +179,8 @@ MonoBehaviour:
   rotationSetsTargetDirection: 0
   useWeight: 1
   weight: 0.35
+  useTurnSpeed: 0
+  turnSpeed: 0
   visualAspect: {fileID: 1506230730778840}
   projectilePrefab: {fileID: 114118608437473210, guid: 6d251e00ba775f44197c14ae89063249,
     type: 2}

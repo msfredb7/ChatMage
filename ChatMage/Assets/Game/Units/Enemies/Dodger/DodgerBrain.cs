@@ -1,7 +1,8 @@
-﻿using CCC.Manager;
+using CCC.Manager;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class DodgerBrain : EnemyBrain<DodgerVehicle>
 {
@@ -52,6 +53,16 @@ public class DodgerBrain : EnemyBrain<DodgerVehicle>
                 currentDirection = Direction.right;
                 break;
         }
-        DelayManager.LocalCallTo(ChangeDirection, Random.Range(minDodgeDelay, maxDodgeDelay),this);
+        DelayManager.LocalCallTo(ChangeDirection, UnityEngine.Random.Range(minDodgeDelay, maxDodgeDelay),this);
+    }
+
+    protected override void UpdatePlayer()
+    {
+        throw new NotImplementedException();
+    }
+
+    protected override void UpdateNoPlayer()
+    {
+        throw new NotImplementedException();
     }
 }

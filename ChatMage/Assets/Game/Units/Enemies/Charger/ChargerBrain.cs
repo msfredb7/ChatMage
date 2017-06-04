@@ -15,4 +15,14 @@ public class ChargerBrain : EnemyBrain<ChargerVehicle>
     {
         vehicle.ChargePlayer();
 	}
+
+    protected override void UpdatePlayer()
+    {
+        throw new NotImplementedException();
+    }
+
+    protected override void UpdateNoPlayer()
+    {
+        throw new NotImplementedException();
+    }
 }
