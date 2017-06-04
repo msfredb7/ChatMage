@@ -1,8 +1,10 @@
 using CCC.Manager;
+using CompleteProject;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Advertisements;
+using UnityEngine.UI;
 
 public class ShopMenu : MonoBehaviour
 {
@@ -10,6 +12,10 @@ public class ShopMenu : MonoBehaviour
 
     public GameObject deactivateScenePanel;
     public Armory armory;
+
+    public Button smallLootbox;
+    public Button mediumLootbox;
+    public Button largeLootbox;
 
     void Start()
     {
@@ -21,28 +27,62 @@ public class ShopMenu : MonoBehaviour
     {
         if (Account.instance == null)
             Scenes.Load("MainMenu");
+        smallLootbox.onClick.AddListener(delegate() { BuyLootBox(LootBox.LootBoxType.small); });
+        mediumLootbox.onClick.AddListener(delegate () { BuyLootBox(LootBox.LootBoxType.medium); });
+        largeLootbox.onClick.AddListener(delegate () { BuyLootBox(LootBox.LootBoxType.large); });
     }
 
-    public void BuyLootBox()
+    public void BuyLootBox(LootBox.LootBoxType type)
     {
-        // Animation apparition Lootbox
-
-        new LootBox(armory, LootBox.LootBoxType.small, delegate(List<EquipablePreview> rewards) {
-            // Disparition du Lootbox
-            for (int i = 0; i < rewards.Count; i++)
+        PopUpMenu.ShowOKPopUpMenu("Are you sure you want to buy a " + type + " lootbox ?", delegate ()
+        {
+            // Animation apparition Lootbox
+            switch (type)
             {
-                // Afficher recompense ?
-                //rewards[i]
+                case LootBox.LootBoxType.small:
+                    new LootBox(armory, LootBox.LootBoxType.small, delegate (List<EquipablePreview> rewards) {
+                        // Disparition du Lootbox
+                        for (int i = 0; i < rewards.Count; i++)
+                        {
+                            // Afficher recompense ?
+                            //rewards[i]
+                        }
+                    });
+                    break;
+                case LootBox.LootBoxType.medium:
+                    new LootBox(armory, LootBox.LootBoxType.medium, delegate (List<EquipablePreview> rewards) {
+                        // Disparition du Lootbox
+                        for (int i = 0; i < rewards.Count; i++)
+                        {
+                            // Afficher recompense ?
+                            //rewards[i]
+                        }
+                    });
+                    break;
+                case LootBox.LootBoxType.large:
+                    new LootBox(armory, LootBox.LootBoxType.large, delegate (List<EquipablePreview> rewards) {
+                        // Disparition du Lootbox
+                        for (int i = 0; i < rewards.Count; i++)
+                        {
+                            // Afficher recompense ?
+                            //rewards[i]
+                        }
+                    });
+                    break;
             }
         });
     }
 
+    // TODO: Deplacer dans loadout tab item
     public void BuySlots()
     {
-        if((Account.instance.GetMoney() - 10) < 0)
-            PopUpMenu.ShowOKPopUpMenu("You don't have enough money. Open loot boxes or win levels to gain money. See you later!");
-        else
-            armory.BuyItemSlots(1, -10);
+        PopUpMenu.ShowOKPopUpMenu("Are you sure you want to buy an extra slots for items ?", delegate ()
+        {
+            if ((Account.instance.GetMoney() - 10) < 0)
+                PopUpMenu.ShowOKPopUpMenu("You don't have enough money. Open loot boxes or win levels to gain money. See you later!");
+            else
+                armory.BuyItemSlots(1, -10);
+        });
     }
 
     public void GetMoney()
@@ -50,14 +90,14 @@ public class ShopMenu : MonoBehaviour
         Account.instance.ChangeMoney(10);
     }
 
+    public void BuyMoney(int amount)
+    {
+        GetComponent<Purchaser>().BuyConsumable(amount);
+    }
+
     public void BackButton()
     {
         Scenes.UnloadAsync(SCENENAME);
-    }
-
-    public void LoadScene(string name)
-    {
-        LoadingScreen.TransitionTo(name, null);
     }
 
     public void ShowRewardedAd()

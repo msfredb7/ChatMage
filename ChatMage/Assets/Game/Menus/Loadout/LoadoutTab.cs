@@ -230,6 +230,8 @@ public class LoadoutTab : MonoBehaviour
 
     public void PanelOutro(TweenCallback callback)
     {
+        loadout.backButton.interactable = false;
+        loadout.nextButton.interactable = false;
         title.DOFade(0, transitionDuration);
         Tween animation = panel.gameObject.GetComponent<RectTransform>().DOMoveX(exitX, transitionDuration);
         animation.OnComplete(callback);
@@ -244,6 +246,8 @@ public class LoadoutTab : MonoBehaviour
         title.DOFade(1, transitionDuration);
         panel.gameObject.GetComponent<RectTransform>().position = new Vector2(introX, panel.GetComponent<RectTransform>().position.y);
         Tween animation = panel.gameObject.GetComponent<RectTransform>().DOMoveX(startX, transitionDuration);
+        loadout.backButton.interactable = true;
+        loadout.nextButton.interactable = true;
         animation.OnComplete(callback);
     }
 
