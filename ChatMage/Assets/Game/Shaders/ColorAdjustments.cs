@@ -35,7 +35,9 @@ public class ColorAdjustments : MonoBehaviour
         hsvShader = Shader.Find(SHADERNAME);
         if (hsvShader == null)
             throw new System.Exception("Could not find the shader: " + SHADERNAME);
+        
         GetComponent<Image>().material = new Material(hsvShader);
+        Apply();
     }
 
     public void Verify()
