@@ -47,7 +47,7 @@ public class FixedLerp
 
     public static float Fix(float lerpAmount, float customFPS)
     {
-        return 1 - Mathf.Pow(1 - lerpAmount, defaultFPS / customFPS);
+        return 1 - Mathf.Pow(1 - Mathf.Min(lerpAmount,1), defaultFPS / customFPS);
     }
 
     //public static float UnscaledFix(float lerpAmount)

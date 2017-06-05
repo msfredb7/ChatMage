@@ -24,18 +24,17 @@ public class PlayerStats : PlayerComponent, IAttackable
     [NonSerialized]
     public StatInt backDamage = new StatInt(1, 0, int.MaxValue, BoundMode.Cap);
 
-    //À quel vitesse le smash s'unlock-t-il
+    //ï¿½ quel vitesse le smash s'unlock-t-il
     [NonSerialized]
     public StatInt smashRefreshRate = new StatInt(1, 0, int.MaxValue, BoundMode.Cap);
 
-    //À combien de % est-ce que le cooldown se reset
+    //ï¿½ combien de % est-ce que le cooldown se reset
     [NonSerialized]
     public StatFloat smashCooldownRate = new StatFloat(1, 0, float.MaxValue, BoundMode.Cap);
 
     public bool damagable = true;
     public bool isVisible = true; // TODO
-
-    public event SimpleEvent onDeath;
+    
     public event SimpleEvent onHit;
     public event SimpleEvent onRegen;
 
@@ -47,7 +46,7 @@ public class PlayerStats : PlayerComponent, IAttackable
         if (!damagable)
             return health + armor;
 
-        //Calculate damage taken. Passe à travers tous les equipables.
+        //Calculate damage taken. Passe ï¿½ travers tous les equipables.
         if (controller.playerDriver.Car is IAttackable)
             amount = (controller.playerDriver.Car as IAttackable).Attacked(on, amount, source);
         if (controller.playerSmash.Smash is IAttackable)

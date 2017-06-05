@@ -8,16 +8,9 @@ using CCC.Utility;
 public class Car_Robot : Car
 {
     //NE PAS MODIFIER IN-GAME
-    public float turnClutch = 0;
-    public float turnAcceleration = 5;
-    public float turnSpeed = 185;
     public float moveSpeed = 6;
     public float changeDirectionCooldown = 0.25f;
 
-    [fsIgnore]
-    float horizontal = 0;
-    [fsIgnore]
-    float lastHorizontal = 0;
     [fsIgnore]
     float cooldown = 0; 
 

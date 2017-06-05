@@ -9,12 +9,14 @@ public class ChainChomp : Unit
     public Rigidbody2D anchor;
     public Rigidbody2D followingBall;
     public Rigidbody2D realBall;
+    public Rigidbody2D fistBallLink;
     public SimpleColliderListener colliderListener;
     public int hitDamage = 1;
     public GameObject container;
 
     private bool teleported = false;
     private Transform target;
+    private Vector2 oldBallVel = Vector2.zero;
 
     protected override void Awake()
     {
@@ -74,7 +76,16 @@ public class ChainChomp : Unit
         if (target != null)
             anchor.MovePosition(target.position);
 
+        float angle = 0;
+        float strength = 0.05f * Math.Min(realBall.velocity.sqrMagnitude, 2);
+
+        angle = Vehicle.VectorToAngle(realBall.position - fistBallLink.position) + 90;
+
+        realBall.rotation = Mathf.LerpAngle(realBall.rotation, angle, FixedLerp.FixedFix(strength));
+
+
         followingBall.MovePosition(realBall.position);
+        oldBallVel = realBall.velocity;
     }
 
     void OnPlayerTeleport(Unit player, Vector2 delta)
