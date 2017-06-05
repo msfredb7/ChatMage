@@ -53,7 +53,7 @@ public class SmashBall : Unit, IAttackable
         Destroy(gameObject);
     }
 
-    public int Attacked(ColliderInfo on, int amount, MonoBehaviour source)
+    public int Attacked(ColliderInfo on, int amount, Unit otherUnit, ColliderInfo source = null)
     {
         hp--;
 

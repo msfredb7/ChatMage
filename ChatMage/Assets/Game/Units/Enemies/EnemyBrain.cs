@@ -22,7 +22,7 @@ public abstract class EnemyBrain<T> : EnemyBrain where T : EnemyVehicle
             throw new Exception("Could not find vehicle of type: " + typeof(T).ToString());
         base.Start();
     }
-    protected override EnemyVehicle Vehicle
+    protected override EnemyVehicle myVehicle
     {
         get
         {
@@ -44,7 +44,7 @@ public abstract class EnemyBrain : BaseBehavior
     protected virtual void Start()
     {
         player = Game.instance.Player;
-        Vehicle.Stop();
+        myVehicle.Stop();
     }
 
     void Update()
@@ -55,7 +55,7 @@ public abstract class EnemyBrain : BaseBehavior
         noPlayerOnThisFrame = player == null || !player.playerStats.isVisible || player.playerStats.isDead || !player.gameObject.activeSelf;
 
         if (!noPlayerOnThisFrame)
-            meToPlayer = player.vehicle.Position - Vehicle.Position;
+            meToPlayer = player.vehicle.Position - myVehicle.Position;
 
         if (noPlayerOnThisFrame)
             UpdateNoPlayer();
@@ -63,14 +63,14 @@ public abstract class EnemyBrain : BaseBehavior
             UpdatePlayer();
 
         if (currentBehavior != null)
-            currentBehavior.Update(player, Vehicle.DeltaTime());
+            currentBehavior.Update(player, myVehicle.DeltaTime());
 
-        forcedInStateDuration -= Vehicle.DeltaTime();
+        forcedInStateDuration -= myVehicle.DeltaTime();
     }
 
     protected abstract void UpdatePlayer();
     protected abstract void UpdateNoPlayer();
-    protected abstract EnemyVehicle Vehicle { get; }
+    protected abstract EnemyVehicle myVehicle { get; }
 
     public bool IsForcedIntoState { get { return forcedInStateDuration > 0; } }
 
@@ -160,31 +160,31 @@ public abstract class EnemyBrain : BaseBehavior
 
     protected virtual EnemyBehavior NewFleeBehavior()
     {
-        return new FleeBehavior(Vehicle);
+        return new FleeBehavior(myVehicle);
     }
 
     protected virtual EnemyBehavior NewFollowBehavior()
     {
-        return new FollowBehavior(Vehicle);
+        return new FollowBehavior(myVehicle);
     }
 
     protected virtual EnemyBehavior NewPanicBehaviour()
     {
-        return new PanicBehavior(Vehicle);
+        return new PanicBehavior(myVehicle);
     }
 
     protected virtual EnemyBehavior NewWanderBehavior()
     {
-        return new WanderBehavior(Vehicle);
+        return new WanderBehavior(myVehicle);
     }
 
     protected virtual EnemyBehavior NewIdleBehavior()
     {
-        return new IdleBehavior(Vehicle);
+        return new IdleBehavior(myVehicle);
     }
 
     protected virtual EnemyBehavior NewLookPlayerBehavior()
     {
-        return new LookPlayerBehavior(Vehicle);
+        return new LookPlayerBehavior(myVehicle);
     }
 }

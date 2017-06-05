@@ -59,7 +59,7 @@ public class ChainChomp : Unit
 
             IAttackable attackable = other.parentUnit.GetComponent<IAttackable>();
             if (attackable != null)
-                attackable.Attacked(other, hitDamage * Game.instance.Player.playerStats.damageMultiplier, this);
+                attackable.Attacked(other, hitDamage * Game.instance.Player.playerStats.damageMultiplier, this, listener.info);
         }
     }
 

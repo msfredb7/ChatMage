@@ -104,7 +104,7 @@ public class GourdinierAnimator : MonoBehaviour
             IAttackable attackable = other.parentUnit.GetComponent<IAttackable>();
             if (attackable != null)
             {
-                attackable.Attacked(other, 1, this);
+                attackable.Attacked(other, 1, vehicle, listener.info);
                 hasHitInThisAttack = true;
 
                 //Bump

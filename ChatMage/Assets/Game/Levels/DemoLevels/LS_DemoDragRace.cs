@@ -9,6 +9,7 @@ public class LS_DemoDragRace : LevelScript
     public bool followPlayer = false;
     public GourdinierVehicle gourdinier;
     public TirRocheVehicle tirRoche;
+    public ShielderVehicle shielder;
     PlayerController player;
 
     [fsIgnore]
@@ -59,6 +60,6 @@ public class LS_DemoDragRace : LevelScript
     protected override void OnUpdate()
     {
         if(Input.GetKeyDown(KeyCode.S))
-            Game.instance.SpawnUnit(tirRoche, Vector2.left * 5);
+            Game.instance.SpawnUnit(shielder, Vector2.left * 5);
     }
 }

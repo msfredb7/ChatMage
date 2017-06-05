@@ -44,7 +44,7 @@ public class PlayerCarTriggers : PlayerComponent
         if (attackable == null)
             return;
 
-        HitUnit(other.parentUnit, attackable, side, other, listener.info);
+        HitUnit(other.parentUnit, attackable, side, other, listener);
     }
 
     private void MasterTriggerListener_onTriggerEnter(ColliderInfo other, ColliderListener listener)//Unit unit, RemoteTriggerListener source, GameObject other)
@@ -60,10 +60,10 @@ public class PlayerCarTriggers : PlayerComponent
         if (attackable == null)
             return;
 
-        HitUnit(other.parentUnit, attackable, trigger, other, listener.info);
+        HitUnit(other.parentUnit, attackable, trigger, other, listener);
     }
 
-    private void HitUnit(Unit unit, IAttackable attackable, CarSide side, ColliderInfo on, MonoBehaviour source)
+    private void HitUnit(Unit unit, IAttackable attackable, CarSide side, ColliderInfo other, ColliderListener listener)
     {
         if (onHitUnit != null)
         {
@@ -89,7 +89,7 @@ public class PlayerCarTriggers : PlayerComponent
         damage *= controller.playerStats.damageMultiplier;
         if (damage > 0)
         {
-            attackable.Attacked(on, damage, source);
+            attackable.Attacked(other, damage, controller.vehicle, listener.info);
         }
     }
 

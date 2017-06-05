@@ -65,7 +65,7 @@ public class TirRocheVehicle : EnemyVehicle
 
     }
 
-    public override int Attacked(ColliderInfo on, int amount, MonoBehaviour source)
+    public override int Attacked(ColliderInfo on, int amount, Unit unit, ColliderInfo source = null)
     {
         if (amount <= 0)
             return 1;

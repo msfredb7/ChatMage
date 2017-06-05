@@ -15,7 +15,7 @@ public class ChargerVehicle : EnemyVehicle
         if (aboutToDie)
             return;
         if (info.parentUnit.gameObject == Game.instance.Player.gameObject)
-            Game.instance.Player.playerStats.Attacked(info, 1, this);
+            Game.instance.Player.playerStats.Attacked(info, 1, this, listener.info);
     }
 
     public void ChargePlayer()
@@ -37,24 +37,15 @@ public class ChargerVehicle : EnemyVehicle
         Destroy(gameObject);
     }
 
-    public override int Attacked(ColliderInfo on, int amount, MonoBehaviour source)
+    public override int Attacked(ColliderInfo on, int amount, Unit unit, ColliderInfo source = null)
     {
         if (aboutToDie)
             return 0;
 
-        if (Game.instance.Player != null)
+        IAttackable attackable = unit.GetComponent<IAttackable>();
+        if (attackable != null)
         {
-            ColliderInfo playerCol = null;
-            if (source is ColliderInfo)
-                playerCol = source as ColliderInfo;
-            else
-            {
-                playerCol = Game.instance.Player.playerCarTriggers.frontTrig.info;
-                Debug.LogWarning("�a serait meilleur si la source �tait le colliderlistener du char." +
-                    " Je suis oblig� de mettre 'front' arbitrairement.");
-            }
-
-            Game.instance.Player.playerStats.Attacked(playerCol, 1, this);
+            attackable.Attacked(source, 1, this, on);
         }
 
         aboutToDie = true;

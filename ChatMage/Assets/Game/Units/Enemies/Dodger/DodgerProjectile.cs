@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,7 +10,7 @@ public class DodgerProjectile : Unit {
     {
         if (info.parentUnit.gameObject == Game.instance.Player.gameObject)
         {
-            Game.instance.Player.playerStats.Attacked(info, 1, this);
+            Game.instance.Player.playerStats.Attacked(info, 1, this, listener.info);
             Destroy(gameObject);
         }
     }

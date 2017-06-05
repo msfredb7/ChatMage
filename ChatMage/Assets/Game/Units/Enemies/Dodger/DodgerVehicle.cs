@@ -73,7 +73,7 @@ public class DodgerVehicle : EnemyVehicle
         Destroy(gameObject);
     }
 
-    public override int Attacked(ColliderInfo on, int amount, MonoBehaviour source)
+    public override int Attacked(ColliderInfo on, int amount, Unit unit, ColliderInfo source = null)
     {
         Die();
         return 0;

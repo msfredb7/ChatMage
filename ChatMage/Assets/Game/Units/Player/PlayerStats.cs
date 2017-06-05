@@ -41,22 +41,22 @@ public class PlayerStats : PlayerComponent, IAttackable
     [System.NonSerialized]
     public bool isDead = false;
 
-    public int Attacked(ColliderInfo on, int amount, MonoBehaviour source)
+    public int Attacked(ColliderInfo on, int amount, Unit otherUnit, ColliderInfo source = null)
     {
         if (!damagable)
             return health + armor;
 
-        //Calculate damage taken. Passe � travers tous les equipables.
+        //Calculate damage taken. Passe a travers tous les equipables.
         if (controller.playerDriver.Car is IAttackable)
-            amount = (controller.playerDriver.Car as IAttackable).Attacked(on, amount, source);
+            amount = (controller.playerDriver.Car as IAttackable).Attacked(on, amount, otherUnit, source);
         if (controller.playerSmash.Smash is IAttackable)
-            amount = (controller.playerSmash.Smash as IAttackable).Attacked(on, amount, source);
+            amount = (controller.playerSmash.Smash as IAttackable).Attacked(on, amount, otherUnit, source);
 
         for (int i = 0; i < controller.playerItems.items.Count; i++)
         {
             Item item = controller.playerItems.items[i];
             if (item is IAttackable)
-                amount = (item as IAttackable).Attacked(on, amount, source);
+                amount = (item as IAttackable).Attacked(on, amount, otherUnit, source);
         }
 
         //Do nothing if damage <= 0
