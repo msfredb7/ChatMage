@@ -60,6 +60,6 @@ public class LS_DemoDragRace : LevelScript
     protected override void OnUpdate()
     {
         if(Input.GetKeyDown(KeyCode.S))
-            Game.instance.SpawnUnit(shielder, Vector2.left * 5);
+            Game.instance.SpawnUnit(tirRoche, Vector2.left * 5);
     }
 }

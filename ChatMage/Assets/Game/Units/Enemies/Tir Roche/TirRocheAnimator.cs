@@ -26,6 +26,7 @@ public class TirRocheAnimator : MonoBehaviour
     public float playerPredictionAccuracy = 0.5f;
     public float armShootX = 1;
     public float armShootDuration = 0.15f;
+    public float maxShootAngle = 50f;
 
     Tween currenTween;
 
@@ -77,15 +78,25 @@ public class TirRocheAnimator : MonoBehaviour
         sq.AppendCallback(delegate ()
         {
             Vector2 v = Vector2.zero;
+            float dist = 0;
             if (target != null)
             {
                 Vector2 delta = (Vector2)target.Position - vehicle.Position;
+
+                float angleFromVehicle = Vehicle.VectorToAngle(delta) - vehicle.Rotation;
+
+                if (Mathf.Abs(angleFromVehicle) > maxShootAngle)
+                    delta = Vehicle.AngleToVector(vehicle.Rotation + Math.Sign(angleFromVehicle) * maxShootAngle) * delta.magnitude;
+
                 Vector2 targetPos = target.Position + (target.Speed * delta.magnitude / projectilePrefab.shootSpeed) * playerPredictionAccuracy;
+
                 v = targetPos - vehicle.Position;
+                dist = v.magnitude;
             }
             else
             {
                 v = vehicle.WorldDirection2D() * defaultShootDistance;
+                dist = v.magnitude;
             }
             Game.instance.SpawnUnit(projectilePrefab, vehicle.Position).Init(v, Math.Min(v.magnitude, maxShootDistance));
             spriteRenderer.color = Color.Lerp(clipEmpty, clipFull, ((float)vehicle.Ammo) / ((float)vehicle.maxAmmo));
