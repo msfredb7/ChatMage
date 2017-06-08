@@ -270,7 +270,7 @@ public class GameSaves : BaseManager<GameSaves>
     [InspectorButton()]
     public void ClearArmory()
     {
-        ClearSave(Type.Account);
+        ClearSave(Type.Armory);
 #if UNITY_EDITOR
         Debug.Log("Armory Cleared");
 #endif

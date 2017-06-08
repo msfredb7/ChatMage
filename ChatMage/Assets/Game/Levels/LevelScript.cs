@@ -74,7 +74,12 @@ public abstract class LevelScript : BaseScriptableObject
     // End Level Script. WE DO NOT QUIT YET
     public void End(Unit player = null)
     {
-        GameSaves.instance.SetBool(GameSaves.Type.LevelSelect, WINRESULT_KEY, hasWon);
+        //Si le joueur, � gagn�, puis restart, on ne veut pas �cras� sa victoire pr�c�dente.
+        bool result = hasWon || 
+            (GameSaves.instance.ContainsBool(GameSaves.Type.LevelSelect, WINRESULT_KEY)
+            && GameSaves.instance.GetBool(GameSaves.Type.LevelSelect, WINRESULT_KEY));
+
+        GameSaves.instance.SetBool(GameSaves.Type.LevelSelect, WINRESULT_KEY, result);
         GameSaves.instance.SaveData(GameSaves.Type.LevelSelect);
         OnEnd();
     }
