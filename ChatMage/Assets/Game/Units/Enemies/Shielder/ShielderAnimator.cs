@@ -112,7 +112,8 @@ public class ShielderAnimator : MonoBehaviour
         //Deactivate sword trigger IF CANCELLED
         sq.OnKill(delegate ()
         {
-            swordTrigger.enabled = false;
+            if (swordTrigger != null)
+                swordTrigger.enabled = false;
         });
 
         sq.SetUpdate(false).OnComplete(delegate () { isAttacking = false; });

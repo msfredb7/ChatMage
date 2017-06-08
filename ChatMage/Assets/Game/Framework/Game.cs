@@ -60,8 +60,6 @@ public class Game : PublicSingleton<Game>
 
         // Init LevelScript
         currentLevel = level;
-        level.onObjectiveComplete.AddListener(OnObjectiveComplete);
-        level.onObjectiveFailed.AddListener(OnObjectiveFailed);
 
         AddPlayer(player);
 
@@ -102,17 +100,6 @@ public class Game : PublicSingleton<Game>
     public void Quit()
     {
         LoadingScreen.TransitionTo(LevelSelection.SCENENAME, null);
-    }
-
-    private void OnObjectiveComplete()
-    {
-        //Win screen !
-        Quit();
-    }
-    private void OnObjectiveFailed()
-    {
-        // Lose screen !
-        Quit();
     }
 
     #region Unit Managment

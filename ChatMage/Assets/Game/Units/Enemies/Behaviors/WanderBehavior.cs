@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WanderBehavior : EnemyBehavior<EnemyVehicle>
 {
-    const float CHOOSE_INTERVAL = 4f;
+    const float CHOOSE_INTERVAL = 5f;
     const float DISTANCE_MIN = 0.75f;
     const float DISTANCE_MAX = 3.5f;
 
@@ -37,7 +37,7 @@ public class WanderBehavior : EnemyBehavior<EnemyVehicle>
 
             vehicle.GotoPosition(vehicle.Position + randomVector * Random.Range(DISTANCE_MIN, DISTANCE_MAX));
 
-            chooseTimer = CHOOSE_INTERVAL;
+            chooseTimer = Random.Range(CHOOSE_INTERVAL * 0.75f, CHOOSE_INTERVAL * 1.25f);
         }
     }
 }

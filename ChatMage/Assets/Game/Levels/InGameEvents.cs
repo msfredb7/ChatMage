@@ -114,9 +114,9 @@ public class InGameEvents : MonoBehaviour
         AddDelayedAction(delegate () { Time.timeScale = 1; }, timeEnd);
     }
 
-    public GameObject ShowUI(GameObject prefab)
+    public T ShowUI<T>(T prefab) where T : MonoBehaviour
     {
-        return Instantiate(prefab, Game.instance.ui.gameObject.transform);
+        return Instantiate(prefab, Game.instance.ui.gameObject.transform).GetComponent<T>();
     }
 
     public GameObject ShowUIAtLocation(GameObject prefab, Vector2 position)
@@ -338,30 +338,12 @@ public class InGameEvents : MonoBehaviour
         // TODO : A determiner
     }
 
-    public void WinIn(float time)
-    {
-        AddDelayedAction(Win, time);
-    }
-
-    public void LoseIn(float time)
-    {
-        AddDelayedAction(Lose, time);
-    }
-
-    protected void Win()
-    {
-        currentLevel.hasWon = true;
-        currentLevel.End();
-    }
-
-    protected void Lose()
-    {
-        currentLevel.hasWon = false;
-        currentLevel.End();
-    }
-
-    // Outro
-    public void Outro(bool result, GameObject uiPrefab)
+    /// <summary>
+    /// On devrais changer ça. On ne donne pas assez d'information ni de controle au level select avec cette fonction
+    /// Quand on appelle la fonction 'Outro' on ne s'attend pas à ce que le joueur soit locked et invurlnérable nécessairement
+    /// Ça ne serait pas un problème si on était CERTAIN que tous nos outro allait être comme ça parcontre.
+    /// </summary>
+    public void Outro(bool result, GameResultUI uiPrefab)
     {
         LockPlayer();
 
@@ -369,9 +351,9 @@ public class InGameEvents : MonoBehaviour
 
         // Si on a gagner
         if (result)
-            ShowUI(uiPrefab).GetComponent<GameResultUI>().UpdateResult(true, currentLevel);
+            ShowUI(uiPrefab).UpdateResult(true, currentLevel);
         else // Si on a perdu
-            ShowUI(uiPrefab).GetComponent<GameResultUI>().UpdateResult(false, currentLevel);
+            ShowUI(uiPrefab).UpdateResult(false, currentLevel);
     }
 
     #endregion

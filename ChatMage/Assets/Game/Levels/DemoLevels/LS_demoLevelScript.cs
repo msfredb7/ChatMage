@@ -10,93 +10,53 @@ using UnityEngine.UI;
 
 public class LS_demoLevelScript : LevelScript
 {
+    [InspectorHeader("Settings")]
     public float enemySpawnDelay = 4f;
     public float hpSpawnDelay = 8f;
-    public BaseTutorial tutorial;
 
-    [fsIgnore]
-    GameObject countdownUI;
-    [fsIgnore]
-    GameObject outroUI;
-    [fsIgnore]
-    GameObject objectiveUI;
-    [fsIgnore]
-    GameObject tutorialUI;
-    [fsIgnore]
-    Unit charger;
-    [fsIgnore]
-    Unit healthPacks;
+    [InspectorHeader("Units")]
+    public HealthPacks healthPacks;
+    public ShielderVehicle shielder;
 
-    //TRES IMPORTANT DE RESET NOS VARIABLE ICI
+    [InspectorHeader("UI")]
+    public IntroCountdown countdownUI;
+    public GameResultUI outroUI;
+    public ShowObjectives objectiveUI;
+
+    public override void OnInit(Action onComplete)
+    {
+        Game.instance.SetDefaultBorders(true, 0, true, 0);
+        onComplete();
+    }
+
     protected override void OnGameReady()
     {
         events.LockPlayerOnSpawn(90);
 
-        events.WinIn(20);
+        //On fait gagner le joueur dans 20s
+        events.AddDelayedAction(Win, 20);
 
-        events.ShowUI(countdownUI).GetComponent<IntroCountdown>().onCountdownOver.AddListener(Game.instance.StartGame);
+        events.ShowUI(countdownUI).onCountdownOver += Game.instance.StartGame;
 
         // Objective
-        GameObject newObjectiveUI = events.ShowUI(objectiveUI);
-        newObjectiveUI.GetComponent<ShowObjectives>().AddObjective("Survive 20 seconds !");
-
-        // Tutoriel Complexe
-        TutorialLoader.Load(tutorial);
-
-        // Tutoriel Simple
-        GameObject newTutorialUI = events.ShowUIAtLocation(tutorialUI, new Vector2(newObjectiveUI.transform.position.x - 100, newObjectiveUI.transform.position.y - 100));
-        events.AddDelayedAction(delegate () {
-            newTutorialUI.gameObject.SetActive(true);
-            newTutorialUI.GetComponentInChildren<Text>().text = "CURRENT OBJECTIVES ARE SHOWN HERE. COMPLETE THEM AND YOU WIN!";
-            // tu peux acceder a la fleche avec newTutorialUI.GetComponentInChildren<Image>()
-        }, 5);
-        events.AddDelayedAction(delegate () {
-            Destroy(newTutorialUI);
-        }, 8);
+        events.ShowUI(objectiveUI).AddObjective("Survive 20 seconds !");
     }
 
     protected override void OnGameStarted()
     {
+        Game.instance.gameBounds.EnableAll();
         events.UnLockPlayer();
 
-        events.SpawnEntitySpreadTime(charger, 20, Waypoint.WaypointType.enemySpawn, 10, true);
+        events.SpawnEntitySpreadTime(shielder, 20, Waypoint.WaypointType.enemySpawn, 10, true);
         events.SpawnEntitySpreadTime(healthPacks, 20, Waypoint.WaypointType.enemySpawn, 5, true);
     }
 
     protected override void OnUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !LoadingScreen.IsInTransition)
+        if (Input.GetKeyDown(KeyCode.Escape) && !IsOver)
         {
-            if (!isOver)
-            {
-                isOver = true;
-                onObjectiveComplete.Invoke();
-            }
+            Lose();
         }
-        tutorial.Update();
-    }
-
-    public override void OnEnd()
-    {
-        if (isOver)
-            return;
-        isOver = true;
-
-        tutorial.End();
-
-        events.Outro(hasWon, outroUI);
-    }
-
-    public override void OnInit(Action onComplete)
-    {
-        //Pointless. On fait juste les link dans l'inspecteur
-        LoadQueue queue = new LoadQueue(onComplete);
-        queue.AddEnemy("Charger", (x) => charger = x);
-        queue.AddMiscUnit("HealthPacks", (x) => healthPacks = x);
-        queue.AddUI("Countdown", (x) => countdownUI = x);
-        queue.AddUI("Outro", (x) => outroUI = x);
-        queue.AddUI("Objectives", (x) => objectiveUI = x);
-        queue.AddUI("Tutorial", (x) => tutorialUI = x);
     }
 
     public override void ReceiveEvent(string message)
@@ -107,5 +67,15 @@ public class LS_demoLevelScript : LevelScript
                 Debug.LogWarning("Demo level script received an unhandled event: " + message);
                 break;
         }
+    }
+
+    public override void OnWin()
+    {
+        events.Outro(true, outroUI);
+    }
+
+    public override void OnLose()
+    {
+        events.Outro(false, outroUI);
     }
 }

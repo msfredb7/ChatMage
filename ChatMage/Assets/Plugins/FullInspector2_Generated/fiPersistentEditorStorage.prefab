@@ -74,11 +74,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1882f4c6f2d95cb4a85f128142bc451e, type: 2}
   - {fileID: 11400000, guid: ea2da85ae719c8d41a3f5dc30b340bd4, type: 2}
   - {fileID: 11400000, guid: 8158ee834c01fc44b82c857548b48b1c, type: 2}
-  - {fileID: 11400000, guid: b6123b7b25629e342aca1d94c9d254ca, type: 2}
   - {fileID: 114999896915721400, guid: eae74d8b6192dc147a22387c81029a25, type: 2}
   - {fileID: 114931973947917846, guid: 130eff398c5a2174fbc65f36ca70f257, type: 2}
-  - {fileID: 11400000, guid: 7930724541ee71d4f8e6946aa99f6679, type: 2}
-  - {fileID: 11400000, guid: 3ee4dddb64211c54ca41a99fcc233d72, type: 2}
   - {fileID: 114268870885035218, guid: 5ac9a98553fd1314d96a0f0754a53e13, type: 2}
   - {fileID: 11400000, guid: 920f6f159ddd93141b06077c2c0f8191, type: 2}
   - {fileID: 11400000, guid: 014286bfb0da1db4e892b55653b77fa9, type: 2}
@@ -106,6 +103,7 @@ MonoBehaviour:
   - {fileID: 114973831824587870, guid: 90a1293e412776e4db23eb9595fcf924, type: 2}
   - {fileID: 11400000, guid: 5805026d5cd333a4e947df8e4f1771ce, type: 2}
   - {fileID: 114959007032342916, guid: a97b513999cddca448e173580c0c886f, type: 2}
+  - {fileID: 114553881567126272, guid: 09fa02033d35843498d3f034fc19d9f6, type: 2}
   _values:
   - _keys:
     - DefaultBehaviorEditor.locationButton.EditProperty
@@ -218,8 +216,26 @@ MonoBehaviour:
     _values: []
     _target: {fileID: 114217915297566772, guid: db4ce9720bc3fff42a6ca9165f606a3d,
       type: 2}
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.sceneName.EditProperty
+    - DefaultBehaviorEditor.loseOnPlayerDeath.EditProperty
+    - DefaultBehaviorEditor.enemySpawnDelay.EditProperty
+    - DefaultBehaviorEditor.healthPacks.EditProperty
+    - DefaultBehaviorEditor.countdownUI.EditProperty
+    - DefaultBehaviorEditor.outroUI.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
     _target: {fileID: 11400000, guid: fdf791a12b63faa42a4f6380b1b9edb7, type: 2}
   - _keys: []
     _values: []
@@ -248,36 +264,15 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 11400000, guid: 7edab1f3b1b4a3f46857cf9cf6924760, type: 2}
-  - _keys:
-    - DefaultBehaviorEditor.displayName.EditProperty
-    - DefaultBehaviorEditor.hasBeenCompleted.EditProperty
-    _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    _target: {fileID: 11400000, guid: 1882f4c6f2d95cb4a85f128142bc451e, type: 2}
-  - _keys:
-    - DefaultBehaviorEditor.displayName.EditProperty
-    - DefaultBehaviorEditor.hasBeenCompleted.EditProperty
-    _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    _target: {fileID: 11400000, guid: ea2da85ae719c8d41a3f5dc30b340bd4, type: 2}
-  - _keys:
-    - DefaultBehaviorEditor.displayName.EditProperty
-    - DefaultBehaviorEditor.hasBeenCompleted.EditProperty
-    _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    _target: {fileID: 11400000, guid: 8158ee834c01fc44b82c857548b48b1c, type: 2}
   - _keys: []
     _values: []
-    _target: {fileID: 11400000, guid: b6123b7b25629e342aca1d94c9d254ca, type: 2}
+    _target: {fileID: 11400000, guid: 1882f4c6f2d95cb4a85f128142bc451e, type: 2}
+  - _keys: []
+    _values: []
+    _target: {fileID: 11400000, guid: ea2da85ae719c8d41a3f5dc30b340bd4, type: 2}
+  - _keys: []
+    _values: []
+    _target: {fileID: 11400000, guid: 8158ee834c01fc44b82c857548b48b1c, type: 2}
   - _keys: []
     _values: []
     _target: {fileID: 114999896915721400, guid: eae74d8b6192dc147a22387c81029a25,
@@ -298,12 +293,6 @@ MonoBehaviour:
       _serializedIsActive: 1
     _target: {fileID: 114931973947917846, guid: 130eff398c5a2174fbc65f36ca70f257,
       type: 2}
-  - _keys: []
-    _values: []
-    _target: {fileID: 11400000, guid: 7930724541ee71d4f8e6946aa99f6679, type: 2}
-  - _keys: []
-    _values: []
-    _target: {fileID: 11400000, guid: 3ee4dddb64211c54ca41a99fcc233d72, type: 2}
   - _keys: []
     _values: []
     _target: {fileID: 114268870885035218, guid: 5ac9a98553fd1314d96a0f0754a53e13,
@@ -388,18 +377,12 @@ MonoBehaviour:
     _values: []
     _target: {fileID: 114993993309943088, guid: 9618906922a349c4a9a615f516c911c2,
       type: 2}
-  - _keys:
-    - DefaultBehaviorEditor.startAttackRange.EditProperty
-    _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
+  - _keys: []
+    _values: []
     _target: {fileID: 114791420540404272, guid: a77d1fe458ce3364092b759e6508eaed,
       type: 2}
-  - _keys:
-    - DefaultBehaviorEditor.moveState.EditProperty
-    _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
+  - _keys: []
+    _values: []
     _target: {fileID: 114158471552112764, guid: 614b514b3a99bc443913a4ed1ccf442e,
       type: 2}
   - _keys: []
@@ -418,12 +401,13 @@ MonoBehaviour:
     - _showDropdown: 0
       _serializedIsActive: 1
     _target: {fileID: 11400000, guid: 5805026d5cd333a4e947df8e4f1771ce, type: 2}
-  - _keys:
-    - DefaultBehaviorEditor.attackAngle.EditProperty
-    _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
+  - _keys: []
+    _values: []
     _target: {fileID: 114959007032342916, guid: a97b513999cddca448e173580c0c886f,
+      type: 2}
+  - _keys: []
+    _values: []
+    _target: {fileID: 114553881567126272, guid: 09fa02033d35843498d3f034fc19d9f6,
       type: 2}
 --- !u!114 &114891865049736824
 MonoBehaviour:
@@ -458,11 +442,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1882f4c6f2d95cb4a85f128142bc451e, type: 2}
   - {fileID: 11400000, guid: ea2da85ae719c8d41a3f5dc30b340bd4, type: 2}
   - {fileID: 11400000, guid: 8158ee834c01fc44b82c857548b48b1c, type: 2}
-  - {fileID: 11400000, guid: b6123b7b25629e342aca1d94c9d254ca, type: 2}
   - {fileID: 114999896915721400, guid: eae74d8b6192dc147a22387c81029a25, type: 2}
   - {fileID: 114931973947917846, guid: 130eff398c5a2174fbc65f36ca70f257, type: 2}
-  - {fileID: 11400000, guid: 7930724541ee71d4f8e6946aa99f6679, type: 2}
-  - {fileID: 11400000, guid: 3ee4dddb64211c54ca41a99fcc233d72, type: 2}
   - {fileID: 114268870885035218, guid: 5ac9a98553fd1314d96a0f0754a53e13, type: 2}
   - {fileID: 11400000, guid: 920f6f159ddd93141b06077c2c0f8191, type: 2}
   - {fileID: 11400000, guid: 014286bfb0da1db4e892b55653b77fa9, type: 2}
@@ -490,6 +471,7 @@ MonoBehaviour:
   - {fileID: 114973831824587870, guid: 90a1293e412776e4db23eb9595fcf924, type: 2}
   - {fileID: 11400000, guid: 5805026d5cd333a4e947df8e4f1771ce, type: 2}
   - {fileID: 114959007032342916, guid: a97b513999cddca448e173580c0c886f, type: 2}
+  - {fileID: 114553881567126272, guid: 09fa02033d35843498d3f034fc19d9f6, type: 2}
   _values:
   - _keys: []
     _values: []
@@ -562,21 +544,12 @@ MonoBehaviour:
     _target: {fileID: 11400000, guid: 8158ee834c01fc44b82c857548b48b1c, type: 2}
   - _keys: []
     _values: []
-    _target: {fileID: 11400000, guid: b6123b7b25629e342aca1d94c9d254ca, type: 2}
-  - _keys: []
-    _values: []
     _target: {fileID: 114999896915721400, guid: eae74d8b6192dc147a22387c81029a25,
       type: 2}
   - _keys: []
     _values: []
     _target: {fileID: 114931973947917846, guid: 130eff398c5a2174fbc65f36ca70f257,
       type: 2}
-  - _keys: []
-    _values: []
-    _target: {fileID: 11400000, guid: 7930724541ee71d4f8e6946aa99f6679, type: 2}
-  - _keys: []
-    _values: []
-    _target: {fileID: 11400000, guid: 3ee4dddb64211c54ca41a99fcc233d72, type: 2}
   - _keys: []
     _values: []
     _target: {fileID: 114268870885035218, guid: 5ac9a98553fd1314d96a0f0754a53e13,
@@ -664,4 +637,8 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 114959007032342916, guid: a97b513999cddca448e173580c0c886f,
+      type: 2}
+  - _keys: []
+    _values: []
+    _target: {fileID: 114553881567126272, guid: 09fa02033d35843498d3f034fc19d9f6,
       type: 2}

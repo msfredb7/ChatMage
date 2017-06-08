@@ -90,7 +90,7 @@ public abstract class EnemyVehicle : Vehicle, IAttackable
             Vector2 v = targetPosition - rb.position;
 
             //Distance to target ?
-            if (v.magnitude > 0.01f)
+            if (v.magnitude > 0.3f)
             {
                 // Going to
                 EngineOn();

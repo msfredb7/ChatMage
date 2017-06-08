@@ -5,23 +5,44 @@ using UnityEngine;
 
 public class ShielderVehicle : EnemyVehicle
 {
-    [Header("Shielder")]
+    [Header("Shielder Linking")]
     public GameObject shieldGroup;
+    public SimpleColliderListener swordListener;
     public ShielderAnimator animator;
-    public Unit_Event onShieldPhysicalHit;
+
+    [Header("Shielder Settings")]
     public float bumpStrength;
     public float passiveMoveSpeed;
     public float passiveTurnSpeed;
 
+    public Unit_Event onShieldPhysicalHit;
+
     private float battleMoveSpeed;
     private float battleTurnSpeed;
     private bool battleMode = true;
+    private bool hasHit = false;     //Utilis� pour s'assurer qu'on ne double-tap pas les chose avec l'�p�e
 
     protected override void Awake()
     {
         base.Awake();
         battleMoveSpeed = MoveSpeed;
         battleTurnSpeed = turnSpeed;
+        swordListener.OnTriggerEnter += OnSwordHit;
+    }
+
+    public void OnSwordHit(ColliderInfo other, ColliderListener listener)
+    {
+        //Utilis� pour s'assurer qu'on ne double-tap pas les chose avec l'�p�e
+        if (hasHit)
+            return;
+        hasHit = true;
+
+        if(other.parentUnit.allegiance == Allegiance.Ally)
+        {
+            IAttackable attackable = other.parentUnit.GetComponent<IAttackable>();
+            if (attackable != null)
+                attackable.Attacked(other, 1, this, listener.info);
+        }
     }
 
     public override int Attacked(ColliderInfo on, int amount, Unit unit, ColliderInfo source = null)
@@ -61,6 +82,7 @@ public class ShielderVehicle : EnemyVehicle
 
     public void Attack()
     {
+        hasHit = false;
         animator.Attack();
     }
 
@@ -72,7 +94,7 @@ public class ShielderVehicle : EnemyVehicle
             return;
         battleMode = false;
         MoveSpeed = passiveMoveSpeed;
-        turnSpeed = passiveMoveSpeed;
+        turnSpeed = passiveTurnSpeed;
         animator.HideShield();
     }
     public void BattleMode()

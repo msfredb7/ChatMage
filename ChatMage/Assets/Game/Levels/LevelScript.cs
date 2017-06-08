@@ -9,21 +9,14 @@ using FullSerializer;
 public abstract class LevelScript : BaseScriptableObject
 {
     public const string WINRESULT_KEY = "winr";
-    [fsIgnore]
-    public bool hasWon = false;
+
+    [InspectorHeader("Info")]
     public string sceneName;
+    [InspectorHeader("Base Settings")]
+    public bool loseOnPlayerDeath = true;
 
-    public class NextLevel
-    {
-        public int regionNumber;
-        public int levelNumber;
-    }
-
-    [fsIgnore]
-    public UnityEvent onObjectiveComplete = new UnityEvent();
-    [fsIgnore]
-    public UnityEvent onObjectiveFailed = new UnityEvent();
-
+    public event SimpleEvent onWin;
+    public event SimpleEvent onLose;
 
     public bool IsOver { get { return isOver; } }
     [fsIgnore]
@@ -36,7 +29,6 @@ public abstract class LevelScript : BaseScriptableObject
     public void Init(System.Action onComplete, InGameEvents events)
     {
         isOver = false;
-        hasWon = false;
         Game.instance.onGameReady += GameReady;
         Game.instance.onGameStarted += GameStarted;
         this.events = events;
@@ -44,24 +36,23 @@ public abstract class LevelScript : BaseScriptableObject
         OnInit(onComplete);
     }
 
-    public abstract void OnInit(System.Action onComplete);
-
     // Game Ready for Level Script
     public void GameReady()
     {
         OnGameReady();
     }
 
-    protected abstract void OnGameReady();
-
     // Game Started for Level Script
     public void GameStarted()
     {
-        Game.instance.Player.vehicle.onDeath += End;
+        if (loseOnPlayerDeath)
+            Game.instance.Player.vehicle.onDeath += delegate (Unit unit)
+            {
+                Lose();
+            };
+
         OnGameStarted();
     }
-
-    protected abstract void OnGameStarted();
 
     // Update Level Script
     public void Update()
@@ -69,22 +60,42 @@ public abstract class LevelScript : BaseScriptableObject
         OnUpdate();
     }
 
-    protected abstract void OnUpdate();
-
-    // End Level Script. WE DO NOT QUIT YET
-    public void End(Unit player = null)
+    public void Win()
     {
-        //Si le joueur, � gagn�, puis restart, on ne veut pas �cras� sa victoire pr�c�dente.
-        bool result = hasWon || 
-            (GameSaves.instance.ContainsBool(GameSaves.Type.LevelSelect, WINRESULT_KEY)
-            && GameSaves.instance.GetBool(GameSaves.Type.LevelSelect, WINRESULT_KEY));
+        if (IsOver)
+            return;
 
-        GameSaves.instance.SetBool(GameSaves.Type.LevelSelect, WINRESULT_KEY, result);
+        isOver = true;
+
+        //On enregistre la Win
+        GameSaves.instance.SetBool(GameSaves.Type.LevelSelect, WINRESULT_KEY, true);
         GameSaves.instance.SaveData(GameSaves.Type.LevelSelect);
-        OnEnd();
+
+        if (onWin != null)
+            onWin();
+
+        OnWin();
     }
 
-    public abstract void OnEnd();
+    public void Lose()
+    {
+        if (IsOver)
+            return;
+
+        isOver = true;
+
+        if (onLose != null)
+            onLose();
+
+        OnLose();
+    }
+
+    public abstract void OnInit(System.Action onComplete);
+    protected abstract void OnGameReady();
+    protected abstract void OnGameStarted();
+    protected abstract void OnUpdate();
 
     public abstract void ReceiveEvent(string message);
+    public abstract void OnWin();
+    public abstract void OnLose();
 }
