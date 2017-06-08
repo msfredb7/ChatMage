@@ -9,15 +9,20 @@ public class LevelSelection : MonoBehaviour
 {
     public const string SCENENAME = "LevelSelect";
     private const string LASTLEVELSELECTED_KEY = "lls";
+
+    [Header("Linking")]
     public List<LevelSelect_Region> regions;
-    private static List<LevelSelect_Region> previousRegions;
     public Button backButton;
+    public Button shopButton;
     public LevelSelectAnimation backgroundAnimation;
+
+    private static List<LevelSelect_Region> previousRegions;
 
     void Start()
     {
         MasterManager.Sync(OnSync);
         backButton.onClick.AddListener(OnBackClicked);
+        shopButton.onClick.AddListener(OnShopClicked);
     }
 
     void OnSync()
@@ -30,7 +35,11 @@ public class LevelSelection : MonoBehaviour
         if (lastGameResult && GameSaves.instance.ContainsString(GameSaves.Type.LevelSelect, LASTLEVELSELECTED_KEY))
         {
             string lastLevelSelected = GameSaves.instance.GetString(GameSaves.Type.LevelSelect, LASTLEVELSELECTED_KEY);
-            SetAsCompleted(lastLevelSelected);
+            MarkAsCompleted(lastLevelSelected);
+
+            //On le met à false parce qu'on a consommé la win
+            GameSaves.instance.SetBool(GameSaves.Type.LevelSelect, LevelScript.WINRESULT_KEY, false);
+            GameSaves.instance.SaveData(GameSaves.Type.LevelSelect);
         }
 
         //Un peu lourd ? Peut-être qu'on pourrait faire ça AVANT que le loading screen disparaisse (comme Framework)
@@ -98,11 +107,11 @@ public class LevelSelection : MonoBehaviour
         LoadingScreen.TransitionTo(ShopMenu.SCENENAME, new ToShopMessage(SCENENAME));
     }
 
-    private void SetAsCompleted(string levelName)
+    private void MarkAsCompleted(string levelName)
     {
         for (int i = 0; i < regions.Count; i++)
         {
-            if (regions[i].SetAsCompleted(levelName))
+            if (regions[i].MarkAsCompleted(levelName))
                 return;
         }
     }
