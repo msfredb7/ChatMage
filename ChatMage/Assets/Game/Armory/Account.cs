@@ -21,15 +21,17 @@ public class Account : BaseManager<Account> {
         CompleteInit();
     }
 
-    private void OnDestroy()
-    {
-        Save();
-    }
+    //NE PAS FAIRE �A
 
-    private void OnApplicationQuit()
-    {
-        Save();
-    }
+    //private void OnDestroy()
+    //{
+    //    Save();
+    //}
+
+    //private void OnApplicationQuit()
+    //{
+    //    Save();
+    //}
 
     public void Load()
     {

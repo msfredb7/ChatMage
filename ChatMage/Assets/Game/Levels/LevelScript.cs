@@ -10,7 +10,7 @@ public abstract class LevelScript : BaseScriptableObject
 {
     public const string WINRESULT_KEY = "winr";
     [fsIgnore]
-    public bool hasWon;
+    public bool hasWon = false;
     public string sceneName;
 
     public class NextLevel

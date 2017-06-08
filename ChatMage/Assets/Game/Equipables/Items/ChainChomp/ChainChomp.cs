@@ -16,7 +16,6 @@ public class ChainChomp : Unit
 
     private bool teleported = false;
     private Transform target;
-    private Vector2 oldBallVel = Vector2.zero;
 
     protected override void Awake()
     {
@@ -85,7 +84,6 @@ public class ChainChomp : Unit
 
 
         followingBall.MovePosition(realBall.position);
-        oldBallVel = realBall.velocity;
     }
 
     void OnPlayerTeleport(Unit player, Vector2 delta)

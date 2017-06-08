@@ -41,24 +41,14 @@ public class Armory : ScriptableObject
         GameSaves.instance.SetInt(GameSaves.Type.Armory, SLOTS_KEY, itemSlots);
     }
 
-    // TODO: Changer �a. Le code est gros pour rien. Voir: List<T>.AsReadOnly()
-
     public List<EquipablePreview> GetAllEquipables()
     {
-        List<EquipablePreview> result = new List<EquipablePreview>();
-        // Lourd ???
-        for (int i = 0; i < items.Count; i++)
-        {
-            result.Add(items[i]);
-        }
-        for (int i = 0; i < cars.Count; i++)
-        {
-            result.Add(cars[i]);
-        }
-        for (int i = 0; i < smashes.Count; i++)
-        {
-            result.Add(smashes[i]);
-        }
+        List<EquipablePreview> result = new List<EquipablePreview>(items.Count + cars.Count + smashes.Count);
+
+        result.AddRange(items);
+        result.AddRange(cars);
+        result.AddRange(smashes);
+
         return result;
     }
 
@@ -72,14 +62,47 @@ public class Armory : ScriptableObject
         return result;
     }
 
-    // CETTE FONCTION NE MARCHE PAS. TOUJOURS TESTER AVANT DE PASSER A AUTRE CHOSE
-    public List<EquipablePreview> GetAllEquipablesUnlock()
+    public List<EquipablePreview> GetAllUnlockedEquipables()
     {
         List<EquipablePreview> result = new List<EquipablePreview>();
-        // Lourd ???
-        result.CopyTo(GetAllUnlockedItems().ToArray());
-        result.CopyTo(GetAllUnlockedCars().ToArray());
-        result.CopyTo(GetAllUnlockedSmash().ToArray());
+
+        for (int i = 0; i < items.Count; i++)
+        {
+            if (items[i].unlocked)
+                result.Add(items[i]);
+        }
+        for (int i = 0; i < cars.Count; i++)
+        {
+            if (cars[i].unlocked)
+                result.Add(cars[i]);
+        }
+        for (int i = 0; i < smashes.Count; i++)
+        {
+            if (smashes[i].unlocked)
+                result.Add(smashes[i]);
+        }
+        return result;
+    }
+
+    public List<EquipablePreview> GetAllLockedEquipables()
+    {
+        List<EquipablePreview> result = new List<EquipablePreview>();
+
+        for (int i = 0; i < items.Count; i++)
+        {
+            if (!items[i].unlocked)
+                result.Add(items[i]);
+        }
+        for (int i = 0; i < cars.Count; i++)
+        {
+            if (!cars[i].unlocked)
+                result.Add(cars[i]);
+        }
+        for (int i = 0; i < smashes.Count; i++)
+        {
+            if (!smashes[i].unlocked)
+                result.Add(smashes[i]);
+        }
         return result;
     }
 
@@ -105,7 +128,7 @@ public class Armory : ScriptableObject
         return result;
     }
 
-    public List<EquipablePreview> GetAllUnlockedSmash()
+    public List<EquipablePreview> GetAllUnlockedSmashes()
     {
         List<EquipablePreview> result = new List<EquipablePreview>();
         for (int i = 0; i < smashes.Count; i++)
@@ -165,25 +188,5 @@ public class Armory : ScriptableObject
         {
             return itemSlots;
         }
-    }
-
-    public void DebugSetItemSlot(int number)
-    {
-        itemSlots = number;
-    }
-
-    public EquipablePreview DebugGetItem()
-    {
-        return items[0];
-    }
-
-    public EquipablePreview DebugGetSmash()
-    {
-        return smashes[0];
-    }
-
-    public EquipablePreview DebugGetCar()
-    {
-        return cars[0];
     }
 }

@@ -1,4 +1,4 @@
-﻿using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using System.Threading;
 using UnityEngine.Events;
@@ -32,7 +32,7 @@ namespace CCC.Utility
 
         static public void ThreadLoad(string path, Action<object> onComplete)
         {
-            Thread t = new Thread(new ThreadStart(delegate () { ThreadLoadMethod(path, onComplete); }));
+            Thread t = new Thread(new ThreadStart(delegate () { ThreadLoadMethod(path, onComplete);}));
             t.Start();
         }
 
@@ -44,14 +44,14 @@ namespace CCC.Utility
                 onComplete.Invoke(null);
                 return;
             }
-            //UnityEngine.Debug.Log("load started: " + path);
 
             BinaryFormatter bf = new BinaryFormatter();
+            //UnityEngine.Debug.Log("load started: " + path);
             FileStream file = File.Open(path, FileMode.Open);
+            //UnityEngine.Debug.Log("load completed" + path);
             object obj = bf.Deserialize(file);
             file.Close();
 
-            //UnityEngine.Debug.Log("load completed" + path);
 
             lock (MainThread.instance)
             {

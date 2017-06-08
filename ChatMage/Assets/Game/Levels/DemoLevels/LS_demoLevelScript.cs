@@ -89,6 +89,7 @@ public class LS_demoLevelScript : LevelScript
 
     public override void OnInit(Action onComplete)
     {
+        //Pointless. On fait juste les link dans l'inspecteur
         LoadQueue queue = new LoadQueue(onComplete);
         queue.AddEnemy("Charger", (x) => charger = x);
         queue.AddMiscUnit("HealthPacks", (x) => healthPacks = x);

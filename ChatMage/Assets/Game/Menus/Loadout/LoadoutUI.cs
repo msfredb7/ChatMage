@@ -285,13 +285,15 @@ namespace LoadoutMenu
         {
             //TODO: Pour etre plus clean, on devrait passer par un proxy de shop ou d'account
 
-            PopUpMenu.ShowOKPopUpMenu("Are you sure you want to buy an extra slots for items ?", delegate ()
-            {
-                if ((Account.instance.GetMoney() - 10) < 0)
-                    PopUpMenu.ShowPopUpMenu("You don't have enough money. Open loot boxes or win levels to gain money. See you later!", 2);
-                else
-                    armory.BuyItemSlots(1, -10);
-            });
+            Debug.LogWarning("Pas implémenté");
+
+            //PopUpMenu.ShowOKPopUpMenu("Are you sure you want to buy an extra slots for items ?", delegate ()
+            //{
+            //    if ((Account.instance.GetMoney() - 10) < 0)
+            //        PopUpMenu.ShowPopUpMenu("You don't have enough money. Open loot boxes or win levels to gain money. See you later!", 2);
+            //    else
+            //        armory.BuyItemSlots(1, -10);
+            //});
         }
 
         public void GoToShop()

@@ -24,7 +24,14 @@ public class GameSaves : BaseManager<GameSaves>
 
     public override void Init()
     {
-        LoadAllAsync(CompleteInit);
+        Debug.LogWarning("GameSaves: load started");
+        //LoadAllAsync(delegate()
+        //{
+        //    Debug.LogWarning("GameSaves: load complete");
+        //});
+        LoadAll();
+        CompleteInit();
+        Debug.LogWarning("GameSaves: load complete");
     }
 
     private string GetPath()
