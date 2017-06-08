@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Purchasing;
@@ -168,7 +168,7 @@ namespace CompleteProject
         public void OnInitializeFailed(InitializationFailureReason error)
         {
             // Purchasing set-up has not succeeded. Check error for reason. Consider sharing this reason with the user.
-            PopUpMenu.ShowPopUpMenu("An Error has occured", 3);
+            PopUpMenu.ShowOKPopUpMenu("Oups", "An Error has occured");
             Debug.Log("OnInitializeFailed InitializationFailureReason:" + error);
         }
 

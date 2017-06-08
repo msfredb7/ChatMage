@@ -9,7 +9,8 @@ using UnityEngine.UI;
 public class ShopMenu : MonoBehaviour
 {
     public const string SCENENAME = "Shop";
-
+    
+    [Header("Linking")]
     public GameObject deactivateScenePanel;
     public Armory armory;
 
@@ -19,7 +20,16 @@ public class ShopMenu : MonoBehaviour
 
     private string previousScene;
     private LoadoutMenu.LoadoutTab previousTab;
-    private string previousLevel;
+    private string levelScriptName;
+
+    void Awake()
+    {
+        if(Scenes.SceneCount() == 1)
+        {
+            //Debug launch !
+            SetPreviousContext(LevelSelection.SCENENAME);
+        }
+    }
 
     void Start()
     {
@@ -30,21 +40,22 @@ public class ShopMenu : MonoBehaviour
     void OnSync()
     {
         if (Account.instance == null)
-            Scenes.Load("MainMenu");
-        smallLootbox.onClick.AddListener(delegate() { BuyLootBox(LootBox.LootBoxType.small); });
+            throw new System.Exception("'Account' manager has no instance");
+        smallLootbox.onClick.AddListener(delegate () { BuyLootBox(LootBox.LootBoxType.small); });
         mediumLootbox.onClick.AddListener(delegate () { BuyLootBox(LootBox.LootBoxType.medium); });
         largeLootbox.onClick.AddListener(delegate () { BuyLootBox(LootBox.LootBoxType.large); });
     }
 
     public void BuyLootBox(LootBox.LootBoxType type)
     {
-        PopUpMenu.ShowOKPopUpMenu("Are you sure you want to buy a " + type + " lootbox ?", delegate ()
+        PopUpMenu.ShowYesNoPopUpMenu("Confirmation", "Are you sure you want to buy a " + type + " lootbox ?", delegate ()
         {
             // Animation apparition Lootbox
             switch (type)
             {
                 case LootBox.LootBoxType.small:
-                    new LootBox(armory, LootBox.LootBoxType.small, delegate (List<EquipablePreview> rewards) {
+                    new LootBox(armory, LootBox.LootBoxType.small, delegate (List<EquipablePreview> rewards)
+                    {
                         // Disparition du Lootbox
                         for (int i = 0; i < rewards.Count; i++)
                         {
@@ -54,7 +65,8 @@ public class ShopMenu : MonoBehaviour
                     });
                     break;
                 case LootBox.LootBoxType.medium:
-                    new LootBox(armory, LootBox.LootBoxType.medium, delegate (List<EquipablePreview> rewards) {
+                    new LootBox(armory, LootBox.LootBoxType.medium, delegate (List<EquipablePreview> rewards)
+                    {
                         // Disparition du Lootbox
                         for (int i = 0; i < rewards.Count; i++)
                         {
@@ -64,7 +76,8 @@ public class ShopMenu : MonoBehaviour
                     });
                     break;
                 case LootBox.LootBoxType.large:
-                    new LootBox(armory, LootBox.LootBoxType.large, delegate (List<EquipablePreview> rewards) {
+                    new LootBox(armory, LootBox.LootBoxType.large, delegate (List<EquipablePreview> rewards)
+                    {
                         // Disparition du Lootbox
                         for (int i = 0; i < rewards.Count; i++)
                         {
@@ -90,9 +103,9 @@ public class ShopMenu : MonoBehaviour
     public void BackButton()
     {
         if (previousScene == LoadoutMenu.LoadoutUI.SCENENAME)
-            LoadingScreen.TransitionTo(previousScene,new ToLoadoutMessage(previousScene,previousTab));
+            LoadingScreen.TransitionTo(previousScene, new ToLoadoutMessage(levelScriptName, previousTab));
         else
-            LoadingScreen.TransitionTo(previousScene,null);
+            LoadingScreen.TransitionTo(previousScene, null);
     }
 
     public void ShowRewardedAd()
@@ -102,9 +115,10 @@ public class ShopMenu : MonoBehaviour
             deactivateScenePanel.SetActive(true);
             var options = new ShowOptions { resultCallback = HandleShowResult };
             Advertisement.Show("rewardedVideo", options);
-        } else
+        }
+        else
         {
-            PopUpMenu.ShowOKPopUpMenu("You are not connected to the internet. Please verify your connection and come back again.");
+            PopUpMenu.ShowOKPopUpMenu("Could not connect", "You are not connected to the internet. Please verify your connection and come back again.");
         }
     }
 
@@ -124,16 +138,16 @@ public class ShopMenu : MonoBehaviour
                 break;
             case ShowResult.Failed:
                 Debug.LogError("The ad failed to be shown.");
-                PopUpMenu.ShowPopUpMenu("A problem has occured and the ad could not be shown.",2);
+                PopUpMenu.ShowOKPopUpMenu("Oups", "A problem has occured and the ad could not be shown.");
                 break;
         }
         deactivateScenePanel.SetActive(false);
     }
 
-    public void SetPreviousContext(string previousScene, LoadoutMenu.LoadoutTab previousTab, string previousLevel = null)
+    public void SetPreviousContext(string previousScene, LoadoutMenu.LoadoutTab previousTab = LoadoutMenu.LoadoutTab.Car, string levelScriptName = "")
     {
         this.previousScene = previousScene;
         this.previousTab = previousTab;
-        this.previousLevel = previousLevel;
+        this.levelScriptName = levelScriptName;
     }
 }
