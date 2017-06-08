@@ -12,9 +12,12 @@ public class EquipablePreview : BaseScriptableObject
     public Sprite icon;
     public EquipableType type;
     public bool unlocked = false;
-    public bool affectSmash;
-    public bool specialInput;
-    public string specialInputTooltipText;
+
+
+    //[InspectorHeader("Ne pas utiliser")]
+    //public bool affectSmash;
+    //public bool specialInput;
+    //public string specialInputTooltipText;
 
     [InspectorHeader("Peut-être")]
     public Sprite largeIcon;

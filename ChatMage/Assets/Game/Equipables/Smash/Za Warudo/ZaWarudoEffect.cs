@@ -51,7 +51,7 @@ public class ZaWarudoEffect : MonoBehaviour
         }
 
     }
-    
+
     public void Animate(TweenCallback apply)
     {
         enabled = true;
@@ -106,9 +106,10 @@ public class ZaWarudoEffect : MonoBehaviour
             fisheyeStrength, //End Value
             appearDurationI + pauseDurationI) //Duration
         .SetEase(Ease.OutExpo));
-        
+
         //Apply slow
-        sq.InsertCallback(appearDurationI, apply);
+        if (apply != null)
+            sq.InsertCallback(appearDurationI, apply);
 
         //Fish eye out
         sq.Insert(appearDurationI + pauseDurationI,
@@ -204,7 +205,8 @@ public class ZaWarudoEffect : MonoBehaviour
         .SetEase(Ease.OutExpo));
 
         //Apply slow
-        sq.InsertCallback(appearDurationO, unapply);
+        if (unapply != null)
+            sq.InsertCallback(appearDurationO, unapply);
 
         //Fish eye out
         sq.Insert(appearDurationO * 1.8f + pauseDurationO,

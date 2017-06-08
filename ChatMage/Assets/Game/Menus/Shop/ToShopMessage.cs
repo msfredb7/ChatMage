@@ -1,12 +1,12 @@
-﻿using CCC.Manager;
+using CCC.Manager;
 using UnityEngine.SceneManagement;
 
 public class ToShopMessage : SceneMessage
 {
     private string previousSceneName;
-    private LoadoutTab.LoadoutTab_Type startTab;
+    private LoadoutMenu.LoadoutTab startTab;
 
-    public ToShopMessage(string previousSceneName, LoadoutTab.LoadoutTab_Type startTab = 0)
+    public ToShopMessage(string previousSceneName, LoadoutMenu.LoadoutTab startTab = 0)
     {
         this.previousSceneName = previousSceneName;
         this.startTab = startTab;

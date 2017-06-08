@@ -1,4 +1,4 @@
-﻿using CCC.Manager;
+using CCC.Manager;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -85,7 +85,7 @@ public class LevelSelection : MonoBehaviour
         GameSaves.instance.SetString(GameSaves.Type.LevelSelect, LASTLEVELSELECTED_KEY, level.name);
 
         ToLoadoutMessage message = new ToLoadoutMessage(level.levelScriptName);
-        LoadingScreen.TransitionTo(Loadout.SCENENAME, message);
+        LoadingScreen.TransitionTo(LoadoutMenu.LoadoutUI.SCENENAME, message);
     }
 
     public void OnBackClicked()

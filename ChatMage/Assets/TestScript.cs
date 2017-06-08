@@ -9,16 +9,20 @@ using FullInspector;
 
 public class TestScript : BaseBehavior
 {
-
+    public ZaWarudoEffect effect;
+    private bool animating = false;
     void Start()
     {
         MasterManager.Sync();
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            Game.instance.smashManager.DecreaseCooldown(30);
-        }
+        //if ((Input.GetMouseButtonDown(0) || Input.touchCount != 0) && !animating)
+        //{
+        //    animating = true;
+        //    effect.Animate(null);
+        //    DelayManager.CallTo(delegate () { effect.AnimateBack(null); }, 5);
+        //    DelayManager.CallTo(delegate () { animating = false; }, 7.5f);
+        //}
     }
 }

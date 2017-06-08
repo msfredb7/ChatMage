@@ -18,7 +18,7 @@ public class ShopMenu : MonoBehaviour
     public Button largeLootbox;
 
     private string previousScene;
-    private LoadoutTab.LoadoutTab_Type previousTab;
+    private LoadoutMenu.LoadoutTab previousTab;
     private string previousLevel;
 
     void Start()
@@ -89,7 +89,7 @@ public class ShopMenu : MonoBehaviour
 
     public void BackButton()
     {
-        if (previousScene == Loadout.SCENENAME)
+        if (previousScene == LoadoutMenu.LoadoutUI.SCENENAME)
             LoadingScreen.TransitionTo(previousScene,new ToLoadoutMessage(previousScene,previousTab));
         else
             LoadingScreen.TransitionTo(previousScene,null);
@@ -130,7 +130,7 @@ public class ShopMenu : MonoBehaviour
         deactivateScenePanel.SetActive(false);
     }
 
-    public void SetPreviousContext(string previousScene, LoadoutTab.LoadoutTab_Type previousTab, string previousLevel = null)
+    public void SetPreviousContext(string previousScene, LoadoutMenu.LoadoutTab previousTab, string previousLevel = null)
     {
         this.previousScene = previousScene;
         this.previousTab = previousTab;

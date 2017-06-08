@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CCC.Manager;
@@ -135,6 +135,7 @@ public class GameSaves : BaseManager<GameSaves>
         LoadDataAsync(Type.Loadout, queue.Register());
         LoadDataAsync(Type.LevelSelect, queue.Register());
         LoadDataAsync(Type.Account, queue.Register());
+        LoadDataAsync(Type.Armory, queue.Register());
 
         queue.MarkEnd();
     }
@@ -144,6 +145,7 @@ public class GameSaves : BaseManager<GameSaves>
         LoadData(Type.Loadout);
         LoadData(Type.LevelSelect);
         LoadData(Type.Account);
+        LoadData(Type.Armory);
     }
 
     public void SaveAllAsync(Action onComplete)
@@ -152,6 +154,7 @@ public class GameSaves : BaseManager<GameSaves>
         SaveDataAsync(Type.Loadout, queue.Register());
         SaveDataAsync(Type.LevelSelect, queue.Register());
         SaveDataAsync(Type.Account, queue.Register());
+        SaveDataAsync(Type.Armory, queue.Register());
 
         queue.MarkEnd();
     }
@@ -159,10 +162,13 @@ public class GameSaves : BaseManager<GameSaves>
     [InspectorButton()]
     public void SaveAll()
     {
-        print("saving data");
         SaveData(Type.Loadout);
         SaveData(Type.LevelSelect);
         SaveData(Type.Account);
+        SaveData(Type.Armory);
+#if UNITY_EDITOR
+        Debug.Log("All Data Saved");
+#endif
     }
 
     public void LoadDataAsync(Type type, Action onLoadComplete)
@@ -227,22 +233,40 @@ public class GameSaves : BaseManager<GameSaves>
         ClearSave(Type.Account);
         ClearSave(Type.LevelSelect);
         ClearSave(Type.Loadout);
+        ClearSave(Type.Armory);
     }
 
     [InspectorButton()]
     public void ClearLoadout()
     {
         ClearSave(Type.Loadout);
+#if UNITY_EDITOR
+        Debug.Log("Loadout Cleared");
+#endif
     }
     [InspectorButton()]
     public void ClearLevelSelect()
     {
         ClearSave(Type.LevelSelect);
+#if UNITY_EDITOR
+        Debug.Log("LevelSelect Cleared");
+#endif
     }
     [InspectorButton()]
     public void ClearAccount()
     {
         ClearSave(Type.Account);
+#if UNITY_EDITOR
+        Debug.Log("Account Cleared");
+#endif
+    }
+    [InspectorButton()]
+    public void ClearArmory()
+    {
+        ClearSave(Type.Account);
+#if UNITY_EDITOR
+        Debug.Log("Armory Cleared");
+#endif
     }
 
     public void ClearSave(Type type)
@@ -257,15 +281,18 @@ public class GameSaves : BaseManager<GameSaves>
     private const string LEVELSELECT_FILE = "levelSelect.dat";
     private const string LOADOUT_FILE = "loadout.dat";
     private const string ACCOUNT_FILE = "account.dat";
+    private const string ARMORY_FILE = "armory.dat";
 
-    public enum Type { LevelSelect, Loadout, Account }
-
-    [fsIgnore]
+    public enum Type { LevelSelect = 0, Loadout = 1, Account = 2, Armory = 3 }
+    
+    [ShowInInspector, InspectorDisabled]
     private Data levelSelectData = new Data();
-    [fsIgnore]
+    [ShowInInspector, InspectorDisabled]
     private Data loadoutData = new Data();
-    [fsIgnore]
+    [ShowInInspector, InspectorDisabled]
     private Data accountData = new Data();
+    [ShowInInspector, InspectorDisabled]
+    private Data armoryData = new Data();
 
     private string TypeToFileName(Type type)
     {
@@ -277,6 +304,8 @@ public class GameSaves : BaseManager<GameSaves>
                 return LOADOUT_FILE;
             case Type.Account:
                 return ACCOUNT_FILE;
+            case Type.Armory:
+                return ARMORY_FILE;
         }
         return "";
     }
@@ -291,6 +320,8 @@ public class GameSaves : BaseManager<GameSaves>
                 return loadoutData;
             case Type.Account:
                 return accountData;
+            case Type.Armory:
+                return armoryData;
         }
         return null;
     }
@@ -308,6 +339,9 @@ public class GameSaves : BaseManager<GameSaves>
             case Type.Account:
                 accountData = newData;
                 break;
+            case Type.Armory:
+                armoryData = newData;
+                break;
         }
     }
 
@@ -323,6 +357,9 @@ public class GameSaves : BaseManager<GameSaves>
                 break;
             case Type.Account:
                 accountData = new Data();
+                break;
+            case Type.Armory:
+                armoryData = new Data();
                 break;
         }
     }

@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 public class Armory : ScriptableObject
 {
-
+    private const string SLOTS_KEY = "slt";
     // On a des previews qu'on affichera dans le UI pour ensuite 
 
     // Items
@@ -22,11 +22,11 @@ public class Armory : ScriptableObject
 
     public int GetLastSavedSlots()
     {
-        if (GameSaves.instance.ContainsInt(GameSaves.Type.Account, "Slots"))
-            return GameSaves.instance.GetInt(GameSaves.Type.Account, "Slots");
+        if (GameSaves.instance.ContainsInt(GameSaves.Type.Armory, SLOTS_KEY))
+            return GameSaves.instance.GetInt(GameSaves.Type.Armory, SLOTS_KEY);
         else
         {
-            GameSaves.instance.SetInt(GameSaves.Type.Account, "Slots", defaultItemSlots);
+            GameSaves.instance.SetInt(GameSaves.Type.Armory, SLOTS_KEY, defaultItemSlots);
             return defaultItemSlots;
         }
     }
@@ -38,8 +38,10 @@ public class Armory : ScriptableObject
 
     public void Save()
     {
-        GameSaves.instance.SetInt(GameSaves.Type.Account, "Slots", itemSlots);
+        GameSaves.instance.SetInt(GameSaves.Type.Armory, SLOTS_KEY, itemSlots);
     }
+
+    // TODO: Changer �a. Le code est gros pour rien. Voir: List<T>.AsReadOnly()
 
     public List<EquipablePreview> GetAllEquipables()
     {
@@ -70,6 +72,7 @@ public class Armory : ScriptableObject
         return result;
     }
 
+    // CETTE FONCTION NE MARCHE PAS. TOUJOURS TESTER AVANT DE PASSER A AUTRE CHOSE
     public List<EquipablePreview> GetAllEquipablesUnlock()
     {
         List<EquipablePreview> result = new List<EquipablePreview>();
@@ -156,9 +159,12 @@ public class Armory : ScriptableObject
         else return false;
     }
 
-    public int GetItemSlots()
+    public int ItemSlots
     {
-        return itemSlots;
+        get
+        {
+            return itemSlots;
+        }
     }
 
     public void DebugSetItemSlot(int number)

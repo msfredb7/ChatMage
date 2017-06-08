@@ -1,12 +1,13 @@
-﻿using CCC.Manager;
+using CCC.Manager;
 using UnityEngine.SceneManagement;
+using LoadoutMenu;
 
 public class ToLoadoutMessage : SceneMessage
 {
     private string levelScriptName;
-    private LoadoutTab.LoadoutTab_Type startTab;
+    private LoadoutTab startTab;
 
-    public ToLoadoutMessage(string levelScriptName, LoadoutTab.LoadoutTab_Type startTab = LoadoutTab.LoadoutTab_Type.Car)
+    public ToLoadoutMessage(string levelScriptName, LoadoutTab startTab = LoadoutTab.Car)
     {
         this.levelScriptName = levelScriptName;
         this.startTab = startTab;
@@ -14,7 +15,7 @@ public class ToLoadoutMessage : SceneMessage
 
     public void OnLoaded(Scene scene)
     {
-        Loadout loadOut = Scenes.FindRootObject<Loadout>(scene);
+        LoadoutUI loadOut = Scenes.FindRootObject<LoadoutUI>(scene);
         loadOut.Init(levelScriptName, startTab);
     }
 

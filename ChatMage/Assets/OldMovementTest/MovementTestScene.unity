@@ -192,6 +192,7 @@ GameObject:
   - component: {fileID: 219510898}
   - component: {fileID: 219510897}
   - component: {fileID: 219510896}
+  - component: {fileID: 219510899}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -275,7 +276,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 219510890}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6649aba3f5d054348a689a574837e0e7, type: 3}
   m_Name: 
@@ -283,11 +284,13 @@ MonoBehaviour:
   material: {fileID: 2100000, guid: 546690833d13c1f4fb7bd38725f3be2a, type: 2}
   colorShiftStart: 0.2
   colorShiftend: 0.8
-  fisheyeStrength: 0.4
+  fisheyeStrength: 0.6
   appearDurationI: 0.4
   pauseDurationI: 0.75
   appearDurationO: 0.4
   pauseDurationO: 0.35
+  fisheye: {fileID: 219510897}
+  vignette: {fileID: 219510898}
 --- !u!114 &219510897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -325,6 +328,21 @@ MonoBehaviour:
   separableBlurShader: {fileID: 4800000, guid: e97c14fbb5ea04c3a902cc533d7fc5d1, type: 3}
   chromAberrationShader: {fileID: 4800000, guid: 2b4f29398d9484ccfa9fd220449f5eee,
     type: 3}
+--- !u!114 &219510899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 219510890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce29cb859d78b634c9d7b447327d88d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectReferences: []
+  _serializedStateKeys: []
+  _serializedStateValues: []
+  effect: {fileID: 219510896}
 --- !u!1 &815159483
 GameObject:
   m_ObjectHideFlags: 1
@@ -368,10 +386,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _keys:
   - {fileID: 219510896}
+  - {fileID: 219510899}
   _values:
   - _keys: []
     _values: []
     _target: {fileID: 219510896}
+  - _keys: []
+    _values: []
+    _target: {fileID: 219510899}
 --- !u!114 &815159486
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -385,6 +407,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _keys:
   - {fileID: 219510896}
+  - {fileID: 219510899}
   _values:
   - _keys:
     - DefaultBehaviorEditor.colorShiftStart.EditProperty
@@ -398,6 +421,9 @@ MonoBehaviour:
     - _showDropdown: 0
       _serializedIsActive: 1
     _target: {fileID: 219510896}
+  - _keys: []
+    _values: []
+    _target: {fileID: 219510899}
 --- !u!1 &1067281881
 GameObject:
   m_ObjectHideFlags: 1

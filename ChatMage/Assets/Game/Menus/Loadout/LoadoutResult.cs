@@ -1,10 +1,13 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
 public class LoadoutResult
 {
+    public const string LOCAL_KEY = "lr"; // Ce qu'on met devant tous les sauvegarde fait dans le cadre du 'LoadoutResult'
+    public const string ITEMCOUNT_KEY = "itCt"; // Ce qu'on met devant tous les sauvegarde fait dans le cadre du 'LoadoutResult'
+
     [System.Serializable]
     public class EquipableOrder
     {
@@ -16,23 +19,61 @@ public class LoadoutResult
         public string equipableName;
         public EquipableType type;
 
-        public void Save(int ID = 0)
+        public void Save(string sufix = "")
         {
-            GameSaves.instance.SetString(GameSaves.Type.Loadout, "equipableName" + type + "" + ID, equipableName);
-            Debug.Log("Saving " + "equipableName" + type + "" + ID);
+            GameSaves.instance.SetString(GameSaves.Type.Loadout, LOCAL_KEY + TypeToTag(type) + sufix, equipableName);
+            Debug.Log("Saving '" + LOCAL_KEY + TypeToTag(type) + sufix + "': " + equipableName);
         }
-    }
-
-    public LoadoutResult(int itemSlotAmount)
-    {
-        this.itemSlotAmount = itemSlotAmount;
     }
 
     public EquipableOrder smashOrder;
     public EquipableOrder carOrder;
     public List<EquipableOrder> itemOrders = new List<EquipableOrder>();
 
-    public int itemSlotAmount;
+    public static LoadoutResult Load(int maxItemCount = int.MaxValue)
+    {
+        LoadoutResult lastResult = new LoadoutResult();
+
+        //Check smash
+        string smashKey = LOCAL_KEY + TypeToTag(EquipableType.Smash);
+
+        if (GameSaves.instance.ContainsString(GameSaves.Type.Loadout, smashKey))
+            lastResult.AddEquipable(GameSaves.instance.GetString(GameSaves.Type.Loadout, smashKey), EquipableType.Smash);
+
+
+
+        //Check Car
+        string carKey = LOCAL_KEY + TypeToTag(EquipableType.Car);
+
+        if (GameSaves.instance.ContainsString(GameSaves.Type.Loadout, carKey))
+            lastResult.AddEquipable(GameSaves.instance.GetString(GameSaves.Type.Loadout, carKey), EquipableType.Car);
+
+
+
+        //Check Items
+
+        //Check la derniere quantité d'item sauvegardé
+        if (GameSaves.instance.ContainsInt(GameSaves.Type.Loadout, ITEMCOUNT_KEY))
+            maxItemCount = Mathf.Min(maxItemCount, GameSaves.instance.GetInt(GameSaves.Type.Loadout, ITEMCOUNT_KEY));
+
+        //Continue à check pour des items, tant et aussi longtemps qu'on est < le minimum OU que yen a plus de sauvegardé
+        int i = 0;
+        while (true)
+        {
+            string itemKey = LOCAL_KEY + TypeToTag(EquipableType.Item) + i.ToString();
+
+            if (GameSaves.instance.ContainsString(GameSaves.Type.Loadout, itemKey))
+                lastResult.AddEquipable(GameSaves.instance.GetString(GameSaves.Type.Loadout, itemKey), EquipableType.Item);
+            else
+                break;
+
+            i++;
+            if (i >= maxItemCount)
+                break;
+        }
+
+        return lastResult;
+    }
 
     public bool AddEquipable(string name, EquipableType type)
     {
@@ -40,17 +81,13 @@ public class LoadoutResult
         {
             case EquipableType.Car:
                 carOrder = new EquipableOrder(name, type);
-                Debug.Log("Car " + name + " selected");
+                //Debug.Log("Car " + name + " selected");
                 return true;
             case EquipableType.Smash:
                 smashOrder = new EquipableOrder(name, type);
-                Debug.Log("Smash " + name + " selected");
+                //Debug.Log("Smash " + name + " selected");
                 return true;
             case EquipableType.Item:
-                if (itemOrders.Count >= itemSlotAmount)
-                {
-                    throw new System.Exception("All item slots full");
-                }
 
                 for (int i = 0; i < itemOrders.Count; i++)
                     if (itemOrders[i].equipableName == name)
@@ -59,7 +96,7 @@ public class LoadoutResult
                     }
 
                 itemOrders.Add(new EquipableOrder(name, type));
-                Debug.Log("Item " + name + " added");
+                //Debug.Log("Item " + name + " added");
 
                 return true;
             default:
@@ -67,64 +104,37 @@ public class LoadoutResult
         }
     }
 
-    public bool AlreadyEquip(string equipableName, EquipableType type)
-    {
-        switch (type)
-        {
-            case EquipableType.Car:
-                if (carOrder == null)
-                    return false;
-                if (carOrder.equipableName == equipableName)
-                    return true;
-                else
-                    return false;
-            case EquipableType.Smash:
-                if (smashOrder == null)
-                    return false;
-                if (smashOrder.equipableName == equipableName)
-                    return true;
-                else
-                    return false;
-            case EquipableType.Item:
-                if (itemOrders.Count < 1)
-                    return false;
-                for (int i = 0; i < itemOrders.Count; i++)
-                {
-                    if (itemOrders[i].equipableName == equipableName)
-                        return true;
-                }
-                return false;
-            default:
-                throw new System.Exception("Unhandeled equipable type");
-        }
-    }
-
     public void Save()
     {
-        if(smashOrder != null)
+        if (smashOrder != null)
             smashOrder.Save();
-        if(carOrder != null)
+        if (carOrder != null)
             carOrder.Save();
         if (itemOrders.Count >= 1)
         {
             for (int i = 0; i < itemOrders.Count; i++)
             {
-                itemOrders[i].Save();
+                itemOrders[i].Save(i.ToString());
             }
         }
+        GameSaves.instance.SetInt(GameSaves.Type.Loadout, ITEMCOUNT_KEY, itemOrders.Count);
         GameSaves.instance.SaveData(GameSaves.Type.Loadout);
     }
 
-    public void Load()
+    /// <summary>
+    /// Retourne les clés de sauvegarde utilisé par type d'equipable
+    /// </summary>
+    private static string TypeToTag(EquipableType type)
     {
-        if (GameSaves.instance.ContainsString(GameSaves.Type.Loadout, "equipableNameSmash0"))
-            AddEquipable(GameSaves.instance.GetString(GameSaves.Type.Loadout, "equipableNameSmash0"), EquipableType.Smash);
-        if (GameSaves.instance.ContainsString(GameSaves.Type.Loadout, "equipableNameCar0"))
-            AddEquipable(GameSaves.instance.GetString(GameSaves.Type.Loadout, "equipableNameCar0"), EquipableType.Car);
-        for (int i = 0; i < itemSlotAmount; i++)
+        switch (type)
         {
-            if (GameSaves.instance.ContainsString(GameSaves.Type.Loadout, "equipableNameItem" + i))
-                AddEquipable(GameSaves.instance.GetString(GameSaves.Type.Loadout, "equipableNameItem" + i), EquipableType.Item);
+            case EquipableType.Car:
+                return "car";
+            case EquipableType.Smash:
+                return "sm";
+            default:
+            case EquipableType.Item:
+                return "itm";
         }
     }
 }
