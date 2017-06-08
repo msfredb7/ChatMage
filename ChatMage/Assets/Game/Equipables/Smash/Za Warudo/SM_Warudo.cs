@@ -7,9 +7,14 @@ using FullInspector;
 
 public class SM_Warudo : Smash
 {
+    [InspectorHeader("Settings")]
     public float duration;
     public float targetTimeScale = 0;
-    [InspectorHeader("Effect linking")]
+
+    [InspectorHeader("SFX Linking")]
+    public AudioClip sfx;
+
+    [InspectorHeader("VFX Linking")]
     public Material zaWarudoMat;
     public Shader fishEyeShader;
     public Shader vignetteShader;
@@ -75,6 +80,7 @@ public class SM_Warudo : Smash
 
             smashCoroutine = DelayManager.CallTo(OnSmashEnd, duration);
         });
+        SoundManager.Play(sfx);
     }
 
     void SetTimeScale(float amount)
