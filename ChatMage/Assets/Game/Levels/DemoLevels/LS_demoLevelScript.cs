@@ -53,9 +53,13 @@ public class LS_demoLevelScript : LevelScript
 
     protected override void OnUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !IsOver)
+        if (Input.GetKeyDown(KeyCode.L) && !IsOver)
         {
             Lose();
+        }
+        if (Input.GetKeyDown(KeyCode.W) && !IsOver)
+        {
+            Win();
         }
     }
 

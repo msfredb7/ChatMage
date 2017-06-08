@@ -4,14 +4,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Account : BaseManager<Account> {
+public class Account : BaseManager<Account>
+{
+    private const string COINS_KEY = "coins";
 
     // Compte externe comme google ou paiement etc.
     // public GoogleAccount account;
 
-    // Money
-    private int money = 0;
-    public UnityEvent onMoneyChanged = new UnityEvent();
+    // Coins
+    private int coins = 0;
+    public SimpleEvent onBalanceChange;
 
     public static int GetLastSavedMoney() { return PlayerPrefs.GetInt("Money"); }
 
@@ -21,48 +23,46 @@ public class Account : BaseManager<Account> {
         CompleteInit();
     }
 
-    //NE PAS FAIRE �A
-
-    //private void OnDestroy()
-    //{
-    //    Save();
-    //}
-
-    //private void OnApplicationQuit()
-    //{
-    //    Save();
-    //}
-
     public void Load()
     {
-        if(GameSaves.instance.ContainsInt(GameSaves.Type.Account, "money"))
-            money = GameSaves.instance.GetInt(GameSaves.Type.Account, "money");
+        if (GameSaves.instance.ContainsInt(GameSaves.Type.Account, COINS_KEY))
+            coins = GameSaves.instance.GetInt(GameSaves.Type.Account, COINS_KEY);
         else
-            GameSaves.instance.SetInt(GameSaves.Type.Account, "money", money);
+        {
+            coins = 0;
+            GameSaves.instance.SetInt(GameSaves.Type.Account, COINS_KEY, 0);
+        }
     }
 
     public void Save()
     {
-        GameSaves.instance.SetInt(GameSaves.Type.Account,"money",money);
+        GameSaves.instance.SetInt(GameSaves.Type.Account, COINS_KEY, coins);
+        GameSaves.instance.SaveData(GameSaves.Type.Account);
     }
 
-    public int GetMoney()
+    public int Coins
     {
-        return money;
+        get
+        {
+            return coins;
+        }
     }
 
+    
     /// <summary>
     /// Ajout ou retire un certain montant d'argent au compte du joueur
     /// </summary>
     /// <returns>Retourne si le changement a reussi ou pas</returns>
-    public bool ChangeMoney(int amount)
+    public bool AddMoney(int amount)
     {
-        int moneyResult = money + amount;
+        int moneyResult = coins + amount;
         if (moneyResult < 0)
             return false;
 
-        money = moneyResult;
-        onMoneyChanged.Invoke();
+        coins = moneyResult;
+        if (onBalanceChange != null)
+            onBalanceChange();
+
         Save();
 
         return true;

@@ -32,13 +32,27 @@ public class LevelSelection : MonoBehaviour
         // Should we mark a level as 'completed' ?
         bool lastGameResult = GetLastGameResult();
 
-        if (lastGameResult && GameSaves.instance.ContainsString(GameSaves.Type.LevelSelect, LASTLEVELSELECTED_KEY))
-        {
-            string lastLevelSelected = GameSaves.instance.GetString(GameSaves.Type.LevelSelect, LASTLEVELSELECTED_KEY);
-            MarkAsCompleted(lastLevelSelected);
 
-            //On le met à false parce qu'on a consommé la win
-            GameSaves.instance.SetBool(GameSaves.Type.LevelSelect, LevelScript.WINRESULT_KEY, false);
+        if (lastGameResult)
+        {
+            if (GameSaves.instance.ContainsString(GameSaves.Type.LevelSelect, LASTLEVELSELECTED_KEY))
+            {
+                //Le joueur a gagner sa dernière game, et nous avons la 'clé' du dernier lvl choisie
+                string lastLevelSelected = GameSaves.instance.GetString(GameSaves.Type.LevelSelect, LASTLEVELSELECTED_KEY);
+
+                //On marque le level comme complété
+                MarkAsCompleted(lastLevelSelected);
+
+                //On consomme la Win
+                GameSaves.instance.SetBool(GameSaves.Type.LevelSelect, LevelScript.WINRESULT_KEY, false);
+            }
+            else
+            {
+                //Le joueur a une supposé 'victoire', mais nous n'avons pas la clé du dernier lvl choisie. C'est donc une win invalide
+                GameSaves.instance.SetBool(GameSaves.Type.LevelSelect, LevelScript.WINRESULT_KEY, false);
+            }
+
+            //Save
             GameSaves.instance.SaveData(GameSaves.Type.LevelSelect);
         }
 
@@ -51,7 +65,7 @@ public class LevelSelection : MonoBehaviour
         // Regarde si une region est maintenant disponible
         for (int i = 0; i < regions.Count; i++)
         {
-            if(regions[i].IsUnlocked() != previousRegions[i].IsUnlocked())
+            if (regions[i].IsUnlocked() != previousRegions[i].IsUnlocked())
                 OnRegionUnlocked(i); // Une region a changer
         }
 
@@ -144,6 +158,6 @@ public class LevelSelection : MonoBehaviour
             }
             previousRegionNumber = i;
         }
-        backgroundAnimation.SetLimitIndex(regions.Count-1);
+        backgroundAnimation.SetLimitIndex(regions.Count - 1);
     }
 }
