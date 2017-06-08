@@ -59,7 +59,15 @@ public class LS_DemoDragRace : LevelScript
 
     protected override void OnUpdate()
     {
-        if(Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.S))
             Game.instance.SpawnUnit(tirRoche, Vector2.left * 5);
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            if (Game.instance.smashManager.RemainingTime > 0)
+                Game.instance.smashManager.DecreaseCooldown(30);
+            else
+                Game.instance.smashManager.CurrentSmashBall.ForceDeath();
+        }
+
     }
 }

@@ -449,7 +449,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 497799527}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47e766aa586402341aa9f8756e7934f3, type: 3}
+  m_Script: {fileID: 11500000, guid: 6877b7aa1b60e68458cc34ed77270b3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveDuration: 0.25
@@ -516,8 +516,17 @@ MonoBehaviour:
   _keys:
   - {fileID: 1607752547}
   _values:
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.armory.EditProperty
+    - DefaultBehaviorEditor.debugLevel.EditProperty
+    - DefaultBehaviorEditor.currentLoadout.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 1
+      _serializedIsActive: 1
     _target: {fileID: 1607752547}
 --- !u!1 &555939215
 GameObject:
@@ -915,7 +924,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 716315762}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2be1dc47f8a8af4998575511720797d, type: 3}
+  m_Script: {fileID: 11500000, guid: 87a2a2bd1ffd9804583e9a63a382c0a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   carImage: {fileID: 1253134069}
@@ -976,7 +985,7 @@ Prefab:
     - target: {fileID: 224119920724746472, guid: 3e0b4c0085a15d448989cea717ad8253,
         type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 224119920724746472, guid: 3e0b4c0085a15d448989cea717ad8253,
         type: 2}
@@ -1297,7 +1306,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 925803095}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3993ffec388fa24bbb7b98f989e7a6d, type: 3}
+  m_Script: {fileID: 11500000, guid: 357ca411a8a9fb24b9a43121df397f23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 925803097}
@@ -1706,7 +1715,7 @@ Prefab:
     - target: {fileID: 224818207110800578, guid: ca3a2a3977962f043ae743589dead644,
         type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 224818207110800578, guid: ca3a2a3977962f043ae743589dead644,
         type: 2}
@@ -2308,7 +2317,7 @@ GameObject:
   - component: {fileID: 1422999695}
   - component: {fileID: 1422999694}
   - component: {fileID: 1422999693}
-  - component: {fileID: 1422999696}
+  - component: {fileID: 1422999697}
   m_Layer: 5
   m_Name: Back
   m_TagString: Untagged
@@ -2409,7 +2418,7 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1422999691}
---- !u!114 &1422999696
+--- !u!114 &1422999697
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -2417,13 +2426,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1422999691}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b544d37b62faf8e418f7390e9794c287, type: 3}
+  m_Script: {fileID: 11500000, guid: 5f73808ef1e817d4aa54f1b567365508, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 1422999694}
   button: {fileID: 1422999693}
-  fadeInDur: 0.5
-  fadeOutDur: 0.5
+  fadeInDur: 0.25
+  fadeOutDur: 0.25
 --- !u!1 &1494300091
 GameObject:
   m_ObjectHideFlags: 0
@@ -2598,8 +2607,8 @@ GameObject:
   - component: {fileID: 1593244368}
   - component: {fileID: 1593244367}
   - component: {fileID: 1593244366}
-  - component: {fileID: 1593244369}
   - component: {fileID: 1593244370}
+  - component: {fileID: 1593244369}
   m_Layer: 5
   m_Name: Next
   m_TagString: Untagged
@@ -2619,7 +2628,7 @@ RectTransform:
   m_Children:
   - {fileID: 231551568}
   m_Father: {fileID: 1607752546}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -2708,22 +2717,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1593244364}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b544d37b62faf8e418f7390e9794c287, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  image: {fileID: 1593244367}
-  button: {fileID: 1593244366}
-  fadeInDur: 0.5
-  fadeOutDur: 0.5
---- !u!114 &1593244370
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1593244364}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3993ffec388fa24bbb7b98f989e7a6d, type: 3}
+  m_Script: {fileID: 11500000, guid: 357ca411a8a9fb24b9a43121df397f23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 231551569}
@@ -2735,6 +2729,21 @@ MonoBehaviour:
   smashAudio: {fileID: 0}
   itemsAudio: {fileID: 0}
   recapAudio: {fileID: 0}
+--- !u!114 &1593244370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1593244364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f73808ef1e817d4aa54f1b567365508, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  image: {fileID: 1593244367}
+  button: {fileID: 1593244366}
+  fadeInDur: 0.25
+  fadeOutDur: 0.25
 --- !u!1 &1607752542
 GameObject:
   m_ObjectHideFlags: 0
@@ -2823,9 +2832,9 @@ RectTransform:
   m_Children:
   - {fileID: 895595902}
   - {fileID: 497799528}
-  - {fileID: 1593244365}
   - {fileID: 826636578}
   - {fileID: 822408170}
+  - {fileID: 1593244365}
   - {fileID: 1422999692}
   - {fileID: 716315763}
   m_Father: {fileID: 0}
@@ -2847,27 +2856,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f1a427a857524045b23cf8eda5a4256, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectReferences:
-  - {fileID: 925803099}
-  - {fileID: 1593244370}
+  _objectReferences: []
   _serializedStateKeys:
   - textChangers
   - debugStartTab
   - currentLoadout
   _serializedStateValues:
-  - '[0,1]'
+  - '[]'
   - '"Car"'
   - '{"items":[],"cars":[],"smashes":[],"chosenItems":[],"itemSlots":0}'
   armory: {fileID: 11400000, guid: 5e3da66f829332f4f941fcb05175d65b, type: 2}
   inspector: {fileID: 555939219}
-  backButton: {fileID: 1422999696}
-  nextButton: {fileID: 1593244369}
+  backButton: {fileID: 1422999697}
+  nextButton: {fileID: 1593244370}
   grid: {fileID: 2048414176}
   panelAnimator: {fileID: 497799529}
   progressPanel: {fileID: 716315764}
-  textChangers:
-  - {fileID: 925803099}
-  - {fileID: 1593244370}
+  textChangers: []
   debugLevel: {fileID: 11400000, guid: 8158ee834c01fc44b82c857548b48b1c, type: 2}
   debugStartTab: 0
   currentLoadout:
@@ -3425,7 +3430,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 15}
+  m_AnchoredPosition: {x: 185, y: 15}
   m_SizeDelta: {x: 153.8, y: 7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1826535714
@@ -3758,7 +3763,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1987450759}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f719cc759472eb44fbce53b9d50b261a, type: 3}
+  m_Script: {fileID: 11500000, guid: 27aab28ab4140a3429c664f61d01ebe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 1732698249}
@@ -3766,7 +3771,7 @@ MonoBehaviour:
   icon: {fileID: 871242741}
   equippedVisuals: {fileID: 1100035739}
   normalColor: {r: 1, g: 1, b: 1, a: 1}
-  selectedColor: {r: 1, g: 0.98032445, b: 0.28676468, a: 1}
+  selectedColor: {r: 0.99219066, g: 1, b: 0.43382353, a: 1}
   lockedAlpha: 0.5
 --- !u!1 &2005114800
 GameObject:
@@ -3903,9 +3908,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 2048414173}
-  - component: {fileID: 2048414176}
   - component: {fileID: 2048414175}
   - component: {fileID: 2048414174}
+  - component: {fileID: 2048414176}
   m_Layer: 5
   m_Name: Grid
   m_TagString: Untagged
@@ -3977,7 +3982,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2048414172}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b991946dc5e284744a7d5591a572a5f2, type: 3}
+  m_Script: {fileID: 11500000, guid: ee7a14795edd9c1499898b4314ca37b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   firstElement: {fileID: 1987450761}

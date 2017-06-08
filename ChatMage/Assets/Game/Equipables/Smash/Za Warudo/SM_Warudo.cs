@@ -10,6 +10,7 @@ public class SM_Warudo : Smash
     [InspectorHeader("Settings")]
     public float duration;
     public float targetTimeScale = 0;
+    //public float launchDelay = 1.25f;
 
     [InspectorHeader("SFX Linking")]
     public AudioClip sfx;
@@ -23,6 +24,7 @@ public class SM_Warudo : Smash
 
 
     private Coroutine smashCoroutine;
+    private Coroutine smashLaunchCoroutine;
     private ZaWarudoEffect vfx;
 
     private const float zwv_ColorShiftStart = 0.2f;
@@ -63,8 +65,18 @@ public class SM_Warudo : Smash
 
     void OnPlayerDestroy(Unit player)
     {
+        //a-t-on simplement �teint le jeu ?
+        if (DelayManager.instance == null)
+            return;
+
         if (smashCoroutine != null)
+        {
+            DelayManager.Cancel(smashCoroutine);
             OnSmashEnd();
+        }
+
+        //if (smashLaunchCoroutine != null)
+        //    DelayManager.Cancel(smashLaunchCoroutine);
     }
 
     public override void OnGameStarted()
@@ -74,17 +86,23 @@ public class SM_Warudo : Smash
 
     public override void OnSmash()
     {
+        //smashLaunchCoroutine = DelayManager.CallTo(delegate ()
+        //{
         vfx.Animate(delegate ()
         {
             SetTimeScale(targetTimeScale);
 
             smashCoroutine = DelayManager.CallTo(OnSmashEnd, duration);
         });
+        //}, launchDelay);
         SoundManager.Play(sfx);
     }
 
     void SetTimeScale(float amount)
     {
+        if (Game.instance == null)
+            return;
+
         List<Unit> units = Game.instance.units;
         if (units == null)
             return;
