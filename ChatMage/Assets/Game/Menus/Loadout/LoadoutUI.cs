@@ -311,7 +311,7 @@ namespace LoadoutMenu
         public void BackToLevelSelect()
         {
             SaveLoadout();
-            LoadingScreen.TransitionTo(LevelSelection.SCENENAME, null);
+            LoadingScreen.TransitionTo(LevelSelect.LevelSelection.SCENENAME, null);
         }
 
         public LoadoutResult SaveLoadout()

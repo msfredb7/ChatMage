@@ -3,62 +3,70 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class LevelSelect_Region : MonoBehaviour
+namespace LevelSelect
 {
-    public List<LevelSelect_Level> levelItems;
-    public event LevelSelect_Level.LevelSelectEvent onLevelSelected;
-
-    void Start()
+    public class LevelSelect_Region : MonoBehaviour
     {
-        AddListeners();
-    }
+        [Header("Les levels DOIVENT etre ancrer sur le mur gauche de la region")]
+        public List<LevelSelect_Level> levelItems;
+        public event LevelSelect_Level.LevelSelectEvent onLevelSelected;
 
-    void AddListeners()
-    {
-        for (int i = 0; i < levelItems.Count; i++)
+        [NonSerialized]
+        public RectTransform rectTransform;
+
+        void Awake()
         {
-            levelItems[i].onLevelSelected += OnLevelSelected;
+            rectTransform = GetComponent<RectTransform>();
+            AddListeners();
         }
-    }
 
-    //On fait remonté l'event jusqu'en haut
-    void OnLevelSelected(Level level)
-    {
-        if (onLevelSelected != null)
-            onLevelSelected(level);
-    }
-
-    public bool IsUnlocked()
-    {
-        for (int i = 0; i < levelItems.Count; i++)
+        void AddListeners()
         {
-            if (levelItems[i].IsUnlocked())
-                return true;
-        }
-        return false;
-    }
-
-    public void LoadData()
-    {
-        for (int i = 0; i < levelItems.Count; i++)
-        {
-            levelItems[i].LoadData();
-        }
-    }
-
-    /// <summary>
-    /// Returns true if the level was indeed in this list
-    /// </summary>
-    public bool MarkAsCompleted(string levelName)
-    {
-        for (int i = 0; i < levelItems.Count; i++)
-        {
-            if(levelItems[i].level.name == levelName)
+            for (int i = 0; i < levelItems.Count; i++)
             {
-                levelItems[i].level.Complete();
-                return true;
+                levelItems[i].onLevelSelected += OnLevelSelected;
             }
         }
-        return false;
+
+        //On fait remonté l'event jusqu'en haut
+        void OnLevelSelected(Level level)
+        {
+            if (onLevelSelected != null)
+                onLevelSelected(level);
+        }
+
+        public bool IsUnlocked()
+        {
+            for (int i = 0; i < levelItems.Count; i++)
+            {
+                if (levelItems[i].IsUnlocked())
+                    return true;
+            }
+            return false;
+        }
+
+        public void LoadData()
+        {
+            for (int i = 0; i < levelItems.Count; i++)
+            {
+                levelItems[i].LoadData();
+            }
+        }
+
+        /// <summary>
+        /// Returns true if the level was indeed in this list
+        /// </summary>
+        public bool MarkAsCompleted(string levelName)
+        {
+            for (int i = 0; i < levelItems.Count; i++)
+            {
+                if (levelItems[i].level.name == levelName)
+                {
+                    levelItems[i].level.Complete();
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

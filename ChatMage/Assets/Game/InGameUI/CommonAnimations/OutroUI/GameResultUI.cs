@@ -1,4 +1,4 @@
-﻿using CCC.Manager;
+using CCC.Manager;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -33,6 +33,6 @@ public class GameResultUI : MonoBehaviour {
 
     public void GoToMenu()
     {
-        LoadingScreen.TransitionTo(LevelSelection.SCENENAME, null);
+        LoadingScreen.TransitionTo(LevelSelect.LevelSelection.SCENENAME, null);
     }
 }

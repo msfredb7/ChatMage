@@ -1,44 +1,51 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LevelSelect_Level : MonoBehaviour
+namespace LevelSelect
 {
-    public Text displayName;
-    public Level level;
-    public Button button;
-
-    public delegate void LevelSelectEvent(Level level);
-    public event LevelSelectEvent onLevelSelected;
-
-
-    void Start()
+    public class LevelSelect_Level : MonoBehaviour
     {
-        button.onClick.AddListener(OnClick);
-        displayName.text = level.displayName;
-    }
+        public Text displayName;
+        public Level level;
+        public Button button;
 
-    void OnClick()
-    {
-        //Click animation !
+        [NonSerialized]
+        public RectTransform rectTransform;
+
+        public delegate void LevelSelectEvent(Level level);
+        public event LevelSelectEvent onLevelSelected;
 
 
-        //Event
-        if (onLevelSelected != null)
-            onLevelSelected(level);
-    }
+        void Awake()
+        {
+            rectTransform = GetComponent<RectTransform>();
+            button.onClick.AddListener(OnClick);
+            displayName.text = level.displayName;
+        }
 
-    public bool IsUnlocked()
-    {
-        return level.IsUnlocked();
-    }
+        void OnClick()
+        {
+            //Click animation !
 
-    // Devrais être fait au début du levelSelect
-    public void LoadData()
-    {
-        level.LoadData();
 
-        gameObject.SetActive(IsUnlocked());
+            //Event
+            if (onLevelSelected != null)
+                onLevelSelected(level);
+        }
+
+        public bool IsUnlocked()
+        {
+            return level.IsUnlocked();
+        }
+
+        // Devrais être fait au début du levelSelect
+        public void LoadData()
+        {
+            level.LoadData();
+
+            gameObject.SetActive(IsUnlocked());
+        }
     }
 }

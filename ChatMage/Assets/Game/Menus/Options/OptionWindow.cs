@@ -1,4 +1,4 @@
-﻿using CCC.Manager;
+using CCC.Manager;
 using CCC.UI;
 using System.Collections;
 using System.Collections.Generic;
@@ -42,7 +42,7 @@ public class OptionWindow : WindowAnimation
 
     public void GoToMenu()
     {
-        LoadingScreen.TransitionTo(LevelSelection.SCENENAME, null);
+        LoadingScreen.TransitionTo(LevelSelect.LevelSelection.SCENENAME, null);
     }
 
     public void Exit()

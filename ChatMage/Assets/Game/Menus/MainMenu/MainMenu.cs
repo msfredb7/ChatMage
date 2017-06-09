@@ -1,4 +1,4 @@
-﻿using CCC.Manager;
+using CCC.Manager;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,6 +18,6 @@ public class MainMenu : MonoBehaviour
 
     private void GotoLevelSelect()
     {
-        LoadingScreen.TransitionTo(LevelSelection.SCENENAME, null);
+        LoadingScreen.TransitionTo(LevelSelect.LevelSelection.SCENENAME, null);
     }
 }

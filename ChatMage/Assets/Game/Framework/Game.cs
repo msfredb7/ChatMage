@@ -99,7 +99,7 @@ public class Game : PublicSingleton<Game>
 
     public void Quit()
     {
-        LoadingScreen.TransitionTo(LevelSelection.SCENENAME, null);
+        LoadingScreen.TransitionTo(LevelSelect.LevelSelection.SCENENAME, null);
     }
 
     #region Unit Managment

@@ -27,7 +27,7 @@ public class ShopMenu : MonoBehaviour
         if(Scenes.SceneCount() == 1)
         {
             //Debug launch !
-            SetPreviousContext(LevelSelection.SCENENAME);
+            SetPreviousContext(LevelSelect.LevelSelection.SCENENAME);
         }
     }
 

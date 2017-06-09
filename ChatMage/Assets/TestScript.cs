@@ -9,20 +9,25 @@ using FullInspector;
 
 public class TestScript : BaseBehavior
 {
-    public ZaWarudoEffect effect;
-    private bool animating = false;
+    public LevelSelect.LevelSelect_MapAnimator map;
+    public ScrollRect sr;
+
     void Start()
     {
-        MasterManager.Sync();
     }
     void Update()
     {
-        //if ((Input.GetMouseButtonDown(0) || Input.touchCount != 0) && !animating)
-        //{
-        //    animating = true;
-        //    effect.Animate(null);
-        //    DelayManager.CallTo(delegate () { effect.AnimateBack(null); }, 5);
-        //    DelayManager.CallTo(delegate () { animating = false; }, 7.5f);
-        //}
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            map.MoveTo(0, 2, true, LevelSelect.LevelSelect_MapAnimator.MoveToType.LeftSide);
+        }
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            map.MoveTo(2000, true, LevelSelect.LevelSelect_MapAnimator.MoveToType.Centered);
+        }
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            map.MoveTo(2000, true, LevelSelect.LevelSelect_MapAnimator.MoveToType.LeftSide);
+        }
     }
 }
