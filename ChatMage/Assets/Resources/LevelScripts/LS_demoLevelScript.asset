@@ -12,10 +12,30 @@ MonoBehaviour:
   m_Name: LS_demoLevelScript
   m_EditorClassIdentifier: 
   _objectReferences: []
-  _serializedStateKeys: []
-  _serializedStateValues: []
+  _serializedStateKeys:
+  - waves
+  _serializedStateValues:
+  - '[{"packs":[],"where":{"type":"Waypoints","waypointInfo":{"idType":"String","waypointName":null,"waypointType":"PlayerSpawn","selection":{"referencePoint":"Player","minRelativeHeight":-4.5,"maxRelativeHeight":4.5},"spawningType":"Ordered"}},"when":{"type":"At","time":0.0,"name":null,"finishedRatio":1.0}}]'
   sceneName: MapDemo
   loseOnPlayerDeath: 1
+  waves:
+  - packs: []
+    where:
+      type: 1
+      waypointInfo:
+        idType: 1
+        waypointName: 
+        waypointType: 0
+        selection:
+          referencePoint: 0
+          minRelativeHeight: -4.5
+          maxRelativeHeight: 4.5
+        spawningType: 0
+    when:
+      type: 0
+      time: 0
+      name: 
+      finishedRatio: 1
   isOver: 1
   events: {fileID: 0}
   enemySpawnDelay: 4

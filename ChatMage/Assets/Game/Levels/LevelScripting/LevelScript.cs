@@ -5,6 +5,7 @@ using FullInspector;
 using UnityEngine.Events;
 using CCC.Manager;
 using FullSerializer;
+using LevelScripting;
 
 public abstract class LevelScript : BaseScriptableObject
 {
@@ -14,6 +15,8 @@ public abstract class LevelScript : BaseScriptableObject
     public string sceneName;
     [InspectorHeader("Base Settings")]
     public bool loseOnPlayerDeath = true;
+    [InspectorHeader("Unit Waves")]
+    public List<UnitWave> waves;
 
     public event SimpleEvent onWin;
     public event SimpleEvent onLose;
