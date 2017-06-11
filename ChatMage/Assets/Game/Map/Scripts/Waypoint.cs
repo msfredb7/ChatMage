@@ -1,8 +1,9 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Waypoint : MonoBehaviour {
+public class Waypoint : MonoBehaviour
+{
 
     public enum WaypointType
     {
@@ -24,7 +25,19 @@ public class Waypoint : MonoBehaviour {
         return type;
     }
 
-    public Waypoint Convert()
+    public Vector2 RawPosition { get { return transform.position; } }
+
+    public Vector2 AdjustedPosition
+    {
+        get
+        {
+            if (!alreadyConverted)
+                AdjustToMap();
+            return RawPosition;
+        }
+    }
+
+    private Waypoint AdjustToMap()
     {
         alreadyConverted = true;
         Game.instance.map.Adjust(gameObject);

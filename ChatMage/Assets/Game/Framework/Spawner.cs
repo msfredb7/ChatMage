@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,12 +14,12 @@ public class Spawner : MonoBehaviour {
 
     public Unit SpawnUnitAtRandomLocation(Unit unitPrefab, Waypoint.WaypointType spawnType)
     {
-        return SpawnUnitAtLocation(unitPrefab, map.GetRandomSpawnPoint(spawnType));
+        return SpawnUnitAtLocation(unitPrefab, map.GetRandomWaypoint(spawnType));
     }
 
     public Unit SpawnUnitAtLocation(Unit unitPrefab, Waypoint waypoint)
     {
-        return Game.instance.SpawnUnit(unitPrefab, new Vector2(waypoint.transform.position.x, waypoint.transform.position.y));
+        return Game.instance.SpawnUnit(unitPrefab, waypoint.AdjustedPosition);
     }
 
     public List<Unit> SpawnUnitAtMultipleDefinedLocation(Unit unitPrefab, List<Waypoint> waypoint, Action<Unit> function = null)
@@ -48,7 +48,7 @@ public class Spawner : MonoBehaviour {
 
     public List<Unit> SpawnUnitAtRandomMultipleLocation(Unit unitPrefab, Waypoint.WaypointType spawnType, int amount)
     {
-        List<Waypoint> waypoints = map.GetRandomMultipleSpawnPoint(spawnType, amount);
+        List<Waypoint> waypoints = map.GetMultipleRandomWaypoints(spawnType, amount);
         return SpawnUnitAtMultipleDefinedLocation(unitPrefab, waypoints);
     }
 

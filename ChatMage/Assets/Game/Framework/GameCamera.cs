@@ -75,6 +75,7 @@ public class GameCamera : MonoBehaviour
     public float Bottom { get { return Height - screenSize.y / 2; } }
     public float Left { get { return - screenSize.x / 2; } }
     public float Right { get { return screenSize.x / 2; } }
+    public Vector2 Center { get { return new Vector2(0, Height); } }
     public float Height { get { return tr.position.y; } }
     public Vector2 ScreenSize { get { return screenSize; } }
 

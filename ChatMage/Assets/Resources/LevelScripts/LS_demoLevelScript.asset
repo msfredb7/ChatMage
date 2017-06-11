@@ -11,35 +11,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a88557747dd947458fa46a8a52fbff4, type: 3}
   m_Name: LS_demoLevelScript
   m_EditorClassIdentifier: 
-  _objectReferences: []
+  _objectReferences:
+  - {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
   _serializedStateKeys:
   - waves
   _serializedStateValues:
-  - '[{"packs":[],"where":{"type":"Waypoints","waypointInfo":{"idType":"String","waypointName":null,"waypointType":"PlayerSpawn","selection":{"referencePoint":"Player","minRelativeHeight":-4.5,"maxRelativeHeight":4.5},"spawningType":"Ordered"}},"when":{"type":"At","time":0.0,"name":null,"finishedRatio":1.0}}]'
+  - '[{"packs":[{"unit":0,"quantity":3}],"where":{"type":"Waypoints","clamp":false,"referencePoint":"ScreenCenter","clampMin":{"x":-1.0,"y":-1.0},"clampMax":{"x":1.0,"y":1.0},"waypointInfo":{"idType":"String","waypointName":null,"waypointType":"PlayerSpawn","referencePoint":"Player","minHeight":-4.5,"maxHeight":4.5,"spawningType":"AllUnitsOnSame"}},"when":{"type":"OnManualTrigger","time":1.0,"name":"eersa","finishedRatio":1.0},"duration":3.0}]'
   sceneName: MapDemo
   loseOnPlayerDeath: 1
   waves:
-  - packs: []
+  - packs:
+    - unit: {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
+      quantity: 3
     where:
       type: 1
+      clamp: 0
+      referencePoint: 1
+      clampMin: {x: -1, y: -1}
+      clampMax: {x: 1, y: 1}
       waypointInfo:
         idType: 1
         waypointName: 
         waypointType: 0
-        selection:
-          referencePoint: 0
-          minRelativeHeight: -4.5
-          maxRelativeHeight: 4.5
-        spawningType: 0
+        referencePoint: 0
+        minHeight: -4.5
+        maxHeight: 4.5
+        spawningType: 2
     when:
-      type: 0
-      time: 0
-      name: 
+      type: 6
+      time: 1
+      name: eersa
       finishedRatio: 1
-  isOver: 1
+    duration: 3
+  isOver: 0
   events: {fileID: 0}
-  enemySpawnDelay: 4
-  hpSpawnDelay: 8
   healthPacks: {fileID: 114870834835718906, guid: d28e2a568fc043140bfc8bc5777eb644,
     type: 2}
   shielder: {fileID: 114892083099199946, guid: a97b513999cddca448e173580c0c886f, type: 2}

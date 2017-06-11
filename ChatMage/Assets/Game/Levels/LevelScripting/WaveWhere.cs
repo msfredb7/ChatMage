@@ -9,13 +9,26 @@ namespace LevelScripting
     public class WaveWhere
     {
         public Type type;
+        [InspectorHideIf("IsTypeRegion")]
+        public bool clamp = false;
+
+
+        [InspectorShowIf("UseClamping"), InspectorHeader("Clamping")]
+        public ReferencePoint referencePoint;
+        public enum ReferencePoint { Player = 0, ScreenCenter = 1, WorldCenter = 2 }
+        [InspectorShowIf("UseClamping")]
+        public Vector2 clampMin = new Vector2(-8, -4.5f);
+        [InspectorShowIf("UseClamping")]
+        public Vector2 clampMax = new Vector2(8, 4.5f);
 
         [InspectorShowIf("IsTypeWaypoint")]
         public WaypointInfo waypointInfo;
 
-        public enum Type { RandomAroundScreen = 0, Waypoints = 1 }
+        public enum Type { RandomAroundScreen = 0, Waypoints = 1, WithinRegion = 2 }
 
         public bool IsTypeWaypoint { get { return type == Type.Waypoints; } }
+        public bool IsTypeRegion { get { return type == Type.WithinRegion; } }
+        public bool UseClamping { get { return type == Type.WithinRegion || clamp; } }
 
         [System.Serializable]
         public class WaypointInfo
@@ -31,21 +44,11 @@ namespace LevelScripting
 
             public bool IdTypeIsEnum { get { return idType == IdType.Enum; } }
 
-
-
             [InspectorHeader("Selection")]
-            public Selection selection;
-
-            [System.Serializable]
-            public class Selection
-            {
-                public ReferencePoint referencePoint;
-                public enum ReferencePoint { Player = 0, ScreenCenter = 1 }
-
-                public float minRelativeHeight = -4.5f;
-                public float maxRelativeHeight = 4.5f;
-            }
-
+            public ReferencePoint referencePoint;
+            public enum ReferencePoint { Player = 0, ScreenCenter = 1}
+            public float minHeight = -4.5f;
+            public float maxHeight = 4.5f;
 
 
             [InspectorHeader("Spawn")]

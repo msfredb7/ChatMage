@@ -52,6 +52,12 @@ public class InGameEvents : MonoBehaviour
 
     public void AddDelayedAction(Action action, float delay)
     {
+        if (delay <= 0)
+        {
+            action();
+            return;
+        }
+
         DelayedAction da = new DelayedAction() { at = delay + timer, action = action };
         LinkedListNode<DelayedAction> node = delayedActions.First;
 
@@ -83,7 +89,7 @@ public class InGameEvents : MonoBehaviour
     /// <returns></returns>
     public Vector2 LockPlayerOnSpawn(float lookAngle)
     {
-        Vector3 pos = Game.instance.map.mapping.GetRandomSpawnPoint(Waypoint.WaypointType.PlayerSpawn).transform.position;
+        Vector3 pos = Game.instance.map.mapping.GetRandomWaypoint(Waypoint.WaypointType.PlayerSpawn).transform.position;
         Game.instance.Player.vehicle.TeleportPosition(pos);
         Game.instance.Player.vehicle.TeleportDirection(lookAngle);
         LockPlayer();
@@ -142,7 +148,7 @@ public class InGameEvents : MonoBehaviour
     }
 
     #endregion
-    
+
     #region Spawn Units
 
     /// <summary>
@@ -327,6 +333,19 @@ public class InGameEvents : MonoBehaviour
             }
         }
     }
+
+    public void SpawnUnit<T>(T unit,Vector2 position, float time = 0, Action<T> action = null) where T : Unit
+    {
+        AddDelayedAction(delegate ()
+        {
+            if (action != null)
+                action(Game.instance.SpawnUnit(unit, position));
+            else
+                Game.instance.SpawnUnit(unit, position);
+        },
+        time);
+    }
+
 
     #endregion
 

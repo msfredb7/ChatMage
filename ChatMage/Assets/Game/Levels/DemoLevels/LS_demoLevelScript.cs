@@ -10,10 +10,6 @@ using UnityEngine.UI;
 
 public class LS_demoLevelScript : LevelScript
 {
-    [InspectorHeader("Settings")]
-    public float enemySpawnDelay = 4f;
-    public float hpSpawnDelay = 8f;
-
     [InspectorHeader("Units")]
     public HealthPacks healthPacks;
     public ShielderVehicle shielder;
@@ -25,16 +21,17 @@ public class LS_demoLevelScript : LevelScript
 
     public override void OnInit(Action onComplete)
     {
-        Game.instance.SetDefaultBorders(true, 0, true, 0);
+        Game.instance.SetDefaultBorders(false, 0, false, 0);
         onComplete();
     }
 
     protected override void OnGameReady()
     {
+        //Game.instance.gameCamera.followPlayer = true;
         events.LockPlayerOnSpawn(90);
 
         //On fait gagner le joueur dans 20s
-        events.AddDelayedAction(Win, 20);
+        //events.AddDelayedAction(Win, 20);
 
         events.ShowUI(countdownUI).onCountdownOver += Game.instance.StartGame;
 
@@ -47,8 +44,8 @@ public class LS_demoLevelScript : LevelScript
         Game.instance.gameBounds.EnableAll();
         events.UnLockPlayer();
 
-        events.SpawnEntitySpreadTime(shielder, 20, Waypoint.WaypointType.enemySpawn, 10, true);
-        events.SpawnEntitySpreadTime(healthPacks, 20, Waypoint.WaypointType.enemySpawn, 5, true);
+        //events.SpawnEntitySpreadTime(shielder, 20, Waypoint.WaypointType.enemySpawn, 10, true);
+        //events.SpawnEntitySpreadTime(healthPacks, 20, Waypoint.WaypointType.enemySpawn, 5, true);
     }
 
     protected override void OnUpdate()
@@ -61,14 +58,17 @@ public class LS_demoLevelScript : LevelScript
         {
             Win();
         }
+        if (Input.GetKeyDown(KeyCode.T) && !IsOver)
+        {
+            TriggerWave("eersa");
+        }
     }
 
-    public override void ReceiveEvent(string message)
+    public override void OnReceiveEvent(string message)
     {
         switch (message)
         {
             default:
-                Debug.LogWarning("Demo level script received an unhandled event: " + message);
                 break;
         }
     }
