@@ -342,6 +342,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cc06a4b36bf8bc4fb703c895d675ed5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _objectReferences:
+  - {fileID: 2128911724}
+  - {fileID: 984009600}
+  - {fileID: 1013136071}
+  - {fileID: 866277889}
+  - {fileID: 751856731}
+  - {fileID: 1046977494}
+  - {fileID: 1134783216}
+  - {fileID: 1857651404}
+  - {fileID: 376287710}
+  - {fileID: 1553431134}
+  - {fileID: 876163088}
+  - {fileID: 876163088}
+  _serializedStateKeys:
+  - unfilteredWaypoints
+  - enemyWaypoints
+  - playerWaypoints
+  - bossWaypoints
+  - itemWaypoints
+  - otherWaypoints
+  - taggedWaypoints
+  _serializedStateValues:
+  - '[]'
+  - '[0,1,2,3,4,5,6,7]'
+  - '[8]'
+  - '[9]'
+  - '[]'
+  - '[]'
+  - '{"toto":[10],"tata":[11]}'
   unfilteredWaypoints: []
   enemyWaypoints:
   - {fileID: 2128911724}
@@ -358,8 +387,6 @@ MonoBehaviour:
   - {fileID: 1553431134}
   itemWaypoints: []
   otherWaypoints: []
-  tagsWaypoints:
-  - {fileID: 876163088}
 --- !u!4 &153121007
 Transform:
   m_ObjectHideFlags: 0
@@ -370,7 +397,10 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1970291079}
+  - {fileID: 2128633652}
+  - {fileID: 1668148738}
+  - {fileID: 1991272633}
+  - {fileID: 2098066709}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -539,6 +569,7 @@ MonoBehaviour:
   - type
   _serializedStateValues:
   - '"PlayerSpawn"'
+  useTag: 0
   type: 0
   tags: []
 --- !u!1 &397480593
@@ -1082,6 +1113,7 @@ MonoBehaviour:
   - type
   _serializedStateValues:
   - '"enemySpawn"'
+  useTag: 0
   type: 2
   tags: []
 --- !u!1 &822129573
@@ -1267,6 +1299,7 @@ MonoBehaviour:
   - type
   _serializedStateValues:
   - '"enemySpawn"'
+  useTag: 0
   type: 2
   tags: []
 --- !u!1 &876163086
@@ -1313,8 +1346,9 @@ MonoBehaviour:
   _serializedStateKeys:
   - type
   _serializedStateValues:
-  - '"Tags"'
-  type: 5
+  - '"PlayerSpawn"'
+  useTag: 1
+  type: 0
   tags:
   - toto
   - tata
@@ -1483,6 +1517,7 @@ MonoBehaviour:
   - type
   _serializedStateValues:
   - '"enemySpawn"'
+  useTag: 0
   type: 2
   tags: []
 --- !u!1 &990865921
@@ -1599,6 +1634,7 @@ MonoBehaviour:
   - type
   _serializedStateValues:
   - '"enemySpawn"'
+  useTag: 0
   type: 2
   tags: []
 --- !u!1 &1028598938
@@ -1715,6 +1751,7 @@ MonoBehaviour:
   - type
   _serializedStateValues:
   - '"enemySpawn"'
+  useTag: 0
   type: 2
   tags: []
 --- !u!1 &1112810090
@@ -1831,6 +1868,7 @@ MonoBehaviour:
   - type
   _serializedStateValues:
   - '"enemySpawn"'
+  useTag: 0
   type: 2
   tags: []
 --- !u!1 &1235482205
@@ -2106,6 +2144,7 @@ MonoBehaviour:
   - type
   _serializedStateValues:
   - '"BossSpawn"'
+  useTag: 0
   type: 3
   tags: []
 --- !u!1 &1574417753
@@ -2319,6 +2358,8 @@ MonoBehaviour:
   - {fileID: 1013136071}
   - {fileID: 1553431134}
   - {fileID: 876163088}
+  - {fileID: 153121006}
+  - {fileID: 0}
   _values:
   - _keys: []
     _values: []
@@ -2365,6 +2406,12 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 876163088}
+  - _keys: []
+    _values: []
+    _target: {fileID: 153121006}
+  - _keys: []
+    _values: []
+    _target: {fileID: 0}
 --- !u!114 &1649213853
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2392,6 +2439,8 @@ MonoBehaviour:
   - {fileID: 1013136071}
   - {fileID: 1553431134}
   - {fileID: 876163088}
+  - {fileID: 153121006}
+  - {fileID: 0}
   _values:
   - _keys:
     - DefaultBehaviorEditor.milestoneRelativeHeights.EditProperty
@@ -2459,6 +2508,12 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 876163088}
+  - _keys: []
+    _values: []
+    _target: {fileID: 153121006}
+  - _keys: []
+    _values: []
+    _target: {fileID: 0}
 --- !u!1 &1668148737
 GameObject:
   m_ObjectHideFlags: 0
@@ -2485,7 +2540,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 376287709}
-  m_Father: {fileID: 1970291079}
+  m_Father: {fileID: 153121007}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1698845316
@@ -3016,6 +3071,7 @@ MonoBehaviour:
   - type
   _serializedStateValues:
   - '"enemySpawn"'
+  useTag: 0
   type: 2
   tags: []
 --- !u!1 &1867870938
@@ -3239,38 +3295,6 @@ SpriteRenderer:
   m_Size: {x: 16, y: 10}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 1
---- !u!1 &1970291078
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1970291079}
-  m_Layer: 0
-  m_Name: Waypoints
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1970291079
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1970291078}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 2128633652}
-  - {fileID: 1668148738}
-  - {fileID: 1991272633}
-  - {fileID: 2098066709}
-  m_Father: {fileID: 153121007}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1991272632
 GameObject:
   m_ObjectHideFlags: 0
@@ -3297,7 +3321,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1553431133}
-  m_Father: {fileID: 1970291079}
+  m_Father: {fileID: 153121007}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2097872834
@@ -3395,7 +3419,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 876163087}
-  m_Father: {fileID: 1970291079}
+  m_Father: {fileID: 153121007}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2128633651
@@ -3419,7 +3443,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2128633651}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3431,7 +3455,7 @@ Transform:
   - {fileID: 1046977493}
   - {fileID: 1134783215}
   - {fileID: 1857651403}
-  m_Father: {fileID: 1970291079}
+  m_Father: {fileID: 153121007}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2128911723
@@ -3466,6 +3490,7 @@ MonoBehaviour:
   - type
   _serializedStateValues:
   - '"enemySpawn"'
+  useTag: 0
   type: 2
   tags: []
 --- !u!4 &2128911725

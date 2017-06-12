@@ -3,54 +3,79 @@ using System.Collections.Generic;
 using UnityEngine;
 using CCC;
 using CCC.Utility;
+using FullInspector;
+using FullSerializer;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 
-public class Mapping : MonoBehaviour, IComparer<Waypoint>
+public class Mapping : BaseBehavior, IComparer<Waypoint>
 {
-    [SerializeField, Header("Fill")]
-    private List<Waypoint> unfilteredWaypoints;
+    [SerializeField, InspectorCategory("Fill")]
+    public List<Waypoint> unfilteredWaypoints;
 
-    [SerializeField, ReadOnly(), Header("Result")]
+    [SerializeField, InspectorCategory("Result")]
     private List<Waypoint> enemyWaypoints;
-    [SerializeField, ReadOnly()]
+    [SerializeField, ReadOnly(), InspectorCategory("Result")]
     private List<Waypoint> playerWaypoints;
-    [SerializeField, ReadOnly()]
+    [SerializeField, ReadOnly(), InspectorCategory("Result")]
     private List<Waypoint> bossWaypoints;
-    [SerializeField, ReadOnly()]
+    [SerializeField, ReadOnly(), InspectorCategory("Result")]
     private List<Waypoint> itemWaypoints;
-    [SerializeField, ReadOnly()]
+    [SerializeField, ReadOnly(), InspectorCategory("Result")]
     private List<Waypoint> otherWaypoints;
-    [SerializeField, ReadOnly()]
-    private List<Waypoint> tagsWaypoints;
+    [SerializeField, ReadOnly(), InspectorCategory("Result")]
+    private Dictionary<string, List<Waypoint>> taggedWaypoints;
 
+    [InspectorButton(), InspectorCategory("Fill")]
     public void BuildWaypointLists()
     {
         for (int i = 0; i < unfilteredWaypoints.Count; i++)
         {
-            switch (unfilteredWaypoints[i].Type)
+            if (unfilteredWaypoints[i].useTag)
             {
-                case Waypoint.WaypointType.enemySpawn:
-                    enemyWaypoints.Add(unfilteredWaypoints[i]);
-                    continue;
-                case Waypoint.WaypointType.PlayerSpawn:
-                    playerWaypoints.Add(unfilteredWaypoints[i]);
-                    continue;
-                case Waypoint.WaypointType.BossSpawn:
-                    bossWaypoints.Add(unfilteredWaypoints[i]);
-                    continue;
-                case Waypoint.WaypointType.items:
-                    itemWaypoints.Add(unfilteredWaypoints[i]);
-                    continue;
-                case Waypoint.WaypointType.Other:
-                    otherWaypoints.Add(unfilteredWaypoints[i]);
-                    continue;
-                case Waypoint.WaypointType.Tags:
-                    tagsWaypoints.Add(unfilteredWaypoints[i]);
-                    continue;
+                //On l'ajoute dans tous les categories
+                for (int u = 0; u < unfilteredWaypoints[i].tags.Length; u++)
+                {
+                    string tag = unfilteredWaypoints[i].tags[u];
+                    if (taggedWaypoints.ContainsKey(tag))
+                    {
+                        //Ajout a la liste
+                        if (!taggedWaypoints[tag].Contains(unfilteredWaypoints[i]))
+                            taggedWaypoints[tag].Add(unfilteredWaypoints[i]);
+                    }
+                    else
+                    {
+                        //Nouvelle liste
+                        taggedWaypoints.Add(tag, new List<Waypoint>());
+                        taggedWaypoints[tag].Add(unfilteredWaypoints[i]);
+                    }
+                }
+            }
+            else
+            {
+                switch (unfilteredWaypoints[i].Type)
+                {
+                    case Waypoint.WaypointType.enemySpawn:
+                        enemyWaypoints.Add(unfilteredWaypoints[i]);
+                        continue;
+                    case Waypoint.WaypointType.PlayerSpawn:
+                        playerWaypoints.Add(unfilteredWaypoints[i]);
+                        continue;
+                    case Waypoint.WaypointType.BossSpawn:
+                        bossWaypoints.Add(unfilteredWaypoints[i]);
+                        continue;
+                    case Waypoint.WaypointType.items:
+                        itemWaypoints.Add(unfilteredWaypoints[i]);
+                        continue;
+                    case Waypoint.WaypointType.Other:
+                        otherWaypoints.Add(unfilteredWaypoints[i]);
+                        continue;
+                }
             }
         }
+
+
         unfilteredWaypoints.Clear();
 
         //ON NE LE FAIT PLUS. ÇA FUCK L'ORDRE
@@ -73,6 +98,7 @@ public class Mapping : MonoBehaviour, IComparer<Waypoint>
             return 0;
     }
 
+    [InspectorButton(), InspectorCategory("Result")]
     public void ClearLists()
     {
         enemyWaypoints.Clear();
@@ -80,7 +106,8 @@ public class Mapping : MonoBehaviour, IComparer<Waypoint>
         bossWaypoints.Clear();
         itemWaypoints.Clear();
         otherWaypoints.Clear();
-        tagsWaypoints.Clear();
+        if (taggedWaypoints != null)
+            taggedWaypoints.Clear();
     }
 
     #region Private
@@ -99,10 +126,19 @@ public class Mapping : MonoBehaviour, IComparer<Waypoint>
                 return itemWaypoints;
             case Waypoint.WaypointType.Other:
                 return otherWaypoints;
-            case Waypoint.WaypointType.Tags:
-                return tagsWaypoints;
         }
         return null;
+    }
+    private List<Waypoint> GetWaypointListByTag(string tag)
+    {
+        try
+        {
+            return taggedWaypoints[tag];
+        }
+        catch
+        {
+            return null;
+        }
     }
 
     //private List<Waypoint> AdjustAllNotadjusted(List<Waypoint> waypointsNotConverted)
@@ -120,21 +156,11 @@ public class Mapping : MonoBehaviour, IComparer<Waypoint>
 
     public List<Waypoint> GetWaypoints(string tag)
     {
-        List<Waypoint> waypoints = GetWaypointListByType(Waypoint.WaypointType.Tags);
-        List<Waypoint> filteredWaypoints = new List<Waypoint>();
-
-        for (int i = 0; i < waypoints.Count; i++)
-        {
-            foreach (string aTag in waypoints[i].tags)
-            {
-                if (aTag == tag)
-                {
-                    filteredWaypoints.Add(waypoints[i]);
-                    break;
-                }
-            }
-        }
-        return filteredWaypoints;
+        List<Waypoint> list = GetWaypointListByTag(tag);
+        if (list != null)
+            return new List<Waypoint>(GetWaypointListByTag(tag));
+        else
+            return new List<Waypoint>();
     }
     public List<Waypoint> GetWaypoints(Waypoint.WaypointType type)
     {
@@ -150,8 +176,6 @@ public class Mapping : MonoBehaviour, IComparer<Waypoint>
                 return new List<Waypoint>(itemWaypoints);
             case Waypoint.WaypointType.Other:
                 return new List<Waypoint>(otherWaypoints);
-            case Waypoint.WaypointType.Tags:
-                return new List<Waypoint>(tagsWaypoints);
         }
         return null;
     }
@@ -272,22 +296,22 @@ public class Mapping : MonoBehaviour, IComparer<Waypoint>
     #endregion
 }
 
-#if UNITY_EDITOR
-[CustomEditor(typeof(Mapping))]
-public class Mapping_Editor : Editor
-{
-    public override void OnInspectorGUI()
-    {
-        base.OnInspectorGUI();
+//#if UNITY_EDITOR
+//[CustomEditor(typeof(Mapping))]
+//public class Mapping_Editor : Editor
+//{
+//    public override void OnInspectorGUI()
+//    {
+//        base.OnInspectorGUI();
 
-        if (GUILayout.Button("Build Lists"))
-        {
-            (target as Mapping).BuildWaypointLists();
-        }
-        if (GUILayout.Button("Clear Lists"))
-        {
-            (target as Mapping).ClearLists();
-        }
-    }
-}
-#endif
+//        if (GUILayout.Button("Build Lists"))
+//        {
+//            (target as Mapping).BuildWaypointLists();
+//        }
+//        if (GUILayout.Button("Clear Lists"))
+//        {
+//            (target as Mapping).ClearLists();
+//        }
+//    }
+//}
+//#endif

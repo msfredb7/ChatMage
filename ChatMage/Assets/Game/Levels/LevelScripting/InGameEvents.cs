@@ -89,7 +89,7 @@ public class InGameEvents : MonoBehaviour
     /// <returns></returns>
     public Vector2 LockPlayerOnSpawn(float lookAngle)
     {
-        Vector3 pos = Game.instance.map.mapping.GetRandomWaypoint(Waypoint.WaypointType.PlayerSpawn).transform.position;
+        Vector3 pos = Game.instance.map.mapping.GetRandomWaypoint(Waypoint.WaypointType.PlayerSpawn).AdjustedPosition;
         Game.instance.Player.vehicle.TeleportPosition(pos);
         Game.instance.Player.vehicle.TeleportDirection(lookAngle);
         LockPlayer();

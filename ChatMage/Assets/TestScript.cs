@@ -11,6 +11,7 @@ public class TestScript : BaseBehavior
 {
     public LevelSelect.LevelSelect_MapAnimator map;
     public ScrollRect sr;
+    public Mapping mapping;
 
     void Start()
     {
@@ -19,15 +20,11 @@ public class TestScript : BaseBehavior
     {
         if (Input.GetKeyDown(KeyCode.M))
         {
-            map.MoveTo(0, 2, true, LevelSelect.LevelSelect_MapAnimator.MoveToType.LeftSide);
-        }
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            map.MoveTo(2000, true, LevelSelect.LevelSelect_MapAnimator.MoveToType.Centered);
-        }
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            map.MoveTo(2000, true, LevelSelect.LevelSelect_MapAnimator.MoveToType.LeftSide);
+            List<Waypoint> test = mapping.GetWaypoints("wda");
+            if (test == null)
+                print("null");
+            else
+                print(test.Count);
         }
     }
 }

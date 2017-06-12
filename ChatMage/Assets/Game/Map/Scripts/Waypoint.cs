@@ -13,12 +13,12 @@ public class Waypoint : BaseBehavior
         enemySpawn = 2,
         BossSpawn = 3,
         Other = 4,
-        Tags = 5,
     }
 
-    [SerializeField]
-    private WaypointType type;
-    [InspectorShowIf("IsTagType")]
+    public bool useTag = true;
+    [InspectorHideIf("useTag")]
+    public WaypointType type;
+    [InspectorShowIf("useTag")]
     public string[] tags;
 
     private bool alreadyConverted = false;
@@ -44,8 +44,6 @@ public class Waypoint : BaseBehavior
         return this;
     }
 
-    private bool IsTagType { get { return type == WaypointType.Tags; } }
-
     void OnDrawGizmosSelected()
     {
         Gizmos.color = TypeToColor();
@@ -54,21 +52,21 @@ public class Waypoint : BaseBehavior
 
     Color TypeToColor()
     {
-        switch (type)
-        {
-            case WaypointType.PlayerSpawn:
-                return Color.blue;
-            case WaypointType.items:
-                return Color.green;
-            case WaypointType.enemySpawn:
-                return Color.red;
-            case WaypointType.BossSpawn:
-                return Color.black;
-            case WaypointType.Other:
-                return Color.white;
-            case WaypointType.Tags:
-                return Color.yellow;
-        }
-        return Color.gray;
+        if (!useTag)
+            switch (type)
+            {
+                case WaypointType.PlayerSpawn:
+                    return Color.blue;
+                case WaypointType.items:
+                    return Color.green;
+                case WaypointType.enemySpawn:
+                    return Color.red;
+                case WaypointType.BossSpawn:
+                    return Color.black;
+                case WaypointType.Other:
+                    return Color.white;
+            }
+
+        return Color.magenta;
     }
 }
