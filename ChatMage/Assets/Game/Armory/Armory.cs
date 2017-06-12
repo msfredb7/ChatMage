@@ -55,10 +55,11 @@ public class Armory : ScriptableObject
     public List<EquipablePreview> GetAllEquipablesLock()
     {
         List<EquipablePreview> result = new List<EquipablePreview>();
-        // Lourd ???
-        result.CopyTo(GetAllLockedItems().ToArray());
-        result.CopyTo(GetAllLockedCars().ToArray());
-        result.CopyTo(GetAllLockedSmash().ToArray());
+
+        result.AddRange(GetAllLockedItems());
+        result.AddRange(GetAllLockedCars());
+        result.AddRange(GetAllLockedSmash());
+
         return result;
     }
 
@@ -174,7 +175,7 @@ public class Armory : ScriptableObject
 
     public bool BuyItemSlots(int amount, int slotCost)
     {
-        if (Account.instance.AddMoney(amount * slotCost))
+        if (Account.instance.AddCoins(amount * slotCost))
         {
             itemSlots += amount;
             return true;

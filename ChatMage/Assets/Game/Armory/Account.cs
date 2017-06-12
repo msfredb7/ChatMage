@@ -51,7 +51,7 @@ public class Account : BaseManager<Account>
     /// Ajout ou retire un certain montant d'argent au compte du joueur
     /// </summary>
     /// <returns>Retourne si le changement a reussi ou pas</returns>
-    public bool AddMoney(int amount)
+    public bool AddCoins(int amount)
     {
         int moneyResult = coins + amount;
         if (moneyResult < 0)
