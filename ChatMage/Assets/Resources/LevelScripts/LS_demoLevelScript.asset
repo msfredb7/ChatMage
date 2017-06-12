@@ -16,7 +16,7 @@ MonoBehaviour:
   _serializedStateKeys:
   - waves
   _serializedStateValues:
-  - '[{"packs":[{"unit":0,"quantity":3}],"where":{"type":"Waypoints","clamp":false,"referencePoint":"ScreenCenter","clampMin":{"x":-1.0,"y":-1.0},"clampMax":{"x":1.0,"y":1.0},"waypointInfo":{"idType":"String","waypointName":null,"waypointType":"PlayerSpawn","referencePoint":"Player","minHeight":-4.5,"maxHeight":4.5,"spawningType":"AllUnitsOnSame"}},"when":{"type":"OnManualTrigger","time":1.0,"name":"eersa","finishedRatio":1.0},"duration":3.0}]'
+  - '[{"packs":[{"unit":0,"quantity":3}],"where":{"type":"Waypoints","clamp":false,"referencePoint":"ScreenCenter","clampMin":{"x":-1.0,"y":-1.0},"clampMax":{"x":1.0,"y":1.0},"waypointInfo":{"idType":"Enum","waypointTag":null,"waypointType":"enemySpawn","spawningType":"Random","filterByHeight":false,"referencePoint":"Player","minHeight":-4.5,"maxHeight":4.5}},"when":{"type":"OnManualTrigger","time":1.0,"name":"eersa","finishedRatio":1.0},"duration":3.0}]'
   sceneName: MapDemo
   loseOnPlayerDeath: 1
   waves:
@@ -30,13 +30,14 @@ MonoBehaviour:
       clampMin: {x: -1, y: -1}
       clampMax: {x: 1, y: 1}
       waypointInfo:
-        idType: 1
-        waypointName: 
-        waypointType: 0
+        idType: 0
+        waypointTag: 
+        waypointType: 2
+        spawningType: 1
+        filterByHeight: 0
         referencePoint: 0
         minHeight: -4.5
         maxHeight: 4.5
-        spawningType: 2
     when:
       type: 6
       time: 1

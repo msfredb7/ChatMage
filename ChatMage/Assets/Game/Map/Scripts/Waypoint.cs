@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FullInspector;
 
-public class Waypoint : MonoBehaviour
+public class Waypoint : BaseBehavior
 {
 
     public enum WaypointType
@@ -17,13 +18,12 @@ public class Waypoint : MonoBehaviour
 
     [SerializeField]
     private WaypointType type;
+    [InspectorShowIf("IsTagType")]
+    public string[] tags;
 
-    public bool alreadyConverted = false;
+    private bool alreadyConverted = false;
 
-    public WaypointType GetWaypointType()
-    {
-        return type;
-    }
+    public WaypointType Type { get { return type; } }
 
     public Vector2 RawPosition { get { return transform.position; } }
 
@@ -43,6 +43,8 @@ public class Waypoint : MonoBehaviour
         Game.instance.map.Adjust(gameObject);
         return this;
     }
+
+    private bool IsTagType { get { return type == WaypointType.Tags; } }
 
     void OnDrawGizmosSelected()
     {

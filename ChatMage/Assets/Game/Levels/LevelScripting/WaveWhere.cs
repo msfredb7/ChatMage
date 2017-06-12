@@ -36,24 +36,34 @@ namespace LevelScripting
             [InspectorHeader("Id")]
             public IdType idType;
             [InspectorHideIf("IdTypeIsEnum")]
-            public string waypointName;
+            public string waypointTag;
             [InspectorShowIf("IdTypeIsEnum")]
             public Waypoint.WaypointType waypointType;
 
-            public enum IdType { Enum = 0, String = 1 }
+            public enum IdType { Enum = 0, Tag = 1 }
 
             public bool IdTypeIsEnum { get { return idType == IdType.Enum; } }
-
-            [InspectorHeader("Selection")]
-            public ReferencePoint referencePoint;
-            public enum ReferencePoint { Player = 0, ScreenCenter = 1}
-            public float minHeight = -4.5f;
-            public float maxHeight = 4.5f;
 
 
             [InspectorHeader("Spawn")]
             public SpawningType spawningType;
             public enum SpawningType { Ordered = 0, Random = 1, AllUnitsOnSame = 2 }
+            private bool IsSpawnTypeAllUnitsOnSame { get { return spawningType == SpawningType.AllUnitsOnSame; } }
+
+
+
+            [InspectorHeader("Selection"), InspectorShowIf("CanSelection")]
+            public bool filterByHeight = false;
+            [InspectorShowIf("UseSelection")]
+            public ReferencePoint referencePoint;
+            public enum ReferencePoint { Player = 0, ScreenCenter = 1 }
+            [InspectorShowIf("UseSelection")]
+            public float minHeight = -4.5f;
+            [InspectorShowIf("UseSelection")]
+            public float maxHeight = 4.5f;
+
+            public bool UseSelection { get { return filterByHeight && CanSelection; } }
+            public bool CanSelection { get { return spawningType != SpawningType.Ordered; } }
 
         }
     }

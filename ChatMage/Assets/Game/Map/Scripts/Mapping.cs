@@ -29,7 +29,7 @@ public class Mapping : MonoBehaviour, IComparer<Waypoint>
     {
         for (int i = 0; i < unfilteredWaypoints.Count; i++)
         {
-            switch (unfilteredWaypoints[i].GetWaypointType())
+            switch (unfilteredWaypoints[i].Type)
             {
                 case Waypoint.WaypointType.enemySpawn:
                     enemyWaypoints.Add(unfilteredWaypoints[i]);
@@ -104,17 +104,6 @@ public class Mapping : MonoBehaviour, IComparer<Waypoint>
         return null;
     }
 
-    private Waypoint PickWaypointInLottery(Lottery lot)
-    {
-        if (lot.Count > 0)
-        {
-            Waypoint result = (Waypoint)lot.Pick();
-            return result;
-        }
-        else
-            return null;
-    }
-
     //private List<Waypoint> AdjustAllNotadjusted(List<Waypoint> waypointsNotConverted)
     //{
     //    for (int i = 0; i < waypointsNotConverted.Count; i++)
@@ -127,6 +116,25 @@ public class Mapping : MonoBehaviour, IComparer<Waypoint>
     #endregion
 
     #region Public
+
+    public List<Waypoint> GetWaypoints(string tag)
+    {
+        List<Waypoint> waypoints = GetWaypointListByType(Waypoint.WaypointType.Tags);
+        List<Waypoint> filteredWaypoints = new List<Waypoint>();
+
+        for (int i = 0; i < waypoints.Count; i++)
+        {
+            foreach (string aTag in waypoints[i].tags)
+            {
+                if (aTag == tag)
+                {
+                    filteredWaypoints.Add(waypoints[i]);
+                    break;
+                }
+            }
+        }
+        return filteredWaypoints;
+    }
     public List<Waypoint> GetWaypoints(Waypoint.WaypointType type)
     {
         switch (type)
@@ -146,9 +154,63 @@ public class Mapping : MonoBehaviour, IComparer<Waypoint>
         }
         return null;
     }
+    public List<Waypoint> GetWaypoints(string tag, float minHeight, float maxHeight)
+    {
+        return FilterWaypointsToNewList(GetWaypoints(tag), minHeight, maxHeight);
+    }
     public List<Waypoint> GetWaypoints(Waypoint.WaypointType type, float minHeight, float maxHeight)
     {
-        List<Waypoint> allWps = GetWaypoints(type);
+        return FilterWaypointsToNewList(GetWaypointListByType(type), minHeight, maxHeight);
+    }
+
+    public Waypoint GetRandomWaypoint(string tag)
+    {
+        List<Waypoint> waypoints = GetWaypoints(tag);
+
+        //Pas besoin d'une lotterie
+        return waypoints[Random.Range(0, waypoints.Count)];
+    }
+    public Waypoint GetRandomWaypoint(Waypoint.WaypointType type)
+    {
+        List<Waypoint> waypoints = GetWaypointListByType(type);
+
+        //Pas besoin d'une lotterie
+        return waypoints[Random.Range(0, waypoints.Count)];
+    }
+    public Waypoint GetRandomWaypoint(string tag, float minHeight, float maxHeight)
+    {
+        List<Waypoint> filteredWps = GetWaypoints(tag, minHeight, maxHeight);
+
+        //Pas besoin d'une lotterie
+        return filteredWps[Random.Range(0, filteredWps.Count)];
+    }
+    public Waypoint GetRandomWaypoint(Waypoint.WaypointType type, float minHeight, float maxHeight)
+    {
+        List<Waypoint> filteredWps = GetWaypoints(type, minHeight, maxHeight);
+
+        //Pas besoin d'une lotterie
+        return filteredWps[Random.Range(0, filteredWps.Count)];
+    }
+
+    public List<Waypoint> GetMultipleRandomWaypoints(string tag, int amount)
+    {
+        return GetRandomAmong(GetWaypoints(tag), amount);
+    }
+    public List<Waypoint> GetMultipleRandomWaypoints(Waypoint.WaypointType type, int amount)
+    {
+        return GetRandomAmong(GetWaypoints(type), amount);
+    }
+    public List<Waypoint> GetMultipleRandomWaypoints(string tag, int amount, float minHeight, float maxHeight)
+    {
+        return GetRandomAmong(GetWaypoints(tag, minHeight, maxHeight), amount);
+    }
+    public List<Waypoint> GetMultipleRandomWaypoints(Waypoint.WaypointType type, int amount, float minHeight, float maxHeight)
+    {
+        return GetRandomAmong(GetWaypoints(type, minHeight, maxHeight), amount);
+    }
+
+    public List<Waypoint> FilterWaypointsToNewList(List<Waypoint> allWps, float minHeight, float maxHeight)
+    {
         List<Waypoint> filteredWps = new List<Waypoint>();
 
         for (int i = 0; i < allWps.Count; i++)
@@ -165,24 +227,8 @@ public class Mapping : MonoBehaviour, IComparer<Waypoint>
         return filteredWps;
     }
 
-    public Waypoint GetRandomWaypoint(Waypoint.WaypointType type)
+    public List<Waypoint> GetRandomAmong(List<Waypoint> newList, int amount)
     {
-        List<Waypoint> waypoints = GetWaypointListByType(type);
-
-        //Pas besoin d'une lotterie
-        return waypoints[Random.Range(0, waypoints.Count)];
-    }
-    public Waypoint GetRandomWaypoint(Waypoint.WaypointType type, float minHeight, float maxHeight)
-    {
-        List<Waypoint> filteredWps = GetWaypoints(type, minHeight, maxHeight);
-
-        //Pas besoin d'une lotterie
-        return filteredWps[Random.Range(0, filteredWps.Count)];
-    }
-
-    public List<Waypoint> GetMultipleRandomWaypoints(Waypoint.WaypointType type, int amount)
-    {
-        List<Waypoint> newList = GetWaypoints(type);
         int count = newList.Count;
 
         //On en prend beaucoup ou peu ?
@@ -213,40 +259,7 @@ public class Mapping : MonoBehaviour, IComparer<Waypoint>
             return smallerList;
         }
     }
-    public List<Waypoint> GetMultipleRandomWaypoints(Waypoint.WaypointType type, int amount, float minHeight, float maxHeight)
-    {
-        List<Waypoint> allWps = GetWaypoints(type, minHeight, maxHeight);
-        int count = allWps.Count;
 
-        //On en prend beaucoup ou peu ?
-        if (amount > count / 2)
-        {
-            if (amount >= count) // smart
-                return allWps;
-
-            //On en enleve
-            for (int i = amount; i < count; i++)
-            {
-                allWps.RemoveAt(Random.Range(0, allWps.Count));
-            }
-
-            return allWps;
-        }
-        else
-        {
-            //On en prend peu
-            List<Waypoint> smallerList = new List<Waypoint>(amount);
-
-            //On en rajoute
-            for (int i = 0; i < amount; i++)
-            {
-                smallerList[i] = allWps[Random.Range(0, allWps.Count)];
-            }
-
-            return smallerList;
-        }
-    }
-    
     // J'ai enlever des fonctions. Si on veut les ravoir, il faut les refaire avec le temps d'exec en t�te
     // Donc ne PAS utiliser de while(pasR�ussi){...} avec un random � l'int�rieur.
     // �a peut potentiellement prendre PLEIN de temps.
