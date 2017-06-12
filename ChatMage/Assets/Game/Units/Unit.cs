@@ -9,8 +9,13 @@ public enum Allegiance { Ally = 0, Neutral = 1, Enemy = 2, SmashBall = 3 }
 [RequireComponent(typeof(Rigidbody2D))]
 public abstract class Unit : MonoBehaviour
 {
+    public const float deactivationRange = 10;
+
     [Header("Unit")]
     public Allegiance allegiance = Allegiance.Enemy;
+    public bool overrideDeactivationRange = false;
+    public float newDeactivationRange;
+
     protected float timeScale = 1;
     public Locker isAffectedByTimeScale = new Locker();
 
@@ -24,11 +29,6 @@ public abstract class Unit : MonoBehaviour
     [Header("Border")]
     public bool canUseBorder = true;
     public float unitWidth;
-    [Header("Border(will be changed on spawn)")]
-    public bool horizontalBound;
-    public float horizontalBorderWidth;
-    public bool verticalBound;
-    public float verticalBorderWidth;
 
     [System.NonSerialized]
     public Locker canMove = new Locker();
@@ -80,6 +80,23 @@ public abstract class Unit : MonoBehaviour
     {
         if (canUseBorder && (Game.instance.unitSnap_horizontalBound || Game.instance.unitSnap_verticalBound))
             Position = RestrainToBounds(Position);
+    }
+
+    public void CheckActivation()
+    {
+        float delta = Mathf.Abs(Game.instance.gameCamera.Height - rb.position.y);
+        float range = overrideDeactivationRange ? newDeactivationRange : deactivationRange;
+
+        if (delta > range)
+        {
+            if (gameObject.activeSelf)
+                gameObject.SetActive(false);
+        }
+        else
+        {
+            if (!gameObject.activeSelf)
+                gameObject.SetActive(true);
+        }
     }
 
     protected Vector2 RestrainToBounds(Vector2 vector)

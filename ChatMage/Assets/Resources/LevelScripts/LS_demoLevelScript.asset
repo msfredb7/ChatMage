@@ -12,42 +12,17 @@ MonoBehaviour:
   m_Name: LS_demoLevelScript
   m_EditorClassIdentifier: 
   _objectReferences:
-  - {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
   - {fileID: 114917152140949164, guid: 90a1293e412776e4db23eb9595fcf924, type: 2}
   _serializedStateKeys:
   - waves
   _serializedStateValues:
-  - '[{"packs":[{"unit":0,"quantity":5}],"where":{"type":"Waypoints","clamp":false,"referencePoint":"ScreenCenter","clampMin":{"x":-8.0,"y":-4.5},"clampMax":{"x":8.0,"y":4.5},"waypointInfo":{"idType":"Tag","waypointTag":"tata","waypointType":"enemySpawn","spawningType":"AllUnitsOnSame","filterByHeight":true,"referencePoint":"ScreenCenter","minHeight":0.0,"maxHeight":0.0}},"when":{"type":"At","time":0.0,"name":null,"finishedRatio":1.0},"duration":5.0},{"packs":[{"unit":1,"quantity":1}],"where":{"type":"RandomAroundScreen","clamp":false,"referencePoint":"Player","clampMin":{"x":-8.0,"y":-4.5},"clampMax":{"x":8.0,"y":4.5},"waypointInfo":{"idType":"Enum","waypointTag":null,"waypointType":"PlayerSpawn","spawningType":"Ordered","filterByHeight":false,"referencePoint":"Player","minHeight":-4.5,"maxHeight":4.5}},"when":{"type":"AfterCompletionOfPreviousWave","time":0.0,"name":null,"finishedRatio":1.0},"duration":0.0}]'
+  - '[{"packs":[{"unit":0,"quantity":5}],"where":{"type":"RandomAroundScreen","clamp":false,"referencePoint":"Player","clampMin":{"x":-8.0,"y":-4.5},"clampMax":{"x":8.0,"y":4.5},"waypointInfo":{"idType":"Enum","waypointTag":null,"waypointType":"PlayerSpawn","spawningType":"Ordered","filterByHeight":false,"referencePoint":"Player","minHeight":-4.5,"maxHeight":4.5}},"when":{"type":"At","time":0.0,"name":null,"finishedRatio":1.0},"duration":0.0}]'
   sceneName: MapDemo
   loseOnPlayerDeath: 1
   waves:
   - packs:
-    - unit: {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
-      quantity: 5
-    where:
-      type: 1
-      clamp: 0
-      referencePoint: 1
-      clampMin: {x: -8, y: -4.5}
-      clampMax: {x: 8, y: 4.5}
-      waypointInfo:
-        idType: 1
-        waypointTag: tata
-        waypointType: 2
-        spawningType: 2
-        filterByHeight: 1
-        referencePoint: 1
-        minHeight: 0
-        maxHeight: 0
-    when:
-      type: 0
-      time: 0
-      name: 
-      finishedRatio: 1
-    duration: 5
-  - packs:
     - unit: {fileID: 114917152140949164, guid: 90a1293e412776e4db23eb9595fcf924, type: 2}
-      quantity: 1
+      quantity: 5
     where:
       type: 0
       clamp: 0
@@ -64,12 +39,12 @@ MonoBehaviour:
         minHeight: -4.5
         maxHeight: 4.5
     when:
-      type: 5
+      type: 0
       time: 0
       name: 
       finishedRatio: 1
     duration: 0
-  isOver: 0
+  isOver: 1
   events: {fileID: 0}
   healthPacks: {fileID: 114870834835718906, guid: d28e2a568fc043140bfc8bc5777eb644,
     type: 2}

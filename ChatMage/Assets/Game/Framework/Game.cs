@@ -95,6 +95,13 @@ public class Game : PublicSingleton<Game>
                 currentLevel.Update();
             }
         }
+        if (gameCamera.MovedSinceLastFrame)
+        {
+            for (int i = 0; i < units.Count; i++)
+            {
+                units[i].CheckActivation();
+            }
+        }
     }
 
     public void Quit()

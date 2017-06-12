@@ -21,13 +21,13 @@ public class LS_demoLevelScript : LevelScript
 
     public override void OnInit(Action onComplete)
     {
-        Game.instance.SetUnitSnapBorders(true, 0, true, 0);
+        Game.instance.SetUnitSnapBorders(true, 0, false, 0);
         onComplete();
     }
 
     protected override void OnGameReady()
     {
-        //Game.instance.gameCamera.followPlayer = true;
+        Game.instance.gameCamera.followPlayer = true;
         events.LockPlayerOnSpawn(90);
 
         //On fait gagner le joueur dans 20s
