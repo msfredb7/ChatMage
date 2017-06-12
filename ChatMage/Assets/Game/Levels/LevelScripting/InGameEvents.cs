@@ -43,7 +43,7 @@ public class InGameEvents : MonoBehaviour
             if (node.Value.at <= timer)
             {
                 node.Value.action();
-                delayedActions.RemoveFirst();
+                delayedActions.Remove(node.Value);
             }
             else
                 break;
@@ -52,11 +52,11 @@ public class InGameEvents : MonoBehaviour
 
     public void AddDelayedAction(Action action, float delay)
     {
-        if (delay <= 0)
-        {
-            action();
-            return;
-        }
+        //if (delay <= 0)
+        //{
+        //    action();
+        //    return;
+        //}
 
         DelayedAction da = new DelayedAction() { at = delay + timer, action = action };
         LinkedListNode<DelayedAction> node = delayedActions.First;

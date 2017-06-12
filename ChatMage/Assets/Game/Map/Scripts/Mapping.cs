@@ -53,13 +53,14 @@ public class Mapping : MonoBehaviour, IComparer<Waypoint>
         }
         unfilteredWaypoints.Clear();
 
+        //ON NE LE FAIT PLUS. ÇA FUCK L'ORDRE
         //Sort lists ! (du pos.y le plus bas au plus haut)
-        enemyWaypoints.Sort(this);
-        playerWaypoints.Sort(this);
-        bossWaypoints.Sort(this);
-        itemWaypoints.Sort(this);
-        otherWaypoints.Sort(this);
-        tagsWaypoints.Sort(this);
+        //enemyWaypoints.Sort(this);
+        //playerWaypoints.Sort(this);
+        //bossWaypoints.Sort(this);
+        //itemWaypoints.Sort(this);
+        //otherWaypoints.Sort(this);
+        //tagsWaypoints.Sort(this);
     }
 
     public int Compare(Waypoint x, Waypoint y)
@@ -167,28 +168,36 @@ public class Mapping : MonoBehaviour, IComparer<Waypoint>
     {
         List<Waypoint> waypoints = GetWaypoints(tag);
 
-        //Pas besoin d'une lotterie
+        if (waypoints.Count == 0)
+            return null;
+
         return waypoints[Random.Range(0, waypoints.Count)];
     }
     public Waypoint GetRandomWaypoint(Waypoint.WaypointType type)
     {
         List<Waypoint> waypoints = GetWaypointListByType(type);
 
-        //Pas besoin d'une lotterie
+        if (waypoints.Count == 0)
+            return null;
+
         return waypoints[Random.Range(0, waypoints.Count)];
     }
     public Waypoint GetRandomWaypoint(string tag, float minHeight, float maxHeight)
     {
         List<Waypoint> filteredWps = GetWaypoints(tag, minHeight, maxHeight);
 
-        //Pas besoin d'une lotterie
+        if (filteredWps.Count == 0)
+            return null;
+
         return filteredWps[Random.Range(0, filteredWps.Count)];
     }
     public Waypoint GetRandomWaypoint(Waypoint.WaypointType type, float minHeight, float maxHeight)
     {
         List<Waypoint> filteredWps = GetWaypoints(type, minHeight, maxHeight);
 
-        //Pas besoin d'une lotterie
+        if (filteredWps.Count == 0)
+            return null;
+
         return filteredWps[Random.Range(0, filteredWps.Count)];
     }
 
@@ -215,11 +224,7 @@ public class Mapping : MonoBehaviour, IComparer<Waypoint>
 
         for (int i = 0; i < allWps.Count; i++)
         {
-            //On peut 'break' ici parce que les liste sont ordonn�s en ordre de position.y
-            if (allWps[i].AdjustedPosition.y > maxHeight)
-                break;
-
-            if (allWps[i].AdjustedPosition.y > minHeight)
+            if (allWps[i].AdjustedPosition.y > minHeight && allWps[i].AdjustedPosition.y < maxHeight)
             {
                 filteredWps.Add(allWps[i]);
             }
