@@ -41,7 +41,7 @@ public abstract class Unit : MonoBehaviour
 
     protected Vector2 sleepRbVelocity = Vector2.zero;
     protected float sleepRbAngVelocity = 0;
-    
+
     public Vector2 Speed
     {
         get { return rb.velocity; }
@@ -78,8 +78,8 @@ public abstract class Unit : MonoBehaviour
 
     protected virtual void FixedUpdate()
     {
-        if (canUseBorder || horizontalBound || verticalBound)
-            Position =  RestrainToBounds(Position);
+        if (canUseBorder && (Game.instance.unitSnap_horizontalBound || Game.instance.unitSnap_verticalBound))
+            Position = RestrainToBounds(Position);
     }
 
     protected Vector2 RestrainToBounds(Vector2 vector)
@@ -87,14 +87,14 @@ public abstract class Unit : MonoBehaviour
         float x = vector.x;
         float y = vector.y;
 
-        if (horizontalBound)
+        if (Game.instance.unitSnap_horizontalBound)
         {
-            float rightBorder = Game.instance.gameCamera.ScreenSize.x / 2 - horizontalBorderWidth - (unitWidth / 2);
+            float rightBorder = Game.instance.gameCamera.ScreenSize.x / 2 - Game.instance.unitSnap_horizontalBorderWidth - (unitWidth / 2);
             x = Mathf.Clamp(x, -rightBorder, rightBorder);
         }
-        if (verticalBound)
+        if (Game.instance.unitSnap_verticalBound)
         {
-            float halfHeight = Game.instance.gameCamera.ScreenSize.y / 2 - verticalBorderWidth - (unitWidth / 2);
+            float halfHeight = Game.instance.gameCamera.ScreenSize.y / 2 - Game.instance.unitSnap_verticalBorderWidth - (unitWidth / 2);
             y = Mathf.Clamp(y, Game.instance.gameCamera.Height - halfHeight, Game.instance.gameCamera.Height + halfHeight);
         }
 
@@ -151,7 +151,7 @@ public abstract class Unit : MonoBehaviour
     {
         if (rb.bodyType == RigidbodyType2D.Static)
             return;
-        
+
         rb.velocity = sleepRbVelocity;
         rb.angularVelocity = sleepRbAngVelocity;
     }

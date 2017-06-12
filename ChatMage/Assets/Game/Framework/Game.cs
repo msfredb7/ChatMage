@@ -45,10 +45,10 @@ public class Game : PublicSingleton<Game>
     public event SimpleEvent onGameReady;
     public event SimpleEvent onGameStarted;
     
-    public bool default_horizontalBound;
-    public float default_horizontalBorderWidth;
-    public bool default_verticalBound;
-    public float default_verticalBorderWidth;
+    public bool unitSnap_horizontalBound;
+    public float unitSnap_horizontalBorderWidth;
+    public bool unitSnap_verticalBound;
+    public float unitSnap_verticalBorderWidth;
 
     public void Init(LevelScript level, Framework framework, PlayerController player)
     {
@@ -123,11 +123,6 @@ public class Game : PublicSingleton<Game>
         unit.transform.SetParent(unitsContainer);
         unit.TimeScale = worldTimeScale;
 
-        unit.horizontalBorderWidth = default_horizontalBorderWidth;
-        unit.horizontalBound = default_horizontalBound;
-        unit.verticalBound = default_verticalBound;
-        unit.verticalBorderWidth = default_verticalBorderWidth;
-
         units.Add(unit);
 
         //Ajoute les listeners
@@ -145,12 +140,12 @@ public class Game : PublicSingleton<Game>
         units.Remove(unit);
     }
 
-    public void SetDefaultBorders(bool horizontalBound, float horizontalBorderWidth, bool verticalBound, float verticalBorderWidth)
+    public void SetUnitSnapBorders(bool horizontalBound, float horizontalBorderWidth, bool verticalBound, float verticalBorderWidth)
     {
-        default_horizontalBound = horizontalBound;
-        default_horizontalBorderWidth = horizontalBorderWidth;
-        default_verticalBound = verticalBound;
-        default_verticalBorderWidth = verticalBorderWidth;
+        unitSnap_horizontalBound = horizontalBound;
+        unitSnap_horizontalBorderWidth = horizontalBorderWidth;
+        unitSnap_verticalBound = verticalBound;
+        unitSnap_verticalBorderWidth = verticalBorderWidth;
     }
 
     #endregion
