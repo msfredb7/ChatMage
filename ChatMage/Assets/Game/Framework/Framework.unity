@@ -118,6 +118,7 @@ GameObject:
   - component: {fileID: 218698579}
   - component: {fileID: 218698578}
   - component: {fileID: 218698580}
+  - component: {fileID: 218698581}
   m_Layer: 0
   m_Name: Motton de script
   m_TagString: Untagged
@@ -165,6 +166,25 @@ MonoBehaviour:
   totalCooldown: 30
   followTarget: {fileID: 471814418}
   followTargetParent: {fileID: 1647644409}
+--- !u!114 &218698581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 218698577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1260a6e1d2ddff6448e80b09500fc1c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthPackRefab: {fileID: 114870834835718906, guid: d28e2a568fc043140bfc8bc5777eb644,
+    type: 2}
+  debugPrints: 1
+  lerpUpdateRate: 0.0005
+  lerpPerKill: 0.1
+  lerpCeiling: 50
+  luckIncreaseByHealthDeficit: 4
+  spawnChance: 0
 --- !u!1 &471814416
 GameObject:
   m_ObjectHideFlags: 0
@@ -369,6 +389,7 @@ MonoBehaviour:
   unitsContainer: {fileID: 1763591741}
   gameBounds: {fileID: 545472434}
   smashManager: {fileID: 218698580}
+  healthPackManager: {fileID: 218698581}
   map: {fileID: 0}
   ui: {fileID: 0}
   currentLevel: {fileID: 0}
@@ -384,10 +405,10 @@ MonoBehaviour:
     boundMode: 0
   gameReady: 0
   gameStarted: 0
-  default_horizontalBound: 0
-  default_horizontalBorderWidth: 0
-  default_verticalBound: 0
-  default_verticalBorderWidth: 0
+  unitSnap_horizontalBound: 0
+  unitSnap_horizontalBorderWidth: 0
+  unitSnap_verticalBound: 0
+  unitSnap_verticalBorderWidth: 0
 --- !u!114 &986166562
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -560,14 +581,8 @@ MonoBehaviour:
   - {fileID: 986166561}
   - {fileID: 1707316992}
   _values:
-  - _keys:
-    - DefaultBehaviorEditor.gameCamera.EditProperty
-    - DefaultBehaviorEditor.units.EditProperty
-    _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
+  - _keys: []
+    _values: []
     _target: {fileID: 986166561}
   - _keys: []
     _values: []
@@ -980,6 +995,7 @@ MonoBehaviour:
   _serializedStateValues: []
   map: {fileID: 0}
   sr: {fileID: 0}
+  mapping: {fileID: 0}
 --- !u!4 &1707316993
 Transform:
   m_ObjectHideFlags: 0

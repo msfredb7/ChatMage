@@ -17,6 +17,7 @@ public class Game : PublicSingleton<Game>
     public Transform unitsContainer;
     public GameBounds gameBounds;
     public SmashManager smashManager;
+    public HealthPackManager healthPackManager;
 
     //Dynamic references
     [fsIgnore]
@@ -64,6 +65,7 @@ public class Game : PublicSingleton<Game>
         AddPlayer(player);
 
         gameCamera.Init(player.vehicle);
+        healthPackManager.Init(player);
 
         gameBounds.Resize(gameCamera.ScreenSize.x, -gameCamera.distance);
     }
