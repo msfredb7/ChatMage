@@ -21,7 +21,7 @@ public class LS_demoLevelScript : LevelScript
 
     public override void OnInit(Action onComplete)
     {
-        Game.instance.SetDefaultBorders(false, 0, false, 0);
+        Game.instance.SetDefaultBorders(true, 0, true, 0);
         onComplete();
     }
 

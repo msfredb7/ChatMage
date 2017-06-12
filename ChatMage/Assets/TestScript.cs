@@ -14,11 +14,6 @@ public class TestScript : BaseBehavior
 
     void Start()
     {
-        print("(3 % 5) = " + (3 % 5));
-        print("(4 % 5) = " + (4 % 5));
-        print("(5 % 5) = " + (5 % 5));
-        print("(6 % 5) = " + (6 % 5));
-        print("(10 % 5) = " + (10 % 5));
     }
     void Update()
     {

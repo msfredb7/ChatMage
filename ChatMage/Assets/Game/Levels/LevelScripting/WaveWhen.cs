@@ -13,7 +13,7 @@ namespace LevelScripting
         public float time;
         [InspectorShowIf("UsesName")]
         public string name;
-        [InspectorShowIf("UsesFinishedRatio")]
+        [InspectorShowIf("UsesFinishedRatio"), InspectorRange(0, 1)]
         public float finishedRatio = 1;
 
         public enum Type
