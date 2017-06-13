@@ -6,33 +6,24 @@ using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DG.Tweening;
+using System;
 
-public class IntroCountdown : WrapAnimation
+public class IntroCountdown : BaseIntro
 {
-    public SimpleEvent onCountdownOver;
-
-    void Start()
+    public override void Play(Action onComplete)
     {
-        Init();
-    }
-
-    public override void Init()
-    {
-        base.Init();
-
         Sequence sq = DOTween.Sequence();
-        
-        sq.InsertCallback(0, delegate () { GetComponent<Text>().text = "3"; });
-        sq.InsertCallback(1, delegate () { GetComponent<Text>().text = "2"; });
-        sq.InsertCallback(2, delegate () { GetComponent<Text>().text = "1"; });
-        sq.OnComplete(delegate() { End(); });
-    }
 
-    public override void End()
-    {
-        base.End();
-        if (onCountdownOver != null)
-            onCountdownOver();
-        Destroy(gameObject);
+        sq.InsertCallback(0, delegate () { GetComponent<Text>().text = "3"; })
+            .InsertCallback(1, delegate () { GetComponent<Text>().text = "2"; })
+            .InsertCallback(2, delegate () { GetComponent<Text>().text = "1"; })
+            .SetUpdate(false)
+            .OnComplete(delegate ()
+            {
+                if (onComplete != null)
+                    onComplete();
+
+                Destroy(gameObject);
+            });
     }
 }

@@ -8,7 +8,7 @@ using FullSerializer;
 using LevelScripting;
 using DG.Tweening;
 
-public abstract class LevelScript : BaseScriptableObject
+public abstract class LevelScript : BaseScriptableObject, IEventReceiver
 {
     public const string WINRESULT_KEY = "winr";
 
@@ -16,44 +16,19 @@ public abstract class LevelScript : BaseScriptableObject
     public string sceneName;
 
     [InspectorHeader("Conditions")]
-    public bool show;
-    [InspectorShowIf("show")]
-    public bool loseOnPlayerDeath;
-    [InspectorShowIf("show")]
-    public bool loseOnTimeOut;
-    [InspectorShowIf("ShowLosingTime")]
-    public float losingIn;
-    [InspectorShowIf("show")]
-    public bool winOnTimeOut;
-    [InspectorShowIf("ShowWinningTime")]
-    public float winningIn;
-    [InspectorShowIf("show")]
-    public bool winOnEnemiesKilled;
-    [InspectorShowIf("ShowAmount")]
-    public float amount;
-    public bool ShowLosingTime { get { return show && loseOnTimeOut; } }
-    public bool ShowWinningTime { get { return show && winOnTimeOut; } }
-    public bool ShowAmount { get { return show && winOnEnemiesKilled; } }
+    public GameCondition.BaseWinningCondition[] winningConditions;
+    public GameCondition.BaseLosingCondition[] losingConditions;
 
     [InspectorHeader("Wrap Animations")]
-    public bool usingDefaultIntro = true;
-    [InspectorHideIf("usingDefaultIntro")]
-    public IntroCountdown countdownUI;
-    public bool usingDefaultOutro = true;
-    [InspectorHideIf("usingDefaultOutro")]
-    public GameResultUI outroUI;
+    public BaseIntro introPrefab;
+    public BaseOutro outroPrefab;
+
 
     [InspectorHeader("Base Settings")]
     [InspectorTooltip("No healthpacks during the entire level")]
     public bool noHealthPacks = false;
-    [InspectorTooltip("Follow player on start and disable horizontal bounds")]
+    [InspectorTooltip("Follow player on start and disable vertical bounds")]
     public bool racingMode = false;
-    [InspectorShowIf("racingMode")]
-    public bool cameraFollowPlayer = true;
-    [InspectorShowIf("racingMode")]
-    public bool horizontalBounds = true;
-    [InspectorShowIf("racingMode")]
-    public bool verticalBounds = false;
 
 
     [InspectorHeader("In Game Events")]
@@ -66,33 +41,41 @@ public abstract class LevelScript : BaseScriptableObject
 
     public event SimpleEvent onWin;
     public event SimpleEvent onLose;
+    public event StringEvent onEventReceived;
 
     public bool IsOver { get { return isOver; } }
     [fsIgnore]
     public bool isOver = false;
 
     [fsIgnore]
-    public InGameEvents inGameEvent;
+    public InGameEvents inGameEvents;
 
-    private List<UnitWave> milestoneTriggeredWaves;
+    private List<UnitWave> eventTriggeredWaves;
     private List<UnitWave> manuallyTriggeredWaves;
 
     private int unitsKilled = 0;
 
     // Init Level Script
-    public void Init(System.Action onComplete, InGameEvents events)
+    public void Init(System.Action onComplete, InGameEvents inGameEvents)
     {
         isOver = false;
         Game.instance.onGameReady += GameReady;
         Game.instance.onGameStarted += GameStarted;
-        this.inGameEvent = events;
-        events.Init(this);
-        foreach (EventScripting ev in this.events)
-        {
-            ev.Init();
-            ev.onComplete += EventScriptOnCompleted;
-        }
-        OnInit(onComplete);
+
+        this.inGameEvents = inGameEvents;
+        this.inGameEvents.Init(this);
+
+        if (useCustomGenericEvents)
+            foreach (EventScripting ev in events)
+            {
+                ev.Init();
+                ev.onComplete += EventScriptOnCompleted;
+            }
+
+        OnInit();
+
+        if (onComplete != null)
+            onComplete();
     }
 
     // Game Ready for Level Script
@@ -152,23 +135,24 @@ public abstract class LevelScript : BaseScriptableObject
 
     public void ReceiveEvent(string message)
     {
-        //Trigger waves ?
-        for (int i = 0; i < milestoneTriggeredWaves.Count; i++)
+        for (int i = 0; i < eventTriggeredWaves.Count; i++)
         {
-            if (milestoneTriggeredWaves[i].when.name == message)
+            if (eventTriggeredWaves[i].when.name == message)
             {
-                LaunchWave(milestoneTriggeredWaves[i]);
-                milestoneTriggeredWaves.RemoveAt(i);
+                LaunchWave(eventTriggeredWaves[i]);
+                eventTriggeredWaves.RemoveAt(i);
                 i--;
             }
         }
 
         OnReceiveEvent(message);
+
+        if (onEventReceived != null)
+            onEventReceived(message);
     }
 
-    protected void TriggerWave(string tag)
+    protected void TriggerWaveManually(string tag)
     {
-        //Trigger waves ?
         for (int i = 0; i < manuallyTriggeredWaves.Count; i++)
         {
             if (manuallyTriggeredWaves[i].when.name == tag)
@@ -180,7 +164,7 @@ public abstract class LevelScript : BaseScriptableObject
         }
     }
 
-    public abstract void OnInit(System.Action onComplete);
+    public abstract void OnInit();
     protected abstract void OnGameReady();
     protected abstract void OnGameStarted();
     protected abstract void OnUpdate();
@@ -192,53 +176,31 @@ public abstract class LevelScript : BaseScriptableObject
 
     void ApplySettings()
     {
-        if (racingMode)
-        {
-            Game.instance.gameCamera.followPlayer = cameraFollowPlayer;
-            Game.instance.unitSnap_verticalBound = verticalBounds;
-            Game.instance.unitSnap_horizontalBound = horizontalBounds;
-        }
+        Game.instance.gameCamera.followPlayer = racingMode;
+        Game.instance.SetUnitSnapBorders(true, 0, !racingMode, 0);
 
-        if (noHealthPacks)
-            Game.instance.healthPackManager.enableHealthPackSpawn = false;
+        Game.instance.healthPackManager.enableHealthPackSpawn = !noHealthPacks;
     }
 
     ///////////////////////////////////////////////////// Loosing/Winning Conditions
 
     void CreateObjectives()
     {
-        // Pour ajouter de nouvelles conditions :
-        //      1. Ajouter en haut dans les base settings
-        //      2. Creer un nouveau if
-        //      3. Ajouter la condition de victoire ou de defaite
-        //      4. Rajouter des parametres au besoin
-
-        if (loseOnPlayerDeath)
-            Game.instance.Player.vehicle.onDeath += delegate (Unit unit)
+        // Init les losing conditions
+        if (losingConditions != null)
+            for (int i = 0; i < losingConditions.Length; i++)
             {
-                Lose();
-            };
+                if (losingConditions[i] != null)
+                    losingConditions[i].Init(Game.instance.Player, this);
+            }
 
-        if (loseOnTimeOut)
-        {
-            inGameEvent.AddDelayedAction(Lose, losingIn);
-        }
-
-        if (winOnTimeOut)
-        {
-            inGameEvent.AddDelayedAction(Win, winningIn);
-        }
-
-        if (winOnEnemiesKilled)
-        {
-            unitsKilled = 0;
-            Game.instance.Player.playerStats.onUnitKilled += delegate (Unit unit) {
-                // possibilite de rajouter une condition de type de unit ici!
-                unitsKilled++;
-                if (unitsKilled >= amount)
-                    Win();
-            };
-        }
+        // Init les winning conditions
+        if (winningConditions != null)
+            for (int i = 0; i < winningConditions.Length; i++)
+            {
+                if (winningConditions[i] != null)
+                    winningConditions[i].Init(Game.instance.Player, this);
+            }
     }
 
     #region Wave
@@ -275,7 +237,7 @@ public abstract class LevelScript : BaseScriptableObject
         switch (wave.when.type)
         {
             case WaveWhen.Type.At:
-                inGameEvent.AddDelayedAction(delegate () { LaunchWave(wave); }, wave.when.time);
+                inGameEvents.AddDelayedAction(delegate () { LaunchWave(wave); }, wave.when.time);
                 break;
 
 
@@ -294,7 +256,7 @@ public abstract class LevelScript : BaseScriptableObject
                     throw new System.Exception("Cannot put first wave in 'Append' mode");
                 waves[waveIndex - 1].onLaunched += delegate ()
                 {
-                    inGameEvent.AddDelayedAction(delegate () { LaunchWave(wave); }, waves[waveIndex - 1].duration);
+                    inGameEvents.AddDelayedAction(delegate () { LaunchWave(wave); }, waves[waveIndex - 1].duration);
                 };
                 break;
 
@@ -304,16 +266,16 @@ public abstract class LevelScript : BaseScriptableObject
                     throw new System.Exception("Cannot put first wave in 'Append Plus' mode");
                 waves[waveIndex - 1].onLaunched += delegate ()
                 {
-                    inGameEvent.AddDelayedAction(delegate () { LaunchWave(wave); }, waves[waveIndex - 1].duration + wave.when.time);
+                    inGameEvents.AddDelayedAction(delegate () { LaunchWave(wave); }, waves[waveIndex - 1].duration + wave.when.time);
                 };
                 break;
 
 
             case WaveWhen.Type.OnMilestone:
-                if (milestoneTriggeredWaves == null)
-                    milestoneTriggeredWaves = new List<UnitWave>();
+                if (eventTriggeredWaves == null)
+                    eventTriggeredWaves = new List<UnitWave>();
 
-                milestoneTriggeredWaves.Add(wave);
+                eventTriggeredWaves.Add(wave);
                 break;
 
 
@@ -338,7 +300,7 @@ public abstract class LevelScript : BaseScriptableObject
 
     void LaunchWave(UnitWave wave)
     {
-        wave.Launch(inGameEvent);
+        wave.Launch(inGameEvents);
     }
     #endregion
 

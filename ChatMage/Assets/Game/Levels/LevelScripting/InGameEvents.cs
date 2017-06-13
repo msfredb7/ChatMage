@@ -334,7 +334,7 @@ public class InGameEvents : MonoBehaviour
         }
     }
 
-    public void SpawnUnit<T>(T unit,Vector2 position, float time = 0, Action<T> action = null) where T : Unit
+    public void SpawnUnit<T>(T unit, Vector2 position, float time = 0, Action<T> action = null) where T : Unit
     {
         AddDelayedAction(delegate ()
         {
@@ -362,17 +362,13 @@ public class InGameEvents : MonoBehaviour
     /// Quand on appelle la fonction 'Outro' on ne s'attend pas à ce que le joueur soit locked et invurlnérable nécessairement
     /// Ça ne serait pas un problème si on était CERTAIN que tous nos outro allait être comme ça parcontre.
     /// </summary>
-    public void Outro(bool result, GameResultUI uiPrefab)
+    public void Outro(bool result, BaseOutro uiPrefab)
     {
         LockPlayer();
 
         Game.instance.Player.playerStats.damagable = false;
 
-        // Si on a gagner
-        if (result)
-            ShowUI(uiPrefab).Init(true, currentLevel);
-        else // Si on a perdu
-            ShowUI(uiPrefab).Init(false, currentLevel);
+        ShowUI(uiPrefab).Play(result);
     }
 
     #endregion
