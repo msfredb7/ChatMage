@@ -37,6 +37,7 @@ public class PlayerStats : PlayerComponent, IAttackable
     
     public event SimpleEvent onHit;
     public event SimpleEvent onRegen;
+    public event Unit.Unit_Event onUnitKilled;
 
     [System.NonSerialized]
     public bool isDead = false;
@@ -108,5 +109,11 @@ public class PlayerStats : PlayerComponent, IAttackable
         isDead = true;
 
         controller.vehicle.Kill();
+    }
+
+    public void RegisterKilledUnit(Unit unit)
+    {
+        if (onUnitKilled != null)
+            onUnitKilled(unit);
     }
 }

@@ -92,7 +92,7 @@ public class ShopMenu : MonoBehaviour
 
     public void GetMoney(int money)
     {
-        Account.instance.AddMoney(money);
+        Account.instance.AddCoins(money);
     }
 
     public void BuyMoney(int amount)
@@ -128,7 +128,7 @@ public class ShopMenu : MonoBehaviour
         {
             case ShowResult.Finished:
                 Debug.Log("The ad was successfully shown.");
-                Account.instance.AddMoney(10);
+                Account.instance.AddCoins(10);
                 break;
             case ShowResult.Skipped:
                 Debug.Log("The ad was skipped before reaching the end.");

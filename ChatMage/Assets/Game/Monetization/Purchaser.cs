@@ -179,21 +179,21 @@ namespace CompleteProject
             {
                 Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
                 // The consumable item has been successfully purchased
-                Account.instance.AddMoney(10);
+                Account.instance.AddCoins(10);
             }
             // A consumable product has been purchased by this user.
             else if (String.Equals(args.purchasedProduct.definition.id, mediumMoneyAmount, StringComparison.Ordinal))
             {
                 Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
                 // The consumable item has been successfully purchased
-                Account.instance.AddMoney(50);
+                Account.instance.AddCoins(50);
             }
             // A consumable product has been purchased by this user.
             else if (String.Equals(args.purchasedProduct.definition.id, largeMoneyAmount, StringComparison.Ordinal))
             {
                 Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
                 // The consumable item has been successfully purchased
-                Account.instance.AddMoney(100);
+                Account.instance.AddCoins(100);
             }
             // Or ... a non-consumable product has been purchased by this user.
             else if (String.Equals(args.purchasedProduct.definition.id, fullGame, StringComparison.Ordinal))

@@ -33,6 +33,8 @@ namespace LevelScripting
         private int currentKillCount = 0;
         [fsIgnore]
         private InGameEvents events;
+        [fsIgnore]
+        private int spawnedUnits;
 
         public int TotalUnits()
         {
@@ -57,12 +59,6 @@ namespace LevelScripting
 
                 EndLaunch();
                 return;
-            }
-
-
-            if (completionCallback != null)
-            {
-                targetKillCount = Mathf.CeilToInt(totalUnits * completionRate);
             }
 
             //Delai entre chaque spawning d'enemie
@@ -100,6 +96,7 @@ namespace LevelScripting
 
                                 SpawnUnitRelativeToTransform(pack.unit, pos, Game.instance.gameCamera.transform, currentCount * spawnDelta);
 
+                                spawnedUnits++;
                                 currentCount++;
                             }
                         }
@@ -139,6 +136,7 @@ namespace LevelScripting
                                         break;
                                 }
 
+                                spawnedUnits++;
                                 currentCount++;
                             }
                         }
@@ -182,14 +180,26 @@ namespace LevelScripting
                                             events.AddDelayedAction(delegate ()
                                             {
                                                 Waypoint wp = GetRandomFilteredWaypoint();
-                                                SpawnUnit(pack.unit, wp.AdjustedPosition, -1);
+                                                if (wp != null)
+                                                    SpawnUnit(pack.unit, wp.AdjustedPosition, -1);
+                                                else
+                                                {
+                                                    //Failed to spawn unit
+                                                    spawnedUnits--;
+                                                    UpdateTargetKillCount();
+                                                }
                                             },
                                             currentCount * spawnDelta);
+                                            spawnedUnits++;
                                             break;
                                         case WaveWhere.WaypointInfo.SpawningType.AllUnitsOnSame:
 
                                             //Spawn simple
-                                            SpawnUnit(pack.unit, allOnSameWaypoint.AdjustedPosition, currentCount * spawnDelta);
+                                            if (allOnSameWaypoint != null)
+                                            {
+                                                SpawnUnit(pack.unit, allOnSameWaypoint.AdjustedPosition, currentCount * spawnDelta);
+                                                spawnedUnits++;
+                                            }
                                             break;
                                     }
 
@@ -213,13 +223,21 @@ namespace LevelScripting
                                         waypoints = mapping.GetWaypoints(info.waypointType);
                                     break;
 
+
                                 // 'AllUnitsOnSame' utilise qu'un seul waypoint
                                 case WaveWhere.WaypointInfo.SpawningType.AllUnitsOnSame:
                                     waypoints = new List<Waypoint>(1);
+
+                                    Waypoint theWp = null;
+
                                     if (info.idType == WaveWhere.WaypointInfo.IdType.Tag)
-                                        waypoints.Add(mapping.GetRandomWaypoint(info.waypointTag));
+                                        theWp = mapping.GetRandomWaypoint(info.waypointTag);
                                     else
-                                        waypoints.Add(mapping.GetRandomWaypoint(info.waypointType));
+                                        theWp = mapping.GetRandomWaypoint(info.waypointType);
+
+                                    if (theWp != null)
+                                        waypoints.Add(theWp);
+
                                     break;
                             }
 
@@ -233,6 +251,9 @@ namespace LevelScripting
                                 //Pour chaque unit
                                 for (int i = 0; i < pack.quantity; i++)
                                 {
+                                    if (waypoints.Count == 0)
+                                        break;
+
                                     //Prendre position en fonction des waypoints acquis
                                     Vector2 pos = Vector2.zero;
 
@@ -252,6 +273,7 @@ namespace LevelScripting
                                     //Spawn !
                                     SpawnUnit(pack.unit, pos, currentCount * spawnDelta);
 
+                                    spawnedUnits++;
                                     currentCount++;
                                 }
                             }
@@ -266,6 +288,8 @@ namespace LevelScripting
 
         private void EndLaunch()
         {
+            UpdateTargetKillCount();
+
             if (onLaunched != null)
                 onLaunched();
         }
@@ -274,6 +298,13 @@ namespace LevelScripting
         {
             completionCallback = callback;
             this.completionRate = completionRate;
+        }
+
+        private void SpawnUnit(Unit unit, Waypoint waypoint, float delay)
+        {
+            if (waypoint != null)
+                SpawnUnit(unit, waypoint.AdjustedPosition, delay);
+            //else
         }
 
         private void SpawnUnit(Unit unit, Vector2 position, float delay)
@@ -287,11 +318,7 @@ namespace LevelScripting
                     spawnedUnit.onDeath += delegate (Unit deadUnit)
                     {
                         currentKillCount++;
-                        if (currentKillCount >= targetKillCount && completionCallback != null)
-                        {
-                            completionCallback();
-                            completionCallback = null;
-                        }
+                        CheckCompletion();
                     };
                 });
             }
@@ -361,6 +388,24 @@ namespace LevelScripting
                 return Game.instance.map.mapping.GetRandomWaypoint(where.waypointInfo.waypointType, absMinHeight, absMaxHeight);
             else
                 return Game.instance.map.mapping.GetRandomWaypoint(where.waypointInfo.waypointTag, absMinHeight, absMaxHeight);
+        }
+
+        private void CheckCompletion()
+        {
+            if (currentKillCount >= targetKillCount && completionCallback != null)
+            {
+                completionCallback();
+                completionCallback = null;
+            }
+        }
+
+        private void UpdateTargetKillCount()
+        {
+            if (completionCallback != null)
+            {
+                targetKillCount = Mathf.CeilToInt(spawnedUnits * completionRate);
+            }
+            CheckCompletion();
         }
 
         public enum Where { RandomAroundScreen = 0, Waypoints = 1 }

@@ -16,7 +16,9 @@ public class GameCamera : MonoBehaviour
     public float maxTurnSpeed = 2;
     public float lerpSpeed = 1;
     public float followForwardDistance = 2;
+    public bool MovedSinceLastFrame { get { return movedSinceLastFrame; } }
 
+    private bool movedSinceLastFrame = false;
     private Vector2 screenSize;
     private Vector2 defaultToRealRatio;
     private Transform tr;
@@ -53,6 +55,7 @@ public class GameCamera : MonoBehaviour
             height = Mathf.Max(tr.position.y, height);
 
         tr.position = new Vector3(0, height, distance);
+        movedSinceLastFrame = true;
     }
 
     void FixedUpdate()

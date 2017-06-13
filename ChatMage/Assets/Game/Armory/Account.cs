@@ -13,9 +13,7 @@ public class Account : BaseManager<Account>
 
     // Coins
     private int coins = 0;
-    public SimpleEvent onBalanceChange;
-
-    public static int GetLastSavedMoney() { return PlayerPrefs.GetInt("Money"); }
+    public SimpleEvent onCoinsChange;
 
     public override void Init()
     {
@@ -53,15 +51,15 @@ public class Account : BaseManager<Account>
     /// Ajout ou retire un certain montant d'argent au compte du joueur
     /// </summary>
     /// <returns>Retourne si le changement a reussi ou pas</returns>
-    public bool AddMoney(int amount)
+    public bool AddCoins(int amount)
     {
         int moneyResult = coins + amount;
         if (moneyResult < 0)
             return false;
 
         coins = moneyResult;
-        if (onBalanceChange != null)
-            onBalanceChange();
+        if (onCoinsChange != null)
+            onCoinsChange();
 
         Save();
 

@@ -17,7 +17,7 @@ public class MoneyDisplayScript : MonoBehaviour
     void OnSync()
     {
         UpdateDisplayChange();
-        Account.instance.onBalanceChange += UpdateDisplayChange;
+        Account.instance.onCoinsChange += UpdateDisplayChange;
     }
 
     void UpdateDisplayChange()
@@ -28,6 +28,6 @@ public class MoneyDisplayScript : MonoBehaviour
     void OnDestroy()
     {
         //Remove listener
-        Account.instance.onBalanceChange -= UpdateDisplayChange;
+        Account.instance.onCoinsChange -= UpdateDisplayChange;
     }
 }

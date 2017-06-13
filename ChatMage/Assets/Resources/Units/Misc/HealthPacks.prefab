@@ -54,8 +54,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1223373862505330}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.79896, y: 4.334514, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
   m_Children:
   - {fileID: 4965923863988178}
   m_Father: {fileID: 0}
@@ -144,7 +144,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allegiance: 1
-  useMovingPlatform: 1
+  overrideDeactivationRange: 0
+  newDeactivationRange: 0
+  canUseBorder: 1
+  unitWidth: 0
+  colliderListener: {fileID: 114980761188360800}
+  myCollider: {fileID: 61979661918742768}
+  sprite: {fileID: 212730646253917650}
+  sortingLayerAbovePlayer: Above Player
+  spawnDuration: 1
+  spawnRotateLoops: 10
+  spawnMaxSize: 0.4
+  spawnMinSize: 0.25
 --- !u!114 &114980761188360800
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -12,39 +12,39 @@ MonoBehaviour:
   m_Name: LS_demoLevelScript
   m_EditorClassIdentifier: 
   _objectReferences:
-  - {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
+  - {fileID: 114917152140949164, guid: 90a1293e412776e4db23eb9595fcf924, type: 2}
   _serializedStateKeys:
   - waves
   _serializedStateValues:
-  - '[{"packs":[{"unit":0,"quantity":3}],"where":{"type":"Waypoints","clamp":false,"referencePoint":"ScreenCenter","clampMin":{"x":-1.0,"y":-1.0},"clampMax":{"x":1.0,"y":1.0},"waypointInfo":{"idType":"Enum","waypointTag":null,"waypointType":"enemySpawn","spawningType":"Random","filterByHeight":false,"referencePoint":"Player","minHeight":-4.5,"maxHeight":4.5}},"when":{"type":"OnManualTrigger","time":1.0,"name":"eersa","finishedRatio":1.0},"duration":3.0}]'
+  - '[{"packs":[{"unit":0,"quantity":5}],"where":{"type":"RandomAroundScreen","clamp":false,"referencePoint":"Player","clampMin":{"x":-8.0,"y":-4.5},"clampMax":{"x":8.0,"y":4.5},"waypointInfo":{"idType":"Enum","waypointTag":null,"waypointType":"PlayerSpawn","spawningType":"Ordered","filterByHeight":false,"referencePoint":"Player","minHeight":-4.5,"maxHeight":4.5}},"when":{"type":"At","time":0.0,"name":null,"finishedRatio":1.0},"duration":0.0}]'
   sceneName: MapDemo
   loseOnPlayerDeath: 1
   waves:
   - packs:
-    - unit: {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
-      quantity: 3
+    - unit: {fileID: 114917152140949164, guid: 90a1293e412776e4db23eb9595fcf924, type: 2}
+      quantity: 5
     where:
-      type: 1
+      type: 0
       clamp: 0
-      referencePoint: 1
-      clampMin: {x: -1, y: -1}
-      clampMax: {x: 1, y: 1}
+      referencePoint: 0
+      clampMin: {x: -8, y: -4.5}
+      clampMax: {x: 8, y: 4.5}
       waypointInfo:
         idType: 0
         waypointTag: 
-        waypointType: 2
-        spawningType: 1
+        waypointType: 0
+        spawningType: 0
         filterByHeight: 0
         referencePoint: 0
         minHeight: -4.5
         maxHeight: 4.5
     when:
-      type: 6
-      time: 1
-      name: eersa
+      type: 0
+      time: 0
+      name: 
       finishedRatio: 1
-    duration: 3
-  isOver: 0
+    duration: 0
+  isOver: 1
   events: {fileID: 0}
   healthPacks: {fileID: 114870834835718906, guid: d28e2a568fc043140bfc8bc5777eb644,
     type: 2}
