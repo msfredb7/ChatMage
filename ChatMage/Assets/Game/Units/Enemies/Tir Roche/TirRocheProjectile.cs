@@ -38,6 +38,9 @@ public class TirRocheProjectile : MovingUnit
 
     private void Listener_onTriggerEnter(ColliderInfo other, ColliderListener listener)
     {
+        if (aboutToDie)
+            return;
+
         if (other.parentUnit.allegiance == Allegiance.Ally)
         {
             IAttackable attackable = other.parentUnit.GetComponent<IAttackable>();
