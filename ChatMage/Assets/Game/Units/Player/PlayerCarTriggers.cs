@@ -10,6 +10,8 @@ public class PlayerCarTriggers : PlayerComponent
     public delegate void UnitDetectionEvent(Unit unit, CarSide carTrigger);
     public event UnitDetectionEvent onHitUnit;
 
+    public float camHitStrengthOnHit = 0.05f;
+
     [Header("Trigger Listeners")]
     public MultipleColliderListener masterTriggerListener;
     public ColliderListener frontTrig;
@@ -92,6 +94,8 @@ public class PlayerCarTriggers : PlayerComponent
             if (attackable.Attacked(other, damage, controller.vehicle, listener.info) <= 0)
                 controller.playerStats.RegisterKilledUnit(unit);
 
+            //Camera shake!
+            Game.instance.gameCamera.vectorShaker.Hit((transform.position - other.transform.position).normalized * camHitStrengthOnHit);
         }
     }
 

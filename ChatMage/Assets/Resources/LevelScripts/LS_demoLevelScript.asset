@@ -14,11 +14,27 @@ MonoBehaviour:
   _objectReferences:
   - {fileID: 114917152140949164, guid: 90a1293e412776e4db23eb9595fcf924, type: 2}
   _serializedStateKeys:
+  - losingCondition
+  - winningCondition
+  - events
   - waves
   _serializedStateValues:
+  - '[]'
+  - '[]'
+  - '[]'
   - '[{"packs":[{"unit":0,"quantity":5}],"where":{"type":"RandomAroundScreen","clamp":false,"referencePoint":"Player","clampMin":{"x":-8.0,"y":-4.5},"clampMax":{"x":8.0,"y":4.5},"waypointInfo":{"idType":"Enum","waypointTag":null,"waypointType":"PlayerSpawn","spawningType":"Ordered","filterByHeight":false,"referencePoint":"Player","minHeight":-4.5,"maxHeight":4.5}},"when":{"type":"At","time":0.0,"name":null,"finishedRatio":1.0},"duration":0.0}]'
   sceneName: MapDemo
-  loseOnPlayerDeath: 1
+  losingCondition: 
+  winningCondition: 
+  raceFromStart: 0
+  usingDefaultIntro: 1
+  countdownUI: {fileID: 114939908285177620, guid: 6ecb49bd0fe07fd49a2105006011056d,
+    type: 2}
+  usingDefaultOutro: 1
+  outroUI: {fileID: 114149177149363076, guid: 5fb703884a8fef84baed936668fb2290, type: 2}
+  hardcoreMode: 0
+  useCustomGenericEvents: 0
+  events: []
   waves:
   - packs:
     - unit: {fileID: 114917152140949164, guid: 90a1293e412776e4db23eb9595fcf924, type: 2}
@@ -44,13 +60,10 @@ MonoBehaviour:
       name: 
       finishedRatio: 1
     duration: 0
-  isOver: 1
-  events: {fileID: 0}
+  isOver: 0
+  inGameEvent: {fileID: 0}
   healthPacks: {fileID: 114870834835718906, guid: d28e2a568fc043140bfc8bc5777eb644,
     type: 2}
   shielder: {fileID: 114892083099199946, guid: a97b513999cddca448e173580c0c886f, type: 2}
-  countdownUI: {fileID: 114939908285177620, guid: 6ecb49bd0fe07fd49a2105006011056d,
-    type: 2}
-  outroUI: {fileID: 114149177149363076, guid: 5fb703884a8fef84baed936668fb2290, type: 2}
   objectiveUI: {fileID: 114476168366803530, guid: a2d3b8390fb62814f8ad23038860dabb,
     type: 2}
