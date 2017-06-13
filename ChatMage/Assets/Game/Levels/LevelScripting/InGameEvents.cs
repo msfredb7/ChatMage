@@ -370,9 +370,9 @@ public class InGameEvents : MonoBehaviour
 
         // Si on a gagner
         if (result)
-            ShowUI(uiPrefab).UpdateResult(true, currentLevel);
+            ShowUI(uiPrefab).Init(true, currentLevel);
         else // Si on a perdu
-            ShowUI(uiPrefab).UpdateResult(false, currentLevel);
+            ShowUI(uiPrefab).Init(false, currentLevel);
     }
 
     #endregion

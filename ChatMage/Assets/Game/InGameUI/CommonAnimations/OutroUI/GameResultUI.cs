@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GameResultUI : MonoBehaviour {
+public class GameResultUI : WrapAnimation {
 
     public Text result;
     public Text score;
@@ -15,8 +15,10 @@ public class GameResultUI : MonoBehaviour {
 
     LevelScript levelScript;
 
-    public void UpdateResult(bool win, LevelScript currentLevel)
+    public void Init(bool win, LevelScript currentLevel)
     {
+        base.Init();
+
         if(win)
             result.text = "YOU WIN";
         else
