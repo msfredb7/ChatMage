@@ -14,27 +14,22 @@ MonoBehaviour:
   _objectReferences:
   - {fileID: 114917152140949164, guid: 90a1293e412776e4db23eb9595fcf924, type: 2}
   _serializedStateKeys:
+  - winningConditions
+  - losingConditions
   - events
   - waves
   _serializedStateValues:
-  - '[{"eventWhat":{"scriptName":null,"functionName":null,"startNextEvent":false},"eventWhen":null,"done":false}]'
+  - '[{"amount":3,"$type":"GameCondition.WinAfterXKills"}]'
+  - '[{"$type":"GameCondition.LoseOnPlayerDeath"}]'
+  - '[{"eventWhat":{"scriptName":null,"functionName":null,"startNextEvent":false},"eventWhen":{"useSpecificTime":false,"invokeOnStart":true,"when":0.0},"done":false}]'
   - '[{"packs":[{"unit":0,"quantity":5}],"where":{"type":"RandomAroundScreen","clamp":false,"referencePoint":"Player","clampMin":{"x":-8.0,"y":-4.5},"clampMax":{"x":8.0,"y":4.5},"waypointInfo":{"idType":"Enum","waypointTag":null,"waypointType":"PlayerSpawn","spawningType":"Ordered","filterByHeight":false,"referencePoint":"Player","minHeight":-4.5,"maxHeight":4.5}},"when":{"type":"At","time":0.0,"name":null,"finishedRatio":1.0},"duration":0.0}]'
   sceneName: MapDemo
-  show: 1
-  loseOnPlayerDeath: 1
-  loseOnTimeOut: 0
-  losingIn: 2
-  winOnTimeOut: 0
-  winningIn: 15
-  winOnEnemiesKilled: 1
-  amount: 5
-  usingDefaultIntro: 1
-  countdownUI: {fileID: 114939908285177620, guid: 6ecb49bd0fe07fd49a2105006011056d,
+  introPrefab: {fileID: 114939908285177620, guid: 6ecb49bd0fe07fd49a2105006011056d,
     type: 2}
-  usingDefaultOutro: 1
-  outroUI: {fileID: 114149177149363076, guid: 5fb703884a8fef84baed936668fb2290, type: 2}
+  outroPrefab: {fileID: 114149177149363076, guid: 5fb703884a8fef84baed936668fb2290,
+    type: 2}
   noHealthPacks: 0
-  raceFromStart: 0
+  racingMode: 0
   useCustomGenericEvents: 0
   events:
   - done: 0
@@ -64,7 +59,7 @@ MonoBehaviour:
       finishedRatio: 1
     duration: 0
   isOver: 1
-  inGameEvent: {fileID: 0}
+  inGameEvents: {fileID: 0}
   healthPacks: {fileID: 114870834835718906, guid: d28e2a568fc043140bfc8bc5777eb644,
     type: 2}
   shielder: {fileID: 114892083099199946, guid: a97b513999cddca448e173580c0c886f, type: 2}

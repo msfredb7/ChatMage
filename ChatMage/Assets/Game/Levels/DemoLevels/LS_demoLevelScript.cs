@@ -17,30 +17,29 @@ public class LS_demoLevelScript : LevelScript
     [InspectorHeader("UI")]
     public ShowObjectives objectiveUI;
 
-    public override void OnInit(Action onComplete)
+    public override void OnInit()
     {
         Game.instance.SetUnitSnapBorders(false, 0, false, 0);
-        onComplete();
     }
 
     protected override void OnGameReady()
     {
         //Game.instance.gameCamera.followPlayer = true;
-        inGameEvent.LockPlayerOnSpawn(90);
+        inGameEvents.LockPlayerOnSpawn(90);
 
         //On fait gagner le joueur dans 20s
         //events.AddDelayedAction(Win, 20);
 
-        inGameEvent.ShowUI(countdownUI).onCountdownOver += Game.instance.StartGame;
+        inGameEvents.ShowUI(introPrefab).Play(Game.instance.StartGame);
 
         // Objective
-        inGameEvent.ShowUI(objectiveUI).AddObjective("Survive 20 seconds !");
+        inGameEvents.ShowUI(objectiveUI).AddObjective("Survive 20 seconds !");
     }
 
     protected override void OnGameStarted()
     {
         Game.instance.gameBounds.EnableAll();
-        inGameEvent.UnLockPlayer();
+        inGameEvents.UnLockPlayer();
 
         //events.SpawnEntitySpreadTime(shielder, 20, Waypoint.WaypointType.enemySpawn, 10, true);
         //events.SpawnEntitySpreadTime(healthPacks, 20, Waypoint.WaypointType.enemySpawn, 5, true);
@@ -58,7 +57,7 @@ public class LS_demoLevelScript : LevelScript
         }
         if (Input.GetKeyDown(KeyCode.T) && !IsOver)
         {
-            TriggerWave("eersa");
+            TriggerWaveManually("eersa");
         }
     }
 
@@ -73,11 +72,11 @@ public class LS_demoLevelScript : LevelScript
 
     public override void OnWin()
     {
-        inGameEvent.Outro(true, outroUI);
+        inGameEvents.Outro(true, outroPrefab);
     }
 
     public override void OnLose()
     {
-        inGameEvent.Outro(false, outroUI);
+        inGameEvents.Outro(false, outroPrefab);
     }
 }
