@@ -7,6 +7,9 @@ using System;
 
 public class PlayerStats : PlayerComponent, IAttackable
 {
+    [Header("Camera Shake")]
+    public float onHitShakeStrength = 0.35f;
+
     [NonSerialized]
     public Locker receivesTurnInput = new Locker();
     [NonSerialized]
@@ -32,9 +35,10 @@ public class PlayerStats : PlayerComponent, IAttackable
     [NonSerialized]
     public StatFloat smashCooldownRate = new StatFloat(1, 0, float.MaxValue, BoundMode.Cap);
 
+    [Header("Variables")]
     public bool damagable = true;
     public bool isVisible = true; // TODO
-    
+
     public event SimpleEvent onHit;
     public event SimpleEvent onRegen;
     public event Unit.Unit_Event onUnitKilled;
@@ -64,7 +68,17 @@ public class PlayerStats : PlayerComponent, IAttackable
         if (amount <= 0)
             return health + armor;
 
-        //Else damage yourself
+        
+        //Shake camera !
+        Vector2 camShakeDir;
+        if (source != null)
+            camShakeDir = source.transform.position - transform.position;
+        else
+            camShakeDir = -controller.vehicle.WorldDirection2D();
+        Game.instance.gameCamera.vectorShaker.Hit(camShakeDir.normalized * onHitShakeStrength);
+
+
+        //Reduce health / armor
         int damageToArmor = amount;
         amount -= armor;
         armor.Set(armor - damageToArmor);
@@ -77,6 +91,7 @@ public class PlayerStats : PlayerComponent, IAttackable
 
         if (health <= 0)
             Death();
+
 
         return health + armor;
     }

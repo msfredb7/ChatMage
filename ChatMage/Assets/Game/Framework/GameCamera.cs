@@ -5,17 +5,22 @@ using UnityEngine;
 public class GameCamera : MonoBehaviour
 {
     public Camera cam;
+    public VectorShaker vectorShaker;
+
     public float Aspect { get { return cam.aspect; } }
+
     [Header("Settings")]
     public Vector2 defaultBounds;
     public float distance = -10;
     public bool canScrollUp = true;
     public bool canScrollDown = true;
+
     [Header("Follow")]
     public bool followPlayer = false;
     public float maxTurnSpeed = 2;
     public float lerpSpeed = 1;
     public float followForwardDistance = 2;
+
     public bool MovedSinceLastFrame { get { return movedSinceLastFrame; } }
 
     private bool movedSinceLastFrame = false;
@@ -58,6 +63,15 @@ public class GameCamera : MonoBehaviour
         movedSinceLastFrame = true;
     }
 
+    void Update()
+    {
+        //Camera Shake
+        cam.transform.localPosition = vectorShaker.CurrentVector;
+
+        //if (Input.GetKeyDown(KeyCode.T))
+        //    vectorShaker.Hit(Vector2.up * 0.2f);
+    }
+
     void FixedUpdate()
     {
         if (followPlayer && player != null)
@@ -66,8 +80,6 @@ public class GameCamera : MonoBehaviour
             followTargetDeltaHeight = Mathf.Lerp(followTargetDeltaHeight, forwardVector.y, FixedLerp.FixedFix(0.01f* 1));
             float targetHeight = player.Position.y + followTargetDeltaHeight;
             
-
-
             SetToHeight(targetHeight);
         }
     }
