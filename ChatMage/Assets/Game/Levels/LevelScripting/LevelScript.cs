@@ -6,15 +6,36 @@ using UnityEngine.Events;
 using CCC.Manager;
 using FullSerializer;
 using LevelScripting;
+using DG.Tweening;
 
 public abstract class LevelScript : BaseScriptableObject
 {
     public const string WINRESULT_KEY = "winr";
 
+    public enum LosingType { playerDeath, timeOut }
+    public enum WinningType { timeOut, enemiesKilled }
+
     [InspectorHeader("Info")]
     public string sceneName;
     [InspectorHeader("Base Settings")]
-    public bool loseOnPlayerDeath = true;
+    public LosingType[] losingCondition;
+    public WinningType[] winningCondition;
+    [InspectorTooltip("Follow player on start and disable horizontal bounds")]
+    public bool raceFromStart = false;
+    public bool usingDefaultIntro = true;
+    [InspectorHideIf("usingDefaultIntro")]
+    public IntroCountdown countdownUI;
+    public bool usingDefaultOutro = true;
+    [InspectorHideIf("usingDefaultOutro")]
+    public GameResultUI outroUI;
+    [InspectorTooltip("No healthpacks during the entire level")]
+    public bool hardcoreMode = false;
+
+    [InspectorHeader("In Game Events")]
+    public bool useCustomGenericEvents = false;
+    [InspectorShowIf("useCustomGenericEvents")]
+    public List<EventScripting> events;
+
     [InspectorHeader("Unit Waves")]
     public List<UnitWave> waves;
 
@@ -26,7 +47,7 @@ public abstract class LevelScript : BaseScriptableObject
     public bool isOver = false;
 
     [fsIgnore]
-    public InGameEvents events;
+    public InGameEvents inGameEvent;
 
 
     private List<UnitWave> milestoneTriggeredWaves;
@@ -38,8 +59,13 @@ public abstract class LevelScript : BaseScriptableObject
         isOver = false;
         Game.instance.onGameReady += GameReady;
         Game.instance.onGameStarted += GameStarted;
-        this.events = events;
+        this.inGameEvent = events;
         events.Init(this);
+        foreach (EventScripting ev in this.events)
+        {
+            ev.Init();
+            ev.onComplete += EventScriptOnCompleted;
+        }
         OnInit(onComplete);
     }
 
@@ -52,11 +78,12 @@ public abstract class LevelScript : BaseScriptableObject
     // Game Started for Level Script
     public void GameStarted()
     {
-        if (loseOnPlayerDeath)
+        if (IsLoosingWhenPlayerDead())
             Game.instance.Player.vehicle.onDeath += delegate (Unit unit)
             {
                 Lose();
             };
+          
 
         StartWaves();
 
@@ -138,6 +165,18 @@ public abstract class LevelScript : BaseScriptableObject
     public abstract void OnWin();
     public abstract void OnLose();
 
+    ///////////////////////////////////////////////////// Loosing/Winning Conditions
+
+    bool IsLoosingWhenPlayerDead()
+    {
+        foreach (LosingType type in losingCondition)
+        {
+            if (type == LosingType.playerDeath)
+                return true;
+        }
+        return false;
+    }
+
 
 
     ///////////////////////////////////////////////////// Wave queueing
@@ -173,7 +212,7 @@ public abstract class LevelScript : BaseScriptableObject
         switch (wave.when.type)
         {
             case WaveWhen.Type.At:
-                events.AddDelayedAction(delegate () { LaunchWave(wave); }, wave.when.time);
+                inGameEvent.AddDelayedAction(delegate () { LaunchWave(wave); }, wave.when.time);
                 break;
 
 
@@ -192,7 +231,7 @@ public abstract class LevelScript : BaseScriptableObject
                     throw new System.Exception("Cannot put first wave in 'Append' mode");
                 waves[waveIndex - 1].onLaunched += delegate ()
                 {
-                    events.AddDelayedAction(delegate () { LaunchWave(wave); }, waves[waveIndex - 1].duration);
+                    inGameEvent.AddDelayedAction(delegate () { LaunchWave(wave); }, waves[waveIndex - 1].duration);
                 };
                 break;
 
@@ -202,7 +241,7 @@ public abstract class LevelScript : BaseScriptableObject
                     throw new System.Exception("Cannot put first wave in 'Append Plus' mode");
                 waves[waveIndex - 1].onLaunched += delegate ()
                 {
-                    events.AddDelayedAction(delegate () { LaunchWave(wave); }, waves[waveIndex - 1].duration + wave.when.time);
+                    inGameEvent.AddDelayedAction(delegate () { LaunchWave(wave); }, waves[waveIndex - 1].duration + wave.when.time);
                 };
                 break;
 
@@ -236,6 +275,34 @@ public abstract class LevelScript : BaseScriptableObject
 
     void LaunchWave(UnitWave wave)
     {
-        wave.Launch(events);
+        wave.Launch(inGameEvent);
+    }
+
+    ///////////////////////////////////////////////////// Event scripting
+
+    void EventScriptOnCompleted(EventScripting ev)
+    {
+        int currentEvent = events.IndexOf(ev);
+
+        // S'il existe un prochain evennement
+        if(currentEvent + 1 < events.Count)
+        {
+            // Si l'evennement complet doit starter le prochain event
+            if (ev.eventWhat.startNextEvent)
+            {
+                // Si le prochain evennement n'est pas deja commence
+                if (!events[currentEvent + 1].done)
+                {
+                    // Si le prochain evennement utilise un temps specifique comme delai
+                    if(events[currentEvent + 1].eventWhen.useSpecificTime && !events[currentEvent + 1].eventWhen.invokeOnStart)
+                    {
+                        Sequence sq = DOTween.Sequence();
+                        sq.InsertCallback(events[currentEvent + 1].eventWhen.when, delegate () { events[currentEvent + 1].Launch(); });
+                    }
+                    else
+                        events[currentEvent + 1].Launch();
+                }
+            }
+        }
     }
 }
