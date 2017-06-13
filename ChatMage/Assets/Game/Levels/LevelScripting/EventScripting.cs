@@ -42,10 +42,14 @@ namespace LevelScripting
 
         public void Init()
         {
-            if (eventWhen.invokeOnStart)
+            // Si on a fait un event custom
+            if(eventWhen != null)
             {
-                Sequence sq = DOTween.Sequence();
-                sq.InsertCallback(eventWhen.when, delegate () { Launch(); });
+                if (eventWhen.invokeOnStart)
+                {
+                    Sequence sq = DOTween.Sequence();
+                    sq.InsertCallback(eventWhen.when, delegate () { Launch(); });
+                }
             }
             done = false;
         }

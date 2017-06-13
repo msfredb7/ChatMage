@@ -12,24 +12,49 @@ public abstract class LevelScript : BaseScriptableObject
 {
     public const string WINRESULT_KEY = "winr";
 
-    public enum LosingType { playerDeath, timeOut }
-    public enum WinningType { timeOut, enemiesKilled }
-
-    [InspectorHeader("Info")]
+    [InspectorHeader("General Info")]
     public string sceneName;
-    [InspectorHeader("Base Settings")]
-    public LosingType[] losingCondition;
-    public WinningType[] winningCondition;
-    [InspectorTooltip("Follow player on start and disable horizontal bounds")]
-    public bool raceFromStart = false;
+
+    [InspectorHeader("Conditions")]
+    public bool show;
+    [InspectorShowIf("show")]
+    public bool loseOnPlayerDeath;
+    [InspectorShowIf("show")]
+    public bool loseOnTimeOut;
+    [InspectorShowIf("ShowLosingTime")]
+    public float losingIn;
+    [InspectorShowIf("show")]
+    public bool winOnTimeOut;
+    [InspectorShowIf("ShowWinningTime")]
+    public float winningIn;
+    [InspectorShowIf("show")]
+    public bool winOnEnemiesKilled;
+    [InspectorShowIf("ShowAmount")]
+    public float amount;
+    public bool ShowLosingTime { get { return show && loseOnTimeOut; } }
+    public bool ShowWinningTime { get { return show && winOnTimeOut; } }
+    public bool ShowAmount { get { return show && winOnEnemiesKilled; } }
+
+    [InspectorHeader("Wrap Animations")]
     public bool usingDefaultIntro = true;
     [InspectorHideIf("usingDefaultIntro")]
     public IntroCountdown countdownUI;
     public bool usingDefaultOutro = true;
     [InspectorHideIf("usingDefaultOutro")]
     public GameResultUI outroUI;
+
+    [InspectorHeader("Base Settings")]
     [InspectorTooltip("No healthpacks during the entire level")]
-    public bool hardcoreMode = false;
+    public bool noHealthPacks = false;
+    [InspectorTooltip("Follow player on start and disable horizontal bounds")]
+    public bool racingMode = false;
+    [InspectorShowIf("racingMode")]
+    public bool cameraFollowPlayer = true;
+    [InspectorShowIf("racingMode")]
+    public bool horizontalBounds = true;
+    [InspectorShowIf("racingMode")]
+    public bool verticalBounds = false;
+
 
     [InspectorHeader("In Game Events")]
     public bool useCustomGenericEvents = false;
@@ -49,9 +74,10 @@ public abstract class LevelScript : BaseScriptableObject
     [fsIgnore]
     public InGameEvents inGameEvent;
 
-
     private List<UnitWave> milestoneTriggeredWaves;
     private List<UnitWave> manuallyTriggeredWaves;
+
+    private int unitsKilled = 0;
 
     // Init Level Script
     public void Init(System.Action onComplete, InGameEvents events)
@@ -72,18 +98,15 @@ public abstract class LevelScript : BaseScriptableObject
     // Game Ready for Level Script
     public void GameReady()
     {
+        ApplySettings();
+
         OnGameReady();
     }
 
     // Game Started for Level Script
     public void GameStarted()
     {
-        if (IsLoosingWhenPlayerDead())
-            Game.instance.Player.vehicle.onDeath += delegate (Unit unit)
-            {
-                Lose();
-            };
-          
+        CreateObjectives();
 
         StartWaves();
 
@@ -132,7 +155,7 @@ public abstract class LevelScript : BaseScriptableObject
         //Trigger waves ?
         for (int i = 0; i < milestoneTriggeredWaves.Count; i++)
         {
-            if(milestoneTriggeredWaves[i].when.name == message)
+            if (milestoneTriggeredWaves[i].when.name == message)
             {
                 LaunchWave(milestoneTriggeredWaves[i]);
                 milestoneTriggeredWaves.RemoveAt(i);
@@ -165,20 +188,60 @@ public abstract class LevelScript : BaseScriptableObject
     public abstract void OnWin();
     public abstract void OnLose();
 
-    ///////////////////////////////////////////////////// Loosing/Winning Conditions
+    //////////////////////////////////////////////////// Base Settings
 
-    bool IsLoosingWhenPlayerDead()
+    void ApplySettings()
     {
-        foreach (LosingType type in losingCondition)
+        if (racingMode)
         {
-            if (type == LosingType.playerDeath)
-                return true;
+            Game.instance.gameCamera.followPlayer = cameraFollowPlayer;
+            Game.instance.unitSnap_verticalBound = verticalBounds;
+            Game.instance.unitSnap_horizontalBound = horizontalBounds;
         }
-        return false;
+
+        if (noHealthPacks)
+            Game.instance.healthPackManager.enableHealthPackSpawn = false;
     }
 
+    ///////////////////////////////////////////////////// Loosing/Winning Conditions
 
+    void CreateObjectives()
+    {
+        // Pour ajouter de nouvelles conditions :
+        //      1. Ajouter en haut dans les base settings
+        //      2. Creer un nouveau if
+        //      3. Ajouter la condition de victoire ou de defaite
+        //      4. Rajouter des parametres au besoin
 
+        if (loseOnPlayerDeath)
+            Game.instance.Player.vehicle.onDeath += delegate (Unit unit)
+            {
+                Lose();
+            };
+
+        if (loseOnTimeOut)
+        {
+            inGameEvent.AddDelayedAction(Lose, losingIn);
+        }
+
+        if (winOnTimeOut)
+        {
+            inGameEvent.AddDelayedAction(Win, winningIn);
+        }
+
+        if (winOnEnemiesKilled)
+        {
+            unitsKilled = 0;
+            Game.instance.Player.playerStats.onUnitKilled += delegate (Unit unit) {
+                // possibilite de rajouter une condition de type de unit ici!
+                unitsKilled++;
+                if (unitsKilled >= amount)
+                    Win();
+            };
+        }
+    }
+
+    #region Wave
     ///////////////////////////////////////////////////// Wave queueing
     void StartWaves()
     {
@@ -277,7 +340,9 @@ public abstract class LevelScript : BaseScriptableObject
     {
         wave.Launch(inGameEvent);
     }
+    #endregion
 
+    #region Events
     ///////////////////////////////////////////////////// Event scripting
 
     void EventScriptOnCompleted(EventScripting ev)
@@ -285,7 +350,7 @@ public abstract class LevelScript : BaseScriptableObject
         int currentEvent = events.IndexOf(ev);
 
         // S'il existe un prochain evennement
-        if(currentEvent + 1 < events.Count)
+        if (currentEvent + 1 < events.Count)
         {
             // Si l'evennement complet doit starter le prochain event
             if (ev.eventWhat.startNextEvent)
@@ -294,7 +359,7 @@ public abstract class LevelScript : BaseScriptableObject
                 if (!events[currentEvent + 1].done)
                 {
                     // Si le prochain evennement utilise un temps specifique comme delai
-                    if(events[currentEvent + 1].eventWhen.useSpecificTime && !events[currentEvent + 1].eventWhen.invokeOnStart)
+                    if (events[currentEvent + 1].eventWhen.useSpecificTime && !events[currentEvent + 1].eventWhen.invokeOnStart)
                     {
                         Sequence sq = DOTween.Sequence();
                         sq.InsertCallback(events[currentEvent + 1].eventWhen.when, delegate () { events[currentEvent + 1].Launch(); });
@@ -305,4 +370,6 @@ public abstract class LevelScript : BaseScriptableObject
             }
         }
     }
+
+    #endregion
 }
