@@ -59,6 +59,7 @@ public class ResourceLoader : BaseManager<ResourceLoader>
     public const string EQUIPABLES = "Equipables/";
     public const string UI = "UI/";
     public const string LVLSCRIPTS = "LevelScripts/";
+    public const string LOOT = "Lootbox/";
 
     static private T Load<T>(string path) where T : UnityEngine.Object
     {
@@ -154,5 +155,10 @@ public class ResourceLoader : BaseManager<ResourceLoader>
     static public void LoadLevelScriptAsync<T>(string name, Action<T> callback)where T : LevelScript
     {
         LoadAsync(LVLSCRIPTS + name, callback);
+    }
+
+    static public void LoadLootBoxRefAsync(string name, Action<LootBoxRef> callback)
+    {
+        LoadAsync(LOOT + name, callback);
     }
 }

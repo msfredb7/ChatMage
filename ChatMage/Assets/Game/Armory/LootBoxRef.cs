@@ -6,9 +6,11 @@ using System;
 
 public class LootBoxRef : ScriptableObject {
 
-    public string identifiant;
+    public string identifiant; // doit etre identique au nom de l'objet
+    public Sprite icon;
     public Dictionary<EquipablePreview, int> possibleItems = new Dictionary<EquipablePreview, int>();
     public int amount;
+    public float price;
 
     public class Reward : ILottery
     {

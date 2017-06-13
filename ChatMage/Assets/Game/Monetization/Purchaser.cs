@@ -28,6 +28,12 @@ namespace CompleteProject
         public static string largeMoneyAmount = "largemoneyamount";
         public static string fullGame = "fullgame";
 
+        public Sprite coinsLogo;
+
+        private int smallCoinsAmount = 10;
+        private int mediumCoinsAmount = 50;
+        private int largeCoinsAmount = 100;
+
         // Google Play Store-specific product identifier subscription product.
         private static string kProductNameGooglePlaySubscription = "com.unity3d.subscription.original";
 
@@ -75,40 +81,52 @@ namespace CompleteProject
 
         public void BuyConsumable(int amount)
         {
-            if(amount >= 10)
+            if (amount >= 10)
             {
-                if(amount >= 50)
+                if (amount >= 50)
                 {
-                    if(amount >= 100)
+                    if (amount >= 100)
                         BuyLargeConsumable();
                     else
                         BuyMediumConsumable();
-                }else
+                }
+                else
                     BuySmallConsumable();
             }
         }
 
         public void BuySmallConsumable()
         {
-            // Buy the consumable product using its general identifier. Expect a response either 
-            // through ProcessPurchase or OnPurchaseFailed asynchronously.
-            BuyProductID(smallMoneyAmount);
+            ShopPopUpMenu.ShowShopPopUpMenu("Bill Confirmation", "You are currently in the process of buying a large amount "
+                + " of coins. Are you sure ?", coinsLogo, m_StoreController.products.WithID(smallMoneyAmount).metadata.localizedPriceString, smallCoinsAmount, delegate ()
+            {
+                // Buy the consumable product using its general identifier. Expect a response either 
+                // through ProcessPurchase or OnPurchaseFailed asynchronously.
+                BuyProductID(smallMoneyAmount);
+            });
         }
 
         public void BuyMediumConsumable()
         {
+            ShopPopUpMenu.ShowShopPopUpMenu("Bill Confirmation", "You are currently in the process of buying a large amount "
+                + " of coins. Are you sure ?", coinsLogo, m_StoreController.products.WithID(mediumMoneyAmount).metadata.localizedPriceString, mediumCoinsAmount, delegate ()
+            {
             // Buy the consumable product using its general identifier. Expect a response either 
             // through ProcessPurchase or OnPurchaseFailed asynchronously.
             BuyProductID(mediumMoneyAmount);
+            });
         }
 
         public void BuyLargeConsumable()
         {
-            // Buy the consumable product using its general identifier. Expect a response either 
-            // through ProcessPurchase or OnPurchaseFailed asynchronously.
-            BuyProductID(largeMoneyAmount);
+            ShopPopUpMenu.ShowShopPopUpMenu("Bill Confirmation", "You are currently in the process of buying a large amount "
+                + " of coins. Are you sure ?", coinsLogo, m_StoreController.products.WithID(largeMoneyAmount).metadata.localizedPriceString, largeCoinsAmount, delegate ()
+            {
+                // Buy the consumable product using its general identifier. Expect a response either 
+                // through ProcessPurchase or OnPurchaseFailed asynchronously.
+                BuyProductID(largeMoneyAmount);
+            });
         }
-
 
         public void BuyTheGame()
         {
@@ -179,21 +197,21 @@ namespace CompleteProject
             {
                 Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
                 // The consumable item has been successfully purchased
-                Account.instance.AddCoins(10);
+                Account.instance.AddCoins(smallCoinsAmount);
             }
             // A consumable product has been purchased by this user.
             else if (String.Equals(args.purchasedProduct.definition.id, mediumMoneyAmount, StringComparison.Ordinal))
             {
                 Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
                 // The consumable item has been successfully purchased
-                Account.instance.AddCoins(50);
+                Account.instance.AddCoins(mediumCoinsAmount);
             }
             // A consumable product has been purchased by this user.
             else if (String.Equals(args.purchasedProduct.definition.id, largeMoneyAmount, StringComparison.Ordinal))
             {
                 Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
                 // The consumable item has been successfully purchased
-                Account.instance.AddCoins(100);
+                Account.instance.AddCoins(largeCoinsAmount);
             }
             // Or ... a non-consumable product has been purchased by this user.
             else if (String.Equals(args.purchasedProduct.definition.id, fullGame, StringComparison.Ordinal))
@@ -213,7 +231,7 @@ namespace CompleteProject
             // saving purchased products to the cloud, and when that save is delayed. 
             return PurchaseProcessingResult.Complete;
         }
-        
+
         public void OnPurchaseFailed(Product product, PurchaseFailureReason failureReason)
         {
             // A product purchase attempt did not succeed. Check failureReason for more detail. Consider sharing 

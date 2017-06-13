@@ -17,10 +17,10 @@ MonoBehaviour:
   - events
   - waves
   _serializedStateValues:
-  - '[{"eventWhat":{"scriptName":null,"functionName":null,"startNextEvent":false},"eventWhen":null,"done":false}]'
+  - '[{"eventWhat":{"scriptName":null,"functionName":null,"startNextEvent":false},"eventWhen":{"useSpecificTime":false,"invokeOnStart":true,"when":0.0},"done":false}]'
   - '[{"packs":[{"unit":0,"quantity":5}],"where":{"type":"RandomAroundScreen","clamp":false,"referencePoint":"Player","clampMin":{"x":-8.0,"y":-4.5},"clampMax":{"x":8.0,"y":4.5},"waypointInfo":{"idType":"Enum","waypointTag":null,"waypointType":"PlayerSpawn","spawningType":"Ordered","filterByHeight":false,"referencePoint":"Player","minHeight":-4.5,"maxHeight":4.5}},"when":{"type":"At","time":0.0,"name":null,"finishedRatio":1.0},"duration":0.0}]'
   sceneName: MapDemo
-  show: 1
+  show: 0
   loseOnPlayerDeath: 1
   loseOnTimeOut: 0
   losingIn: 2
@@ -34,7 +34,10 @@ MonoBehaviour:
   usingDefaultOutro: 1
   outroUI: {fileID: 114149177149363076, guid: 5fb703884a8fef84baed936668fb2290, type: 2}
   noHealthPacks: 0
-  raceFromStart: 0
+  racingMode: 0
+  cameraFollowPlayer: 1
+  horizontalBounds: 1
+  verticalBounds: 0
   useCustomGenericEvents: 0
   events:
   - done: 0
