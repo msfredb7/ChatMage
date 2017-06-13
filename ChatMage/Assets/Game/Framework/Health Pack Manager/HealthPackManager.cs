@@ -14,6 +14,8 @@ public class HealthPackManager : MonoBehaviour
     public float lerpCeiling = 50;
     public float luckIncreaseByHealthDeficit = 4f;
 
+    public bool enableHealthPackSpawn = true;
+
     [ReadOnly, Header("Live Data")]
     public float spawnChance = 0;
 
@@ -55,6 +57,9 @@ public class HealthPackManager : MonoBehaviour
     public HealthPacks TryToSpawnHealthPack(Vector2 position)
     {
         if (player == null)
+            return null;
+
+        if (!enableHealthPackSpawn)
             return null;
 
         float realSpawnChance = spawnChance

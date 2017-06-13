@@ -13,7 +13,7 @@ public abstract class WrapAnimation : MonoBehaviour
 
     public virtual void End()
     {
-        wrapOver = false;
+        wrapOver = true;
     }
 
     public virtual bool IsComplete()

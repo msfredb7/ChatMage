@@ -13,12 +13,13 @@ public class LootBox {
         large = 3
     }
 
-    private List<EquipablePreview> possibleItems = new List<EquipablePreview>();
-    public List<EquipablePreview> rewards = new List<EquipablePreview>();
-    private LootBoxType type;
+    public List<LootBoxRef> lootboxes = new List<LootBoxRef>();
+    public List<EquipablePreview> possibleItems = new List<EquipablePreview>();
 
     public LootBox(Armory armory, LootBoxType type, Action<List<EquipablePreview>> callback, bool gold = false)
     {
+        List<EquipablePreview> rewards = new List<EquipablePreview>();
+
         // Calcul des objets possibles
         if (!gold)
             possibleItems = armory.GetAllEquipables();
@@ -31,12 +32,20 @@ public class LootBox {
             callback.Invoke(null);
             return;
         }
-        this.type = type;
 
         rewards = GetRewards(type);
 
         for(int i = 0; i < rewards.Count; i++)
             Debug.Log("You got " + rewards[i].displayName);
+
+        callback.Invoke(rewards);
+    }
+
+    public LootBox(string identifiant, Action<List<EquipablePreview>> callback)
+    {
+        List<EquipablePreview> rewards = new List<EquipablePreview>();
+        
+        rewards.AddRange(FindLootBoxRef(identifiant).GetRewards());
 
         callback.Invoke(rewards);
     }
@@ -67,5 +76,15 @@ public class LootBox {
             }
         } while (keepGoing);
         return result;
+    }
+
+    private LootBoxRef FindLootBoxRef(string identifiant)
+    {
+        for (int i = 0; i < lootboxes.Count; i++)
+        {
+            if (lootboxes[i].identifiant == identifiant)
+                return lootboxes[i];
+        }
+        return null;
     }
 }
