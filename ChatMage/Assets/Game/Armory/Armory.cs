@@ -173,9 +173,9 @@ public class Armory : ScriptableObject
         return result;
     }
 
-    public bool BuyItemSlots(int amount, int slotCost)
+    public bool BuyItemSlots(int amount)
     {
-        if (Account.instance.AddCoins(amount * slotCost))
+        if (Account.instance.Command(StorePrice.CommandType.slotCost, amount))
         {
             itemSlots += amount;
             return true;

@@ -7,6 +7,7 @@ using System;
 using FullSerializer;
 using FullInspector;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class LS_demoLevelScript : LevelScript
 {
@@ -16,6 +17,9 @@ public class LS_demoLevelScript : LevelScript
 
     [InspectorHeader("UI")]
     public ShowObjectives objectiveUI;
+
+    [InspectorHeader("Tutoriel")]
+    public BaseTutorial tutorial;
 
     public override void OnInit()
     {
@@ -44,6 +48,22 @@ public class LS_demoLevelScript : LevelScript
         if (Input.GetKeyDown(KeyCode.T) && !IsOver)
         {
             TriggerWaveManually("eersa");
+        }
+        if (Input.GetKeyDown(KeyCode.Z) && !IsOver)
+        {
+            Scenes.LoadAsync("Tutorial",LoadSceneMode.Additive,delegate(Scene scene) {
+                GameObject[] obj = scene.GetRootGameObjects();
+                for (int i = 0; i < obj.Length; i++)
+                {
+                    TutorialStarter starter = obj[i].GetComponent<TutorialStarter>();
+                    if (starter != null)
+                    {
+                        Debug.Log("Init the tutorial");
+                        starter.Init(tutorial);
+                        break;
+                    }
+                }
+            });
         }
     }
 

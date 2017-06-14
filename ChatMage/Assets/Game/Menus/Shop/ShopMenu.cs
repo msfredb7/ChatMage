@@ -101,17 +101,20 @@ public class ShopMenu : MonoBehaviour
         ResourceLoader.LoadLootBoxRefAsync(identifiant, delegate (LootBoxRef lootbox)
         {
             ShopPopUpMenu.ShowShopPopUpMenu("Bill Confirmation", "You are currently in the process of buying a " + lootbox.identifiant
-                + " lootbox. Are you sure you want to buy it?", lootbox.icon, "$" + lootbox.price, lootbox.amount, delegate ()
+                + " lootbox. Are you sure you want to buy it?", lootbox.icon, "$" + StorePrice.GetPrice(lootbox.commandType), lootbox.amount, delegate ()
             {
-                new LootBox(identifiant, delegate (List<EquipablePreview> rewards)
+                if (Account.instance.Command(lootbox.commandType))
                 {
-                    // Code pour l'animation du lootbox
-                    ResourceLoader.LoadUIAsync("Lootbox", delegate (GameObject lootboxAnim)
-                     {
-                         GameObject newLootboxAnimation = Instantiate(lootboxAnim, Game.instance.ui.transform);
-                         newLootboxAnimation.GetComponent<LootboxAnimation>().AddRewards(rewards);
-                     });
-                });
+                    new LootBox(identifiant, delegate (List<EquipablePreview> rewards)
+                    {
+                        // Code pour l'animation du lootbox
+                        ResourceLoader.LoadUIAsync("Lootbox", delegate (GameObject lootboxAnim)
+                        {
+                            GameObject newLootboxAnimation = Instantiate(lootboxAnim, transform);
+                            newLootboxAnimation.GetComponent<LootboxAnimation>().AddRewards(rewards);
+                        });
+                    });
+                }
             });
         });
     }
@@ -123,7 +126,7 @@ public class ShopMenu : MonoBehaviour
 
     public void BuyMoney(int amount)
     {
-        GetComponent<Purchaser>().BuyConsumable(amount);
+        Account.instance.BuyCoins(amount);
     }
 
     public void BackButton()
@@ -154,13 +157,11 @@ public class ShopMenu : MonoBehaviour
         {
             case ShowResult.Finished:
                 Debug.Log("The ad was successfully shown.");
-                Account.instance.AddCoins(10);
+                Account.instance.Command(StorePrice.CommandType.adReward);
                 break;
             case ShowResult.Skipped:
                 Debug.Log("The ad was skipped before reaching the end.");
-                //
-                // YOUR CODE TO SAY FUCK OFF TO PLAYER
-                // Give ??? etc.
+                Account.instance.Command(StorePrice.CommandType.adReward); // TODO : A changer
                 break;
             case ShowResult.Failed:
                 Debug.LogError("The ad failed to be shown.");

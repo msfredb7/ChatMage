@@ -33,6 +33,8 @@ namespace LoadoutMenu
         [InspectorMargin(10), InspectorHeader("Live Data"), InspectorDisabled()]
         public Loadout currentLoadout;
 
+        public Sprite slotIcon;
+
         private LoadoutTab currentTab;
         private string levelScriptName;
         private LoadoutElement previouslySelectedElement;
@@ -283,17 +285,10 @@ namespace LoadoutMenu
 
         public void BuySlots()
         {
-            //TODO: Pour etre plus clean, on devrait passer par un proxy de shop ou d'account
-
-            Debug.LogWarning("Pas implémenté");
-
-            //PopUpMenu.ShowOKPopUpMenu("Are you sure you want to buy an extra slots for items ?", delegate ()
-            //{
-            //    if ((Account.instance.GetMoney() - 10) < 0)
-            //        PopUpMenu.ShowPopUpMenu("You don't have enough money. Open loot boxes or win levels to gain money. See you later!", 2);
-            //    else
-            //        armory.BuyItemSlots(1, -10);
-            //});
+            ShopPopUpMenu.ShowShopPopUpMenu("Bill Confirmation", "", slotIcon, StorePrice.CommandType.slotCost.ToString(), 1, delegate ()
+            {
+                Account.instance.Command(StorePrice.CommandType.slotCost);
+            });
         }
 
         public void GoToShop()

@@ -1,4 +1,5 @@
 using CCC.Manager;
+using CompleteProject;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,16 +9,17 @@ public class Account : BaseManager<Account>
 {
     private const string COINS_KEY = "coins";
 
-    // Compte externe comme google ou paiement etc.
-    // public GoogleAccount account;
-
     // Coins
     private int coins = 0;
     public SimpleEvent onCoinsChange;
 
+    private Purchaser purchaser;
+
     public override void Init()
     {
         Load();
+        purchaser = new Purchaser();
+        purchaser.Init();
         CompleteInit();
     }
 
@@ -45,7 +47,6 @@ public class Account : BaseManager<Account>
             return coins;
         }
     }
-
     
     /// <summary>
     /// Ajout ou retire un certain montant d'argent au compte du joueur
@@ -64,5 +65,20 @@ public class Account : BaseManager<Account>
         Save();
 
         return true;
+    }
+
+    public bool Command(StorePrice.CommandType commandType, int amount = 1)
+    {
+        return AddCoins(StorePrice.GetPrice(commandType) * amount);
+    }
+
+    public void BuyCoins(int amount)
+    {
+        purchaser.BuyConsumable(amount);
+    }
+
+    public void BuyFullGame()
+    {
+        purchaser.BuyTheGame();
     }
 }
