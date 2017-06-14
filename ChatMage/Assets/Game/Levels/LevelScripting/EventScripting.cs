@@ -17,12 +17,15 @@ namespace LevelScripting
             public string scriptName;
             [InspectorTooltip("Function name to cast the event")]
             public string functionName;
+            [InspectorTooltip("Start next event in list as it was configure (can use specific time)")]
             public bool startNextEvent;
         }
         public class EventScriptingWhen
         {
+            [InspectorHeader("Use a specific time to start the event")]
             public bool useSpecificTime = false;
-            [InspectorHideIf("useSpecificTime")]
+            [InspectorHideIf("useSpecificTime"),InspectorTooltip("If at false, time counter won't start from" +
+                "beginning but from where it was trigger (from outside example)")]
             public bool invokeOnStart = true;
             [InspectorHideIf("useSpecificTime")]
             public float when;

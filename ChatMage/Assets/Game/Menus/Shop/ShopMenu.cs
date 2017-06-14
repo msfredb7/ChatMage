@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class ShopMenu : MonoBehaviour
 {
     public const string SCENENAME = "Shop";
-    
+
     [Header("Linking")]
     public GameObject deactivateScenePanel;
     public Armory armory;
@@ -24,7 +24,7 @@ public class ShopMenu : MonoBehaviour
 
     void Awake()
     {
-        if(Scenes.SceneCount() == 1)
+        if (Scenes.SceneCount() == 1)
         {
             //Debug launch !
             SetPreviousContext(LevelSelect.LevelSelection.SCENENAME);
@@ -41,52 +41,78 @@ public class ShopMenu : MonoBehaviour
     {
         if (Account.instance == null)
             throw new System.Exception("'Account' manager has no instance");
-        smallLootbox.onClick.AddListener(delegate () { BuyLootBox(LootBox.LootBoxType.small); });
-        mediumLootbox.onClick.AddListener(delegate () { BuyLootBox(LootBox.LootBoxType.medium); });
-        largeLootbox.onClick.AddListener(delegate () { BuyLootBox(LootBox.LootBoxType.large); });
+        smallLootbox.onClick.AddListener(delegate () { BuyLootBox("small"); });//BuyLootBox(LootBox.LootBoxType.small); });
+        mediumLootbox.onClick.AddListener(delegate () { BuyLootBox("medium"); });//BuyLootBox(LootBox.LootBoxType.medium); });
+        largeLootbox.onClick.AddListener(delegate () { BuyLootBox("large"); });//BuyLootBox(LootBox.LootBoxType.large); });
     }
 
+    /// <summary>
+    /// Ancienne fonction qui achete un lootbox en fonction du type voulu
+    /// </summary>
     public void BuyLootBox(LootBox.LootBoxType type)
     {
-        PopUpMenu.ShowYesNoPopUpMenu("Confirmation", "Are you sure you want to buy a " + type + " lootbox ?", delegate ()
+        PopUpMenu.ShowConfirmPopUpMenu("Bill Confirmation", "You are currently in the process of buying a lootbox. Are you sure you want to buy a " + type + " lootbox ?", delegate ()
+       {
+           // Animation apparition Lootbox
+           switch (type)
+           {
+               case LootBox.LootBoxType.small:
+                   new LootBox(armory, LootBox.LootBoxType.small, delegate (List<EquipablePreview> rewards)
+                   {
+                       // Disparition du Lootbox
+                       for (int i = 0; i < rewards.Count; i++)
+                       {
+                           // Afficher recompense ?
+                           //rewards[i]
+                       }
+                   });
+                   break;
+               case LootBox.LootBoxType.medium:
+                   new LootBox(armory, LootBox.LootBoxType.medium, delegate (List<EquipablePreview> rewards)
+                   {
+                       // Disparition du Lootbox
+                       for (int i = 0; i < rewards.Count; i++)
+                       {
+                           // Afficher recompense ?
+                           //rewards[i]
+                       }
+                   });
+                   break;
+               case LootBox.LootBoxType.large:
+                   new LootBox(armory, LootBox.LootBoxType.large, delegate (List<EquipablePreview> rewards)
+                   {
+                       // Disparition du Lootbox
+                       for (int i = 0; i < rewards.Count; i++)
+                       {
+                           // Afficher recompense ?
+                           //rewards[i]
+                       }
+                   });
+                   break;
+           }
+       });
+    }
+
+    /// <summary>
+    /// Nouvelle fonction plus ou moins utile dans le shop puisqu'elle utilise des LootboxRef
+    /// </summary>
+    public void BuyLootBox(string identifiant)
+    {
+        ResourceLoader.LoadLootBoxRefAsync(identifiant, delegate (LootBoxRef lootbox)
         {
-            // Animation apparition Lootbox
-            switch (type)
+            ShopPopUpMenu.ShowShopPopUpMenu("Bill Confirmation", "You are currently in the process of buying a " + lootbox.identifiant
+                + " lootbox. Are you sure you want to buy it?", lootbox.icon, "$" + lootbox.price, lootbox.amount, delegate ()
             {
-                case LootBox.LootBoxType.small:
-                    new LootBox(armory, LootBox.LootBoxType.small, delegate (List<EquipablePreview> rewards)
+                new LootBox(identifiant, delegate (List<EquipablePreview> rewards)
+                {
+                    // Disparition du Lootbox
+                    for (int i = 0; i < rewards.Count; i++)
                     {
-                        // Disparition du Lootbox
-                        for (int i = 0; i < rewards.Count; i++)
-                        {
-                            // Afficher recompense ?
-                            //rewards[i]
-                        }
-                    });
-                    break;
-                case LootBox.LootBoxType.medium:
-                    new LootBox(armory, LootBox.LootBoxType.medium, delegate (List<EquipablePreview> rewards)
-                    {
-                        // Disparition du Lootbox
-                        for (int i = 0; i < rewards.Count; i++)
-                        {
-                            // Afficher recompense ?
-                            //rewards[i]
-                        }
-                    });
-                    break;
-                case LootBox.LootBoxType.large:
-                    new LootBox(armory, LootBox.LootBoxType.large, delegate (List<EquipablePreview> rewards)
-                    {
-                        // Disparition du Lootbox
-                        for (int i = 0; i < rewards.Count; i++)
-                        {
-                            // Afficher recompense ?
-                            //rewards[i]
-                        }
-                    });
-                    break;
-            }
+                        // Afficher recompense ?
+                        //rewards[i]
+                    }
+                });
+            });
         });
     }
 
@@ -134,7 +160,7 @@ public class ShopMenu : MonoBehaviour
                 Debug.Log("The ad was skipped before reaching the end.");
                 //
                 // YOUR CODE TO SAY FUCK OFF TO PLAYER
-                // Give shit etc.
+                // Give ??? etc.
                 break;
             case ShowResult.Failed:
                 Debug.LogError("The ad failed to be shown.");
