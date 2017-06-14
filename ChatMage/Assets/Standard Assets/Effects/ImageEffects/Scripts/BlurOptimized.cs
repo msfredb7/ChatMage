@@ -44,6 +44,11 @@ namespace UnityStandardAssets.ImageEffects
                 DestroyImmediate (blurMaterial);
         }
 
+        public void RemoteRenderImage(RenderTexture source, RenderTexture destination)
+        {
+            OnRenderImage(source, destination);
+        }
+
         public void OnRenderImage (RenderTexture source, RenderTexture destination) {
             if (CheckResources() == false) {
                 Graphics.Blit (source, destination);

@@ -65,18 +65,15 @@ public class SM_Warudo : Smash
 
     void OnPlayerDestroy(Unit player)
     {
-        //a-t-on simplement �teint le jeu ?
-        if (DelayManager.instance == null || Game.instance == null)
+        if (smashCoroutine == null)
             return;
 
-        if (smashCoroutine != null)
-        {
+        //a-t-on simplement �teint le jeu ?
+        if (DelayManager.instance != null)
             DelayManager.Cancel(smashCoroutine);
-            OnSmashEnd();
-        }
 
-        //if (smashLaunchCoroutine != null)
-        //    DelayManager.Cancel(smashLaunchCoroutine);
+        if(Game.instance != null)
+            OnSmashEnd();
     }
 
     public override void OnGameStarted()
@@ -123,9 +120,9 @@ public class SM_Warudo : Smash
     {
         vfx.AnimateBack(delegate ()
         {
-            smashCoroutine = null;
             SetTimeScale(1);
         });
+        smashCoroutine = null;
     }
 
     public override void OnUpdate()

@@ -7,6 +7,7 @@ using CCC.Manager;
 using FullSerializer;
 using LevelScripting;
 using DG.Tweening;
+using GameIntroOutro;
 
 public abstract class LevelScript : BaseScriptableObject, IEventReceiver
 {
@@ -21,7 +22,8 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
 
     [InspectorHeader("Wrap Animations")]
     public BaseIntro introPrefab;
-    public BaseOutro outroPrefab;
+    public BaseWinOutro winOutroPrefab;
+    public BaseLoseOutro loseOutroPrefab;
 
 
     [InspectorHeader("Base Settings")]
@@ -134,8 +136,8 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
         if (onWin != null)
             onWin();
 
-        if (outroPrefab != null)
-            inGameEvents.ShowUI(outroPrefab).Play(true);
+        if (winOutroPrefab != null)
+            inGameEvents.ShowUI(winOutroPrefab).Play();
 
         OnWin();
     }
@@ -147,11 +149,17 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
 
         isOver = true;
 
+        //Disable player input
+        if (Game.instance.Player != null)
+        {
+            Game.instance.Player.playerDriver.enableInput = false;
+        }
+
         if (onLose != null)
             onLose();
 
-        if (outroPrefab != null)
-            inGameEvents.ShowUI(outroPrefab).Play(false);
+        if (loseOutroPrefab != null)
+            inGameEvents.ShowUI(loseOutroPrefab).Play();
 
         OnLose();
     }

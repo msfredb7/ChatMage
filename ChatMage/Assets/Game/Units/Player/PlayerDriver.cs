@@ -8,6 +8,7 @@ public class PlayerDriver : PlayerComponent
     [System.NonSerialized]
     private Car car;
     public Car Car { get { return car; } }
+    public bool enableInput = true;
     private float horizontalInput;
 
     public override void OnGameReady()
@@ -30,7 +31,7 @@ public class PlayerDriver : PlayerComponent
     {
         car.OnUpdate();
 
-        if (car != null)
+        if (car != null && enableInput)
             car.OnInputUpdate(horizontalInput);
 
         horizontalInput = 0;

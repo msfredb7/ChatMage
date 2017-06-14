@@ -357,19 +357,5 @@ public class InGameEvents : MonoBehaviour
         // TODO : A determiner
     }
 
-    /// <summary>
-    /// On devrais changer ça. On ne donne pas assez d'information ni de controle au level select avec cette fonction
-    /// Quand on appelle la fonction 'Outro' on ne s'attend pas à ce que le joueur soit locked et invurlnérable nécessairement
-    /// Ça ne serait pas un problème si on était CERTAIN que tous nos outro allait être comme ça parcontre.
-    /// </summary>
-    public void Outro(bool result, BaseOutro uiPrefab)
-    {
-        LockPlayer();
-
-        Game.instance.Player.playerStats.damagable = false;
-
-        ShowUI(uiPrefab).Play(result);
-    }
-
     #endregion
 }

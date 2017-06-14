@@ -14,7 +14,6 @@ MonoBehaviour:
   _objectReferences:
   - {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
   - {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
-  - {fileID: 114917152140949164, guid: 90a1293e412776e4db23eb9595fcf924, type: 2}
   _serializedStateKeys:
   - winningConditions
   - losingConditions
@@ -24,15 +23,17 @@ MonoBehaviour:
   - '[]'
   - '[{"$type":"GameCondition.LoseOnPlayerDeath"}]'
   - '[{"eventWhat":{"scriptName":null,"functionName":null,"startNextEvent":false},"eventWhen":{"useSpecificTime":false,"invokeOnStart":true,"when":0.0},"done":false}]'
-  - '[{"packs":[{"unit":0,"quantity":2}],"onProgressCallbacks":[{"eventName":"wave
+  - '[{"packs":[{"unit":0,"quantity":1}],"onProgressCallbacks":[{"eventName":"wave
     complete","completionRate":1.0}],"where":{"type":"RandomAroundScreen","clamp":false,"referencePoint":"Player","clampMin":{"x":-8.0,"y":-4.5},"clampMax":{"x":8.0,"y":4.5},"waypointInfo":{"idType":"Enum","waypointTag":null,"waypointType":"PlayerSpawn","spawningType":"Ordered","filterByHeight":false,"referencePoint":"Player","minHeight":-4.5,"maxHeight":4.5}},"when":{"type":"OnLevelEvent","time":0.0,"name":"wave
-    1"},"duration":1.0},{"packs":[{"unit":1,"quantity":2},{"unit":2,"quantity":2}],"onProgressCallbacks":[{"eventName":"wave
+    1"},"duration":1.0},{"packs":[{"unit":1,"quantity":1}],"onProgressCallbacks":[{"eventName":"wave
     complete","completionRate":1.0}],"where":{"type":"RandomAroundScreen","clamp":false,"referencePoint":"Player","clampMin":{"x":-8.0,"y":-4.5},"clampMax":{"x":8.0,"y":4.5},"waypointInfo":{"idType":"Enum","waypointTag":null,"waypointType":"PlayerSpawn","spawningType":"Ordered","filterByHeight":false,"referencePoint":"Player","minHeight":-4.5,"maxHeight":4.5}},"when":{"type":"OnLevelEvent","time":0.0,"name":"wave
     2"},"duration":3.0}]'
   sceneName: MapDemo
   introPrefab: {fileID: 114939908285177620, guid: 6ecb49bd0fe07fd49a2105006011056d,
     type: 2}
-  outroPrefab: {fileID: 114149177149363076, guid: 5fb703884a8fef84baed936668fb2290,
+  winOutroPrefab: {fileID: 114288339278322360, guid: 1e4d836705c07534fb5b431bb36cb2ab,
+    type: 2}
+  loseOutroPrefab: {fileID: 114019376999675500, guid: 5fb703884a8fef84baed936668fb2290,
     type: 2}
   noHealthPacks: 0
   followPlayerOnStart: 1
@@ -44,7 +45,7 @@ MonoBehaviour:
   waves:
   - packs:
     - unit: {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
-      quantity: 2
+      quantity: 1
     where:
       type: 0
       clamp: 0
@@ -67,9 +68,7 @@ MonoBehaviour:
     duration: 1
   - packs:
     - unit: {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
-      quantity: 2
-    - unit: {fileID: 114917152140949164, guid: 90a1293e412776e4db23eb9595fcf924, type: 2}
-      quantity: 2
+      quantity: 1
     where:
       type: 0
       clamp: 0
@@ -90,7 +89,7 @@ MonoBehaviour:
       time: 0
       name: wave 2
     duration: 3
-  isOver: 0
+  isOver: 1
   inGameEvents: {fileID: 0}
   healthPacks: {fileID: 114870834835718906, guid: d28e2a568fc043140bfc8bc5777eb644,
     type: 2}
