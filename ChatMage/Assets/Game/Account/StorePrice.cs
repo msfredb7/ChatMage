@@ -16,8 +16,9 @@ public class StorePrice {
         smallGoldAmount = 7,
         mediumGoldAmount = 8,
         largeGoldAmount = 9,
-        slotCost = 10,
-        adReward = 11,
+        customGoldAmount = 10,
+        slotCost = 11,
+        adReward = 12,
     }
 
     public static int smallLootboxCost = -5;
@@ -31,6 +32,7 @@ public class StorePrice {
     public static int smallGoldAmount = 10;
     public static int mediumGoldAmount = 50;
     public static int largeGoldAmount = 100;
+    public static int customGoldAmount = 1;
 
     public static int slotCost = 1;
 
@@ -60,6 +62,8 @@ public class StorePrice {
                 return mediumGoldAmount;
             case CommandType.largeGoldAmount:
                 return largeGoldAmount;
+            case CommandType.customGoldAmount:
+                return customGoldAmount;
             case CommandType.slotCost:
                 return slotCost;
             case CommandType.adReward:
