@@ -105,12 +105,13 @@ public class ShopMenu : MonoBehaviour
             {
                 new LootBox(identifiant, delegate (List<EquipablePreview> rewards)
                 {
-                    // Disparition du Lootbox
-                    for (int i = 0; i < rewards.Count; i++)
-                    {
-                        // Afficher recompense ?
-                        //rewards[i]
-                    }
+                    List<EquipablePreview> theRewards = rewards;
+                    // Code pour l'animation du lootbox
+                    ResourceLoader.LoadUIAsync("Lootbox", delegate (GameObject lootboxAnim)
+                     {
+                         GameObject newLootboxAnimation = Instantiate(lootboxAnim, Game.instance.ui.transform);
+                         newLootboxAnimation.GetComponent<LootboxAnimation>().AddRewards(theRewards);
+                     });
                 });
             });
         });
