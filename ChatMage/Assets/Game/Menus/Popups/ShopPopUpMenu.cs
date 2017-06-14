@@ -14,7 +14,7 @@ public class ShopPopUpMenu
             ShopPopUpScript popup = Scenes.FindRootObject<ShopPopUpScript>(scene).SetShopPopUp(onCancel, onConfirm)
              .SetTitle(title)
              .SetMessage(message)
-             .SetPrice(price)
+             .SetPrice(price.Replace("-", ""))
              .SetIcon(equipableIcon)
              .SetAmount(amount);
         });

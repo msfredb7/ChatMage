@@ -3,19 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using FullInspector;
 
-public class LootBoxRef : ScriptableObject {
+public class LootBoxRef : BaseScriptableObject {
 
     public string identifiant; // doit etre identique au nom de l'objet
     public Sprite icon;
     public Dictionary<EquipablePreview, int> possibleItems = new Dictionary<EquipablePreview, int>();
     public int amount;
-    public float price;
+    public StorePrice.CommandType commandType;
 
     public class Reward : ILottery
     {
-        private float weight;
-        private EquipablePreview equipable;
+        public float weight;
+        public EquipablePreview equipable;
 
         public Reward(EquipablePreview equipable, float weight)
         {
@@ -41,7 +42,7 @@ public class LootBoxRef : ScriptableObject {
 
         for (int i = 0; i < amount; i++)
         {
-            reward.Add((EquipablePreview)lot.Pick());
+            reward.Add(((Reward)lot.Pick()).equipable);
         }
 
         return reward;

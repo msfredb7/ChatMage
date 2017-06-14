@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class OptionWindow : WindowAnimation
 {
-
     public string SCENENAME = "Options";
     public string SCENENAMEINGAME = "InGameOptions";
     private bool quit = false;
@@ -57,7 +56,7 @@ public class OptionWindow : WindowAnimation
                 delegate ()
                 {
                     Scenes.UnloadAsync(SCENENAME);
-                    Time.timeScale = 1;
+                    SetTimeScale(1);
                     quit = false;
                 }
             );
@@ -81,7 +80,7 @@ public class OptionWindow : WindowAnimation
                 delegate ()
                 {
                     Scenes.UnloadAsync(SCENENAMEINGAME);
-                    Time.timeScale = 1;
+                    SetTimeScale(1);
                     quit = false;
                 }
             );
@@ -91,5 +90,18 @@ public class OptionWindow : WindowAnimation
             Scenes.UnloadAsync(SCENENAMEINGAME);
             quit = false;
         }
+    }
+
+    void SetTimeScale(float amount)
+    {
+        List<Unit> units = Game.instance.units;
+        for (int i = 0; i < units.Count; i++)
+        {
+            units[i].TimeScale = amount;
+        }
+        if (amount == 1)
+            Game.instance.worldTimeScale.RemoveBuff("zwrdo");
+        else
+            Game.instance.worldTimeScale.AddBuff("zwrdo", amount * 100 - 100, CCC.Utility.BuffType.Percent);
     }
 }

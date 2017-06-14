@@ -8,7 +8,7 @@ using UnityEngine.Purchasing;
 namespace CompleteProject
 {
     // Deriving the Purchaser class from IStoreListener enables it to receive messages from Unity Purchasing.
-    public class Purchaser : MonoBehaviour, IStoreListener
+    public class Purchaser : IStoreListener
     {
         private static IStoreController m_StoreController;          // The Unity Purchasing system.
         private static IExtensionProvider m_StoreExtensionProvider; // The store-specific Purchasing subsystems.
@@ -30,14 +30,10 @@ namespace CompleteProject
 
         public Sprite coinsLogo;
 
-        private int smallCoinsAmount = 10;
-        private int mediumCoinsAmount = 50;
-        private int largeCoinsAmount = 100;
-
         // Google Play Store-specific product identifier subscription product.
         private static string kProductNameGooglePlaySubscription = "com.unity3d.subscription.original";
 
-        void Start()
+        public void Init()
         {
             // If we haven't set up the Unity Purchasing reference
             if (m_StoreController == null)
@@ -79,13 +75,13 @@ namespace CompleteProject
             return m_StoreController != null && m_StoreExtensionProvider != null;
         }
 
-        public void BuyConsumable(int amount)
+        public void BuyConsumable(int coinsAmount)
         {
-            if (amount >= 10)
+            if (coinsAmount >= StorePrice.GetPrice(StorePrice.CommandType.smallGoldAmount))
             {
-                if (amount >= 50)
+                if (coinsAmount >= StorePrice.GetPrice(StorePrice.CommandType.mediumGoldAmount))
                 {
-                    if (amount >= 100)
+                    if (coinsAmount >= StorePrice.GetPrice(StorePrice.CommandType.largeGoldAmount))
                         BuyLargeConsumable();
                     else
                         BuyMediumConsumable();
@@ -98,7 +94,7 @@ namespace CompleteProject
         public void BuySmallConsumable()
         {
             ShopPopUpMenu.ShowShopPopUpMenu("Bill Confirmation", "You are currently in the process of buying a large amount "
-                + " of coins. Are you sure ?", coinsLogo, m_StoreController.products.WithID(smallMoneyAmount).metadata.localizedPriceString, smallCoinsAmount, delegate ()
+                + " of coins. Are you sure ?", coinsLogo, m_StoreController.products.WithID(smallMoneyAmount).metadata.localizedPriceString, StorePrice.GetPrice(StorePrice.CommandType.smallGoldAmount), delegate ()
             {
                 // Buy the consumable product using its general identifier. Expect a response either 
                 // through ProcessPurchase or OnPurchaseFailed asynchronously.
@@ -109,7 +105,7 @@ namespace CompleteProject
         public void BuyMediumConsumable()
         {
             ShopPopUpMenu.ShowShopPopUpMenu("Bill Confirmation", "You are currently in the process of buying a large amount "
-                + " of coins. Are you sure ?", coinsLogo, m_StoreController.products.WithID(mediumMoneyAmount).metadata.localizedPriceString, mediumCoinsAmount, delegate ()
+                + " of coins. Are you sure ?", coinsLogo, m_StoreController.products.WithID(mediumMoneyAmount).metadata.localizedPriceString, StorePrice.GetPrice(StorePrice.CommandType.mediumGoldAmount), delegate ()
             {
             // Buy the consumable product using its general identifier. Expect a response either 
             // through ProcessPurchase or OnPurchaseFailed asynchronously.
@@ -120,7 +116,7 @@ namespace CompleteProject
         public void BuyLargeConsumable()
         {
             ShopPopUpMenu.ShowShopPopUpMenu("Bill Confirmation", "You are currently in the process of buying a large amount "
-                + " of coins. Are you sure ?", coinsLogo, m_StoreController.products.WithID(largeMoneyAmount).metadata.localizedPriceString, largeCoinsAmount, delegate ()
+                + " of coins. Are you sure ?", coinsLogo, m_StoreController.products.WithID(largeMoneyAmount).metadata.localizedPriceString, StorePrice.GetPrice(StorePrice.CommandType.largeGoldAmount), delegate ()
             {
                 // Buy the consumable product using its general identifier. Expect a response either 
                 // through ProcessPurchase or OnPurchaseFailed asynchronously.
@@ -197,21 +193,21 @@ namespace CompleteProject
             {
                 Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
                 // The consumable item has been successfully purchased
-                Account.instance.AddCoins(smallCoinsAmount);
+                Account.instance.Command(StorePrice.CommandType.smallGoldAmount);
             }
             // A consumable product has been purchased by this user.
             else if (String.Equals(args.purchasedProduct.definition.id, mediumMoneyAmount, StringComparison.Ordinal))
             {
                 Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
                 // The consumable item has been successfully purchased
-                Account.instance.AddCoins(mediumCoinsAmount);
+                Account.instance.Command(StorePrice.CommandType.mediumGoldAmount);
             }
             // A consumable product has been purchased by this user.
             else if (String.Equals(args.purchasedProduct.definition.id, largeMoneyAmount, StringComparison.Ordinal))
             {
                 Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
                 // The consumable item has been successfully purchased
-                Account.instance.AddCoins(largeCoinsAmount);
+                Account.instance.Command(StorePrice.CommandType.largeGoldAmount);
             }
             // Or ... a non-consumable product has been purchased by this user.
             else if (String.Equals(args.purchasedProduct.definition.id, fullGame, StringComparison.Ordinal))

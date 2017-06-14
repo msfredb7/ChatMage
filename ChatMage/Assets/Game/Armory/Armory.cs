@@ -34,9 +34,10 @@ public class Armory : ScriptableObject
     public void Load()
     {
         itemSlots = GetLastSavedSlots();
+        LoadEquipable();
     }
 
-    public void Save()
+    public void SaveSlot()
     {
         GameSaves.instance.SetInt(GameSaves.Type.Armory, SLOTS_KEY, itemSlots);
     }
@@ -173,9 +174,9 @@ public class Armory : ScriptableObject
         return result;
     }
 
-    public bool BuyItemSlots(int amount, int slotCost)
+    public bool BuyItemSlots(int amount)
     {
-        if (Account.instance.AddCoins(amount * slotCost))
+        if (Account.instance.Command(StorePrice.CommandType.slotCost, amount))
         {
             itemSlots += amount;
             return true;
@@ -188,6 +189,20 @@ public class Armory : ScriptableObject
         get
         {
             return itemSlots;
+        }
+    }
+
+    public void LoadEquipable()
+    {
+        List<EquipablePreview> result = new List<EquipablePreview>(items.Count + cars.Count + smashes.Count);
+
+        result.AddRange(items);
+        result.AddRange(cars);
+        result.AddRange(smashes);
+
+        for (int i = 0; i < result.Count; i++)
+        {
+            result[i].Load();
         }
     }
 }

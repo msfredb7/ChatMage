@@ -17,7 +17,7 @@ public class LootBox {
     public List<EquipablePreview> possibleItems = new List<EquipablePreview>();
 
     /// <summary>
-    /// Deprecated | Ancienne fonction pour ouvrir une lootbox, peut enconre etre utiliser au besoin
+    /// Deprecated | Ancienne fonction pour ouvrir une lootbox
     /// </summary>
     public LootBox(Armory armory, LootBoxType type, Action<List<EquipablePreview>> callback, bool gold = false)
     {
@@ -48,9 +48,18 @@ public class LootBox {
     {
         List<EquipablePreview> rewards = new List<EquipablePreview>();
         
-        ResourceLoader.LoadLootBoxRefAsync(identifiant, delegate (LootBoxRef lootbox) { rewards.AddRange(lootbox.GetRewards()); });
+        ResourceLoader.LoadLootBoxRefAsync(identifiant, delegate (LootBoxRef lootbox) {
+            rewards.AddRange(lootbox.GetRewards());
 
-        callback.Invoke(rewards);
+            for (int i = 0; i < rewards.Count; i++)
+            {
+                rewards[i].unlocked = true;
+                rewards[i].Save();
+            }
+            GameSaves.instance.SaveData(GameSaves.Type.Armory);
+
+            callback.Invoke(rewards);
+        });
     }
 
     private List<EquipablePreview> GetRewards(LootBoxType type)

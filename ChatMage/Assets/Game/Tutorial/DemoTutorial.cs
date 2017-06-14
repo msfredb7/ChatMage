@@ -14,7 +14,7 @@ public class DemoTutorial : BaseTutorial {
         {
             DelayManager.LocalCallTo(delegate ()
             {
-                FocusInput(Game.instance.ui.menuOption.gameObject, false);
+                FocusInput(Game.instance.ui.menuOption.gameObject, true);
                 ShowInfo("Voici le menu option ! Changer le volume, quitter la partie ou recommencer le niveau.");
             }, 1, TutorialStarter.tutorialScriptObject);
         }

@@ -19,6 +19,7 @@ MonoBehaviour:
   - losingConditions
   - events
   - waves
+  - rewards
   _serializedStateValues:
   - '[]'
   - '[{"$type":"GameCondition.LoseOnPlayerDeath"}]'
@@ -28,6 +29,7 @@ MonoBehaviour:
     1"},"duration":1.0},{"packs":[{"unit":1,"quantity":1}],"onProgressCallbacks":[{"eventName":"wave
     complete","completionRate":1.0}],"where":{"type":"RandomAroundScreen","clamp":false,"referencePoint":"Player","clampMin":{"x":-8.0,"y":-4.5},"clampMax":{"x":8.0,"y":4.5},"waypointInfo":{"idType":"Enum","waypointTag":null,"waypointType":"PlayerSpawn","spawningType":"Ordered","filterByHeight":false,"referencePoint":"Player","minHeight":-4.5,"maxHeight":4.5}},"when":{"type":"OnLevelEvent","time":0.0,"name":"wave
     2"},"duration":3.0}]'
+  - '{"giveMoney":true,"amount":10,"giveLootBox":true,"lootboxs":[]}'
   sceneName: MapDemo
   introPrefab: {fileID: 114939908285177620, guid: 6ecb49bd0fe07fd49a2105006011056d,
     type: 2}
@@ -96,3 +98,4 @@ MonoBehaviour:
   shielder: {fileID: 114892083099199946, guid: a97b513999cddca448e173580c0c886f, type: 2}
   objectiveUI: {fileID: 114476168366803530, guid: a2d3b8390fb62814f8ad23038860dabb,
     type: 2}
+  tutorial: {fileID: 11400000, guid: 462d301430296524a849ffb402b96b3b, type: 2}

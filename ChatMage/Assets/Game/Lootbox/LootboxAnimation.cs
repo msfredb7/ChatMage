@@ -4,6 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
 using CCC.UI;
+using CCC.Manager;
 
 public class LootboxAnimation : WindowAnimation {
 
@@ -11,6 +12,17 @@ public class LootboxAnimation : WindowAnimation {
     public GameObject lootboxIcon;
     public GameObject rewardCountainer;
     public GameObject rewardIconPrefab;
+    public GameObject goldifyButton;
+
+    public bool lootboxOpened;
+
+    void Start()
+    {
+        goldifyButton.GetComponent<Button>().onClick.AddListener(OnGoldify);
+        lootboxIcon.GetComponent<Button>().onClick.AddListener(ShowRewards);
+        rewardCountainer.SetActive(false);
+        lootboxOpened = false;
+    }
 
     void Update()
     {
@@ -24,5 +36,21 @@ public class LootboxAnimation : WindowAnimation {
             GameObject newReward = Instantiate(rewardIconPrefab, rewardCountainer.transform);
             newReward.GetComponent<Image>().sprite = equipables[i].icon;
         }
+    }
+
+    void ShowRewards()
+    {
+        if (!lootboxOpened)
+        {
+            Debug.Log("Opening Lootbox !");
+            rewardCountainer.SetActive(true); // TODO: faire une meilleur animation
+            DelayManager.CallTo(delegate () { Close(delegate() { Destroy(gameObject); });  }, 2.5f);
+            lootboxOpened = true;
+        }
+    }
+
+    void OnGoldify()
+    {
+        Debug.Log("TODO : Goldify");
     }
 }

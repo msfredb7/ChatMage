@@ -14,12 +14,13 @@ public class OptionMenu : MonoBehaviour
     public void LoadOptionMenu()
     {
         Scenes.LoadAsync(SCENENAME,LoadSceneMode.Additive);
+        SetTimeScale(0);
     }
 
     public void LoadInGameOptionMenu()
     {
         Scenes.LoadAsync(SCENENAMEINGAME, LoadSceneMode.Additive);
-        Time.timeScale = 0;
+        SetTimeScale(0);
     }
 
     void SetTimeScale(float amount)
