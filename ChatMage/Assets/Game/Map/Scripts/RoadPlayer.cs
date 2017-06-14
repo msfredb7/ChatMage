@@ -25,7 +25,7 @@ public class RoadPlayer : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (playerT == null)
+        if (playerT == null || Game.instance == null || !Game.instance.gameStarted)
             return;
 
         if (!Game.instance.unitsContainer.gameObject.activeSelf)
@@ -43,7 +43,7 @@ public class RoadPlayer : MonoBehaviour
 
     void Update()
     {
-        if (playerT == null)
+        if (playerT == null || Game.instance == null || !Game.instance.gameStarted)
             return;
 
         float playerHeight = playerT.position.y;

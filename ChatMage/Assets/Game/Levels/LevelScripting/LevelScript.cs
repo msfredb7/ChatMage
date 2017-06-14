@@ -45,24 +45,29 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
     public event StringEvent onEventReceived;
 
     public bool IsOver { get { return isOver; } }
-    [fsIgnore]
+    [fsIgnore, NotSerialized]
     public bool isOver = false;
 
-    [fsIgnore]
+    [fsIgnore, NotSerialized]
     public InGameEvents inGameEvents;
 
-    [fsIgnore]
+    [fsIgnore, NotSerialized]
     private List<UnitWave> eventTriggeredWaves;
-    [fsIgnore]
+    [fsIgnore, NotSerialized]
     private List<UnitWave> manuallyTriggeredWaves;
 
-    [fsIgnore]
-    private int unitsKilled = 0;
+    private void ResetData()
+    {
+        isOver = false;
+        inGameEvents = null;
+        eventTriggeredWaves = null;
+        manuallyTriggeredWaves = null;
+    }
 
     // Init Level Script
     public void Init(System.Action onComplete, InGameEvents inGameEvents)
     {
-        isOver = false;
+        ResetData();
         Game.instance.onGameReady += GameReady;
         Game.instance.onGameStarted += GameStarted;
 

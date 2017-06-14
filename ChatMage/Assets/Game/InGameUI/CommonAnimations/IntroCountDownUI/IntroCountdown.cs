@@ -10,7 +10,9 @@ using System;
 
 public class IntroCountdown : BaseIntro
 {
+    public Text text;
     public float playerEnterDelay = 1.5f;
+
     public override void Play(Action onComplete)
     {
         Sequence sq = DOTween.Sequence();
@@ -37,12 +39,12 @@ public class IntroCountdown : BaseIntro
             }));
 
 
-        sq.InsertCallback(0, delegate () { GetComponent<Text>().text = "3"; })
-            .InsertCallback(1, delegate () { GetComponent<Text>().text = "2"; })
-            .InsertCallback(2, delegate () { GetComponent<Text>().text = "1"; })
+        sq.InsertCallback(0, delegate () { text.text = "3"; })
+            .InsertCallback(1, delegate () { text.text = "2"; })
+            .InsertCallback(2, delegate () { text.text = "1"; })
             .InsertCallback(3, delegate ()
             {
-                GetComponent<Text>().enabled = false;
+                text.enabled = false;
 
                 if (onComplete != null)
                     onComplete();

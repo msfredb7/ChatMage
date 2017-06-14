@@ -22,7 +22,7 @@ public class GameBounds : MonoBehaviour
     public void Resize(float width, float z)
     {
         right.transform.localPosition = new Vector3(width / 2 + 0.5f, 0, z);
-        left.transform.position = new Vector3(-width / 2 - 0.5f, 0, z);
+        left.transform.localPosition = new Vector3(-width / 2 - 0.5f, 0, z);
     }
 
     public void EnableAll()

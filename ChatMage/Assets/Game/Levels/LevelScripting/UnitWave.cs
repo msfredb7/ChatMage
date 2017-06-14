@@ -23,7 +23,7 @@ namespace LevelScripting
         public float duration;
 
         public event SimpleEvent onLaunched;
-        
+
         [fsIgnore]
         private List<Callback> completionCallbacks = new List<Callback>();
         [fsIgnore]
@@ -61,14 +61,15 @@ namespace LevelScripting
             this.events = events;
 
             //Build callbacks from 'LevelEventCallbacks'
-            for (int i = 0; i < onProgressCallbacks.Length; i++)
-            {
-                int localI = i;
-                AddCallbackAfterCompletion(onProgressCallbacks[localI].completionRate, delegate ()
+            if (onProgressCallbacks != null)
+                for (int i = 0; i < onProgressCallbacks.Length; i++)
                 {
-                    Game.instance.currentLevel.ReceiveEvent(onProgressCallbacks[localI].eventName);
-                });
-            }
+                    int localI = i;
+                    AddCallbackAfterCompletion(onProgressCallbacks[localI].completionRate, delegate ()
+                    {
+                        Game.instance.currentLevel.ReceiveEvent(onProgressCallbacks[localI].eventName);
+                    });
+                }
 
             //Quantite total de units a spawn
             totalUnits = TotalUnits();
@@ -447,7 +448,7 @@ namespace LevelScripting
         public class LevelEventCallback
         {
             public string eventName;
-            [InspectorRange(0,1)]
+            [InspectorRange(0, 1)]
             public float completionRate;
         }
     }

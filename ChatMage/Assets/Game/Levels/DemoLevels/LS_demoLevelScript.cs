@@ -54,7 +54,8 @@ public class LS_demoLevelScript : LevelScript
             case "wave complete":
                 OnWaveComplete();
                 break;
-            default:
+            case "finish":
+                Win();
                 break;
         }
     }

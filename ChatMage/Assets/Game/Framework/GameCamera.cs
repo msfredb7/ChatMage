@@ -50,13 +50,16 @@ public class GameCamera : MonoBehaviour
         //Screen bounds
         screenSize = new Vector2(cam.orthographicSize * cam.aspect * 2, cam.orthographicSize * 2);
         defaultToRealRatio = new Vector2(defaultBounds.x / screenSize.x, defaultBounds.y / screenSize.y);
+
+        //Spawn a la bonne hauteur
+        SetToHeight(Game.instance.map.cameraSpawn.Height);
     }
 
     public void OnCompleteTeleport()
     {
         isTeleporting = false;
 
-        //Il faut faire �a, sinon, on pert une frame sur le joueur
+        //Il faut faire ca, sinon, on pert une frame sur le joueur
         FixedUpdate();
     }
 
@@ -121,25 +124,6 @@ public class GameCamera : MonoBehaviour
 
         playerSmoothPosition = Height - followTargetDeltaHeight;
     }
-
-    //public bool FollowPlayer
-    //{
-    //    get
-    //    {
-    //        return followPlayer;
-    //    }
-    //    set
-    //    {
-    //        if(value && !followPlayer)
-    //        {
-    //            //On le met a ON !
-    //        }
-    //        else if(!value && followPlayer)
-    //        {
-    //            //On le met a OFF !
-    //        }
-    //    }
-    //}
 
     private float TargetHeight { get { return playerSmoothPosition + followTargetDeltaHeight; } }
 

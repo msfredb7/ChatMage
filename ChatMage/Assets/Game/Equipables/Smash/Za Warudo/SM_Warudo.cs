@@ -66,7 +66,7 @@ public class SM_Warudo : Smash
     void OnPlayerDestroy(Unit player)
     {
         //a-t-on simplement �teint le jeu ?
-        if (DelayManager.instance == null)
+        if (DelayManager.instance == null || Game.instance == null)
             return;
 
         if (smashCoroutine != null)
