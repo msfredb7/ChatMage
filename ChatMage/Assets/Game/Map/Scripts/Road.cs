@@ -6,14 +6,13 @@ using FullSerializer;
 
 public class Road : BaseBehavior
 {
-
-    [Header("Must be < 1000 x 2")]
+    [InspectorHeader("Doit etre < 1000 x 2")]
     public float length;
 
     public float TopHeight { get { return topHeight; } }
     public float BottomHeight { get { return bottomHeight; } }
 
-    [Header("NE PAS MODIFIER INGAME")]
+    [InspectorHeader("NE PAS MODIFIER INGAME")]
     public List<Milestone> milestones;
     [fsProperty, InspectorDisabled()]
     private List<float> milestoneRelativeHeights;
@@ -23,6 +22,8 @@ public class Road : BaseBehavior
     private float topHeight;
     private float bottomHeight;
     private float lastRealPos;
+    private bool lastRealPosSet = false;
+    private bool isTeleporting = false;
 
     GameCamera gameCamera;
 
@@ -35,9 +36,20 @@ public class Road : BaseBehavior
         bottomHeight = transform.position.y - length / 2;
     }
 
-    public void Init(GameCamera gameCamera)
+    public void Init(GameCamera gameCamera, RoadPlayer roadplayer)
     {
         this.gameCamera = gameCamera;
+    }
+
+    public void OnCompleteTeleport()
+    {
+        isTeleporting = false;
+        lastRealPos += gameCamera.Top - lastRealPos;
+    }
+
+    public void OnStartTeleport()
+    {
+        isTeleporting = true;
     }
 
     void OnGameStated()
@@ -55,7 +67,15 @@ public class Road : BaseBehavior
         if (gameCamera == null || !Game.instance.gameStarted)
             return;
 
-        lastRealPos = CheckForMilestones(lastRealPos, gameCamera.Top);
+        //Ne va se faire qu'une seul fois
+        if (!lastRealPosSet)
+        {
+            lastRealPos = gameCamera.Top;
+            lastRealPosSet = true;
+        }
+
+        if (!isTeleporting)
+            lastRealPos = CheckForMilestones(lastRealPos, gameCamera.Top);
     }
 
 
@@ -128,16 +148,16 @@ public class Road : BaseBehavior
             float record = Mathf.Infinity;
             for (int u = 0; u < milestones.Count; u++)
             {
-                if (milestones[u].transform.position.y < record)
+                if (milestones[u].GetHeight() < record)
                 {
                     plusBas = u;
                     switch (milestones[u].triggerOn)
                     {
                         case Milestone.TriggerType.BottomOfScreen:
-                            record = milestones[u].transform.position.y + 9;
+                            record = milestones[u].GetHeight();
                             break;
                         case Milestone.TriggerType.TopOfScreen:
-                            record = milestones[u].transform.position.y;
+                            record = milestones[u].GetHeight();
                             break;
                     }
                 }

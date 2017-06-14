@@ -52,6 +52,11 @@ public class Milestone : BaseBehavior
         }
     }
 
+    public float GetHeight()
+    {
+        return transform.position.y + (triggerOn == TriggerType.BottomOfScreen ? 9 : 0);
+    }
+
     void OnDrawGizmosSelected()
     {
         Gizmos.color = new Color(triggerOn == TriggerType.BottomOfScreen ? 1 : 0, triggerOn == TriggerType.TopOfScreen ? 1 : 0, 0, 1);

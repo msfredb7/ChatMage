@@ -13,8 +13,6 @@ namespace LevelScripting
         public float time;
         [InspectorShowIf("UsesName")]
         public string name;
-        [InspectorShowIf("UsesFinishedRatio"), InspectorRange(0, 1)]
-        public float finishedRatio = 1;
 
         public enum Type
         {
@@ -22,13 +20,11 @@ namespace LevelScripting
             Join = 1,                           //
             Append = 2,                         //
             AppendPlus = 3,                     // uses: float time
-            OnMilestone = 4,                    // uses: string name
-            AfterCompletionOfPreviousWave = 5,  // uses: float finishedRatio
+            OnLevelEvent = 4,                    // uses: string name
             OnManualTrigger = 6,                // uses: string name
         }
 
         public bool UsesTime { get { return type == Type.At || type == Type.AppendPlus; } }
-        public bool UsesName { get { return type == Type.OnMilestone || type == Type.OnManualTrigger; } }
-        public bool UsesFinishedRatio { get { return type == Type.AfterCompletionOfPreviousWave; } }
+        public bool UsesName { get { return type == Type.OnLevelEvent || type == Type.OnManualTrigger; } }
     }
 }

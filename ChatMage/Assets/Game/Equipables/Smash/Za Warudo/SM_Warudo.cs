@@ -40,7 +40,7 @@ public class SM_Warudo : Smash
     public override void Init(PlayerController player)
     {
         base.Init(player);
-        vfx = Game.instance.gameCamera.gameObject.AddComponent<ZaWarudoEffect>();
+        vfx = Game.instance.gameCamera.cam.gameObject.AddComponent<ZaWarudoEffect>();
         vfx.colorShiftStart = zwv_ColorShiftStart;
         vfx.colorShiftend = zwv_ColorShiftEnd;
         vfx.fisheyeStrength = zwv_FishEyeStrength;
