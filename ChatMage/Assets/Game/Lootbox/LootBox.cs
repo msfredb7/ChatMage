@@ -48,15 +48,18 @@ public class LootBox {
     {
         List<EquipablePreview> rewards = new List<EquipablePreview>();
         
-        ResourceLoader.LoadLootBoxRefAsync(identifiant, delegate (LootBoxRef lootbox) { rewards.AddRange(lootbox.GetRewards()); });
+        ResourceLoader.LoadLootBoxRefAsync(identifiant, delegate (LootBoxRef lootbox) {
+            rewards.AddRange(lootbox.GetRewards());
 
-        for (int i = 0; i < rewards.Count; i++)
-        {
-            string completedUnlockKey = Armory.SAVE_PREFIX + rewards[i].equipableAssetName;
-            GameSaves.instance.SetBool(GameSaves.Type.Armory, completedUnlockKey, true);
-        }
+            for (int i = 0; i < rewards.Count; i++)
+            {
+                rewards[i].unlocked = true;
+                rewards[i].Save();
+            }
+            GameSaves.instance.SaveData(GameSaves.Type.Armory);
 
-        callback.Invoke(rewards);
+            callback.Invoke(rewards);
+        });
     }
 
     private List<EquipablePreview> GetRewards(LootBoxType type)

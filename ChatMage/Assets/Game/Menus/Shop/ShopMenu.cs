@@ -110,6 +110,7 @@ public class ShopMenu : MonoBehaviour
                         // Code pour l'animation du lootbox
                         ResourceLoader.LoadUIAsync("Lootbox", delegate (GameObject lootboxAnim)
                         {
+                            Debug.Log(rewards.Count);
                             GameObject newLootboxAnimation = Instantiate(lootboxAnim, transform);
                             newLootboxAnimation.GetComponent<LootboxAnimation>().AddRewards(rewards);
                         });
