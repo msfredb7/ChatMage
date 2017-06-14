@@ -7,6 +7,7 @@ using UnityEngine.Events;
 public class Armory : ScriptableObject
 {
     private const string SLOTS_KEY = "slt";
+    public const string SAVE_PREFIX = "equip";
     // On a des previews qu'on affichera dans le UI pour ensuite 
 
     // Items
@@ -34,11 +35,21 @@ public class Armory : ScriptableObject
     public void Load()
     {
         itemSlots = GetLastSavedSlots();
+        LoadEquipable();
     }
 
     public void Save()
     {
         GameSaves.instance.SetInt(GameSaves.Type.Armory, SLOTS_KEY, itemSlots);
+
+        List<EquipablePreview> result = new List<EquipablePreview>(items.Count + cars.Count + smashes.Count);
+
+        result.AddRange(items);
+        result.AddRange(cars);
+        result.AddRange(smashes);
+
+        for (int i = 0; i < result.Count; i++)
+            SaveEquipable(result[i].equipableAssetName, result[i].unlocked);
     }
 
     public List<EquipablePreview> GetAllEquipables()
@@ -189,5 +200,29 @@ public class Armory : ScriptableObject
         {
             return itemSlots;
         }
+    }
+
+    public void LoadEquipable()
+    {
+        List<EquipablePreview> result = new List<EquipablePreview>(items.Count + cars.Count + smashes.Count);
+
+        result.AddRange(items);
+        result.AddRange(cars);
+        result.AddRange(smashes);
+
+        for (int i = 0; i < result.Count; i++)
+        {
+            string equipableKey = SAVE_PREFIX + result[i].equipableAssetName;
+            if (GameSaves.instance.ContainsBool(GameSaves.Type.Armory, equipableKey))
+                result[i].unlocked = GameSaves.instance.GetBool(GameSaves.Type.Armory, equipableKey);
+            else
+                SaveEquipable(result[i].equipableAssetName, result[i].unlocked);
+        }
+    }
+
+    private void SaveEquipable(string name, bool unlocked)
+    {
+        string equipableKey = SAVE_PREFIX + name;
+        GameSaves.instance.SetBool(GameSaves.Type.Armory, equipableKey, unlocked);
     }
 }

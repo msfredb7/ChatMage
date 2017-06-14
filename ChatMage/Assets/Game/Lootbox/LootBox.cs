@@ -17,7 +17,7 @@ public class LootBox {
     public List<EquipablePreview> possibleItems = new List<EquipablePreview>();
 
     /// <summary>
-    /// Deprecated | Ancienne fonction pour ouvrir une lootbox, peut enconre etre utiliser au besoin
+    /// Deprecated | Ancienne fonction pour ouvrir une lootbox
     /// </summary>
     public LootBox(Armory armory, LootBoxType type, Action<List<EquipablePreview>> callback, bool gold = false)
     {
@@ -49,6 +49,12 @@ public class LootBox {
         List<EquipablePreview> rewards = new List<EquipablePreview>();
         
         ResourceLoader.LoadLootBoxRefAsync(identifiant, delegate (LootBoxRef lootbox) { rewards.AddRange(lootbox.GetRewards()); });
+
+        for (int i = 0; i < rewards.Count; i++)
+        {
+            string completedUnlockKey = Armory.SAVE_PREFIX + rewards[i].equipableAssetName;
+            GameSaves.instance.SetBool(GameSaves.Type.Armory, completedUnlockKey, true);
+        }
 
         callback.Invoke(rewards);
     }
