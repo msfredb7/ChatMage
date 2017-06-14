@@ -12,6 +12,9 @@ namespace LevelScripting
     {
         [InspectorCategory("What")]
         public UnitPack[] packs;
+        [InspectorCategory("What")]
+        public LevelEventCallback[] onProgressCallbacks;
+
         [InspectorCategory("Where")]
         public WaveWhere where;
         [InspectorCategory("When")]
@@ -20,21 +23,25 @@ namespace LevelScripting
         public float duration;
 
         public event SimpleEvent onLaunched;
-
+        
         [fsIgnore]
-        private Action completionCallback = null;
-        [fsIgnore]
-        private float completionRate = 1;
+        private List<Callback> completionCallbacks = new List<Callback>();
         [fsIgnore]
         private int totalUnits;
-        [fsIgnore]
-        private int targetKillCount;
         [fsIgnore]
         private int currentKillCount = 0;
         [fsIgnore]
         private InGameEvents events;
         [fsIgnore]
         private int spawnedUnits;
+
+        private void ResetData()
+        {
+            spawnedUnits = 0;
+            totalUnits = 0;
+            currentKillCount = 0;
+            completionCallbacks = new List<Callback>();
+        }
 
         public int TotalUnits()
         {
@@ -48,14 +55,27 @@ namespace LevelScripting
 
         public void Launch(InGameEvents events)
         {
+            //Reset data
+            ResetData();
+
             this.events = events;
+
+            //Build callbacks from 'LevelEventCallbacks'
+            for (int i = 0; i < onProgressCallbacks.Length; i++)
+            {
+                int localI = i;
+                AddCallbackAfterCompletion(onProgressCallbacks[localI].completionRate, delegate ()
+                {
+                    Game.instance.currentLevel.ReceiveEvent(onProgressCallbacks[localI].eventName);
+                });
+            }
 
             //Quantite total de units a spawn
             totalUnits = TotalUnits();
             if (totalUnits <= 0)
             {
-                if (completionCallback != null)
-                    completionCallback();
+                //if (completionCallback != null)
+                //    completionCallback();
 
                 EndLaunch();
                 return;
@@ -294,10 +314,9 @@ namespace LevelScripting
                 onLaunched();
         }
 
-        public void CallbackAfterCompletion(float completionRate, Action callback)
+        public void AddCallbackAfterCompletion(float completionRate, Action callback)
         {
-            completionCallback = callback;
-            this.completionRate = completionRate;
+            completionCallbacks.Add(new Callback(callback, completionRate));
         }
 
         private void SpawnUnit(Unit unit, Waypoint waypoint, float delay)
@@ -310,7 +329,7 @@ namespace LevelScripting
         private void SpawnUnit(Unit unit, Vector2 position, float delay)
         {
             //On spawn la unit, mais faut-il compter la quantit� tu� ?
-            if (completionCallback != null)
+            if (completionCallbacks.Count > 0)
             {
                 //Spawn + on setup des listener pour compter la mort de la unit
                 events.SpawnUnit(unit, ClampCheck(position), delay, delegate (Unit spawnedUnit)
@@ -392,22 +411,44 @@ namespace LevelScripting
 
         private void CheckCompletion()
         {
-            if (currentKillCount >= targetKillCount && completionCallback != null)
+            for (int i = 0; i < completionCallbacks.Count; i++)
             {
-                completionCallback();
-                completionCallback = null;
+                if (currentKillCount >= completionCallbacks[i].targetKillcount)
+                {
+                    completionCallbacks[i].action();
+                    completionCallbacks.RemoveAt(i);
+                    i--;
+                }
             }
         }
 
         private void UpdateTargetKillCount()
         {
-            if (completionCallback != null)
+            for (int i = 0; i < completionCallbacks.Count; i++)
             {
-                targetKillCount = Mathf.CeilToInt(spawnedUnits * completionRate);
+                completionCallbacks[i].targetKillcount = Mathf.CeilToInt(spawnedUnits * completionCallbacks[i].completionRate);
             }
             CheckCompletion();
         }
 
         public enum Where { RandomAroundScreen = 0, Waypoints = 1 }
+
+        public class Callback
+        {
+            public Action action;
+            public int targetKillcount;
+            public float completionRate;
+            public Callback(Action action, float completionRate)
+            {
+                this.action = action;
+                this.completionRate = completionRate;
+            }
+        }
+        public class LevelEventCallback
+        {
+            public string eventName;
+            [InspectorRange(0,1)]
+            public float completionRate;
+        }
     }
 }

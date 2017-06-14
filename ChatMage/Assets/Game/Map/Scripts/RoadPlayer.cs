@@ -8,6 +8,9 @@ public class RoadPlayer : MonoBehaviour
     public Transform teleportingContainer;
     public bool changeRoadOnTeleport;
 
+    public event SimpleEvent onStartTeleport;
+    public event SimpleEvent onCompleteTeleport;
+
     private Road currentRoad;
     private int currentRoadIndex;
     private Transform playerT;
@@ -68,10 +71,21 @@ public class RoadPlayer : MonoBehaviour
             if (unit != null)
                 unit.LoadRigidbody();
         }
+
+        Game.instance.gameCamera.OnCompleteTeleport();
+        currentRoad.OnCompleteTeleport();
+
+        if (onCompleteTeleport != null)
+            onCompleteTeleport();
     }
 
     void Teleport(bool fromBottomToTop)
     {
+        if (onStartTeleport != null)
+            onStartTeleport();
+
+        currentRoad.OnStartTeleport();
+
         teleportingContainer.position = 
             new Vector3(
                 0,
@@ -102,12 +116,17 @@ public class RoadPlayer : MonoBehaviour
         if (changeRoadOnTeleport)
             SetRoad(fromBottomToTop ? --currentRoadIndex : ++currentRoadIndex);
 
+        float lastY = teleportingContainer.position.y;
+
         //Move teleporter
         teleportingContainer.position = 
             new Vector3(
                 0,
                 fromBottomToTop ? currentRoad.GetTeleportingTop() : currentRoad.GetTeleportingBottom(),
                 0);
+
+                //Notify camera
+        Game.instance.gameCamera.OnTeleport(teleportingContainer.position.y - lastY);
 
         //Get out of teleporter
         for (int i = 0; i < teleportingContainer.childCount; i++)
@@ -136,7 +155,7 @@ public class RoadPlayer : MonoBehaviour
 
         //Enable new road
         currentRoad = roads[index];
-        currentRoad.Init(Game.instance.gameCamera);
+        currentRoad.Init(Game.instance.gameCamera, this);
         currentRoad.gameObject.SetActive(true);
         currentRoadIndex = index;
     }

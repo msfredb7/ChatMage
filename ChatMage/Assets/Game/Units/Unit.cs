@@ -51,10 +51,22 @@ public abstract class Unit : MonoBehaviour
     public Vector2 Position
     {
         get { return rb.position; }
-        protected set { rb.position = value; }
+        protected set
+        {
+            if (canMove)
+                rb.position = value;
+        }
     }
 
-    public float Rotation { get { return rb.rotation; } set { rb.rotation = value; } }
+    public float Rotation
+    {
+        get { return rb.rotation; }
+        set
+        {
+            if (canTurn)
+                rb.rotation = value;
+        }
+    }
 
     protected virtual void Awake()
     {
@@ -204,6 +216,7 @@ public abstract class Unit : MonoBehaviour
             }
             else    // Sinon, formule standard
             {
+                if(rb.bodyType != RigidbodyType2D.Static)
                 rb.velocity *= value / timeScale;
             }
 

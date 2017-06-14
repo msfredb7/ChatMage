@@ -32,6 +32,11 @@ public class GameCamera : MonoBehaviour
     //Follow
     private Vector2 forwardVector;
     private float followTargetDeltaHeight = 0;
+    private float playerSmoothPosition;
+
+    //Teleport follow
+    private float lastKnownPlayerHeight;
+    private bool isTeleporting = false;
 
     void Awake()
     {
@@ -47,6 +52,21 @@ public class GameCamera : MonoBehaviour
         defaultToRealRatio = new Vector2(defaultBounds.x / screenSize.x, defaultBounds.y / screenSize.y);
     }
 
+    public void OnCompleteTeleport()
+    {
+        isTeleporting = false;
+
+        //Il faut faire �a, sinon, on pert une frame sur le joueur
+        FixedUpdate();
+    }
+
+    public void OnTeleport(float deltaY)
+    {
+        playerSmoothPosition += deltaY;
+        SetToHeight(TargetHeight);
+        isTeleporting = true;
+    }
+
     public void CenterOnPlayer()
     {
         SetToHeight(player.Position.y);
@@ -56,7 +76,7 @@ public class GameCamera : MonoBehaviour
     {
         if (!canScrollUp)
             height = Mathf.Min(tr.position.y, height);
-        if(!canScrollDown)
+        if (!canScrollDown)
             height = Mathf.Max(tr.position.y, height);
 
         tr.position = new Vector3(0, height, distance);
@@ -74,21 +94,60 @@ public class GameCamera : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (followPlayer && player != null)
+        if (isTeleporting)
+            return;
+
+        if (player != null)
         {
-            forwardVector = Vector2.MoveTowards(forwardVector, player.WorldDirection2D() * followForwardDistance, Time.fixedDeltaTime * maxTurnSpeed);
-            followTargetDeltaHeight = Mathf.Lerp(followTargetDeltaHeight, forwardVector.y, FixedLerp.FixedFix(0.01f* 1));
-            float targetHeight = player.Position.y + followTargetDeltaHeight;
-            
-            SetToHeight(targetHeight);
+            if (followPlayer)
+            {
+                playerSmoothPosition = Mathf.MoveTowards(playerSmoothPosition, player.Position.y, Time.deltaTime * 10);
+
+                forwardVector = Vector2.MoveTowards(forwardVector, player.WorldDirection2D() * followForwardDistance, Time.fixedDeltaTime * maxTurnSpeed);
+                followTargetDeltaHeight = Mathf.Lerp(followTargetDeltaHeight, forwardVector.y, FixedLerp.FixedFix(0.01f * lerpSpeed));
+
+                SetToHeight(TargetHeight);
+            }
+            else
+            {
+                forwardVector = Center - player.Position;
+                followTargetDeltaHeight = Height - player.Position.y;
+            }
         }
+        //else
+        //{
+        //    followTargetDeltaHeight = 0;
+        //}
+
+        playerSmoothPosition = Height - followTargetDeltaHeight;
     }
+
+    //public bool FollowPlayer
+    //{
+    //    get
+    //    {
+    //        return followPlayer;
+    //    }
+    //    set
+    //    {
+    //        if(value && !followPlayer)
+    //        {
+    //            //On le met a ON !
+    //        }
+    //        else if(!value && followPlayer)
+    //        {
+    //            //On le met a OFF !
+    //        }
+    //    }
+    //}
+
+    private float TargetHeight { get { return playerSmoothPosition + followTargetDeltaHeight; } }
 
     #region Bounds
 
     public float Top { get { return Height + screenSize.y / 2; } }
     public float Bottom { get { return Height - screenSize.y / 2; } }
-    public float Left { get { return - screenSize.x / 2; } }
+    public float Left { get { return -screenSize.x / 2; } }
     public float Right { get { return screenSize.x / 2; } }
     public Vector2 Center { get { return new Vector2(0, Height); } }
     public float Height { get { return tr.position.y; } }

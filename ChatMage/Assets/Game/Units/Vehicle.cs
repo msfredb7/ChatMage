@@ -19,7 +19,7 @@ public abstract class Vehicle : MovingUnit
         }
         get
         {
-            return moveSpeed;
+            return currentMoveSpeed;
         }
     }
     public float targetDirection;

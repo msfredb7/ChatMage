@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class Map : MonoBehaviour
 {
     public Mapping mapping; // limite de la map, waypoints, etc.
+    public CameraSpawn cameraSpawn;
 
     [SerializeField]
     private List<GameObject> mapObjectsToAjust;

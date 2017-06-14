@@ -27,8 +27,9 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
     [InspectorHeader("Base Settings")]
     [InspectorTooltip("No healthpacks during the entire level")]
     public bool noHealthPacks = false;
-    [InspectorTooltip("Follow player on start and disable vertical bounds")]
-    public bool racingMode = false;
+    public bool followPlayerOnStart = false;
+    public bool verticalUnitSnap = true;
+    public bool horizontalUnitSnap = true;
 
 
     [InspectorHeader("In Game Events")]
@@ -50,9 +51,12 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
     [fsIgnore]
     public InGameEvents inGameEvents;
 
+    [fsIgnore]
     private List<UnitWave> eventTriggeredWaves;
+    [fsIgnore]
     private List<UnitWave> manuallyTriggeredWaves;
 
+    [fsIgnore]
     private int unitsKilled = 0;
 
     // Init Level Script
@@ -83,6 +87,9 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
     {
         ApplySettings();
 
+        if (introPrefab != null)
+            inGameEvents.ShowUI(introPrefab).Play(Game.instance.StartGame);
+
         OnGameReady();
     }
 
@@ -92,6 +99,12 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
         CreateObjectives();
 
         StartWaves();
+
+        //Camera follow player ?
+        Game.instance.gameCamera.followPlayer = followPlayerOnStart;
+
+        //Les bounds physique qui bloque le joueur
+        Game.instance.gameBounds.EnableAll();
 
         OnGameStarted();
     }
@@ -116,6 +129,9 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
         if (onWin != null)
             onWin();
 
+        if (outroPrefab != null)
+            inGameEvents.ShowUI(outroPrefab).Play(true);
+
         OnWin();
     }
 
@@ -128,6 +144,9 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
 
         if (onLose != null)
             onLose();
+
+        if (outroPrefab != null)
+            inGameEvents.ShowUI(outroPrefab).Play(false);
 
         OnLose();
     }
@@ -171,14 +190,13 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
     public abstract void OnReceiveEvent(string message);
     public abstract void OnWin();
     public abstract void OnLose();
+    public virtual void OnWaveLaunch() { }
 
     //////////////////////////////////////////////////// Base Settings
 
     void ApplySettings()
     {
-        Game.instance.gameCamera.followPlayer = racingMode;
-        Game.instance.SetUnitSnapBorders(true, 0, !racingMode, 0);
-
+        Game.instance.SetUnitSnapBorders(horizontalUnitSnap, 0, verticalUnitSnap, 0);
         Game.instance.healthPackManager.enableHealthPackSpawn = !noHealthPacks;
     }
 
@@ -271,21 +289,11 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
                 break;
 
 
-            case WaveWhen.Type.OnMilestone:
+            case WaveWhen.Type.OnLevelEvent:
                 if (eventTriggeredWaves == null)
                     eventTriggeredWaves = new List<UnitWave>();
 
                 eventTriggeredWaves.Add(wave);
-                break;
-
-
-            case WaveWhen.Type.AfterCompletionOfPreviousWave:
-                if (waveIndex == 0)
-                    throw new System.Exception("Cannot put first wave in 'AfterCompletionOfPreviousWave' mode");
-                waves[waveIndex - 1].CallbackAfterCompletion(wave.when.finishedRatio, delegate ()
-                {
-                    LaunchWave(wave);
-                });
                 break;
 
 
@@ -301,6 +309,7 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
     void LaunchWave(UnitWave wave)
     {
         wave.Launch(inGameEvents);
+        OnWaveLaunch();
     }
     #endregion
 

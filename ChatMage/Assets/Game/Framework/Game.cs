@@ -45,7 +45,9 @@ public class Game : PublicSingleton<Game>
     public bool gameStarted = false;
     public event SimpleEvent onGameReady;
     public event SimpleEvent onGameStarted;
-    
+    public event Unit.Unit_Event onUnitSpawned;
+    public event Unit.Unit_Event onUnitDestroyed;
+
     public bool unitSnap_horizontalBound;
     public float unitSnap_horizontalBorderWidth;
     public bool unitSnap_verticalBound;
@@ -134,6 +136,9 @@ public class Game : PublicSingleton<Game>
 
         units.Add(unit);
 
+        if (onUnitSpawned != null)
+            onUnitSpawned(unit);
+
         //Ajoute les listeners
         unit.onDestroy += OnUnitDestroy;
     }
@@ -147,6 +152,13 @@ public class Game : PublicSingleton<Game>
     private void OnUnitDestroy(Unit unit)
     {
         units.Remove(unit);
+
+        //est-ce qu'on est entrain de quit ?
+        if (instance == null)
+            return;
+
+        if (onUnitDestroyed != null)
+            onUnitDestroyed(unit);
     }
 
     public void SetUnitSnapBorders(bool horizontalBound, float horizontalBorderWidth, bool verticalBound, float verticalBorderWidth)

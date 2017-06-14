@@ -184,6 +184,7 @@ MonoBehaviour:
   lerpPerKill: 0.1
   lerpCeiling: 50
   luckIncreaseByHealthDeficit: 4
+  enableHealthPackSpawn: 1
   spawnChance: 0
 --- !u!1 &471814416
 GameObject:
@@ -581,8 +582,14 @@ MonoBehaviour:
   - {fileID: 986166561}
   - {fileID: 1707316992}
   _values:
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.gameCamera.EditProperty
+    - DefaultBehaviorEditor.units.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
     _target: {fileID: 986166561}
   - _keys: []
     _values: []
@@ -735,10 +742,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1614933837}
-  - component: {fileID: 1614933836}
-  - component: {fileID: 1614933835}
-  - component: {fileID: 1614933834}
-  - component: {fileID: 1614933833}
   - component: {fileID: 1614933839}
   m_Layer: 0
   m_Name: Game Camera
@@ -747,63 +750,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &1614933833
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1614933832}
-  m_Enabled: 0
---- !u!124 &1614933834
-Behaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1614933832}
-  m_Enabled: 0
---- !u!92 &1614933835
-Behaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1614933832}
-  m_Enabled: 0
---- !u!20 &1614933836
-Camera:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1614933832}
-  m_Enabled: 0
-  serializedVersion: 2
-  m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.43014705, g: 0.48590687, b: 0.5735294, a: 0}
-  m_NormalizedViewPortRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 60
-  orthographic: 1
-  orthographic size: 4.5
-  m_Depth: -1
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RenderingPath: -1
-  m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 0
-  m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
-  m_ForceIntoRT: 0
-  m_OcclusionCulling: 1
-  m_StereoConvergence: 10
-  m_StereoSeparation: 0.022
-  m_StereoMirrorMode: 0
 --- !u!4 &1614933837
 Transform:
   m_ObjectHideFlags: 0
@@ -997,7 +943,6 @@ MonoBehaviour:
   _serializedStateValues: []
   map: {fileID: 0}
   sr: {fileID: 0}
-  mapping: {fileID: 0}
 --- !u!4 &1707316993
 Transform:
   m_ObjectHideFlags: 0
