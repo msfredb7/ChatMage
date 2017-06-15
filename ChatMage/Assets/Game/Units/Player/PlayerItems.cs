@@ -41,7 +41,7 @@ public class PlayerItems : PlayerComponent
         if (Game.instance.gameStarted)
             for (int i = 0; i < items.Count; i++)
             {
-                items[i].OnGameStarted();
+                items[i].OnUpdate();
             }
     }
 

@@ -25,6 +25,8 @@ public class OptionMenu : MonoBehaviour
 
     void SetTimeScale(float amount)
     {
+        if (Game.instance == null)
+            return;
         List<Unit> units = Game.instance.units;
         for (int i = 0; i < units.Count; i++)
         {

@@ -6,6 +6,7 @@ using UnityEngine;
 public class DemoTutorial : BaseTutorial {
 
     private bool focusOnPlayer = false;
+    public GameObject menuOption;
 
     protected override void Start()
     {
@@ -14,7 +15,12 @@ public class DemoTutorial : BaseTutorial {
         {
             DelayManager.LocalCallTo(delegate ()
             {
-                FocusInput(Game.instance.ui.menuOption.gameObject, true);
+                GameObject options;
+                if (menuOption == null)
+                    options = Game.instance.ui.menuOption.gameObject;
+                else
+                    options = menuOption;
+                FocusInput(options, true);
                 ShowInfo("Voici le menu option ! Changer le volume, quitter la partie ou recommencer le niveau.");
             }, 1, TutorialStarter.tutorialScriptObject);
         }

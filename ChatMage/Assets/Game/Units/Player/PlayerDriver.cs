@@ -9,7 +9,7 @@ public class PlayerDriver : PlayerComponent
     private Car car;
     public Car Car { get { return car; } }
     public bool enableInput = true;
-    private float horizontalInput;
+    public float horizontalInput;
 
     public override void OnGameReady()
     {

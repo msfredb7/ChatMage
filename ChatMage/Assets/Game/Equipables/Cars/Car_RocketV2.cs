@@ -28,7 +28,6 @@ public class Car_RocketV2 : Car
     {
         if (horizontalInput == 0 || !player.playerStats.receivesTurnInput)
         {
-            //ICI
             if (wasTurning)
             {
                 // boost !
@@ -38,13 +37,11 @@ public class Car_RocketV2 : Car
                 player.vehicle.rb.drag = 0;
                 wasTurning = false;
             }
-            //A ICI
 
             horizontal = 0;
         }
         else
         {
-            //ICI
             if (!wasTurning)
             {
                 //disable acc
@@ -53,7 +50,6 @@ public class Car_RocketV2 : Car
 
                 wasTurning = true;
             }
-            //A ICI
 
 
             if ((horizontalInput < 0 && lastHorizontal > 0) || (horizontalInput > 0 && lastHorizontal < 0))
@@ -64,10 +60,7 @@ public class Car_RocketV2 : Car
 
             horizontal = Mathf.MoveTowards(lastHorizontal, horizontalInput, player.vehicle.DeltaTime() * turnAcceleration);
             
-
-            //ICI
             charge += player.vehicle.DeltaTime() * 2;
-            //A ICI
         }
 
         player.vehicle.Rotation += -horizontal * turnSpeed * player.vehicle.DeltaTime();
