@@ -38,6 +38,7 @@ public class PlayerStats : PlayerComponent, IAttackable
     [Header("Variables")]
     public bool damagable = true;
     public bool isVisible = true; // TODO
+    public bool boostedAOE = false; // TODO
 
     public event SimpleEvent onHit;
     public event SimpleEvent onRegen;
