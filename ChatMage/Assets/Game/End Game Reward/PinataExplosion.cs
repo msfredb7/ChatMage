@@ -3,37 +3,151 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using FullInspector;
 
 namespace EndGameReward
 {
-    public class PinataExplosion : FullInspector.BaseBehavior
+    public class PinataExplosion : BaseBehavior
     {
-        public CanvasGroup group;
-        public RectTransform toWiggle;
+        [InspectorHeader("Linking")]
+        public Transform explosionCenter;
+        public SpriteRenderer whiteForeground;
+
+        [InspectorHeader("Camera")]
+        public Transform cam;
+        public VectorShaker vectorShaker;
+
+        [InspectorHeader("Flier")]
+        public Transform flier;
+        public Vector2 flierFinalPos;
+
+        [InspectorHeader("Star 1")]
+        public Ease starGrowEase;
+        public SpriteRenderer starOne;
+        public float starOneFinalSize;
+
+        [InspectorHeader("Star 2")]
+        public SpriteRenderer starTwo;
+        public float starTwoFinalSize;
+
+        [InspectorHeader("Star 3")]
+        public SpriteRenderer starThree;
+        public float starThreeFinalSize;
+
+        [InspectorHeader("Light")]
+        public SpriteRenderer lightFade;
+        public float lightFinalSize;
+
+        [InspectorHeader("Ball")]
+        public BallAnimator ball;
+        public float ballFinalSize = 1.25f;
+
+        [InspectorHeader("Confetti 1")]
+        public Transform confettiOne;
+        public float confettiOneFinalSize = 1.25f;
+        public Vector2 confettiOneFinalPos;
+
+        [InspectorHeader("Confetti 2")]
+        public Transform confettiTwo;
+        public float confettiTwoFinalSize = 1.25f;
+        public Vector2 confettiTwoFinalPos;
+
+        [InspectorHeader("Other")]
+        public MovingSprite[] movingSprites;
+
+        private bool animating = false;
+        private Vector3 baseCameraPosition;
 
 
         protected override void Awake()
         {
             base.Awake();
-            group.alpha = 0;
+            explosionCenter.gameObject.SetActive(false);
+            //group.alpha = 0;
         }
 
-        public void SetCenter(Vector2 center)
+        void Update()
         {
+            if (!animating)
+                return;
 
+            cam.position = baseCameraPosition + (Vector3)vectorShaker.CurrentVector;
         }
 
-        [FullInspector.InspectorButton]
-        public void Animate()
+        public void Animate(Vector2 explosionCenter)
         {
-            group.DOFade(1, 1);
-            toWiggle.DOAnchorPosY(toWiggle.anchoredPosition.y + 300, 3)
-                .SetEase(Ease.InOutSine)
-                .SetLoops(-1, LoopType.Yoyo);
+            transform.position = cam.position + Vector3.forward;
+            this.explosionCenter.position = new Vector3(explosionCenter.x, explosionCenter.y, transform.position.z);
 
-            toWiggle.DORotate(Vector3.forward * 359.999f, 3, RotateMode.LocalAxisAdd)
-                .SetEase(Ease.Linear)
-                .SetLoops(-1, LoopType.Restart);
+            Animate();
+        }
+
+        [InspectorButton]
+        private void Animate()
+        {
+            animating = true;
+            baseCameraPosition = cam.position;
+            vectorShaker.Shake(1, 0.25f);
+
+            explosionCenter.gameObject.SetActive(true);
+
+            whiteForeground.color = Color.white;
+            whiteForeground.DOFade(0, 1);
+
+            flier.DOMove(new Vector3(cam.position.x + flierFinalPos.x, cam.position.y + flierFinalPos.y, flier.position.z), 4);
+
+            starOne.transform.DOScale(starOneFinalSize, 4).SetEase(starGrowEase);
+            starTwo.transform.DOScale(starTwoFinalSize, 4).SetEase(starGrowEase);
+            starThree.transform.DOScale(starThreeFinalSize, 4).SetEase(starGrowEase);
+
+            starOne.transform.DORotate(Vector3.back * 360, 80, RotateMode.LocalAxisAdd).SetEase(Ease.Linear).SetLoops(-1, LoopType.Restart);
+            starTwo.transform.DORotate(Vector3.forward * 360, 80, RotateMode.LocalAxisAdd).SetEase(Ease.Linear).SetLoops(-1, LoopType.Restart);
+            starThree.transform.DORotate(Vector3.back * 360, 140, RotateMode.LocalAxisAdd).SetEase(Ease.Linear).SetLoops(-1, LoopType.Restart);
+
+            lightFade.transform.DOScale(lightFinalSize, 4);
+
+            ball.transform.DOScale(ballFinalSize, 4).SetEase(Ease.OutSine);
+            ball.Stop(4);
+
+            confettiOne.DOScale(confettiOneFinalSize, 5).SetEase(Ease.OutSine);
+            confettiOne.DOLocalMove(confettiOneFinalPos, 5).SetEase(Ease.OutSine);
+
+            confettiTwo.DOScale(confettiTwoFinalSize, 6).SetEase(Ease.OutSine);
+            confettiTwo.DOLocalMove(confettiTwoFinalPos, 6).SetEase(Ease.OutSine);
+
+            Sequence sq = DOTween.Sequence();
+
+            for (int i = 0; i < movingSprites.Length; i++)
+            {
+                movingSprites[i].Launch(sq);
+            }
+
+            //group.DOFade(1, 1);
+            //toWiggle.DOAnchorPosY(toWiggle.anchoredPosition.y + 300, 3)
+            //    .SetEase(Ease.InOutSine)
+            //    .SetLoops(-1, LoopType.Yoyo);
+
+            //toWiggle.DORotate(Vector3.forward * 359.999f, 3, RotateMode.LocalAxisAdd)
+            //    .SetEase(Ease.Linear)
+            //    .SetLoops(-1, LoopType.Restart);
+        }
+
+        public class MovingSprite
+        {
+            public Ease easing = Ease.OutSine;
+            public Transform tr;
+            public Vector2 finalPos;
+            public Vector3 finalScale = Vector3.one;
+            public float duration = 4;
+            public float startAt = 0;
+
+            public void Launch(Sequence sequence)
+            {
+                sequence.InsertCallback(startAt, delegate () { tr.GetComponent<SpriteRenderer>().enabled = true; });
+                
+                sequence.Insert(startAt, tr.DOLocalMove(finalPos, duration).SetEase(easing));
+                sequence.Insert(startAt, tr.DOScale(finalScale, duration).SetEase(easing));
+            }
         }
     }
 }

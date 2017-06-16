@@ -9,10 +9,10 @@ namespace EndGameReward
     public class BackgroundFreezer : MonoBehaviour
     {
         public MeshRenderer background;
-        public ScreenShooter screenShooter;
         public UnityStandardAssets.ImageEffects.BlurOptimized blur;
 
-        private Camera cameraToCopy; 
+        private ScreenShooter screenShooter;
+        private Camera cameraToCopy;
         Action onComplete;
 
         void Awake()
@@ -35,7 +35,6 @@ namespace EndGameReward
 
         void OnScreenShot(RenderTexture texture)
         {
-            print("shot taken");
             Camera myCam = GetComponent<Camera>();
 
             //Copy parameters
@@ -49,13 +48,13 @@ namespace EndGameReward
 
 
             //On met le background a la bonne grosseur / position
-            background.transform.localScale = new Vector3(myCam.orthographicSize * myCam.aspect * 2, myCam.orthographicSize * 2, 1);
+            background.transform.localScale = new Vector3(myCam.orthographicSize * myCam.aspect * 2 + 1, myCam.orthographicSize * 2 + 1, 1);
             background.transform.position = myCam.transform.position + (Vector3.forward * 2);
 
 
             //New Texture
             RenderTexture newTexture = new RenderTexture(texture.width, texture.height, texture.depth);
-            
+
             //Blur Texture
             blur.RemoteRenderImage(texture, newTexture);
 

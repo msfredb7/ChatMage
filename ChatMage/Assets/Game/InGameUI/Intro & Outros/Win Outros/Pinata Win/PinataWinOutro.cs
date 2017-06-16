@@ -39,7 +39,7 @@ namespace GameIntroOutro
         {
             Camera cam = Game.instance.gameCamera.cam;
             rewardUI.PinataHasBeenDestroyed(
-                cam.WorldToViewportPoint(unit.Position),
+                unit.Position,
                 cam,
                 UnloadGameScenes);
         }
