@@ -14,10 +14,14 @@ public class LootboxAnimation : WindowAnimation {
     public GameObject rewardIconPrefab;
     public GameObject goldifyButton;
 
+    public SimpleEvent goldifyEvent;
+    public SimpleEvent lootboxOpeningEvent;
+
     public bool lootboxOpened;
 
     void Start()
     {
+        goldifyButton.GetComponent<Button>().interactable = true;
         goldifyButton.GetComponent<Button>().onClick.AddListener(OnGoldify);
         lootboxIcon.GetComponent<Button>().onClick.AddListener(ShowRewards);
         rewardCountainer.SetActive(false);
@@ -43,7 +47,9 @@ public class LootboxAnimation : WindowAnimation {
         if (!lootboxOpened)
         {
             Debug.Log("Opening Lootbox !");
+            lootboxOpeningEvent.Invoke();
             rewardCountainer.SetActive(true); // TODO: faire une meilleur animation
+            goldifyButton.GetComponent<Button>().interactable = false;
             DelayManager.CallTo(delegate () { Close(delegate() { Destroy(gameObject); });  }, 2.5f);
             lootboxOpened = true;
         }
@@ -51,6 +57,7 @@ public class LootboxAnimation : WindowAnimation {
 
     void OnGoldify()
     {
-        Debug.Log("TODO : Goldify");
+        Debug.Log("Goldify");
+        goldifyEvent.Invoke();
     }
 }

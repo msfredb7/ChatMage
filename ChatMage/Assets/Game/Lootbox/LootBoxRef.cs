@@ -12,6 +12,7 @@ public class LootBoxRef : BaseScriptableObject {
     public Dictionary<EquipablePreview, int> possibleItems = new Dictionary<EquipablePreview, int>();
     public int amount;
     public StorePrice.CommandType commandType;
+    public EquipablePreview rewardForDuplicate;
 
     public class Reward : ILottery
     {
@@ -30,15 +31,25 @@ public class LootBoxRef : BaseScriptableObject {
         }
     }
 
-    public List<EquipablePreview> GetRewards()
+    public List<EquipablePreview> GetRewards(bool gold)
     {
         List<EquipablePreview> reward = new List<EquipablePreview>();
         Lottery lot = new Lottery();
 
         foreach (KeyValuePair<EquipablePreview, int> value in possibleItems)
         {
-            lot.Add(new Reward(value.Key, value.Value));
+            // Si goldify le lootbox
+            if (gold)
+            {
+                // On peut seulement obtenir des items pas deja unlock
+                if (!value.Key.unlocked)
+                    lot.Add(new Reward(value.Key, value.Value));
+            } else
+                lot.Add(new Reward(value.Key, value.Value));
         }
+
+        if(lot.Count < 1)
+            lot.Add(new Reward(rewardForDuplicate, 1));
 
         for (int i = 0; i < amount; i++)
         {

@@ -19,6 +19,7 @@ public class StorePrice {
         customGoldAmount = 10,
         slotCost = 11,
         adReward = 12,
+        duplicateReward = 13
     }
 
     public static int smallLootboxCost = -5;
@@ -37,6 +38,8 @@ public class StorePrice {
     public static int slotCost = 1;
 
     public static int adReward = 5;
+
+    public static int duplicateReward = 10;
 
     public static int GetPrice(CommandType type)
     {
@@ -68,6 +71,8 @@ public class StorePrice {
                 return slotCost;
             case CommandType.adReward:
                 return adReward;
+            case CommandType.duplicateReward:
+                return duplicateReward;
         }
         return 0;
     }

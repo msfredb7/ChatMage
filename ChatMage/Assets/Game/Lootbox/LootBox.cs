@@ -44,17 +44,26 @@ public class LootBox {
         callback.Invoke(rewards);
     }
 
-    public LootBox(string identifiant, Action<List<EquipablePreview>> callback)
+    public LootBox(string identifiant, Action<List<EquipablePreview>> callback, bool gold = false)
     {
         List<EquipablePreview> rewards = new List<EquipablePreview>();
         
         ResourceLoader.LoadLootBoxRefAsync(identifiant, delegate (LootBoxRef lootbox) {
-            rewards.AddRange(lootbox.GetRewards());
+            rewards.AddRange(lootbox.GetRewards(gold));
 
             for (int i = 0; i < rewards.Count; i++)
             {
-                rewards[i].unlocked = true;
-                rewards[i].Save();
+                if (rewards[i].unlocked) // Le joueur a deja l'item
+                {
+                    // On change l'apparence de l'item en double par un item duplicate choisit dans le lootboxRef
+                    rewards[i] = lootbox.rewardForDuplicate;
+                    // Et on ajoute la recompense dans le compte du joueur
+                    Account.instance.Command(StorePrice.CommandType.duplicateReward);
+                } else
+                {
+                    rewards[i].unlocked = true;
+                    rewards[i].Save();
+                }
             }
             GameSaves.instance.SaveData(GameSaves.Type.Armory);
 

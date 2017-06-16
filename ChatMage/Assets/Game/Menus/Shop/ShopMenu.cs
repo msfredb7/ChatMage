@@ -94,26 +94,60 @@ public class ShopMenu : MonoBehaviour
     }
 
     /// <summary>
-    /// Nouvelle fonction plus ou moins utile dans le shop puisqu'elle utilise des LootboxRef
+    /// Nouvelle fonction qui utilise des lootboxRef pour ouvrir des lootbox
     /// </summary>
     public void BuyLootBox(string identifiant)
     {
+        // On load la lootboxRef
         ResourceLoader.LoadLootBoxRefAsync(identifiant, delegate (LootBoxRef lootbox)
         {
+            // On fait un popup pour etre sur que le joueur veut acheter une lootbox
             ShopPopUpMenu.ShowShopPopUpMenu("Bill Confirmation", "You are currently in the process of buying a " + lootbox.identifiant
                 + " lootbox. Are you sure you want to buy it?", lootbox.icon, "$" + StorePrice.GetPrice(lootbox.commandType), lootbox.amount, delegate ()
             {
+                // On fait une commande pour acheter la lootbox
                 if (Account.instance.Command(lootbox.commandType))
                 {
-                    new LootBox(identifiant, delegate (List<EquipablePreview> rewards)
+                    // Debut de l'animation du lootbox
+                    ResourceLoader.LoadUIAsync("Lootbox", delegate (GameObject lootboxAnim)
                     {
-                        // Code pour l'animation du lootbox
-                        ResourceLoader.LoadUIAsync("Lootbox", delegate (GameObject lootboxAnim)
+                        GameObject newLootboxAnimation = Instantiate(lootboxAnim, transform);
+                        // On doit savoir si on goldify ou non
+                        newLootboxAnimation.GetComponent<LootboxAnimation>().goldifyEvent += delegate ()
                         {
-                            Debug.Log(rewards.Count);
-                            GameObject newLootboxAnimation = Instantiate(lootboxAnim, transform);
-                            newLootboxAnimation.GetComponent<LootboxAnimation>().AddRewards(rewards);
-                        });
+                            bool goldifyWorks = true;
+                            // Si on goldify, mais que ta deja toute de unlock, ca sert a rien
+                            if(armory.GetAllEquipablesLock().Count < 1)
+                            {
+                                PopUpMenu.ShowOKPopUpMenu("Useless Gold Upgrade", "You can't upgrade your lootbox to gold when " +
+                                "you already have everything unlocked!", delegate () { goldifyWorks = false; });
+                            }
+
+                            if (goldifyWorks)
+                            {
+                                // Si on goldify et que ca marche, fuck l'event original d'ouverture du lootbox, on en fait un
+                                // nouveau qui considere le goldify
+                                newLootboxAnimation.GetComponent<LootboxAnimation>().lootboxOpeningEvent = null;
+                                newLootboxAnimation.GetComponent<LootboxAnimation>().lootboxOpeningEvent += delegate ()
+                                {
+                                    // On ouvre la Lootbox et on obtient les recompenses
+                                    new LootBox(identifiant, delegate (List<EquipablePreview> rewards)
+                                    {
+                                        // On ajoute les recompenses dans l'animation
+                                        newLootboxAnimation.GetComponent<LootboxAnimation>().AddRewards(rewards);
+                                    }, true);
+                                };
+                            }
+                        };
+                        // Event de base ou on ouvre un lootbox normal
+                        newLootboxAnimation.GetComponent<LootboxAnimation>().lootboxOpeningEvent += delegate () {
+                            // On ouvre la Lootbox et on obtient les recompenses
+                            new LootBox(identifiant, delegate (List<EquipablePreview> rewards)
+                            {
+                                // On ajoute les recompenses dans l'animation
+                                newLootboxAnimation.GetComponent<LootboxAnimation>().AddRewards(rewards);
+                            }, false);
+                        };
                     });
                 }
             });
