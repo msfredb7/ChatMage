@@ -53,6 +53,12 @@ public class SmashBallAnimator : MonoBehaviour
         });
     }
 
+    void OnDestroy()
+    {
+        if (unhitableTween != null)
+            unhitableTween.Kill();
+    }
+
     private void SetVisible(bool state)
     {
         for (int i = 0; i < ballRenderers.Length; i++)

@@ -36,14 +36,17 @@ namespace EndGameReward
             this.reward = reward;
         }
 
-        public void PinataHasBeenDestroyed(Vector2 viewportPosition, Camera currentCamera, Action canUnloadCallback)
+        public void PinataHasBeenDestroyed(Vector2 explosionPosition, Camera currentCamera, Action canUnloadCallback)
         {
             
-            backgroundFreezer.FreezeBackground(currentCamera, canUnloadCallback);
+            backgroundFreezer.FreezeBackground(currentCamera, delegate()
+            {
+                pinataExplosion.Animate(explosionPosition);
+                canUnloadCallback();
+            });
 
             // A faire
             //pinataExplosion.SetCenter(...);
-            pinataExplosion.Animate();
 
             DelayManager.CallTo(delegate ()
             {
