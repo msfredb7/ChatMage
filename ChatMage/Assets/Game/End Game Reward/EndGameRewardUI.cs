@@ -45,9 +45,6 @@ namespace EndGameReward
                 canUnloadCallback();
             });
 
-            // A faire
-            //pinataExplosion.SetCenter(...);
-
             DelayManager.CallTo(delegate ()
             {
                 continueButton.Show(true);

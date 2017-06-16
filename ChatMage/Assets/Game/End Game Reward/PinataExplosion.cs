@@ -137,15 +137,6 @@ namespace EndGameReward
             {
                 movingSprites[i].Launch(sq);
             }
-
-            //group.DOFade(1, 1);
-            //toWiggle.DOAnchorPosY(toWiggle.anchoredPosition.y + 300, 3)
-            //    .SetEase(Ease.InOutSine)
-            //    .SetLoops(-1, LoopType.Yoyo);
-
-            //toWiggle.DORotate(Vector3.forward * 359.999f, 3, RotateMode.LocalAxisAdd)
-            //    .SetEase(Ease.Linear)
-            //    .SetLoops(-1, LoopType.Restart);
         }
 
         public class MovingSprite

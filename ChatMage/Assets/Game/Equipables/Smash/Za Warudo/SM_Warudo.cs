@@ -87,6 +87,9 @@ public class SM_Warudo : Smash
         //{
         vfx.Animate(delegate ()
         {
+            if (Game.instance == null)
+                return;
+
             SetTimeScale(targetTimeScale);
 
             smashCoroutine = DelayManager.CallTo(OnSmashEnd, duration);
@@ -97,9 +100,6 @@ public class SM_Warudo : Smash
 
     void SetTimeScale(float amount)
     {
-        if (Game.instance == null)
-            return;
-
         List<Unit> units = Game.instance.units;
         if (units == null)
             return;
