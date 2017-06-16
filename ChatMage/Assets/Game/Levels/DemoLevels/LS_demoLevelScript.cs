@@ -51,17 +51,13 @@ public class LS_demoLevelScript : LevelScript
         }
         if (Input.GetKeyDown(KeyCode.Z) && !IsOver)
         {
-            Scenes.LoadAsync("Tutorial",LoadSceneMode.Additive,delegate(Scene scene) {
-                GameObject[] obj = scene.GetRootGameObjects();
-                for (int i = 0; i < obj.Length; i++)
+            Scenes.LoadAsync("Tutorial", LoadSceneMode.Additive, delegate (Scene scene)
+            {
+                TutorialStarter starter = Scenes.FindRootObject<TutorialStarter>(scene);
+                if (starter != null)
                 {
-                    TutorialStarter starter = obj[i].GetComponent<TutorialStarter>();
-                    if (starter != null)
-                    {
-                        Debug.Log("Init the tutorial");
-                        starter.Init(tutorial);
-                        break;
-                    }
+                    Debug.Log("Init the tutorial");
+                    starter.Init(tutorial);
                 }
             });
         }
