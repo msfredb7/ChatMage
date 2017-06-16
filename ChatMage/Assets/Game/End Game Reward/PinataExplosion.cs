@@ -9,6 +9,8 @@ namespace EndGameReward
 {
     public class PinataExplosion : BaseBehavior
     {
+        public enum BallColor { Blue = 0, Red = 1 }
+
         [InspectorHeader("Linking")]
         public Transform explosionCenter;
         public SpriteRenderer whiteForeground;
@@ -40,7 +42,10 @@ namespace EndGameReward
 
         [InspectorHeader("Ball")]
         public BallAnimator ball;
+        public BallAnimator redBall;
         public float ballFinalSize = 1.25f;
+
+        private BallAnimator theBall;
 
         [InspectorHeader("Confetti 1")]
         public Transform confettiOne;
@@ -74,16 +79,16 @@ namespace EndGameReward
             cam.position = baseCameraPosition + (Vector3)vectorShaker.CurrentVector;
         }
 
-        public void Animate(Vector2 explosionCenter)
+        public void Animate(Vector2 explosionCenter, BallColor ballColor)
         {
             transform.position = cam.position + Vector3.forward;
             this.explosionCenter.position = new Vector3(explosionCenter.x, explosionCenter.y, transform.position.z);
 
-            Animate();
+            Animate(ballColor);
         }
 
         [InspectorButton]
-        private void Animate()
+        private void Animate(BallColor ballColor)
         {
             animating = true;
             baseCameraPosition = cam.position;
@@ -106,8 +111,19 @@ namespace EndGameReward
 
             lightFade.transform.DOScale(lightFinalSize, 4);
 
-            ball.transform.DOScale(ballFinalSize, 4).SetEase(Ease.OutSine);
-            ball.Stop(4);
+
+            switch (ballColor)
+            {
+                case BallColor.Blue:
+                    theBall = ball;
+                    break;
+                case BallColor.Red:
+                    theBall = redBall;
+                    break;
+            }
+            theBall.gameObject.SetActive(true);
+            theBall.transform.DOScale(ballFinalSize, 4).SetEase(Ease.OutSine);
+            theBall.Stop(4);
 
             confettiOne.DOScale(confettiOneFinalSize, 5).SetEase(Ease.OutSine);
             confettiOne.DOLocalMove(confettiOneFinalPos, 5).SetEase(Ease.OutSine);
@@ -144,7 +160,7 @@ namespace EndGameReward
             public void Launch(Sequence sequence)
             {
                 sequence.InsertCallback(startAt, delegate () { tr.GetComponent<SpriteRenderer>().enabled = true; });
-                
+
                 sequence.Insert(startAt, tr.DOLocalMove(finalPos, duration).SetEase(easing));
                 sequence.Insert(startAt, tr.DOScale(finalScale, duration).SetEase(easing));
             }

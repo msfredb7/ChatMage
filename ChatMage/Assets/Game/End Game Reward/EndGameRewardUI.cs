@@ -41,7 +41,7 @@ namespace EndGameReward
             
             backgroundFreezer.FreezeBackground(currentCamera, delegate()
             {
-                pinataExplosion.Animate(explosionPosition);
+                pinataExplosion.Animate(explosionPosition, PinataExplosion.BallColor.Blue);
                 canUnloadCallback();
             });
 
