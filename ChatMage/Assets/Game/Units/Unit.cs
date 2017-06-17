@@ -90,6 +90,9 @@ public abstract class Unit : MonoBehaviour
 
     protected virtual void FixedUpdate()
     {
+        if (Game.instance == null)
+            return;
+
         if (canUseBorder && (Game.instance.unitSnap_horizontalBound || Game.instance.unitSnap_verticalBound))
             Position = RestrainToBounds(Position);
     }

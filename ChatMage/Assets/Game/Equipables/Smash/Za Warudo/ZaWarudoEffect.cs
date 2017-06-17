@@ -54,6 +54,10 @@ public class ZaWarudoEffect : MonoBehaviour
 
     public void Animate(TweenCallback apply)
     {
+        ////Protection pour la fin de game
+        //if (fisheye == null)
+        //    return;
+
         enabled = true;
         fisheye.enabled = true;
         fisheye.strengthX = 0;

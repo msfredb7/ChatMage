@@ -7,7 +7,7 @@ using FullInspector;
 using UnityEditor;
 #endif
 
-[RequireComponent(typeof(Image)), ExecuteInEditMode]
+[ExecuteInEditMode]
 public class ColorAdjustments : MonoBehaviour
 {
     const string SHADERNAME = "Custom/HSVRangeShader";
@@ -35,8 +35,12 @@ public class ColorAdjustments : MonoBehaviour
         hsvShader = Shader.Find(SHADERNAME);
         if (hsvShader == null)
             throw new System.Exception("Could not find the shader: " + SHADERNAME);
-        
-        GetComponent<Image>().material = new Material(hsvShader);
+
+        if (GetComponent<Image>() != null)
+            GetComponent<Image>().material = new Material(hsvShader);
+        else if (GetComponent<SpriteRenderer>() != null)
+            GetComponent<SpriteRenderer>().sharedMaterial = new Material(hsvShader);
+
         Apply();
     }
 
@@ -51,13 +55,20 @@ public class ColorAdjustments : MonoBehaviour
         Verify();
 
         Image image = GetComponent<Image>();
+        SpriteRenderer sprRenderer = GetComponent<SpriteRenderer>();
 
-        if (image.material.shader != Shader.Find(SHADERNAME))
-            image.material = new Material(hsvShader);
+        Material mat;
+        if (image != null)
+            mat = image.material;
+        else
+            mat = sprRenderer.sharedMaterial;
 
-        image.material.SetFloat("_HSVRangeMin", affectRangeMin);
-        image.material.SetFloat("_HSVRangeMax", affectRangeMax);
-        image.material.SetVector("_HSVAAdjust", new Vector4(hueShift, saturation, value, alpha));
+        if (mat.shader != Shader.Find(SHADERNAME))
+            mat = new Material(hsvShader);
+
+        mat.SetFloat("_HSVRangeMin", affectRangeMin);
+        mat.SetFloat("_HSVRangeMax", affectRangeMax);
+        mat.SetVector("_HSVAAdjust", new Vector4(hueShift, saturation, value, alpha));
     }
 }
 
