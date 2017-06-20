@@ -33,8 +33,10 @@ public class PanicBehavior : EnemyBehavior<EnemyVehicle>
                 lastDirectionPick -= 360;
 
             //On met cette petite formule pour ne pas pick 2 fois des direction semblable
-            vehicle.GotoDirection(lastDirectionPick = Random.Range(lastDirectionPick + 60, lastDirectionPick + 300), deltaTime);
+            lastDirectionPick = Random.Range(lastDirectionPick + 60, lastDirectionPick + 300);
             chooseTimer = CHOOSE_INTERVAL;
         }
+
+        vehicle.GotoDirection(lastDirectionPick, deltaTime);
     }
 }

@@ -6,9 +6,10 @@ using UnityEngine;
 public class Car_Jet : Car
 {
     //NE PAS MODIFIER IN-GAME
-    public float turnAcceleration = 5;
-    public float turnSpeed = 185;
-    public float moveSpeed = 1;
+    public float turnAcceleration = 10;
+    public float turnSpeed = 150;
+    public float moveSpeed = 7.5f;
+    public float carWeight = 0.7f;
 
     [fsIgnore]
     float horizontal = 0;
@@ -30,7 +31,7 @@ public class Car_Jet : Car
 
     public override void OnGameReady()
     {
-        player.vehicle.useWeight = false;
+        player.vehicle.weight = 0.7f;
         player.vehicle.MoveSpeed = moveSpeed;
     }
 

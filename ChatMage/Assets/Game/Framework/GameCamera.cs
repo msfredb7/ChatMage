@@ -100,7 +100,7 @@ public class GameCamera : MonoBehaviour
         if (isTeleporting)
             return;
 
-        if (player != null)
+        if (player != null && player.gameObject.activeSelf)
         {
             if (followPlayer)
             {

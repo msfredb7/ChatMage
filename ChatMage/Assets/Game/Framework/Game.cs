@@ -103,7 +103,8 @@ public class Game : PublicSingleton<Game>
         {
             for (int i = 0; i < units.Count; i++)
             {
-                units[i].CheckActivation();
+                if (units[i] != player.vehicle)
+                    units[i].CheckActivation();
             }
         }
     }

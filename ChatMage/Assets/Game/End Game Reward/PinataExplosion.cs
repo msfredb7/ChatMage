@@ -41,7 +41,7 @@ namespace EndGameReward
         public float lightFinalSize;
 
         [InspectorHeader("Ball")]
-        public BallAnimator ball;
+        public BallAnimator blueBall;
         public BallAnimator redBall;
         public float ballFinalSize = 1.25f;
 
@@ -112,12 +112,17 @@ namespace EndGameReward
             lightFade.transform.DOScale(lightFinalSize, 4);
 
 
+
+            //C'est important que les balles commence en etant 'active' et qu'on desactive celles non-utilisers ensuite
+            // ET NON L'INVERSE. Ca creer des gros spike de cpu sinon.
             switch (ballColor)
             {
                 case BallColor.Blue:
-                    theBall = ball;
+                    redBall.gameObject.SetActive(false);
+                    theBall = blueBall;
                     break;
                 case BallColor.Red:
+                    blueBall.gameObject.SetActive(false);
                     theBall = redBall;
                     break;
             }

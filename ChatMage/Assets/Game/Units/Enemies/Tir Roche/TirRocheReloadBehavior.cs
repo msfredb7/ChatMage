@@ -33,6 +33,14 @@ public class TirRocheReloadBehavior : EnemyBehavior<TirRocheVehicle>
     {
         if (vehicle.Ammo < vehicle.maxAmmo)
             StartReloadProcess(player);
+        else
+        {
+            if (onFullReload != null)
+            {
+                onFullReload();
+                onFullReload = null;
+            }
+        }
     }
 
     void StartReloadProcess(PlayerController player)
@@ -49,7 +57,7 @@ public class TirRocheReloadBehavior : EnemyBehavior<TirRocheVehicle>
         }
 
         Vector2 pickedDelta = Vehicle.AngleToVector(chosenAngle) * UnityEngine.Random.Range(PICK_DISTANCE_MIN, PICK_DISTANCE_MAX);
-        
+
         vehicle.GotoPosition(pickedDelta + vehicle.Position, OnReachSpot);
         inReloadProcess = true;
     }
@@ -86,7 +94,7 @@ public class TirRocheReloadBehavior : EnemyBehavior<TirRocheVehicle>
         }
         else
         {
-            if(vehicle.Ammo < vehicle.maxAmmo)
+            if (vehicle.Ammo < vehicle.maxAmmo)
             {
                 StartReloadProcess(player);
             }

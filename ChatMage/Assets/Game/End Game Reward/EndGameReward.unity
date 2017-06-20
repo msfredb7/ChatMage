@@ -153,7 +153,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &18359142
 Transform:
   m_ObjectHideFlags: 0
@@ -367,8 +367,41 @@ MonoBehaviour:
   - {fileID: 1895241085}
   - {fileID: 1080153374}
   _values:
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.explosionCenter.EditProperty
+    - DefaultBehaviorEditor.cam.EditProperty
+    - DefaultBehaviorEditor.flier.EditProperty
+    - DefaultBehaviorEditor.starGrowEase.EditProperty
+    - DefaultBehaviorEditor.starTwo.EditProperty
+    - DefaultBehaviorEditor.starThree.EditProperty
+    - DefaultBehaviorEditor.lightFade.EditProperty
+    - DefaultBehaviorEditor.blueBall.EditProperty
+    - DefaultBehaviorEditor.confettiOne.EditProperty
+    - DefaultBehaviorEditor.confettiTwo.EditProperty
+    - DefaultBehaviorEditor.movingSprites.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 1
+      _serializedIsActive: 1
     _target: {fileID: 872641166}
   - _keys: []
     _values: []
@@ -494,7 +527,7 @@ Transform:
   m_Father: {fileID: 1895241085}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!21 &501677068
+--- !u!21 &500163230
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
@@ -1153,7 +1186,7 @@ MonoBehaviour:
   starThreeFinalSize: 1.8
   lightFade: {fileID: 1925836490}
   lightFinalSize: 1.5
-  ball: {fileID: 18359143}
+  blueBall: {fileID: 18359143}
   redBall: {fileID: 1304521006}
   ballFinalSize: 1.1
   confettiOne: {fileID: 1617295438}
@@ -1741,7 +1774,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1304521003
 Transform:
   m_ObjectHideFlags: 0
@@ -1788,7 +1821,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 501677068}
+  - {fileID: 500163230}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

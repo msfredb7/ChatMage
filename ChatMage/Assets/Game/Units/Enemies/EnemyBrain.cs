@@ -15,12 +15,12 @@ public abstract class EnemyBrain<T> : EnemyBrain where T : EnemyVehicle
 {
     protected T vehicle;
 
-    protected override void Start()
+    protected override void Awake()
     {
+        base.Awake();
         vehicle = GetComponent<T>();
         if (vehicle == null)
             throw new Exception("Could not find vehicle of type: " + typeof(T).ToString());
-        base.Start();
     }
     protected override EnemyVehicle myVehicle
     {
