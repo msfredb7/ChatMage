@@ -24,8 +24,7 @@ MonoBehaviour:
   _serializedStateValues:
   - '[]'
   - '[{"$type":"GameCondition.LoseOnPlayerDeath"}]'
-  - '[{"eventWhat":{"scriptName":"LS_demoLevelScript","functionName":"DeActivateSmash","startNextEvent":false},"eventWhen":{"useSpecificTime":false,"useMileStone":false,"milestoneThatTrigger":[],"invokeOnStart":true,"when":0.0},"done":true},{"eventWhat":{"scriptName":"LS_demoLevelScript","functionName":"ActivateSmash","startNextEvent":false},"eventWhen":{"useSpecificTime":false,"useMileStone":true,"milestoneThatTrigger":["wave
-    1"],"invokeOnStart":false,"when":0.0},"done":false}]'
+  - '[{"eventWhat":{"scriptName":"LS_demoLevelScript","functionName":"DeActivateSmash","startNextEvent":false},"eventWhen":{"useSpecificTime":false,"useMileStone":false,"milestoneThatTrigger":[],"invokeOnStart":true,"when":0.0},"done":true},{"eventWhat":{"scriptName":"LS_demoLevelScript","functionName":"ActivateSmash","startNextEvent":false},"eventWhen":{"useSpecificTime":false,"useMileStone":true,"milestoneThatTrigger":["boss"],"invokeOnStart":false,"when":0.0},"done":false}]'
   - '[{"packs":[{"unit":0,"quantity":1}],"onProgressCallbacks":[{"eventName":"wave
     complete","completionRate":1.0}],"where":{"type":"RandomAroundScreen","clamp":false,"referencePoint":"Player","clampMin":{"x":-8.0,"y":-4.5},"clampMax":{"x":8.0,"y":4.5},"waypointInfo":{"idType":"Enum","waypointTag":null,"waypointType":"PlayerSpawn","spawningType":"Ordered","filterByHeight":false,"referencePoint":"Player","minHeight":-4.5,"maxHeight":4.5}},"when":{"type":"OnLevelEvent","time":20.0,"name":"wave
     1"},"duration":1.0},{"packs":[{"unit":1,"quantity":2}],"onProgressCallbacks":[{"eventName":"wave
@@ -118,7 +117,7 @@ MonoBehaviour:
       time: 0
       name: boss
     duration: 1
-  isOver: 1
+  isOver: 0
   inGameEvents: {fileID: 0}
   healthPacks: {fileID: 114870834835718906, guid: d28e2a568fc043140bfc8bc5777eb644,
     type: 2}
