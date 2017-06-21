@@ -32,7 +32,7 @@ public class LS_demoLevelScript : LevelScript
 
     protected override void OnGameStarted()
     {
-
+        // TODO Partir le tutoriel du demo level
     }
 
     protected override void OnUpdate()
@@ -89,5 +89,17 @@ public class LS_demoLevelScript : LevelScript
 
     public override void OnLose()
     {
+    }
+
+    public void ActivateSmash()
+    {
+        Game.instance.smashManager.DecreaseCooldown(Game.instance.smashManager.RemainingTime * 1.1f);
+        Game.instance.Player.playerStats.smashRefreshRate.Set(1);
+        Game.instance.Player.playerStats.smashCooldownRate.Set(3);
+    }
+
+    public void DeActivateSmash()
+    {
+        Game.instance.Player.playerStats.smashRefreshRate.Set(0);
     }
 }

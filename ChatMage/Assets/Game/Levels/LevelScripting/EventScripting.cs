@@ -24,11 +24,16 @@ namespace LevelScripting
         {
             [InspectorHeader("Use a specific time to start the event")]
             public bool useSpecificTime = false;
+            [InspectorHeader("Use a milestone to start the event")]
+            public bool useMileStone = false;
+            [InspectorShowIf("useMileStone")]
+            public List<string> milestoneThatTrigger = new List<string>();
             [InspectorHideIf("useSpecificTime"),InspectorTooltip("If at false, time counter won't start from" +
-                "beginning but from where it was trigger (from outside example)")]
+                "beginning but from where it was trigger (example : from outside)")]
             public bool invokeOnStart = true;
-            [InspectorHideIf("useSpecificTime")]
-            public float when;
+            [InspectorShowIf("useSpecificTime")]
+            public float when = 0;
+
         }
 
         [InspectorCategory("What")]

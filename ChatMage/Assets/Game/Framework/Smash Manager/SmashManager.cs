@@ -90,6 +90,9 @@ public class SmashManager : MonoBehaviour
         if (!inCooldown)
             return;
 
+        if (Game.instance.Player.playerStats.smashRefreshRate < 0)
+            return;
+
         float multiplier = 1;
         if (Game.instance.Player != null)
             multiplier = Game.instance.Player.vehicle.TimeScale * Game.instance.Player.playerStats.smashRefreshRate;

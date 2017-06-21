@@ -180,6 +180,20 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
             }
         }
 
+        for (int i = 0; i < events.Count; i++)
+        {
+            if (events[i].eventWhen.useMileStone)
+            {
+                for (int j = 0; j < events[i].eventWhen.milestoneThatTrigger.Count; j++)
+                {
+                    if (events[i].eventWhen.milestoneThatTrigger[j] == message)
+                    {
+                        events[i].Launch();
+                    }
+                }
+            }
+        }
+
         OnReceiveEvent(message);
 
         if (onEventReceived != null)

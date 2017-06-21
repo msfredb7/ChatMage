@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Name: LS_demoLevelScript
   m_EditorClassIdentifier: 
   _objectReferences:
-  - {fileID: 114917152140949164, guid: 90a1293e412776e4db23eb9595fcf924, type: 2}
   - {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
+  - {fileID: 114917152140949164, guid: 90a1293e412776e4db23eb9595fcf924, type: 2}
+  - {fileID: 114892083099199946, guid: 581be03cd2c4b5d4490c2c9e9283a911, type: 2}
   _serializedStateKeys:
   - winningConditions
   - losingConditions
@@ -23,12 +24,14 @@ MonoBehaviour:
   _serializedStateValues:
   - '[]'
   - '[{"$type":"GameCondition.LoseOnPlayerDeath"}]'
-  - '[{"eventWhat":{"scriptName":null,"functionName":null,"startNextEvent":false},"eventWhen":{"useSpecificTime":false,"invokeOnStart":true,"when":0.0},"done":false}]'
+  - '[{"eventWhat":{"scriptName":"LS_demoLevelScript","functionName":"DeActivateSmash","startNextEvent":false},"eventWhen":{"useSpecificTime":false,"useMileStone":false,"milestoneThatTrigger":[],"invokeOnStart":true,"when":0.0},"done":true},{"eventWhat":{"scriptName":"LS_demoLevelScript","functionName":"ActivateSmash","startNextEvent":false},"eventWhen":{"useSpecificTime":false,"useMileStone":true,"milestoneThatTrigger":["wave
+    1"],"invokeOnStart":false,"when":0.0},"done":false}]'
   - '[{"packs":[{"unit":0,"quantity":1}],"onProgressCallbacks":[{"eventName":"wave
     complete","completionRate":1.0}],"where":{"type":"RandomAroundScreen","clamp":false,"referencePoint":"Player","clampMin":{"x":-8.0,"y":-4.5},"clampMax":{"x":8.0,"y":4.5},"waypointInfo":{"idType":"Enum","waypointTag":null,"waypointType":"PlayerSpawn","spawningType":"Ordered","filterByHeight":false,"referencePoint":"Player","minHeight":-4.5,"maxHeight":4.5}},"when":{"type":"OnLevelEvent","time":20.0,"name":"wave
-    1"},"duration":1.0},{"packs":[{"unit":1,"quantity":1}],"onProgressCallbacks":[{"eventName":"wave
+    1"},"duration":1.0},{"packs":[{"unit":1,"quantity":2}],"onProgressCallbacks":[{"eventName":"wave
     complete","completionRate":1.0}],"where":{"type":"RandomAroundScreen","clamp":false,"referencePoint":"Player","clampMin":{"x":-8.0,"y":-4.5},"clampMax":{"x":8.0,"y":4.5},"waypointInfo":{"idType":"Enum","waypointTag":null,"waypointType":"PlayerSpawn","spawningType":"Ordered","filterByHeight":false,"referencePoint":"Player","minHeight":-4.5,"maxHeight":4.5}},"when":{"type":"OnLevelEvent","time":0.0,"name":"wave
-    2"},"duration":3.0}]'
+    2"},"duration":3.0},{"packs":[{"unit":2,"quantity":1}],"onProgressCallbacks":[{"eventName":"wave
+    complete","completionRate":1.0}],"where":{"type":"RandomAroundScreen","clamp":false,"referencePoint":"Player","clampMin":{"x":-8.0,"y":-4.5},"clampMax":{"x":8.0,"y":4.5},"waypointInfo":{"idType":"Enum","waypointTag":null,"waypointType":"PlayerSpawn","spawningType":"Ordered","filterByHeight":false,"referencePoint":"Player","minHeight":-4.5,"maxHeight":4.5}},"when":{"type":"OnLevelEvent","time":0.0,"name":"boss"},"duration":1.0}]'
   - '{"giveMoney":true,"amount":10,"giveLootBox":true,"lootboxs":[]}'
   sceneName: MapDemo
   introPrefab: {fileID: 114939908285177620, guid: 6ecb49bd0fe07fd49a2105006011056d,
@@ -41,12 +44,13 @@ MonoBehaviour:
   followPlayerOnStart: 1
   verticalUnitSnap: 1
   horizontalUnitSnap: 1
-  useCustomGenericEvents: 0
+  useCustomGenericEvents: 1
   events:
+  - done: 1
   - done: 0
   waves:
   - packs:
-    - unit: {fileID: 114917152140949164, guid: 90a1293e412776e4db23eb9595fcf924, type: 2}
+    - unit: {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
       quantity: 1
     where:
       type: 0
@@ -69,8 +73,8 @@ MonoBehaviour:
       name: wave 1
     duration: 1
   - packs:
-    - unit: {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
-      quantity: 1
+    - unit: {fileID: 114917152140949164, guid: 90a1293e412776e4db23eb9595fcf924, type: 2}
+      quantity: 2
     where:
       type: 0
       clamp: 0
@@ -91,7 +95,30 @@ MonoBehaviour:
       time: 0
       name: wave 2
     duration: 3
-  isOver: 0
+  - packs:
+    - unit: {fileID: 114892083099199946, guid: 581be03cd2c4b5d4490c2c9e9283a911, type: 2}
+      quantity: 1
+    where:
+      type: 0
+      clamp: 0
+      referencePoint: 0
+      clampMin: {x: -8, y: -4.5}
+      clampMax: {x: 8, y: 4.5}
+      waypointInfo:
+        idType: 0
+        waypointTag: 
+        waypointType: 0
+        spawningType: 0
+        filterByHeight: 0
+        referencePoint: 0
+        minHeight: -4.5
+        maxHeight: 4.5
+    when:
+      type: 4
+      time: 0
+      name: boss
+    duration: 1
+  isOver: 1
   inGameEvents: {fileID: 0}
   healthPacks: {fileID: 114870834835718906, guid: d28e2a568fc043140bfc8bc5777eb644,
     type: 2}

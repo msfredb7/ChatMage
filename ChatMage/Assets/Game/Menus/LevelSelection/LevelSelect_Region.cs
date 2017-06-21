@@ -68,5 +68,13 @@ namespace LevelSelect
             }
             return false;
         }
+
+        public void HideAll()
+        {
+            for (int i = 0; i < levelItems.Count; i++)
+            {
+                levelItems[i].Hide();
+            }
+        }
     }
 }
