@@ -56,7 +56,6 @@ public class OptionWindow : WindowAnimation
                 delegate ()
                 {
                     Scenes.UnloadAsync(SCENENAME);
-                    SetTimeScale(1);
                     quit = false;
                 }
             );
@@ -80,7 +79,7 @@ public class OptionWindow : WindowAnimation
                 delegate ()
                 {
                     Scenes.UnloadAsync(SCENENAMEINGAME);
-                    SetTimeScale(1);
+                    Time.timeScale = 1;
                     quit = false;
                 }
             );
@@ -90,18 +89,5 @@ public class OptionWindow : WindowAnimation
             Scenes.UnloadAsync(SCENENAMEINGAME);
             quit = false;
         }
-    }
-
-    void SetTimeScale(float amount)
-    {
-        List<Unit> units = Game.instance.units;
-        for (int i = 0; i < units.Count; i++)
-        {
-            units[i].TimeScale = amount;
-        }
-        if (amount == 1)
-            Game.instance.worldTimeScale.RemoveBuff("zwrdo");
-        else
-            Game.instance.worldTimeScale.AddBuff("zwrdo", amount * 100 - 100, CCC.Utility.BuffType.Percent);
     }
 }

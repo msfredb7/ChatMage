@@ -17,6 +17,7 @@ namespace LoadoutMenu
         public Text text;
         public Button button;
         public Image icon;
+
         [Header("Visuel Temporaire")]
         public GameObject equippedVisuals;
         public Color normalColor;
@@ -87,7 +88,9 @@ namespace LoadoutMenu
             equipable.onUnequip += OnUnequipped;
 
             text.text = equipable.preview.displayName;
-            icon.sprite = equipable.preview.icon;
+            
+            if (icon.enabled = equipable.preview.icon != null)
+                icon.sprite = equipable.preview.icon;
 
             VisuallyLocked = !equipable.IsUnlocked;
             VisuallySelected = false;

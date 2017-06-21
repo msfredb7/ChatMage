@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.Events;
@@ -71,14 +71,14 @@ namespace CCC.UI
             if (bgImage != null)
             {
                 bgImage.DOKill();
-                bgImage.DOFade(bgImageAlpha, openTime * 0.75f);
+                bgImage.DOFade(bgImageAlpha, openTime * 0.75f).SetUpdate(true);
             }
 
             if (backBg != null)
             {
                 backBg.gameObject.SetActive(true);
                 backBg.DOKill();
-                backBg.DOFade(backBgAlpha, openTime);
+                backBg.DOFade(backBgAlpha, openTime).SetUpdate(true);
             }
 
             if (content != null)
@@ -87,7 +87,7 @@ namespace CCC.UI
 
 
                 bgTr.DOKill();
-                bgTr.DOSizeDelta(bigV, openTime).SetEase(openEase);
+                bgTr.DOSizeDelta(bigV, openTime).SetEase(openEase).SetUpdate(true);
 
                 content.DOKill();
                 content.DOFade(1, openTime).SetDelay(openTime * 0.75f).SetEase(openEase).OnComplete(delegate ()
@@ -95,12 +95,12 @@ namespace CCC.UI
                     content.blocksRaycasts = true;
                     if (onComplete != null)
                         onComplete.Invoke();
-                });
+                }).SetUpdate(true);
             }
             else
             {
                 bgTr.DOKill();
-                bgTr.DOSizeDelta(bigV, openTime).SetEase(openEase).OnComplete(onComplete);
+                bgTr.DOSizeDelta(bigV, openTime).SetEase(openEase).OnComplete(onComplete).SetUpdate(true);
             }
         }
 
@@ -115,7 +115,7 @@ namespace CCC.UI
             if (content != null)
             {
                 content.DOKill();
-                content.DOFade(0, exitTime * 0.75f).SetEase(exitEase);
+                content.DOFade(0, exitTime * 0.75f).SetEase(exitEase).SetUpdate(true);
                 content.blocksRaycasts = false;
             }
 
@@ -123,13 +123,13 @@ namespace CCC.UI
             if (bgImage != null)
             {
                 bgImage.DOKill();
-                bgImage.DOFade(fadeStart, exitTime).SetDelay(delay);
+                bgImage.DOFade(fadeStart, exitTime).SetDelay(delay).SetUpdate(true);
             }
 
             if (backBg != null)
             {
                 backBg.DOKill();
-                backBg.DOFade(0, exitTime + delay);//.SetDelay(delay);
+                backBg.DOFade(0, exitTime + delay).SetUpdate(true);//.SetDelay(delay);
             }
 
             bgTr.DOKill();
@@ -138,7 +138,7 @@ namespace CCC.UI
                 bgTr.gameObject.SetActive(false);
                 if (onComplete != null)
                     onComplete.Invoke();
-            });
+            }).SetUpdate(true);
         }
 
         public void InstantOpen()

@@ -1,4 +1,4 @@
-﻿using CCC.Manager;
+using CCC.Manager;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,13 +14,12 @@ public class OptionMenu : MonoBehaviour
     public void LoadOptionMenu()
     {
         Scenes.LoadAsync(SCENENAME,LoadSceneMode.Additive);
-        SetTimeScale(0);
     }
 
     public void LoadInGameOptionMenu()
     {
         Scenes.LoadAsync(SCENENAMEINGAME, LoadSceneMode.Additive);
-        SetTimeScale(0);
+        Time.timeScale = 0;
     }
 
     void SetTimeScale(float amount)

@@ -1,4 +1,4 @@
-﻿using CCC.Manager;
+using CCC.Manager;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +7,8 @@ using UnityEngine.Events;
 public class PlayerSmash : PlayerComponent
 {
     public event SimpleEvent onSmashGained;
-    public event SimpleEvent onSmashUsed;
+    public event SimpleEvent onSmashStarted;
+    public event SimpleEvent onSmashCompleted;
 
     public bool SmashEquipped { get { return smash != null; } }
     public Smash Smash { get { return smash; } }
@@ -51,8 +52,11 @@ public class PlayerSmash : PlayerComponent
             return;
         hasSmash = false;
 
-        smash.OnSmash();
-        if (onSmashUsed != null)
-            onSmashUsed.Invoke();
+        smash.OnSmash(
+            delegate()
+            {
+                if (onSmashCompleted != null)
+                    onSmashCompleted.Invoke();
+            });
     }
 }

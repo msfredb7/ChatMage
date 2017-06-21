@@ -21,9 +21,9 @@ public class EquipablePreview : BaseScriptableObject
     //public bool specialInput;
     //public string specialInputTooltipText;
 
-    [InspectorHeader("Peut-être")]
-    public Sprite largeIcon;
-    public AudioClip selectSound;
+    //[InspectorHeader("Peut-être")]
+    //public Sprite largeIcon;
+    //public AudioClip selectSound;
 
     public void Save()
     {

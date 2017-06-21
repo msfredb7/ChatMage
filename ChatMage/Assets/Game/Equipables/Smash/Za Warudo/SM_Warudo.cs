@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using CCC.Manager;
 using FullInspector;
+using FullSerializer;
 
 public class SM_Warudo : Smash
 {
@@ -22,10 +23,14 @@ public class SM_Warudo : Smash
     public Shader chromAberrationShader;
     public Shader separableBlurShader;
 
-
+    [fsIgnore, NonSerialized]
     private Coroutine smashCoroutine;
+    [fsIgnore, NonSerialized]
     private Coroutine smashLaunchCoroutine;
+    [fsIgnore, NonSerialized]
     private ZaWarudoEffect vfx;
+    [fsIgnore, NonSerialized]
+    private Action onComplete;
 
     private const float zwv_ColorShiftStart = 0.2f;
     private const float zwv_ColorShiftEnd = 0.8f;
@@ -72,7 +77,7 @@ public class SM_Warudo : Smash
         if (DelayManager.instance != null)
             DelayManager.Cancel(smashCoroutine);
 
-        if(Game.instance != null)
+        if (Game.instance != null)
             OnSmashEnd();
     }
 
@@ -81,10 +86,10 @@ public class SM_Warudo : Smash
 
     }
 
-    public override void OnSmash()
+    public override void OnSmash(Action onComplete)
     {
-        //smashLaunchCoroutine = DelayManager.CallTo(delegate ()
-        //{
+        this.onComplete = onComplete;
+
         vfx.Animate(delegate ()
         {
             if (Game.instance == null)
@@ -94,7 +99,7 @@ public class SM_Warudo : Smash
 
             smashCoroutine = DelayManager.CallTo(OnSmashEnd, duration);
         });
-        //}, launchDelay);
+
         SoundManager.Play(sfx);
     }
 
@@ -118,6 +123,8 @@ public class SM_Warudo : Smash
 
     void OnSmashEnd()
     {
+        if (onComplete != null)
+            onComplete();
         vfx.AnimateBack(delegate ()
         {
             SetTimeScale(1);

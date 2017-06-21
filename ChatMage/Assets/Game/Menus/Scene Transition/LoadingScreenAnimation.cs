@@ -17,7 +17,7 @@ public class LoadingScreenAnimation : MonoBehaviour {
             Camera.main.gameObject.SetActive(false);
             cam.gameObject.SetActive(true);
             onComplete();
-        });
+        }).SetUpdate(true);
     }
 
     public void Outro(UnityAction onComplete)
@@ -26,7 +26,7 @@ public class LoadingScreenAnimation : MonoBehaviour {
         bg.DOFade(0, 1).OnComplete(delegate ()
         {
             onComplete();
-        });
+        }).SetUpdate(true);
     }
 
     public void OnNewSceneLoaded()
