@@ -13,9 +13,11 @@ public class SM_InstaKill : Smash
     {
     }
 
-    public override void OnSmash()
+    public override void OnSmash(Action onComplete)
     {
         Debug.Log("insta kill smash !");
+        if (onComplete != null)
+            onComplete();
     }
 
     public override void OnUpdate()

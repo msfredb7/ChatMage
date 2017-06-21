@@ -12,6 +12,8 @@ public class SmashManager : MonoBehaviour
     private Animator followTarget;
     [SerializeField]
     private Transform followTargetParent;
+    [SerializeField]
+    private bool debug = false;
 
     [System.NonSerialized]
     private SmashBall currentSmashBall;
@@ -73,6 +75,17 @@ public class SmashManager : MonoBehaviour
 
     void Update()
     {
+        if (debug)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                if (remainingTime > 0)
+                    remainingTime = 0;
+                else if (currentSmashBall != null)
+                    currentSmashBall.ForceDeath();
+            }
+        }
+
         //On ne diminue pas le cooldown si une smash ball est en vie
         if (!inCooldown)
             return;
@@ -112,10 +125,10 @@ public class SmashManager : MonoBehaviour
             followTargetParent.gameObject.SetActive(false);
 
         Game.instance.Player.playerSmash.GainSmash();
-        Game.instance.Player.playerSmash.onSmashUsed += OnSmashUsed;
+        Game.instance.Player.playerSmash.onSmashCompleted += OnSmashCompleted;
     }
 
-    private void OnSmashUsed()
+    private void OnSmashCompleted()
     {
         ResetCooldown();
     }

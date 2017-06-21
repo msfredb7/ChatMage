@@ -77,7 +77,7 @@ public class LoadoutElementInspector : MonoBehaviour
                 //Unlocked !
 
                 //Sprite
-                imagePreview.sprite = equipable.preview.largeIcon;
+                imagePreview.sprite = equipable.preview.icon;
 
                 //Effect
                 effect.text = equipable.preview.effects;
