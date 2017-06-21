@@ -8,6 +8,9 @@ using FullSerializer;
 using LevelScripting;
 using DG.Tweening;
 using GameIntroOutro;
+using UnityEngine.SceneManagement;
+using System;
+using System.Reflection;
 
 public abstract class LevelScript : BaseScriptableObject, IEventReceiver
 {
@@ -55,6 +58,9 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
 
     [fsIgnore, NotSerialized]
     public InGameEvents inGameEvents;
+
+    [InspectorHeader("Tutoriel")]
+    public BaseTutorial tutorial;
 
     [fsIgnore, NotSerialized]
     private List<UnitWave> eventTriggeredWaves;
@@ -109,6 +115,8 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
         CreateObjectives();
 
         StartWaves();
+
+        StartTutorial();
 
         //Camera follow player ?
         Game.instance.gameCamera.followPlayer = followPlayerOnStart;
@@ -167,6 +175,22 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
         OnLose();
     }
 
+    void StartTutorial()
+    {
+        if(tutorial != null)
+        {
+            Scenes.LoadAsync("Tutorial", LoadSceneMode.Additive, delegate (Scene scene)
+            {
+                TutorialStarter starter = Scenes.FindRootObject<TutorialStarter>(scene);
+                if (starter != null)
+                {
+                    Debug.Log("Init the tutorial");
+                    starter.Init(tutorial);
+                }
+            });
+        }
+    }
+
 
     public void ReceiveEvent(string message)
     {
@@ -189,6 +213,23 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
                     if (events[i].eventWhen.milestoneThatTrigger[j] == message)
                     {
                         events[i].Launch();
+                    }
+                }
+            }
+        }
+
+        if(tutorial != null)
+        {
+            for (int i = 0; i < tutorial.tutorialEvents.Count; i++)
+            {
+                if (tutorial.tutorialEvents[i].useMileStone)
+                {
+                    for (int j = 0; j < tutorial.tutorialEvents[i].milestoneThatTrigger.Count; j++)
+                    {
+                        if (tutorial.tutorialEvents[i].milestoneThatTrigger[j] == message)
+                        {
+                            tutorial.Execute(tutorial.tutorialEvents[i],null);
+                        }
                     }
                 }
             }

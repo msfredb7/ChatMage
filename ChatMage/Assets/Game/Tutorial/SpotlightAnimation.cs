@@ -1,5 +1,6 @@
 ﻿using CCC.UI;
 using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,24 +16,20 @@ public class SpotlightAnimation : MonoBehaviour {
         foreach (Transform child in transform)
         {
             Image currentImage = child.GetComponent<Image>();
-            float currentAlpha = currentImage.color.a;
-            currentImage.color = new Color(currentImage.color.r, currentImage.color.g, currentImage.color.b,0);
-            if (currentImage != null)
-                currentImage.DOFade(currentAlpha, fadeDuration);
+            currentImage.color = new Color(currentImage.color.r, currentImage.color.g, currentImage.color.b,255);
+            //currentImage.DOFade(255, fadeDuration);
         }
     }
 
-    public void Close()
+    public void Close(Action onComplete)
     {
         foreach (Transform child in transform)
         {
-            Image image = child.GetComponent<Image>();
-            Color startcolor = image.color;
-            if (image != null)
-                image.DOFade(0, fadeDuration).OnComplete(delegate() {
-                    gameObject.SetActive(false);
-                    image.color = startcolor;
-                });
+            Image currentImage = child.GetComponent<Image>();
+            currentImage.color = new Color(currentImage.color.r, currentImage.color.g, currentImage.color.b, 0);
+            //currentImage.DOFade(0, fadeDuration);
         }
+        gameObject.SetActive(false);
+        onComplete.Invoke();
     }
 }
