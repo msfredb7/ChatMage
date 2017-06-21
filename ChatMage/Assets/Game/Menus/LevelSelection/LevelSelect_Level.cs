@@ -47,5 +47,10 @@ namespace LevelSelect
 
             gameObject.SetActive(IsUnlocked());
         }
+
+        public void Hide()
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

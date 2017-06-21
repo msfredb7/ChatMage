@@ -48,38 +48,13 @@ public class ITM_BlueShell : Item
     }
 
     void LaunchShell()
-    {
-        
-        GameObject target = FindTarget(Game.instance.Player.vehicle.Position);
-        if (target == null)
-            return;
-        
+    {   
         GameObject shell = Instantiate(blueShellPrefab);
         shellSpawned = true;
 
-        shell.GetComponent<BlueShellScript>().SetValues(target, shellSpeed, noiseSpeed, wonderCooldown, loopIntensity);
+        shell.GetComponent<BlueShellScript>().SetValues(shellSpeed, noiseSpeed, wonderCooldown, loopIntensity);
         shell.GetComponent<BlueShellScript>().onHit += delegate () { shellSpawned = false; };
 
         countdown = cooldown;
-    }
-
-    GameObject FindTarget(Vector3 playerPos)
-    {
-        List<Unit> units = Game.instance.units;
-        GameObject closestUnit = null;
-        if (units.Count < 1)
-            return closestUnit;
-        float previousDistance = 0;
-        for (int i = 0; i < units.Count; i++)
-        {
-            float currentDistance = Vector3.Distance(units[i].gameObject.transform.position,playerPos);
-            if (closestUnit == null || currentDistance < previousDistance)
-            {
-                if(units[i] != Game.instance.Player.vehicle)
-                closestUnit = units[i].gameObject;
-                previousDistance = currentDistance;
-            }
-        }
-        return closestUnit;
     }
 }

@@ -19,6 +19,10 @@ namespace LevelSelect
         public Button shopButton;
         public LevelSelect_MapAnimator mapAnimator;
 
+        public Button demoButton;
+        public Level demoLevel;
+        public bool DEMO = false; // A ENLEVER
+
         void Start()
         {
             MasterManager.Sync(OnSync);
@@ -28,6 +32,18 @@ namespace LevelSelect
 
         void OnSync()
         {
+            if (DEMO)
+            {
+                demoButton.gameObject.SetActive(true);
+                ToLoadoutMessage message = new ToLoadoutMessage(demoLevel.levelScriptName);
+                demoButton.onClick.AddListener(delegate() { LoadingScreen.TransitionTo(LoadoutMenu.LoadoutUI.SCENENAME, message); });
+                for (int i = 0; i < regions.Count; i++)
+                {
+                    regions[i].HideAll();
+                }
+                return;
+            }
+
             AddListeners();
 
             // Should we mark a level as 'completed' ?

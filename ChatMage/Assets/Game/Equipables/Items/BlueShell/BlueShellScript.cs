@@ -13,7 +13,7 @@ public class BlueShellScript : Vehicle
     private float wanderCooldown = 2;
 
     private float speed;
-    private GameObject target;
+    private GameObject target = null;
     private float counter;
 
     void Start()
@@ -30,31 +30,21 @@ public class BlueShellScript : Vehicle
 
     void Update()
     {
-        // Si on utilise la cible qui avait été trouvé, mais on pourrait refaire une recherche!
-        if(counter < 0)
-            if(target != null)
+        if (counter < 0)
+        {
+            target = FindTarget(Game.instance.Player.vehicle.Position);
+            if (target != null)
                 targetDirection = VectorToAngle(target.transform.localPosition - transform.localPosition);
             else
-            {
-                // On essaie de trouver une nouvelle cible autre que le joueur
-                // on ne veut pas vraiment reparcourir la liste des units ici (trop lourd?)
-                Unit newTarget = Game.instance.units[(int)Random.Range(0, Game.instance.units.Count - 1)]; // essaie 1
-                if(newTarget == Game.instance.Player.vehicle)
-                {
-                    newTarget = Game.instance.units[(int)Random.Range(0, Game.instance.units.Count - 1)];  // essaie 2
-                    if (newTarget == Game.instance.Player.vehicle)
-                        Explode();                                                                         // Fuck off
-                }
-                targetDirection = VectorToAngle(newTarget.transform.localPosition - transform.localPosition);
-            }
+                targetDirection = Mathf.PerlinNoise(Time.time * noiseSpeed / loopIntensity, 70) * (360 * loopIntensity);
+        }
         else
             targetDirection = Mathf.PerlinNoise(Time.time * noiseSpeed / loopIntensity, 70) * (360 * loopIntensity);
         counter -= Time.deltaTime;
     }
 
-    public void SetValues(GameObject target, float speed, float noiseSpeed, float wonderCooldown, float loopIntensity)
+    public void SetValues(float speed, float noiseSpeed, float wonderCooldown, float loopIntensity)
     {
-        this.target = target;
         this.speed = speed;
         this.noiseSpeed = noiseSpeed;
         this.wanderCooldown = wonderCooldown;
@@ -62,8 +52,31 @@ public class BlueShellScript : Vehicle
         Init();
     }
 
+    GameObject FindTarget(Vector3 playerPos)
+    {
+        List<Unit> units = Game.instance.units;
+        GameObject closestUnit = null;
+        if (units.Count < 1)
+            return closestUnit;
+        float previousDistance = 0;
+        for (int i = 0; i < units.Count; i++)
+        {
+            float currentDistance = Vector3.Distance(units[i].gameObject.transform.position, playerPos);
+            if (closestUnit == null || currentDistance < previousDistance)
+            {
+                if (units[i] != Game.instance.Player.vehicle)
+                    closestUnit = units[i].gameObject;
+                previousDistance = currentDistance;
+            }
+        }
+        return closestUnit;
+    }
+
     private void ColliderListener_onTriggerEnter(ColliderInfo other, ColliderListener listener)
     {
+        if (other.parentUnit.GetComponent<IAttackable>() != null && // Si on peut l'attaquer
+            other.parentUnit.GetComponent<Unit>().allegiance != Allegiance.Ally) // Si cest pas un ally
+            other.parentUnit.GetComponent<IAttackable>().Attacked(other, 1, this); // attaque le
         Explode();
     }
 
