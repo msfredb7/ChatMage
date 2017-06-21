@@ -10,6 +10,7 @@ public class MainMenu : BaseBehavior
 {
     public const string SCENENAME = "MainMenu";
     public Button playButton;
+    public bool DEMO = false; // A ENLEVER
 
     [InspectorHeader("Tutorial")]
     public bool doATutorial = false;
@@ -28,6 +29,8 @@ public class MainMenu : BaseBehavior
 
     private void GotoLevelSelect()
     {
+        if(DEMO) // A ENLEVER
+            LoadingScreen.TransitionTo(Framework.SCENENAME, null);
         LoadingScreen.TransitionTo(LevelSelect.LevelSelection.SCENENAME, null);
     }
 
