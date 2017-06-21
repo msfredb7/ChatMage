@@ -32,7 +32,7 @@ public class LS_demoLevelScript : LevelScript
 
     protected override void OnGameStarted()
     {
-
+        // TODO Partir le tutoriel du demo level
     }
 
     protected override void OnUpdate()

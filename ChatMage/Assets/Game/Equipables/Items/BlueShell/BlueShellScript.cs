@@ -32,9 +32,9 @@ public class BlueShellScript : Vehicle
     {
         if (counter < 0)
         {
-            target = FindTarget(Game.instance.Player.vehicle.Position);
+            target = FindTarget(transform.position);
             if (target != null)
-                targetDirection = VectorToAngle(target.transform.localPosition - transform.localPosition);
+                targetDirection = VectorToAngle(target.transform.position - transform.position);
             else
                 targetDirection = Mathf.PerlinNoise(Time.time * noiseSpeed / loopIntensity, 70) * (360 * loopIntensity);
         }
@@ -52,7 +52,7 @@ public class BlueShellScript : Vehicle
         Init();
     }
 
-    GameObject FindTarget(Vector3 playerPos)
+    GameObject FindTarget(Vector3 pos)
     {
         List<Unit> units = Game.instance.units;
         GameObject closestUnit = null;
@@ -61,7 +61,7 @@ public class BlueShellScript : Vehicle
         float previousDistance = 0;
         for (int i = 0; i < units.Count; i++)
         {
-            float currentDistance = Vector3.Distance(units[i].gameObject.transform.position, playerPos);
+            float currentDistance = Vector3.Distance(units[i].gameObject.transform.position, pos);
             if (closestUnit == null || currentDistance < previousDistance)
             {
                 if (units[i] != Game.instance.Player.vehicle)

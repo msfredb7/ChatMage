@@ -15,7 +15,7 @@ public class GateScript : Unit, IAttackable
         {
             done = true;
             Debug.Log("Adding gate");
-            Game.instance.units.Add(this as Unit);
+            Game.instance.units.Add(this);
         }
     }
 

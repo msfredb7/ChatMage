@@ -53,8 +53,6 @@ public class ITM_BlueShell : Item
         shellSpawned = true;
 
         shell.GetComponent<BlueShellScript>().SetValues(shellSpeed, noiseSpeed, wonderCooldown, loopIntensity);
-        shell.GetComponent<BlueShellScript>().onHit += delegate () { shellSpawned = false; };
-
-        countdown = cooldown;
+        shell.GetComponent<BlueShellScript>().onHit += delegate () { shellSpawned = false; countdown = cooldown; };
     }
 }
