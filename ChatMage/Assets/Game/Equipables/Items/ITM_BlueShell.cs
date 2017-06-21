@@ -1,34 +1,32 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FullInspector;
+using System;
 
 public class ITM_BlueShell : Item
 {
+    [InspectorHeader("A enlever")]
     public bool enable = false; // A ENLEVER
 
-    public GameObject blueShellPrefab;
+    [InspectorHeader("Linking")]
+    public BlueShellScript blueShellPrefab;
 
-    public float shellSpeed = 1;
+    [InspectorHeader("Settings")]
+    public float spawnCooldown;
 
-    public float cooldown;
-    private float countdown;
-
-    [InspectorRange(1, 10)]
-    public float loopIntensity = 1;
-    [InspectorRange(1, 10)]
-    public float noiseSpeed = 1;
-    public float wonderCooldown = 2;
-
+    [NonSerialized, FullSerializer.fsIgnore]
     private bool shellSpawned = false;
+    [NonSerialized, FullSerializer.fsIgnore]
+    private float countdown;
 
     public override void OnGameReady()
     {
-        countdown = cooldown;
     }
 
     public override void OnGameStarted()
     {
+        countdown = 0;
         shellSpawned = false;
 
         enable = false; // A ENLEVER
@@ -38,21 +36,25 @@ public class ITM_BlueShell : Item
     {
         if (!enable)  // A ENLEVER
             return;
+
+        if (shellSpawned)
+            return;
+
         if (countdown < 0)
-        {
-            if (shellSpawned)
-                return;
             LaunchShell();
-        }
-        countdown -= Time.deltaTime;
+        else
+            countdown -= Time.deltaTime;
     }
 
     void LaunchShell()
-    {   
-        GameObject shell = Instantiate(blueShellPrefab);
+    {
+        BlueShellScript blueShell = Game.instance.SpawnUnit(blueShellPrefab, player.vehicle.Position);
         shellSpawned = true;
 
-        shell.GetComponent<BlueShellScript>().SetValues(shellSpeed, noiseSpeed, wonderCooldown, loopIntensity);
-        shell.GetComponent<BlueShellScript>().onHit += delegate () { shellSpawned = false; countdown = cooldown; };
+        blueShell.onDeath += delegate (Unit unit)
+        {
+            shellSpawned = false;
+            countdown = spawnCooldown;
+        };
     }
 }

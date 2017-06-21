@@ -33,6 +33,7 @@ public class LS_demoLevelScript : LevelScript
     protected override void OnGameStarted()
     {
         // TODO Partir le tutoriel du demo level
+        //Game.instance.gameCamera.followPlayer = false;
     }
 
     protected override void OnUpdate()
@@ -47,7 +48,7 @@ public class LS_demoLevelScript : LevelScript
         }
         if (Input.GetKeyDown(KeyCode.T) && !IsOver)
         {
-            TriggerWaveManually("eersa");
+            TriggerWaveManually("t pressed");
         }
         if (Input.GetKeyDown(KeyCode.Z) && !IsOver)
         {

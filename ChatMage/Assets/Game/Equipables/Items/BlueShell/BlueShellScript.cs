@@ -1,72 +1,136 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BlueShellScript : Vehicle
 {
-    public SimpleEvent onHit;
-
     public SimpleColliderListener colliderListener;
 
-    private float loopIntensity = 1;
-    private float noiseSpeed = 1;
-    private float wanderCooldown = 2;
+    [Header("Blue Shell")]
+    [Header("Behavior")]
+    public float wanderDuration;
+    public float screenBorderWidth = 1.5f;
+    [Header("Movement")]
+    public float maxTurnSpeed = 500;
+    public float maxTurnAcceleration = 2000;
+    public float minPickRate = 0.2f;
+    public float maxPickRate = 0.3f;
 
-    private float speed;
-    private GameObject target = null;
-    private float counter;
+    private Unit target = null;
+
+    private bool wandering = true;
+
+    private float chooseNewTurnAcc;
+    private float turnAcc;
+    private float turnSpeed;
 
     void Start()
     {
         colliderListener.onTriggerEnter += ColliderListener_onTriggerEnter;
-        TeleportPosition(Game.instance.Player.vehicle.Position);
-    }
-
-    void Init()
-    {
-        MoveSpeed = speed;
-        counter = wanderCooldown;
+        if (Game.instance.Player != null)
+            Rotation = Game.instance.Player.vehicle.Rotation;
     }
 
     void Update()
     {
-        if (counter < 0)
+        if (wandering && wanderDuration < 0)
+            wandering = false;
+
+        wanderDuration -= DeltaTime();
+    }
+
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
+
+        if (wandering)
         {
-            target = FindTarget(transform.position);
-            if (target != null)
-                targetDirection = VectorToAngle(target.transform.position - transform.position);
-            else
-                targetDirection = Mathf.PerlinNoise(Time.time * noiseSpeed / loopIntensity, 70) * (360 * loopIntensity);
+            Wander(FixedDeltaTime());
         }
         else
-            targetDirection = Mathf.PerlinNoise(Time.time * noiseSpeed / loopIntensity, 70) * (360 * loopIntensity);
-        counter -= Time.deltaTime;
+        {
+            //If target is null, find new one
+            if (target == null)
+                target = FindClosestTargetTo(transform.position);
+
+            if (target != null)
+            {
+                Rotation = Mathf.MoveTowardsAngle(Rotation,
+                    VectorToAngle(target.Position - Position),
+                    maxTurnSpeed * FixedDeltaTime());
+            }
+            else
+                Wander(FixedDeltaTime());
+        }
     }
 
-    public void SetValues(float speed, float noiseSpeed, float wonderCooldown, float loopIntensity)
+    private void Wander(float deltaTime)
     {
-        this.speed = speed;
-        this.noiseSpeed = noiseSpeed;
-        this.wanderCooldown = wonderCooldown;
-        this.loopIntensity = loopIntensity;
-        Init();
+
+        //Est-ce que la shell est a l'exterieur des bodure ?
+        if (IsOutOfBounds(Position))
+        {
+            // Shell.pos - Center.pos
+            Vector2 deltaToCenter = Game.instance.gameCamera.Center - Position;
+
+            //On set la turnAcc vers le centre de la map
+            turnAcc = Vector2.Angle(WorldDirection2D(), deltaToCenter) > 0 ? -maxTurnSpeed : maxTurnSpeed;
+
+            //Turn !
+            Rotation = Mathf.MoveTowardsAngle(Rotation, VectorToAngle(deltaToCenter), maxTurnSpeed * deltaTime);
+        }
+        else
+        {
+            //Devrais-t-choisir une nouvelle acceleration ?
+            if (chooseNewTurnAcc < 0)
+            {
+                turnAcc = Random.Range(-maxTurnAcceleration, maxTurnAcceleration);
+                chooseNewTurnAcc = Random.Range(minPickRate, maxPickRate);
+            }
+            chooseNewTurnAcc -= deltaTime;
+
+            //Change turn speed
+            turnSpeed += turnAcc * deltaTime;
+            turnSpeed = Mathf.Clamp(turnSpeed, -maxTurnSpeed, maxTurnSpeed);
+
+            //Turn !
+            Rotation = Rotation + (turnSpeed * deltaTime);
+        }
     }
 
-    GameObject FindTarget(Vector3 pos)
+    bool IsOutOfBounds(Vector2 pos)
+    {
+        float rightBorder = Game.instance.gameCamera.ScreenSize.x / 2 - screenBorderWidth;
+        float halfHeight = Game.instance.gameCamera.ScreenSize.y / 2 - screenBorderWidth;
+
+        if (pos.x > rightBorder || pos.x < -rightBorder)
+            return true;
+
+        if (pos.y > Game.instance.gameCamera.Height + halfHeight || pos.y < Game.instance.gameCamera.Height - halfHeight)
+            return true;
+
+        return false;
+    }
+
+    Unit FindClosestTargetTo(Vector2 pos)
     {
         List<Unit> units = Game.instance.units;
-        GameObject closestUnit = null;
-        if (units.Count < 1)
-            return closestUnit;
-        float previousDistance = 0;
+        Unit closestUnit = null;
+
+        float smallestDistance = float.PositiveInfinity;
+
         for (int i = 0; i < units.Count; i++)
         {
-            float currentDistance = Vector3.Distance(units[i].gameObject.transform.position, pos);
-            if (closestUnit == null || currentDistance < previousDistance)
+            //Ignore allies
+            if (units[i].allegiance == Allegiance.Ally)
+                continue;
+
+            float distance = Vector3.Distance(units[i].Position, pos);
+
+            if (distance < smallestDistance)
             {
-                if (units[i] != Game.instance.Player.vehicle)
-                    closestUnit = units[i].gameObject;
-                previousDistance = currentDistance;
+                closestUnit = units[i];
+                smallestDistance = distance;
             }
         }
         return closestUnit;
@@ -74,17 +138,23 @@ public class BlueShellScript : Vehicle
 
     private void ColliderListener_onTriggerEnter(ColliderInfo other, ColliderListener listener)
     {
-        if (other.parentUnit.GetComponent<IAttackable>() != null && // Si on peut l'attaquer
-            other.parentUnit.GetComponent<Unit>().allegiance != Allegiance.Ally) // Si cest pas un ally
-            other.parentUnit.GetComponent<IAttackable>().Attacked(other, 1, this); // attaque le
-        Explode();
+        if (other.parentUnit.allegiance != Allegiance.Ally)
+        {
+            IAttackable attackable = other.parentUnit.GetComponent<IAttackable>();
+            if (attackable != null)
+            {
+                attackable.Attacked(other, 1, this);
+            }
+        }
+
+        Die();
     }
 
-    private void Explode()
+    protected override void Die()
     {
-        // TODO
-        Debug.Log("BAM");
+        base.Die();
+
+        //Explosion !
         Destroy(gameObject);
-        onHit.Invoke();
     }
 }

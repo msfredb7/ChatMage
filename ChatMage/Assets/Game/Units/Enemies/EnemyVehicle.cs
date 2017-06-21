@@ -39,7 +39,7 @@ public abstract class EnemyVehicle : Vehicle, IAttackable
     {
         if (restrainToScreenIfApplies)
         {
-            position = RestrainToBounds(position);
+            position = RestrainToBounds(position, Game.instance.unitSnap_horizontalBound, Game.instance.unitSnap_verticalBound);
         }
 
         targetPosition = position;

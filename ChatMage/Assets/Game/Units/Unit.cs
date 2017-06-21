@@ -94,7 +94,7 @@ public abstract class Unit : MonoBehaviour
             return;
 
         if (canUseBorder && (Game.instance.unitSnap_horizontalBound || Game.instance.unitSnap_verticalBound))
-            Position = RestrainToBounds(Position);
+            Position = RestrainToBounds(Position, Game.instance.unitSnap_horizontalBound, Game.instance.unitSnap_verticalBound);
     }
 
     public void CheckActivation()
@@ -114,17 +114,17 @@ public abstract class Unit : MonoBehaviour
         }
     }
 
-    protected Vector2 RestrainToBounds(Vector2 vector)
+    protected Vector2 RestrainToBounds(Vector2 vector, bool horizontal, bool vertical)
     {
         float x = vector.x;
         float y = vector.y;
 
-        if (Game.instance.unitSnap_horizontalBound)
+        if (horizontal)
         {
             float rightBorder = Game.instance.gameCamera.ScreenSize.x / 2 - Game.instance.unitSnap_horizontalBorderWidth - (unitWidth / 2);
             x = Mathf.Clamp(x, -rightBorder, rightBorder);
         }
-        if (Game.instance.unitSnap_verticalBound)
+        if (vertical)
         {
             float halfHeight = Game.instance.gameCamera.ScreenSize.y / 2 - Game.instance.unitSnap_verticalBorderWidth - (unitWidth / 2);
             y = Mathf.Clamp(y, Game.instance.gameCamera.Height - halfHeight, Game.instance.gameCamera.Height + halfHeight);

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,7 +14,7 @@ public class GateScript : Unit, IAttackable
         if (Game.instance != null && !done)
         {
             done = true;
-            Game.instance.units.Add(this);
+            Game.instance.AddExistingUnit(this);
         }
     }
 
