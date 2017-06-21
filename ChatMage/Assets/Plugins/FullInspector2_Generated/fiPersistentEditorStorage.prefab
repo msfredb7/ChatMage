@@ -123,6 +123,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d32e43f24ca6b964f89ef83a2f490d25, type: 2}
   - {fileID: 114050880162731986, guid: 75e777b5d99929440b9e8b722447854b, type: 2}
   - {fileID: 11400000, guid: b25868b51463bb84489444aa5b848b43, type: 2}
+  - {fileID: 114959007032342916, guid: 581be03cd2c4b5d4490c2c9e9283a911, type: 2}
   _values:
   - _keys:
     - DefaultBehaviorEditor.locationButton.EditProperty
@@ -238,6 +239,8 @@ MonoBehaviour:
     - DefaultBehaviorEditor.introPrefab.EditProperty
     - DefaultBehaviorEditor.noHealthPacks.EditProperty
     - DefaultBehaviorEditor.useCustomGenericEvents.EditProperty
+    - DefaultBehaviorEditor.events.EditProperty.1.eventWhen.EditProperty.useSpecificTime.EditProperty
+    - DefaultBehaviorEditor.events.EditProperty.1.eventWhen.EditProperty.useMileStone.EditProperty
     - DefaultBehaviorEditor.waves.EditProperty
     - DefaultBehaviorEditor.waves.EditProperty.Primary.0.onProgressCallbacks.EditProperty.0.completionRate.EditProperty
     - DefaultBehaviorEditor.waves.EditProperty.Primary.1.onProgressCallbacks.EditProperty.0.completionRate.EditProperty
@@ -247,6 +250,10 @@ MonoBehaviour:
     - DefaultBehaviorEditor.objectiveUI.EditProperty
     - DefaultBehaviorEditor.tutorial.EditProperty
     _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
     - _showDropdown: 0
       _serializedIsActive: 1
     - _showDropdown: 0
@@ -468,11 +475,8 @@ MonoBehaviour:
     - _showDropdown: 0
       _serializedIsActive: 1
     _target: {fileID: 11400000, guid: 5805026d5cd333a4e947df8e4f1771ce, type: 2}
-  - _keys:
-    - DefaultBehaviorEditor.attackAngle.EditProperty
-    _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
+  - _keys: []
+    _values: []
     _target: {fileID: 114959007032342916, guid: a97b513999cddca448e173580c0c886f,
       type: 2}
   - _keys: []
@@ -549,6 +553,13 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 11400000, guid: b25868b51463bb84489444aa5b848b43, type: 2}
+  - _keys:
+    - DefaultBehaviorEditor.attackAngle.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    _target: {fileID: 114959007032342916, guid: 581be03cd2c4b5d4490c2c9e9283a911,
+      type: 2}
 --- !u!114 &114891865049736824
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -631,6 +642,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d32e43f24ca6b964f89ef83a2f490d25, type: 2}
   - {fileID: 114050880162731986, guid: 75e777b5d99929440b9e8b722447854b, type: 2}
   - {fileID: 11400000, guid: b25868b51463bb84489444aa5b848b43, type: 2}
+  - {fileID: 114959007032342916, guid: 581be03cd2c4b5d4490c2c9e9283a911, type: 2}
   _values:
   - _keys: []
     _values: []
@@ -859,3 +871,7 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 11400000, guid: b25868b51463bb84489444aa5b848b43, type: 2}
+  - _keys: []
+    _values: []
+    _target: {fileID: 114959007032342916, guid: 581be03cd2c4b5d4490c2c9e9283a911,
+      type: 2}

@@ -49,12 +49,11 @@ public class ShielderVehicle : EnemyVehicle
 
     public override int Attacked(ColliderInfo on, int amount, Unit unit, ColliderInfo source = null)
     {
-        if (onlyKillableBySmash)
+        if (onlyKillableBySmash) // A ENLEVER
         {
-            // TODO
-            // Si le smash l'a tue
-                // kill boss
-            // return 0
+            if(source !=null && source.gameObject.tag == "AC130 Bullet")
+                Die();
+            return 0;
         }
 
         if (on.groupParent == shieldGroup)
