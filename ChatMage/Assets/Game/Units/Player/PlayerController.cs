@@ -1,4 +1,4 @@
-﻿using CCC.Manager;
+using CCC.Manager;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -41,6 +41,7 @@ public class PlayerController : MonoBehaviour
         playerStats.Init(this);
         playerLocations.Init(this);
         playerCarTriggers.Init(this);
+        vehicle.Init(this);
     }
 
     void OnGameReady()
