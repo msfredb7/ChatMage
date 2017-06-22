@@ -16,6 +16,7 @@ public class TutorialStarter : MonoBehaviour {
             return;
         this.tutorial = tutorial;
         tutorialScriptObject = this;
-        tutorial.Begin(canvas);
+        LoadQueue queue = new LoadQueue(tutorial.Start);
+        tutorial.Begin(canvas, queue);
     }
 }

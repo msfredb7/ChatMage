@@ -60,7 +60,10 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
     public InGameEvents inGameEvents;
 
     [InspectorHeader("Tutoriel")]
+    public bool activateTutorial = false;
+    [InspectorShowIf("activateTutorial")]
     public BaseTutorial tutorial;
+    
 
     [fsIgnore, NotSerialized]
     private List<UnitWave> eventTriggeredWaves;
@@ -116,7 +119,8 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
 
         StartWaves();
 
-        StartTutorial();
+        if(activateTutorial)
+            StartTutorial();
 
         //Camera follow player ?
         Game.instance.gameCamera.followPlayer = followPlayerOnStart;
@@ -228,7 +232,7 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
                     {
                         if (tutorial.tutorialEvents[i].milestoneThatTrigger[j] == message)
                         {
-                            tutorial.Execute(tutorial.tutorialEvents[i],null);
+                            tutorial.Execute(tutorial.tutorialEvents[i],false);
                         }
                     }
                 }

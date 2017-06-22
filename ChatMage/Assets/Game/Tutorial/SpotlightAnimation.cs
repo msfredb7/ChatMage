@@ -9,27 +9,22 @@ using UnityEngine.UI;
 public class SpotlightAnimation : MonoBehaviour {
 
     public float fadeDuration = 0.75f;
+    public float baseAlpha = 0.5f;
+    public CanvasGroup canvasGroup;
 
 	public void Init(GameObject canvas)
     {
         gameObject.SetActive(true);
-        foreach (Transform child in transform)
-        {
-            Image currentImage = child.GetComponent<Image>();
-            currentImage.color = new Color(currentImage.color.r, currentImage.color.g, currentImage.color.b,255);
-            //currentImage.DOFade(255, fadeDuration);
-        }
+        canvasGroup.alpha = 0;
+        canvasGroup.DOFade(baseAlpha, fadeDuration).SetUpdate(true);
     }
 
     public void Close(Action onComplete)
     {
-        foreach (Transform child in transform)
-        {
-            Image currentImage = child.GetComponent<Image>();
-            currentImage.color = new Color(currentImage.color.r, currentImage.color.g, currentImage.color.b, 0);
-            //currentImage.DOFade(0, fadeDuration);
-        }
+        canvasGroup.alpha = baseAlpha;
+        canvasGroup.DOFade(0, fadeDuration).SetUpdate(true).OnComplete(delegate() {
+            onComplete.Invoke();
+        });
         gameObject.SetActive(false);
-        onComplete.Invoke();
     }
 }
