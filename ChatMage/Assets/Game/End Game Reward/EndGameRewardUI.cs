@@ -15,7 +15,7 @@ namespace EndGameReward
         public BackgroundFreezer backgroundFreezer;
         public FadingButton continueButton;
 
-
+        public bool DEMO = false;
 
         private string levelScriptAssetName;
         private GameReward reward;
@@ -54,7 +54,10 @@ namespace EndGameReward
 
         void Continue()
         {
-            LoadingScreen.TransitionTo(LevelSelect.LevelSelection.SCENENAME, null);
+            if(DEMO) // A ENLEVER
+                LoadingScreen.TransitionTo(MainMenu.SCENENAME, null);
+            else
+                LoadingScreen.TransitionTo(LevelSelect.LevelSelection.SCENENAME, null);
         }
     }
 }

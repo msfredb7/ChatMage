@@ -245,16 +245,14 @@ MonoBehaviour:
     - DefaultBehaviorEditor.introPrefab.EditProperty
     - DefaultBehaviorEditor.noHealthPacks.EditProperty
     - DefaultBehaviorEditor.useCustomGenericEvents.EditProperty
-    - DefaultBehaviorEditor.events.EditProperty.1.eventWhen.EditProperty.useSpecificTime.EditProperty
-    - DefaultBehaviorEditor.events.EditProperty.1.eventWhen.EditProperty.useMileStone.EditProperty
     - DefaultBehaviorEditor.waves.EditProperty
     - DefaultBehaviorEditor.waves.EditProperty.Primary.0.onProgressCallbacks.EditProperty.0.completionRate.EditProperty
     - DefaultBehaviorEditor.waves.EditProperty.Primary.1.onProgressCallbacks.EditProperty.0.completionRate.EditProperty
     - DefaultBehaviorEditor.waves.EditProperty.Primary.2.onProgressCallbacks.EditProperty.0.completionRate.EditProperty
     - DefaultBehaviorEditor.rewards.EditProperty
+    - DefaultBehaviorEditor.tutorial.EditProperty
     - DefaultBehaviorEditor.healthPacks.EditProperty
     - DefaultBehaviorEditor.objectiveUI.EditProperty
-    - DefaultBehaviorEditor.tutorial.EditProperty
     _values:
     - _showDropdown: 0
       _serializedIsActive: 1
@@ -266,10 +264,6 @@ MonoBehaviour:
       _serializedIsActive: 1
     - _showDropdown: 0
       _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
     - _showDropdown: 1
       _serializedIsActive: 1
     - _showDropdown: 0
@@ -280,7 +274,7 @@ MonoBehaviour:
       _serializedIsActive: 1
     - _showDropdown: 1
       _serializedIsActive: 1
-    - _showDropdown: 0
+    - _showDropdown: 1
       _serializedIsActive: 1
     - _showDropdown: 0
       _serializedIsActive: 1
@@ -447,8 +441,14 @@ MonoBehaviour:
     - _showDropdown: 0
       _serializedIsActive: 1
     _target: {fileID: 11400000, guid: 12b777d6414858342ac4da6d12ffb4d8, type: 2}
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.tutorialEvents.EditProperty.0.useSpecificTime.EditProperty
+    - DefaultBehaviorEditor.tutorialEvents.EditProperty.0.useMileStone.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
     _target: {fileID: 11400000, guid: 462d301430296524a849ffb402b96b3b, type: 2}
   - _keys: []
     _values: []

@@ -8,6 +8,7 @@ public class TutorialStarter : MonoBehaviour {
     [System.NonSerialized]
     public BaseTutorial tutorial = null;
     public static MonoBehaviour tutorialScriptObject = null;
+    public GameObject canvas;
 
     public void Init(BaseTutorial tutorial)
     {
@@ -15,6 +16,6 @@ public class TutorialStarter : MonoBehaviour {
             return;
         this.tutorial = tutorial;
         tutorialScriptObject = this;
-        tutorial.Begin();
+        tutorial.Begin(canvas);
     }
 }

@@ -2,28 +2,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DemoTutorial : BaseTutorial {
 
-    private bool focusOnPlayer = false;
-    public GameObject menuOption;
+    public string positionLeftInputWaypointPrefabName;
+
+    private GameObject leftInputWaypoint;
+
+    private GameObject currentleftInputWaypoint;
 
     protected override void Start()
     {
         base.Start();
-        if (TutorialStarter.tutorialScriptObject != null)
-        {
-            DelayManager.LocalCallTo(delegate ()
-            {
-                GameObject options;
-                if (menuOption == null)
-                    options = Game.instance.ui.menuOption.gameObject;
-                else
-                    options = menuOption;
-                FocusInput(options, true);
-                ShowInfo("Voici le menu option ! Changer le volume, quitter la partie ou recommencer le niveau.");
-            }, 1, TutorialStarter.tutorialScriptObject);
-        }
+        LoadQueue queue = new LoadQueue(null);
+        queue.AddUI(positionLeftInputWaypointPrefabName, (x) => leftInputWaypoint = x);
     }
 
     public override void Update()
@@ -33,7 +26,13 @@ public class DemoTutorial : BaseTutorial {
 
     public override void End()
     {
-        focusOnPlayer = false;
         base.End();
+    }
+
+    public void ShowLeftInput()
+    {
+        currentleftInputWaypoint = Instantiate(leftInputWaypoint, currentCanvas.transform);
+        currentleftInputWaypoint.GetComponent<Button>().onClick.AddListener(delegate () { Destroy(currentleftInputWaypoint); });
+        FocusInput(currentleftInputWaypoint, true);
     }
 }

@@ -1,35 +1,59 @@
 ﻿using CCC.Manager;
+using DG.Tweening;
 using FullInspector;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class BaseTutorial : BaseScriptableObject
 {
-    private GameObject canvas;
-    private GameObject spotLight;
-    private GameObject inputBlocker;
-    private GameObject buttonPrefab;
-    private GameObject tutorialInfoDisplay;
+    public class TutorialEvent
+    {
+        [InspectorTooltip("Who's the script with the event")]
+        public string scriptName;
+        [InspectorTooltip("Function name to cast the event")]
+        public string functionName;
+        [InspectorHeader("Use a specific time to start the event")]
+        public bool useSpecificTime = false;
+        [InspectorShowIf("useSpecificTime")]
+        public float when = 0;
+        [InspectorHeader("Use a milestone to start the event")]
+        public bool useMileStone = false;
+        [InspectorShowIf("useMileStone")]
+        public List<string> milestoneThatTrigger = new List<string>();
+        [InspectorTooltip("If at false, time counter won't start from" +
+            "beginning but from where it was trigger (example : from outside)")]
+        public bool invokeOnGameStarted = true;
 
-    private GameObject currentCanvas;
-    private GameObject currentSpotLight;
-    private GameObject currentInputBlocker;
-    private GameObject currentButtonPrefab;
-    private GameObject currentTutorialInfoDisplay;
+    }
+
+    public List<TutorialEvent> tutorialEvents = new List<TutorialEvent>();
+    
+    protected GameObject spotLight;
+    protected GameObject inputBlocker;
+    protected GameObject buttonPrefab;
+    protected GameObject tutorialInfoDisplay;
+
+    protected GameObject currentCanvas;
+    protected GameObject currentSpotLight;
+    protected GameObject currentInputBlocker;
+    protected GameObject currentButtonPrefab;
+    protected GameObject currentTutorialInfoDisplay;
 
     /// <summary>
     /// Utiliser pour l'initialisation des variables
     /// </summary>
-	public virtual void Begin()
+	public virtual void Begin(GameObject canvas)
     {
         LoadQueue queue = new LoadQueue(Start);
         queue.AddUI("Spotlight", (x) => spotLight = x);
-        queue.AddUI("BasicCanvas", (x) => canvas = x);
         queue.AddUI("InputDisabler", (x) => inputBlocker = x);
         queue.AddUI("ReplacementButton", (x) => buttonPrefab = x);
         queue.AddUI("InfoDisplay", (x) => tutorialInfoDisplay = x);
+        currentCanvas = canvas;
     }
 
     /// <summary>
@@ -37,13 +61,22 @@ public class BaseTutorial : BaseScriptableObject
     /// </summary>
     protected virtual void Start()
     {
-        currentCanvas = Instantiate(canvas);
+        Sequence sq = DOTween.Sequence();
+
+        for (int i = 0; i < tutorialEvents.Count; i++)
+        {
+            if (tutorialEvents[i].invokeOnGameStarted || tutorialEvents[i].useSpecificTime)
+                Execute(tutorialEvents[i], null);
+        }
     }
 
     /// <summary>
     /// Chaque update du jeu
     /// </summary>
-    public virtual void Update() { }
+    public virtual void Update()
+    {
+
+    }
 
     /// <summary>
     /// Fin de la partie
@@ -54,6 +87,16 @@ public class BaseTutorial : BaseScriptableObject
         if(currentTutorialInfoDisplay != null) // Si on arretait la partie avant d'avoir display un seul text dans le tutoriel, il y avait erreur ici
             currentTutorialInfoDisplay.GetComponent<TutorialInfo>().OnEnd();
         Scenes.UnloadAsync("Tutorial");
+    }
+
+    public void Execute(TutorialEvent tutorialEvent, Sequence sequence){
+        Type thisType = Type.GetType(tutorialEvent.scriptName);
+        MethodInfo theMethod = thisType.GetMethod(tutorialEvent.functionName);
+
+        if(sequence == null)
+            theMethod.Invoke(this, null);
+        //else
+            //sequence.InsertCallback(tutorialEvent.when, delegate () { theMethod.Invoke(Game.instance.currentLevel, null); });
     }
 
     /// <summary>
@@ -97,12 +140,14 @@ public class BaseTutorial : BaseScriptableObject
     /// <summary>
     /// Le spotlight disparait
     /// </summary>
-    protected void DeFocusSpotLight(bool resetTime)
+    protected void DeFocusSpotLight(bool resetTime, Action onComplete)
     {
-        if (resetTime)
-            Time.timeScale = 1;
-        currentSpotLight.GetComponent<SpotlightAnimation>().Close();
-        currentInputBlocker.SetActive(false);
+        currentSpotLight.GetComponent<SpotlightAnimation>().Close(delegate() {
+            if (resetTime)
+                Time.timeScale = 1;
+            currentInputBlocker.SetActive(false);
+            onComplete.Invoke();
+        });
     }
 
     /// <summary>
@@ -116,7 +161,7 @@ public class BaseTutorial : BaseScriptableObject
         {
             if (currentCanvas != null)
                     currentButtonPrefab = Instantiate(buttonPrefab, currentCanvas.transform);
-                else
+            else
                 return;
         }
 
@@ -124,11 +169,13 @@ public class BaseTutorial : BaseScriptableObject
         currentButtonPrefab.SetActive(true);
         currentButtonPrefab.GetComponent<Button>().onClick.AddListener(delegate ()
         {
-            obj.GetComponent<Button>().onClick.Invoke();
-            if (currentTutorialInfoDisplay.GetComponent<TutorialInfo>() != null)
-                currentTutorialInfoDisplay.GetComponent<TutorialInfo>().OnEnd();
-            DeFocusSpotLight(stopTime);
-            currentInputBlocker.SetActive(false);
+            DeFocusSpotLight(stopTime, delegate () {
+                obj.GetComponent<Button>().onClick.Invoke();
+                if (currentTutorialInfoDisplay != null)
+                    currentTutorialInfoDisplay.GetComponent<TutorialInfo>().OnEnd();
+                currentInputBlocker.SetActive(false);
+                currentButtonPrefab.SetActive(false);
+            });
         });
     }
 
