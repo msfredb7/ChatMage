@@ -19,6 +19,8 @@ public class ITM_BlueShell : Item
     private bool shellSpawned = false;
     [NonSerialized, FullSerializer.fsIgnore]
     private float countdown;
+    [NonSerialized, FullSerializer.fsIgnore]
+    private BlueShellScript currentBlueShell;
 
     public override void OnGameReady()
     {
@@ -30,6 +32,7 @@ public class ITM_BlueShell : Item
         shellSpawned = false;
 
         enable = false; // A ENLEVER
+        //enable = true; // A ENLEVER
     }
 
     public override void OnUpdate()
@@ -48,10 +51,18 @@ public class ITM_BlueShell : Item
 
     void LaunchShell()
     {
-        BlueShellScript blueShell = Game.instance.SpawnUnit(blueShellPrefab, player.vehicle.Position);
+        //On attend que la shell precedente sois desactiver
+        if (currentBlueShell != null && currentBlueShell.gameObject.activeSelf)
+            return;
+
+        if (currentBlueShell == null)
+            currentBlueShell = Game.instance.SpawnUnit(blueShellPrefab, player.vehicle.Position);
+
+        currentBlueShell.ResetValues(player.vehicle.Position);
+
         shellSpawned = true;
 
-        blueShell.onDeath += delegate (Unit unit)
+        currentBlueShell.onDeath += delegate (Unit unit)
         {
             shellSpawned = false;
             countdown = spawnCooldown;
