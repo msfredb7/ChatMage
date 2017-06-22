@@ -5,11 +5,17 @@ using UnityEngine;
 public class BlueShellScript : Vehicle
 {
     public SimpleColliderListener colliderListener;
+    public event SimpleEvent onDeactivate;
 
     [Header("Blue Shell")]
+    public BlueShellAnimator animator;
+
     [Header("Behavior")]
     public float wanderDuration;
     public float screenBorderWidth = 1.5f;
+    public float explosionNormalRadius;
+    public float explosionBoostedRadius;
+
     [Header("Movement")]
     public float maxTurnSpeed = 500;
     public float maxTurnAcceleration = 2000;
@@ -19,24 +25,42 @@ public class BlueShellScript : Vehicle
     private Unit target = null;
 
     private bool wandering = true;
+    private float wanderingRemains;
 
     private float chooseNewTurnAcc;
     private float turnAcc;
     private float turnSpeed;
-
-    void Start()
+    
+    protected override void Awake()
     {
+        base.Awake();
         colliderListener.onTriggerEnter += ColliderListener_onTriggerEnter;
+    }
+
+    public void ResetValues(Vector2 position)
+    {
         if (Game.instance.Player != null)
             Rotation = Game.instance.Player.vehicle.Rotation;
+
+        gameObject.SetActive(true);
+        enabled = true;
+        tr.position = position;
+        target = null;
+        wandering = true;
+        wanderingRemains = wanderDuration;
+        turnAcc = 0;
+        turnSpeed = 0;
+        chooseNewTurnAcc = 0;
+
+        animator.ResetValues();
     }
 
     void Update()
     {
-        if (wandering && wanderDuration < 0)
+        if (wandering && wanderingRemains < 0)
             wandering = false;
 
-        wanderDuration -= DeltaTime();
+        wanderingRemains -= DeltaTime();
     }
 
     protected override void FixedUpdate()
@@ -150,11 +174,24 @@ public class BlueShellScript : Vehicle
         Die();
     }
 
+    public override void CheckActivation()
+    {
+        //On ne desactive jamais
+    }
+
     protected override void Die()
     {
         base.Die();
 
-        //Explosion !
-        Destroy(gameObject);
+        rb.velocity = Vector2.zero;
+        enabled = false;
+
+        animator.Explode(explosionNormalRadius,
+            delegate ()
+            {
+                gameObject.SetActive(false);
+                if (onDeactivate != null)
+                    onDeactivate();
+            });
     }
 }

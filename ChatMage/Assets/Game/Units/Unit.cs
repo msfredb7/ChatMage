@@ -97,7 +97,7 @@ public abstract class Unit : MonoBehaviour
             Position = RestrainToBounds(Position, Game.instance.unitSnap_horizontalBound, Game.instance.unitSnap_verticalBound);
     }
 
-    public void CheckActivation()
+    public virtual void CheckActivation()
     {
         float delta = Mathf.Abs(Game.instance.gameCamera.Height - rb.position.y);
         float range = overrideDeactivationRange ? newDeactivationRange : deactivationRange;
