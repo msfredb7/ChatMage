@@ -12,6 +12,8 @@ public class BlueShellAnimator : MonoBehaviour
 
     [Header("Explosion")]
     public LayerMask explosionLayerMask;
+    public float explosionNormalRadius = 2;
+    public float explosionBoostedRadius = 3;
 
     [Header("Core Animation")]
     public Animator coreAnimator;
@@ -34,6 +36,7 @@ public class BlueShellAnimator : MonoBehaviour
 
     private Sequence tween;
     private bool atLeastAFrame = false;
+    private float radius = 0;
 
     public void ResetValues()
     {
@@ -42,9 +45,14 @@ public class BlueShellAnimator : MonoBehaviour
         lightFade.enabled = false;
         shockWave.enabled = false;
         atLeastAFrame = false;
+
+        if (Game.instance.Player != null && Game.instance.Player.playerStats.boostedAOE)
+            radius = explosionBoostedRadius;
+        else
+            radius = explosionNormalRadius;
     }
 
-    public void Explode(float radius, TweenCallback onComplete)
+    public void Explode(TweenCallback onComplete)
     {
         //Enables
         shell.enabled = false;

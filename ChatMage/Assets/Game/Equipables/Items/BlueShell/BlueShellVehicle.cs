@@ -13,8 +13,6 @@ public class BlueShellVehicle : Vehicle
     [Header("Behavior")]
     public float wanderDuration;
     public float screenBorderWidth = 1.5f;
-    public float explosionNormalRadius;
-    public float explosionBoostedRadius;
 
     [Header("Movement")]
     public float maxTurnSpeed = 500;
@@ -184,8 +182,7 @@ public class BlueShellVehicle : Vehicle
         rb.velocity = Vector2.zero;
         enabled = false;
 
-        animator.Explode(explosionNormalRadius,
-            delegate ()
+        animator.Explode(delegate ()
             {
                 gameObject.SetActive(false);
                 if (onDeactivate != null)
