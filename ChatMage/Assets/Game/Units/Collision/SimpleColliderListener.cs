@@ -47,7 +47,7 @@ public class SimpleColliderListener : ColliderListener
             onTriggerEnter.Invoke(info, this);
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    public void OnCollisionEnter2D(Collision2D collision)
     {
         //print("collision between: " + collision.collider.gameObject.name + " / " + collision.otherCollider.gameObject.name);
         if (!useCollision)
@@ -61,7 +61,7 @@ public class SimpleColliderListener : ColliderListener
             onCollisionEnter(info, collision, this);
     }
 
-    void OnCollisionExit2D(Collision2D collision)
+    public void OnCollisionExit2D(Collision2D collision)
     {
         if (!useCollision)
             return;

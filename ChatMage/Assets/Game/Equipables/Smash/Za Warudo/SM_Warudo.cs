@@ -110,7 +110,7 @@ public class SM_Warudo : Smash
             return;
         for (int i = 0; i < units.Count; i++)
         {
-            if (units[i].allegiance == Allegiance.Ally)
+            if (units[i] == player.vehicle)
                 continue;
 
             units[i].TimeScale = amount;

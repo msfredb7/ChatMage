@@ -27,11 +27,26 @@ public class BaseTutorial : BaseScriptableObject
         [InspectorTooltip("If at false, time counter won't start from" +
             "beginning but from where it was trigger (example : from outside)")]
         public bool invokeOnGameStarted = true;
+        [InspectorHeader("Will start this event when the other one is over")]
+        public bool startAfterAnEvent = false;
+        [InspectorShowIf("startAfterAnEvent")]
+        public int tutorialEventIndex;
+        public SimpleEvent onComplete;
 
+        [HideInInspector, NonSerialized]
+        public bool alreadyExecute = false;
+
+        public void OnComplete() {
+            if(onComplete != null)
+            {
+                onComplete.Invoke();
+            }
+            Debug.Log(functionName + "Event Complete");
+        }
     }
 
     public List<TutorialEvent> tutorialEvents = new List<TutorialEvent>();
-    
+
     protected GameObject spotLight;
     protected GameObject inputBlocker;
     protected GameObject buttonPrefab;
@@ -46,9 +61,8 @@ public class BaseTutorial : BaseScriptableObject
     /// <summary>
     /// Utiliser pour l'initialisation des variables
     /// </summary>
-	public virtual void Begin(GameObject canvas)
+	public virtual void Begin(GameObject canvas, LoadQueue queue)
     {
-        LoadQueue queue = new LoadQueue(Start);
         queue.AddUI("Spotlight", (x) => spotLight = x);
         queue.AddUI("InputDisabler", (x) => inputBlocker = x);
         queue.AddUI("ReplacementButton", (x) => buttonPrefab = x);
@@ -59,14 +73,28 @@ public class BaseTutorial : BaseScriptableObject
     /// <summary>
     /// Debut du tutoriel
     /// </summary>
-    protected virtual void Start()
+    public virtual void Start()
     {
-        Sequence sq = DOTween.Sequence();
-
+        // Avant meme de commencer a faire les events, on doit s'assurer que l'enchainement se fera comme il faut
         for (int i = 0; i < tutorialEvents.Count; i++)
         {
+            TutorialEvent currentTutorial = tutorialEvents[i];
+            if (currentTutorial.startAfterAnEvent)
+            {
+                tutorialEvents[currentTutorial.tutorialEventIndex].onComplete += delegate () { Execute(currentTutorial, true); };
+                // Never Execute It Again
+                currentTutorial.alreadyExecute = true;
+            }
+                
+        }
+
+        // On peut ensuite commencer les events qui sont start au debut
+        for (int i = 0; i < tutorialEvents.Count; i++)
+        {
+            if (tutorialEvents[i].alreadyExecute)
+                continue;
             if (tutorialEvents[i].invokeOnGameStarted || tutorialEvents[i].useSpecificTime)
-                Execute(tutorialEvents[i], null);
+                Execute(tutorialEvents[i], true);
         }
     }
 
@@ -84,19 +112,32 @@ public class BaseTutorial : BaseScriptableObject
     public virtual void End()
     {
         TutorialStarter.tutorialScriptObject.StopAllCoroutines();
-        if(currentTutorialInfoDisplay != null) // Si on arretait la partie avant d'avoir display un seul text dans le tutoriel, il y avait erreur ici
+        if (currentTutorialInfoDisplay != null) // Si on arretait la partie avant d'avoir display un seul text dans le tutoriel, il y avait erreur ici
             currentTutorialInfoDisplay.GetComponent<TutorialInfo>().OnEnd();
         Scenes.UnloadAsync("Tutorial");
     }
 
-    public void Execute(TutorialEvent tutorialEvent, Sequence sequence){
+    public void Execute(TutorialEvent tutorialEvent, bool useTime)
+    {
+        tutorialEvent.alreadyExecute = true;
+
+        // Find the Action/Method to Invoke
         Type thisType = Type.GetType(tutorialEvent.scriptName);
         MethodInfo theMethod = thisType.GetMethod(tutorialEvent.functionName);
 
-        if(sequence == null)
-            theMethod.Invoke(this, null);
-        //else
-            //sequence.InsertCallback(tutorialEvent.when, delegate () { theMethod.Invoke(Game.instance.currentLevel, null); });
+        // Gere le temps
+        Sequence sequence = DOTween.Sequence().SetUpdate(true);
+        
+        if (useTime && tutorialEvent.useSpecificTime)
+            sequence.InsertCallback(tutorialEvent.when, delegate () {
+                theMethod.Invoke(Game.instance.currentLevel.tutorial, null);
+                tutorialEvent.OnComplete();
+            });
+        else
+        {
+            theMethod.Invoke(Game.instance.currentLevel.tutorial, null);
+            tutorialEvent.OnComplete();
+        }
     }
 
     /// <summary>
@@ -127,7 +168,7 @@ public class BaseTutorial : BaseScriptableObject
                 return;
         }
 
-        currentSpotLight.transform.position = position;
+        currentSpotLight.GetComponent<RectTransform>().anchoredPosition = position;
         currentSpotLight.GetComponent<SpotlightAnimation>().Init(currentCanvas);
         if (blockInput)
         {
@@ -138,15 +179,50 @@ public class BaseTutorial : BaseScriptableObject
     }
 
     /// <summary>
+    /// Le spotlight se déplacera à la position donnant une impression d'emphase
+    /// </summary>
+    protected void FocusSpotLight(bool blockInput = false, bool stopTime = false)
+    {
+        if (stopTime)
+            Time.timeScale = 0;
+        if (currentSpotLight == null)
+        {
+            if (currentCanvas != null)
+                currentSpotLight = Instantiate(spotLight, currentCanvas.transform);
+            else
+                return;
+        }
+        
+        currentSpotLight.GetComponent<SpotlightAnimation>().Init(currentCanvas);
+        if (blockInput)
+        {
+            if (currentInputBlocker == null)
+                currentInputBlocker = Instantiate(inputBlocker, currentCanvas.transform);
+            currentInputBlocker.SetActive(true);
+        }
+    }
+
+    /// <summary>
+    /// Le spotlight se déplacera à la position donnant une impression d'emphase
+    /// </summary>
+    protected void MoveSpotlight(Vector2 position, Action onComplete, float speed = 1)
+    {
+        Tweener animation = currentSpotLight.transform.DOMove(position, speed).SetUpdate(true);
+        animation.OnComplete(delegate () { onComplete.Invoke(); });
+    }
+
+    /// <summary>
     /// Le spotlight disparait
     /// </summary>
     protected void DeFocusSpotLight(bool resetTime, Action onComplete)
     {
-        currentSpotLight.GetComponent<SpotlightAnimation>().Close(delegate() {
+        currentSpotLight.GetComponent<SpotlightAnimation>().Close(delegate ()
+        {
             if (resetTime)
                 Time.timeScale = 1;
             currentInputBlocker.SetActive(false);
-            onComplete.Invoke();
+            if(onComplete != null)
+                onComplete.Invoke();
         });
     }
 
@@ -160,16 +236,18 @@ public class BaseTutorial : BaseScriptableObject
         if (currentButtonPrefab == null)
         {
             if (currentCanvas != null)
-                    currentButtonPrefab = Instantiate(buttonPrefab, currentCanvas.transform);
+                currentButtonPrefab = Instantiate(buttonPrefab, currentCanvas.transform);
             else
                 return;
         }
 
-        currentButtonPrefab.transform.position = obj.transform.position;
+        currentSpotLight.GetComponent<RectTransform>().anchoredPosition = obj.transform.position;
         currentButtonPrefab.SetActive(true);
+        currentButtonPrefab.GetComponent<Button>().onClick.RemoveAllListeners();
         currentButtonPrefab.GetComponent<Button>().onClick.AddListener(delegate ()
         {
-            DeFocusSpotLight(stopTime, delegate () {
+            DeFocusSpotLight(stopTime, delegate ()
+            {
                 obj.GetComponent<Button>().onClick.Invoke();
                 if (currentTutorialInfoDisplay != null)
                     currentTutorialInfoDisplay.GetComponent<TutorialInfo>().OnEnd();
@@ -179,21 +257,22 @@ public class BaseTutorial : BaseScriptableObject
         });
     }
 
-    protected void ShowInfo(string text)
+    protected void ShowInfo(string text, float delay)
     {
         if (currentTutorialInfoDisplay == null)
         {
             if (currentCanvas != null)
-                    currentTutorialInfoDisplay = Instantiate(tutorialInfoDisplay, currentCanvas.transform);
-                else
+                currentTutorialInfoDisplay = Instantiate(tutorialInfoDisplay, currentCanvas.transform);
+            else
                 return;
         }
 
         TutorialInfo info = currentTutorialInfoDisplay.GetComponent<TutorialInfo>();
         info.DisplayInfo(text);
-        DelayManager.LocalCallTo(delegate ()
+        Sequence sq = DOTween.Sequence().SetUpdate(true);
+        sq.InsertCallback(delay, delegate ()
         {
             info.OnEnd();
-        }, info.coolDown, TutorialStarter.tutorialScriptObject);
+        });
     }
 }

@@ -10,7 +10,7 @@ public class ITM_BlueShell : Item
     public bool enable = false; // A ENLEVER
 
     [InspectorHeader("Linking")]
-    public BlueShellScript blueShellPrefab;
+    public BlueShellVehicle blueShellPrefab;
 
     [InspectorHeader("Settings")]
     public float spawnCooldown;
@@ -20,7 +20,7 @@ public class ITM_BlueShell : Item
     [NonSerialized, FullSerializer.fsIgnore]
     private float countdown;
     [NonSerialized, FullSerializer.fsIgnore]
-    private BlueShellScript currentBlueShell;
+    private BlueShellVehicle currentBlueShell;
 
     public override void OnGameReady()
     {
