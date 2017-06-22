@@ -134,13 +134,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1905597551196598}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: -0.005, y: 0, z: 0}
   m_LocalScale: {x: 0.9, y: 0.9, z: 0.25}
   m_Children: []
   m_Father: {fileID: 4693194592150430}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!4 &4950745757755238
 Transform:
   m_ObjectHideFlags: 1
@@ -255,7 +255,7 @@ TrailRenderer:
   m_Time: 0.2
   m_Parameters:
     serializedVersion: 2
-    widthMultiplier: 0.75
+    widthMultiplier: 0.7
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -378,19 +378,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b1ee7a727a8a44468c49c96f0b21820, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shellUnit: {fileID: 114295191393076528}
-  core: {fileID: 4975040251733182}
   shell: {fileID: 212779750511819620}
-  coreSizeMultiplier: 0.6
-  lightFade: {fileID: 212044938493953132}
-  lightSizeMultiplier: 0.8
-  shockWave: {fileID: 212043472984337964}
+  shellUnit: {fileID: 114295191393076528}
+  explosionLayerMask:
+    serializedVersion: 2
+    m_Bits: 3072
   coreAnimator: {fileID: 95588870808050168}
+  coreSizeMultiplier: 0.6
   coreBeginSize: 0.5
   coreGrowTime: 0.36
   coreEase: 27
+  lightFade: {fileID: 212044938493953132}
+  lightSizeMultiplier: 0.8
   lightBeginopacity: 0.7
   lightIncreaseTime: 0.2
+  shockWave: {fileID: 212043472984337964}
   shockWaveBeginSize: 0.5
   shockWaveEndSize: 4
   shockWaveDuration: 0.15

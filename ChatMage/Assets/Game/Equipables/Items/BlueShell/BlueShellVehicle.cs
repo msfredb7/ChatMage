@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlueShellScript : Vehicle
+public class BlueShellVehicle : Vehicle
 {
     public SimpleColliderListener colliderListener;
     public event SimpleEvent onDeactivate;
@@ -30,11 +30,19 @@ public class BlueShellScript : Vehicle
     private float chooseNewTurnAcc;
     private float turnAcc;
     private float turnSpeed;
-    
+
     protected override void Awake()
     {
         base.Awake();
         colliderListener.onTriggerEnter += ColliderListener_onTriggerEnter;
+
+        onTimeScaleChange += BlueShellScript_onTimeScaleChange;
+    }
+
+    private void BlueShellScript_onTimeScaleChange(Unit unit)
+    {
+        if (GetComponent<TrailRenderer>() != null)
+            GetComponent<TrailRenderer>().time = 0.2f / TimeScale;
     }
 
     public void ResetValues(Vector2 position)
@@ -90,7 +98,6 @@ public class BlueShellScript : Vehicle
 
     private void Wander(float deltaTime)
     {
-
         //Est-ce que la shell est a l'exterieur des bodure ?
         if (IsOutOfBounds(Position))
         {
@@ -162,15 +169,6 @@ public class BlueShellScript : Vehicle
 
     private void ColliderListener_onTriggerEnter(ColliderInfo other, ColliderListener listener)
     {
-        if (other.parentUnit.allegiance != Allegiance.Ally)
-        {
-            IAttackable attackable = other.parentUnit.GetComponent<IAttackable>();
-            if (attackable != null)
-            {
-                attackable.Attacked(other, 1, this);
-            }
-        }
-
         Die();
     }
 
