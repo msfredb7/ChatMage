@@ -13,6 +13,7 @@ public class BlueShellAnimator : MonoBehaviour
     public SpriteRenderer lightFade;
     public float lightSizeMultiplier = 0.8f;
     public SpriteRenderer shockWave;
+    public Animator coreAnimator;
 
     [Header("Settings")]
     //public float coreDuration = 1;
@@ -49,6 +50,8 @@ public class BlueShellAnimator : MonoBehaviour
         core.localScale = Vector2.one * coreSizeMultiplier * coreBeginSize * size;
         lightFade.transform.localScale = Vector2.one * lightSizeMultiplier * size;
         shockWave.transform.localScale = Vector2.one * shockWaveBeginSize;
+        Color stdColor = shockWave.color;
+        shockWave.color = new Color(stdColor.r, stdColor.g, stdColor.b, 1);
 
         //animations
         sq.Join(core.DOScale(coreSizeMultiplier * size, coreGrowTime).SetEase(coreEase));
@@ -59,6 +62,7 @@ public class BlueShellAnimator : MonoBehaviour
 
         sq.OnComplete(delegate ()
         {
+            coreAnimator.SetTrigger("End");
             if (onComplete != null)
                 onComplete();
         });
