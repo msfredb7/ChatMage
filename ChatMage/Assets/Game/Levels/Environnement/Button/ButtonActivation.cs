@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class ButtonActivation : MonoBehaviour {
-
-    public IActivator objectToActivate;
+public class ButtonActivation : MonoBehaviour
+{
+    public UnityEvent onActivate = new UnityEvent();
 
     private bool buttonPressed;
 
@@ -13,16 +14,13 @@ public class ButtonActivation : MonoBehaviour {
         if (buttonPressed)
         {
             buttonPressed = false;
-            if (objectToActivate != null)
-            {
-                objectToActivate.Activate();
-            }
+            onActivate.Invoke();
         }
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(!buttonPressed)
+        if (!buttonPressed)
             buttonPressed = true;
         // Button animation
     }
