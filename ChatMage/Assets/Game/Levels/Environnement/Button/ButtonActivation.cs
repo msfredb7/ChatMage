@@ -1,10 +1,10 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ButtonActivation : MonoBehaviour {
 
-    public Activator objectToActivate;
+    public IActivator objectToActivate;
 
     private bool buttonPressed;
 

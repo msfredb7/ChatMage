@@ -1,8 +1,8 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Activator : MonoBehaviour {
+public interface IActivator {
 
-    public abstract void Activate();
+    void Activate();
 }

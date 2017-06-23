@@ -1,11 +1,11 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DemoActivator : Activator
+public class DemoActivator : MonoBehaviour, IActivator
 {
-    public override void Activate()
+    public void Activate()
     {
         Debug.Log("Button Activated");
     }
