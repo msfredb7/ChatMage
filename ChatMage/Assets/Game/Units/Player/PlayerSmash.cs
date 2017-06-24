@@ -52,8 +52,11 @@ public class PlayerSmash : PlayerComponent
             return;
         hasSmash = false;
 
+        if (onSmashStarted != null)
+            onSmashStarted();
+
         smash.OnSmash(
-            delegate()
+            delegate ()
             {
                 if (onSmashCompleted != null)
                     onSmashCompleted.Invoke();

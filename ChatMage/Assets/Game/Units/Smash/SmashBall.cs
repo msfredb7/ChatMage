@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class SmashBall : Unit, IAttackable
 {
@@ -41,16 +42,6 @@ public class SmashBall : Unit, IAttackable
     public void ForceDeath()
     {
         Die();
-    }
-
-    protected override void Die()
-    {
-        //Call base event
-        base.Die();
-
-
-        //Death animation !
-        Destroy(gameObject);
     }
 
     public int Attacked(ColliderInfo on, int amount, Unit otherUnit, ColliderInfo source = null)

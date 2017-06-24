@@ -37,6 +37,7 @@ public class Game : PublicSingleton<Game>
     [fsIgnore]
     public StatFloat worldTimeScale = new StatFloat(1, 0, float.MaxValue, BoundMode.Cap);
     public PlayerController Player { get { return player; } }
+    public bool IsPlayerVisible { get { return player != null && player.gameObject.activeSelf && player.playerStats.isVisible; } }
     private PlayerController player;
 
     [fsIgnore]

@@ -10,7 +10,11 @@ public class PlayerCarTriggers : PlayerComponent
     public delegate void UnitDetectionEvent(Unit unit, CarSide carTrigger);
     public event UnitDetectionEvent onHitUnit;
 
+    [Header("Hit Animation")]
     public float camHitStrengthOnHit = 0.05f;
+    public BasicRepeatedAnimator hitAnimationPrefab;
+    private BasicRepeatedAnimator hitAnimation;
+
 
     [Header("Trigger Listeners")]
     public MultipleColliderListener masterTriggerListener;
@@ -96,6 +100,8 @@ public class PlayerCarTriggers : PlayerComponent
 
             //Camera shake!
             Game.instance.gameCamera.vectorShaker.Hit((transform.position - other.transform.position).normalized * camHitStrengthOnHit);
+            //Hit animation
+            hitAnimation.Animate(other.transform.position);
         }
     }
 
@@ -119,6 +125,14 @@ public class PlayerCarTriggers : PlayerComponent
         else if (remote == rightCol)
             return CarSide.Right;
         return CarSide.Front;
+    }
+
+    public override void Init(PlayerController controller)
+    {
+        base.Init(controller);
+
+        hitAnimation = Instantiate(hitAnimationPrefab.gameObject, Game.instance.unitsContainer).GetComponent<BasicRepeatedAnimator>();
+        hitAnimation.gameObject.SetActive(false);
     }
     public override void OnGameReady()
     {

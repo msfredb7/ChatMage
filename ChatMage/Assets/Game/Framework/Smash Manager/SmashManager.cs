@@ -127,6 +127,8 @@ public class SmashManager : MonoBehaviour
         if (followTargetParent != null)
             followTargetParent.gameObject.SetActive(false);
 
+        currentSmashBall = null;
+
         Game.instance.Player.playerSmash.GainSmash();
         Game.instance.Player.playerSmash.onSmashCompleted += OnSmashCompleted;
     }

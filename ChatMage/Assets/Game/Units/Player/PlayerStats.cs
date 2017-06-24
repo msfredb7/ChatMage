@@ -10,6 +10,10 @@ public class PlayerStats : PlayerComponent, IAttackable
     [Header("Camera Shake")]
     public float onHitShakeStrength = 0.35f;
 
+    [Header("Lose HP Prefab")]
+    public BasicRepeatedAnimator loseHpPrefab;
+    private BasicRepeatedAnimator loseHpAnimator;
+
     [NonSerialized]
     public Locker receivesTurnInput = new Locker();
     [NonSerialized]
@@ -69,7 +73,7 @@ public class PlayerStats : PlayerComponent, IAttackable
         if (amount <= 0)
             return health + armor;
 
-        
+
         //Shake camera !
         Vector2 camShakeDir;
         if (source != null)
@@ -78,6 +82,9 @@ public class PlayerStats : PlayerComponent, IAttackable
             camShakeDir = -controller.vehicle.WorldDirection2D();
         Game.instance.gameCamera.vectorShaker.Hit(camShakeDir.normalized * onHitShakeStrength);
 
+        //Hit Animation
+        if (loseHpAnimator != null)
+            loseHpAnimator.Animate(on.transform.position);
 
         //Reduce health / armor
         int damageToArmor = amount;
@@ -95,6 +102,17 @@ public class PlayerStats : PlayerComponent, IAttackable
 
 
         return health + armor;
+    }
+
+    public override void Init(PlayerController controller)
+    {
+        base.Init(controller);
+
+        if (loseHpPrefab != null)
+        {
+            loseHpAnimator = Instantiate(loseHpPrefab.gameObject, Game.instance.unitsContainer).GetComponent<BasicRepeatedAnimator>();
+            loseHpAnimator.gameObject.SetActive(false);
+        }
     }
 
     public override void OnGameReady()

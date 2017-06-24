@@ -134,13 +134,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1905597551196598}
-  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -0.005, y: 0, z: 0}
-  m_LocalScale: {x: 0.9, y: 0.9, z: 0.25}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: -0.021, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 0.25}
   m_Children: []
   m_Father: {fileID: 4693194592150430}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!4 &4950745757755238
 Transform:
   m_ObjectHideFlags: 1
@@ -334,8 +334,6 @@ MonoBehaviour:
   animator: {fileID: 114673906482543692}
   wanderDuration: 3
   screenBorderWidth: 1.5
-  explosionNormalRadius: 2
-  explosionBoostedRadius: 3
   maxTurnSpeed: 500
   maxTurnAcceleration: 2000
   minPickRate: 0.2
@@ -383,8 +381,10 @@ MonoBehaviour:
   explosionLayerMask:
     serializedVersion: 2
     m_Bits: 3072
+  explosionNormalRadius: 2
+  explosionBoostedRadius: 3
   coreAnimator: {fileID: 95588870808050168}
-  coreSizeMultiplier: 0.6
+  coreSizeMultiplier: 0.65
   coreBeginSize: 0.5
   coreGrowTime: 0.36
   coreEase: 27
@@ -545,10 +545,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1417543483
-  m_SortingLayer: 3
+  m_SortingLayerID: -1351358607
+  m_SortingLayer: 5
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: fc442a11c8a8b4f44a11a1adb55c75a9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5712ea664d4706b47987f5e0d3be0a3f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

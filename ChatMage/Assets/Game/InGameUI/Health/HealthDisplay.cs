@@ -1,4 +1,4 @@
-﻿using CCC.Manager;
+using CCC.Manager;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,111 +8,69 @@ using UnityEngine.UI;
 public class HealthDisplay : MonoBehaviour
 {
 
-    private PlayerStats playerStats;
     public GameObject hearthCountainer;
     public GameObject hearth;
 
-    private List<HearthScript> hearths = new List<HearthScript>();
-    private List<HearthScript> armor = new List<HearthScript>();
+    private List<HeartItem> hearts = new List<HeartItem>();
+    private PlayerStats playerStats;
 
     public void Init()
     {
         playerStats = Game.instance.Player.playerStats;
-        playerStats.health.onSet.AddListener(ChangeHP);
-        playerStats.armor.onSet.AddListener(ChangeArmor);
-        playerStats.health.onMaxSet.AddListener(ChangeMaxHP);
+        playerStats.health.onSet.AddListener(UpdateHearts);
+        playerStats.armor.onSet.AddListener(UpdateArmor);
+        playerStats.health.onMaxSet.AddListener(UpdateAll);
 
         // Set initial HP
-        ChangeMaxHP(playerStats.health.MAX);
-        ChangeHP(playerStats.health);
-        ChangeArmor(playerStats.armor);
+        UpdateAll(-1);
     }
 
-    void ChangeHP(int newAmount)
+    void UpdateAll(int bidon)
     {
-        if (newAmount == 0)
-            ClearHearths();
-
-        for (int i = 0; i < newAmount; i++)
-        {
-            hearths[i].On();
-        }
-
-        int end = newAmount - 1;
-        if (end < 0)
-            end = 0;
-        for (int i = (hearths.Count - 1); i > end; i--)
-        {
-            hearths[i].Off();
-        }
+        UpdateHearts(playerStats.health);
+        UpdateArmor(playerStats.armor);
     }
 
-    void ChangeArmor(int newAmount)
+    void UpdateHearts(int hp)
     {
-        if (newAmount == 0)
-            RemoveArmor(armor.Count);
-
-        if (newAmount < armor.Count)
+        int i = 0;
+        for (; i < hp; i++)
         {
-            RemoveArmor(armor.Count - newAmount);
+            SetHeartAs(i, HeartItem.HeartType.Full);
         }
-        else
+        for (; i < playerStats.health.MAX; i++)
         {
-            AddArmor(newAmount - armor.Count);
+            SetHeartAs(i, HeartItem.HeartType.Empty);
         }
     }
 
-    public void ChangeMaxHP(int newAmount)
+    void UpdateArmor(int armor)
     {
-        int delta = newAmount - hearthCountainer.transform.childCount;
-        if (delta == 0)
-            return;
-        if (delta < 0)
+        int i = playerStats.health.MAX;
+        for (; i < playerStats.health.MAX + armor; i++)
         {
-            for (int i = 0; i < (-1 * delta); i++)
-            {
-                HearthScript deletedHearths = hearths[hearths.Count - 1];
-                hearths.Remove(deletedHearths);
-                Destroy(deletedHearths.gameObject);
-            }
+            SetHeartAs(i, HeartItem.HeartType.Armor);
         }
-        else
+        for (; i < hearts.Count; i++)
         {
-            for (int i = 0; i < delta; i++)
-            {
-                HearthScript newHearth = Instantiate(hearth.gameObject, hearthCountainer.transform).GetComponent<HearthScript>();
-                hearths.Add(newHearth);
-                hearths[hearths.Count - 1].GetComponent<HearthScript>().Off();
-            }
+            hearts[i].Hide();
         }
     }
 
-    public void ClearHearths()
+    private void SetHeartAs(int index, HeartItem.HeartType type)
     {
-        for (int i = 0; i < hearths.Count; i++)
+        while (index >= hearts.Count)
         {
-            hearths[i].GetComponent<HearthScript>().Off();
+            NewHeart();
         }
+
+        hearts[index].Display(type);
     }
 
-    public void AddArmor(int amount)
+    private HeartItem NewHeart()
     {
-        for (int i = 0; i < amount; i++)
-        {
-            HearthScript newHearth = Instantiate(hearth, hearthCountainer.transform).GetComponent<HearthScript>();
-            armor.Add(newHearth);
-            armor[armor.Count - 1].On();
-            newHearth.GetComponent<Image>().color = Color.black;
-        }
-    }
-
-    public void RemoveArmor(int amount)
-    {
-        for (int i = 0; i < amount; i++)
-        {
-            HearthScript deletedHearths = armor[armor.Count - 1];
-            armor.Remove(deletedHearths);
-            Destroy(deletedHearths.gameObject);
-        }
+        HeartItem newHeart = Instantiate(hearth, hearthCountainer.transform).GetComponent<HeartItem>();
+        hearts.Add(newHeart);
+        return newHeart;
     }
 }

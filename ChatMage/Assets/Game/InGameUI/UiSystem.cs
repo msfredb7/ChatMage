@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class UiSystem : MonoBehaviour {
 
-    public const string SCENENAME = "UI";
+    public const string SCENENAME = "InGameUI";
     public HealthDisplay healthdisplay;
     public PlayerInput playerInputs;
     public SmashDisplay smashDisplay;
