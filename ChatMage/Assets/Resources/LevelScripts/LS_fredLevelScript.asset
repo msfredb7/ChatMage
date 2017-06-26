@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 692045aa578ae724ca10f45fcde071d2, type: 3}
+  m_Name: LS_fredLevelScript
+  m_EditorClassIdentifier: 
+  _objectReferences:
+  - {fileID: 114892083099199946, guid: a97b513999cddca448e173580c0c886f, type: 2}
+  _serializedStateKeys:
+  - winningConditions
+  - losingConditions
+  - events
+  - waves
+  - rewards
+  _serializedStateValues:
+  - '[]'
+  - '[]'
+  - 
+  - '[{"packs":[{"unit":0,"quantity":10}],"onProgressCallbacks":[],"where":{"type":"RandomAroundScreen","clamp":false,"referencePoint":"Player","clampMin":{"x":-8.0,"y":-4.5},"clampMax":{"x":8.0,"y":4.5},"waypointInfo":{"idType":"Enum","waypointTag":null,"waypointType":"PlayerSpawn","spawningType":"Ordered","filterByHeight":false,"referencePoint":"Player","minHeight":-4.5,"maxHeight":4.5}},"when":{"type":"At","time":0.0,"name":null},"duration":60.0}]'
+  - '{"giveMoney":false,"amount":0,"giveLootBox":false,"lootboxs":[]}'
+  sceneName: MapDemo
+  introPrefab: {fileID: 114939908285177620, guid: 6ecb49bd0fe07fd49a2105006011056d,
+    type: 2}
+  winOutroPrefab: {fileID: 114288339278322360, guid: 1e4d836705c07534fb5b431bb36cb2ab,
+    type: 2}
+  loseOutroPrefab: {fileID: 114019376999675500, guid: 5fb703884a8fef84baed936668fb2290,
+    type: 2}
+  noHealthPacks: 0
+  followPlayerOnStart: 0
+  verticalUnitSnap: 1
+  horizontalUnitSnap: 1
+  useCustomGenericEvents: 0
+  events: []
+  waves:
+  - packs:
+    - unit: {fileID: 114892083099199946, guid: a97b513999cddca448e173580c0c886f, type: 2}
+      quantity: 10
+    where:
+      type: 0
+      clamp: 0
+      referencePoint: 0
+      clampMin: {x: -8, y: -4.5}
+      clampMax: {x: 8, y: 4.5}
+      waypointInfo:
+        idType: 0
+        waypointTag: 
+        waypointType: 0
+        spawningType: 0
+        filterByHeight: 0
+        referencePoint: 0
+        minHeight: -4.5
+        maxHeight: 4.5
+    when:
+      type: 0
+      time: 0
+      name: 
+    duration: 60
+  isOver: 0
+  inGameEvents: {fileID: 0}
+  activateTutorial: 0
+  tutorial: {fileID: 0}

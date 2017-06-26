@@ -15,6 +15,8 @@ public class PlayerLocations : PlayerComponent
     public Transform FrontRightWheel { get { return wheels[1]; } }
     public Transform BackLeftWheel { get { return wheels[2]; } }
     public Transform BackRightWheel { get { return wheels[3]; } }
+    public Vector2 RightDoor { get { return Vector2.down * 0.25f; } }
+    public Vector2 LeftDoor { get { return Vector2.up * 0.25f; } }
 
 
     public override void OnGameReady()
