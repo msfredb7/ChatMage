@@ -10,6 +10,7 @@ public class Car_Mustang : Car
     public float turnAcceleration = 5;
     public float turnSpeed = 185;
     public float moveSpeed = 1;
+    public float carWeight = 0.2f;
 
     [fsIgnore]
     float horizontal = 0;
@@ -35,6 +36,7 @@ public class Car_Mustang : Car
 
     public override void OnGameReady()
     {
+        player.vehicle.weight = carWeight;
         player.vehicle.MoveSpeed = moveSpeed;
     }
 

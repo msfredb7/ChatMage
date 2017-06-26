@@ -356,7 +356,7 @@ MonoBehaviour:
   game: {fileID: 986166561}
   events: {fileID: 218698578}
   playerbuilder: {fileID: 1461222806}
-  defaultLevel: {fileID: 11400000, guid: fdf791a12b63faa42a4f6380b1b9edb7, type: 2}
+  defaultLevel: {fileID: 11400000, guid: 47cdc4a54c5c23544977723a44cb47a2, type: 2}
 --- !u!4 &986166560
 Transform:
   m_ObjectHideFlags: 0
@@ -578,8 +578,14 @@ MonoBehaviour:
   _keys:
   - {fileID: 986166561}
   _values:
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.gameCamera.EditProperty
+    - DefaultBehaviorEditor.units.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
     _target: {fileID: 986166561}
 --- !u!1 &1461222805
 GameObject:
@@ -610,11 +616,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 114514873651363592, guid: c63ecbff488b6f74fa84698936c74580,
     type: 2}
-  car: {fileID: 11400000, guid: 5ec48ef9ded4cbd41a7f67f29b1030a2, type: 2}
+  car: {fileID: 11400000, guid: fcd59fca4019b314f86803126654ff1a, type: 2}
   smash: {fileID: 11400000, guid: d32e43f24ca6b964f89ef83a2f490d25, type: 2}
-  items:
-  - {fileID: 11400000, guid: 07b27e0fa42764f4083f4cf787f5e115, type: 2}
-  - {fileID: 11400000, guid: 3ba772465f0845d4a9f65088fbae714f, type: 2}
+  items: []
 --- !u!4 &1461222807
 Transform:
   m_ObjectHideFlags: 0
