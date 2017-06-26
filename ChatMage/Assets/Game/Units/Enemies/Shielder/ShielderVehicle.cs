@@ -12,6 +12,7 @@ public class ShielderVehicle : EnemyVehicle
 
     [Header("Shielder Settings")]
     public float bumpStrength;
+    public float bumpDuration = 0.2f;
     public float passiveMoveSpeed;
     public float passiveTurnSpeed;
 
@@ -78,7 +79,7 @@ public class ShielderVehicle : EnemyVehicle
         {
             if(on is Vehicle)
             {
-                (on as Vehicle).Bump((on.Position - Position).normalized * bumpStrength, -1, BumpMode.VelocityAdd);
+                (on as Vehicle).Bump((on.Position - Position).normalized * bumpStrength, bumpDuration, BumpMode.VelocityAdd);
             }
             else
             {

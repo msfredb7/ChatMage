@@ -105,7 +105,7 @@ public abstract class Vehicle : MovingUnit
                 Speed,  //Current
                 vDir,   //target
                 FixedLerp.Fix(
-                    weight >= 1f ? 1 : weight / 10,
+                    weight / 10, // Ancienne ligne: weight >= 1f ? 1 : weight / 10
                     FPSCounter.GetFixedFPS() / timeScale));
         else
             Speed = vDir;

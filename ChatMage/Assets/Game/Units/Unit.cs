@@ -26,6 +26,9 @@ public abstract class Unit : MonoBehaviour
     public event Unit_Event onDestroy;
     public event Unit_Event onDeath;
 
+    public bool IsDead { get { return isDead; } }
+    protected bool isDead = false;
+
     [Header("Border")]
     public bool canUseBorder = true;
     public float unitWidth;
@@ -166,6 +169,11 @@ public abstract class Unit : MonoBehaviour
 
     protected virtual void Die()
     {
+        if (isDead)
+            return;
+
+        isDead = true;
+
         if (onDeath != null)
             onDeath(this);
     }
