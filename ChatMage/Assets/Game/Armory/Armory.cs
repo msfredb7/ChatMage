@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Armory : ScriptableObject
+public class Armory : BaseScriptableObject
 {
     private const string SLOTS_KEY = "slt";
     // On a des previews qu'on affichera dans le UI pour ensuite 
