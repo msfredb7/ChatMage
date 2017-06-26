@@ -45,11 +45,11 @@ namespace EndGameReward
                 canUnloadCallback();
             });
 
-            DelayManager.CallTo(delegate ()
+            DelayManager.LocalCallTo(delegate ()
             {
                 continueButton.Show(true);
                 continueButton.Interactable = true;
-            }, 1);
+            }, 1, this);
         }
 
         void Continue()

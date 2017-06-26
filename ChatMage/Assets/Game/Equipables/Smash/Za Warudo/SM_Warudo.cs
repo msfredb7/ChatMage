@@ -73,12 +73,12 @@ public class SM_Warudo : Smash
         if (smashCoroutine == null)
             return;
 
-        //a-t-on simplement �teint le jeu ?
-        if (DelayManager.instance != null)
-            DelayManager.Cancel(smashCoroutine);
-
+        //a-t-on simplement fermer le jeu ?
         if (Game.instance != null)
+        {
+            Game.instance.StopCoroutine(smashCoroutine);
             OnSmashEnd();
+        }
     }
 
     public override void OnGameStarted()
@@ -97,7 +97,7 @@ public class SM_Warudo : Smash
 
             SetTimeScale(targetTimeScale);
 
-            smashCoroutine = DelayManager.CallTo(OnSmashEnd, duration);
+            smashCoroutine = DelayManager.LocalCallTo(OnSmashEnd, duration, Game.instance);
         });
 
         SoundManager.Play(sfx);

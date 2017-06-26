@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -48,10 +48,10 @@ public class BulleManager : MonoBehaviour
     {
         if (delay > 0)
         {
-            DelayManager.CallTo(delegate ()
+            DelayManager.LocalCallTo(delegate ()
             {
                 Say(text, target, time, 0);
-            }, delay);
+            }, delay, this);
             return;
         }
 

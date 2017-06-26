@@ -11,7 +11,7 @@ public class Account : BaseManager<Account>
 
     // Coins
     private int coins = 0;
-    public SimpleEvent onCoinsChange;
+    public event SimpleEvent onCoinsChange;
 
     private Purchaser purchaser;
 
