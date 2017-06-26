@@ -29,19 +29,19 @@ namespace LoadoutMenu
             {
                 case LoadoutTab.Car:
                     text.text = carText;
-                    SoundManager.Play(carAudio, volume: 1);
+                    SoundManager.PlaySFX(carAudio, volume: 1);
                     break;
                 case LoadoutTab.Smash:
                     text.text = smashText;
-                    SoundManager.Play(smashAudio, volume: 1);
+                    SoundManager.PlaySFX(smashAudio, volume: 1);
                     break;
                 case LoadoutTab.Items:
                     text.text = itemsText;
-                    SoundManager.Play(itemsAudio, volume: 1);
+                    SoundManager.PlaySFX(itemsAudio, volume: 1);
                     break;
                 case LoadoutTab.Recap:
                     text.text = recapText;
-                    SoundManager.Play(recapAudio, volume: 1);
+                    SoundManager.PlaySFX(recapAudio, volume: 1);
                     break;
                 default:
                     throw new System.Exception("shit");

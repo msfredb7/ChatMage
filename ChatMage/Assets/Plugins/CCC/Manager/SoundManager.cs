@@ -22,7 +22,10 @@ namespace CCC.Manager
             public float voice = 0;
             public float sfx = 0;
             public float music = 0;
+            public bool activeSfx = true;
+            public bool activeMusic = true;
         }
+
         public AudioSource stdSource;
         public AudioSource musicSource;
         public AudioMixer mixer;
@@ -32,6 +35,8 @@ namespace CCC.Manager
         {
             base.Awake();
             instance = this;
+            save.activeSfx = true;
+            save.activeMusic = true;
         }
 
         public override void Init()
@@ -43,8 +48,11 @@ namespace CCC.Manager
         /// <summary>
         /// Plays the audioclip. Leave source to 'null' to play on the standard 2D SFX audiosource.
         /// </summary>
-        public static void Play(AudioClip clip, float delay = 0, float volume = 1, AudioSource source = null)
+        public static void PlaySFX(AudioClip clip, float delay = 0, float volume = 1, AudioSource source = null)
         {
+            if (!instance.save.activeSfx)
+                return;
+
             if (instance == null) { Debug.LogError("SoundManager instance is null"); return; }
 
             if (clip == null) return;
@@ -61,6 +69,9 @@ namespace CCC.Manager
 
         public static void PlayMusic(AudioClip clip, bool looping = true, float volume = 1, bool faded = false)
         {
+            if (!instance.save.activeMusic)
+                return;
+
             if (instance == null) { Debug.LogError("SoundManager instance is null"); return; }
 
             if (faded)
@@ -101,7 +112,7 @@ namespace CCC.Manager
         IEnumerator PlayIn(AudioClip clip, float delay, float volume = 1, AudioSource source = null)
         {
             yield return new WaitForSecondsRealtime(delay);
-            Play(clip, 0, volume, source);
+            PlaySFX(clip, 0, volume, source);
         }
 
         static public bool IsPlayingMusic()
@@ -143,6 +154,20 @@ namespace CCC.Manager
             instance.save.sfx = value;
             instance.mixer.SetFloat("sfx", value);
         }
+        public static void SetActiveSFX(bool value)
+        {
+            if (instance == null) { Debug.LogError("SoundManager instance is null"); return; }
+            if (instance.mixer == null) return;
+
+            instance.save.activeSfx = value;
+        }
+        public static void SetActiveMusic(bool value)
+        {
+            if (instance == null) { Debug.LogError("SoundManager instance is null"); return; }
+            if (instance.mixer == null) return;
+
+            instance.save.activeMusic = value;
+        }
 
         public static float GetMaster()
         {
@@ -162,6 +187,16 @@ namespace CCC.Manager
         public static float GetSfx()
         {
             return instance.save.sfx;
+        }
+
+        public static bool GetActiveSfx()
+        {
+            return instance.save.activeSfx;
+        }
+
+        public static bool GetActiveMusic()
+        {
+            return instance.save.activeMusic;
         }
 
         private void ApplyAll()
@@ -192,6 +227,8 @@ namespace CCC.Manager
                 instance.save.voice = saveCopy.voice;
                 instance.save.sfx = saveCopy.sfx;
                 instance.save.music = saveCopy.music;
+                instance.save.activeMusic = saveCopy.activeMusic;
+                instance.save.activeSfx = saveCopy.activeSfx;
                 file.Close();
             }
             else
