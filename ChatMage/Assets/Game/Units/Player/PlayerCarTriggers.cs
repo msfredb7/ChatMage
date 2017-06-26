@@ -7,8 +7,9 @@ public enum CarSide { Front = 0, Back = 1, Right = 2, Left = 3 }
 
 public class PlayerCarTriggers : PlayerComponent
 {
-    public delegate void UnitDetectionEvent(Unit unit, CarSide carTrigger);
-    public event UnitDetectionEvent onHitUnit;
+    public delegate void UnitDetectionEvent(Unit unit, CarSide carTrigger, ColliderInfo other, ColliderListener listener);
+    public event UnitDetectionEvent onUnitHit;
+    public event UnitDetectionEvent onUnitKilled;
 
     [Header("Hit Animation")]
     public float camHitStrengthOnHit = 0.05f;
@@ -71,10 +72,9 @@ public class PlayerCarTriggers : PlayerComponent
 
     private void HitUnit(Unit unit, IAttackable attackable, CarSide side, ColliderInfo other, ColliderListener listener)
     {
-        if (onHitUnit != null)
-        {
-            onHitUnit.Invoke(unit, side);
-        }
+        //Event
+        if (onUnitHit != null)
+            onUnitHit.Invoke(unit, side, other, listener);
 
         int damage = 0;
         switch (side)
@@ -96,7 +96,14 @@ public class PlayerCarTriggers : PlayerComponent
         if (damage > 0)
         {
             if (attackable.Attacked(other, damage, controller.vehicle, listener.info) <= 0)
+            {
+                //Unit killed !
                 controller.playerStats.RegisterKilledUnit(unit);
+
+                //Event
+                if (onUnitKilled != null)
+                    onUnitKilled(unit, side, other, listener);
+            }
 
             //Camera shake!
             Game.instance.gameCamera.vectorShaker.Hit((transform.position - other.transform.position).normalized * camHitStrengthOnHit);

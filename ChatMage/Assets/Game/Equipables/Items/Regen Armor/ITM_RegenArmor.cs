@@ -1,8 +1,8 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ITM_Shield : Item
+public class ITM_RegenArmor : Item
 {
     public float shieldCooldown;
     private float timer;

@@ -1,31 +1,31 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ITM_DemoLazer : Item
+public class ITM_Windshield : Item, IAttackable
 {
-    public GameObject lazerVisuals;
+    public int Attacked(ColliderInfo on, int amount, Unit otherUnit, ColliderInfo source = null)
+    {
+        if (otherUnit is Projectiles)
+            return 0;
+        return amount;
+    }
 
     public override void Init(PlayerController player)
     {
         base.Init(player);
-
-        Debug.Log("Laser placed ! (not yet)");
     }
 
     public override void OnGameReady()
     {
-
     }
 
     public override void OnGameStarted()
     {
-
     }
 
     public override void OnUpdate()
     {
-
     }
 }

@@ -9,29 +9,39 @@ using FullInspector;
 
 public class TestScript : MonoBehaviour
 {
-    public MeshRenderer meshRenderer;
-    public ScreenShooter screenshot;
-    public UnityStandardAssets.ImageEffects.BlurOptimized blur;
+    public LevelScript lvl;
+    public TestScript child;
 
-    //void Awake()
-    //{
-    //    blur.enabled = false;
-    //    meshRenderer.enabled = false;
-    //}
-
-    void Update()
+    public void Load()
     {
-        if (Input.GetKeyDown(KeyCode.T))
+        ResourceLoader.LoadLevelScriptAsync<LevelScript>("LS_demoLevelScript", OnLevelLoaded);
+    }
+    public void OnLevelLoaded(LevelScript lvl)
+    {
+        child.StartCoroutine(Routine(child.lvl));
+        child.lvl = lvl;
+    }
+
+    IEnumerator Routine(LevelScript child)
+    {
+        yield return null;
+
+        while (true)
         {
-            screenshot.Shoot(OnScreenShotTaken);
+            child.sceneName = child.sceneName + "";
+            yield return null;
         }
     }
 
-    void OnScreenShotTaken(RenderTexture texture)
+    public void Unload()
     {
-        RenderTexture newTexture = new RenderTexture(texture.width, texture.height, texture.depth);
-        blur.RemoteRenderImage(texture, newTexture); 
-        meshRenderer.material.mainTexture = newTexture;
-        meshRenderer.enabled = true;
+        Resources.UnloadUnusedAssets();
     }
+
+    public void Nullify()
+    {
+        //child.StopAllCoroutines();
+        Destroy(child.gameObject);
+        child = null;
+    } 
 }

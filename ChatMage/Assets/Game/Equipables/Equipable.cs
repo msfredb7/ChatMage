@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FullInspector;
@@ -17,4 +17,9 @@ public abstract class Equipable : BaseScriptableObject
     public abstract void OnGameReady();
     public abstract void OnGameStarted();
     public abstract void OnUpdate();
+
+    protected void ClearReferences()
+    {
+        player = null;
+    }
 }

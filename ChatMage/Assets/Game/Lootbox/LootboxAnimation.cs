@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
@@ -50,7 +50,13 @@ public class LootboxAnimation : WindowAnimation {
             lootboxOpeningEvent.Invoke();
             rewardCountainer.SetActive(true); // TODO: faire une meilleur animation
             goldifyButton.GetComponent<Button>().interactable = false;
-            DelayManager.CallTo(delegate () { Close(delegate() { Destroy(gameObject); });  }, 2.5f);
+            DelayManager.LocalCallTo(delegate () {
+                Close(
+                    delegate() {
+                        Destroy(gameObject);
+                    });
+            },
+            2.5f, this);
             lootboxOpened = true;
         }
     }
