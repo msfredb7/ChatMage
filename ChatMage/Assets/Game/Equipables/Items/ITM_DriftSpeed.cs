@@ -28,8 +28,5 @@ public class ITM_DriftSpeed : Item
             player.vehicle.MoveSpeed += Time.deltaTime * acceleration;
         } else
             player.vehicle.MoveSpeed = baseSpeed;
-
-        Debug.Log(player.vehicle.MoveSpeed);
-
     }
 }

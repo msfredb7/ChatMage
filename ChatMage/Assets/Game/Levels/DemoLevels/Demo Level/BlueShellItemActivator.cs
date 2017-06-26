@@ -36,6 +36,8 @@ public class BlueShellItemActivator : MonoBehaviour, IActivator
         hasBeenTriggered = true;
 
         Debug.Log("Button Activated");
-        (Scenes.FindRootObject<PlayerBuilder>(SceneManager.GetSceneByName("Framework")).items[0] as ITM_BlueShell).enable = true;
+        if(Scenes.FindRootObject<PlayerBuilder>(SceneManager.GetSceneByName("Framework")).items[0] is ITM_BlueShell)
+            (Scenes.FindRootObject<PlayerBuilder>(SceneManager.GetSceneByName("Framework")).items[0] as ITM_BlueShell).enable = true;
+        // else ?
     }
 }

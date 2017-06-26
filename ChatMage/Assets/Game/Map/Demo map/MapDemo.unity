@@ -1319,6 +1319,11 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 50330644d31839e4eaba53bb2db19dd8, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &782613386 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1458386724536848, guid: 50330644d31839e4eaba53bb2db19dd8,
+    type: 2}
+  m_PrefabInternal: {fileID: 782613385}
 --- !u!1001 &813565258
 Prefab:
   m_ObjectHideFlags: 0
@@ -1964,7 +1969,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapping: {fileID: 153121006}
   cameraSpawn: {fileID: 1833739392}
-  mapObjectsToAjust: []
+  listUnits:
+  - {fileID: 782613386}
+  objectsToAjust: []
   roadPlayer: {fileID: 458826281}
 --- !u!4 &1644651696
 Transform:

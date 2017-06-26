@@ -24,8 +24,8 @@ public class ImpactCircle : MonoBehaviour {
     private void ColliderListener_onTriggerEnter(ColliderInfo other, ColliderListener listener)
     {
         Debug.Log("Impact Collision");
-        if(other.parentUnit is EnemyVehicle)
-            (other.parentUnit as EnemyVehicle).Bump((other.transform.position - Game.instance.Player.transform.position).normalized * enemyBumpForce, bumpDuration, BumpMode.VelocityAdd);
+        if (other.parentUnit is EnemyVehicle)
+            (other.parentUnit as IAttackable).Attacked(other, 1, other.parentUnit);
     }
 
     void Update ()

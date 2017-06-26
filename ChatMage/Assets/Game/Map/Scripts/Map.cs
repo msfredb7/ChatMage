@@ -6,11 +6,17 @@ using UnityEngine.SceneManagement;
 
 public class Map : MonoBehaviour
 {
+    [Header("Waypoints Manager")]
     public Mapping mapping; // limite de la map, waypoints, etc.
+
+    [Header("Camera")]
     public CameraSpawn cameraSpawn;
 
-    [SerializeField]
-    private List<GameObject> mapObjectsToAjust;
+    [Header("Units Already Spawned")]
+    public List<GameObject> listUnits = new List<GameObject>();
+
+    [SerializeField, Header("Object Needing Camera Adjustement")]
+    private List<GameObject> objectsToAjust = new List<GameObject>();
 
     [Header("Optional")]
     public RoadPlayer roadPlayer;
@@ -23,9 +29,15 @@ public class Map : MonoBehaviour
         if (roadPlayer != null)
             roadPlayer.Init(player.transform);
 
-        for (int i = 0; i < mapObjectsToAjust.Count; i++)
+        for (int i = 0; i < objectsToAjust.Count; i++)
         {
-            Adjust(mapObjectsToAjust[i]);
+            Adjust(objectsToAjust[i]);
+        }
+
+        for (int i = 0; i < listUnits.Count; i++)
+        {
+            if(listUnits[i].GetComponent<Unit>() != null)
+                Game.instance.AddExistingUnit(listUnits[i].GetComponent<Unit>());
         }
     }
 
