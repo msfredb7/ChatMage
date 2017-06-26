@@ -63,7 +63,7 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
     public bool activateTutorial = false;
     [InspectorShowIf("activateTutorial")]
     public BaseTutorial tutorial;
-    
+    public bool hasBeenCompleted = false;
 
     [fsIgnore, NotSerialized]
     private List<UnitWave> eventTriggeredWaves;
@@ -119,7 +119,7 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
 
         StartWaves();
 
-        if(activateTutorial)
+        if(activateTutorial && !hasBeenCompleted)
             StartTutorial();
 
         //Camera follow player ?
@@ -263,7 +263,7 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
     protected abstract void OnGameStarted();
     protected abstract void OnUpdate();
     public abstract void OnReceiveEvent(string message);
-    public abstract void OnWin();
+    public virtual void OnWin() { hasBeenCompleted = true; }
     public abstract void OnLose();
     public virtual void OnWaveLaunch() { }
 

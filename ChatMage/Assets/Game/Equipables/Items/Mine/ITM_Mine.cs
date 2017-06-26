@@ -11,10 +11,12 @@ public class ITM_Mine : Item {
 
     public override void OnGameReady()
     {
+        
     }
 
     public override void OnGameStarted()
     {
+        cooldown = cooldown * Game.instance.Player.playerStats.cooldownReduction;
     }
 
     public override void OnUpdate()

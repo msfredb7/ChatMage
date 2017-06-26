@@ -127,16 +127,19 @@ public class BaseTutorial : BaseScriptableObject
 
         // Gere le temps
         Sequence sequence = DOTween.Sequence().SetUpdate(true);
-        
+
+        // Parametre de la method = Fonction On Complete
+        Action[] parameters;
+        parameters = new Action[1];
+        parameters[0] = delegate () { tutorialEvent.OnComplete(); };
+
         if (useTime && tutorialEvent.useSpecificTime)
             sequence.InsertCallback(tutorialEvent.when, delegate () {
-                theMethod.Invoke(Game.instance.currentLevel.tutorial, null);
-                tutorialEvent.OnComplete();
+                theMethod.Invoke(Game.instance.currentLevel.tutorial, parameters);
             });
         else
         {
-            theMethod.Invoke(Game.instance.currentLevel.tutorial, null);
-            tutorialEvent.OnComplete();
+            theMethod.Invoke(Game.instance.currentLevel.tutorial, parameters);
         }
     }
 
@@ -240,19 +243,20 @@ public class BaseTutorial : BaseScriptableObject
             else
                 return;
         }
-
-        currentSpotLight.GetComponent<RectTransform>().anchoredPosition = obj.transform.position;
+        
+        currentSpotLight.transform.position = obj.transform.position;
         currentButtonPrefab.SetActive(true);
+        currentButtonPrefab.transform.position = obj.transform.position;
         currentButtonPrefab.GetComponent<Button>().onClick.RemoveAllListeners();
         currentButtonPrefab.GetComponent<Button>().onClick.AddListener(delegate ()
         {
+            currentInputBlocker.SetActive(false);
+            currentButtonPrefab.SetActive(false);
+            if (currentTutorialInfoDisplay != null)
+                currentTutorialInfoDisplay.GetComponent<TutorialInfo>().OnEnd();
             DeFocusSpotLight(stopTime, delegate ()
             {
                 obj.GetComponent<Button>().onClick.Invoke();
-                if (currentTutorialInfoDisplay != null)
-                    currentTutorialInfoDisplay.GetComponent<TutorialInfo>().OnEnd();
-                currentInputBlocker.SetActive(false);
-                currentButtonPrefab.SetActive(false);
             });
         });
     }

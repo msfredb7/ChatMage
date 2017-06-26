@@ -100,7 +100,7 @@ public class SM_Warudo : Smash
             smashCoroutine = DelayManager.LocalCallTo(OnSmashEnd, duration, Game.instance);
         });
 
-        SoundManager.Play(sfx);
+        SoundManager.PlaySFX(sfx);
     }
 
     void SetTimeScale(float amount)
