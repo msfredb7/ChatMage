@@ -9,7 +9,16 @@ public class PlayerDriver : PlayerComponent
     private Car car;
     public Car Car { get { return car; } }
     public bool enableInput = true;
-    public float horizontalInput;
+    public float LastHorizontalInput
+    {
+        get
+        {
+            return lastHorizontalInput;
+        }
+    }
+
+    private float lastHorizontalInput;
+    private float horizontalInput;
 
     public override void OnGameReady()
     {
@@ -33,6 +42,8 @@ public class PlayerDriver : PlayerComponent
 
         if (car != null && enableInput)
             car.OnInputUpdate(horizontalInput);
+
+        lastHorizontalInput = horizontalInput;
 
         horizontalInput = 0;
     }
