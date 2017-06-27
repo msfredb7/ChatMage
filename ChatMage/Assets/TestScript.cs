@@ -9,39 +9,20 @@ using FullInspector;
 
 public class TestScript : MonoBehaviour
 {
-    public LevelScript lvl;
-    public TestScript child;
 
-    public void Load()
+    void Start()
     {
-        ResourceLoader.LoadLevelScriptAsync<LevelScript>("LS_demoLevelScript", OnLevelLoaded);
+        StatFloat st = new StatFloat(10, 0, 100, BoundMode.Cap);
+
+        st.AddBuff("per", 20, BuffType.Percent);
+        st.AddBuff("add", 3, BuffType.Flat);
+        st.AddBuff("per2", 20, BuffType.Percent);
+        print(st.ToString());
+        st.RemoveBuff("per");
+        print(st.ToString());
+        st.RemoveBuff("per2");
+        print(st.ToString());
+        st.RemoveBuff("add");
+        print(st.ToString());
     }
-    public void OnLevelLoaded(LevelScript lvl)
-    {
-        child.StartCoroutine(Routine(child.lvl));
-        child.lvl = lvl;
-    }
-
-    IEnumerator Routine(LevelScript child)
-    {
-        yield return null;
-
-        while (true)
-        {
-            child.sceneName = child.sceneName + "";
-            yield return null;
-        }
-    }
-
-    public void Unload()
-    {
-        Resources.UnloadUnusedAssets();
-    }
-
-    public void Nullify()
-    {
-        //child.StopAllCoroutines();
-        Destroy(child.gameObject);
-        child = null;
-    } 
 }

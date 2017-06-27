@@ -52,7 +52,7 @@ public abstract class EnemyBrain : BaseBehavior
         if (player == null)
             player = Game.instance.Player;
 
-        noPlayerOnThisFrame = player == null || !player.playerStats.isVisible || player.playerStats.isDead || !player.gameObject.activeSelf;
+        noPlayerOnThisFrame = player == null || !player.playerStats.isVisible || player.vehicle.IsDead || !player.gameObject.activeSelf;
 
         if (!noPlayerOnThisFrame)
             meToPlayer = player.vehicle.Position - myVehicle.Position;

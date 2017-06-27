@@ -46,14 +46,11 @@ public class PlayerStats : PlayerComponent, IAttackable
     [Header("Variables")]
     public bool damagable = true;
     public bool isVisible = true; // TODO
-    public bool boostedAOE = false; // TODO
+    public bool boostedAOE = false;
 
     public event SimpleEvent onHit;
     public event SimpleEvent onRegen;
     public event Unit.Unit_Event onUnitKilled;
-
-    [System.NonSerialized]
-    public bool isDead = false;
 
     public int Attacked(ColliderInfo on, int amount, Unit otherUnit, ColliderInfo source = null)
     {
@@ -102,7 +99,7 @@ public class PlayerStats : PlayerComponent, IAttackable
             onHit();
 
         if (health <= 0)
-            Death();
+            controller.vehicle.Kill();
 
 
         return health + armor;
@@ -137,16 +134,6 @@ public class PlayerStats : PlayerComponent, IAttackable
         health.Set(health + amount);
         if (onRegen != null)
             onRegen();
-    }
-
-    void Death()
-    {
-        if (isDead)
-            return;
-
-        isDead = true;
-
-        controller.vehicle.Kill();
     }
 
     public void RegisterKilledUnit(Unit unit)

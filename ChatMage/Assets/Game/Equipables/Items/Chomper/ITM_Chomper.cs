@@ -6,7 +6,7 @@ using FullSerializer;
 using FullInspector;
 using DG.Tweening;
 
-public class ITM_Chomper : Item
+public class ITM_Chomper : Item, ISpeedOverrider
 {
     [InspectorHeader("Linking")]
     public MultipleColliderListener sphereTrigger;
@@ -43,6 +43,8 @@ public class ITM_Chomper : Item
     private float oldMoveSpeed;
     [fsIgnore, NonSerialized]
     private bool oldUseWeight;
+    [fsIgnore, NonSerialized]
+    private float vehicleSpeed;
 
     public override void OnGameReady()
     {
@@ -124,10 +126,12 @@ public class ITM_Chomper : Item
         //On enregistre les valeur de speed du joueur (pour pouvoir les restorer)
         Vehicle veh = player.vehicle;
 
+        vehicleSpeed = veh.MoveSpeed;
         oldMoveSpeed = veh.MoveSpeed;
         oldUseWeight = veh.useWeight;
 
         player.playerDriver.enableInput = false;
+        player.vehicle.speedOverrider = this;
         veh.useWeight = false;
 
         //On lance la coroutine
@@ -144,7 +148,7 @@ public class ITM_Chomper : Item
             float deltaTime = veh.DeltaTime();
 
             //Update movespeed
-            veh.MoveSpeed = oldMoveSpeed + additiveSpeedOverTime.Evaluate(1 - (remains / duration)) * (maxMoveSpeed - oldMoveSpeed);
+            vehicleSpeed = oldMoveSpeed + additiveSpeedOverTime.Evaluate(1 - (remains / duration)) * (maxMoveSpeed - oldMoveSpeed);
 
             //Update rotation
             veh.Rotation = Mathf.MoveTowardsAngle(veh.Rotation, targetAngle, deltaTime * turnSpeed);
@@ -164,10 +168,10 @@ public class ITM_Chomper : Item
         if (player != null)
         {
             //On restore les settings de vitesse du joueur
-            player.vehicle.MoveSpeed = oldMoveSpeed;
             player.vehicle.useWeight = oldUseWeight;
 
             player.playerDriver.enableInput = true;
+            player.vehicle.speedOverrider = null;
         }
     }
 
@@ -175,5 +179,10 @@ public class ITM_Chomper : Item
     {
         base.ClearReferences();
         listener = null;
+    }
+
+    public float GetSpeed()
+    {
+        return vehicleSpeed;
     }
 }

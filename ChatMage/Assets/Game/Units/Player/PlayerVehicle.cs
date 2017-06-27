@@ -1,3 +1,4 @@
+using CCC.Utility;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,6 +18,18 @@ public class PlayerVehicle : Vehicle
     private bool drifting = false;
     private List<TrailRenderer> blackTrails = new List<TrailRenderer>();
     PlayerController controller;
+
+    public ISpeedOverrider speedOverrider = null;
+
+    protected override float ActualMoveSpeed()
+    {
+        if (speedOverrider != null)
+            return speedOverrider.GetSpeed();
+
+        return base.ActualMoveSpeed();
+    }
+
+    private StatFloat statMoveSpeed;
 
     public void Init(PlayerController controller)
     {
@@ -66,6 +79,24 @@ public class PlayerVehicle : Vehicle
         }
     }
 
+    public void Kill()
+    {
+        if (IsDead)
+            return;
+
+        Die();
+    }
+
+    protected override void Die()
+    {
+        base.Die();
+
+        //Death animation
+        Destroy(gameObject);
+    }
+
+    #region Drift
+
     private void StartDrift()
     {
         for (int i = 0; i < controller.playerLocations.wheels.Length; i++)
@@ -98,17 +129,5 @@ public class PlayerVehicle : Vehicle
     {
         return Instantiate(prefab.gameObject, worldPosition, Quaternion.identity, controller.body).transform;
     }
-
-    public void Kill()
-    {
-        Die();
-    }
-
-    protected override void Die()
-    {
-        base.Die();
-
-        //Death animation
-        Destroy(gameObject);
-    }
+    #endregion
 }
