@@ -6,13 +6,16 @@ public class HealthPackManager : MonoBehaviour
 {
     [Header("Linking")]
     public HealthPacks healthPackRefab;
+
     [Header("Debug Setting")]
     public bool debugPrints = false;
+
     [Header("Luck Settings (in %)")]
     public float lerpUpdateRate = 0.001f;
     public float lerpPerKill = 0.1f;
     public float lerpCeiling = 50;
     public float luckIncreaseByHealthDeficit = 4f;
+    public float luckMultiplier = 1;
 
     public bool enableHealthPackSpawn = true;
 
@@ -65,6 +68,9 @@ public class HealthPackManager : MonoBehaviour
         float realSpawnChance = spawnChance
             + (player.playerStats.health.MAX - player.playerStats.health) * luckIncreaseByHealthDeficit;
 
+        float invertRealSpawnChance = 1 - realSpawnChance;
+
+        realSpawnChance = 1 - Mathf.Pow(invertRealSpawnChance, luckMultiplier);
 
         if (Random.Range(0f, 100f) <= realSpawnChance)
         {
