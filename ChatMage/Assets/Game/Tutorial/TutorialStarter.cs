@@ -10,13 +10,16 @@ public class TutorialStarter : MonoBehaviour {
     public static MonoBehaviour tutorialScriptObject = null;
     public GameObject canvas;
 
-    public void Init(BaseTutorial tutorial)
+    public bool Init(BaseTutorial tutorial)
     {
         if (tutorial == null)
-            return;
+            return false;
+        if (tutorial.IsComplete())
+            return false;
         this.tutorial = tutorial;
         tutorialScriptObject = this;
         LoadQueue queue = new LoadQueue(tutorial.Start);
         tutorial.Begin(canvas, queue);
+        return true;
     }
 }
