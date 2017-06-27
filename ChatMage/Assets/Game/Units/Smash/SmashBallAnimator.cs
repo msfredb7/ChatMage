@@ -51,7 +51,7 @@ public class SmashBallAnimator : MonoBehaviour
         if (Game.instance.Player != null)
         {
             transform.localScale = Vector3.zero;
-            transform.SetParent(Game.instance.Player.transform);
+            transform.SetParent(Game.instance.Player.body);
             transform.DOScale(attachedToPlayerSize, 0.5f);
             transform.localRotation = Quaternion.identity;
             transform.localPosition = Vector3.zero;
