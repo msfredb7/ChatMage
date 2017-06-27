@@ -35,7 +35,6 @@ public class BlueShellAnimator : MonoBehaviour
     public float shockWaveDuration = 0.35f;
 
     private Sequence tween;
-    private bool atLeastAFrame = false;
     private float radius = 0;
 
     public void ResetValues()
@@ -44,7 +43,6 @@ public class BlueShellAnimator : MonoBehaviour
         coreAnimator.gameObject.SetActive(false);
         lightFade.enabled = false;
         shockWave.enabled = false;
-        atLeastAFrame = false;
 
         if (Game.instance.Player != null && Game.instance.Player.playerStats.boostedAOE)
             radius = explosionBoostedRadius;

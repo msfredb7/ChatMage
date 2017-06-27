@@ -1,12 +1,18 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FullInspector;
 
 public class ITM_Mine : Item {
 
-    public GameObject minePrefab;
+    [InspectorHeader("Linking")]
+    public Mine minePrefab;
+
+    [InspectorHeader("Settings")]
     public float cooldown;
+
+
     private float countdown;
 
     public override void OnGameReady()
@@ -16,22 +22,22 @@ public class ITM_Mine : Item {
 
     public override void OnGameStarted()
     {
-        cooldown = cooldown * Game.instance.Player.playerStats.cooldownReduction;
+        cooldown *= Game.instance.Player.playerStats.cooldownMultiplier;
     }
 
     public override void OnUpdate()
     {
         if (countdown < 0)
         {
-            LaunchBomb();
+            LaunchBomb(player.vehicle.Position);
         }
-        countdown -= Time.deltaTime;
+        countdown -= player.vehicle.DeltaTime();
     }
 
-    void LaunchBomb()
+    void LaunchBomb(Vector2 position)
     {
         countdown = cooldown;
-        GameObject mine = Instantiate(minePrefab);
-        new Mine(mine);
+
+        Mine mine = Game.instance.SpawnUnit(minePrefab, position);
     }
 }

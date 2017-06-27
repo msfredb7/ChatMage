@@ -9,6 +9,7 @@ public class Car_Tapis : Car
     public float turnAcceleration = 5;
     public float turnSpeed = 185;
     public float moveSpeed = 0.5f;
+    public float carWeight = 1;
 
     [fsIgnore]
     float horizontal = 0;
@@ -30,7 +31,7 @@ public class Car_Tapis : Car
 
     public override void OnGameReady()
     {
-        player.vehicle.useWeight = false;
+        player.vehicle.weight = carWeight;
         player.vehicle.MoveSpeed = moveSpeed;
     }
 

@@ -1,15 +1,10 @@
-﻿using DG.Tweening;
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExplosionAnimator : MonoBehaviour {
-
-    [Header("Explosion")]
-    public LayerMask explosionLayerMask;
-    public float explosionNormalRadius = 2;
-    public float explosionBoostedRadius = 3;
-
+public class ExplosionAnimator : MonoBehaviour
+{
     [Header("Core Animation")]
     public Animator coreAnimator;
     public float coreSizeMultiplier = 0.6f;
@@ -24,22 +19,14 @@ public class ExplosionAnimator : MonoBehaviour {
     public float shockWaveDuration = 0.35f;
 
     private Sequence tween;
-    private bool atLeastAFrame = false;
-    private float radius = 0;
 
-    public void ResetValues()
+    public void Start()
     {
         coreAnimator.gameObject.SetActive(false);
         shockWave.enabled = false;
-        atLeastAFrame = false;
-
-        if (Game.instance.Player != null && Game.instance.Player.playerStats.boostedAOE)
-            radius = explosionBoostedRadius;
-        else
-            radius = explosionNormalRadius;
     }
 
-    public void Explode(TweenCallback onComplete, Unit explodingUnit)
+    public void Explode(float radius, TweenCallback onComplete, Unit explodingUnit, float shakeStrength = 1)
     {
         //Enables
         shockWave.enabled = true;
@@ -60,7 +47,7 @@ public class ExplosionAnimator : MonoBehaviour {
 
         sq.OnComplete(delegate ()
         {
-            coreAnimator.SetTrigger("End");
+            explodingUnit.onTimeScaleChange -= ShellUnit_onTimeScaleChange;
             if (onComplete != null)
                 onComplete();
         });
@@ -72,7 +59,8 @@ public class ExplosionAnimator : MonoBehaviour {
         ShellUnit_onTimeScaleChange(explodingUnit);
 
         //Camera shake
-        Game.instance.gameCamera.vectorShaker.Shake();
+        if (shakeStrength > 0)
+            Game.instance.gameCamera.vectorShaker.Shake(shakeStrength);
     }
 
     private void ShellUnit_onTimeScaleChange(Unit unit)

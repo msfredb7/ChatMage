@@ -12,6 +12,7 @@ namespace GameIntroOutro
 {
     public class IntroCountdown : BaseIntro
     {
+        private const string LOCK_KEY = "introlock";
         public Text text;
         public float playerEnterDelay = 1.5f;
 
@@ -19,25 +20,27 @@ namespace GameIntroOutro
         {
             Sequence sq = DOTween.Sequence();
 
+            PlayerController player = Game.instance.Player;
+            player.playerDriver.enableInput = false;
 
-
-            Vehicle playerVehicle = Game.instance.Player.vehicle;
+            Vehicle playerVehicle = player.vehicle;
 
             playerVehicle.TeleportPosition(new Vector2(0, Game.instance.gameCamera.Bottom - 2));
             playerVehicle.TeleportDirection(90);
 
             playerVehicle.canUseBorder = false;
-            playerVehicle.wheelsOnTheGround.Lock("www.fuckyou");
-            playerVehicle.canTurn.Lock("www.fuckyou");
+            playerVehicle.wheelsOnTheGround.Lock(LOCK_KEY);
+            playerVehicle.canTurn.Lock(LOCK_KEY);
 
             sq.Insert(playerEnterDelay, playerVehicle.transform.DOMoveY(Game.instance.gameCamera.Height, 3 - playerEnterDelay)
                 .SetEase(Ease.OutSine)
                 .OnComplete(delegate ()
                 {
-                //Re-enable player things
-                playerVehicle.canUseBorder = true;
-                    playerVehicle.wheelsOnTheGround.Unlock("www.fuckyou");
-                    playerVehicle.canTurn.Unlock("www.fuckyou");
+                    //Re-enable player things
+                    playerVehicle.canUseBorder = true;
+                    playerVehicle.wheelsOnTheGround.Unlock(LOCK_KEY);
+                    playerVehicle.canTurn.Unlock(LOCK_KEY);
+                    player.playerDriver.enableInput = true;
                 }));
 
 

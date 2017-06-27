@@ -99,13 +99,13 @@ public abstract class Vehicle : MovingUnit
         if (timeScale <= 0)
             return;
 
-        Vector2 vDir = WorldDirection2D() * currentMoveSpeed * timeScale;
+        Vector2 vDir = WorldDirection2D() * ActualMoveSpeed() * timeScale;
         if (useWeight)
             Speed = Vector2.Lerp(
                 Speed,  //Current
                 vDir,   //target
                 FixedLerp.Fix(
-                    weight >= 1f ? 1 : weight / 10,
+                    weight / 10, // Ancienne ligne: weight >= 1f ? 1 : weight / 10
                     FPSCounter.GetFixedFPS() / timeScale));
         else
             Speed = vDir;
@@ -159,6 +159,11 @@ public abstract class Vehicle : MovingUnit
         targetDirection = newDirection;
         rb.rotation = newDirection;
         onTeleportDirection.Invoke(this);
+    }
+
+    protected virtual float ActualMoveSpeed()
+    {
+        return currentMoveSpeed;
     }
 }
 

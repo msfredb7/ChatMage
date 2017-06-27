@@ -1,15 +1,16 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FullInspector;
 
 public class ITM_CooldownReduction : Item
 {
-    [Range(0, 1)]
+    [InspectorRange(0, 1), InspectorHeader("Formula: cooldownMult = 1 - cooldownReduc")]
     public float cooldownReduction = 0.5f;
 
     public override void OnGameReady()
     {
-        Game.instance.Player.playerStats.cooldownReduction.Set(cooldownReduction);
+        Game.instance.Player.playerStats.cooldownMultiplier.Set(1 - cooldownReduction);
     }
 
     public override void OnGameStarted()
@@ -17,10 +18,6 @@ public class ITM_CooldownReduction : Item
     }
 
     public override void OnUpdate()
-    {
-    }
-
-    void LaunchBomb()
     {
     }
 }

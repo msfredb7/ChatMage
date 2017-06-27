@@ -8,7 +8,6 @@ using CCC.Utility;
 public class Car_Spinner : Car
 {
     //NE PAS MODIFIER IN-GAME
-    public float turnClutch = 0;
     public float turnAcceleration = 5;
     public float turnSpeed = 185;
     public float moveSpeed = 6;
@@ -56,7 +55,7 @@ public class Car_Spinner : Car
             {
                 if (listenningRight) // Sinon es ce qu'on ecoutait pour la droite
                 {
-                    Debug.Log("Combo ++");
+                    //Debug.Log("Combo ++");
                     // on augmente le combo et on arrete d'ecouter pour la droite
                     comboAmount++;
                     listenningRight = false;
@@ -68,7 +67,7 @@ public class Car_Spinner : Car
                 if (!listenningLeft) // et qu'on etait pas deja en train d'ecouter pour la gauche
                 {
                     // on ecoute a gauche et on start le countdown
-                    Debug.Log("Listenning to Left");
+                    //Debug.Log("Listenning to Left");
                     listenningLeft = true;
                     countdown = comboCountdown;
                 }
@@ -77,7 +76,7 @@ public class Car_Spinner : Car
             {
                 if (listenningLeft)// Sinon es ce qu'on ecoutait pour la gauche
                 {
-                    Debug.Log("Combo ++");
+                    //Debug.Log("Combo ++");
                     // on augmente le combo et on arrete d'ecouter pour la gauche
                     comboAmount++;
                     listenningLeft = false;
@@ -89,7 +88,7 @@ public class Car_Spinner : Car
                 // et qu'on etait pas deja en train d'ecouter pour la droite
                 if (!listenningRight)
                 {
-                    Debug.Log("Listenning to Right");
+                    //Debug.Log("Listenning to Right");
                     // on ecoute a droite et on start le countdown
                     listenningRight = true;
                     countdown = comboCountdown;
@@ -100,9 +99,6 @@ public class Car_Spinner : Car
 
             if ((horizontalInput < 0 && lastHorizontal > 0) || (horizontalInput > 0 && lastHorizontal < 0))
                 lastHorizontal = 0;
-
-            if (Mathf.Abs(horizontalInput) > turnClutch && Mathf.Abs(lastHorizontal) < turnClutch)
-                lastHorizontal = horizontalInput * turnClutch;
 
             horizontal = Mathf.MoveTowards(lastHorizontal, horizontalInput, player.vehicle.DeltaTime() * turnAcceleration);
         }
@@ -116,7 +112,7 @@ public class Car_Spinner : Car
         // Le countdown est termine, on reset tout
         if(countdown <= 0)
         {
-            Debug.Log("Countdown Over");
+            //Debug.Log("Countdown Over");
             listenningLeft = false;
             listenningRight = false;
             comboAmount = 0;

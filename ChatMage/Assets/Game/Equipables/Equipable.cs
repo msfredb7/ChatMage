@@ -12,13 +12,14 @@ public abstract class Equipable : BaseScriptableObject
     public virtual void Init(PlayerController player)
     {
         this.player = player;
+        Game.instance.onDestroy += ClearReferences;
     }
 
     public abstract void OnGameReady();
     public abstract void OnGameStarted();
     public abstract void OnUpdate();
 
-    protected void ClearReferences()
+    protected virtual void ClearReferences()
     {
         player = null;
     }

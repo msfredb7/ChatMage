@@ -31,7 +31,7 @@ public class Car_Jet : Car
 
     public override void OnGameReady()
     {
-        player.vehicle.weight = 0.7f;
+        player.vehicle.weight = carWeight;
         player.vehicle.MoveSpeed = moveSpeed;
     }
 

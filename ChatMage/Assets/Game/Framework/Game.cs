@@ -46,6 +46,7 @@ public class Game : PublicSingleton<Game>
     public bool gameStarted = false;
     public event SimpleEvent onGameReady;
     public event SimpleEvent onGameStarted;
+    public event SimpleEvent onDestroy;
     public event Unit.Unit_Event onUnitSpawned;
     public event Unit.Unit_Event onUnitDestroyed;
 
@@ -113,6 +114,13 @@ public class Game : PublicSingleton<Game>
     public void Quit()
     {
         LoadingScreen.TransitionTo(LevelSelect.LevelSelection.SCENENAME, null);
+    }
+
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+        if (onDestroy != null)
+            onDestroy();
     }
 
     #region Unit Managment

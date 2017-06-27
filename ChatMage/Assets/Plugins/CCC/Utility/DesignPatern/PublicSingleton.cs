@@ -26,7 +26,7 @@ public class PublicSingleton<T> : BaseBehavior where T : class
         }
     }
 
-    void OnDestroy()
+    protected virtual void OnDestroy()
     {
         if ((object)instance == (object)this)
             instance = null;

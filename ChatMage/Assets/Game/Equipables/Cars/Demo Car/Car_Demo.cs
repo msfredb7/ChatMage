@@ -8,7 +8,6 @@ using CCC.Utility;
 public class Car_Demo : Car
 {
     //NE PAS MODIFIER IN-GAME
-    public float turnClutch = 0;
     public float turnAcceleration = 5;
     public float turnSpeed = 185;
     public float moveSpeed = 6;
@@ -26,9 +25,6 @@ public class Car_Demo : Car
         {
             if ((horizontalInput < 0 && lastHorizontal > 0) || (horizontalInput > 0 && lastHorizontal < 0))
                 lastHorizontal = 0;
-
-            if (Mathf.Abs(horizontalInput) > turnClutch && Mathf.Abs(lastHorizontal) < turnClutch)
-                lastHorizontal = horizontalInput * turnClutch;
 
             horizontal = Mathf.MoveTowards(lastHorizontal, horizontalInput, player.vehicle.DeltaTime() * turnAcceleration);
         }

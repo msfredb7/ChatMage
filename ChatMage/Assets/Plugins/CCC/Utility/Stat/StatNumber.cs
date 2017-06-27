@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Runtime.Serialization;
@@ -30,6 +30,8 @@ namespace CCC.Utility
         T min;
         [SerializeField]
         T max;
+        [SerializeField]
+        T addedFlat;
         [SerializeField]
         bool minSet = false;
         [SerializeField]
@@ -198,10 +200,11 @@ namespace CCC.Utility
             {
                 default:
                 case BuffType.Flat:
-                    Set(Add(value, this.value));
+                    Set(Add(value, this.value), false);
+                    addedFlat = Add(addedFlat, value);
                     break;
                 case BuffType.Percent:
-                    Set(ApplyThisBuff(this.value, value), false);
+                    Set(Add(ApplyPercentBuff(Substract(this.value, addedFlat), value), addedFlat), false);
                     break;
             }
             return true;
@@ -217,10 +220,11 @@ namespace CCC.Utility
             {
                 default:
                 case BuffType.Flat:
-                    Set(Substract(value, buff.value));
+                    Set(Substract(value, buff.value), false);
+                    addedFlat = Substract(addedFlat, buff.value);
                     break;
                 case BuffType.Percent:
-                    Set(ApplyThisBuff(value, buff.value, true), false);
+                    Set(Add(ApplyPercentBuff(Substract(value,addedFlat), buff.value, true), addedFlat), false);
                     break;
             }
             buffs.Remove(id);
@@ -233,13 +237,13 @@ namespace CCC.Utility
             {
                 if (buff.Value.type == BuffType.Percent)         //Equivaux à: (value * (100+buff)) / 100
                 {
-                    val = ApplyThisBuff(val, buff.Value.value);
+                    val = ApplyPercentBuff(val, buff.Value.value);
                 }
             }
             return val;
         }
 
-        private T ApplyThisBuff(T val, T percentBuff, bool invert = false)
+        private T ApplyPercentBuff(T val, T percentBuff, bool invert = false)
         {
             T oneHundred = OneHundred();
             T b = Add(percentBuff, oneHundred);

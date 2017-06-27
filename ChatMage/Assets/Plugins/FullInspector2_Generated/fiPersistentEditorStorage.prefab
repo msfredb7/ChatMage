@@ -73,7 +73,6 @@ MonoBehaviour:
   - {fileID: 114999896915721400, guid: eae74d8b6192dc147a22387c81029a25, type: 2}
   - {fileID: 114931973947917846, guid: 130eff398c5a2174fbc65f36ca70f257, type: 2}
   - {fileID: 114268870885035218, guid: 5ac9a98553fd1314d96a0f0754a53e13, type: 2}
-  - {fileID: 11400000, guid: 920f6f159ddd93141b06077c2c0f8191, type: 2}
   - {fileID: 11400000, guid: 014286bfb0da1db4e892b55653b77fa9, type: 2}
   - {fileID: 11400000, guid: 56910f38695faf046974c537b8ec2c84, type: 2}
   - {fileID: 11400000, guid: 1583cd9a6124adf4b85278cc31eed8bb, type: 2}
@@ -112,7 +111,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a2c97a7ac4ea5f746b00ffac17208a8c, type: 2}
   - {fileID: 11400000, guid: 3dc0913ffc649ab488629ea4cc8376d8, type: 2}
   - {fileID: 11400000, guid: 26421e3e0d7bfd34e901dd99d009d3e1, type: 2}
-  - {fileID: 11400000, guid: 628f431a353e69547a886b9d8a937cb6, type: 2}
   - {fileID: 11400000, guid: 24f9ca6709f27bc4a8a00531daa2c460, type: 2}
   - {fileID: 11400000, guid: c8f15f9690b2ccf45a8f86f0dfb03b3f, type: 2}
   - {fileID: 11400000, guid: 5031a8aba449b98408a29c7f20bc3419, type: 2}
@@ -132,6 +130,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3ba772465f0845d4a9f65088fbae714f, type: 2}
   - {fileID: 11400000, guid: b39e951703cf30044b75891562809988, type: 2}
   - {fileID: 11400000, guid: 5e3da66f829332f4f941fcb05175d65b, type: 2}
+  - {fileID: 11400000, guid: 4ed9064e4b1e1cb4180de5728b92c5cd, type: 2}
   _values:
   - _keys:
     - DefaultBehaviorEditor.locationButton.EditProperty
@@ -354,9 +353,6 @@ MonoBehaviour:
       type: 2}
   - _keys: []
     _values: []
-    _target: {fileID: 11400000, guid: 920f6f159ddd93141b06077c2c0f8191, type: 2}
-  - _keys: []
-    _values: []
     _target: {fileID: 11400000, guid: 014286bfb0da1db4e892b55653b77fa9, type: 2}
   - _keys: []
     _values: []
@@ -419,11 +415,8 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 11400000, guid: 6cf2f4e900e2894428908554376f4a49, type: 2}
-  - _keys:
-    - DefaultBehaviorEditor.largeIcon.EditProperty
-    _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
+  - _keys: []
+    _values: []
     _target: {fileID: 11400000, guid: 12b777d6414858342ac4da6d12ffb4d8, type: 2}
   - _keys:
     - DefaultBehaviorEditor.tutorialEvents.EditProperty.0.useSpecificTime.EditProperty
@@ -541,9 +534,6 @@ MonoBehaviour:
     _target: {fileID: 11400000, guid: 26421e3e0d7bfd34e901dd99d009d3e1, type: 2}
   - _keys: []
     _values: []
-    _target: {fileID: 11400000, guid: 628f431a353e69547a886b9d8a937cb6, type: 2}
-  - _keys: []
-    _values: []
     _target: {fileID: 11400000, guid: 24f9ca6709f27bc4a8a00531daa2c460, type: 2}
   - _keys: []
     _values: []
@@ -564,8 +554,14 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 11400000, guid: dad57d4799f09bf49940c16206098b8b, type: 2}
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.minePrefab.EditProperty
+    - DefaultBehaviorEditor.cooldown.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
     _target: {fileID: 11400000, guid: 07b27e0fa42764f4083f4cf787f5e115, type: 2}
   - _keys: []
     _values: []
@@ -591,8 +587,11 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 11400000, guid: 23ca177f1e4073441bf85e2b49f759d2, type: 2}
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.cooldownReduction.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
     _target: {fileID: 11400000, guid: 3ba772465f0845d4a9f65088fbae714f, type: 2}
   - _keys: []
     _values: []
@@ -600,6 +599,21 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 11400000, guid: 5e3da66f829332f4f941fcb05175d65b, type: 2}
+  - _keys:
+    - DefaultBehaviorEditor.sphereTrigger.EditProperty
+    - DefaultBehaviorEditor.debugRays.EditProperty
+    - DefaultBehaviorEditor.maxRange.EditProperty
+    - DefaultBehaviorEditor.dashDuration.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    _target: {fileID: 11400000, guid: 4ed9064e4b1e1cb4180de5728b92c5cd, type: 2}
 --- !u!114 &114891865049736824
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -632,7 +646,6 @@ MonoBehaviour:
   - {fileID: 114999896915721400, guid: eae74d8b6192dc147a22387c81029a25, type: 2}
   - {fileID: 114931973947917846, guid: 130eff398c5a2174fbc65f36ca70f257, type: 2}
   - {fileID: 114268870885035218, guid: 5ac9a98553fd1314d96a0f0754a53e13, type: 2}
-  - {fileID: 11400000, guid: 920f6f159ddd93141b06077c2c0f8191, type: 2}
   - {fileID: 11400000, guid: 014286bfb0da1db4e892b55653b77fa9, type: 2}
   - {fileID: 11400000, guid: 56910f38695faf046974c537b8ec2c84, type: 2}
   - {fileID: 11400000, guid: 1583cd9a6124adf4b85278cc31eed8bb, type: 2}
@@ -671,7 +684,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a2c97a7ac4ea5f746b00ffac17208a8c, type: 2}
   - {fileID: 11400000, guid: 3dc0913ffc649ab488629ea4cc8376d8, type: 2}
   - {fileID: 11400000, guid: 26421e3e0d7bfd34e901dd99d009d3e1, type: 2}
-  - {fileID: 11400000, guid: 628f431a353e69547a886b9d8a937cb6, type: 2}
   - {fileID: 11400000, guid: 24f9ca6709f27bc4a8a00531daa2c460, type: 2}
   - {fileID: 11400000, guid: c8f15f9690b2ccf45a8f86f0dfb03b3f, type: 2}
   - {fileID: 11400000, guid: 5031a8aba449b98408a29c7f20bc3419, type: 2}
@@ -691,6 +703,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3ba772465f0845d4a9f65088fbae714f, type: 2}
   - {fileID: 11400000, guid: b39e951703cf30044b75891562809988, type: 2}
   - {fileID: 11400000, guid: 5e3da66f829332f4f941fcb05175d65b, type: 2}
+  - {fileID: 11400000, guid: 4ed9064e4b1e1cb4180de5728b92c5cd, type: 2}
   _values:
   - _keys: []
     _values: []
@@ -761,9 +774,6 @@ MonoBehaviour:
     _values: []
     _target: {fileID: 114268870885035218, guid: 5ac9a98553fd1314d96a0f0754a53e13,
       type: 2}
-  - _keys: []
-    _values: []
-    _target: {fileID: 11400000, guid: 920f6f159ddd93141b06077c2c0f8191, type: 2}
   - _keys: []
     _values: []
     _target: {fileID: 11400000, guid: 014286bfb0da1db4e892b55653b77fa9, type: 2}
@@ -887,9 +897,6 @@ MonoBehaviour:
     _target: {fileID: 11400000, guid: 26421e3e0d7bfd34e901dd99d009d3e1, type: 2}
   - _keys: []
     _values: []
-    _target: {fileID: 11400000, guid: 628f431a353e69547a886b9d8a937cb6, type: 2}
-  - _keys: []
-    _values: []
     _target: {fileID: 11400000, guid: 24f9ca6709f27bc4a8a00531daa2c460, type: 2}
   - _keys: []
     _values: []
@@ -946,3 +953,6 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 11400000, guid: 5e3da66f829332f4f941fcb05175d65b, type: 2}
+  - _keys: []
+    _values: []
+    _target: {fileID: 11400000, guid: 4ed9064e4b1e1cb4180de5728b92c5cd, type: 2}

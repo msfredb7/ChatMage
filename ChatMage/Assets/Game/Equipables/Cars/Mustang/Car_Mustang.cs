@@ -7,10 +7,10 @@ using CCC.Utility;
 public class Car_Mustang : Car
 {
     //NE PAS MODIFIER IN-GAME
-    public float turnClutch = 0;
     public float turnAcceleration = 5;
     public float turnSpeed = 185;
     public float moveSpeed = 1;
+    public float carWeight = 0.2f;
 
     [fsIgnore]
     float horizontal = 0;
@@ -26,9 +26,6 @@ public class Car_Mustang : Car
             if ((horizontalInput < 0 && lastHorizontal > 0) || (horizontalInput > 0 && lastHorizontal < 0))
                 lastHorizontal = 0;
 
-            if (Mathf.Abs(horizontalInput) > turnClutch && Mathf.Abs(lastHorizontal) < turnClutch)
-                lastHorizontal = horizontalInput * turnClutch;
-
             horizontal = Mathf.MoveTowards(lastHorizontal, horizontalInput, player.vehicle.DeltaTime() * turnAcceleration);
         }
 
@@ -39,6 +36,7 @@ public class Car_Mustang : Car
 
     public override void OnGameReady()
     {
+        player.vehicle.weight = carWeight;
         player.vehicle.MoveSpeed = moveSpeed;
     }
 

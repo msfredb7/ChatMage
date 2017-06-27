@@ -4,30 +4,30 @@ using UnityEngine;
 
 public class TrailRendererColors
 {
-    public float transitionLength = 0.01f;
-    private TrailRenderer renderer;
-    private Transform tr;
+    //public float transitionLength = 0.01f;
+    //private TrailRenderer renderer;
+    //private Transform tr;
 
-    private GradientAlphaKey[] aKeys;
-    private GradientColorKey[] cKeys;
-    private Gradient gradient;
+    //private GradientAlphaKey[] aKeys;
+    //private GradientColorKey[] cKeys;
+    //private Gradient gradient;
 
-    private Color startColor;
-    private Color endColor;
+    //private Color startColor;
+    //private Color endColor;
 
-    private LinkedList<GradientColorKey> colors;
+    //private LinkedList<GradientColorKey> colors;
 
 
-    public TrailRendererColors(TrailRenderer trailRenderer, Transform followTarget)
-    {
-        renderer = trailRenderer;
-        tr = followTarget;
+    //public TrailRendererColors(TrailRenderer trailRenderer, Transform followTarget)
+    //{
+    //    renderer = trailRenderer;
+    //    tr = followTarget;
 
-        gradient = renderer.colorGradient;
+    //    gradient = renderer.colorGradient;
 
-        cKeys = gradient.colorKeys;
-        aKeys = gradient.alphaKeys;
-    }
+    //    cKeys = gradient.colorKeys;
+    //    aKeys = gradient.alphaKeys;
+    //}
 
     //public void SetColor(Color color)
     //{
