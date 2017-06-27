@@ -40,7 +40,8 @@ public class PlayerStats : PlayerComponent, IAttackable
     public StatFloat smashCooldownRate = new StatFloat(1, 0, float.MaxValue, BoundMode.Cap);
 
     // Cooldown reduction factor
-    public StatFloat cooldownReduction = new StatFloat(1, 0, 1, BoundMode.Cap);
+    [NonSerialized]
+    public StatFloat cooldownMultiplier = new StatFloat(1, 0, 1, BoundMode.Cap);
 
     [Header("Variables")]
     public bool damagable = true;

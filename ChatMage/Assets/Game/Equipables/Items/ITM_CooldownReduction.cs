@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +9,7 @@ public class ITM_CooldownReduction : Item
 
     public override void OnGameReady()
     {
-        Game.instance.Player.playerStats.cooldownReduction.Set(cooldownReduction);
+        Game.instance.Player.playerStats.cooldownMultiplier.Set(cooldownReduction);
     }
 
     public override void OnGameStarted()
