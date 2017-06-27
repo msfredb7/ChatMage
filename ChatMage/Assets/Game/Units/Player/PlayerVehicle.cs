@@ -20,13 +20,21 @@ public class PlayerVehicle : Vehicle
     PlayerController controller;
 
     public ISpeedOverrider speedOverrider = null;
+    public List<ISpeedBuff> speedBuffs = new List<ISpeedBuff>();
+
 
     protected override float ActualMoveSpeed()
     {
         if (speedOverrider != null)
             return speedOverrider.GetSpeed();
 
-        return base.ActualMoveSpeed();
+        float value = base.ActualMoveSpeed();
+        for (int i = 0; i < speedBuffs.Count; i++)
+        {
+            value += speedBuffs[i].GetAdditionalSpeed();
+        }
+
+        return value;
     }
 
     private StatFloat statMoveSpeed;

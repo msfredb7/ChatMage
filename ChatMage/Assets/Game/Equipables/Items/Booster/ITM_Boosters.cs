@@ -4,7 +4,7 @@ using System;
 using UnityEngine;
 using FullSerializer;
 
-public class ITM_Boosters : Item
+public class ITM_Boosters : Item, ISpeedBuff
 {
     public float stackDuration;
     public int maxBoostStacks = 3;
@@ -16,6 +16,8 @@ public class ITM_Boosters : Item
     private int boostStacks = 0;
     [fsIgnore, NonSerialized]
     private float baseSpeed;
+    [fsIgnore, NonSerialized]
+    private float addedSpeed;
 
     public override void Init(PlayerController player)
     {
@@ -29,6 +31,7 @@ public class ITM_Boosters : Item
 
     public override void OnGameStarted()
     {
+        player.vehicle.speedBuffs.Add(this);
     }
 
     public override void OnUpdate()
@@ -41,7 +44,7 @@ public class ITM_Boosters : Item
 
     void LoseStacks()
     {
-        player.vehicle.MoveSpeed = baseSpeed;
+        addedSpeed = 0;
         boostStacks = 0;
     }
 
@@ -51,10 +54,15 @@ public class ITM_Boosters : Item
         if (boostStacks < maxBoostStacks)
         {
             boostStacks++;
-            player.vehicle.MoveSpeed *= moveSpeedMultiplierPerStack;
+            addedSpeed += baseSpeed * moveSpeedMultiplierPerStack - baseSpeed;
         }
 
         //Refresh timer
         remainingBoostTime = stackDuration;
+    }
+
+    public float GetAdditionalSpeed()
+    {
+        return addedSpeed;
     }
 }
