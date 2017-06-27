@@ -143,6 +143,7 @@ public class GameSaves : BaseManager<GameSaves>
         LoadDataAsync(Type.LevelSelect, queue.Register());
         LoadDataAsync(Type.Account, queue.Register());
         LoadDataAsync(Type.Armory, queue.Register());
+        LoadDataAsync(Type.Tutorial, queue.Register());
 
         queue.MarkEnd();
     }
@@ -153,6 +154,7 @@ public class GameSaves : BaseManager<GameSaves>
         LoadData(Type.LevelSelect);
         LoadData(Type.Account);
         LoadData(Type.Armory);
+        LoadData(Type.Tutorial);
     }
 
     public void SaveAllAsync(Action onComplete)
@@ -162,6 +164,7 @@ public class GameSaves : BaseManager<GameSaves>
         SaveDataAsync(Type.LevelSelect, queue.Register());
         SaveDataAsync(Type.Account, queue.Register());
         SaveDataAsync(Type.Armory, queue.Register());
+        SaveDataAsync(Type.Tutorial, queue.Register());
 
         queue.MarkEnd();
     }
@@ -173,6 +176,7 @@ public class GameSaves : BaseManager<GameSaves>
         SaveData(Type.LevelSelect);
         SaveData(Type.Account);
         SaveData(Type.Armory);
+        SaveData(Type.Tutorial);
 #if UNITY_EDITOR
         Debug.Log("All Data Saved");
 #endif
@@ -241,6 +245,7 @@ public class GameSaves : BaseManager<GameSaves>
         ClearSave(Type.LevelSelect);
         ClearSave(Type.Loadout);
         ClearSave(Type.Armory);
+        ClearSave(Type.Tutorial);
     }
 
     [InspectorButton()]
@@ -275,6 +280,14 @@ public class GameSaves : BaseManager<GameSaves>
         Debug.Log("Armory Cleared");
 #endif
     }
+    [InspectorButton()]
+    public void ClearTutorial()
+    {
+        ClearSave(Type.Tutorial);
+#if UNITY_EDITOR
+        Debug.Log("Tutorial Cleared");
+#endif
+    }
 
     public void ClearSave(Type type)
     {
@@ -289,8 +302,9 @@ public class GameSaves : BaseManager<GameSaves>
     private const string LOADOUT_FILE = "loadout.dat";
     private const string ACCOUNT_FILE = "account.dat";
     private const string ARMORY_FILE = "armory.dat";
+    private const string TUTORIAL_FILE = "tutorial.dat";
 
-    public enum Type { LevelSelect = 0, Loadout = 1, Account = 2, Armory = 3 }
+    public enum Type { LevelSelect = 0, Loadout = 1, Account = 2, Armory = 3, Tutorial = 4 }
     
     [ShowInInspector, InspectorDisabled]
     private Data levelSelectData = new Data();
@@ -300,6 +314,8 @@ public class GameSaves : BaseManager<GameSaves>
     private Data accountData = new Data();
     [ShowInInspector, InspectorDisabled]
     private Data armoryData = new Data();
+    [ShowInInspector, InspectorDisabled]
+    private Data tutorialData = new Data();
 
     private string TypeToFileName(Type type)
     {
@@ -313,6 +329,8 @@ public class GameSaves : BaseManager<GameSaves>
                 return ACCOUNT_FILE;
             case Type.Armory:
                 return ARMORY_FILE;
+            case Type.Tutorial:
+                return TUTORIAL_FILE;
         }
         return "";
     }
@@ -329,6 +347,8 @@ public class GameSaves : BaseManager<GameSaves>
                 return accountData;
             case Type.Armory:
                 return armoryData;
+            case Type.Tutorial:
+                return tutorialData;
         }
         return null;
     }
@@ -349,6 +369,9 @@ public class GameSaves : BaseManager<GameSaves>
             case Type.Armory:
                 armoryData = newData;
                 break;
+            case Type.Tutorial:
+                tutorialData = newData;
+                break;
         }
     }
 
@@ -367,6 +390,9 @@ public class GameSaves : BaseManager<GameSaves>
                 break;
             case Type.Armory:
                 armoryData = new Data();
+                break;
+            case Type.Tutorial:
+                tutorialData = new Data();
                 break;
         }
     }

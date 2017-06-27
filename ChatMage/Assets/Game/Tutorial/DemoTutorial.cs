@@ -76,6 +76,11 @@ public class DemoTutorial : BaseTutorial {
             onComplete.Invoke();
     }
 
+    public void EndTutorial(Action onComplete)
+    {
+        End();
+    }
+
     public void ShowHp(Action onComplete)
     {
         MoveSpotlight(Game.instance.ui.healthdisplay.hearthCountainer.transform.GetChild(1).GetComponent<RectTransform>().position,delegate() {

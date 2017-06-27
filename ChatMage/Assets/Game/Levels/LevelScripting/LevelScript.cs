@@ -60,10 +60,9 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
     public InGameEvents inGameEvents;
 
     [InspectorHeader("Tutoriel")]
-    public bool activateTutorial = false;
+    public bool activateTutorial = false; // Debug
     [InspectorShowIf("activateTutorial")]
     public BaseTutorial tutorial;
-    public bool hasBeenCompleted = false;
 
     [fsIgnore, NotSerialized]
     private List<UnitWave> eventTriggeredWaves;
@@ -119,7 +118,7 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
 
         StartWaves();
 
-        if(activateTutorial && !hasBeenCompleted)
+        if(activateTutorial) // Debug
             StartTutorial();
 
         //Camera follow player ?
@@ -188,8 +187,10 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
                 TutorialStarter starter = Scenes.FindRootObject<TutorialStarter>(scene);
                 if (starter != null)
                 {
-                    Debug.Log("Init the tutorial");
-                    starter.Init(tutorial);
+                    if (starter.Init(tutorial))
+                        Debug.LogWarning("Tutoriel loaded");
+                    else
+                        Debug.LogWarning("Tutoriel not loaded");
                 }
             });
         }
@@ -263,7 +264,7 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
     protected abstract void OnGameStarted();
     protected abstract void OnUpdate();
     public abstract void OnReceiveEvent(string message);
-    public virtual void OnWin() { hasBeenCompleted = true; }
+    public abstract void OnWin();
     public abstract void OnLose();
     public virtual void OnWaveLaunch() { }
 

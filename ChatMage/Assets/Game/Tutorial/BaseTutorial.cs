@@ -58,11 +58,15 @@ public class BaseTutorial : BaseScriptableObject
     protected GameObject currentButtonPrefab;
     protected GameObject currentTutorialInfoDisplay;
 
+    private string TUTORIALSAVE = "tutorialSave";
+
     /// <summary>
     /// Utiliser pour l'initialisation des variables
     /// </summary>
 	public virtual void Begin(GameObject canvas, LoadQueue queue)
     {
+        if (!GameSaves.instance.ContainsBool(GameSaves.Type.Tutorial, TUTORIALSAVE + name))
+            GameSaves.instance.SetBool(GameSaves.Type.Tutorial, TUTORIALSAVE + name, false);
         queue.AddUI("Spotlight", (x) => spotLight = x);
         queue.AddUI("InputDisabler", (x) => inputBlocker = x);
         queue.AddUI("ReplacementButton", (x) => buttonPrefab = x);
@@ -75,6 +79,9 @@ public class BaseTutorial : BaseScriptableObject
     /// </summary>
     public virtual void Start()
     {
+        // On s'assure que les creation de sauvegarde dans begin on bien sauvegarder
+        GameSaves.instance.SaveData(GameSaves.Type.Tutorial);
+
         // Avant meme de commencer a faire les events, on doit s'assurer que l'enchainement se fera comme il faut
         for (int i = 0; i < tutorialEvents.Count; i++)
         {
@@ -114,7 +121,22 @@ public class BaseTutorial : BaseScriptableObject
         TutorialStarter.tutorialScriptObject.StopAllCoroutines();
         if (currentTutorialInfoDisplay != null) // Si on arretait la partie avant d'avoir display un seul text dans le tutoriel, il y avait erreur ici
             currentTutorialInfoDisplay.GetComponent<TutorialInfo>().OnEnd();
-        Scenes.UnloadAsync("Tutorial");
+
+        DeFocusSpotLight(true, delegate ()
+        {
+            GameSaves.instance.SetBool(GameSaves.Type.Tutorial, TUTORIALSAVE + name, true);
+            GameSaves.instance.SaveDataAsync(GameSaves.Type.Tutorial, delegate ()
+            {
+                Scenes.UnloadAsync("Tutorial");
+            });
+        });
+    }
+
+    public bool IsComplete()
+    {
+        if (!GameSaves.instance.ContainsBool(GameSaves.Type.Tutorial, TUTORIALSAVE + name))
+            GameSaves.instance.SetBool(GameSaves.Type.Tutorial, TUTORIALSAVE + name, false);
+        return GameSaves.instance.GetBool(GameSaves.Type.Tutorial, TUTORIALSAVE + name);
     }
 
     public void Execute(TutorialEvent tutorialEvent, bool useTime)
@@ -131,7 +153,9 @@ public class BaseTutorial : BaseScriptableObject
         // Parametre de la method = Fonction On Complete
         Action[] parameters;
         parameters = new Action[1];
-        parameters[0] = delegate () { tutorialEvent.OnComplete(); };
+        parameters[0] = delegate () {
+            tutorialEvent.OnComplete();
+        };
 
         if (useTime && tutorialEvent.useSpecificTime)
             sequence.InsertCallback(tutorialEvent.when, delegate () {
