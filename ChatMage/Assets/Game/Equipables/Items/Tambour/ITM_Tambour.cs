@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +6,7 @@ public class ITM_Tambour : Item
 {
     public GameObject impactCircle;
     public float impactCooldown;
+    public float cameraShakeStrength = 0.2f;
 
     private float timer;
 
@@ -30,13 +31,13 @@ public class ITM_Tambour : Item
         {
             Impact();
         }
-        timer -= Time.deltaTime;
+        timer -= player.vehicle.DeltaTime();
     }
 
     void Impact()
     {
-        GameObject newImpact = Instantiate(impactCircle);
-        Game.instance.gameCamera.vectorShaker.Hit(-player.vehicle.WorldDirection2D().normalized * player.playerStats.onHitShakeStrength);
+        GameObject newImpact = Instantiate(impactCircle, player.transform);
+        Game.instance.gameCamera.vectorShaker.Shake(cameraShakeStrength);
         timer = impactCooldown;
     }
 }

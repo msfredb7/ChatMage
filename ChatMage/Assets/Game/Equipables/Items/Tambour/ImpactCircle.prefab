@@ -20,9 +20,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4974209663856214}
   - component: {fileID: 212192879892440616}
-  - component: {fileID: 58904138696644904}
-  - component: {fileID: 114855028221893124}
-  - component: {fileID: 114976462407996734}
   m_Layer: 13
   m_Name: Sprite
   m_TagString: Untagged
@@ -39,6 +36,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4035248239631652}
   - component: {fileID: 114270393806347726}
+  - component: {fileID: 114300259451070586}
+  - component: {fileID: 114590621408352228}
+  - component: {fileID: 58550476415667774}
   m_Layer: 13
   m_Name: ImpactCircle
   m_TagString: Untagged
@@ -68,26 +68,26 @@ Transform:
   m_GameObject: {fileID: 1762754034293020}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 0.3333, y: 0.3333, z: 0.1}
   m_Children: []
   m_Father: {fileID: 4035248239631652}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &58904138696644904
+--- !u!58 &58550476415667774
 CircleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1762754034293020}
+  m_GameObject: {fileID: 1771529704064500}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.0021241754}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.21787582
+  m_Radius: 0.5
 --- !u!114 &114270393806347726
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -99,18 +99,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e64f1dd2a833105469533abdb2447ce5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  endScaleValue: 10
-  visual: {fileID: 1762754034293020}
-  enemyBumpForce: 5
-  bumpDuration: 1
-  impactDuration: 0.4
-  colliderListener: {fileID: 114976462407996734}
---- !u!114 &114855028221893124
+  colliderListener: {fileID: 114590621408352228}
+  endScaleValue: 5
+  impactDuration: 0.25
+--- !u!114 &114300259451070586
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1762754034293020}
+  m_GameObject: {fileID: 1771529704064500}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 75c6e7122024f1b439a1e42789a30e5a, type: 3}
@@ -118,18 +115,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parentUnit: {fileID: 0}
   groupParent: {fileID: 0}
---- !u!114 &114976462407996734
+--- !u!114 &114590621408352228
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1762754034293020}
+  m_GameObject: {fileID: 1771529704064500}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 65d05512cab53054d8a0b20414ee7974, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  info: {fileID: 114855028221893124}
+  info: {fileID: 114300259451070586}
   useTrigger: 1
   useCollision: 0
 --- !u!212 &212192879892440616
@@ -164,7 +161,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 936612841f9019d4abbb610b6c7f178f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ee037de01d6e987498bb854f43229ee2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
