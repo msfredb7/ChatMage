@@ -48,7 +48,7 @@ public class PlayerStats : PlayerComponent, IAttackable
     public bool isVisible = true; // TODO
     public bool boostedAOE = false;
 
-    public event SimpleEvent onHit;
+    public event SimpleEvent onReceiveDamage;
     public event SimpleEvent onRegen;
     public event Unit.Unit_Event onUnitKilled;
 
@@ -95,8 +95,8 @@ public class PlayerStats : PlayerComponent, IAttackable
         if (amount > 0)
             health.Set(health - amount);
 
-        if (onHit != null)
-            onHit();
+        if (onReceiveDamage != null)
+            onReceiveDamage();
 
         if (health <= 0)
             controller.vehicle.Kill();
