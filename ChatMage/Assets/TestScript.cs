@@ -9,20 +9,30 @@ using FullInspector;
 
 public class TestScript : MonoBehaviour
 {
+    public Transform[] trs;
 
     void Start()
     {
-        StatFloat st = new StatFloat(10, 0, 100, BoundMode.Cap);
+    }
 
-        st.AddBuff("per", 20, BuffType.Percent);
-        st.AddBuff("add", 3, BuffType.Flat);
-        st.AddBuff("per2", 20, BuffType.Percent);
-        print(st.ToString());
-        st.RemoveBuff("per");
-        print(st.ToString());
-        st.RemoveBuff("per2");
-        print(st.ToString());
-        st.RemoveBuff("add");
-        print(st.ToString());
+    void Update()
+    {
+        print("Area: " +
+            CCC.Math.AreaWithin.GetAreaWithin(TrToV(), true));
+        //print("is Left: " +
+        //    CCC.Math.AreaWithin.IsLeft(
+        //        trs[0].position,
+        //        trs[1].position,
+        //        trs[2].position));
+    }
+
+    Vector2[] TrToV()
+    {
+        Vector2[] vs = new Vector2[trs.Length];
+        for (int i = 0; i < vs.Length; i++)
+        {
+            vs[i] = trs[i].position;
+        }
+        return vs;
     }
 }
