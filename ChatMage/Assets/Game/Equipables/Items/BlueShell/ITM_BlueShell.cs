@@ -31,8 +31,8 @@ public class ITM_BlueShell : Item
         countdown = 0;
         shellSpawned = false;
 
-        enable = false; // A ENLEVER
-        //enable = true; // A ENLEVER
+        //enable = false; // A ENLEVER
+        enable = true; // A ENLEVER
     }
 
     public override void OnUpdate()

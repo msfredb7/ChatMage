@@ -26,11 +26,11 @@ public class SmashManager : MonoBehaviour
         remainingTime -= amount;
     }
 
+    public float TotalCooldown { get { return totalCooldown; } }
     public SmashBall CurrentSmashBall { get { return currentSmashBall; } }
-
     public bool IsInCooldown { get { return inCooldown; } }
-
     public float RemainingTime { get { return remainingTime; } }
+    public event SimpleEvent onSmashSpawned;
 
     void Start()
     {
@@ -89,7 +89,7 @@ public class SmashManager : MonoBehaviour
         //On ne diminue pas le cooldown si une smash ball est en vie
         if (!inCooldown)
             return;
-
+        
         if (Game.instance.Player.playerStats.smashRefreshRate < 0)
             return;
 
@@ -104,7 +104,6 @@ public class SmashManager : MonoBehaviour
 
     private void SpawnSmashBall()
     {
-
         inCooldown = false;
         Vector2 borders = Game.instance.gameCamera.ScreenSize;
         Vector2 spawnPoint = new Vector2(
@@ -120,6 +119,9 @@ public class SmashManager : MonoBehaviour
             followTargetParent.gameObject.SetActive(true);
             currentSmashBall.followTarget = followTarget.transform;
         }
+
+        if (onSmashSpawned != null)
+            onSmashSpawned();
     }
 
     private void OnSmashTaken(Unit smashUnit)
