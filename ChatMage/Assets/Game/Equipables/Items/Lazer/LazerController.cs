@@ -41,11 +41,11 @@ public class LazerController : Unit
 
     public void ShootLazer()
     {
+        // Le collider apparait se qui active les évennements
+        mainLazerCollider.SetActive(true);
         // On débute l'animation du lazer ! Il doit apparaitre en fade in
         mainLazer.GetComponentInChildren<SpriteRenderer>().DOFade(1, animationDuration).OnComplete(delegate ()
         {
-            // Le collider apparait se qui active les évennements
-            mainLazerCollider.SetActive(true);
             // On finalise l'animation du lazer ! Il doit disparaitre en fade out
             mainLazer.GetComponentInChildren<SpriteRenderer>().DOFade(0, animationDuration).OnComplete(delegate () {
                 // Activation l'évennement de complétion car on a fini

@@ -1,5 +1,6 @@
 ﻿using DG.Tweening;
 using FullInspector;
+using FullSerializer;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,27 +9,35 @@ using UnityEngine;
 public class ITM_Lazer : Item
 {
     public LazerController lazerPrefab;
+    [NonSerialized,fsIgnore]
     private LazerController lazer;
 
-    private GameObject lazerTargetZone;
+    public GameObject lazerTargetZone;
+    [NonSerialized, fsIgnore]
     private GameObject zone;
 
     public GameObject countainerPrefab;
+    [NonSerialized, fsIgnore]
     private GameObject countainer;
 
     public GameObject leftLazerPrefab;
+    [NonSerialized, fsIgnore]
     private GameObject leftLazer;
 
     public GameObject rightLazerPrefab;
+    [NonSerialized, fsIgnore]
     private GameObject rightLazer;
 
     [InspectorHeader("Duration"), InspectorTooltip("Shoot a unit will take this amount of time * 2")]
     public float animationDuration;
 
+    [NonSerialized, fsIgnore]
     private bool lazerAlreadyShoot = false;
 
+    [NonSerialized, fsIgnore]
     private ColliderInfo currentTarget;
 
+    [NonSerialized, fsIgnore]
     private Sequence lazerAnim;
 
     public override void OnGameReady()
@@ -37,6 +46,8 @@ public class ITM_Lazer : Item
         lazerAlreadyShoot = false;
 
         // Création de la claymore
+        if (countainerPrefab == null || leftLazerPrefab == null || rightLazerPrefab == null)
+            throw new Exception();
         countainer = Instantiate(countainerPrefab, Game.instance.Player.vehicle.transform);
         leftLazer = Instantiate(leftLazerPrefab, countainer.transform);
         rightLazer = Instantiate(rightLazerPrefab, countainer.transform);
@@ -48,6 +59,8 @@ public class ITM_Lazer : Item
     public override void OnGameStarted()
     {
         // Creation de la zone du lazer
+        if (lazerTargetZone == null)
+            throw new Exception();
         zone = Instantiate(lazerTargetZone, Game.instance.Player.vehicle.transform);
 
         // Evennement de sortie et d'entrée dans la zone d'effet du lazer
@@ -101,6 +114,8 @@ public class ITM_Lazer : Item
             currentTarget = other;
 
             // recevra un lazer
+            if (lazerPrefab == null)
+                throw new Exception();
             lazer = Instantiate(lazerPrefab, Game.instance.Player.vehicle.transform);
             // qui durera un certain temps
             lazer.SetAnimationDuration(animationDuration);
