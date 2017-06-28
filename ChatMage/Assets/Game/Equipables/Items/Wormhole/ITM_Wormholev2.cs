@@ -17,6 +17,13 @@ public class ITM_Wormholev2 : Item
     [InspectorHeader("Attack Launch")]
     public float minCircleResemblance = 0.93f;
 
+    [InspectorHeader("Linking")]
+    public Wormhole wormholePrefab;
+    private Wormhole wormholeSpawned;
+
+    [InspectorHeader("Duration")]
+    public float duration = 5;
+
     [NonSerialized, fsIgnore]
     private LoopTrail trail;
 
@@ -59,6 +66,9 @@ public class ITM_Wormholev2 : Item
                     1),
                 1.5f);
 
+            Vector2 wormholePosition = PositionMoyenne(points);
+            SpawnWormhole(wormholePosition);
+
             //Lancer l'attaque ici !
             //1. trouver le centre de la loop (simplement faire la moyenne x,y des points)
             //2. Spawner le prefab d'explosion/trou-noir/tornade/etc.
@@ -66,6 +76,23 @@ public class ITM_Wormholev2 : Item
         }
     }
 
+    Vector2 PositionMoyenne(Vector2[] points)
+    {
+        float allX = 0;
+        float allY = 0;
+
+        for (int i = 0; i < points.Length; i++)
+        {
+            allX += points[i].x;
+            allY += points[i].y;
+        }
+
+        allX /= points.Length;
+        allY /= points.Length;
+
+        return new Vector2(allX, allY);
+    }
+    
     void DrawTrail(Vector2[] points, Color color, float duration)
     {
         for (int i = 0; i < points.Length; i++)
@@ -78,5 +105,12 @@ public class ITM_Wormholev2 : Item
     {
         base.ClearReferences();
         trail = null;
+    }
+
+    void SpawnWormhole(Vector2 position)
+    {
+        Debug.Log("Spawning Wormhole");
+        wormholeSpawned = Game.instance.SpawnUnit(wormholePrefab, position);
+        wormholeSpawned.StartCountdown(duration);
     }
 }
