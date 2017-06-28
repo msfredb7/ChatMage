@@ -10,12 +10,41 @@ namespace CCC.Math
         /// Trouve l'aire dans un ensemble de points
         /// </summary>
         /// <param name="points">Ensemble de points QUI DOIVENT ÊTRE ORDONNÉS</param>
+        static public float GetAreaWithin(Vector2[] points)
+        {
+
+            float totalAngle = 0;
+            float crossZ = 0;
+
+            for (int i = 0; i < points.Length; i++)
+            {
+                int i2 = (i + 1) % points.Length;
+                int i3 = (i + 2) % points.Length;
+
+                Vector2 v1 = points[i2] - points[i];
+                Vector2 v2 = points[i3] - points[i2];
+                crossZ += Vector3.Cross(v1, v2).z;
+                totalAngle += Vector2.Angle(v1, v2);
+            }
+
+            return GetAreaWithin(points, crossZ < 0);
+        }
+        /// <summary>
+        /// Trouve l'aire dans un ensemble de points
+        /// </summary>
+        /// <param name="points">Ensemble de points QUI DOIVENT ÊTRE ORDONNÉS</param>
         /// <param name="sensHoraire">Partant du points 0 vers n, est-ce que la forme est tracé dans le sens horaire ?</param>
-        /// <returns></returns>
         static public float GetAreaWithin(Vector2[] points, bool sensHoraire)
         {
             if (points.Length == 3)
-                return GetAreaWithinP(points[0], points[1], points[2]);
+            {
+                bool areaAAjouter = (IsLeft(points[0], points[2], points[1]) == sensHoraire);
+                float area = GetAreaWithinP(points[0], points[1], points[2]);
+                if (areaAAjouter)
+                    return area;
+                else
+                    return -area;
+            }
 
             if (points.Length < 3)
                 return 0;
@@ -45,11 +74,11 @@ namespace CCC.Math
             if (lengthPair % 2 != 0)
                 lengthPair--;
 
-            for (int i = 0; i < lengthPair; i += 2)
+            for (int y = 0; y < lengthPair; y += 2)
             {
-                Vector2 pointA = points[i];
-                Vector2 pointB = points[i + 1];
-                Vector2 pointC = points[(i + 2) % points.Length];
+                Vector2 pointA = points[y];
+                Vector2 pointB = points[y + 1];
+                Vector2 pointC = points[(y + 2) % points.Length];
 
                 bool areaAAjouter = (IsLeft(pointA, pointC, pointB) == sensHoraire);
 
@@ -60,6 +89,7 @@ namespace CCC.Math
                 else
                     totalArea -= triangleArea;
             }
+
 
             /////////////////////////////////////////
             //Retour
@@ -82,11 +112,26 @@ namespace CCC.Math
 
             float areaSqr = (2 * ((a * b) + (b * c) + (c * a)) - (a * a) - (b * b) - (c * c)) / 16;
 
-            return Mathf.Sqrt(areaSqr);
+            if (areaSqr > 0.001f)
+                return Mathf.Sqrt(areaSqr);
+            return 0;
         }
+
         static public float GetAreaWithinP(Vector2 pointA, Vector2 pointB, Vector2 pointC)
         {
             return GetAreaWithinV(pointC - pointA, pointB - pointA, pointC - pointB);
+        }
+
+        /// <summary>
+        /// Retourne une valeur entre 0 et 1, représentant la ressemblance avec un cercle parfait.
+        /// </summary>
+        /// <param name="points">Ensemble de points QUI DOIVENT ÊTRE ORDONNÉS</param>
+        static public float ResemblanceToCircle(float circleRadius, Vector2[] points)
+        {
+            float perfectArea = circleRadius * circleRadius * Mathf.PI;
+            float area = GetAreaWithin(points);
+
+            return area / perfectArea;
         }
     }
 }

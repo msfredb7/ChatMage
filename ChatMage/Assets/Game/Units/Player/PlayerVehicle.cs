@@ -22,7 +22,10 @@ public class PlayerVehicle : Vehicle
     public ISpeedOverrider speedOverrider = null;
     public List<ISpeedBuff> speedBuffs = new List<ISpeedBuff>();
 
-
+    public float RealMoveSpeed()
+    {
+        return ActualMoveSpeed();
+    }
     protected override float ActualMoveSpeed()
     {
         if (speedOverrider != null)
