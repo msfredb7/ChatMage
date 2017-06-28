@@ -11,6 +11,9 @@ public class Trail
     public float maxTrailLength;
     public bool debugDraw = false;
     public Color debugDrawColor = Color.white;
+    public event SimpleEvent onSegmentAdded;
+    public event SimpleEvent onSegmentRemoved;
+    public event SimpleEvent onTrailCleared;
 
     protected LinkedList<Segment> segments;
     protected Transform target;
@@ -48,7 +51,14 @@ public class Trail
         if (segments == null)
             segments = new LinkedList<Segment>();
         segments.Clear();
+
+        if (onTrailCleared != null)
+            onTrailCleared();
+
+
         segments.AddFirst(new Segment(target.position, 0));
+
+
         trailLength = 0;
     }
 
@@ -65,12 +75,18 @@ public class Trail
             trailLength += deltaPosLength;
             segments.AddFirst(new Segment(target.position, deltaPosLength));
 
+            if (onSegmentAdded != null)
+                onSegmentAdded();
+
             //Si le dernier segment est trop loin, on le coupe
             while (trailLength > maxTrailLength)
             {
                 segments.RemoveLast();
                 trailLength -= segments.Last.Value.distanceToNext;
                 segments.Last.Value.distanceToNext = 0;
+
+                if (onSegmentRemoved != null)
+                    onSegmentRemoved();
             }
 
             OnNewNode();
@@ -82,7 +98,6 @@ public class Trail
 
     protected virtual void OnNewNode()
     {
-
     }
 
     protected void DrawTrail(LinkedListNode<Segment> until)

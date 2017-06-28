@@ -6,9 +6,6 @@ using System;
 
 public class ITM_BlueShell : Item
 {
-    [InspectorHeader("A enlever")]
-    public bool enable = false; // A ENLEVER
-
     [InspectorHeader("Linking")]
     public BlueShellVehicle blueShellPrefab;
 
@@ -21,6 +18,7 @@ public class ITM_BlueShell : Item
     private float countdown;
     [NonSerialized, FullSerializer.fsIgnore]
     private BlueShellVehicle currentBlueShell;
+    private bool gameStarted = false; // A ENLEVER
 
     public override void OnGameReady()
     {
@@ -30,17 +28,13 @@ public class ITM_BlueShell : Item
     {
         countdown = 0;
         shellSpawned = false;
-
-        enable = false; // A ENLEVER
-        //enable = true; // A ENLEVER
+        
+        gameStarted = true;
     }
 
     public override void OnUpdate()
     {
-        if (!enable)  // A ENLEVER
-            return;
-
-        if (shellSpawned)
+        if (!gameStarted || shellSpawned)
             return;
 
         if (countdown < 0)

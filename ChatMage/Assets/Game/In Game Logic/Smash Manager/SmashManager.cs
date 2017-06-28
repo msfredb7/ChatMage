@@ -26,11 +26,11 @@ public class SmashManager : MonoBehaviour
         remainingTime -= amount;
     }
 
+    public float TotalCooldown { get { return totalCooldown; } }
     public SmashBall CurrentSmashBall { get { return currentSmashBall; } }
-
     public bool IsInCooldown { get { return inCooldown; } }
-
     public float RemainingTime { get { return remainingTime; } }
+    public event SimpleEvent onSmashSpawned;
 
     void Start()
     {
@@ -89,7 +89,7 @@ public class SmashManager : MonoBehaviour
         //On ne diminue pas le cooldown si une smash ball est en vie
         if (!inCooldown)
             return;
-
+        
         if (Game.instance.Player.playerStats.smashRefreshRate < 0)
             return;
 
@@ -104,14 +104,22 @@ public class SmashManager : MonoBehaviour
 
     private void SpawnSmashBall()
     {
-
         inCooldown = false;
-        Vector2 borders = Game.instance.gameCamera.ScreenSize;
-        Vector2 spawnPoint = new Vector2(
-            Random.Range(Game.instance.gameCamera.Left, Game.instance.gameCamera.Right), 
-            Random.Range(Game.instance.gameCamera.Bottom, Game.instance.gameCamera.Top));
+        bool verticalSpawn = Random.value > 0.5f;
+        float y = 0;
+        float x = 0;
+        if (verticalSpawn)
+        {
+            y = (Random.value > 0.5f ? 6.5f : -6.5f) + Game.instance.gameCamera.Height; //Soit 6.5 ou -6.5
+            x = (Random.value * 20) - 10;           //Entre -10 et 10
+        }
+        else
+        {
+            y = ((Random.value * 13) - 6.5f) + Game.instance.gameCamera.Height;         //Entre -6.5 et 6.5
+            x = Random.value > 0.5f ? 10f : -10f;   //Soit 10 ou -10
+        }
 
-        currentSmashBall = Game.instance.SpawnUnit(ballPrefab, spawnPoint) as SmashBall;
+        currentSmashBall = Game.instance.SpawnUnit(ballPrefab, new Vector2(x, y));
 
         currentSmashBall.onDeath += OnSmashTaken;
 
@@ -120,6 +128,9 @@ public class SmashManager : MonoBehaviour
             followTargetParent.gameObject.SetActive(true);
             currentSmashBall.followTarget = followTarget.transform;
         }
+
+        if (onSmashSpawned != null)
+            onSmashSpawned();
     }
 
     private void OnSmashTaken(Unit smashUnit)

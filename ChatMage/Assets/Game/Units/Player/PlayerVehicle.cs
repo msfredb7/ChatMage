@@ -7,6 +7,7 @@ using UnityEngine;
 public class PlayerVehicle : Vehicle
 {
     [Header("Trail Renderers")]
+    public string sortingLayer;
     public float beginDriftDelta;
     public bool spawnStdTrails = true;
     public TrailRenderer stdTrailPrefab;
@@ -138,7 +139,10 @@ public class PlayerVehicle : Vehicle
 
     private Transform NewTrail(TrailRenderer prefab, Vector3 worldPosition)
     {
-        return Instantiate(prefab.gameObject, worldPosition, Quaternion.identity, controller.body).transform;
+        TrailRenderer newTrail = Instantiate(prefab.gameObject, worldPosition, Quaternion.identity, controller.body)
+            .GetComponent<TrailRenderer>();
+        newTrail.sortingLayerName = sortingLayer;
+        return newTrail.transform;
     }
     #endregion
 }
