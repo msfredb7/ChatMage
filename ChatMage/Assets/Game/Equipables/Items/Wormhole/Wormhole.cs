@@ -23,6 +23,8 @@ public class Wormhole : Unit {
         spriteNcollider.transform.DOScale(wormholeFinalSize, 4).SetEase(wormholeGrowEase);
         spriteNcollider.transform.DORotate(Vector3.back * 360, rotationSpeed, RotateMode.LocalAxisAdd).SetEase(Ease.Linear).SetLoops(-1, LoopType.Restart);
         spriteNcollider.GetComponent<SimpleColliderListener>().onTriggerEnter += Wormhole_onTriggerEnter;
+        // TODO : Faire un autre box trigger qui aspire les enemies dans l'autre box trigger qui les tues
+        // a faire lorsqu'on aura fait le aoe magnet puisque l'effet est similaire !
     }
 
     private void Wormhole_onTriggerEnter(ColliderInfo other, ColliderListener listener)
