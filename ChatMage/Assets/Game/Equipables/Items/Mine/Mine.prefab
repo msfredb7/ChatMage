@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 58258490843732038}
   - component: {fileID: 114344716071480962}
   - component: {fileID: 114759210297317092}
-  - component: {fileID: 114816522752585342}
+  - component: {fileID: 114271670526349128}
   m_Layer: 13
   m_Name: Mine
   m_TagString: Untagged
@@ -208,6 +208,34 @@ MonoBehaviour:
   shockWaveBeginSize: 0.5
   shockWaveEndSize: 4
   shockWaveDuration: 0.35
+--- !u!114 &114271670526349128
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1377809313984792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57e81d503a8380743b81ab14db039b6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allegiance: 0
+  overrideDeactivationRange: 1
+  newDeactivationRange: 100000
+  canUseBorder: 0
+  unitWidth: 0
+  colliderListener: {fileID: 114759210297317092}
+  col: {fileID: 58258490843732038}
+  spriteRenderer: {fileID: 212215708123215886}
+  explosionLayerMask:
+    serializedVersion: 2
+    m_Bits: 3072
+  stdExplosionRadius: 2
+  boostedExplosionRadius: 3
+  explosion: {fileID: 114149480494595282}
+  explosionDelay: 5
+  flickerDuration: 1.5
+  flickerSpeed: 10
 --- !u!114 &114344716071480962
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -219,7 +247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75c6e7122024f1b439a1e42789a30e5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentUnit: {fileID: 0}
+  parentUnit: {fileID: 114271670526349128}
   groupParent: {fileID: 0}
 --- !u!114 &114759210297317092
 MonoBehaviour:
@@ -235,34 +263,6 @@ MonoBehaviour:
   info: {fileID: 114344716071480962}
   useTrigger: 1
   useCollision: 0
---- !u!114 &114816522752585342
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1377809313984792}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6cf533aeb4e3ec044812473db089188c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  allegiance: 0
-  overrideDeactivationRange: 0
-  newDeactivationRange: 0
-  canUseBorder: 1
-  unitWidth: 0
-  colliderListener: {fileID: 114759210297317092}
-  col: {fileID: 58258490843732038}
-  spriteRenderer: {fileID: 212215708123215886}
-  explosionLayerMask:
-    serializedVersion: 2
-    m_Bits: 0
-  stdExplosionRadius: 1
-  boostedExplosionRadius: 2
-  explosion: {fileID: 114149480494595282}
-  explosionDelay: 5
-  flickerDuration: 2.5
-  flickerSpeed: 0.4
 --- !u!212 &212154988258217008
 SpriteRenderer:
   m_ObjectHideFlags: 1
