@@ -89,7 +89,6 @@ public class ITM_Lazer : Item
                     lazerAnim.Join(rightLazer.transform.DOLocalRotate(new Vector3(0, 0, 0), animationDuration));
                 }
             }
-           
         }
     }
 
