@@ -36,8 +36,9 @@ public class Map : MonoBehaviour
 
         for (int i = 0; i < listUnits.Count; i++)
         {
-            if(listUnits[i].GetComponent<Unit>() != null)
-                Game.instance.AddExistingUnit(listUnits[i].GetComponent<Unit>());
+            Unit unit = listUnits[i].GetComponent<Unit>();
+            if (unit != null)
+                Game.instance.AddExistingUnit(unit);
         }
     }
 
