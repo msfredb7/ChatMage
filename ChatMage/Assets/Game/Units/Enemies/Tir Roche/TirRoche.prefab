@@ -35,7 +35,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4585702998755642}
   m_Layer: 10
-  m_Name: Gourdin
+  m_Name: Bras
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52,24 +52,6 @@ GameObject:
   - component: {fileID: 212074958052663072}
   m_Layer: 10
   m_Name: New Sprite
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1454592736844244
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4132355666092926}
-  - component: {fileID: 61610854500850692}
-  - component: {fileID: 114795588068814044}
-  - component: {fileID: 114504018691956866}
-  m_Layer: 12
-  m_Name: Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -102,29 +84,16 @@ GameObject:
   - component: {fileID: 50583742534933468}
   - component: {fileID: 114281818282303750}
   - component: {fileID: 58299491516090044}
-  - component: {fileID: 114117048000841424}
-  - component: {fileID: 114791420540404272}
-  - component: {fileID: 114244199259696152}
+  - component: {fileID: 114917152140949164}
+  - component: {fileID: 114973831824587870}
+  - component: {fileID: 114196862589388580}
   m_Layer: 10
-  m_Name: Gourdinier
+  m_Name: TirRoche
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4132355666092926
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1454592736844244}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4585702998755642}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4272834586926906
 Transform:
   m_ObjectHideFlags: 1
@@ -173,15 +142,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1216963666200194}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.237, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0.030961988, w: 0.9995206}
+  m_LocalPosition: {x: 0, y: 0.282, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4655908650305594}
-  - {fileID: 4132355666092926}
   m_Father: {fileID: 4552794639155162}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -3.5490003}
 --- !u!4 &4655908650305594
 Transform:
   m_ObjectHideFlags: 1
@@ -189,8 +157,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1274347890908236}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 0.14, z: 1}
+  m_LocalPosition: {x: 0.024, y: 0, z: 0}
+  m_LocalScale: {x: 0.54, y: 0.14, z: 1}
   m_Children: []
   m_Father: {fileID: 4585702998755642}
   m_RootOrder: 0
@@ -230,32 +198,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.35
---- !u!61 &61610854500850692
-BoxCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1454592736844244}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.024534762, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.005643, y: 0.22326279}
-  m_EdgeRadius: 0
---- !u!114 &114117048000841424
+--- !u!114 &114196862589388580
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -263,46 +206,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 1871222452349014}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acc6885bd68e74a4b8c851a872bae70c, type: 3}
+  m_Script: {fileID: 11500000, guid: f01722487457d0b43b6806d0023e69a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allegiance: 2
-  canUseBorder: 1
-  unitWidth: 0.7
-  horizontalBound: 0
-  horizontalBorderWidth: 0
-  verticalBound: 0
-  verticalBorderWidth: 0
-  moveSpeed: 1
-  targetDirection: 0
-  rotationSetsTargetDirection: 1
-  useWeight: 0
-  weight: 0.1
-  useTurnSpeed: 1
-  turnSpeed: 150
-  attackCooldown: 0
-  animator: {fileID: 114244199259696152}
-  bodySprite: {fileID: 212368842169423508}
---- !u!114 &114244199259696152
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1871222452349014}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18768a817bb98ca4285b0a6a9fd32283, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  vehicle: {fileID: 114117048000841424}
-  gourdin: {fileID: 4585702998755642}
-  chargeDuration: 0.5
-  gourdinXCharge: -0.322
-  attackListener: {fileID: 114504018691956866}
-  attackTrigger: {fileID: 61610854500850692}
-  gourdinXAttack: 1.25
-  attackDuration: 0.1
-  bumpForce: 2.5
+  vehicle: {fileID: 114917152140949164}
+  spriteRenderer: {fileID: 212368842169423508}
+  projectilePrefab: {fileID: 114413036262173960, guid: 3ac9be565addfe74c9c6cac7b7ac3810,
+    type: 2}
+  reloadDuration: 0.25
+  clipFull: {r: 1, g: 1, b: 1, a: 1}
+  clipEmpty: {r: 0, g: 0, b: 0, a: 1}
+  arm: {fileID: 4585702998755642}
+  armRetractX: -0.35
+  armRetractDuration: 0.35
+  defaultShootDistance: 5
+  maxShootDistance: 6.5
+  playerPredictionAccuracy: 0
+  armShootX: 0.7
+  armShootDuration: 0.15
+  maxShootAngle: 20
 --- !u!114 &114281818282303750
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -314,23 +236,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75c6e7122024f1b439a1e42789a30e5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentUnit: {fileID: 114117048000841424}
+  parentUnit: {fileID: 114917152140949164}
   groupParent: {fileID: 1871222452349014}
---- !u!114 &114504018691956866
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1454592736844244}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65d05512cab53054d8a0b20414ee7974, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  info: {fileID: 114795588068814044}
-  useTrigger: 1
-  useCollision: 0
---- !u!114 &114791420540404272
+--- !u!114 &114917152140949164
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -338,28 +246,42 @@ MonoBehaviour:
   m_GameObject: {fileID: 1871222452349014}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3416049e6c0b8b64b9aa5df152a28690, type: 3}
+  m_Script: {fileID: 11500000, guid: 47724db1c642a074e9dc6262e02850d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allegiance: 2
+  overrideDeactivationRange: 0
+  newDeactivationRange: 0
+  canUseBorder: 1
+  unitWidth: 0.5
+  moveSpeed: 1
+  targetDirection: 0
+  rotationSetsTargetDirection: 1
+  useWeight: 0
+  weight: 0.1
+  useTurnSpeed: 0
+  turnSpeed: 360
+  walkSpeed: 1
+  fleeSpeed: 2
+  maxAmmo: 1
+  shootCooldown: 1.5
+  animator: {fileID: 114196862589388580}
+--- !u!114 &114973831824587870
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1871222452349014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78ad2908c0ec0d143bd7040c4043ef62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _objectReferences: []
   _serializedStateKeys: []
   _serializedStateValues: []
-  startAttackRange: 1.75
-  movementPrediction: 1
-  thinkAheadLength: 0.4
---- !u!114 &114795588068814044
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1454592736844244}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75c6e7122024f1b439a1e42789a30e5a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parentUnit: {fileID: 114117048000841424}
-  groupParent: {fileID: 1454592736844244}
+  attackingMaxRange: 5
+  tooCloseRange: 2.54
 --- !u!212 &212074958052663072
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -391,7 +313,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 99d277ac246f1344ba5f869f265b69c1, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0

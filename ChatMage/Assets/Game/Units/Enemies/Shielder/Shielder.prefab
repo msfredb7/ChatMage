@@ -557,12 +557,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allegiance: 2
+  overrideDeactivationRange: 0
+  newDeactivationRange: 0
   canUseBorder: 1
   unitWidth: 0
-  horizontalBound: 0
-  horizontalBorderWidth: 0
-  verticalBound: 0
-  verticalBorderWidth: 0
   moveSpeed: 1.4
   targetDirection: 0
   rotationSetsTargetDirection: 1
@@ -574,8 +572,10 @@ MonoBehaviour:
   swordListener: {fileID: 114246168422857604}
   animator: {fileID: 114967462287717054}
   bumpStrength: 6
+  bumpDuration: 0.2
   passiveMoveSpeed: 1.5
   passiveTurnSpeed: 200
+  onlyKillableBySmash: 0
 --- !u!114 &114959007032342916
 MonoBehaviour:
   m_ObjectHideFlags: 1
