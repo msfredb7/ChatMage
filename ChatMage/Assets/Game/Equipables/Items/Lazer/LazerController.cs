@@ -4,77 +4,69 @@ using UnityEngine;
 using DG.Tweening;
 using FullInspector;
 
-public class LazerController : Unit {
-
+public class LazerController : Unit
+{
     [InspectorHeader("Linking")]
-    public GameObject leftLazer;
-    public GameObject rightLazer;
     public GameObject mainLazer;
-    public SimpleColliderListener mainLazerCollider;
-
-    [InspectorHeader("Duration"),InspectorTooltip("Shoot a unit will take this amount of time * 2")]
-    public float animationDuration;
+    public GameObject mainLazerCollider;
+    
+    private float animationDuration;
 
     [HideInInspector]
     public SimpleEvent onComplete;
 
-    private bool stopAimingLazer = false;
-    private bool justKilled = false;
-
-	void Start ()
+    void Start()
     {
-        mainLazerCollider.onTriggerEnter += LazerController_onTriggerEnter;
+        // Le collider n'est pas la au début
+        mainLazerCollider.SetActive(false);
+        // mais on devra recevoir les évennement quand il sera la
+        mainLazerCollider.GetComponent<SimpleColliderListener>().onTriggerEnter += LazerController_onTriggerEnter;
 
+        // Le sprite doit être invisible au début
         Color originalColor = mainLazer.GetComponentInChildren<SpriteRenderer>().color;
         mainLazer.GetComponentInChildren<SpriteRenderer>().color = new Color(originalColor.r, originalColor.g, originalColor.b, 0);
-        mainLazer.SetActive(false);
-
-        justKilled = false;
-
-        Sequence sq = DOTween.Sequence();
-        sq.Append(leftLazer.transform.DOLocalRotate(new Vector3(0,0,-25), animationDuration));
-        sq.Join(rightLazer.transform.DOLocalRotate(new Vector3(0,0,25), animationDuration));
-        sq.OnComplete(ShootLazer);
     }
-	
-	void Update ()
+
+    void Update()
     {
+        // Le lazer doit être orienter en fonction de la direction du véhicule
         FollowPlayer();
-
-        if (!stopAimingLazer)
-        {
-            // TODO: flicker the lazers a la Halo
-        } else
-        {
-            leftLazer.SetActive(false);
-            rightLazer.SetActive(false);
-        }
     }
-    
-    void ShootLazer()
+
+    // Le temps de l'animation est décidé par l'item
+    public void SetAnimationDuration(float animationDuration)
     {
-        stopAimingLazer = true;
-        mainLazer.SetActive(true);
-        Tweener anim = mainLazer.GetComponentInChildren<SpriteRenderer>().DOFade(1, animationDuration);
-        // TODO: Ajouter des particules effects
-        anim.OnComplete(delegate ()
+        this.animationDuration = animationDuration;
+    }
+
+    public void ShootLazer()
+    {
+        // On débute l'animation du lazer ! Il doit apparaitre en fade in
+        mainLazer.GetComponentInChildren<SpriteRenderer>().DOFade(1, animationDuration).OnComplete(delegate ()
         {
-            mainLazer.GetComponentInChildren<SpriteRenderer>().DOFade(0, animationDuration).OnComplete(delegate() {
-                mainLazer.SetActive(false);
+            // Le collider apparait se qui active les évennements
+            mainLazerCollider.SetActive(true);
+            // On finalise l'animation du lazer ! Il doit disparaitre en fade out
+            mainLazer.GetComponentInChildren<SpriteRenderer>().DOFade(0, animationDuration).OnComplete(delegate () {
+                // Activation l'évennement de complétion car on a fini
                 onComplete.Invoke();
+                // On supprime le lazer qui a fini sa job
+                Destroy(gameObject);
             });
         });
     }
 
+    // Quand on enemie est toucher par le lazer
     private void LazerController_onTriggerEnter(ColliderInfo other, ColliderListener listener)
     {
+        // Si c'est pas un enemie
         if (other.parentUnit.allegiance != Allegiance.Ally)
         {
+            // On le tue
             IAttackable attackable = other.parentUnit.GetComponent<IAttackable>();
             if (attackable != null)
             {
                 attackable.Attacked(other, 1, this);
-                justKilled = true;
             }
         }
     }
@@ -87,13 +79,5 @@ public class LazerController : Unit {
         // Rotation du Ram
         transform.rotation = Game.instance.Player.vehicle.transform.rotation;
         transform.Rotate(new Vector3(transform.rotation.x, transform.rotation.y, transform.rotation.z - 90));
-    }
-
-    public void Delete()
-    {
-        if (justKilled)
-            onComplete += delegate () { Destroy(gameObject); };
-        else
-            Destroy(gameObject);
     }
 }
