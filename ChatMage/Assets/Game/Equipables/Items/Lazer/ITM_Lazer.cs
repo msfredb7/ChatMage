@@ -71,8 +71,10 @@ public class ITM_Lazer : Item
     public override void OnUpdate()
     {
         // Ajustement des rotations
-        FollowPlayer(zone);
-        FollowPlayer(countainer);
+        if (zone != null)
+            FollowPlayer(zone);
+        if (countainer != null)
+            FollowPlayer(countainer);
     }
 
     private void ITM_Lazer_onTriggerExit(ColliderInfo other, ColliderListener listener)
