@@ -36,11 +36,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4587557715994362}
   - component: {fileID: 50060472499180350}
-  - component: {fileID: 114512554228946662}
   - component: {fileID: 114149480494595282}
   - component: {fileID: 58258490843732038}
   - component: {fileID: 114344716071480962}
   - component: {fileID: 114759210297317092}
+  - component: {fileID: 114271670526349128}
   m_Layer: 13
   m_Name: Mine
   m_TagString: Untagged
@@ -208,20 +208,7 @@ MonoBehaviour:
   shockWaveBeginSize: 0.5
   shockWaveEndSize: 4
   shockWaveDuration: 0.35
---- !u!114 &114344716071480962
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1377809313984792}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75c6e7122024f1b439a1e42789a30e5a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parentUnit: {fileID: 114512554228946662}
-  groupParent: {fileID: 0}
---- !u!114 &114512554228946662
+--- !u!114 &114271670526349128
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -234,7 +221,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allegiance: 0
   overrideDeactivationRange: 1
-  newDeactivationRange: 1000000
+  newDeactivationRange: 100000
   canUseBorder: 0
   unitWidth: 0
   colliderListener: {fileID: 114759210297317092}
@@ -243,12 +230,25 @@ MonoBehaviour:
   explosionLayerMask:
     serializedVersion: 2
     m_Bits: 3072
-  stdExplosionRadius: 2.001
-  boostedExplosionRadius: 3.001
+  stdExplosionRadius: 2
+  boostedExplosionRadius: 3
   explosion: {fileID: 114149480494595282}
-  explosionDelay: 5.0001
-  flickerDuration: 1.50001
-  flickerSpeed: 10.001
+  explosionDelay: 5
+  flickerDuration: 1.5
+  flickerSpeed: 10
+--- !u!114 &114344716071480962
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1377809313984792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75c6e7122024f1b439a1e42789a30e5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentUnit: {fileID: 114271670526349128}
+  groupParent: {fileID: 0}
 --- !u!114 &114759210297317092
 MonoBehaviour:
   m_ObjectHideFlags: 1
