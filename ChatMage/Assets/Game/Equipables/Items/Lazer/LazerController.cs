@@ -80,4 +80,13 @@ public class LazerController : Unit
         transform.rotation = Game.instance.Player.vehicle.transform.rotation;
         transform.Rotate(new Vector3(transform.rotation.x, transform.rotation.y, transform.rotation.z - 90));
     }
+
+    public void AimAt(Vector3 position)
+    {
+        Vector3 diff = position - mainLazer.transform.position;
+        diff.Normalize();
+
+        float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
+        mainLazer.transform.rotation = Quaternion.Euler(0f, 0f, rot_z - 90);
+    }
 }

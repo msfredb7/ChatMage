@@ -124,11 +124,12 @@ public class ITM_Lazer : Item
 
             // après que l'animation des claymores soit faites
             lazerAnim = DOTween.Sequence();
-            lazerAnim.Append(leftLazer.transform.DOLocalRotate(new Vector3(0, 0, -25), animationDuration));
-            lazerAnim.Join(rightLazer.transform.DOLocalRotate(new Vector3(0, 0, 25), animationDuration));
+            lazerAnim.Append(leftLazer.transform.DOLocalRotate(new Vector3(0, 0, -15), animationDuration));
+            lazerAnim.Join(rightLazer.transform.DOLocalRotate(new Vector3(0, 0, 15), animationDuration));
             lazerAnim.OnComplete(delegate() {
                 // On lance le lazer
                 lazerAlreadyShoot = true;
+                lazer.AimAt(other.transform.position);
                 lazer.ShootLazer();
             });
 
