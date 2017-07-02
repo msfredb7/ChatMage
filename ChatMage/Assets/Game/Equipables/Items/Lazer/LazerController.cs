@@ -42,12 +42,12 @@ public class LazerController : Unit
     public void ShootLazer()
     {
         // On débute l'animation du lazer ! Il doit apparaitre en fade in
-        mainLazer.GetComponentInChildren<SpriteRenderer>().DOFade(1, animationDuration).OnComplete(delegate ()
+        mainLazer.GetComponentInChildren<SpriteRenderer>().DOFade(1, 0.1f).OnComplete(delegate ()
         {
             // Le collider apparait se qui active les évennements
             mainLazerCollider.SetActive(true);
             // On finalise l'animation du lazer ! Il doit disparaitre en fade out
-            mainLazer.GetComponentInChildren<SpriteRenderer>().DOFade(0, animationDuration).OnComplete(delegate () {
+            mainLazer.GetComponentInChildren<SpriteRenderer>().DOFade(0, 0.1f).OnComplete(delegate () {
                 // Activation l'évennement de complétion car on a fini
                 onComplete.Invoke();
                 // On supprime le lazer qui a fini sa job
@@ -79,5 +79,14 @@ public class LazerController : Unit
         // Rotation du Ram
         transform.rotation = Game.instance.Player.vehicle.transform.rotation;
         transform.Rotate(new Vector3(transform.rotation.x, transform.rotation.y, transform.rotation.z - 90));
+    }
+
+    public void AimAt(Vector3 position)
+    {
+        Vector3 diff = position - mainLazer.transform.position;
+        diff.Normalize();
+
+        float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
+        mainLazer.transform.rotation = Quaternion.Euler(0f, 0f, rot_z - 90);
     }
 }
