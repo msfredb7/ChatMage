@@ -153,7 +153,7 @@ public abstract class Unit : MonoBehaviour
         return isAffectedByTimeScale ? Time.fixedDeltaTime * timeScale : Time.fixedDeltaTime;
     }
 
-    void OnDestroy()
+    protected virtual void OnDestroy()
     {
         if (onDestroy != null)
             onDestroy(this);

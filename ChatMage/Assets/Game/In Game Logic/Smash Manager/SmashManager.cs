@@ -79,17 +79,17 @@ public class SmashManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                if (remainingTime > 0)
-                    remainingTime = 0;
-                else if (currentSmashBall != null)
+                if (currentSmashBall != null)
                     currentSmashBall.ForceDeath();
+                else
+                    remainingTime = 0;
             }
         }
 
         //On ne diminue pas le cooldown si une smash ball est en vie
         if (!inCooldown)
             return;
-        
+
         if (Game.instance.Player.playerStats.smashRefreshRate < 0)
             return;
 

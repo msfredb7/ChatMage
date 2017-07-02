@@ -86,8 +86,7 @@ namespace EndGameReward
 
             Animate(ballColor);
         }
-
-        [InspectorButton]
+        
         private void Animate(BallColor ballColor)
         {
             animating = true;

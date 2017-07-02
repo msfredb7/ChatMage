@@ -37,7 +37,7 @@ public class PlayerInput : MonoBehaviour
             controller.playerDriver.TurnRight();
         if (leftButton.isIn || Input.GetKey(KeyCode.LeftArrow))
             controller.playerDriver.TurnLeft();
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
             OnMiddleClick();
     }
 }
