@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: LS_demoLevelScript
   m_EditorClassIdentifier: 
   _objectReferences:
-  - {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
+  - {fileID: 114369862610452710, guid: 526d875b8e226cf49af4c4a05176f3f2, type: 2}
   - {fileID: 114892083099199946, guid: a97b513999cddca448e173580c0c886f, type: 2}
   _serializedStateKeys:
   - winningConditions
@@ -24,9 +24,9 @@ MonoBehaviour:
   - '[]'
   - '[{"$type":"GameCondition.LoseOnPlayerDeath"}]'
   - '[{"eventWhat":{"scriptName":"LS_demoLevelScript","functionName":"DeActivateSmash","startNextEvent":false},"eventWhen":{"useSpecificTime":false,"useMileStone":false,"milestoneThatTrigger":[],"invokeOnStart":true,"when":0.0},"done":true},{"eventWhat":{"scriptName":"LS_demoLevelScript","functionName":"ActivateSmash","startNextEvent":false},"eventWhen":{"useSpecificTime":false,"useMileStone":true,"milestoneThatTrigger":["boss"],"invokeOnStart":false,"when":0.0},"done":false}]'
-  - '[{"packs":[{"unit":0,"quantity":15}],"onProgressCallbacks":[{"eventName":"wave
-    complete","completionRate":1.0}],"where":{"type":"RandomAroundScreen","clamp":false,"referencePoint":"Player","clampMin":{"x":-8.0,"y":-4.5},"clampMax":{"x":8.0,"y":4.5},"waypointInfo":{"idType":"Enum","waypointTag":null,"waypointType":"PlayerSpawn","spawningType":"Ordered","filterByHeight":false,"referencePoint":"Player","minHeight":-4.5,"maxHeight":4.5}},"when":{"type":"OnLevelEvent","time":20.0,"name":"wave
-    1"},"duration":50.0},{"packs":[{"unit":1,"quantity":1}],"onProgressCallbacks":[{"eventName":"wave
+  - '[{"packs":[{"unit":0,"quantity":1}],"onProgressCallbacks":[{"eventName":"wave
+    complete","completionRate":1.0}],"where":{"type":"Waypoints","clamp":false,"referencePoint":"Player","clampMin":{"x":-8.0,"y":-4.5},"clampMax":{"x":8.0,"y":4.5},"waypointInfo":{"idType":"Enum","waypointTag":null,"waypointType":"BossSpawn","spawningType":"Ordered","filterByHeight":false,"referencePoint":"Player","minHeight":-4.5,"maxHeight":4.5}},"when":{"type":"OnLevelEvent","time":20.0,"name":"wave
+    1"},"duration":5.0},{"packs":[{"unit":1,"quantity":1}],"onProgressCallbacks":[{"eventName":"wave
     complete","completionRate":0.093}],"where":{"type":"RandomAroundScreen","clamp":false,"referencePoint":"Player","clampMin":{"x":-8.0,"y":-4.5},"clampMax":{"x":8.0,"y":4.5},"waypointInfo":{"idType":"Enum","waypointTag":null,"waypointType":"PlayerSpawn","spawningType":"Ordered","filterByHeight":false,"referencePoint":"Player","minHeight":-4.5,"maxHeight":4.5}},"when":{"type":"OnLevelEvent","time":0.0,"name":"boss"},"duration":1.0}]'
   - '{"giveMoney":false,"amount":10,"giveLootBox":true,"lootboxs":[]}'
   sceneName: MapDemo
@@ -46,10 +46,10 @@ MonoBehaviour:
   - done: 0
   waves:
   - packs:
-    - unit: {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
-      quantity: 15
+    - unit: {fileID: 114369862610452710, guid: 526d875b8e226cf49af4c4a05176f3f2, type: 2}
+      quantity: 1
     where:
-      type: 0
+      type: 1
       clamp: 0
       referencePoint: 0
       clampMin: {x: -8, y: -4.5}
@@ -57,7 +57,7 @@ MonoBehaviour:
       waypointInfo:
         idType: 0
         waypointTag: 
-        waypointType: 0
+        waypointType: 3
         spawningType: 0
         filterByHeight: 0
         referencePoint: 0
@@ -67,7 +67,7 @@ MonoBehaviour:
       type: 4
       time: 20
       name: wave 1
-    duration: 50
+    duration: 5
   - packs:
     - unit: {fileID: 114892083099199946, guid: a97b513999cddca448e173580c0c886f, type: 2}
       quantity: 1
@@ -91,7 +91,7 @@ MonoBehaviour:
       time: 0
       name: boss
     duration: 1
-  isOver: 1
+  isOver: 0
   inGameEvents: {fileID: 0}
   activateTutorial: 0
   tutorial: {fileID: 11400000, guid: 462d301430296524a849ffb402b96b3b, type: 2}

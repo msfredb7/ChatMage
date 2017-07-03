@@ -45,20 +45,7 @@ public class TirRocheReloadBehavior : EnemyBehavior<TirRocheVehicle>
 
     void StartReloadProcess(PlayerController player)
     {
-        float chosenAngle = 0;
-        if (player != null)
-        {
-            float angleToPlayer = Vehicle.VectorToAngle(player.vehicle.Position - vehicle.Position);
-            chosenAngle = UnityEngine.Random.Range(angleToPlayer + 60, angleToPlayer + 300);
-        }
-        else
-        {
-            chosenAngle = UnityEngine.Random.Range(0, 360);
-        }
-
-        Vector2 pickedDelta = Vehicle.AngleToVector(chosenAngle) * UnityEngine.Random.Range(PICK_DISTANCE_MIN, PICK_DISTANCE_MAX);
-
-        vehicle.GotoPosition(pickedDelta + vehicle.Position, OnReachSpot);
+        OnReachSpot();
         inReloadProcess = true;
     }
 

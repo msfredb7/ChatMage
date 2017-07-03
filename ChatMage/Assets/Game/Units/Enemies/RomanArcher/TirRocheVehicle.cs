@@ -61,6 +61,7 @@ public class TirRocheVehicle : EnemyVehicle
 
         ammo++;
 
+        // TODO : Animation de recharge de l'archer
         animator.Reload(ammo, maxAmmo, onComplete);
 
     }
