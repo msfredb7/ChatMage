@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
@@ -50,10 +50,10 @@ namespace CCC.Manager
         /// </summary>
         public static void PlaySFX(AudioClip clip, float delay = 0, float volume = 1, AudioSource source = null)
         {
+            if (instance == null) { Debug.LogError("SoundManager instance is null"); return; }
+
             if (!instance.save.activeSfx)
                 return;
-
-            if (instance == null) { Debug.LogError("SoundManager instance is null"); return; }
 
             if (clip == null) return;
             if (delay > 0)
@@ -69,10 +69,10 @@ namespace CCC.Manager
 
         public static void PlayMusic(AudioClip clip, bool looping = true, float volume = 1, bool faded = false)
         {
+            if (instance == null) { Debug.LogError("SoundManager instance is null"); return; }
+
             if (!instance.save.activeMusic)
                 return;
-
-            if (instance == null) { Debug.LogError("SoundManager instance is null"); return; }
 
             if (faded)
             {
