@@ -146,10 +146,10 @@ public class ITM_Lazer : Item
 
     private void FollowPlayer(GameObject obj)
     {
-        // Position du Ram
+        // Position
         obj.transform.position = Game.instance.Player.vehicle.transform.position;
 
-        // Rotation du Ram
+        // Rotation
         obj.transform.rotation = Game.instance.Player.vehicle.transform.rotation;
         obj.transform.Rotate(new Vector3(obj.transform.rotation.x, obj.transform.rotation.y, obj.transform.rotation.z - 90));
     }

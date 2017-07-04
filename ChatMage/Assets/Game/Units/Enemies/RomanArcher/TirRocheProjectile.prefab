@@ -36,10 +36,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4552794639155162}
   - component: {fileID: 50583742534933468}
-  - component: {fileID: 58299491516090044}
   - component: {fileID: 114281818282303750}
   - component: {fileID: 114143351132262092}
   - component: {fileID: 114413036262173960}
+  - component: {fileID: 61761323257743042}
   m_Layer: 12
   m_Name: TirRocheProjectile
   m_TagString: Untagged
@@ -53,13 +53,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1798157616393516}
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.012, y: 0.012, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: -0.113, y: -0.015, z: 0}
+  m_LocalScale: {x: 0.025710858, y: 0.03291171, z: 1}
   m_Children: []
   m_Father: {fileID: 4552794639155162}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!4 &4552794639155162
 Transform:
   m_ObjectHideFlags: 1
@@ -94,8 +94,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &58299491516090044
-CircleCollider2D:
+--- !u!61 &61761323257743042
+BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -106,9 +106,19 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.099640846, y: -0.02077651}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 0.1
+  m_Size: {x: 0.5913037, y: 0.056536198}
+  m_EdgeRadius: 0
 --- !u!114 &114143351132262092
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -186,7 +196,7 @@ SpriteRenderer:
   m_SortingLayerID: -852012283
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 52e579b2026f8774e8a3747ab78d1128, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 608a28c6df80d3245a3b388392a0d494, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
