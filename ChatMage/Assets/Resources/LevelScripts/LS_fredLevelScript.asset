@@ -23,7 +23,7 @@ MonoBehaviour:
   - '[]'
   - '[]'
   - 
-  - '[{"packs":[{"unit":0,"quantity":10}],"onProgressCallbacks":[],"where":{"type":"RandomAroundScreen","clamp":false,"referencePoint":"Player","clampMin":{"x":-8.0,"y":-4.5},"clampMax":{"x":8.0,"y":4.5},"waypointInfo":{"idType":"Enum","waypointTag":null,"waypointType":"PlayerSpawn","spawningType":"Ordered","filterByHeight":false,"referencePoint":"Player","minHeight":-4.5,"maxHeight":4.5}},"when":{"type":"At","time":0.0,"name":null},"duration":60.0}]'
+  - '[{"packs":[{"unit":0,"quantity":10}],"methodCallOnEachSpawn":"","onProgressCallbacks":[],"where":{"type":"RandomAroundScreen","clamp":false,"referencePoint":"Player","clampMin":{"x":-8.0,"y":-4.5},"clampMax":{"x":8.0,"y":4.5},"waypointInfo":{"idType":"Enum","waypointTag":null,"waypointType":"PlayerSpawn","spawningType":"Ordered","filterByHeight":false,"referencePoint":"Player","minHeight":-4.5,"maxHeight":4.5}},"when":{"type":"At","time":0.0,"name":null},"duration":60.0}]'
   - '{"giveMoney":false,"amount":0,"giveLootBox":false,"lootboxs":[]}'
   sceneName: MapFred
   introPrefab: {fileID: 114939908285177620, guid: 6ecb49bd0fe07fd49a2105006011056d,
@@ -42,6 +42,7 @@ MonoBehaviour:
   - packs:
     - unit: {fileID: 114917152140949164, guid: 90a1293e412776e4db23eb9595fcf924, type: 2}
       quantity: 10
+    methodCallOnEachSpawn: 
     where:
       type: 0
       clamp: 0
