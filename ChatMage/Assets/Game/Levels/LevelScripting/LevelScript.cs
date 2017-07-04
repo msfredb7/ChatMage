@@ -199,26 +199,33 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
 
     public void ReceiveEvent(string message)
     {
-        for (int i = 0; i < eventTriggeredWaves.Count; i++)
+        if (eventTriggeredWaves != null)
         {
-            if (eventTriggeredWaves[i].when.name == message)
+            for (int i = 0; i < eventTriggeredWaves.Count; i++)
             {
-                LaunchWave(eventTriggeredWaves[i]);
-                eventTriggeredWaves.RemoveAt(i);
-                i--;
+                if (eventTriggeredWaves[i].when.name == message)
+                {
+                    LaunchWave(eventTriggeredWaves[i]);
+                    eventTriggeredWaves.RemoveAt(i);
+                    i--;
+                }
             }
         }
 
-        for (int i = 0; i < events.Count; i++)
+        if(events != null)
         {
-            if (events[i].eventWhen.useMileStone)
+            for (int i = 0; i < events.Count; i++)
             {
-                for (int j = 0; j < events[i].eventWhen.milestoneThatTrigger.Count; j++)
+                if (events[i].eventWhen.useMileStone)
                 {
-                    if (events[i].eventWhen.milestoneThatTrigger[j] == message)
+                    for (int j = 0; j < events[i].eventWhen.milestoneThatTrigger.Count; j++)
                     {
-                        events[i].Launch();
+                        if (events[i].eventWhen.milestoneThatTrigger[j] == message)
+                        {
+                            events[i].Launch();
+                        }
                     }
+
                 }
             }
         }

@@ -31,8 +31,10 @@ public class Milestone : BaseBehavior
     public string eventMessage;
 
 
-    public void Execute()
+    public bool Execute()
     {
+        if (!gameObject.activeSelf)
+            return false;
         if (modifyCanScrollDown)
         {
             Game.instance.gameCamera.canScrollDown = canScrollDownEffect;
@@ -50,6 +52,7 @@ public class Milestone : BaseBehavior
         {
             Game.instance.currentLevel.ReceiveEvent(eventMessage);
         }
+        return true;
     }
 
     public float GetHeight()

@@ -146,6 +146,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3ed57e7453e07de4a9969ff8d77c3af9, type: 2}
   - {fileID: 11400000, guid: b9fc1a355e7afbc4c9fba941400f77d9, type: 2}
   - {fileID: 114015716563977732, guid: 526d875b8e226cf49af4c4a05176f3f2, type: 2}
+  - {fileID: 11400000, guid: 18a022e1db13d55428856b4e51275846, type: 2}
+  - {fileID: 11400000, guid: 2916228895a570345a773b5fabbb8289, type: 2}
+  - {fileID: 11400000, guid: fbbc43776bd7d2347b94e32a26174da5, type: 2}
+  - {fileID: 11400000, guid: e2fb71ddca43b0c46aac8c4f90d84556, type: 2}
+  - {fileID: 11400000, guid: ecad43875e930d14cb45c8e92b38e01f, type: 2}
   _values:
   - _keys:
     - DefaultBehaviorEditor.locationButton.EditProperty
@@ -262,8 +267,6 @@ MonoBehaviour:
     - DefaultBehaviorEditor.noHealthPacks.EditProperty
     - DefaultBehaviorEditor.useCustomGenericEvents.EditProperty
     - DefaultBehaviorEditor.waves.EditProperty
-    - DefaultBehaviorEditor.waves.EditProperty.Primary.0.onProgressCallbacks.EditProperty.0.completionRate.EditProperty
-    - DefaultBehaviorEditor.waves.EditProperty.Primary.1.onProgressCallbacks.EditProperty.0.completionRate.EditProperty
     - DefaultBehaviorEditor.rewards.EditProperty
     - DefaultBehaviorEditor.activateTutorial.EditProperty
     - DefaultBehaviorEditor.healthPacks.EditProperty
@@ -276,10 +279,6 @@ MonoBehaviour:
     - _showDropdown: 0
       _serializedIsActive: 1
     - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 1
       _serializedIsActive: 1
     - _showDropdown: 0
       _serializedIsActive: 1
@@ -387,11 +386,8 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 11400000, guid: ebb4c47ba754bb5419a58103111c9fc8, type: 2}
-  - _keys:
-    - DefaultBehaviorEditor.largeIcon.EditProperty
-    _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
+  - _keys: []
+    _values: []
     _target: {fileID: 11400000, guid: 5d7d5dbda462c6a4892d9fc8b27960c3, type: 2}
   - _keys:
     - DefaultBehaviorEditor.largeIcon.EditProperty
@@ -446,8 +442,11 @@ MonoBehaviour:
     _values: []
     _target: {fileID: 114993993309943088, guid: 9618906922a349c4a9a615f516c911c2,
       type: 2}
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.startAttackRange.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
     _target: {fileID: 114791420540404272, guid: a77d1fe458ce3364092b759e6508eaed,
       type: 2}
   - _keys: []
@@ -473,14 +472,47 @@ MonoBehaviour:
       _serializedIsActive: 1
     _target: {fileID: 114959007032342916, guid: a97b513999cddca448e173580c0c886f,
       type: 2}
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.identifiant.EditProperty
+    - DefaultBehaviorEditor.possibleItems.EditProperty
+    - DefaultBehaviorEditor.items.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 1
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
     _target: {fileID: 11400000, guid: 40a5e29fcf791714281e245387f49f5d, type: 2}
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.identifiant.EditProperty
+    - DefaultBehaviorEditor.possibleItems.EditProperty
+    - DefaultBehaviorEditor.items.EditProperty
+    - DefaultBehaviorEditor.amount.EditProperty
+    - DefaultBehaviorEditor.itemForDuplicate.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 1
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
     _target: {fileID: 11400000, guid: e9ada2128e130fc4a978ce9b9510f223, type: 2}
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.identifiant.EditProperty
+    - DefaultBehaviorEditor.possibleItems.EditProperty
+    - DefaultBehaviorEditor.items.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 1
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
     _target: {fileID: 11400000, guid: d817919eff09e1a4fb99437751c04c97, type: 2}
   - _keys: []
     _values: []
@@ -682,6 +714,30 @@ MonoBehaviour:
     _values: []
     _target: {fileID: 114015716563977732, guid: 526d875b8e226cf49af4c4a05176f3f2,
       type: 2}
+  - _keys: []
+    _values: []
+    _target: {fileID: 11400000, guid: 18a022e1db13d55428856b4e51275846, type: 2}
+  - _keys: []
+    _values: []
+    _target: {fileID: 11400000, guid: 2916228895a570345a773b5fabbb8289, type: 2}
+  - _keys:
+    - DefaultBehaviorEditor.identifiant.EditProperty
+    - DefaultBehaviorEditor.possibleItems.EditProperty
+    - DefaultBehaviorEditor.items.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    _target: {fileID: 11400000, guid: fbbc43776bd7d2347b94e32a26174da5, type: 2}
+  - _keys: []
+    _values: []
+    _target: {fileID: 11400000, guid: e2fb71ddca43b0c46aac8c4f90d84556, type: 2}
+  - _keys: []
+    _values: []
+    _target: {fileID: 11400000, guid: ecad43875e930d14cb45c8e92b38e01f, type: 2}
 --- !u!114 &114891865049736824
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -787,6 +843,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3ed57e7453e07de4a9969ff8d77c3af9, type: 2}
   - {fileID: 11400000, guid: b9fc1a355e7afbc4c9fba941400f77d9, type: 2}
   - {fileID: 114015716563977732, guid: 526d875b8e226cf49af4c4a05176f3f2, type: 2}
+  - {fileID: 11400000, guid: 18a022e1db13d55428856b4e51275846, type: 2}
+  - {fileID: 11400000, guid: 2916228895a570345a773b5fabbb8289, type: 2}
+  - {fileID: 11400000, guid: fbbc43776bd7d2347b94e32a26174da5, type: 2}
+  - {fileID: 11400000, guid: e2fb71ddca43b0c46aac8c4f90d84556, type: 2}
+  - {fileID: 11400000, guid: ecad43875e930d14cb45c8e92b38e01f, type: 2}
   _values:
   - _keys: []
     _values: []
@@ -1083,3 +1144,18 @@ MonoBehaviour:
     _values: []
     _target: {fileID: 114015716563977732, guid: 526d875b8e226cf49af4c4a05176f3f2,
       type: 2}
+  - _keys: []
+    _values: []
+    _target: {fileID: 11400000, guid: 18a022e1db13d55428856b4e51275846, type: 2}
+  - _keys: []
+    _values: []
+    _target: {fileID: 11400000, guid: 2916228895a570345a773b5fabbb8289, type: 2}
+  - _keys: []
+    _values: []
+    _target: {fileID: 11400000, guid: fbbc43776bd7d2347b94e32a26174da5, type: 2}
+  - _keys: []
+    _values: []
+    _target: {fileID: 11400000, guid: e2fb71ddca43b0c46aac8c4f90d84556, type: 2}
+  - _keys: []
+    _values: []
+    _target: {fileID: 11400000, guid: ecad43875e930d14cb45c8e92b38e01f, type: 2}

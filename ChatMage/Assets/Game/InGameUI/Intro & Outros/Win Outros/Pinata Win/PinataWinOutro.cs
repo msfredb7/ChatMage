@@ -73,7 +73,7 @@ namespace GameIntroOutro
         {
             rewardUI = Scenes.FindRootObject<EndGameRewardUI>(scene);
 
-            rewardUI.Init(null, Game.instance.currentLevel.name);
+            rewardUI.Init(Game.instance.currentLevel.rewards, Game.instance.currentLevel.name,true); // AJOUTE LE VRAI BOLÉEN DE SI C LA PREMIÈRE FOIS QU'ON GAGNE ICI !
 
             canSpawnBall = true;
         }

@@ -13,27 +13,21 @@ namespace EndGameReward
         [Header("Linking")]
         public PinataExplosion pinataExplosion;
         public BackgroundFreezer backgroundFreezer;
-        public FadingButton continueButton;
+        public EndGameRewardAnimation animations;
 
         public bool DEMO = false;
 
         private string levelScriptAssetName;
-        private GameReward reward;
-
+        private GameRewards reward;
+        private bool firstWin;
 
         private Vector2 pinataCenter;
 
-        void Awake()
-        {
-            continueButton.Interactable = false;
-            continueButton.Hide();
-            continueButton.onClick += Continue;
-        }
-
-        public void Init(GameReward reward, string levelScriptAssetName)
+        public void Init(GameRewards reward, string levelScriptAssetName, bool firstWin)
         {
             this.levelScriptAssetName = levelScriptAssetName;
             this.reward = reward;
+            this.firstWin = firstWin;
         }
 
         public void PinataHasBeenDestroyed(Vector2 explosionPosition, Camera currentCamera, Action canUnloadCallback)
@@ -41,14 +35,13 @@ namespace EndGameReward
             
             backgroundFreezer.FreezeBackground(currentCamera, delegate()
             {
-                pinataExplosion.Animate(explosionPosition, PinataExplosion.BallColor.Blue);
+                pinataExplosion.Animate(explosionPosition, reward.lootboxColor);
                 canUnloadCallback();
             });
 
             DelayManager.LocalCallTo(delegate ()
             {
-                continueButton.Show(true);
-                continueButton.Interactable = true;
+                animations.Init(reward, firstWin);
             }, 1, this);
         }
 

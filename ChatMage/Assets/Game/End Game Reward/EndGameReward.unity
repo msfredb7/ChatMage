@@ -367,41 +367,8 @@ MonoBehaviour:
   - {fileID: 1895241085}
   - {fileID: 1080153374}
   _values:
-  - _keys:
-    - DefaultBehaviorEditor.explosionCenter.EditProperty
-    - DefaultBehaviorEditor.cam.EditProperty
-    - DefaultBehaviorEditor.flier.EditProperty
-    - DefaultBehaviorEditor.starGrowEase.EditProperty
-    - DefaultBehaviorEditor.starTwo.EditProperty
-    - DefaultBehaviorEditor.starThree.EditProperty
-    - DefaultBehaviorEditor.lightFade.EditProperty
-    - DefaultBehaviorEditor.blueBall.EditProperty
-    - DefaultBehaviorEditor.confettiOne.EditProperty
-    - DefaultBehaviorEditor.confettiTwo.EditProperty
-    - DefaultBehaviorEditor.movingSprites.EditProperty
-    _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 1
-      _serializedIsActive: 1
+  - _keys: []
+    _values: []
     _target: {fileID: 872641166}
   - _keys: []
     _values: []
@@ -527,39 +494,74 @@ Transform:
   m_Father: {fileID: 1895241085}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!21 &500163230
-Material:
-  serializedVersion: 6
+--- !u!1 &476920930
+GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Custom/HSVRangeShader
-  m_Shader: {fileID: 4800000, guid: a21d7b3cd1ff37646ae6899d456679ab, type: 3}
-  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - _ColorMask: 15
-    - _HSVRangeMax: 0.621
-    - _HSVRangeMin: 0.463
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    m_Colors:
-    - _Color: {r: 0, g: 0, b: 0, a: 1}
-    - _HSVAAdjust: {r: 0.421, g: 0, b: 0, a: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 476920931}
+  - component: {fileID: 476920933}
+  - component: {fileID: 476920932}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &476920931
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 476920930}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 644904339}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -0.000025749, y: -169.5}
+  m_SizeDelta: {x: 378, y: 339}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &476920932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 476920930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300000, guid: 5d48a1b96e99d924b9653a14d7084067, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+--- !u!222 &476920933
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 476920930}
 --- !u!1 &543525487
 GameObject:
   m_ObjectHideFlags: 0
@@ -710,6 +712,7 @@ GameObject:
   - component: {fileID: 644904337}
   - component: {fileID: 644904336}
   - component: {fileID: 644904340}
+  - component: {fileID: 644904341}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -785,6 +788,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1675265373}
+  - {fileID: 476920931}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -806,7 +810,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pinataExplosion: {fileID: 872641166}
   backgroundFreezer: {fileID: 1080153375}
-  continueButton: {fileID: 1675265374}
+  animations: {fileID: 644904341}
+  DEMO: 0
+--- !u!114 &644904341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 644904335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c136f6239cdd774c99f28b9a6befff0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextButton: {fileID: 1675265375}
+  rewardImage: {fileID: 476920932}
+  coinsSprite: {fileID: 21300000, guid: e2ffb2fd90a391849bfc7d248d1bbfb1, type: 3}
 --- !u!1 &692856217
 GameObject:
   m_ObjectHideFlags: 0
@@ -1140,7 +1159,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
-  arriveduration: 0
   quitDuration: 1
   hitQuitSpeed: 0.1
 --- !u!114 &872641166
@@ -1821,7 +1839,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 500163230}
+  - {fileID: 2035700129}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2007,7 +2025,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1675265373
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2354,7 +2372,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Continue
+  m_Text: Next Reward
 --- !u!222 &1953210875
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2431,3 +2449,36 @@ Transform:
   m_Father: {fileID: 1895241085}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 20.92}
+--- !u!21 &2035700129
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Custom/HSVRangeShader
+  m_Shader: {fileID: 4800000, guid: a21d7b3cd1ff37646ae6899d456679ab, type: 3}
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _ColorMask: 15
+    - _HSVRangeMax: 0.621
+    - _HSVRangeMin: 0.463
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    m_Colors:
+    - _Color: {r: 0, g: 0, b: 0, a: 1}
+    - _HSVAAdjust: {r: 0.421, g: 0, b: 0, a: 0}

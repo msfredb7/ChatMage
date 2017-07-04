@@ -19,7 +19,7 @@ public class PlayerStats : PlayerComponent, IAttackable
     [NonSerialized]
     public StatInt health = new StatInt(3, 0, 3, BoundMode.Cap);
     [NonSerialized]
-    public StatInt armor = new StatInt(1, 0, 3, BoundMode.Cap);
+    public StatInt armor = new StatInt(0, 0, 3, BoundMode.Cap);
     [NonSerialized]
     public StatInt damageMultiplier = new StatInt(1, 0, int.MaxValue, BoundMode.Cap);
     [NonSerialized]

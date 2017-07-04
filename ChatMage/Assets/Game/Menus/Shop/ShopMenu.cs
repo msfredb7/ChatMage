@@ -47,53 +47,6 @@ public class ShopMenu : MonoBehaviour
     }
 
     /// <summary>
-    /// Ancienne fonction qui achete un lootbox en fonction du type voulu
-    /// </summary>
-    public void BuyLootBox(LootBox.LootBoxType type)
-    {
-        PopUpMenu.ShowConfirmPopUpMenu("Bill Confirmation", "You are currently in the process of buying a lootbox. Are you sure you want to buy a " + type + " lootbox ?", delegate ()
-       {
-           // Animation apparition Lootbox
-           switch (type)
-           {
-               case LootBox.LootBoxType.small:
-                   new LootBox(armory, LootBox.LootBoxType.small, delegate (List<EquipablePreview> rewards)
-                   {
-                       // Disparition du Lootbox
-                       for (int i = 0; i < rewards.Count; i++)
-                       {
-                           // Afficher recompense ?
-                           //rewards[i]
-                       }
-                   });
-                   break;
-               case LootBox.LootBoxType.medium:
-                   new LootBox(armory, LootBox.LootBoxType.medium, delegate (List<EquipablePreview> rewards)
-                   {
-                       // Disparition du Lootbox
-                       for (int i = 0; i < rewards.Count; i++)
-                       {
-                           // Afficher recompense ?
-                           //rewards[i]
-                       }
-                   });
-                   break;
-               case LootBox.LootBoxType.large:
-                   new LootBox(armory, LootBox.LootBoxType.large, delegate (List<EquipablePreview> rewards)
-                   {
-                       // Disparition du Lootbox
-                       for (int i = 0; i < rewards.Count; i++)
-                       {
-                           // Afficher recompense ?
-                           //rewards[i]
-                       }
-                   });
-                   break;
-           }
-       });
-    }
-
-    /// <summary>
     /// Nouvelle fonction qui utilise des lootboxRef pour ouvrir des lootbox
     /// </summary>
     public void BuyLootBox(string identifiant)
@@ -108,7 +61,7 @@ public class ShopMenu : MonoBehaviour
                 // On fait une commande pour acheter la lootbox
                 if (Account.instance.Command(lootbox.commandType))
                 {
-                    // Debut de l'animation du lootbox
+                    // DEBUT DE L'ANIMATION DU LOOTBOX (A changer pour la pinata)
                     ResourceLoader.LoadUIAsync("Lootbox", delegate (GameObject lootboxAnim)
                     {
                         GameObject newLootboxAnimation = Instantiate(lootboxAnim, transform);
@@ -117,10 +70,11 @@ public class ShopMenu : MonoBehaviour
                         {
                             bool goldifyWorks = true;
                             // Si on goldify, mais que ta deja toute de unlock, ca sert a rien
-                            if(armory.GetAllEquipablesLock().Count < 1)
+                            if (armory.GetAllEquipablesLock().Count < 1)
                             {
                                 PopUpMenu.ShowOKPopUpMenu("Useless Gold Upgrade", "You can't upgrade your lootbox to gold when " +
-                                "you already have everything unlocked!", delegate () { goldifyWorks = false; });
+                                "you already have everything unlocked!", null);
+                                goldifyWorks = false;
                             }
 
                             if (goldifyWorks)
@@ -131,7 +85,7 @@ public class ShopMenu : MonoBehaviour
                                 newLootboxAnimation.GetComponent<LootboxAnimation>().lootboxOpeningEvent += delegate ()
                                 {
                                     // On ouvre la Lootbox et on obtient les recompenses
-                                    new LootBox(identifiant, delegate (List<EquipablePreview> rewards)
+                                    new LootBox(identifiant, delegate (List<LootBoxRewards> rewards)
                                     {
                                         // On ajoute les recompenses dans l'animation
                                         newLootboxAnimation.GetComponent<LootboxAnimation>().AddRewards(rewards);
@@ -140,9 +94,10 @@ public class ShopMenu : MonoBehaviour
                             }
                         };
                         // Event de base ou on ouvre un lootbox normal
-                        newLootboxAnimation.GetComponent<LootboxAnimation>().lootboxOpeningEvent += delegate () {
+                        newLootboxAnimation.GetComponent<LootboxAnimation>().lootboxOpeningEvent += delegate ()
+                        {
                             // On ouvre la Lootbox et on obtient les recompenses
-                            new LootBox(identifiant, delegate (List<EquipablePreview> rewards)
+                            new LootBox(identifiant, delegate (List<LootBoxRewards> rewards)
                             {
                                 // On ajoute les recompenses dans l'animation
                                 newLootboxAnimation.GetComponent<LootboxAnimation>().AddRewards(rewards);

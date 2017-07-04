@@ -138,6 +138,21 @@ public class ResourceLoader : BaseManager<ResourceLoader>
         }
     }
 
+    static private string EquipablePreviewTypeToPath(EquipableType type)
+    {
+        switch (type)
+        {
+            default:
+                throw new Exception("Unable to convert equipableType to path. Unsupported equipable type.");
+            case EquipableType.Car:
+                return "Cars/Previews/";
+            case EquipableType.Smash:
+                return "Smash/Previews/";
+            case EquipableType.Item:
+                return "Items/Previews/";
+        }
+    }
+
     static public Equipable LoadEquipable(string name, EquipableType type)
     {
         return Load<Equipable>(EQUIPABLES + EquipableTypeToPath(type) + name);
@@ -145,6 +160,15 @@ public class ResourceLoader : BaseManager<ResourceLoader>
     static public void LoadEquipableAsync(string name, EquipableType type, Action<Equipable> callback)
     {
         LoadAsync(EQUIPABLES + EquipableTypeToPath(type) + name, callback);
+    }
+
+    static public Equipable LoadEquipablePreview(string name, EquipableType type)
+    {
+        return Load<Equipable>(EQUIPABLES + EquipablePreviewTypeToPath(type) + name);
+    }
+    static public void LoadEquipablePreviewAsync(string name, EquipableType type, Action<EquipablePreview> callback)
+    {
+        LoadAsync(EQUIPABLES + EquipablePreviewTypeToPath(type) + name, callback);
     }
 
     static public void LoadUIAsync(string name, Action<GameObject> callback)

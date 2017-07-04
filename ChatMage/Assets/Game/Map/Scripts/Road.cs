@@ -94,8 +94,7 @@ public class Road : BaseBehavior
 
             if (milestoneRelativeHeights[i] >= bottom)
             {
-                milestones[i].Execute();
-                if (milestones[i].disapearAfterTrigger)
+                if (milestones[i].disapearAfterTrigger && milestones[i].Execute())
                 {
                     Destroy(milestones[i].gameObject);
                     milestones.RemoveAt(i);
