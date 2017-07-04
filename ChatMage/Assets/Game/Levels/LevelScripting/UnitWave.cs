@@ -4,6 +4,7 @@ using UnityEngine;
 using FullSerializer;
 using FullInspector;
 using System;
+using System.Reflection;
 
 namespace LevelScripting
 {
@@ -12,6 +13,8 @@ namespace LevelScripting
     {
         [InspectorCategory("What")]
         public UnitPack[] packs;
+        [InspectorCategory("What")]
+        public string methodCallOnEachSpawn = "";
         [InspectorCategory("What")]
         public LevelEventCallback[] onProgressCallbacks;
 
@@ -24,15 +27,17 @@ namespace LevelScripting
 
         public event SimpleEvent onLaunched;
 
-        [fsIgnore]
+        [fsIgnore, NonSerialized]
         private List<Callback> completionCallbacks = new List<Callback>();
-        [fsIgnore]
+        [fsIgnore, NonSerialized]
         private int totalUnits;
-        [fsIgnore]
+        [fsIgnore, NonSerialized]
         private int currentKillCount = 0;
-        [fsIgnore]
+        [fsIgnore, NonSerialized]
         private InGameEvents events;
-        [fsIgnore]
+        [fsIgnore, NonSerialized]
+        private LevelScript levelScript;
+        [fsIgnore, NonSerialized]
         private int spawnedUnits;
 
         private void ResetData()
@@ -53,11 +58,12 @@ namespace LevelScripting
             return total;
         }
 
-        public void Launch(InGameEvents events)
+        public void Launch(LevelScript levelScript, InGameEvents events)
         {
             //Reset data
             ResetData();
 
+            this.levelScript = levelScript;
             this.events = events;
 
             //Build callbacks from 'LevelEventCallbacks'
@@ -335,6 +341,8 @@ namespace LevelScripting
                 //Spawn + on setup des listener pour compter la mort de la unit
                 events.SpawnUnit(unit, ClampCheck(position), delay, delegate (Unit spawnedUnit)
                 {
+                    MethodCallOnEacheSpawn(spawnedUnit);
+
                     spawnedUnit.onDeath += delegate (Unit deadUnit)
                     {
                         currentKillCount++;
@@ -345,7 +353,26 @@ namespace LevelScripting
             else
             {
                 //Regular Spawning
-                events.SpawnUnit(unit, ClampCheck(position), delay);
+                events.SpawnUnit(unit, ClampCheck(position), delay, MethodCallOnEacheSpawn);
+            }
+        }
+
+        private void MethodCallOnEacheSpawn(Unit unit)
+        {
+            if (string.IsNullOrEmpty(methodCallOnEachSpawn))
+                return;
+
+            Type[] rqParameters = new Type[] { typeof(Unit) };
+            Type type = levelScript.GetType();
+            MethodInfo methodInfo = type.GetMethod(methodCallOnEachSpawn, rqParameters);
+            if (methodInfo != null)
+            {
+                object[] parameters = new object[] { unit };
+                methodInfo.Invoke(levelScript, parameters);
+            }
+            else
+            {
+                Debug.LogError("Failed to find PUBLIC method with name '" + methodCallOnEachSpawn + "' whith parameters +");
             }
         }
 

@@ -15,6 +15,7 @@ public class Waypoint : BaseBehavior
         Other = 4,
     }
 
+    public bool adjustToMap = true;
     public bool useTag = true;
     [InspectorHideIf("useTag")]
     public WaypointType type;
@@ -25,23 +26,23 @@ public class Waypoint : BaseBehavior
 
     public WaypointType Type { get { return type; } }
 
-    public Vector2 RawPosition { get { return transform.position; } }
-
     public Vector2 AdjustedPosition
     {
         get
         {
             if (!alreadyConverted)
                 AdjustToMap();
-            return RawPosition;
+            return transform.position;
         }
     }
 
-    private Waypoint AdjustToMap()
+    private void AdjustToMap()
     {
         alreadyConverted = true;
+        if (!adjustToMap)
+            return;
+
         Game.instance.map.Adjust(gameObject);
-        return this;
     }
 
     void OnDrawGizmosSelected()

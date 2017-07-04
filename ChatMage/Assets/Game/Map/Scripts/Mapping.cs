@@ -9,10 +9,12 @@ using FullSerializer;
 using UnityEditor;
 #endif
 
-public class Mapping : BaseBehavior, IComparer<Waypoint>
+public class Mapping : BaseBehavior
 {
     [SerializeField, InspectorCategory("Fill")]
-    public List<Waypoint> unfilteredWaypoints;
+    public Waypoint[] unfilteredWaypoints;
+    [SerializeField, InspectorCategory("Fill")]
+    public TaggedObject[] unfilteredTaggedObjects;
 
     [SerializeField, InspectorCategory("Result")]
     private List<Waypoint> enemyWaypoints;
@@ -27,10 +29,14 @@ public class Mapping : BaseBehavior, IComparer<Waypoint>
     [SerializeField, ReadOnly(), InspectorCategory("Result")]
     private Dictionary<string, List<Waypoint>> taggedWaypoints;
 
+    [SerializeField, ReadOnly(), InspectorCategory("Result")]
+    private Dictionary<string, List<TaggedObject>> taggedObjects;
+
     [InspectorButton(), InspectorCategory("Fill")]
-    public void BuildWaypointLists()
+    public void Filter()
     {
-        for (int i = 0; i < unfilteredWaypoints.Count; i++)
+        //Waypoints
+        for (int i = 0; i < unfilteredWaypoints.Length; i++)
         {
             if (unfilteredWaypoints[i].useTag)
             {
@@ -74,28 +80,31 @@ public class Mapping : BaseBehavior, IComparer<Waypoint>
                 }
             }
         }
+        unfilteredWaypoints = new Waypoint[0];
 
 
-        unfilteredWaypoints.Clear();
+        //Tagged objects
+        for (int i = 0; i < unfilteredTaggedObjects.Length; i++)
+        {
+            for (int u = 0; u < unfilteredTaggedObjects[i].tags.Length; u++)
+            {
+                string tag = unfilteredTaggedObjects[i].tags[u];
 
-        //ON NE LE FAIT PLUS. ÇA FUCK L'ORDRE
-        //Sort lists ! (du pos.y le plus bas au plus haut)
-        //enemyWaypoints.Sort(this);
-        //playerWaypoints.Sort(this);
-        //bossWaypoints.Sort(this);
-        //itemWaypoints.Sort(this);
-        //otherWaypoints.Sort(this);
-        //tagsWaypoints.Sort(this);
-    }
-
-    public int Compare(Waypoint x, Waypoint y)
-    {
-        if (x.RawPosition.y > y.RawPosition.y)
-            return 1;
-        else if (x.RawPosition.y > y.RawPosition.y)
-            return -1;
-        else
-            return 0;
+                if (taggedObjects.ContainsKey(tag))
+                {
+                    //Ajout a la liste
+                    if (!taggedObjects[tag].Contains(unfilteredTaggedObjects[i]))
+                        taggedObjects[tag].Add(unfilteredTaggedObjects[i]);
+                }
+                else
+                {
+                    //Nouvelle liste
+                    taggedObjects.Add(tag, new List<TaggedObject>());
+                    taggedObjects[tag].Add(unfilteredTaggedObjects[i]);
+                }
+            }
+        }
+        unfilteredTaggedObjects = new TaggedObject[0];
     }
 
     [InspectorButton(), InspectorCategory("Result")]
@@ -140,16 +149,17 @@ public class Mapping : BaseBehavior, IComparer<Waypoint>
             return null;
         }
     }
-
-    //private List<Waypoint> AdjustAllNotadjusted(List<Waypoint> waypointsNotConverted)
-    //{
-    //    for (int i = 0; i < waypointsNotConverted.Count; i++)
-    //    {
-    //        if (!waypointsNotConverted[i].alreadyConverted)
-    //            waypointsNotConverted[i].AdjustToMap();
-    //    }
-    //    return waypointsNotConverted;
-    //}
+    private List<TaggedObject> GetTaggedObjectsListByTag(string tag)
+    {
+        try
+        {
+            return taggedObjects[tag];
+        }
+        catch
+        {
+            return null;
+        }
+    }
     #endregion
 
     #region Public
@@ -287,6 +297,15 @@ public class Mapping : BaseBehavior, IComparer<Waypoint>
 
             return smallerList;
         }
+    }
+
+    public List<TaggedObject> GetTaggedObjects(string tag)
+    {
+        List<TaggedObject> list = GetTaggedObjectsListByTag(tag);
+        if (list != null)
+            return new List<TaggedObject>(GetTaggedObjectsListByTag(tag));
+        else
+            return new List<TaggedObject>();
     }
 
     // J'ai enlever des fonctions. Si on veut les ravoir, il faut les refaire avec le temps d'exec en t�te

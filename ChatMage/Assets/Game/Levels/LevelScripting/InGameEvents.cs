@@ -120,9 +120,13 @@ public class InGameEvents : MonoBehaviour
         AddDelayedAction(delegate () { Time.timeScale = 1; }, timeEnd);
     }
 
-    public T ShowUI<T>(T prefab) where T : MonoBehaviour
+    public T SpawnUnderUI<T>(T prefab) where T : MonoBehaviour
     {
-        return Instantiate(prefab, Game.instance.ui.gameObject.transform).GetComponent<T>();
+        return Instantiate(prefab, Game.instance.ui.transform).GetComponent<T>();
+    }
+    public T SpawnUnderGame<T>(T prefab) where T : MonoBehaviour
+    {
+        return Instantiate(prefab, Game.instance.transform).GetComponent<T>();
     }
 
     public GameObject ShowUIAtLocation(GameObject prefab, Vector2 position)

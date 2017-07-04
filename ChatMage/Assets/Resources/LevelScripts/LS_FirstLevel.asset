@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab2a298efac19554eb792357b04a4e6a, type: 3}
+  m_Name: LS_FirstLevel
+  m_EditorClassIdentifier: 
+  _objectReferences:
+  - {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
+  _serializedStateKeys:
+  - winningConditions
+  - losingConditions
+  - events
+  - waves
+  - rewards
+  _serializedStateValues:
+  - '[]'
+  - '[{"$type":"GameCondition.LoseOnPlayerDeath"}]'
+  - 
+  - '[{"packs":[{"unit":0,"quantity":5}],"methodCallOnEachSpawn":"MoveToCenter","onProgressCallbacks":[],"where":{"type":"Waypoints","clamp":false,"referencePoint":"Player","clampMin":{"x":-8.0,"y":-4.5},"clampMax":{"x":8.0,"y":4.5},"waypointInfo":{"idType":"Enum","waypointTag":null,"waypointType":"enemySpawn","spawningType":"Random","filterByHeight":false,"referencePoint":"Player","minHeight":-4.5,"maxHeight":4.5}},"when":{"type":"At","time":0.0,"name":null},"duration":5.0}]'
+  - '{"giveMoney":false,"amount":0,"giveLootBox":false,"lootboxs":[null]}'
+  sceneName: RomanArena
+  introPrefab: {fileID: 114095951920881890, guid: 5d6e2272c4ccd514cb369a8d44abbacd,
+    type: 2}
+  winOutroPrefab: {fileID: 114288339278322360, guid: 1e4d836705c07534fb5b431bb36cb2ab,
+    type: 2}
+  loseOutroPrefab: {fileID: 114991219666454608, guid: 1e119aa4a9b4fba448ae2ee2adf573eb,
+    type: 2}
+  noHealthPacks: 0
+  followPlayerOnStart: 0
+  verticalUnitSnap: 0
+  horizontalUnitSnap: 0
+  useCustomGenericEvents: 0
+  events: []
+  waves:
+  - packs:
+    - unit: {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
+      quantity: 5
+    methodCallOnEachSpawn: MoveToCenter
+    where:
+      type: 1
+      clamp: 0
+      referencePoint: 0
+      clampMin: {x: -8, y: -4.5}
+      clampMax: {x: 8, y: 4.5}
+      waypointInfo:
+        idType: 0
+        waypointTag: 
+        waypointType: 2
+        spawningType: 1
+        filterByHeight: 0
+        referencePoint: 0
+        minHeight: -4.5
+        maxHeight: 4.5
+    when:
+      type: 0
+      time: 0
+      name: 
+    duration: 5
+  isOver: 1
+  inGameEvents: {fileID: 0}
+  activateTutorial: 0
+  tutorial: {fileID: 0}
+  spearMan: {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
+  archer: {fileID: 114917152140949164, guid: 90a1293e412776e4db23eb9595fcf924, type: 2}

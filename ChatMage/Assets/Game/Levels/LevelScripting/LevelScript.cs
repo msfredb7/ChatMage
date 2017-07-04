@@ -106,7 +106,12 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
         ApplySettings();
 
         if (introPrefab != null)
-            inGameEvents.ShowUI(introPrefab).Play(Game.instance.StartGame);
+        {
+            if(introPrefab.parentType == BaseIntro.ParentType.UnderCanvas)
+                inGameEvents.SpawnUnderUI(introPrefab).Play(Game.instance.StartGame);
+            else
+                inGameEvents.SpawnUnderGame(introPrefab).Play(Game.instance.StartGame);
+        }
 
         OnGameReady();
     }
@@ -151,7 +156,12 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
             onWin();
 
         if (winOutroPrefab != null)
-            inGameEvents.ShowUI(winOutroPrefab).Play();
+        {
+            if (winOutroPrefab.parentType == BaseWinOutro.ParentType.UnderCanvas)
+                inGameEvents.SpawnUnderUI(winOutroPrefab).Play();
+            else
+                inGameEvents.SpawnUnderGame(winOutroPrefab).Play();
+        }
 
         OnWin();
     }
@@ -173,7 +183,12 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
             onLose();
 
         if (loseOutroPrefab != null)
-            inGameEvents.ShowUI(loseOutroPrefab).Play();
+        {
+            if (loseOutroPrefab.parentType == BaseLoseOutro.ParentType.UnderCanvas)
+                inGameEvents.SpawnUnderUI(loseOutroPrefab).Play();
+            else
+                inGameEvents.SpawnUnderGame(loseOutroPrefab).Play();
+        }
 
         OnLose();
     }
@@ -259,13 +274,13 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
         }
     }
 
-    public abstract void OnInit();
-    protected abstract void OnGameReady();
-    protected abstract void OnGameStarted();
-    protected abstract void OnUpdate();
-    public abstract void OnReceiveEvent(string message);
-    public abstract void OnWin();
-    public abstract void OnLose();
+    public virtual void OnInit() { }
+    protected virtual void OnGameReady() { }
+    protected virtual void OnGameStarted() { }
+    protected virtual void OnUpdate() { }
+    public virtual void OnReceiveEvent(string message) { }
+    public virtual void OnWin() { }
+    public virtual void OnLose() { }
     public virtual void OnWaveLaunch() { }
 
     //////////////////////////////////////////////////// Base Settings
@@ -384,7 +399,7 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
 
     void LaunchWave(UnitWave wave)
     {
-        wave.Launch(inGameEvents);
+        wave.Launch(this, inGameEvents);
         OnWaveLaunch();
     }
     #endregion
