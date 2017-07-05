@@ -7,44 +7,47 @@ public class JesusVehicle : EnemyVehicle {
 
     public JesusAnimator animator;
 
-    public float cooldown = 5;
-    private float counter;
+    public int health = 5;
 
     public override int Attacked(ColliderInfo on, int amount, Unit unit, ColliderInfo source = null)
     {
         if (amount <= 0)
             return 1;
 
-        Die();
+        if(unit is JesusRock)
+            Damaged();
+
         return 0;
     }
 
     void Start()
     {
-        cooldown = 1;
-        counter = cooldown;
     }
 
     void Update()
     {
-        if(counter < 0)
-        {
-            GoToLocation();
-            counter = cooldown;
-        }
-        counter -= DeltaTime();
+    }
+
+    private void Damaged()
+    {
+        health--;
+        if (health <= 0)
+            Die();
     }
 
     protected override void Die()
     {
         base.Die();
 
+        // ANIMATION DE DESTRUCTIONS DU BOSS
+
         Destroy(gameObject);
     }
 
-    public void GoToLocation()
+    public void GoToLocation(Vector2 location)
     {
-        GotoPosition(GetRandomLocationAroundScreen());
+        // ANIMATION DE DÉPLACEMENT
+        GotoPosition(location);
     }
 
     Vector2 GetRandomLocationAroundScreen()

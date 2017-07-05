@@ -15,6 +15,7 @@ using System.Reflection;
 public abstract class LevelScript : BaseScriptableObject, IEventReceiver
 {
     public const string WINRESULT_KEY = "winr";
+    public const string FIRST_WINRESULT_KEY = "first-winr";
 
     [InspectorHeader("General Info")]
     public string sceneName;
@@ -149,8 +150,19 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
         isOver = true;
 
         //On enregistre la Win
-        GameSaves.instance.SetBool(GameSaves.Type.LevelSelect, WINRESULT_KEY, true);
-        GameSaves.instance.SaveData(GameSaves.Type.LevelSelect);
+        if (GameSaves.instance.ContainsBool(GameSaves.Type.LevelSelect, WINRESULT_KEY))
+        {
+            GameSaves.instance.SetBool(GameSaves.Type.LevelSelect, WINRESULT_KEY, true);
+            // On avait déja enregistrer qu'on avait gagner le niveau par la passé, donc déja win
+            GameSaves.instance.SetBool(GameSaves.Type.LevelSelect, FIRST_WINRESULT_KEY, false); 
+            GameSaves.instance.SaveData(GameSaves.Type.LevelSelect);
+        } else
+        {
+            GameSaves.instance.SetBool(GameSaves.Type.LevelSelect, WINRESULT_KEY, true);
+            // On avait PAS déja enregistrer qu'on avait gagner le niveau par la passé, donc première win
+            GameSaves.instance.SetBool(GameSaves.Type.LevelSelect, FIRST_WINRESULT_KEY, true);
+            GameSaves.instance.SaveData(GameSaves.Type.LevelSelect);
+        }
 
         if (onWin != null)
             onWin();

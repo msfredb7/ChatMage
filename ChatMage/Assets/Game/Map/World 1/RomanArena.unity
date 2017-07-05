@@ -237,6 +237,7 @@ GameObject:
   m_Component:
   - component: {fileID: 92739577}
   - component: {fileID: 92739576}
+  - component: {fileID: 92739578}
   m_Layer: 0
   m_Name: Bottom Spawn
   m_TagString: Untagged
@@ -271,6 +272,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!114 &92739578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 92739575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 327238d1d09c9c240b5b63f13cfc5b23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attachedSpawn: {fileID: 92739576}
+  destination: {x: 0, y: 1.5}
+  restrainToScreenIfApplies: 1
 --- !u!1 &153121005
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,7 +320,6 @@ MonoBehaviour:
   - {fileID: 1124971337}
   - {fileID: 1182543748}
   - {fileID: 1534255056}
-  - {fileID: 653810765}
   _serializedStateKeys:
   - unfilteredWaypoints
   - unfilteredTaggedObjects
@@ -329,7 +343,7 @@ MonoBehaviour:
   - '[]'
   - '{}'
   - '{}'
-  - '{"plus":[0,1,2,3],"random":[4],"ordered":[5],"circle":[6]}'
+  - '{"plus":[0,1,2,3],"random":[4],"ordered":[5]}'
   unfilteredWaypoints: []
   unfilteredTaggedObjects: []
   unfilteredSpawns: []
@@ -360,6 +374,7 @@ GameObject:
   m_Component:
   - component: {fileID: 218045421}
   - component: {fileID: 218045420}
+  - component: {fileID: 218045422}
   m_Layer: 0
   m_Name: Right Spawn
   m_TagString: Untagged
@@ -394,6 +409,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
+--- !u!114 &218045422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 218045419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 327238d1d09c9c240b5b63f13cfc5b23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attachedSpawn: {fileID: 218045420}
+  destination: {x: -1.5, y: 0}
+  restrainToScreenIfApplies: 1
 --- !u!1 &266624491
 GameObject:
   m_ObjectHideFlags: 0
@@ -645,6 +674,7 @@ GameObject:
   m_Component:
   - component: {fileID: 585591425}
   - component: {fileID: 585591424}
+  - component: {fileID: 585591427}
   m_Layer: 0
   m_Name: Top Spawn
   m_TagString: Untagged
@@ -679,51 +709,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
---- !u!1 &653810764
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 653810766}
-  - component: {fileID: 653810765}
-  m_Layer: 0
-  m_Name: Circle Spawn
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &653810765
+--- !u!114 &585591427
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 653810764}
+  m_GameObject: {fileID: 585591423}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7348d43d2a9ab94e85022e426fa1f5b, type: 3}
+  m_Script: {fileID: 11500000, guid: 327238d1d09c9c240b5b63f13cfc5b23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  posType: 1
-  tags:
-  - circle
-  minRange: 2
-  maxRange: 3
---- !u!4 &653810766
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 653810764}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 13
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  attachedSpawn: {fileID: 585591424}
+  destination: {x: 0, y: -1.5}
+  restrainToScreenIfApplies: 1
 --- !u!1 &1018683115
 GameObject:
   m_ObjectHideFlags: 0
@@ -853,6 +852,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1124971338}
   - component: {fileID: 1124971337}
+  - component: {fileID: 1124971339}
   m_Layer: 0
   m_Name: Left Spawn
   m_TagString: Untagged
@@ -887,6 +887,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1124971339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1124971336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 327238d1d09c9c240b5b63f13cfc5b23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attachedSpawn: {fileID: 1124971337}
+  destination: {x: 1.5, y: 0}
+  restrainToScreenIfApplies: 1
 --- !u!1 &1182543747
 GameObject:
   m_ObjectHideFlags: 0
@@ -918,13 +932,13 @@ MonoBehaviour:
   tags:
   - random
   subSpawns:
-  - spawn: {fileID: 218045420}
-    weight: 1
   - spawn: {fileID: 585591424}
     weight: 1
-  - spawn: {fileID: 1124971337}
+  - spawn: {fileID: 218045420}
     weight: 1
   - spawn: {fileID: 92739576}
+    weight: 1
+  - spawn: {fileID: 1124971337}
     weight: 1
 --- !u!4 &1182543749
 Transform:
@@ -969,7 +983,7 @@ MonoBehaviour:
   posType: 0
   tags:
   - ordered
-  changeSpawnEvery: 2
+  changeSpawnEvery: 1
   subSpawns:
   - {fileID: 585591424}
   - {fileID: 218045420}

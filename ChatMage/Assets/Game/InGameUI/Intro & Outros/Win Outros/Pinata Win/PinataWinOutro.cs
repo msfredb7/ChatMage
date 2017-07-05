@@ -73,7 +73,9 @@ namespace GameIntroOutro
         {
             rewardUI = Scenes.FindRootObject<EndGameRewardUI>(scene);
 
-            rewardUI.Init(Game.instance.currentLevel.rewards, Game.instance.currentLevel.name,true); // AJOUTE LE VRAI BOLÉEN DE SI C LA PREMIÈRE FOIS QU'ON GAGNE ICI !
+            bool firstWin = GameSaves.instance.GetBool(GameSaves.Type.LevelSelect, LevelScript.FIRST_WINRESULT_KEY);
+
+            rewardUI.Init(Game.instance.currentLevel.rewards, Game.instance.currentLevel.name, firstWin);
 
             canSpawnBall = true;
         }

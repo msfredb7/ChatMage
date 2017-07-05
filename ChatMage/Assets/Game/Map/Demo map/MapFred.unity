@@ -208,13 +208,19 @@ MonoBehaviour:
   - {fileID: 376287710}
   _serializedStateKeys:
   - unfilteredWaypoints
+  - unfilteredTaggedObjects
+  - unfilteredSpawns
   - enemyWaypoints
   - playerWaypoints
   - bossWaypoints
   - itemWaypoints
   - otherWaypoints
   - taggedWaypoints
+  - taggedObjects
+  - spawns
   _serializedStateValues:
+  - '[]'
+  - '[]'
   - '[]'
   - '[]'
   - '[0]'
@@ -222,7 +228,11 @@ MonoBehaviour:
   - '[]'
   - '[]'
   - '{}'
+  - 
+  - 
   unfilteredWaypoints: []
+  unfilteredTaggedObjects: []
+  unfilteredSpawns: []
   enemyWaypoints: []
   playerWaypoints:
   - {fileID: 376287710}
@@ -467,6 +477,7 @@ MonoBehaviour:
   - type
   _serializedStateValues:
   - '"PlayerSpawn"'
+  adjustToMap: 1
   useTag: 0
   type: 0
   tags: []

@@ -9,6 +9,7 @@ public class HealthPacks : MovingUnit
     public SimpleColliderListener colliderListener;
     public Collider2D myCollider;
     public SpriteRenderer sprite;
+    public int regenAmount = 1;
 
     [Header("Animation Settings")]
     public string sortingLayerAbovePlayer;
@@ -78,7 +79,7 @@ public class HealthPacks : MovingUnit
     public void PickUp(ColliderInfo info, ColliderListener listener)
     {
         if (info.parentUnit == Game.instance.Player.vehicle)
-            Game.instance.Player.playerStats.Regen();
+            Game.instance.Player.playerStats.Regen(regenAmount);
         Die();
     }
 
