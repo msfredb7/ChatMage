@@ -40,6 +40,9 @@ public class Game : PublicSingleton<Game>
     public bool IsPlayerVisible { get { return player != null && player.gameObject.activeSelf && player.playerStats.isVisible; } }
     private PlayerController player;
 
+    [fsIgnore, NonSerialized]
+    public Locker gameRunning = new Locker();
+
     [fsIgnore]
     public bool gameReady = false;
     [fsIgnore]
@@ -57,6 +60,8 @@ public class Game : PublicSingleton<Game>
 
     public void Init(LevelScript level, Framework framework, PlayerController player)
     {
+        gameRunning.onLockStateChange += GameRunning_onLockStateChange;
+
         // Time Scale Reset
         Time.timeScale = 1;
 
@@ -72,6 +77,11 @@ public class Game : PublicSingleton<Game>
         healthPackManager.Init(player);
 
         gameBounds.Resize(gameCamera.ScreenSize.x, -gameCamera.distance);
+    }
+
+    private void GameRunning_onLockStateChange(bool state)
+    {
+        Time.timeScale = gameRunning ? 1 : 0;
     }
 
     public void ReadyGame()

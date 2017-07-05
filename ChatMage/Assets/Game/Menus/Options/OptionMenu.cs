@@ -19,21 +19,6 @@ public class OptionMenu : MonoBehaviour
     public void LoadInGameOptionMenu()
     {
         Scenes.LoadAsync(SCENENAMEINGAME, LoadSceneMode.Additive);
-        Time.timeScale = 0;
-    }
-
-    void SetTimeScale(float amount)
-    {
-        if (Game.instance == null)
-            return;
-        List<Unit> units = Game.instance.units;
-        for (int i = 0; i < units.Count; i++)
-        {
-            units[i].TimeScale = amount;
-        }
-        if (amount == 1)
-            Game.instance.worldTimeScale.RemoveBuff("zwrdo");
-        else
-            Game.instance.worldTimeScale.AddBuff("zwrdo", amount * 100 - 100, CCC.Utility.BuffType.Percent);
+        Game.instance.gameRunning.Lock("optionsMenu");
     }
 }
