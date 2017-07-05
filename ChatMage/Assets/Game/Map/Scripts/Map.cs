@@ -40,6 +40,8 @@ public class Map : MonoBehaviour
             if (unit != null)
                 Game.instance.AddExistingUnit(unit);
         }
+
+        mapping.Init(Game.instance);
     }
 
     public void Adjust(GameObject obj)

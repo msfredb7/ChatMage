@@ -43,7 +43,7 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
     public List<EventScripting> events;
 
     [InspectorHeader("Unit Waves")]
-    public List<UnitWave> waves;
+    public List<UnitWaveV2> newWaves;
 
     [InspectorHeader("Winning Rewards")]
     public GameRewards rewards;
@@ -65,9 +65,9 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
     public BaseTutorial tutorial;
 
     [fsIgnore, NotSerialized]
-    private List<UnitWave> eventTriggeredWaves;
+    private List<UnitWaveV2> eventTriggeredWaves;
     [fsIgnore, NotSerialized]
-    private List<UnitWave> manuallyTriggeredWaves;
+    private List<UnitWaveV2> manuallyTriggeredWaves;
 
     private void ResetData()
     {
@@ -107,7 +107,7 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
 
         if (introPrefab != null)
         {
-            if(introPrefab.parentType == BaseIntro.ParentType.UnderCanvas)
+            if (introPrefab.parentType == BaseIntro.ParentType.UnderCanvas)
                 inGameEvents.SpawnUnderUI(introPrefab).Play(Game.instance.StartGame);
             else
                 inGameEvents.SpawnUnderGame(introPrefab).Play(Game.instance.StartGame);
@@ -123,7 +123,7 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
 
         StartWaves();
 
-        if(activateTutorial) // Debug
+        if (activateTutorial) // Debug
             StartTutorial();
 
         //Camera follow player ?
@@ -195,7 +195,7 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
 
     void StartTutorial()
     {
-        if(tutorial != null)
+        if (tutorial != null)
         {
             Scenes.LoadAsync("Tutorial", LoadSceneMode.Additive, delegate (Scene scene)
             {
@@ -214,32 +214,36 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
 
     public void ReceiveEvent(string message)
     {
-        for (int i = 0; i < eventTriggeredWaves.Count; i++)
-        {
-            if (eventTriggeredWaves[i].when.name == message)
+        if (eventTriggeredWaves != null)
+            for (int i = 0; i < eventTriggeredWaves.Count; i++)
             {
-                LaunchWave(eventTriggeredWaves[i]);
-                eventTriggeredWaves.RemoveAt(i);
-                i--;
-            }
-        }
-
-        for (int i = 0; i < events.Count; i++)
-        {
-            if (events[i].eventWhen.useMileStone)
-            {
-                for (int j = 0; j < events[i].eventWhen.milestoneThatTrigger.Count; j++)
+                if (eventTriggeredWaves[i].when.name == message)
                 {
-                    if (events[i].eventWhen.milestoneThatTrigger[j] == message)
+                    LaunchWave(eventTriggeredWaves[i]);
+                    if (eventTriggeredWaves[i].when.onlyTriggerOnce)
                     {
-                        events[i].Launch();
+                        eventTriggeredWaves.RemoveAt(i);
+                        i--;
                     }
                 }
             }
-        }
 
-        if(tutorial != null)
-        {
+        if (events != null)
+            for (int i = 0; i < events.Count; i++)
+            {
+                if (events[i].eventWhen.useMileStone)
+                {
+                    for (int j = 0; j < events[i].eventWhen.milestoneThatTrigger.Count; j++)
+                    {
+                        if (events[i].eventWhen.milestoneThatTrigger[j] == message)
+                        {
+                            events[i].Launch();
+                        }
+                    }
+                }
+            }
+
+        if (tutorial != null)
             for (int i = 0; i < tutorial.tutorialEvents.Count; i++)
             {
                 if (tutorial.tutorialEvents[i].useMileStone)
@@ -248,12 +252,11 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
                     {
                         if (tutorial.tutorialEvents[i].milestoneThatTrigger[j] == message)
                         {
-                            tutorial.Execute(tutorial.tutorialEvents[i],false);
+                            tutorial.Execute(tutorial.tutorialEvents[i], false);
                         }
                     }
                 }
             }
-        }
 
         OnReceiveEvent(message);
 
@@ -268,8 +271,11 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
             if (manuallyTriggeredWaves[i].when.name == tag)
             {
                 LaunchWave(manuallyTriggeredWaves[i]);
-                manuallyTriggeredWaves.RemoveAt(i);
-                i--;
+                if (manuallyTriggeredWaves[i].when.onlyTriggerOnce)
+                {
+                    manuallyTriggeredWaves.RemoveAt(i);
+                    i--;
+                }
             }
         }
     }
@@ -322,7 +328,7 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
         //      on doit avoir le temps de placer un listener sur la wave index 4 AVANT de la launch.
         //      Si on fesait l'inverse et que la wave 4 se d�clanchait imm�diatement, on aurait pas eu le temps
         //      de mettre le listener.
-        for (int i = waves.Count - 1; i >= 0; i--)
+        for (int i = newWaves.Count - 1; i >= 0; i--)
         {
             try
             {
@@ -341,7 +347,7 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
     /// </summary>
     void QueueWave(int waveIndex)
     {
-        UnitWave wave = waves[waveIndex];
+        UnitWaveV2 wave = newWaves[waveIndex];
 
         switch (wave.when.type)
         {
@@ -353,7 +359,7 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
             case WaveWhen.Type.Join:
                 if (waveIndex == 0)
                     throw new System.Exception("Cannot put first wave in 'Join' mode");
-                waves[waveIndex - 1].onLaunched += delegate ()
+                newWaves[waveIndex - 1].onLaunched += delegate ()
                 {
                     LaunchWave(wave);
                 };
@@ -363,9 +369,9 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
             case WaveWhen.Type.Append:
                 if (waveIndex == 0)
                     throw new System.Exception("Cannot put first wave in 'Append' mode");
-                waves[waveIndex - 1].onLaunched += delegate ()
+                newWaves[waveIndex - 1].onLaunched += delegate ()
                 {
-                    inGameEvents.AddDelayedAction(delegate () { LaunchWave(wave); }, waves[waveIndex - 1].duration);
+                    inGameEvents.AddDelayedAction(delegate () { LaunchWave(wave); }, newWaves[waveIndex - 1].Duration);
                 };
                 break;
 
@@ -373,16 +379,16 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
             case WaveWhen.Type.AppendPlus:
                 if (waveIndex == 0)
                     throw new System.Exception("Cannot put first wave in 'Append Plus' mode");
-                waves[waveIndex - 1].onLaunched += delegate ()
+                newWaves[waveIndex - 1].onLaunched += delegate ()
                 {
-                    inGameEvents.AddDelayedAction(delegate () { LaunchWave(wave); }, waves[waveIndex - 1].duration + wave.when.time);
+                    inGameEvents.AddDelayedAction(delegate () { LaunchWave(wave); }, newWaves[waveIndex - 1].Duration + wave.when.time);
                 };
                 break;
 
 
             case WaveWhen.Type.OnLevelEvent:
                 if (eventTriggeredWaves == null)
-                    eventTriggeredWaves = new List<UnitWave>();
+                    eventTriggeredWaves = new List<UnitWaveV2>();
 
                 eventTriggeredWaves.Add(wave);
                 break;
@@ -390,16 +396,16 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
 
             case WaveWhen.Type.OnManualTrigger:
                 if (manuallyTriggeredWaves == null)
-                    manuallyTriggeredWaves = new List<UnitWave>();
+                    manuallyTriggeredWaves = new List<UnitWaveV2>();
 
                 manuallyTriggeredWaves.Add(wave);
                 break;
         }
     }
 
-    void LaunchWave(UnitWave wave)
+    void LaunchWave(UnitWaveV2 wave)
     {
-        wave.Launch(this, inGameEvents);
+        wave.LaunchNow(this);
         OnWaveLaunch();
     }
     #endregion

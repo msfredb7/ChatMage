@@ -13,6 +13,8 @@ namespace LevelScripting
         public float time;
         [InspectorShowIf("UsesName")]
         public string name;
+        [InspectorShowIf("UsesName")]
+        public bool onlyTriggerOnce = false;
 
         public enum Type
         {

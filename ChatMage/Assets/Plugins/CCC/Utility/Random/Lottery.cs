@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,11 +18,7 @@ namespace CCC.Utility
         {
             list.AddRange(items);
         }
-        public Lottery(LotteryItem[] items)
-        {
-            list.AddRange(items);
-        }
-        public class LotteryItem
+        private class LotteryItem
         {
             // Constructeur d'un élément qui va faire parti du lot
             public LotteryItem(object obj, float weight)
@@ -75,18 +71,23 @@ namespace CCC.Utility
             }
 
             float totalWeight = 0;
-            foreach (LotteryItem item in list)
+            foreach (ILottery item in list)
             {
-                totalWeight += item.weight;
+                totalWeight += item.Weight();
             }
 
             float ticket = Random.Range(0, totalWeight);
             float currentWeight = 0;
-            foreach (LotteryItem item in list)
+            foreach (ILottery item in list)
             {
-                currentWeight += item.weight;
+                currentWeight += item.Weight();
                 if (ticket < currentWeight)
-                    return item.obj;          //Devrais toujours return ici
+                {
+                    if (item is LotteryItem)
+                        return (item as LotteryItem).obj;          //Devrais toujours return ici
+                    else
+                        return item;
+                }
             }
 
             Debug.LogError("Error in lotery.");

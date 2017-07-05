@@ -12,18 +12,21 @@ MonoBehaviour:
   m_Name: LS_FirstLevel
   m_EditorClassIdentifier: 
   _objectReferences:
+  - {fileID: 114917152140949164, guid: 90a1293e412776e4db23eb9595fcf924, type: 2}
   - {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
+  - {fileID: 114917152140949164, guid: 90a1293e412776e4db23eb9595fcf924, type: 2}
   _serializedStateKeys:
   - winningConditions
   - losingConditions
   - events
-  - waves
+  - newWaves
   - rewards
   _serializedStateValues:
   - '[]'
   - '[{"$type":"GameCondition.LoseOnPlayerDeath"}]'
   - 
-  - '[{"packs":[{"unit":0,"quantity":5}],"methodCallOnEachSpawn":"MoveToCenter","onProgressCallbacks":[],"where":{"type":"Waypoints","clamp":false,"referencePoint":"Player","clampMin":{"x":-8.0,"y":-4.5},"clampMax":{"x":8.0,"y":4.5},"waypointInfo":{"idType":"Enum","waypointTag":null,"waypointType":"enemySpawn","spawningType":"Random","filterByHeight":false,"referencePoint":"Player","minHeight":-4.5,"maxHeight":4.5}},"when":{"type":"At","time":0.0,"name":null},"duration":5.0}]'
+  - '[{"what":{"spawnSequence":[{"unit":0,"quantity":2},{"unit":1,"quantity":1},{"unit":2,"quantity":2}],"onSpawnMethod":"MoveToCenter","progressCallbacks":[{"levelEventName":"first
+    kill","atProgress":1.0,"atKillCount":1,"useProgress":false},{"levelEventName":"halfway","atProgress":0.5,"atKillCount":0,"useProgress":true},{"levelEventName":"done","atProgress":1.0,"atKillCount":0,"useProgress":true}]},"where":{"logErrorIfUnableToLaunch":true,"spawnTag":"circle","selectType":"ByIndex","index":0,"filterType":"RelativeToCamera","min":{"x":-8.6,"y":-1.0},"max":{"x":0.0,"y":1.0}},"when":{"type":"OnLevelEvent","time":3.0,"name":"done","onlyTriggerOnce":false},"spawnInterval":1.0}]'
   - '{"giveMoney":false,"amount":0,"giveLootBox":false,"lootboxs":[null]}'
   sceneName: RomanArena
   introPrefab: {fileID: 114095951920881890, guid: 5d6e2272c4ccd514cb369a8d44abbacd,
@@ -38,32 +41,7 @@ MonoBehaviour:
   horizontalUnitSnap: 0
   useCustomGenericEvents: 0
   events: []
-  waves:
-  - packs:
-    - unit: {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
-      quantity: 5
-    methodCallOnEachSpawn: MoveToCenter
-    where:
-      type: 1
-      clamp: 0
-      referencePoint: 0
-      clampMin: {x: -8, y: -4.5}
-      clampMax: {x: 8, y: 4.5}
-      waypointInfo:
-        idType: 0
-        waypointTag: 
-        waypointType: 2
-        spawningType: 1
-        filterByHeight: 0
-        referencePoint: 0
-        minHeight: -4.5
-        maxHeight: 4.5
-    when:
-      type: 0
-      time: 0
-      name: 
-    duration: 5
-  isOver: 0
+  isOver: 1
   inGameEvents: {fileID: 0}
   activateTutorial: 0
   tutorial: {fileID: 0}

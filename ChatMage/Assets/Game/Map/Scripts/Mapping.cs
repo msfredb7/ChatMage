@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using UnityEngine;
 using CCC;
 using CCC.Utility;
@@ -15,6 +16,8 @@ public class Mapping : BaseBehavior
     public Waypoint[] unfilteredWaypoints;
     [SerializeField, InspectorCategory("Fill")]
     public TaggedObject[] unfilteredTaggedObjects;
+    [SerializeField, InspectorCategory("Fill")]
+    public UnitSpawn[] unfilteredSpawns;
 
     [SerializeField, InspectorCategory("Result")]
     private List<Waypoint> enemyWaypoints;
@@ -31,6 +34,9 @@ public class Mapping : BaseBehavior
 
     [SerializeField, ReadOnly(), InspectorCategory("Result")]
     private Dictionary<string, List<TaggedObject>> taggedObjects;
+
+    [SerializeField, ReadOnly(), InspectorCategory("Result")]
+    private Dictionary<string, List<UnitSpawn>> spawns;
 
     [InspectorButton(), InspectorCategory("Fill")]
     public void Filter()
@@ -105,6 +111,29 @@ public class Mapping : BaseBehavior
             }
         }
         unfilteredTaggedObjects = new TaggedObject[0];
+
+        //Spawns
+        for (int i = 0; i < unfilteredSpawns.Length; i++)
+        {
+            for (int u = 0; u < unfilteredSpawns[i].tags.Length; u++)
+            {
+                string tag = unfilteredSpawns[i].tags[u];
+
+                if (spawns.ContainsKey(tag))
+                {
+                    //Ajout a la liste
+                    if (!spawns[tag].Contains(unfilteredSpawns[i]))
+                        spawns[tag].Add(unfilteredSpawns[i]);
+                }
+                else
+                {
+                    //Nouvelle liste
+                    spawns.Add(tag, new List<UnitSpawn>());
+                    spawns[tag].Add(unfilteredSpawns[i]);
+                }
+            }
+        }
+        unfilteredSpawns = new UnitSpawn[0];
     }
 
     [InspectorButton(), InspectorCategory("Result")]
@@ -117,6 +146,27 @@ public class Mapping : BaseBehavior
         otherWaypoints.Clear();
         if (taggedWaypoints != null)
             taggedWaypoints.Clear();
+        if (taggedObjects != null)
+            taggedObjects.Clear();
+        if (spawns != null)
+            spawns.Clear();
+    }
+
+    public void Init(Game instance)
+    {
+        instance.onGameReady += OnGameReady;
+    }
+
+    private void OnGameReady()
+    {
+        InGameEvents events = Game.instance.currentLevel.inGameEvents;
+        foreach(KeyValuePair<string, List<UnitSpawn>> spawnGroup in spawns)
+        {
+            for (int i = 0; i < spawnGroup.Value.Count; i++)
+            {
+                spawnGroup.Value[i].Init(events);
+            }
+        }
     }
 
     #region Private
@@ -154,6 +204,17 @@ public class Mapping : BaseBehavior
         try
         {
             return taggedObjects[tag];
+        }
+        catch
+        {
+            return null;
+        }
+    }
+    private List<UnitSpawn> GetSpawnListByTag(string tag)
+    {
+        try
+        {
+            return spawns[tag];
         }
         catch
         {
@@ -306,6 +367,23 @@ public class Mapping : BaseBehavior
             return new List<TaggedObject>(GetTaggedObjectsListByTag(tag));
         else
             return new List<TaggedObject>();
+    }
+
+    public ReadOnlyCollection<UnitSpawn> GetSpawns(string tag)
+    {
+        List<UnitSpawn> list = GetSpawnListByTag(tag);
+        if (list != null)
+            return list.AsReadOnly();
+        else
+            return null;
+    }
+    public List<UnitSpawn> GetSpawns_NewList(string tag)
+    {
+        List<UnitSpawn> list = GetSpawnListByTag(tag);
+        if (list != null)
+            return new List<UnitSpawn>(GetSpawnListByTag(tag));
+        else
+            return new List<UnitSpawn>();
     }
 
     // J'ai enlever des fonctions. Si on veut les ravoir, il faut les refaire avec le temps d'exec en t�te

@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using UnityEngine;
 using FullInspector;
@@ -34,7 +35,33 @@ public class LS_FirstLevel : LevelScript
     protected override void OnGameStarted()
     {
         //Wave1();
+        ReceiveEvent("done");
 
+    }
+
+    public override void OnReceiveEvent(string message)
+    {
+        Debug.Log("Received message: " + message);
+    }
+
+    void Wave1()
+    {
+        Mapping mapping = Game.instance.map.mapping;
+        ReadOnlyCollection<UnitSpawn> spawns = mapping.GetSpawns("ordered");
+
+        Unit[] leftUnits = new Unit[]
+        {
+            spearMan,
+            spearMan,
+            spearMan,
+            archer,
+            spearMan,
+            spearMan,
+            archer,
+            spearMan
+        };
+
+        spawns[0].SpawnUnits(leftUnits, 1, 3, MoveToCenter);
     }
 
     protected override void OnUpdate()
@@ -55,7 +82,7 @@ public class LS_FirstLevel : LevelScript
             return;
 
         EnemyVehicle enemy = unit as EnemyVehicle;
-        Vector2 deltaToCenter = mapCenter - enemy.Position;
+        Vector2 deltaToCenter = (mapCenter - enemy.Position).normalized;
 
         //Set rotation
         enemy.TeleportDirection(Vehicle.VectorToAngle(deltaToCenter));
@@ -70,7 +97,7 @@ public class LS_FirstLevel : LevelScript
         }
 
         //On fait marcher l'ennemi vers le centre de la map
-        enemy.GotoPosition(enemy.Position + deltaToCenter.normalized * 1.5f, delegate ()
+        enemy.GotoPosition(enemy.Position + deltaToCenter * 1.5f, delegate ()
         {
             //On reactive le cerveau a la fin
             if (brain != null)
