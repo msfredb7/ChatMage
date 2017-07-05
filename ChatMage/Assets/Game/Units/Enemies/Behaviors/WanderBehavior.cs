@@ -15,15 +15,15 @@ public class WanderBehavior : EnemyBehavior<EnemyVehicle>
 
     public override BehaviorType Type { get { return BehaviorType.Wander; } }
 
-    public override void Enter(PlayerController player)
+    public override void Enter(Unit player)
     {
     }
 
-    public override void Exit(PlayerController player)
+    public override void Exit(Unit player)
     {
     }
 
-    public override void Update(PlayerController player, float deltaTime)
+    public override void Update(Unit player, float deltaTime)
     {
         chooseTimer -= deltaTime;
 

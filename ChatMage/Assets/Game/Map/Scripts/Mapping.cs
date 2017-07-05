@@ -370,6 +370,17 @@ public class Mapping : BaseBehavior
             return new List<TaggedObject>();
     }
 
+    /// <summary>
+    /// Retourne la premiere occurence de spawn avec ce tag
+    /// </summary>
+    public UnitSpawn GetSpawn(string tag)
+    {
+        List<UnitSpawn> list = GetSpawnListByTag(tag);
+        if (list != null && list.Count > 0)
+            return list[0];
+        else
+            return null;
+    }
     public ReadOnlyCollection<UnitSpawn> GetSpawns(string tag)
     {
         List<UnitSpawn> list = GetSpawnListByTag(tag);

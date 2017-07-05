@@ -99,7 +99,7 @@ public class GourdinierAnimator : MonoBehaviour
         if (hasHitInThisAttack)
             return;
 
-        if (other.parentUnit.allegiance == Allegiance.Ally)
+        if (vehicle.IsValidTarget(other.parentUnit.allegiance))
         {
             IAttackable attackable = other.parentUnit.GetComponent<IAttackable>();
             if (attackable != null)

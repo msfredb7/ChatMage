@@ -33,43 +33,105 @@ public abstract class EnemyBrain<T> : EnemyBrain where T : EnemyVehicle
 
 public abstract class EnemyBrain : BaseBehavior
 {
-    protected PlayerController player;
-    protected Vector2 meToPlayer = Vector2.zero;
+    protected Unit target;
+    protected Vector2 meToTarger = Vector2.zero;
 
-    private bool noPlayerOnThisFrame = false;
+    private bool noTargetOnThisFrame = false;
 
     private EnemyBehavior currentBehavior;
     private float forcedInStateDuration = -1;
 
     protected virtual void Start()
     {
-        player = Game.instance.Player;
         myVehicle.Stop();
+        myVehicle.onRemoveTarget += ClearTarget;
     }
 
     void Update()
     {
-        if (player == null)
-            player = Game.instance.Player;
+        if (target == null)
+            TryToFindTarget();
 
-        noPlayerOnThisFrame = player == null || !player.playerStats.isVisible || player.vehicle.IsDead || !player.gameObject.activeSelf;
+        noTargetOnThisFrame = !EvaluateUnit(target);
 
-        if (!noPlayerOnThisFrame)
-            meToPlayer = player.vehicle.Position - myVehicle.Position;
+        if (!noTargetOnThisFrame)
+            meToTarger = target.Position - myVehicle.Position;
 
-        if (noPlayerOnThisFrame)
-            UpdateNoPlayer();
+        if (noTargetOnThisFrame)
+            UpdateWithoutTarget();
         else
-            UpdatePlayer();
+            UpdateWithTarget();
 
         if (currentBehavior != null)
-            currentBehavior.Update(player, myVehicle.DeltaTime());
+            currentBehavior.Update(target, myVehicle.DeltaTime());
 
         forcedInStateDuration -= myVehicle.DeltaTime();
     }
 
-    protected abstract void UpdatePlayer();
-    protected abstract void UpdateNoPlayer();
+    protected void ClearTarget()
+    {
+        target = null;
+    }
+
+    public void TryToFindTarget()
+    {
+        if (myVehicle.targets == null || myVehicle.targets.Count == 0)
+            return;
+
+        //En g�n�ral, on passe ici, sachant que les ennemi cherche pas mal toujours le joueur
+        if (myVehicle.targets.Count == 1 && myVehicle.targets[0] == Allegiance.Ally)
+        {
+            PlayerController player = Game.instance.Player;
+            if (player != null)
+            {
+                if (EvaluateUnit(player.vehicle))
+                {
+                    target = player.vehicle;
+                    return;
+                }
+            }
+        }
+        else
+        {
+            //Cherche a travers tous les units pour trouver la plus pret
+            //Yaurait moyen d'optimiser ca si on fait des listes de units plus pr�cise dans Game
+            //  ex: une liste d'IAttackable
+            
+            List<Unit> allUnits = Game.instance.units;
+
+            Vector2 myPos = myVehicle.Position;
+            float smallestDistance = float.PositiveInfinity;
+            Unit recordHolder = null;
+            for (int i = 0; i < allUnits.Count; i++)
+            {
+                Unit unit = allUnits[i];
+                if (unit == myVehicle)
+                    continue;
+                if (myVehicle.IsValidTarget(unit.allegiance))
+                {
+                    IAttackable attackable = unit.GetComponent<IAttackable>();
+                    if(attackable != null)
+                    {
+                        float sqrDistance = (unit.Position - myPos).sqrMagnitude;
+                        if(sqrDistance < smallestDistance)
+                        {
+                            smallestDistance = sqrDistance;
+                            recordHolder = unit;
+                        }
+                    }
+                }
+            }
+            target = recordHolder;
+        }
+    }
+
+    private bool EvaluateUnit(Unit unit)
+    {
+        return unit != null && unit.isVisible && !unit.IsDead && unit.gameObject.activeSelf;
+    }
+
+    protected abstract void UpdateWithTarget();
+    protected abstract void UpdateWithoutTarget();
     protected abstract EnemyVehicle myVehicle { get; }
 
     public bool IsForcedIntoState { get { return forcedInStateDuration > 0; } }
@@ -77,12 +139,12 @@ public abstract class EnemyBrain : BaseBehavior
     private void EnterBehavior(EnemyBehavior newBehaviour)
     {
         if (currentBehavior != null)
-            currentBehavior.Exit(player);
+            currentBehavior.Exit(target);
 
         currentBehavior = newBehaviour;
 
         if (newBehaviour != null)
-            newBehaviour.Enter(player);
+            newBehaviour.Enter(target);
     }
 
     public void SetBehavior(BehaviorType type)

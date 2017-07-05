@@ -29,7 +29,7 @@ public class TirRocheReloadBehavior : EnemyBehavior<TirRocheVehicle>
         }
     }
 
-    public override void Enter(PlayerController player)
+    public override void Enter(Unit player)
     {
         if (vehicle.Ammo < vehicle.maxAmmo)
             StartReloadProcess(player);
@@ -43,7 +43,7 @@ public class TirRocheReloadBehavior : EnemyBehavior<TirRocheVehicle>
         }
     }
 
-    void StartReloadProcess(PlayerController player)
+    void StartReloadProcess(Unit player)
     {
         OnReachSpot();
         inReloadProcess = true;
@@ -67,13 +67,13 @@ public class TirRocheReloadBehavior : EnemyBehavior<TirRocheVehicle>
         }
     }
 
-    public override void Exit(PlayerController player)
+    public override void Exit(Unit player)
     {
         if (onExit != null)
             onExit();
     }
 
-    public override void Update(PlayerController player, float deltaTime)
+    public override void Update(Unit player, float deltaTime)
     {
         if (inReloadProcess)
         {

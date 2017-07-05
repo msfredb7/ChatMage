@@ -1,16 +1,16 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class JesusBrain : EnemyBrain<JesusVehicle> {
 
-    protected override void UpdateNoPlayer()
+    protected override void UpdateWithoutTarget()
     {
         throw new NotImplementedException();
     }
 
-    protected override void UpdatePlayer()
+    protected override void UpdateWithTarget()
     {
         throw new NotImplementedException();
     }

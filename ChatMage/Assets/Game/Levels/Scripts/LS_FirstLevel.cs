@@ -9,8 +9,8 @@ using FullSerializer;
 public class LS_FirstLevel : LevelScript
 {
     [InspectorHeader("Enemy Prefabs"), InspectorMargin(10)]
-    public EnemyVehicle spearMan;
-    public EnemyVehicle archer;
+    public GourdinierVehicle spearMan;
+    public TirRocheVehicle archer;
     [InspectorHeader("Dialog"), InspectorMargin(10)]
     public Dialoguing.Dialog dialog;
 
@@ -18,6 +18,23 @@ public class LS_FirstLevel : LevelScript
     {
         Game.instance.smashManager.smashEnabled = false;
         Game.instance.ui.smashDisplay.canBeShown = false;
+
+
+        Mapping mapping = Game.instance.map.mapping;
+
+        UnitSpawn midTopSpawn = mapping.GetSpawn("midtop");
+        UnitSpawn midLeftSpawn = mapping.GetSpawn("midleft");
+        UnitSpawn midRightSpawn = mapping.GetSpawn("midright");
+
+        GourdinierVehicle newArcher = midTopSpawn.SpawnUnit(spearMan);
+        //TirRocheBrain brain = newArcher.GetComponent<TirRocheBrain>();
+        //brain.tooCloseRange = 0;
+        //brain.attackingMaxRange = 1.5f;
+        newArcher.AddTargetAllegiance(Allegiance.Enemy).RemoveTargetAllegiance(Allegiance.Ally);
+
+        midLeftSpawn.SpawnUnit(spearMan).AddTargetAllegiance(Allegiance.Enemy).RemoveTargetAllegiance(Allegiance.Ally);
+
+        midRightSpawn.SpawnUnit(spearMan).AddTargetAllegiance(Allegiance.Enemy).RemoveTargetAllegiance(Allegiance.Ally);
     }
 
     protected override void OnGameStarted()

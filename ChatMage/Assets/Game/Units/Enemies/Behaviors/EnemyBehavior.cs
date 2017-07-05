@@ -15,8 +15,8 @@ public abstract class EnemyBehavior<T> : EnemyBehavior where T : EnemyVehicle
 }
 public abstract class EnemyBehavior
 {
-    public abstract void Enter(PlayerController player);
-    public abstract void Update(PlayerController player, float deltaTime);
-    public abstract void Exit(PlayerController player);
+    public abstract void Enter(Unit target);
+    public abstract void Update(Unit target, float deltaTime);
+    public abstract void Exit(Unit target);
     public abstract BehaviorType Type { get; }
 }

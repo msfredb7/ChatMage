@@ -19,12 +19,12 @@ public class TirRocheBrain : EnemyBrain<TirRocheVehicle>
         Gizmos.DrawSphere(transform.position, tooCloseRange);
     }
 
-    protected override void UpdatePlayer()
+    protected override void UpdateWithTarget()
     {
         if (vehicle.IsShooting)
             return;
 
-        float dist = meToPlayer.magnitude;
+        float dist = meToTarger.magnitude;
         if (dist > attackingMaxRange && minFleeStay < 0)
         {
             //Get closer or reload!
@@ -58,8 +58,8 @@ public class TirRocheBrain : EnemyBrain<TirRocheVehicle>
                 //Regarde le joueur et shoot !
                 SetBehavior(BehaviorType.LookPlayer);
 
-                if (vehicle.CanShoot && Mathf.Abs(Vector2.Angle(meToPlayer, vehicle.WorldDirection2D())) < 4) // < 4 degrée pour aim
-                    vehicle.Shoot(player.vehicle);
+                if (vehicle.CanShoot && Mathf.Abs(Vector2.Angle(meToTarger, vehicle.WorldDirection2D())) < 4) // < 4 degrée pour aim
+                    vehicle.Shoot(target);
             }
         }
         else
@@ -76,7 +76,7 @@ public class TirRocheBrain : EnemyBrain<TirRocheVehicle>
         }
     }
 
-    protected override void UpdateNoPlayer()
+    protected override void UpdateWithoutTarget()
     {
         vehicle.useTurnSpeed = true;
         SetBehavior(BehaviorType.Wander);

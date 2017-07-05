@@ -12,9 +12,13 @@ public abstract class Unit : MonoBehaviour
     public const float deactivationRange = 10;
 
     [Header("Unit")]
+    public bool isVisible = true;
     public Allegiance allegiance = Allegiance.Enemy;
     public bool overrideDeactivationRange = false;
     public float newDeactivationRange;
+
+    [Header("Targeting")]
+    public List<Allegiance> targets;
 
     protected float timeScale = 1;
     public Locker isAffectedByTimeScale = new Locker();
@@ -25,6 +29,8 @@ public abstract class Unit : MonoBehaviour
     public event UnitMove_Event onTeleportPosition;
     public event Unit_Event onDestroy;
     public event Unit_Event onDeath;
+    public event SimpleEvent onAddTarget;
+    public event SimpleEvent onRemoveTarget;
 
     public bool IsDead { get { return isDead; } }
     protected bool isDead = false;
@@ -178,6 +184,29 @@ public abstract class Unit : MonoBehaviour
             onDeath(this);
     }
 
+    public bool IsValidTarget(Allegiance targetAllegiance)
+    {
+        return targets != null && targets.Contains(targetAllegiance);
+    }
+
+    public Unit AddTargetAllegiance(Allegiance targetAllegiance)
+    {
+        if (!targets.Contains(targetAllegiance))
+        {
+            targets.Add(targetAllegiance);
+            if (onAddTarget != null)
+                onAddTarget();
+        }
+        return this;
+    }
+
+    public Unit RemoveTargetAllegiance(Allegiance targetAllegiance)
+    {
+        if (targets.Remove(targetAllegiance) && onRemoveTarget != null)
+            onRemoveTarget();
+        return this;
+    }
+
     public virtual void SaveRigidbody()
     {
         if (rb.bodyType == RigidbodyType2D.Static)
@@ -227,8 +256,8 @@ public abstract class Unit : MonoBehaviour
             }
             else    // Sinon, formule standard
             {
-                if(rb.bodyType != RigidbodyType2D.Static)
-                rb.velocity *= value / timeScale;
+                if (rb.bodyType != RigidbodyType2D.Static)
+                    rb.velocity *= value / timeScale;
             }
 
             timeScale = value;

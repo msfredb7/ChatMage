@@ -41,7 +41,7 @@ public class TirRocheProjectile : Projectiles
         if (aboutToDie)
             return;
 
-        if (other.parentUnit.allegiance == Allegiance.Ally)
+        if (IsValidTarget(other.parentUnit.allegiance) && other.parentUnit != origin)
         {
             IAttackable attackable = other.parentUnit.GetComponent<IAttackable>();
             if (attackable != null)

@@ -26,15 +26,15 @@ public class ShielderBrain : EnemyBrain<ShielderVehicle>
             }, attackDelay);
     }
 
-    protected override void UpdateNoPlayer()
+    protected override void UpdateWithoutTarget()
     {
         SetBehavior(BehaviorType.Wander);
         vehicle.PassiveMode();
     }
 
-    protected override void UpdatePlayer()
+    protected override void UpdateWithTarget()
     {
-        float angleToPlayer = Mathf.DeltaAngle(Vehicle.VectorToAngle(player.vehicle.Position - vehicle.Position), vehicle.Rotation);
+        float angleToPlayer = Mathf.DeltaAngle(Vehicle.VectorToAngle(target.Position - vehicle.Position), vehicle.Rotation);
         if (angleToPlayer > 75)
             SetBehavior(BehaviorType.LookPlayer);
         else

@@ -18,10 +18,10 @@ public class GourdinierBrain : EnemyBrain<GourdinierVehicle>
         Gizmos.DrawSphere(transform.position, startAttackRange);
     }
 
-    protected override void UpdatePlayer()
+    protected override void UpdateWithTarget()
     {
-        Vector2 meToPPredic = meToPlayer + player.vehicle.Speed * thinkAheadLength;
-        float dist = meToPlayer.magnitude;
+        Vector2 meToPPredic = meToTarger + target.Speed * thinkAheadLength;
+        float dist = meToTarger.magnitude;
 
         if (dist <= startAttackRange || (movementPrediction && meToPPredic.magnitude <= startAttackRange) || vehicle.isAttacking)
         {
@@ -38,7 +38,7 @@ public class GourdinierBrain : EnemyBrain<GourdinierVehicle>
         }
     }
 
-    protected override void UpdateNoPlayer()
+    protected override void UpdateWithoutTarget()
     {
         SetBehavior(BehaviorType.Wander);
     }
