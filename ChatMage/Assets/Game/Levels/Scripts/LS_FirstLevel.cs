@@ -61,7 +61,15 @@ public class LS_FirstLevel : LevelScript
             spearMan
         };
 
-        spawns[0].SpawnUnits(leftUnits, 1, 3, MoveToCenter);
+        UnitKillsProgress callbacker = new UnitKillsProgress(leftUnits.Length);
+
+        callbacker.AddCallback(Wave1, 1f);
+
+        spawns[0].SpawnUnits(leftUnits, 1, 3, delegate(Unit unit)
+        {
+            callbacker.RegisterUnit(unit);
+            MoveToCenter(unit);
+        });
     }
 
     protected override void OnUpdate()

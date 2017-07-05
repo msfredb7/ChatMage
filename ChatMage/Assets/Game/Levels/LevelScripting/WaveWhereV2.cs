@@ -15,65 +15,6 @@ namespace LevelScripting
         public string spawnTag;
 
 
-        //_________________SELECT_________________//
-        public SelectType selectType;
-        [InspectorShowIf("UseIndex")]
-        public int index;
-
-        public enum SelectType
-        {
-            ByIndex = 0,
-            Random = 1,
-            ClosestToPlayer = 2,
-            ClosestToCamera = 3
-        }
-        bool UseIndex { get { return selectType == SelectType.ByIndex; } }
-
-        public UnitSpawn Select(List<UnitSpawn> spawns)
-        {
-            if (spawns.Count == 0)
-                return null;
-            if (spawns.Count == 1)
-                return spawns[0];
-
-            SelectType type = selectType;
-
-            //Si le joueur est null, on utilise la camera a la place
-            if (type == SelectType.ClosestToPlayer && Game.instance.Player == null)
-                type = SelectType.ClosestToCamera;
-
-            switch (type)
-            {
-                case SelectType.ByIndex:
-                    return spawns[Mathf.Clamp(index, 0, spawns.Count - 1)];
-                default:
-                case SelectType.Random:
-                    return spawns[Random.Range(0, spawns.Count)];
-                case SelectType.ClosestToPlayer:
-                    return GetClosestTo(Game.instance.Player.vehicle.Position, spawns);
-                case SelectType.ClosestToCamera:
-                    return GetClosestTo(Game.instance.gameCamera.Center, spawns);
-            }
-        }
-
-        private UnitSpawn GetClosestTo(Vector2 position, List<UnitSpawn> spawns)
-        {
-            float smallestDistance = float.PositiveInfinity;
-            int recordHolder = -1;
-
-            for (int i = 0; i < spawns.Count; i++)
-            {
-                float distance = ((Vector2)spawns[i].transform.position - position).sqrMagnitude;
-                if (distance < smallestDistance)
-                {
-                    recordHolder = i;
-                    smallestDistance = distance;
-                }
-            }
-            return spawns[recordHolder];
-        }
-
-
         //_________________FILTER_________________//
         public FilterType filterType;
         [InspectorShowIf("UseFilterVectors")]
@@ -146,6 +87,65 @@ namespace LevelScripting
         public UnitSpawn FilterAndSelect(List<UnitSpawn> spawns)
         {
             return Select(Filter(spawns));
+        }
+
+
+        //_________________SELECT_________________//
+        public SelectType selectType;
+        [InspectorShowIf("UseIndex")]
+        public int index;
+
+        public enum SelectType
+        {
+            ByIndex = 0,
+            Random = 1,
+            ClosestToPlayer = 2,
+            ClosestToCamera = 3
+        }
+        bool UseIndex { get { return selectType == SelectType.ByIndex; } }
+
+        public UnitSpawn Select(List<UnitSpawn> spawns)
+        {
+            if (spawns.Count == 0)
+                return null;
+            if (spawns.Count == 1)
+                return spawns[0];
+
+            SelectType type = selectType;
+
+            //Si le joueur est null, on utilise la camera a la place
+            if (type == SelectType.ClosestToPlayer && Game.instance.Player == null)
+                type = SelectType.ClosestToCamera;
+
+            switch (type)
+            {
+                case SelectType.ByIndex:
+                    return spawns[Mathf.Clamp(index, 0, spawns.Count - 1)];
+                default:
+                case SelectType.Random:
+                    return spawns[Random.Range(0, spawns.Count)];
+                case SelectType.ClosestToPlayer:
+                    return GetClosestTo(Game.instance.Player.vehicle.Position, spawns);
+                case SelectType.ClosestToCamera:
+                    return GetClosestTo(Game.instance.gameCamera.Center, spawns);
+            }
+        }
+
+        private UnitSpawn GetClosestTo(Vector2 position, List<UnitSpawn> spawns)
+        {
+            float smallestDistance = float.PositiveInfinity;
+            int recordHolder = -1;
+
+            for (int i = 0; i < spawns.Count; i++)
+            {
+                float distance = ((Vector2)spawns[i].transform.position - position).sqrMagnitude;
+                if (distance < smallestDistance)
+                {
+                    recordHolder = i;
+                    smallestDistance = distance;
+                }
+            }
+            return spawns[recordHolder];
         }
     }
 }

@@ -56,8 +56,10 @@ namespace LevelScripting
             {
                 spawn.SpawnUnits(units, spawnInterval, delegate (Unit unit)
                 {
-                    callbacker.RegisterUnit(unit);
-                    spawnAction(unit);
+                    if (callbacker != null)
+                        callbacker.RegisterUnit(unit);
+                    if (spawnAction != null)
+                        spawnAction(unit);
                 });
             }
             else
