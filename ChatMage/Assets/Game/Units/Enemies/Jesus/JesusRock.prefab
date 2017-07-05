@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114815016753205556}
   - component: {fileID: 114000304801460058}
   - component: {fileID: 58626802116239128}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: JesusRock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4882915331454448}
   - component: {fileID: 212327940789089696}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,12 +88,12 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!58 &58626802116239128
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -123,11 +123,11 @@ MonoBehaviour:
   allegiance: 2
   overrideDeactivationRange: 0
   newDeactivationRange: 0
-  canUseBorder: 1
+  canUseBorder: 0
   unitWidth: 0
   colliderListener: {fileID: 114815016753205556}
-  rangeToTake: 3
-  speedMinToHit: 10
+  rangeToTake: 4
+  speedMinToHit: 4
 --- !u!114 &114815016753205556
 MonoBehaviour:
   m_ObjectHideFlags: 1

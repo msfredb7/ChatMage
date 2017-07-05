@@ -24,9 +24,9 @@ MonoBehaviour:
   - '[]'
   - '[{"$type":"GameCondition.LoseOnPlayerDeath"}]'
   - '[]'
-  - '[{"what":{"spawnSequence":[{"unit":0,"quantity":1}],"onSpawnMethod":"","progressCallbacks":[]},"where":null,"when":null,"spawnInterval":0.0}]'
+  - '[{"what":{"spawnSequence":[{"unit":0,"quantity":1}],"onSpawnMethod":"","progressCallbacks":[]},"where":{"logErrorIfUnableToLaunch":true,"spawnTag":"plus","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0},"when":{"type":"At","time":0.0,"name":null,"onlyTriggerOnce":false},"spawnInterval":0.0}]'
   - '{"giveMoney":true,"goldReward":{"baseAmountMin":0,"baseAmountMax":5,"firstWinAmountMin":0,"firstWinAmountMax":5},"giveLootBox":true,"lootboxs":[1],"lootboxColor":"Red"}'
-  sceneName: MapDemo
+  sceneName: RomanArena
   introPrefab: {fileID: 114939908285177620, guid: 6ecb49bd0fe07fd49a2105006011056d,
     type: 2}
   winOutroPrefab: {fileID: 114288339278322360, guid: 1e4d836705c07534fb5b431bb36cb2ab,
@@ -34,12 +34,12 @@ MonoBehaviour:
   loseOutroPrefab: {fileID: 114019376999675500, guid: 5fb703884a8fef84baed936668fb2290,
     type: 2}
   noHealthPacks: 0
-  followPlayerOnStart: 1
-  verticalUnitSnap: 1
-  horizontalUnitSnap: 1
+  followPlayerOnStart: 0
+  verticalUnitSnap: 0
+  horizontalUnitSnap: 0
   useCustomGenericEvents: 0
   events: []
-  isOver: 1
+  isOver: 0
   inGameEvents: {fileID: 0}
   activateTutorial: 0
   tutorial: {fileID: 11400000, guid: 462d301430296524a849ffb402b96b3b, type: 2}

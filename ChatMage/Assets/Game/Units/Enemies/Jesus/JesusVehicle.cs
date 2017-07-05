@@ -6,8 +6,10 @@ using UnityEngine;
 public class JesusVehicle : EnemyVehicle {
 
     public JesusAnimator animator;
+    public MultipleColliderListener colliderListener;
 
     public int health = 5;
+    public float forceToRektPlayer = 5f;
 
     public override int Attacked(ColliderInfo on, int amount, Unit unit, ColliderInfo source = null)
     {
@@ -15,24 +17,38 @@ public class JesusVehicle : EnemyVehicle {
             return 1;
 
         if(unit is JesusRock)
-            Damaged();
+            return Damaged();
 
         return 0;
     }
 
     void Start()
     {
+        colliderListener.onTriggerEnter += ColliderListener_onTriggerEnter;
+    }
+
+    private void ColliderListener_onTriggerEnter(ColliderInfo other, ColliderListener listener)
+    {
+        if (other.parentUnit is PlayerVehicle)
+        {
+            (other.parentUnit as PlayerVehicle).Bump((other.parentUnit.Position - Position) * forceToRektPlayer, 1, BumpMode.VelocityAdd);
+        }
     }
 
     void Update()
     {
     }
 
-    private void Damaged()
+    private int Damaged()
     {
+        Debug.Log("AAWWWWW");
         health--;
         if (health <= 0)
+        {
             Die();
+            return 0;
+        }
+        return 1;
     }
 
     protected override void Die()

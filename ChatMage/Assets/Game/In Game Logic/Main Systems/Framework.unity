@@ -167,6 +167,7 @@ MonoBehaviour:
   followTarget: {fileID: 471814418}
   followTargetParent: {fileID: 1647644409}
   debug: 1
+  smashEnabled: 1
 --- !u!114 &218698581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,7 +179,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1260a6e1d2ddff6448e80b09500fc1c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthPackPrefab: {fileID: 0}
+  healthPackPrefab: {fileID: 114870834835718906, guid: d28e2a568fc043140bfc8bc5777eb644,
+    type: 2}
   debugPrints: 1
   lerpUpdateRate: 0.0005
   lerpPerKill: 0.1
@@ -580,14 +582,8 @@ MonoBehaviour:
   _keys:
   - {fileID: 986166561}
   _values:
-  - _keys:
-    - DefaultBehaviorEditor.gameCamera.EditProperty
-    - DefaultBehaviorEditor.units.EditProperty
-    _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
+  - _keys: []
+    _values: []
     _target: {fileID: 986166561}
 --- !u!1 &1461222805
 GameObject:
