@@ -160,13 +160,14 @@ public class Mapping : BaseBehavior
     private void OnGameReady()
     {
         InGameEvents events = Game.instance.currentLevel.inGameEvents;
-        foreach(KeyValuePair<string, List<UnitSpawn>> spawnGroup in spawns)
-        {
-            for (int i = 0; i < spawnGroup.Value.Count; i++)
+        if (spawns != null)
+            foreach (KeyValuePair<string, List<UnitSpawn>> spawnGroup in spawns)
             {
-                spawnGroup.Value[i].Init(events);
+                for (int i = 0; i < spawnGroup.Value.Count; i++)
+                {
+                    spawnGroup.Value[i].Init(events);
+                }
             }
-        }
     }
 
     #region Private
