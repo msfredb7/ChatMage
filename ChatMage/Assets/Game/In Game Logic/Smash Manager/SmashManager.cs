@@ -26,6 +26,7 @@ public class SmashManager : MonoBehaviour
         remainingTime -= amount;
     }
 
+    public bool smashEnabled = true;
     public float TotalCooldown { get { return totalCooldown; } }
     public SmashBall CurrentSmashBall { get { return currentSmashBall; } }
     public bool IsInCooldown { get { return inCooldown; } }
@@ -59,7 +60,7 @@ public class SmashManager : MonoBehaviour
 
     void OnGameStarted()
     {
-        enabled = Game.instance.Player.playerSmash.SmashEquipped;
+        enabled = Game.instance.Player.playerSmash.SmashEquipped && smashEnabled;
         ResetCooldown();
     }
 

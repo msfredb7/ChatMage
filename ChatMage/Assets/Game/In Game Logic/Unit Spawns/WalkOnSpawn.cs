@@ -1,16 +1,40 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WalkOnSpawn : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+public class WalkOnSpawn : OnSpawnAction
+{
+    public Vector2 destination = new Vector2(3, 2);
+    public bool restrainToScreenIfApplies = true;
+    
+    public void OnDrawGizmosSelected()
+    {
+        if (attachedSpawn == null)
+            return;
+
+        Gizmos.color = new Color(0, 0, 1, 0.75f);
+        Gizmos.DrawLine(attachedSpawn.transform.position, attachedSpawn.transform.position + (Vector3)destination);
+    }
+
+    protected override void AttachedSpawn_onUnitSpawned(Unit unit)
+    {
+        if (!(unit is EnemyVehicle))
+            return;
+
+        EnemyVehicle veh = unit as EnemyVehicle;
+
+        //Deactivate brain
+        EnemyBrain brain = veh.GetComponent<EnemyBrain>();
+        if (brain != null)
+            brain.enabled = false;
+
+        //On fait marcher l'ennemi vers le centre de la map
+        veh.GotoPosition(veh.Position + destination, delegate ()
+        {
+            //On reactive le cerveau a la fin
+            if (brain != null)
+                brain.enabled = true;
+        }, restrainToScreenIfApplies);
+    }
 }
