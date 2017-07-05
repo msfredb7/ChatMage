@@ -5,7 +5,8 @@ using UnityEngine;
 public class HealthPackManager : MonoBehaviour
 {
     [Header("Linking")]
-    public HealthPacks healthPackRefab;
+    public HealthPacks healthPackPrefab;
+    //public ArmorPacks armorPackPrefab;
 
     [Header("Debug Setting")]
     public bool debugPrints = false;
@@ -18,6 +19,7 @@ public class HealthPackManager : MonoBehaviour
     public float luckMultiplier = 1;
 
     public bool enableHealthPackSpawn = true;
+    public bool replaceWithArmorPack = false;
 
     [ReadOnly, Header("Live Data")]
     public float spawnChance = 0;
@@ -77,7 +79,7 @@ public class HealthPackManager : MonoBehaviour
             //Success !
 
             //Spawn
-            HealthPacks hp= Game.instance.SpawnUnit(healthPackRefab, position);
+            HealthPacks hp= Game.instance.SpawnUnit(healthPackPrefab, position);
 
             //Reset
             spawnChance = 0;

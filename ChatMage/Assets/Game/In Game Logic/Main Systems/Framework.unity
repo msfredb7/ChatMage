@@ -167,6 +167,7 @@ MonoBehaviour:
   followTarget: {fileID: 471814418}
   followTargetParent: {fileID: 1647644409}
   debug: 1
+  smashEnabled: 1
 --- !u!114 &218698581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,7 +179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1260a6e1d2ddff6448e80b09500fc1c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthPackRefab: {fileID: 114870834835718906, guid: d28e2a568fc043140bfc8bc5777eb644,
+  healthPackPrefab: {fileID: 114870834835718906, guid: d28e2a568fc043140bfc8bc5777eb644,
     type: 2}
   debugPrints: 1
   lerpUpdateRate: 0.0005
@@ -187,6 +188,7 @@ MonoBehaviour:
   luckIncreaseByHealthDeficit: 4
   luckMultiplier: 1
   enableHealthPackSpawn: 1
+  replaceWithArmorPack: 0
   spawnChance: 0
 --- !u!1 &471814416
 GameObject:
@@ -357,7 +359,7 @@ MonoBehaviour:
   game: {fileID: 986166561}
   events: {fileID: 218698578}
   playerbuilder: {fileID: 1461222806}
-  defaultLevel: {fileID: 11400000, guid: 69ee3fcb35902f9458ee36f971392e8f, type: 2}
+  defaultLevel: {fileID: 11400000, guid: fdf791a12b63faa42a4f6380b1b9edb7, type: 2}
 --- !u!4 &986166560
 Transform:
   m_ObjectHideFlags: 0
@@ -580,14 +582,8 @@ MonoBehaviour:
   _keys:
   - {fileID: 986166561}
   _values:
-  - _keys:
-    - DefaultBehaviorEditor.gameCamera.EditProperty
-    - DefaultBehaviorEditor.units.EditProperty
-    _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
+  - _keys: []
+    _values: []
     _target: {fileID: 986166561}
 --- !u!1 &1461222805
 GameObject:
@@ -620,8 +616,7 @@ MonoBehaviour:
     type: 2}
   car: {fileID: 11400000, guid: 5ec48ef9ded4cbd41a7f67f29b1030a2, type: 2}
   smash: {fileID: 11400000, guid: bb26fc02c0c760641a95cc25962f46bc, type: 2}
-  items:
-  - {fileID: 11400000, guid: 2916228895a570345a773b5fabbb8289, type: 2}
+  items: []
 --- !u!4 &1461222807
 Transform:
   m_ObjectHideFlags: 0

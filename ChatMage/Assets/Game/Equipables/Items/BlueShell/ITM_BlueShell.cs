@@ -40,7 +40,7 @@ public class ITM_BlueShell : Item
         if (countdown < 0)
             LaunchShell();
         else
-            countdown -= Time.deltaTime;
+            countdown -= player.vehicle.DeltaTime();
     }
 
     void LaunchShell()
@@ -50,7 +50,7 @@ public class ITM_BlueShell : Item
             return;
 
         if (currentBlueShell == null)
-            currentBlueShell = Game.instance.SpawnUnit(blueShellPrefab, player.vehicle.Position);
+            currentBlueShell = Game.instance.SpawnUnit(blueShellPrefab, player.vehicle.Position); // A changer ??
 
         currentBlueShell.ResetValues(player.vehicle.Position);
 

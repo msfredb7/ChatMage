@@ -26,7 +26,7 @@ public class ITM_SmashShield : Item {
 
     private void PlayerSmash_onSmashGained()
     {
-        shield = Instantiate(shieldPrefab);
+        shield = Instantiate(shieldPrefab,player.body.transform);
         player.playerStats.damagable = false;
 
         startCounter = true;

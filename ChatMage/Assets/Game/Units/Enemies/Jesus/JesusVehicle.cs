@@ -6,45 +6,64 @@ using UnityEngine;
 public class JesusVehicle : EnemyVehicle {
 
     public JesusAnimator animator;
+    public MultipleColliderListener colliderListener;
 
-    public float cooldown = 5;
-    private float counter;
+    public int health = 5;
+    public float forceToRektPlayer = 5f;
 
     public override int Attacked(ColliderInfo on, int amount, Unit unit, ColliderInfo source = null)
     {
         if (amount <= 0)
             return 1;
 
-        Die();
+        if(unit is JesusRock)
+            return Damaged();
+
         return 0;
     }
 
     void Start()
     {
-        cooldown = 1;
-        counter = cooldown;
+        colliderListener.onTriggerEnter += ColliderListener_onTriggerEnter;
+    }
+
+    private void ColliderListener_onTriggerEnter(ColliderInfo other, ColliderListener listener)
+    {
+        if (other.parentUnit is PlayerVehicle)
+        {
+            (other.parentUnit as PlayerVehicle).Bump((other.parentUnit.Position - Position) * forceToRektPlayer, 1, BumpMode.VelocityAdd);
+        }
     }
 
     void Update()
     {
-        if(counter < 0)
+    }
+
+    private int Damaged()
+    {
+        Debug.Log("AAWWWWW");
+        health--;
+        if (health <= 0)
         {
-            GoToLocation();
-            counter = cooldown;
+            Die();
+            return 0;
         }
-        counter -= DeltaTime();
+        return 1;
     }
 
     protected override void Die()
     {
         base.Die();
 
+        // ANIMATION DE DESTRUCTIONS DU BOSS
+
         Destroy(gameObject);
     }
 
-    public void GoToLocation()
+    public void GoToLocation(Vector2 location)
     {
-        GotoPosition(GetRandomLocationAroundScreen());
+        // ANIMATION DE DÉPLACEMENT
+        GotoPosition(location);
     }
 
     Vector2 GetRandomLocationAroundScreen()

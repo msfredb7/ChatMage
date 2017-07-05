@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4385688587583462}
   - component: {fileID: 212337867824608488}
-  m_Layer: 12
+  m_Layer: 10
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 114808590273850146}
   - component: {fileID: 114364954657361186}
   - component: {fileID: 61125252855260152}
-  m_Layer: 12
+  m_Layer: 10
   m_Name: LeftLeg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 114387206531472708}
   - component: {fileID: 114459096148792500}
   - component: {fileID: 61629341004077434}
-  m_Layer: 12
+  m_Layer: 10
   m_Name: Torso
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 114492721041713832}
   - component: {fileID: 114398512453018332}
   - component: {fileID: 61581027811531796}
-  m_Layer: 12
+  m_Layer: 10
   m_Name: LeftHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 114369862610452710}
   - component: {fileID: 114359284201243226}
   - component: {fileID: 114015716563977732}
-  m_Layer: 12
+  m_Layer: 10
   m_Name: Jesus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,7 +109,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4917841506820434}
   - component: {fileID: 114092791149977012}
-  m_Layer: 12
+  m_Layer: 10
   m_Name: Colliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 114425308086526096}
   - component: {fileID: 114847859904459016}
   - component: {fileID: 61312506547721912}
-  m_Layer: 12
+  m_Layer: 10
   m_Name: RightHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 114570821633575018}
   - component: {fileID: 114484375032104048}
   - component: {fileID: 61249870478183840}
-  m_Layer: 12
+  m_Layer: 10
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 114176797275517572}
   - component: {fileID: 114376725265308864}
   - component: {fileID: 61468857436196452}
-  m_Layer: 12
+  m_Layer: 10
   m_Name: Waist
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -181,7 +181,7 @@ GameObject:
   - component: {fileID: 114355194980767058}
   - component: {fileID: 114255385892629154}
   - component: {fileID: 61249630072895060}
-  m_Layer: 12
+  m_Layer: 10
   m_Name: RightLeg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -194,13 +194,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1064323660593564}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4775936969395106}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!4 &4483812356928038
 Transform:
   m_ObjectHideFlags: 1
@@ -536,6 +536,13 @@ MonoBehaviour:
   _objectReferences: []
   _serializedStateKeys: []
   _serializedStateValues: []
+  jesus: {fileID: 114369862610452710}
+  rockPrefab: {fileID: 114000304801460058, guid: a565345db244bd94ebcb0e72f95ff8db,
+    type: 2}
+  rocksMaxAmount: 2
+  distanceRockIsConsiderClose: 1
+  shoutingDuration: 1
+  shoutingCooldown: 4
 --- !u!114 &114092791149977012
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -647,7 +654,9 @@ MonoBehaviour:
   useTurnSpeed: 0
   turnSpeed: 150
   animator: {fileID: 114359284201243226}
-  cooldown: 1
+  colliderListener: {fileID: 114092791149977012}
+  health: 5
+  forceToRektPlayer: 2.5
 --- !u!114 &114376725265308864
 MonoBehaviour:
   m_ObjectHideFlags: 1
