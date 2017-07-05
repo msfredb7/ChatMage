@@ -79,7 +79,7 @@ public class OptionWindow : WindowAnimation
                 delegate ()
                 {
                     Scenes.UnloadAsync(SCENENAMEINGAME);
-                    Time.timeScale = 1;
+                    Game.instance.gameRunning.Unlock("optionsMenu");
                     quit = false;
                 }
             );

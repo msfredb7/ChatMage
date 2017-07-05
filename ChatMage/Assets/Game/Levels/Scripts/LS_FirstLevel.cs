@@ -11,6 +11,8 @@ public class LS_FirstLevel : LevelScript
     [InspectorHeader("Enemy Prefabs"), InspectorMargin(10)]
     public EnemyVehicle spearMan;
     public EnemyVehicle archer;
+    [InspectorHeader("Dialog"), InspectorMargin(10)]
+    public Dialoguing.Dialog dialog;
 
     protected override void OnGameReady()
     {
@@ -31,6 +33,11 @@ public class LS_FirstLevel : LevelScript
         if (Input.GetKeyDown(KeyCode.L))
         {
             Lose();
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            Time.timeScale = 0;
+            Game.instance.ui.dialogDisplay.StartDialog(dialog, null);
         }
     }
 }

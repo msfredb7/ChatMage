@@ -11,6 +11,8 @@ public class UiSystem : MonoBehaviour {
     public PlayerInput playerInputs;
     public SmashDisplay smashDisplay;
     public OptionMenu menuOption;
+    public DialogDisplay dialogDisplay;
+    public CanvasGroup gameRelatedGroup;
 
     public void Init(PlayerController playerController)
     {
