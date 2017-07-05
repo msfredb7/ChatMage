@@ -623,7 +623,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &248615698
 Transform:
   m_ObjectHideFlags: 0
@@ -752,7 +752,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &349495392
 Transform:
   m_ObjectHideFlags: 0
@@ -1185,7 +1185,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &646684557
 Transform:
   m_ObjectHideFlags: 0
@@ -1337,11 +1337,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4004067644224690, guid: 50330644d31839e4eaba53bb2db19dd8, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -0.45
+      value: -3.6
       objectReference: {fileID: 0}
     - target: {fileID: 4004067644224690, guid: 50330644d31839e4eaba53bb2db19dd8, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -22.45
+      value: -23.93
       objectReference: {fileID: 0}
     - target: {fileID: 4004067644224690, guid: 50330644d31839e4eaba53bb2db19dd8, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1493,7 +1493,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &827045883
 Transform:
   m_ObjectHideFlags: 0
@@ -2139,7 +2139,6 @@ MonoBehaviour:
   - {fileID: 248615699}
   - {fileID: 827045884}
   - {fileID: 88320240}
-  - {fileID: 0}
   _values:
   - _keys: []
     _values: []
@@ -2174,9 +2173,6 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 88320240}
-  - _keys: []
-    _values: []
-    _target: {fileID: 0}
 --- !u!114 &1649213853
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2200,22 +2196,27 @@ MonoBehaviour:
   - {fileID: 248615699}
   - {fileID: 827045884}
   - {fileID: 88320240}
-  - {fileID: 0}
   _values:
+  - _keys: []
+    _values: []
+    _target: {fileID: 1237816615}
   - _keys:
-    - DefaultBehaviorEditor.length.EditProperty
-    - DefaultBehaviorEditor.milestones.EditProperty
-    - DefaultBehaviorEditor.milestoneRelativeHeights.EditProperty
+    - DefaultBehaviorEditor.triggerOn.EditProperty
+    - DefaultBehaviorEditor.modifyFollowPlayer.EditProperty
+    - DefaultBehaviorEditor.modifyCanScrollUp.EditProperty
+    - DefaultBehaviorEditor.modifyCanScrollDown.EditProperty
+    - DefaultBehaviorEditor.fireEventToLevelScript.EditProperty
     _values:
     - _showDropdown: 0
       _serializedIsActive: 1
-    - _showDropdown: 1
+    - _showDropdown: 0
       _serializedIsActive: 1
-    - _showDropdown: 1
+    - _showDropdown: 0
       _serializedIsActive: 1
-    _target: {fileID: 1237816615}
-  - _keys: []
-    _values: []
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
     _target: {fileID: 1883785221}
   - _keys: []
     _values: []
@@ -2280,23 +2281,8 @@ MonoBehaviour:
     - _showDropdown: 0
       _serializedIsActive: 1
     _target: {fileID: 1507775024}
-  - _keys:
-    - DefaultBehaviorEditor.triggerOn.EditProperty
-    - DefaultBehaviorEditor.modifyFollowPlayer.EditProperty
-    - DefaultBehaviorEditor.modifyCanScrollUp.EditProperty
-    - DefaultBehaviorEditor.modifyCanScrollDown.EditProperty
-    - DefaultBehaviorEditor.fireEventToLevelScript.EditProperty
-    _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
+  - _keys: []
+    _values: []
     _target: {fileID: 248615699}
   - _keys:
     - DefaultBehaviorEditor.triggerOn.EditProperty
@@ -2319,9 +2305,6 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 88320240}
-  - _keys: []
-    _values: []
-    _target: {fileID: 0}
 --- !u!1 &1654131262
 GameObject:
   m_ObjectHideFlags: 0
@@ -2371,7 +2354,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1693669582
 Transform:
   m_ObjectHideFlags: 0
@@ -2781,7 +2764,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1883785220
 Transform:
   m_ObjectHideFlags: 0

@@ -43,7 +43,7 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
     public List<EventScripting> events;
 
     [InspectorHeader("Unit Waves")]
-    public List<UnitWaveV2> newWaves;
+    public List<UnitWaveV2> waves;
 
     [InspectorHeader("Winning Rewards")]
     public GameRewards rewards;
@@ -328,7 +328,7 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
         //      on doit avoir le temps de placer un listener sur la wave index 4 AVANT de la launch.
         //      Si on fesait l'inverse et que la wave 4 se d�clanchait imm�diatement, on aurait pas eu le temps
         //      de mettre le listener.
-        for (int i = newWaves.Count - 1; i >= 0; i--)
+        for (int i = waves.Count - 1; i >= 0; i--)
         {
             try
             {
@@ -347,7 +347,7 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
     /// </summary>
     void QueueWave(int waveIndex)
     {
-        UnitWaveV2 wave = newWaves[waveIndex];
+        UnitWaveV2 wave = waves[waveIndex];
 
         switch (wave.when.type)
         {
@@ -359,7 +359,7 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
             case WaveWhen.Type.Join:
                 if (waveIndex == 0)
                     throw new System.Exception("Cannot put first wave in 'Join' mode");
-                newWaves[waveIndex - 1].onLaunched += delegate ()
+                waves[waveIndex - 1].onLaunched += delegate ()
                 {
                     LaunchWave(wave);
                 };
@@ -369,9 +369,9 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
             case WaveWhen.Type.Append:
                 if (waveIndex == 0)
                     throw new System.Exception("Cannot put first wave in 'Append' mode");
-                newWaves[waveIndex - 1].onLaunched += delegate ()
+                waves[waveIndex - 1].onLaunched += delegate ()
                 {
-                    inGameEvents.AddDelayedAction(delegate () { LaunchWave(wave); }, newWaves[waveIndex - 1].Duration);
+                    inGameEvents.AddDelayedAction(delegate () { LaunchWave(wave); }, waves[waveIndex - 1].Duration);
                 };
                 break;
 
@@ -379,9 +379,9 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
             case WaveWhen.Type.AppendPlus:
                 if (waveIndex == 0)
                     throw new System.Exception("Cannot put first wave in 'Append Plus' mode");
-                newWaves[waveIndex - 1].onLaunched += delegate ()
+                waves[waveIndex - 1].onLaunched += delegate ()
                 {
-                    inGameEvents.AddDelayedAction(delegate () { LaunchWave(wave); }, newWaves[waveIndex - 1].Duration + wave.when.time);
+                    inGameEvents.AddDelayedAction(delegate () { LaunchWave(wave); }, waves[waveIndex - 1].Duration + wave.when.time);
                 };
                 break;
 

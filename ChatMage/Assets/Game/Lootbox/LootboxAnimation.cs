@@ -33,12 +33,14 @@ public class LootboxAnimation : WindowAnimation {
         background.GetComponent<RectTransform>().Rotate(new Vector3(0, 0, 1), 1);
     }
 
-    public void AddRewards(List<EquipablePreview> equipables)
+    public void AddRewards(List<LootBoxRewards> equipables)
     {
+        if (equipables.Count < 1)
+            return;
         for (int i = 0; i < equipables.Count; i++)
         {
             GameObject newReward = Instantiate(rewardIconPrefab, rewardCountainer.transform);
-            newReward.GetComponent<Image>().sprite = equipables[i].icon;
+            newReward.GetComponent<Image>().sprite = equipables[i].equipable.icon;
         }
     }
 
