@@ -334,6 +334,11 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
     ///////////////////////////////////////////////////// Wave queueing
     void StartWaves()
     {
+        for (int i = waves.Count - 1; i >= 0; i--)
+        {
+            waves[i].ResetData(); // pour enlever les listener, etc.
+        }
+
         // Queue tous les waves
         // On les queue � l'envers pour la raison suivante:
         //  ex: Si une wave index 5 doit se launch en m�me temps que la pr�c�dente (index 4)
@@ -411,6 +416,18 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
                     manuallyTriggeredWaves = new List<UnitWaveV2>();
 
                 manuallyTriggeredWaves.Add(wave);
+                break;
+            case WaveWhen.Type.AppendComplete:
+                waves[waveIndex - 1].onComplete += delegate ()
+                {
+                    LaunchWave(wave);
+                };
+                break;
+            case WaveWhen.Type.AppendCompletePlus:
+                waves[waveIndex - 1].onComplete += delegate ()
+                {
+                    inGameEvents.AddDelayedAction(delegate () { LaunchWave(wave); }, wave.when.time);
+                };
                 break;
         }
     }

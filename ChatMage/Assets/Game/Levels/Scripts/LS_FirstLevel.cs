@@ -11,34 +11,66 @@ public class LS_FirstLevel : LevelScript
     [InspectorHeader("Enemy Prefabs"), InspectorMargin(10)]
     public GourdinierVehicle spearMan;
     public TirRocheVehicle archer;
+
     [InspectorHeader("Dialog"), InspectorMargin(10)]
-    public Dialoguing.Dialog dialog;
+    public Dialoguing.Dialog introDialog;
+    public Dialoguing.Dialog startWavesDialog;
+    public Dialoguing.Dialog firstKillDialog;
+
+    [fsIgnore, NonSerialized]
+    private bool firstWaveLaunched;
 
     protected override void OnGameReady()
     {
         Game.instance.smashManager.smashEnabled = false;
         Game.instance.ui.smashDisplay.canBeShown = false;
 
+        IntroEnemies();
+    }
 
+    void IntroEnemies()
+    {
         Mapping mapping = Game.instance.map.mapping;
 
         UnitSpawn midTopSpawn = mapping.GetSpawn("midtop");
-        UnitSpawn midLeftSpawn = mapping.GetSpawn("midleft");
+        //UnitSpawn midLeftSpawn = mapping.GetSpawn("midleft");
         UnitSpawn midRightSpawn = mapping.GetSpawn("midright");
 
-        GourdinierVehicle newArcher = midTopSpawn.SpawnUnit(spearMan);
-        //TirRocheBrain brain = newArcher.GetComponent<TirRocheBrain>();
-        //brain.tooCloseRange = 0;
-        //brain.attackingMaxRange = 1.5f;
-        newArcher.AddTargetAllegiance(Allegiance.Enemy).RemoveTargetAllegiance(Allegiance.Ally);
-
-        midLeftSpawn.SpawnUnit(spearMan).AddTargetAllegiance(Allegiance.Enemy).RemoveTargetAllegiance(Allegiance.Ally);
-
+        midTopSpawn.SpawnUnit(spearMan).AddTargetAllegiance(Allegiance.Enemy).RemoveTargetAllegiance(Allegiance.Ally);
+        //midLeftSpawn.SpawnUnit(spearMan).AddTargetAllegiance(Allegiance.Enemy).RemoveTargetAllegiance(Allegiance.Ally);
         midRightSpawn.SpawnUnit(spearMan).AddTargetAllegiance(Allegiance.Enemy).RemoveTargetAllegiance(Allegiance.Ally);
     }
 
     protected override void OnGameStarted()
     {
+        Game.instance.ui.dialogDisplay.StartDialog(introDialog, null);
+
+        //On start la premiere wave apres 5s (normallement, c'est le tutoriel qui le fait)
+        inGameEvents.AddDelayedAction(StartFirstWave, 5);
+    }
+
+    public void StartFirstWave()
+    {
+        ReceiveEvent("1st wave");
+    }
+
+    public void StartSecondWave()
+    {
+        ReceiveEvent("2nd wave");
+        Game.instance.ui.dialogDisplay.StartDialog(firstKillDialog, null);
+    }
+
+    public override void OnReceiveEvent(string message)
+    {
+        switch (message)
+        {
+            case "1st wave":
+                Game.instance.ui.dialogDisplay.StartDialog(startWavesDialog, null);
+                break;
+            case "1st kill":
+                inGameEvents.AddDelayedAction(StartSecondWave, 1);
+                break;
+        }
     }
 
     protected override void OnUpdate()
@@ -54,7 +86,6 @@ public class LS_FirstLevel : LevelScript
         if (Input.GetKeyDown(KeyCode.D))
         {
             Time.timeScale = 0;
-            Game.instance.ui.dialogDisplay.StartDialog(dialog, null);
         }
     }
 }
