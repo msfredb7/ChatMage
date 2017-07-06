@@ -56,7 +56,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fdf791a12b63faa42a4f6380b1b9edb7, type: 2}
   - {fileID: 11400000, guid: 69ee3fcb35902f9458ee36f971392e8f, type: 2}
   - {fileID: 114015716563977732, guid: 526d875b8e226cf49af4c4a05176f3f2, type: 2}
-  - {fileID: 11400000, guid: 462d301430296524a849ffb402b96b3b, type: 2}
+  - {fileID: 11400000, guid: 47cdc4a54c5c23544977723a44cb47a2, type: 2}
+  - {fileID: 11400000, guid: 28777e4b92ec37a4daa2af8709489475, type: 2}
   _values:
   - _keys: []
     _values: []
@@ -70,7 +71,10 @@ MonoBehaviour:
       type: 2}
   - _keys: []
     _values: []
-    _target: {fileID: 11400000, guid: 462d301430296524a849ffb402b96b3b, type: 2}
+    _target: {fileID: 11400000, guid: 47cdc4a54c5c23544977723a44cb47a2, type: 2}
+  - _keys: []
+    _values: []
+    _target: {fileID: 11400000, guid: 28777e4b92ec37a4daa2af8709489475, type: 2}
 --- !u!114 &114574157853951048
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -86,7 +90,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fdf791a12b63faa42a4f6380b1b9edb7, type: 2}
   - {fileID: 11400000, guid: 69ee3fcb35902f9458ee36f971392e8f, type: 2}
   - {fileID: 114015716563977732, guid: 526d875b8e226cf49af4c4a05176f3f2, type: 2}
-  - {fileID: 11400000, guid: 462d301430296524a849ffb402b96b3b, type: 2}
+  - {fileID: 11400000, guid: 47cdc4a54c5c23544977723a44cb47a2, type: 2}
+  - {fileID: 11400000, guid: 28777e4b92ec37a4daa2af8709489475, type: 2}
   _values:
   - _keys:
     - DefaultBehaviorEditor.sceneName.EditProperty
@@ -128,9 +133,11 @@ MonoBehaviour:
     - DefaultBehaviorEditor.noHealthPacks.EditProperty
     - DefaultBehaviorEditor.useCustomGenericEvents.EditProperty
     - DefaultBehaviorEditor.waves.EditProperty
+    - DefaultBehaviorEditor.waves.EditProperty.Primary.0.what.EditProperty.progressCallbacks.EditProperty.0.atProgress.EditProperty
     - DefaultBehaviorEditor.rewards.EditProperty
     - DefaultBehaviorEditor.activateTutorial.EditProperty
     - DefaultBehaviorEditor.spearMan.EditProperty
+    - DefaultBehaviorEditor.introDialog.EditProperty
     _values:
     - _showDropdown: 0
       _serializedIsActive: 1
@@ -144,7 +151,11 @@ MonoBehaviour:
       _serializedIsActive: 1
     - _showDropdown: 1
       _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
     - _showDropdown: 1
+      _serializedIsActive: 1
+    - _showDropdown: 0
       _serializedIsActive: 1
     - _showDropdown: 0
       _serializedIsActive: 1
@@ -159,12 +170,14 @@ MonoBehaviour:
     _target: {fileID: 114015716563977732, guid: 526d875b8e226cf49af4c4a05176f3f2,
       type: 2}
   - _keys:
-    - DefaultBehaviorEditor.tutorialEvents.EditProperty.0.useSpecificTime.EditProperty
-    - DefaultBehaviorEditor.tutorialEvents.EditProperty.0.useMileStone.EditProperty
-    - DefaultBehaviorEditor.tutorialEvents.EditProperty.0.startAfterAnEvent.EditProperty
-    - DefaultBehaviorEditor.tutorialEvents.EditProperty.1.useSpecificTime.EditProperty
-    - DefaultBehaviorEditor.tutorialEvents.EditProperty.1.useMileStone.EditProperty
-    - DefaultBehaviorEditor.tutorialEvents.EditProperty.1.startAfterAnEvent.EditProperty
+    - DefaultBehaviorEditor.sceneName.EditProperty
+    - DefaultBehaviorEditor.winningConditions.EditProperty
+    - DefaultBehaviorEditor.introPrefab.EditProperty
+    - DefaultBehaviorEditor.noHealthPacks.EditProperty
+    - DefaultBehaviorEditor.useCustomGenericEvents.EditProperty
+    - DefaultBehaviorEditor.waves.EditProperty
+    - DefaultBehaviorEditor.rewards.EditProperty
+    - DefaultBehaviorEditor.activateTutorial.EditProperty
     _values:
     - _showDropdown: 0
       _serializedIsActive: 1
@@ -178,4 +191,11 @@ MonoBehaviour:
       _serializedIsActive: 1
     - _showDropdown: 0
       _serializedIsActive: 1
-    _target: {fileID: 11400000, guid: 462d301430296524a849ffb402b96b3b, type: 2}
+    - _showDropdown: 1
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    _target: {fileID: 11400000, guid: 47cdc4a54c5c23544977723a44cb47a2, type: 2}
+  - _keys: []
+    _values: []
+    _target: {fileID: 11400000, guid: 28777e4b92ec37a4daa2af8709489475, type: 2}

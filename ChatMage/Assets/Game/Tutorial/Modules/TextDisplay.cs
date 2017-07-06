@@ -15,6 +15,16 @@ namespace Tutorial
         public float fadeDuration;
         public Ease fadeEase;
 
+        [Header("Size settings")]
+        public bool automaticallyAdjustSize;
+        public AnimationCurve textLengthToX;
+        public AnimationCurve textLengthToY;
+
+        [Header("Height settings")]
+        public Vector2 topPosition;
+        public Vector2 middlePosition;
+        public Vector2 bottomPosition;
+
         private bool isOn = false;
 
         void Awake()
@@ -22,11 +32,35 @@ namespace Tutorial
             InstantHide();
         }
 
+        public void SetBottom()
+        {
+            GetComponent<RectTransform>().anchoredPosition = bottomPosition;
+        }
+
+        public void SetMiddle()
+        {
+            GetComponent<RectTransform>().anchoredPosition = middlePosition;
+        }
+
+        public void SetTop()
+        {
+            GetComponent<RectTransform>().anchoredPosition = topPosition;
+        }
+
+        public void SetSize(int messageLength)
+        {
+            RectTransform tr = GetComponent<RectTransform>();
+
+            tr.sizeDelta = new Vector2(textLengthToX.Evaluate(messageLength), textLengthToY.Evaluate(messageLength));
+        }
+
         public void InstantDisplay(string message, bool blackBackground)
         {
             blackFade.gameObject.SetActive(true);
             blackFade.alpha = blackBackground ? 1 : 0;
 
+            if (automaticallyAdjustSize)
+                SetSize(message.Length);
             text.enabled = true;
             text.color = new Color(1, 1, 1, 1);
             text.text = message;
@@ -39,6 +73,7 @@ namespace Tutorial
             blackFade.alpha = 0;
             blackFade.gameObject.SetActive(false);
             text.enabled = false;
+            text.color = new Color(1, 1, 1, 0);
 
             isOn = false;
         }
@@ -61,10 +96,12 @@ namespace Tutorial
                     blackFade.DOFade(1, fadeDuration).SetEase(fadeEase).SetUpdate(true);
                 }
 
+                if (automaticallyAdjustSize)
+                    SetSize(message.Length);
                 text.enabled = true;
                 text.text = message;
                 text.DOKill();
-                Tweener textFade = text.DOFade(0, fadeDuration).SetEase(fadeEase).SetUpdate(true);
+                Tweener textFade = text.DOFade(1, fadeDuration).SetEase(fadeEase).SetUpdate(true);
 
                 isOn = true;
 

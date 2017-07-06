@@ -41,10 +41,10 @@ namespace Tutorial
             image.rectTransform.sizeDelta = sizeDelta;
         }
 
-        public void Proxy(Vector2 position, Action onClick)
+        public void Proxy(Vector2 absolutePosition, Action onClick)
         {
             currentAction = onClick;
-            transform.position = position;
+            transform.position = absolutePosition;
             image.enabled = true;
         }
 
@@ -64,6 +64,14 @@ namespace Tutorial
                 if (onClick != null)
                     onClick();
             });
+        }
+
+        public void ProxyScreen(Action onClick)
+        {
+            currentAction = onClick;
+            image.enabled = true;
+            image.rectTransform.sizeDelta = new Vector2(1920, 1080);
+            image.rectTransform.anchoredPosition = new Vector2(1920 / 2, 1080 / 2); //Au centre du scree
         }
     }
 }

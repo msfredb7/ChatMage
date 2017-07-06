@@ -25,9 +25,9 @@ MonoBehaviour:
   - '[]'
   - '[{"$type":"GameCondition.LoseOnPlayerDeath"}]'
   - 
-  - '[{"what":{"spawnSequence":[{"unit":0,"quantity":1}],"onSpawnMethod":"","progressCallbacks":[{"levelEventName":"1st
-    kill","atProgress":1.0,"atKillCount":0,"useProgress":true}]},"where":{"logErrorIfUnableToLaunch":true,"spawnTag":"ordered","filterType":"None","min":{"x":-1.0,"y":-1.0},"max":{"x":1.0,"y":1.0},"selectType":"Random","index":0},"when":{"type":"OnLevelEvent","time":0.0,"name":"1st
-    wave","onlyTriggerOnce":true},"spawnInterval":1.0},{"what":{"spawnSequence":[{"unit":1,"quantity":3}],"onSpawnMethod":"","progressCallbacks":[]},"where":{"logErrorIfUnableToLaunch":true,"spawnTag":"random","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0},"when":{"type":"OnLevelEvent","time":0.0,"name":"2nd
+  - '[{"what":{"spawnSequence":[{"unit":0,"quantity":1}],"onSpawnMethod":"","progressCallbacks":[{"levelEventName":"wave
+    1 complete","atProgress":1.0,"atKillCount":0,"useProgress":true}]},"where":{"logErrorIfUnableToLaunch":true,"spawnTag":"ordered","filterType":"None","min":{"x":-1.0,"y":-1.0},"max":{"x":1.0,"y":1.0},"selectType":"Random","index":0},"when":{"type":"OnManualTrigger","time":0.0,"name":"1st
+    wave","onlyTriggerOnce":true},"spawnInterval":1.0},{"what":{"spawnSequence":[{"unit":1,"quantity":3}],"onSpawnMethod":"","progressCallbacks":[]},"where":{"logErrorIfUnableToLaunch":true,"spawnTag":"random","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0},"when":{"type":"OnManualTrigger","time":0.0,"name":"2nd
     wave","onlyTriggerOnce":true},"spawnInterval":2.0},{"what":{"spawnSequence":[{"unit":2,"quantity":2}],"onSpawnMethod":"","progressCallbacks":[]},"where":{"logErrorIfUnableToLaunch":true,"spawnTag":"random","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0},"when":{"type":"AppendCompletePlus","time":2.0,"name":null,"onlyTriggerOnce":false},"spawnInterval":1.0}]'
   - '{"giveMoney":false,"goldReward":null,"giveLootBox":false,"lootboxs":[null],"lootboxColor":"Blue"}'
   sceneName: RomanArena
@@ -45,8 +45,8 @@ MonoBehaviour:
   events: []
   isOver: 0
   inGameEvents: {fileID: 0}
-  activateTutorial: 0
-  tutorialAssetName: 
+  activateTutorial: 1
+  tutorialAssetName: TUT_FirstLevel
   spearMan: {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
   archer: {fileID: 114917152140949164, guid: 90a1293e412776e4db23eb9595fcf924, type: 2}
   introDialog: {fileID: 11400000, guid: c36a2ceebb486ba4fbdc042f9ea124cc, type: 2}

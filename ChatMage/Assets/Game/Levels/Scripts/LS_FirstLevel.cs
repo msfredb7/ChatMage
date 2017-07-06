@@ -43,7 +43,10 @@ public class LS_FirstLevel : LevelScript
 
     protected override void OnGameStarted()
     {
-        Game.instance.ui.dialogDisplay.StartDialog(introDialog, null);
+        Game.instance.ui.dialogDisplay.StartDialog(introDialog, delegate()
+        {
+            ReceiveEvent("tuto move");
+        });
 
         //On start la premiere wave apres 5s (normallement, c'est le tutoriel qui le fait)
         inGameEvents.AddDelayedAction(StartFirstWave, 5);
@@ -51,23 +54,25 @@ public class LS_FirstLevel : LevelScript
 
     public void StartFirstWave()
     {
-        ReceiveEvent("1st wave");
+        Game.instance.ui.dialogDisplay.StartDialog(startWavesDialog, delegate()
+        {
+            TriggerWaveManually("1st wave");
+        });
     }
 
     public void StartSecondWave()
     {
-        ReceiveEvent("2nd wave");
-        Game.instance.ui.dialogDisplay.StartDialog(firstKillDialog, null);
+        Game.instance.ui.dialogDisplay.StartDialog(firstKillDialog, delegate()
+        {
+            TriggerWaveManually("2nd wave");
+        });
     }
 
     public override void OnReceiveEvent(string message)
     {
         switch (message)
         {
-            case "1st wave":
-                Game.instance.ui.dialogDisplay.StartDialog(startWavesDialog, null);
-                break;
-            case "1st kill":
+            case "wave 1 complete":
                 inGameEvents.AddDelayedAction(StartSecondWave, 1);
                 break;
         }

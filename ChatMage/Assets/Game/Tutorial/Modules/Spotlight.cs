@@ -25,6 +25,7 @@ namespace Tutorial
         private CanvasGroup group;
         private Tweener fadeTween;
         private Tweener moveTween;
+        private bool isOn = false;
 
         private void Awake()
         {
@@ -35,13 +36,17 @@ namespace Tutorial
         public void InstantOff()
         {
             group.alpha = 0;
+            isOn = false;
         }
 
         public void Off(TweenCallback onComplete = null)
         {
             if (fadeTween != null)
                 fadeTween.Kill();
+
             fadeTween = group.DOFade(0, fadeOutDuration).SetEase(fadeOutEase).SetUpdate(true);
+
+            isOn = false;
 
             if (onComplete != null)
                 fadeTween.OnComplete(onComplete);
@@ -51,7 +56,10 @@ namespace Tutorial
         {
             if (fadeTween != null)
                 fadeTween.Kill();
+
             fadeTween = group.DOFade(maxAlpha, fadeInDuration).SetEase(fadeInEase).SetUpdate(true);
+
+            isOn = true;
 
             if (onComplete != null)
                 fadeTween.OnComplete(onComplete);
@@ -61,8 +69,17 @@ namespace Tutorial
         {
             if (moveTween != null)
                 moveTween.Kill();
-            moveTween = GetComponent<RectTransform>().DOMove(absolutePosition, moveDuration).SetEase(moveEase).SetUpdate(true);
+            if (isOn)
+                moveTween = GetComponent<RectTransform>().DOMove(absolutePosition, moveDuration).SetEase(moveEase).SetUpdate(true);
+            else
+                GetComponent<RectTransform>().position = absolutePosition;
             On(onComplete);
+        }
+
+        public void OnWorld(Vector2 worldPosition, TweenCallback onComplete = null)
+        {
+            Vector2 convertedPosition = Camera.main.WorldToScreenPoint(worldPosition);
+            On(convertedPosition, onComplete);
         }
     }
 }

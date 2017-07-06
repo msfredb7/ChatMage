@@ -37,7 +37,6 @@ namespace LevelScripting
         /// </summary>
         public bool LaunchNow(LevelScript levelScript)
         {
-            Debug.Log("null ? " + (onComplete == null));
             //Get units
             Unit[] units = what.GetSpawnSequence();
             

@@ -16,6 +16,7 @@ namespace Tutorial
         public TextDisplay textDisplay;
         public InputDisabler inputDisabler;
         public Shortcuts shorcuts;
+        public DelayedAction delayedAction;
 
         /// <summary>
         /// Retourne faux si le tutoriel a deja ete completer
