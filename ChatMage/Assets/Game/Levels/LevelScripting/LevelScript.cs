@@ -63,7 +63,7 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
     [InspectorHeader("Tutoriel")]
     public bool activateTutorial = false; // Debug
     [InspectorShowIf("activateTutorial")]
-    public BaseTutorial tutorial;
+    public string tutorialAssetName;
 
     [fsIgnore, NotSerialized]
     private List<UnitWaveV2> eventTriggeredWaves;
@@ -207,19 +207,9 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
 
     void StartTutorial()
     {
-        if (tutorial != null)
+        if (!string.IsNullOrEmpty(tutorialAssetName))
         {
-            Scenes.LoadAsync("Tutorial", LoadSceneMode.Additive, delegate (Scene scene)
-            {
-                TutorialStarter starter = Scenes.FindRootObject<TutorialStarter>(scene);
-                if (starter != null)
-                {
-                    if (starter.Init(tutorial))
-                        Debug.LogWarning("Tutoriel loaded");
-                    else
-                        Debug.LogWarning("Tutoriel not loaded");
-                }
-            });
+            Tutorial.TutorialScene.StartTutorial(tutorialAssetName);
         }
     }
 
@@ -255,20 +245,21 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
                 }
             }
 
-        if (tutorial != null)
-            for (int i = 0; i < tutorial.tutorialEvents.Count; i++)
-            {
-                if (tutorial.tutorialEvents[i].useMileStone)
-                {
-                    for (int j = 0; j < tutorial.tutorialEvents[i].milestoneThatTrigger.Count; j++)
-                    {
-                        if (tutorial.tutorialEvents[i].milestoneThatTrigger[j] == message)
-                        {
-                            tutorial.Execute(tutorial.tutorialEvents[i], false);
-                        }
-                    }
-                }
-            }
+        //A remettre ?
+        //if (tutorial != null)
+        //    for (int i = 0; i < tutorial.tutorialEvents.Count; i++)
+        //    {
+        //        if (tutorial.tutorialEvents[i].useMileStone)
+        //        {
+        //            for (int j = 0; j < tutorial.tutorialEvents[i].milestoneThatTrigger.Count; j++)
+        //            {
+        //                if (tutorial.tutorialEvents[i].milestoneThatTrigger[j] == message)
+        //                {
+        //                    tutorial.Execute(tutorial.tutorialEvents[i], false);
+        //                }
+        //            }
+        //        }
+        //    }
 
         OnReceiveEvent(message);
 

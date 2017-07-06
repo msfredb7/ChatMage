@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -60,6 +60,7 @@ public class ResourceLoader : BaseManager<ResourceLoader>
     public const string UI = "UI/";
     public const string LVLSCRIPTS = "LevelScripts/";
     public const string LOOT = "Lootbox/";
+    public const string TUTORIALS = "Tutorials/";
 
     static private T Load<T>(string path) where T : UnityEngine.Object
     {
@@ -184,5 +185,10 @@ public class ResourceLoader : BaseManager<ResourceLoader>
     static public void LoadLootBoxRefAsync(string name, Action<LootBoxRef> callback)
     {
         LoadAsync(LOOT + name, callback);
+    }
+
+    static public void LoadTutorialAsync<T>(string name, Action<T> callback) where T : Tutorial.BaseTutorial
+    {
+        LoadAsync(TUTORIALS + name, callback);
     }
 }

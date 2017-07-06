@@ -1,12 +1,13 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class TutorialInfo : MonoBehaviour {
+namespace Tutorial
+{
+    public abstract class TutorialInfo : MonoBehaviour
+    {
+        public abstract void DisplayInfo(string text);
 
-    public float coolDown;
-
-    public abstract void DisplayInfo(string text);
-
-    public abstract void OnEnd(); 
+        public abstract void OnEnd();
+    }
 }

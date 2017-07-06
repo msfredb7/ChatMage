@@ -10,12 +10,13 @@ public class MainMenu : BaseBehavior
 {
     public const string SCENENAME = "MainMenu";
     public Button playButton;
+    public Button optionsMenuButton;
     public bool DEMO = false; // A ENLEVER
 
     [InspectorHeader("Tutorial")]
     public bool doATutorial = false;
     [InspectorShowIf("doATutorial")]
-    public BaseTutorial tutorial;
+    public Tutorial.BaseTutorial tutorial;
 
     void Start()
     {
@@ -36,18 +37,6 @@ public class MainMenu : BaseBehavior
 
     void StartTutorial()
     {
-        Scenes.LoadAsync("Tutorial", LoadSceneMode.Additive, delegate (Scene scene) {
-            GameObject[] obj = scene.GetRootGameObjects();
-            for (int i = 0; i < obj.Length; i++)
-            {
-                TutorialStarter starter = obj[i].GetComponent<TutorialStarter>();
-                if (starter != null)
-                {
-                    Debug.Log("Init the tutorial");
-                    starter.Init(tutorial);
-                    break;
-                }
-            }
-        });
+        Tutorial.TutorialScene.StartTutorial(tutorial.name);
     }
 }
