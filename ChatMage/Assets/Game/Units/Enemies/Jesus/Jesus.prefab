@@ -536,13 +536,14 @@ MonoBehaviour:
   _objectReferences: []
   _serializedStateKeys: []
   _serializedStateValues: []
-  jesus: {fileID: 114369862610452710}
   rockPrefab: {fileID: 114000304801460058, guid: a565345db244bd94ebcb0e72f95ff8db,
     type: 2}
-  rocksMaxAmount: 2
-  distanceRockIsConsiderClose: 1
+  rocksMaxAmount: 1
+  distanceRockIsClose: 1
   shoutingDuration: 1
   shoutingCooldown: 4
+  throwingCooldown: 3
+  throwingRockSpeed: 7.5
 --- !u!114 &114092791149977012
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -641,9 +642,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c8a1d4018b84204eb324dc5ca2bebbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isVisible: 1
   allegiance: 2
   overrideDeactivationRange: 0
   newDeactivationRange: 0
+  targets: 00000000
   canUseBorder: 1
   unitWidth: 0
   moveSpeed: 3
@@ -653,10 +656,11 @@ MonoBehaviour:
   weight: 0.1
   useTurnSpeed: 0
   turnSpeed: 150
+  brain: {fileID: 114015716563977732}
   animator: {fileID: 114359284201243226}
   colliderListener: {fileID: 114092791149977012}
   health: 5
-  forceToRektPlayer: 2.5
+  forceToRektPlayer: 1
 --- !u!114 &114376725265308864
 MonoBehaviour:
   m_ObjectHideFlags: 1

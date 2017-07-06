@@ -56,12 +56,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fdf791a12b63faa42a4f6380b1b9edb7, type: 2}
   - {fileID: 11400000, guid: 69ee3fcb35902f9458ee36f971392e8f, type: 2}
   - {fileID: 114015716563977732, guid: 526d875b8e226cf49af4c4a05176f3f2, type: 2}
-  - {fileID: 11400000, guid: c36a2ceebb486ba4fbdc042f9ea124cc, type: 2}
-  - {fileID: 11400000, guid: 2341c2ad81edf9f40ae1796db7cfb68c, type: 2}
-  - {fileID: 11400000, guid: 3ba8fbb3de93fc84693bec09135d4f7a, type: 2}
-  - {fileID: 11400000, guid: 28777e4b92ec37a4daa2af8709489475, type: 2}
-  - {fileID: 11400000, guid: b9fc1a355e7afbc4c9fba941400f77d9, type: 2}
-  - {fileID: 114931973947917846, guid: 130eff398c5a2174fbc65f36ca70f257, type: 2}
+  - {fileID: 11400000, guid: 462d301430296524a849ffb402b96b3b, type: 2}
   _values:
   - _keys: []
     _values: []
@@ -75,23 +70,7 @@ MonoBehaviour:
       type: 2}
   - _keys: []
     _values: []
-    _target: {fileID: 11400000, guid: c36a2ceebb486ba4fbdc042f9ea124cc, type: 2}
-  - _keys: []
-    _values: []
-    _target: {fileID: 11400000, guid: 2341c2ad81edf9f40ae1796db7cfb68c, type: 2}
-  - _keys: []
-    _values: []
-    _target: {fileID: 11400000, guid: 3ba8fbb3de93fc84693bec09135d4f7a, type: 2}
-  - _keys: []
-    _values: []
-    _target: {fileID: 11400000, guid: 28777e4b92ec37a4daa2af8709489475, type: 2}
-  - _keys: []
-    _values: []
-    _target: {fileID: 11400000, guid: b9fc1a355e7afbc4c9fba941400f77d9, type: 2}
-  - _keys: []
-    _values: []
-    _target: {fileID: 114931973947917846, guid: 130eff398c5a2174fbc65f36ca70f257,
-      type: 2}
+    _target: {fileID: 11400000, guid: 462d301430296524a849ffb402b96b3b, type: 2}
 --- !u!114 &114574157853951048
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -107,12 +86,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fdf791a12b63faa42a4f6380b1b9edb7, type: 2}
   - {fileID: 11400000, guid: 69ee3fcb35902f9458ee36f971392e8f, type: 2}
   - {fileID: 114015716563977732, guid: 526d875b8e226cf49af4c4a05176f3f2, type: 2}
-  - {fileID: 11400000, guid: c36a2ceebb486ba4fbdc042f9ea124cc, type: 2}
-  - {fileID: 11400000, guid: 2341c2ad81edf9f40ae1796db7cfb68c, type: 2}
-  - {fileID: 11400000, guid: 3ba8fbb3de93fc84693bec09135d4f7a, type: 2}
-  - {fileID: 11400000, guid: 28777e4b92ec37a4daa2af8709489475, type: 2}
-  - {fileID: 11400000, guid: b9fc1a355e7afbc4c9fba941400f77d9, type: 2}
-  - {fileID: 114931973947917846, guid: 130eff398c5a2174fbc65f36ca70f257, type: 2}
+  - {fileID: 11400000, guid: 462d301430296524a849ffb402b96b3b, type: 2}
   _values:
   - _keys:
     - DefaultBehaviorEditor.sceneName.EditProperty
@@ -120,6 +94,7 @@ MonoBehaviour:
     - DefaultBehaviorEditor.introPrefab.EditProperty
     - DefaultBehaviorEditor.noHealthPacks.EditProperty
     - DefaultBehaviorEditor.useCustomGenericEvents.EditProperty
+    - DefaultBehaviorEditor.waves.EditProperty
     - DefaultBehaviorEditor.rewards.EditProperty
     - DefaultBehaviorEditor.activateTutorial.EditProperty
     - DefaultBehaviorEditor.healthPacks.EditProperty
@@ -137,6 +112,8 @@ MonoBehaviour:
       _serializedIsActive: 1
     - _showDropdown: 1
       _serializedIsActive: 1
+    - _showDropdown: 1
+      _serializedIsActive: 1
     - _showDropdown: 0
       _serializedIsActive: 1
     - _showDropdown: 0
@@ -144,50 +121,50 @@ MonoBehaviour:
     - _showDropdown: 0
       _serializedIsActive: 1
     _target: {fileID: 11400000, guid: fdf791a12b63faa42a4f6380b1b9edb7, type: 2}
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.sceneName.EditProperty
+    - DefaultBehaviorEditor.winningConditions.EditProperty
+    - DefaultBehaviorEditor.introPrefab.EditProperty
+    - DefaultBehaviorEditor.noHealthPacks.EditProperty
+    - DefaultBehaviorEditor.useCustomGenericEvents.EditProperty
+    - DefaultBehaviorEditor.waves.EditProperty
+    - DefaultBehaviorEditor.rewards.EditProperty
+    - DefaultBehaviorEditor.activateTutorial.EditProperty
+    - DefaultBehaviorEditor.spearMan.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 1
+      _serializedIsActive: 1
+    - _showDropdown: 1
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
     _target: {fileID: 11400000, guid: 69ee3fcb35902f9458ee36f971392e8f, type: 2}
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.rocksMaxAmount.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
     _target: {fileID: 114015716563977732, guid: 526d875b8e226cf49af4c4a05176f3f2,
       type: 2}
-  - _keys:
-    - DefaultBehaviorEditor.replies.EditProperty.0.message.EditProperty
-    - DefaultBehaviorEditor.replies.EditProperty.1.message.EditProperty
-    - DefaultBehaviorEditor.replies.EditProperty.2.message.EditProperty
-    - DefaultBehaviorEditor.replies.EditProperty.3.message.EditProperty
-    _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    _target: {fileID: 11400000, guid: c36a2ceebb486ba4fbdc042f9ea124cc, type: 2}
-  - _keys:
-    - DefaultBehaviorEditor.replies.EditProperty.0.message.EditProperty
-    - DefaultBehaviorEditor.replies.EditProperty.1.message.EditProperty
-    - DefaultBehaviorEditor.replies.EditProperty.2.message.EditProperty
-    _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    _target: {fileID: 11400000, guid: 2341c2ad81edf9f40ae1796db7cfb68c, type: 2}
-  - _keys:
-    - DefaultBehaviorEditor.replies.EditProperty.0.message.EditProperty
-    _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    _target: {fileID: 11400000, guid: 3ba8fbb3de93fc84693bec09135d4f7a, type: 2}
   - _keys:
     - DefaultBehaviorEditor.tutorialEvents.EditProperty.0.useSpecificTime.EditProperty
     - DefaultBehaviorEditor.tutorialEvents.EditProperty.0.useMileStone.EditProperty
     - DefaultBehaviorEditor.tutorialEvents.EditProperty.0.startAfterAnEvent.EditProperty
+    - DefaultBehaviorEditor.tutorialEvents.EditProperty.1.useSpecificTime.EditProperty
+    - DefaultBehaviorEditor.tutorialEvents.EditProperty.1.useMileStone.EditProperty
+    - DefaultBehaviorEditor.tutorialEvents.EditProperty.1.startAfterAnEvent.EditProperty
     _values:
     - _showDropdown: 0
       _serializedIsActive: 1
@@ -195,26 +172,10 @@ MonoBehaviour:
       _serializedIsActive: 1
     - _showDropdown: 0
       _serializedIsActive: 1
-    _target: {fileID: 11400000, guid: 28777e4b92ec37a4daa2af8709489475, type: 2}
-  - _keys: []
-    _values: []
-    _target: {fileID: 11400000, guid: b9fc1a355e7afbc4c9fba941400f77d9, type: 2}
-  - _keys:
-    - DefaultBehaviorEditor.levelSelectData.EditProperty
-    - DefaultBehaviorEditor.loadoutData.EditProperty
-    - DefaultBehaviorEditor.accountData.EditProperty
-    - DefaultBehaviorEditor.armoryData.EditProperty
-    - DefaultBehaviorEditor.tutorialData.EditProperty
-    _values:
-    - _showDropdown: 1
+    - _showDropdown: 0
       _serializedIsActive: 1
-    - _showDropdown: 1
+    - _showDropdown: 0
       _serializedIsActive: 1
-    - _showDropdown: 1
+    - _showDropdown: 0
       _serializedIsActive: 1
-    - _showDropdown: 1
-      _serializedIsActive: 1
-    - _showDropdown: 1
-      _serializedIsActive: 1
-    _target: {fileID: 114931973947917846, guid: 130eff398c5a2174fbc65f36ca70f257,
-      type: 2}
+    _target: {fileID: 11400000, guid: 462d301430296524a849ffb402b96b3b, type: 2}

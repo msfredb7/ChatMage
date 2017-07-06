@@ -18,7 +18,8 @@ public class SearchingRockBehavior : EnemyBehavior<JesusVehicle>
 
     public override void Enter(Unit target)
     {
-        vehicle.GoToLocation(rockTarget.Position);
+        if (rockTarget != null) 
+            vehicle.GoToLocation(rockTarget.Position);
     }
 
     public override void Exit(Unit target)
@@ -27,5 +28,7 @@ public class SearchingRockBehavior : EnemyBehavior<JesusVehicle>
 
     public override void Update(Unit target, float deltaTime)
     {
+        if(rockTarget != null)
+            vehicle.GoToLocation(rockTarget.Position);
     }
 }
