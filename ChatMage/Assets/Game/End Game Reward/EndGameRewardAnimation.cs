@@ -1,4 +1,4 @@
-﻿using CCC.Manager;
+using CCC.Manager;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,14 +10,14 @@ public class EndGameRewardAnimation : MonoBehaviour {
     public Image rewardImage;
     public Sprite coinsSprite;
 
-    private GameRewards rewards;
+    //private GameRewards rewards;
     private List<LootBoxRewards> lootboxRewards;
 
     private int currentReward;
 
     public void Init(GameRewards rewards, bool firstWin)
     {
-        this.rewards = rewards;
+        //this.rewards = rewards;
 
         // Ajout de toutes les recompenses contenant dans GameRewards dans une seule liste
         lootboxRewards = new List<LootBoxRewards>();

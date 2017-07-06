@@ -1,4 +1,4 @@
-﻿using CCC.Manager;
+using CCC.Manager;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ public class ShopPopUpMenu
     {
         Scenes.LoadAsync(ShopPopUpScript.SCENENAME, LoadSceneMode.Additive, delegate (Scene scene)
         {
-            ShopPopUpScript popup = Scenes.FindRootObject<ShopPopUpScript>(scene).SetShopPopUp(onCancel, onConfirm)
+            Scenes.FindRootObject<ShopPopUpScript>(scene).SetShopPopUp(onCancel, onConfirm)
              .SetTitle(title)
              .SetMessage(message)
              .SetPrice(price.Replace("-", ""))

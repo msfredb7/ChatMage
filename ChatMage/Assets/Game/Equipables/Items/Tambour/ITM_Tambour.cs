@@ -36,7 +36,7 @@ public class ITM_Tambour : Item
 
     void Impact()
     {
-        GameObject newImpact = Instantiate(impactCircle, player.body.transform);
+        Instantiate(impactCircle, player.body.transform);
         Game.instance.gameCamera.vectorShaker.Shake(cameraShakeStrength);
         timer = impactCooldown;
     }

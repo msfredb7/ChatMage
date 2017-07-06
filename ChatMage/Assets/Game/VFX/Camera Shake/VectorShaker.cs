@@ -20,8 +20,8 @@ public class VectorShaker : MonoBehaviour
     [NonSerialized]
     private float currentStrength = 0;
 
-    [NonSerialized]
-    private bool isShakeOn = false;
+    //[NonSerialized]
+    //private bool isShakeOn = false;
     [NonSerialized]
     private Vector2 shakeDelta;
 

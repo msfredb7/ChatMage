@@ -38,6 +38,6 @@ public class ITM_Mine : Item {
     {
         countdown = cooldown;
 
-        Mine mine = Game.instance.SpawnUnit(minePrefab, position);
+        Game.instance.SpawnUnit(minePrefab, position);
     }
 }

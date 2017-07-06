@@ -25,7 +25,7 @@ public class Mine : Unit
 
     float timer;
     bool flickering = false;
-    bool exploding = false;
+    //bool exploding = false;
 
     void Start()
     {
