@@ -2,17 +2,19 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FullInspector;
 
 public class JesusBrain : EnemyBrain<JesusVehicle> {
 
-    public JesusVehicle jesus;
     public JesusRock rockPrefab;
 
+    [InspectorHeader("Jesus Values")]
     public int rocksMaxAmount = 2;
-    public float distanceRockIsConsiderClose = 5f;
+    public float distanceRockIsClose = 5f;
     public float shoutingDuration = 1f;
     public float shoutingCooldown = 4f;
     public float throwingCooldown = 2f;
+    public float throwingRockSpeed = 10f;
 
     private List<JesusRock> rocks = new List<JesusRock>();
     private JesusRock rockTarget = null;
@@ -39,48 +41,37 @@ public class JesusBrain : EnemyBrain<JesusVehicle> {
                 }
             }
             else
-            {   // S'il y a une roche proche
+            {
+                // Si une roche est vraiment proche
                 if (IsAnyRockClose())
                 {
-                    // on se dirige vers la roche la plus proche
+                    // on va la chercher
                     SearchForARock();
-                }
-                else
+                } else
                 {
-                    // Si on peut lancer une nouvelle roche
-                    if (rocks.Count < rocksMaxAmount)
+                    // Si on criait pas
+                    if (!shouting)
                     {
-                        // Lancer une nouvelle roche
-                        if (throwingCountdown < 0)
-                            LancerNouvelleRoche();
-                    }
-                    else
-                    {
-                        // Si on criait pas
-                        if (!shouting)
+                        // es ce que c le temps de crier ?
+                        if (shoutingCountdown < 0)
                         {
-                            // et que ca fait un boute qu'on a pas crier
-                            if (shoutingCooldown < 0)
-                            {
-                                // Crie
-                                Debug.Log("RAAAWWWR");
-                                SetBehavior(BehaviorType.Idle);
-                                // ANIMATION CRIER
-                                shoutingCountdown = shoutingDuration;
-                                shouting = true;
-                            } else
-                                SearchForARock();
+                            // Crie
+                            Debug.Log("RAAAWWWR");
+                            SetBehavior(BehaviorType.Idle);
+                            // ANIMATION CRIER
+                            shoutingCountdown = shoutingDuration;
+                            shouting = true;
                         }
-                        else
+                    }
+                    else // Si on crie
+                    {
+                        // Apres avoir crier
+                        if (shoutingCountdown < 0)
                         {
-                            // Apres avoir crier
-                            if (shoutingCooldown < 0)
-                            {
-                                // on se dirige vers la roche la plus proche
-                                SearchForARock();
-                                shoutingCountdown = shoutingCooldown;
-                                shouting = false;
-                            }
+                            shouting = false;
+                            shoutingCountdown = shoutingCooldown;
+
+                            TryToThrowNewRock();
                         }
                     }
                 }
@@ -91,9 +82,26 @@ public class JesusBrain : EnemyBrain<JesusVehicle> {
         ignoreNextFrame = false;
     }
 
+    private void TryToThrowNewRock()
+    {
+        // Si on peut pas lancer une nouvelle roche
+        if (rocks.Count >= rocksMaxAmount)
+        {
+            // on se dirige vers la roche la plus proche
+            SearchForARock();
+        }
+        else
+        {
+            // Lancer une nouvelle roche
+            if (throwingCountdown < 0)
+                LancerNouvelleRoche();
+        }
+    }
+
     private void SearchForARock()
     {
         Debug.Log("Searching for the rock");
+
         // Trouver la plus proche
         rockTarget = ClosestRock();
 
@@ -108,6 +116,7 @@ public class JesusBrain : EnemyBrain<JesusVehicle> {
     private void LancerNouvelleRoche()
     {
         Debug.Log("Launching the rock");
+
         // On regarde le joueur et on lance!
         SetBehavior(BehaviorType.LookPlayer);
 
@@ -120,9 +129,10 @@ public class JesusBrain : EnemyBrain<JesusVehicle> {
 
         // LANCAGE DE ROCHE ICI
         Vector2 normalizeDirection = (target.Position - vehicle.Position).normalized;
-        currentRock.Speed = normalizeDirection * 5;
+        currentRock.Speed = normalizeDirection * throwingRockSpeed;
         ignoreNextFrame = true;
 
+        // Temps avant le prochain lancement de roche
         throwingCountdown = throwingCooldown;
     }
 
@@ -144,10 +154,14 @@ public class JesusBrain : EnemyBrain<JesusVehicle> {
 
     private bool IsAnyRockClose()
     {
+        // Si on vient de lancer une roche
+        if (throwingCountdown > 0) // A ENLEVER AU BESOIN
+            return false; // On doit pas aller chercher une roche proche de suite
+
         bool result = false;
         for (int i = 0; i < rocks.Count; i++)
         {
-            if(Vector2.Distance(rocks[i].Position,transform.position) < distanceRockIsConsiderClose)
+            if (Vector2.Distance(rocks[i].Position, transform.position) < distanceRockIsClose)
                 result = true;
         }
         return result;
@@ -155,11 +169,18 @@ public class JesusBrain : EnemyBrain<JesusVehicle> {
 
     protected override void UpdateWithoutTarget()
     {
+        Debug.Log("Zzzzzzz");
         SetBehavior(BehaviorType.Idle);
     }
 
     protected override EnemyBehavior NewWanderBehavior()
     {
         return new SearchingRockBehavior(vehicle, rockTarget);
+    }
+
+    public void ResetCooldowns()
+    {
+        throwingCountdown = throwingCooldown;
+        shoutingCountdown = shoutingCooldown;
     }
 }

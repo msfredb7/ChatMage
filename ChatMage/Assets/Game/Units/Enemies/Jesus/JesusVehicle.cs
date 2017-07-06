@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class JesusVehicle : EnemyVehicle {
 
+    public JesusBrain brain;
     public JesusAnimator animator;
     public MultipleColliderListener colliderListener;
 
@@ -31,7 +32,16 @@ public class JesusVehicle : EnemyVehicle {
     {
         if (other.parentUnit is PlayerVehicle)
         {
-            (other.parentUnit as PlayerVehicle).Bump((other.parentUnit.Position - Position) * forceToRektPlayer, 1, BumpMode.VelocityAdd);
+            //(other.parentUnit as PlayerVehicle).Bump((other.parentUnit.Position - Position) * forceToRektPlayer, 1, BumpMode.VelocityAdd);
+        }
+
+        if (other.parentUnit is JesusRock)
+        {
+            if((other.parentUnit as JesusRock).canHit)
+            {
+                brain.ResetCooldowns();
+                Attacked(other, 1, other.parentUnit);
+            }            
         }
     }
 

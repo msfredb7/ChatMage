@@ -89,7 +89,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 278b62c00e8a53743b2b4164ec42cd1f, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -120,14 +120,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54fe601f756681547a5b96385e641cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isVisible: 1
   allegiance: 2
   overrideDeactivationRange: 0
   newDeactivationRange: 0
-  canUseBorder: 0
+  targets: 
+  canUseBorder: 1
   unitWidth: 0
   colliderListener: {fileID: 114815016753205556}
-  rangeToTake: 4
-  speedMinToHit: 4
+  rangeToTake: 1
+  distanceUntilStopped: 6
+  distanceUntilCanHit: 2
+  speedOnPlayerHit: 2
+  maxDistanceToConsiderSlow: 0.1
+  canHit: 0
 --- !u!114 &114815016753205556
 MonoBehaviour:
   m_ObjectHideFlags: 1

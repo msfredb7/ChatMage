@@ -1,44 +1,84 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class JesusRock : Unit
 {
     public SimpleColliderListener colliderListener;
+
     public float rangeToTake = 3f;
-    public float speedMinToHit = 10f;
+    public float distanceUntilStopped = 5;
+    public float distanceUntilCanHit = 1;
+    public float speedOnPlayerHit = 2.5f;
+    public float maxDistanceToConsiderSlow = 0.1f;
 
     public SimpleEvent onRockTaken;
+    public SimpleEvent onRockHitJesus;
 
-    private bool canHit;
+    private Vector2 startingPosition;
+    private Vector2 lastPosition;
+
+    [HideInInspector]
+    public bool canHit;
 
     void Start()
     {
-        canHit = true;
-        colliderListener.onCollisionEnter += ColliderListener_onCollisionEnter;
+        // La roche peut pas faire mal quand on vient de la lancer
+        canHit = false;
+        startingPosition = transform.position; // on start le systeme de lancement/atterisage
+        colliderListener.onCollisionEnter += ColliderListener_onCollisionEnter; // on doit savoir si le roche hit dequoi
     }
 
     void Update()
     {
-        // Si la velocidad est grande
-        if (Speed.magnitude > speedMinToHit)
-            canHit = true;
-        else
+        // Si on a parcouru une certaine distance
+        if(Vector2.Distance(startingPosition,transform.position) > distanceUntilStopped)
+        {
+            // on arrete et on attend pour repartir
+            Speed *= 0;
+            startingPosition = transform.position;
             canHit = false;
+        } else
+        {   // Sinon si on a parcouru une certaine distance
+            if (Vector2.Distance(startingPosition, transform.position) > distanceUntilCanHit)
+                canHit = true; // la boule peut hit
+
+            // Si la roche va tellement lentement qu'elle est presque immobile
+            if (Vector2.Distance(transform.position, lastPosition) <= maxDistanceToConsiderSlow)
+                canHit = false;
+        }
+
+        lastPosition = transform.position;
     }
 
     private void ColliderListener_onCollisionEnter(ColliderInfo other, Collision2D collision, ColliderListener listener)
     {
+        // Si le joueur a frapper la roche
+        if (other.parentUnit is PlayerVehicle)
+        {
+            Speed *= speedOnPlayerHit; // elle accelere
+            startingPosition = transform.position; // et on reset le systeme de lancement/atterisage
+        }
+
+        // Si on a hit quelque chose qui peut etre endommager
         IAttackable unitAttackable = other.parentUnit.GetComponent<IAttackable>();
+        // et que la roche peut hit
         if (canHit && unitAttackable != null)
+        {
             other.parentUnit.GetComponent<IAttackable>().Attacked(other, 1, this);
+        }
     }
 
+    // Quelqu'un essaie de prendre la roche !
     public bool TakeTheRock(Vector2 takerPosition)
     {
-        // Si la boule va tellement vite qu'elle peut frapper, tu ne peux pas la prendre
+        // Si la roche fait mal
         if (canHit)
+        {
+            Debug.Log("Trying to take a rock that can hit");
             return false;
+        }
+
+        // Si la roche est proche
         if (Vector2.Distance(takerPosition, transform.position) < rangeToTake)
         {
             // The Rock has been taken !
