@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
@@ -10,7 +10,7 @@ public class LazerController : Unit
     public GameObject mainLazer;
     public GameObject mainLazerCollider;
     
-    private float animationDuration;
+    //private float animationDuration;
 
     [HideInInspector]
     public SimpleEvent onComplete;
@@ -34,10 +34,10 @@ public class LazerController : Unit
     }
 
     // Le temps de l'animation est décidé par l'item
-    public void SetAnimationDuration(float animationDuration)
-    {
-        this.animationDuration = animationDuration;
-    }
+    //public void SetAnimationDuration(float animationDuration)
+    //{
+    //    this.animationDuration = animationDuration;
+    //}
 
     public void ShootLazer()
     {

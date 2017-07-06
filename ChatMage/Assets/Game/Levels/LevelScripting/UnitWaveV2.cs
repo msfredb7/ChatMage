@@ -10,6 +10,7 @@ namespace LevelScripting
     public class UnitWaveV2
     {
         public event SimpleEvent onLaunched;
+        public event SimpleEvent onComplete;
 
         [InspectorCategory("What")]
         public WaveWhat what;
@@ -21,7 +22,14 @@ namespace LevelScripting
         public WaveWhen when;
 
         [InspectorCategory("Across")]
-        public float spawnInterval;
+        public float spawnInterval = 1;
+
+
+        public void ResetData()
+        {
+            onLaunched = null;
+            onComplete = null;
+        }
 
         /// <summary>
         /// Launch la wave ! (une meme wave peut etre launch plus qu'une fois).
@@ -29,8 +37,20 @@ namespace LevelScripting
         /// </summary>
         public bool LaunchNow(LevelScript levelScript)
         {
+            Debug.Log("null ? " + (onComplete == null));
+            //Get units
             Unit[] units = what.GetSpawnSequence();
+            
+            //Get callbacks
             UnitKillsProgress callbacker = what.GetKillsProgress(levelScript);
+
+            if(onComplete != null)
+            {
+                //Add on complete callback
+                if (callbacker == null)
+                    callbacker = new UnitKillsProgress(what.TotalUnits);
+                callbacker.AddCallback(delegate () { onComplete(); }, 1f);
+            }
 
             //Get Spawn
             List<UnitSpawn> spawns = Game.instance.map.mapping.GetSpawns_NewList(where.spawnTag);

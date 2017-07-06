@@ -22,11 +22,13 @@ namespace LevelScripting
             Join = 1,                           //
             Append = 2,                         //
             AppendPlus = 3,                     // uses: float time
-            OnLevelEvent = 4,                    // uses: string name
+            AppendComplete = 7,
+            AppendCompletePlus = 8,             // uses: float time
+            OnLevelEvent = 4,                   // uses: string name
             OnManualTrigger = 6,                // uses: string name
         }
 
-        public bool UsesTime { get { return type == Type.At || type == Type.AppendPlus; } }
+        public bool UsesTime { get { return type == Type.At || type == Type.AppendPlus || type == Type.AppendCompletePlus; } }
         public bool UsesName { get { return type == Type.OnLevelEvent || type == Type.OnManualTrigger; } }
     }
 }

@@ -1,4 +1,4 @@
-﻿using CCC.Manager;
+using CCC.Manager;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class TestTutorial : BaseTutorial
 {
-    private bool focusOnPlayer = false;
+    //private bool focusOnPlayer = false;
     public float duration = 5;
 
     public GameObject menuOption;
@@ -28,7 +28,7 @@ public class TestTutorial : BaseTutorial
 
     public override void End()
     {
-        focusOnPlayer = false;
+        //focusOnPlayer = false;
         base.End();
     }
 }

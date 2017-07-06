@@ -114,12 +114,6 @@ public class InGameEvents : MonoBehaviour
         // TODO : On doit loader une scene puis revenir ou on etait ???
     }
 
-    public void PauseGame(float timeStart, float timeEnd)
-    {
-        AddDelayedAction(delegate () { Time.timeScale = 0; }, timeStart);
-        AddDelayedAction(delegate () { Time.timeScale = 1; }, timeEnd);
-    }
-
     public T SpawnUnderUI<T>(T prefab) where T : MonoBehaviour
     {
         return Instantiate(prefab, Game.instance.ui.transform).GetComponent<T>();

@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Name: LS_FirstLevel
   m_EditorClassIdentifier: 
   _objectReferences:
-  - {fileID: 114917152140949164, guid: 90a1293e412776e4db23eb9595fcf924, type: 2}
+  - {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
+  - {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
   _serializedStateKeys:
   - winningConditions
   - losingConditions
@@ -23,7 +24,10 @@ MonoBehaviour:
   - '[]'
   - '[{"$type":"GameCondition.LoseOnPlayerDeath"}]'
   - 
-  - '[{"what":{"spawnSequence":[{"unit":0,"quantity":2}],"onSpawnMethod":"","progressCallbacks":[]},"where":{"logErrorIfUnableToLaunch":true,"spawnTag":"ordered","filterType":"None","min":{"x":-1.0,"y":-1.0},"max":{"x":1.0,"y":1.0},"selectType":"Random","index":0},"when":{"type":"At","time":0.0,"name":null,"onlyTriggerOnce":false},"spawnInterval":1.0}]'
+  - '[{"what":{"spawnSequence":[{"unit":0,"quantity":1}],"onSpawnMethod":"","progressCallbacks":[{"levelEventName":"1st
+    kill","atProgress":1.0,"atKillCount":0,"useProgress":true}]},"where":{"logErrorIfUnableToLaunch":true,"spawnTag":"ordered","filterType":"None","min":{"x":-1.0,"y":-1.0},"max":{"x":1.0,"y":1.0},"selectType":"Random","index":0},"when":{"type":"OnLevelEvent","time":0.0,"name":"1st
+    wave","onlyTriggerOnce":true},"spawnInterval":1.0},{"what":{"spawnSequence":[{"unit":1,"quantity":3}],"onSpawnMethod":"","progressCallbacks":[]},"where":{"logErrorIfUnableToLaunch":true,"spawnTag":"random","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0},"when":{"type":"OnLevelEvent","time":0.0,"name":"2nd
+    wave","onlyTriggerOnce":true},"spawnInterval":2.0}]'
   - '{"giveMoney":false,"goldReward":null,"giveLootBox":false,"lootboxs":[null],"lootboxColor":"Blue"}'
   sceneName: RomanArena
   introPrefab: {fileID: 114095951920881890, guid: 5d6e2272c4ccd514cb369a8d44abbacd,
@@ -38,10 +42,12 @@ MonoBehaviour:
   horizontalUnitSnap: 0
   useCustomGenericEvents: 0
   events: []
-  isOver: 1
+  isOver: 0
   inGameEvents: {fileID: 0}
   activateTutorial: 0
   tutorial: {fileID: 0}
   spearMan: {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
   archer: {fileID: 114917152140949164, guid: 90a1293e412776e4db23eb9595fcf924, type: 2}
-  dialog: {fileID: 11400000, guid: c36a2ceebb486ba4fbdc042f9ea124cc, type: 2}
+  introDialog: {fileID: 11400000, guid: c36a2ceebb486ba4fbdc042f9ea124cc, type: 2}
+  startWavesDialog: {fileID: 11400000, guid: 2341c2ad81edf9f40ae1796db7cfb68c, type: 2}
+  firstKillDialog: {fileID: 11400000, guid: 3ba8fbb3de93fc84693bec09135d4f7a, type: 2}

@@ -11,7 +11,7 @@ public class PopUpMenu
     {
         Scenes.LoadAsync(PopUpScript.SCENENAME, LoadSceneMode.Additive, delegate (Scene scene)
         {
-            PopUpScript popup = Scenes.FindRootObject<PopUpScript>(scene)
+            Scenes.FindRootObject<PopUpScript>(scene)
             .SetOkPopUp(onOk)
             .SetTitle(title)
             .SetMessage(message);
@@ -22,7 +22,7 @@ public class PopUpMenu
     {
         Scenes.LoadAsync(PopUpScript.SCENENAME, LoadSceneMode.Additive, delegate (Scene scene)
         {
-            PopUpScript popup = Scenes.FindRootObject<PopUpScript>(scene).SetConfirmPopUp(onCancel, onConfirm)
+            Scenes.FindRootObject<PopUpScript>(scene).SetConfirmPopUp(onCancel, onConfirm)
              .SetConfirmPopUp(onCancel, onConfirm)
              .SetTitle(title)
              .SetMessage(message);
@@ -33,7 +33,7 @@ public class PopUpMenu
     {
         Scenes.LoadAsync(PopUpScript.SCENENAME, LoadSceneMode.Additive, delegate (Scene scene)
         {
-            PopUpScript popup = Scenes.FindRootObject<PopUpScript>(scene)
+            Scenes.FindRootObject<PopUpScript>(scene)
              .SetYesNoPopUp(onNo, onYes)
              .SetTitle(title)
              .SetMessage(message);

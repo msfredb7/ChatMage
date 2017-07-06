@@ -17,7 +17,7 @@ public class PlayerVehicle : Vehicle
     private Transform[] trails;
 
     private bool drifting = false;
-    private List<TrailRenderer> blackTrails = new List<TrailRenderer>();
+    //private List<TrailRenderer> blackTrails = new List<TrailRenderer>();
     PlayerController controller;
 
     public ISpeedOverrider speedOverrider = null;

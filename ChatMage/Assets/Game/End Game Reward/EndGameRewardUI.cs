@@ -17,7 +17,7 @@ namespace EndGameReward
 
         public bool DEMO = false;
 
-        private string levelScriptAssetName;
+        //private string levelScriptAssetName;
         private GameRewards reward;
         private bool firstWin;
 
@@ -25,7 +25,7 @@ namespace EndGameReward
 
         public void Init(GameRewards reward, string levelScriptAssetName, bool firstWin)
         {
-            this.levelScriptAssetName = levelScriptAssetName;
+            //this.levelScriptAssetName = levelScriptAssetName;  //On en a pas de besoin pour l'instant
             this.reward = reward;
             this.firstWin = firstWin;
         }

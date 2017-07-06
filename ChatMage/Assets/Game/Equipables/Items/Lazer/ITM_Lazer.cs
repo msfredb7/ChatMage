@@ -1,4 +1,4 @@
-﻿using DG.Tweening;
+using DG.Tweening;
 using FullInspector;
 using FullSerializer;
 using System;
@@ -120,7 +120,7 @@ public class ITM_Lazer : Item
                 throw new Exception();
             lazer = Instantiate(lazerPrefab, Game.instance.Player.vehicle.transform);
             // qui durera un certain temps
-            lazer.SetAnimationDuration(animationDuration);
+            //lazer.SetAnimationDuration(animationDuration);
 
             // après que l'animation des claymores soit faites
             lazerAnim = DOTween.Sequence();
