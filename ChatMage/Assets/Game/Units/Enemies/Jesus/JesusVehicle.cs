@@ -36,10 +36,6 @@ public class JesusVehicle : EnemyVehicle {
 
     private void ColliderListener_onTriggerEnter(ColliderInfo other, ColliderListener listener)
     {
-        if (other.parentUnit is PlayerVehicle)
-        {
-            //(other.parentUnit as PlayerVehicle).Bump((other.parentUnit.Position - Position) * forceToRektPlayer, 1, BumpMode.VelocityAdd);
-        }
     }
 
     void Update()

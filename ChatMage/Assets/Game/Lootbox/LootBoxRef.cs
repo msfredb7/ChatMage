@@ -72,7 +72,8 @@ public class LootBoxRef : BaseScriptableObject
         {
             ResourceLoader.LoadEquipablePreviewAsync(value.equipablePreviewName, value.type, delegate (EquipablePreview equipable)
             {
-                possibleItems.Add(equipable, value.weight);
+                if(!possibleItems.ContainsKey(equipable))
+                    possibleItems.Add(equipable, value.weight);
                 loadingEventsCompletionList.Add(true);
                 if (IsLoadingCompleted() && onComplete != null)
                     onComplete.Invoke();

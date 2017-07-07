@@ -7,15 +7,14 @@ public class JesusRock : Unit
 
     public float rangeToTake = 3f;
     public float distanceUntilStopped = 5;
-    public float speedOnPlayerHit = 2.5f;
-    public float maxDistanceToConsiderSlow = 0.1f;
     public float rockSpeed = 5f;
+    public float cooldownUntilSolid = 1f;
 
     public SimpleEvent onRockTaken;
-    public SimpleEvent onRockHitJesus;
 
     private Vector2 startingPosition;
     private Vector2 lastPosition;
+    private float countdown;
 
     [HideInInspector]
     public bool canHit;
@@ -27,6 +26,8 @@ public class JesusRock : Unit
         startingPosition = transform.position; // on start le systeme de lancement/atterisage
         colliderListener.onCollisionEnter += ColliderListener_onCollisionEnter; // on doit savoir si le roche hit dequoi
         Speed = Speed.normalized * rockSpeed;
+        gameObject.layer = Layers.NO_COLLISION; // Faut pas que quand la roche spawn elle soit prise sous le joueur
+        countdown = cooldownUntilSolid;
     }
 
     void Update()
@@ -39,6 +40,11 @@ public class JesusRock : Unit
             startingPosition = transform.position;
             canHit = false;
         }
+
+        if (countdown < 0)
+            gameObject.layer = Layers.SOLID_ENEMIES;
+        else
+            countdown -= DeltaTime();
 
         lastPosition = transform.position;
     }
