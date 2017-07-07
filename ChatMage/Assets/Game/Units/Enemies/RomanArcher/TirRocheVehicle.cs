@@ -63,7 +63,6 @@ public class TirRocheVehicle : EnemyVehicle
 
         // TODO : Animation de recharge de l'archer
         animator.Reload(ammo, maxAmmo, onComplete);
-
     }
 
     public override int Attacked(ColliderInfo on, int amount, Unit unit, ColliderInfo source = null)

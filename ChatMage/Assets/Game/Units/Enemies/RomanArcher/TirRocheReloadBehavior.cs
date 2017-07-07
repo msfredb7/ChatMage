@@ -14,9 +14,9 @@ public class TirRocheReloadBehavior : EnemyBehavior<TirRocheVehicle>
     private Action onExit;
     private bool inReloadProcess = false;
 
-    const float CHOOSE_INTERVAL = 4f;
-    const float DISTANCE_MIN = 0.75f;
-    const float DISTANCE_MAX = 3.5f;
+    const float CHOOSE_INTERVAL = 2f;
+    const float DISTANCE_MIN = 1f;
+    const float DISTANCE_MAX = 3f;
 
     float chooseTimer = 0;
     float lastDirectionPick = 0;
@@ -97,13 +97,34 @@ public class TirRocheReloadBehavior : EnemyBehavior<TirRocheVehicle>
                     if (lastDirectionPick > 360)
                         lastDirectionPick -= 360;
 
+                    /*
                     Vector2 randomVector = Vehicle.AngleToVector(UnityEngine.Random.Range(0, 360));
+                    */
+
+                    Vector2 randomVector = Game.instance.Player.vehicle.Position - vehicle.Position;
+                    if (UnityEngine.Random.Range(0f, 1f) < 0.5f)
+                        randomVector = Rotate(randomVector, UnityEngine.Random.Range(0,90)).normalized;
+                    else
+                        randomVector = Rotate(randomVector, UnityEngine.Random.Range(0, -90)).normalized;
 
                     vehicle.GotoPosition(vehicle.Position + randomVector * UnityEngine.Random.Range(DISTANCE_MIN, DISTANCE_MAX));
 
                     chooseTimer = CHOOSE_INTERVAL;
+
                 }
             }
         }
+    }
+
+    public Vector2 Rotate(Vector2 v, float degrees)
+    {
+        float sin = Mathf.Sin(degrees * Mathf.Deg2Rad);
+        float cos = Mathf.Cos(degrees * Mathf.Deg2Rad);
+
+        float tx = v.x;
+        float ty = v.y;
+        v.x = (cos * tx) - (sin * ty);
+        v.y = (sin * tx) + (cos * ty);
+        return v;
     }
 }

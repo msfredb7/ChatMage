@@ -39,7 +39,7 @@ public class TirRocheBrain : EnemyBrain<TirRocheVehicle>
             else
             {
                 //Va vers le joueur
-                SetBehavior(BehaviorType.Follow);
+                SetBehavior(BehaviorType.Wander);
             }
         }
         else if (dist > tooCloseRange && minFleeStay < 0)
@@ -56,10 +56,13 @@ public class TirRocheBrain : EnemyBrain<TirRocheVehicle>
             else
             {
                 //Regarde le joueur et shoot !
-                SetBehavior(BehaviorType.LookPlayer);
+                SetBehavior(BehaviorType.Wander);
 
-                if (vehicle.CanShoot && Mathf.Abs(Vector2.Angle(meToTarger, vehicle.WorldDirection2D())) < 4) // < 4 degrée pour aim
+                if (vehicle.CanShoot && Mathf.Abs(Vector2.Angle(meToTarger, vehicle.WorldDirection2D())) < 4)// < 4 degrée pour aim
+                {
+                    SetBehavior(BehaviorType.LookPlayer);
                     vehicle.Shoot(target);
+                }
             }
         }
         else
