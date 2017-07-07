@@ -538,7 +538,7 @@ MonoBehaviour:
   _serializedStateValues: []
   rockPrefab: {fileID: 114000304801460058, guid: a565345db244bd94ebcb0e72f95ff8db,
     type: 2}
-  rocksMaxAmount: 4
+  rocksMaxAmount: 3
   distanceRockIsClose: 1
   shoutingDuration: 1.25
   shoutingCooldown: 5
@@ -620,7 +620,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vehicle: {fileID: 114369862610452710}
   render: {fileID: 212337867824608488}
-  flashSpeed: 5
   unhitableDuration: 1
 --- !u!114 &114364954657361186
 MonoBehaviour:
@@ -649,8 +648,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isVisible: 1
   allegiance: 2
-  overrideDeactivationRange: 0
-  newDeactivationRange: 0
+  checkDeactivation: 0
   targets: 00000000
   canUseBorder: 1
   unitWidth: 0
@@ -664,7 +662,7 @@ MonoBehaviour:
   brain: {fileID: 114015716563977732}
   animator: {fileID: 114359284201243226}
   colliderListener: {fileID: 114092791149977012}
-  health: 5
+  health: 6
   forceToRektPlayer: 1
   canBeHit: 1
 --- !u!114 &114376725265308864
