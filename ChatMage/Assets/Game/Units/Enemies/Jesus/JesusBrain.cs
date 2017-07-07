@@ -14,7 +14,7 @@ public class JesusBrain : EnemyBrain<JesusVehicle> {
     public float shoutingDuration = 1f;
     public float shoutingCooldown = 4f;
     public float throwingCooldown = 2f;
-    public float throwingRockSpeed = 10f;
+    public bool damagableWhilePickingRock = false;
 
     private List<JesusRock> rocks = new List<JesusRock>();
     private JesusRock rockTarget = null;
@@ -22,6 +22,8 @@ public class JesusBrain : EnemyBrain<JesusVehicle> {
     private bool hasRock = false;
     private bool shouting = false;
     private bool ignoreNextFrame = false;
+    [HideInInspector]
+    public bool pickingRockAnimationOver = false;
 
     private float shoutingCountdown = 0;
     private float throwingCountdown = 0;
@@ -33,11 +35,14 @@ public class JesusBrain : EnemyBrain<JesusVehicle> {
             // Si on a une roche en notre possession
             if (hasRock)
             {
-                // Lancer la roche qu'on vient de prendre
-                if(throwingCountdown < 0)
+                if (pickingRockAnimationOver)
                 {
-                    LancerNouvelleRoche();
-                    hasRock = false;
+                    // Lancer la roche qu'on vient de prendre
+                    if (throwingCountdown < 0)
+                    {
+                        LancerNouvelleRoche();
+                        hasRock = false;
+                    }
                 }
             }
             else
@@ -61,6 +66,9 @@ public class JesusBrain : EnemyBrain<JesusVehicle> {
                             // ANIMATION CRIER
                             shoutingCountdown = shoutingDuration;
                             shouting = true;
+                        } else
+                        {
+                            TryToThrowNewRock();
                         }
                     }
                     else // Si on crie
@@ -110,7 +118,12 @@ public class JesusBrain : EnemyBrain<JesusVehicle> {
 
         // On essaie de prendre la roche
         if (rockTarget.TakeTheRock(transform.position))
+        {
+            pickingRockAnimationOver = false;
+            // ANIMATION DE PRENDRE LA ROCHE
+            pickingRockAnimationOver = true; // quand l'animation termine
             hasRock = true;
+        }
     }
 
     private void LancerNouvelleRoche()
@@ -129,7 +142,7 @@ public class JesusBrain : EnemyBrain<JesusVehicle> {
 
         // LANCAGE DE ROCHE ICI
         Vector2 normalizeDirection = (target.Position - vehicle.Position).normalized;
-        currentRock.Speed = normalizeDirection * throwingRockSpeed;
+        currentRock.Speed = normalizeDirection;
         ignoreNextFrame = true;
 
         // Temps avant le prochain lancement de roche

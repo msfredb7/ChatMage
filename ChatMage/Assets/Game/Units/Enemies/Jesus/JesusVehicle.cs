@@ -11,16 +11,22 @@ public class JesusVehicle : EnemyVehicle {
 
     public int health = 5;
     public float forceToRektPlayer = 5f;
+    public bool canBeHit = true;
 
     public override int Attacked(ColliderInfo on, int amount, Unit unit, ColliderInfo source = null)
     {
         if (amount <= 0)
             return 1;
 
-        if(unit is JesusRock)
+        if (brain.damagableWhilePickingRock)
+        {
+            if(!brain.pickingRockAnimationOver)
+                return Damaged();
+            return 1;
+        } else
+        {
             return Damaged();
-
-        return 0;
+        }
     }
 
     void Start()
@@ -34,15 +40,6 @@ public class JesusVehicle : EnemyVehicle {
         {
             //(other.parentUnit as PlayerVehicle).Bump((other.parentUnit.Position - Position) * forceToRektPlayer, 1, BumpMode.VelocityAdd);
         }
-
-        if (other.parentUnit is JesusRock)
-        {
-            if((other.parentUnit as JesusRock).canHit)
-            {
-                brain.ResetCooldowns();
-                Attacked(other, 1, other.parentUnit);
-            }            
-        }
     }
 
     void Update()
@@ -51,13 +48,15 @@ public class JesusVehicle : EnemyVehicle {
 
     private int Damaged()
     {
-        Debug.Log("AAWWWWW");
+        if (!canBeHit)
+            return 1;
         health--;
         if (health <= 0)
         {
             Die();
             return 0;
         }
+        animator.OnHitFlashAnimation();
         return 1;
     }
 

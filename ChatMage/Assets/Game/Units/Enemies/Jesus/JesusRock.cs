@@ -7,9 +7,9 @@ public class JesusRock : Unit
 
     public float rangeToTake = 3f;
     public float distanceUntilStopped = 5;
-    public float distanceUntilCanHit = 1;
     public float speedOnPlayerHit = 2.5f;
     public float maxDistanceToConsiderSlow = 0.1f;
+    public float rockSpeed = 5f;
 
     public SimpleEvent onRockTaken;
     public SimpleEvent onRockHitJesus;
@@ -23,9 +23,10 @@ public class JesusRock : Unit
     void Start()
     {
         // La roche peut pas faire mal quand on vient de la lancer
-        canHit = false;
+        canHit = true;
         startingPosition = transform.position; // on start le systeme de lancement/atterisage
         colliderListener.onCollisionEnter += ColliderListener_onCollisionEnter; // on doit savoir si le roche hit dequoi
+        Speed = Speed.normalized * rockSpeed;
     }
 
     void Update()
@@ -37,14 +38,6 @@ public class JesusRock : Unit
             Speed *= 0;
             startingPosition = transform.position;
             canHit = false;
-        } else
-        {   // Sinon si on a parcouru une certaine distance
-            if (Vector2.Distance(startingPosition, transform.position) > distanceUntilCanHit)
-                canHit = true; // la boule peut hit
-
-            // Si la roche va tellement lentement qu'elle est presque immobile
-            if (Vector2.Distance(transform.position, lastPosition) <= maxDistanceToConsiderSlow)
-                canHit = false;
         }
 
         lastPosition = transform.position;
@@ -55,7 +48,7 @@ public class JesusRock : Unit
         // Si le joueur a frapper la roche
         if (other.parentUnit is PlayerVehicle)
         {
-            Speed *= speedOnPlayerHit; // elle accelere
+            Speed = Speed.normalized * rockSpeed;
             startingPosition = transform.position; // et on reset le systeme de lancement/atterisage
         }
 
@@ -71,13 +64,6 @@ public class JesusRock : Unit
     // Quelqu'un essaie de prendre la roche !
     public bool TakeTheRock(Vector2 takerPosition)
     {
-        // Si la roche fait mal
-        if (canHit)
-        {
-            Debug.Log("Trying to take a rock that can hit");
-            return false;
-        }
-
         // Si la roche est proche
         if (Vector2.Distance(takerPosition, transform.position) < rangeToTake)
         {

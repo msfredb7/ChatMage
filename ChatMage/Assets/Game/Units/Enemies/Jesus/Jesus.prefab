@@ -538,12 +538,13 @@ MonoBehaviour:
   _serializedStateValues: []
   rockPrefab: {fileID: 114000304801460058, guid: a565345db244bd94ebcb0e72f95ff8db,
     type: 2}
-  rocksMaxAmount: 1
+  rocksMaxAmount: 4
   distanceRockIsClose: 1
-  shoutingDuration: 1
-  shoutingCooldown: 4
-  throwingCooldown: 3
-  throwingRockSpeed: 7.5
+  shoutingDuration: 1.25
+  shoutingCooldown: 5
+  throwingCooldown: 1
+  damagableWhilePickingRock: 0
+  pickingRockAnimationOver: 0
 --- !u!114 &114092791149977012
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -590,7 +591,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65d05512cab53054d8a0b20414ee7974, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  info: {fileID: 114570821633575018}
+  info: {fileID: 114355194980767058}
   useTrigger: 1
   useCollision: 0
 --- !u!114 &114355194980767058
@@ -617,6 +618,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da40157a74c612c46abfe29801c0988d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vehicle: {fileID: 114369862610452710}
+  render: {fileID: 212337867824608488}
+  flashSpeed: 5
+  unhitableDuration: 1
 --- !u!114 &114364954657361186
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -628,7 +633,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65d05512cab53054d8a0b20414ee7974, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  info: {fileID: 114570821633575018}
+  info: {fileID: 114808590273850146}
   useTrigger: 1
   useCollision: 0
 --- !u!114 &114369862610452710
@@ -661,6 +666,7 @@ MonoBehaviour:
   colliderListener: {fileID: 114092791149977012}
   health: 5
   forceToRektPlayer: 1
+  canBeHit: 1
 --- !u!114 &114376725265308864
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -672,7 +678,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65d05512cab53054d8a0b20414ee7974, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  info: {fileID: 114570821633575018}
+  info: {fileID: 114176797275517572}
   useTrigger: 1
   useCollision: 0
 --- !u!114 &114387206531472708
@@ -699,7 +705,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65d05512cab53054d8a0b20414ee7974, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  info: {fileID: 114570821633575018}
+  info: {fileID: 114492721041713832}
   useTrigger: 1
   useCollision: 0
 --- !u!114 &114425308086526096
@@ -726,7 +732,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65d05512cab53054d8a0b20414ee7974, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  info: {fileID: 114570821633575018}
+  info: {fileID: 114387206531472708}
   useTrigger: 1
   useCollision: 0
 --- !u!114 &114484375032104048
@@ -793,7 +799,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65d05512cab53054d8a0b20414ee7974, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  info: {fileID: 114570821633575018}
+  info: {fileID: 114425308086526096}
   useTrigger: 1
   useCollision: 0
 --- !u!212 &212337867824608488
