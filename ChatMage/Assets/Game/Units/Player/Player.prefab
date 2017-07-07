@@ -832,6 +832,8 @@ MonoBehaviour:
   onHitShakeStrength: 0.15
   loseHpPrefab: {fileID: 114796196922008038, guid: f5ff237a9e9a63c41a795cad2e5355a5,
     type: 2}
+  sprite: {fileID: 212447806428814966}
+  unhitableDuration: 1
   damagable: 1
   isVisible: 1
   boostedAOE: 0
@@ -875,9 +877,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58e4278b2bee48346a82a573d58ddf12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isVisible: 1
   allegiance: 0
-  overrideDeactivationRange: 0
-  newDeactivationRange: 0
+  checkDeactivation: 0
+  targets: 
   canUseBorder: 1
   unitWidth: 0
   moveSpeed: 6

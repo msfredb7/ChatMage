@@ -43,6 +43,10 @@ public class PlayerStats : PlayerComponent, IAttackable
     [NonSerialized]
     public StatFloat cooldownMultiplier = new StatFloat(1, 0, 1, BoundMode.Cap);
 
+    [Header("Flash Animation")]
+    public SpriteRenderer sprite;
+    public float unhitableDuration;
+
     [Header("Variables")]
     public bool damagable = true;
     public bool isVisible = true; // TODO
@@ -85,7 +89,15 @@ public class PlayerStats : PlayerComponent, IAttackable
 
         //Hit Animation
         if (loseHpAnimator != null)
+        {
+            damagable = false;
             loseHpAnimator.Animate(on.transform.position);
+            FlashAnimation.Flash(Game.instance.Player.vehicle, sprite, unhitableDuration, delegate ()
+            {
+                damagable = true;
+            });
+        }
+            
 
         //Reduce health / armor
         int damageToArmor = amount;
