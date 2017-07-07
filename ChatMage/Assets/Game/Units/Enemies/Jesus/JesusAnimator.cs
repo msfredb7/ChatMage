@@ -18,4 +18,19 @@ public class JesusAnimator : MonoBehaviour
               vehicle.canBeHit = true;
           });
     }
+
+    public void DisplayHealthBar()
+    {
+        Game.instance.ui.bossHealthBar.DisplayHealthBar("Jesus");
+    }
+
+    public void UpdateHealthBar(float hp, float hpMax)
+    {
+        Game.instance.ui.bossHealthBar.AdjustSlider(hp / hpMax);
+    }
+
+    public void JesusDeath()
+    {
+        Game.instance.ui.bossHealthBar.DeactivateHealthBar();
+    }
 }
