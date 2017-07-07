@@ -61,7 +61,7 @@ public class JesusBrain : EnemyBrain<JesusVehicle> {
                         if (shoutingCountdown < 0)
                         {
                             // Crie
-                            Debug.Log("RAAAWWWR");
+                            FlashAnimation.FlashColor(vehicle, vehicle.animator.render, shoutingDuration, Color.red, null);
                             SetBehavior(BehaviorType.Idle);
                             // ANIMATION CRIER
                             shoutingCountdown = shoutingDuration;

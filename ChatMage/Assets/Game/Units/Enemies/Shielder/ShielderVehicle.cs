@@ -128,6 +128,6 @@ public class ShielderVehicle : EnemyVehicle
         }
 
         //Death anim
-        Destroy(gameObject);
+        Destroy();
     }
 }

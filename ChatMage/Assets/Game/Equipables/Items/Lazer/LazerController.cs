@@ -51,7 +51,7 @@ public class LazerController : Unit
                 // Activation l'évennement de complétion car on a fini
                 onComplete.Invoke();
                 // On supprime le lazer qui a fini sa job
-                Destroy(gameObject);
+                Destroy();
             });
         });
     }

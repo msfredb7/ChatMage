@@ -194,13 +194,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1064323660593564}
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4775936969395106}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4483812356928038
 Transform:
   m_ObjectHideFlags: 1
@@ -272,7 +272,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1364255832642928}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_Children:
@@ -280,7 +280,7 @@ Transform:
   - {fileID: 4917841506820434}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!4 &4911186219799818
 Transform:
   m_ObjectHideFlags: 1
@@ -538,7 +538,7 @@ MonoBehaviour:
   _serializedStateValues: []
   rockPrefab: {fileID: 114000304801460058, guid: a565345db244bd94ebcb0e72f95ff8db,
     type: 2}
-  rocksMaxAmount: 4
+  rocksMaxAmount: 3
   distanceRockIsClose: 1
   shoutingDuration: 1.25
   shoutingCooldown: 5
@@ -620,7 +620,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vehicle: {fileID: 114369862610452710}
   render: {fileID: 212337867824608488}
-  flashSpeed: 5
   unhitableDuration: 1
 --- !u!114 &114364954657361186
 MonoBehaviour:
@@ -663,7 +662,7 @@ MonoBehaviour:
   brain: {fileID: 114015716563977732}
   animator: {fileID: 114359284201243226}
   colliderListener: {fileID: 114092791149977012}
-  health: 5
+  health: 6
   forceToRektPlayer: 1
   canBeHit: 1
 --- !u!114 &114376725265308864

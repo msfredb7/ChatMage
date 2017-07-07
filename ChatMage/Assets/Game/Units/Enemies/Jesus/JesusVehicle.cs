@@ -9,9 +9,11 @@ public class JesusVehicle : EnemyVehicle {
     public JesusAnimator animator;
     public MultipleColliderListener colliderListener;
 
-    public int health = 5;
+    public int startingHealth = 5;
     public float forceToRektPlayer = 5f;
     public bool canBeHit = true;
+
+    private int health;
 
     public override int Attacked(ColliderInfo on, int amount, Unit unit, ColliderInfo source = null)
     {
@@ -31,15 +33,13 @@ public class JesusVehicle : EnemyVehicle {
 
     void Start()
     {
+        animator.DisplayHealthBar();
+        health = startingHealth;
         colliderListener.onTriggerEnter += ColliderListener_onTriggerEnter;
     }
 
     private void ColliderListener_onTriggerEnter(ColliderInfo other, ColliderListener listener)
     {
-        if (other.parentUnit is PlayerVehicle)
-        {
-            //(other.parentUnit as PlayerVehicle).Bump((other.parentUnit.Position - Position) * forceToRektPlayer, 1, BumpMode.VelocityAdd);
-        }
     }
 
     void Update()
@@ -57,6 +57,7 @@ public class JesusVehicle : EnemyVehicle {
             return 0;
         }
         animator.OnHitFlashAnimation();
+        animator.UpdateHealthBar(health,startingHealth);
         return 1;
     }
 
@@ -65,6 +66,7 @@ public class JesusVehicle : EnemyVehicle {
         base.Die();
 
         // ANIMATION DE DESTRUCTIONS DU BOSS
+        animator.JesusDeath();
 
         Destroy();
     }

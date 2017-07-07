@@ -10,7 +10,7 @@ public class GateScript : Unit, IAttackable
     {
         Game.instance.units.Remove(this);
         Game.instance.gameCamera.followPlayer = true;
-        Destroy(gameObject);
+        Destroy();
         return 0;
     }
 }

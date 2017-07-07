@@ -13,6 +13,7 @@ public class UiSystem : MonoBehaviour {
     public OptionMenu menuOption;
     public DialogDisplay dialogDisplay;
     public CanvasGroup gameRelatedGroup;
+    public BossHealthBarDisplay bossHealthBar;
 
     public void Init(PlayerController playerController)
     {
