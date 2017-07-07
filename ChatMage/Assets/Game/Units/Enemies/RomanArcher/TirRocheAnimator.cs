@@ -99,7 +99,7 @@ public class TirRocheAnimator : MonoBehaviour
                 dist = v.magnitude;
             }
             TirRocheProjectile proj = Game.instance.SpawnUnit(projectilePrefab, vehicle.Position);
-            proj.Init(v, Math.Min(v.magnitude, maxShootDistance));
+            proj.Init(v, maxShootDistance);
             proj.Init(vehicle);
             spriteRenderer.color = Color.Lerp(clipEmpty, clipFull, ((float)vehicle.Ammo) / ((float)vehicle.maxAmmo));
         });

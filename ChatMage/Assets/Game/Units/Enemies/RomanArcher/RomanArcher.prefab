@@ -220,7 +220,7 @@ MonoBehaviour:
   armRetractX: -0.35
   armRetractDuration: 1
   defaultShootDistance: 5
-  maxShootDistance: 6.5
+  maxShootDistance: 12
   playerPredictionAccuracy: 0
   armShootX: 0.7
   armShootDuration: 0.15
@@ -251,8 +251,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isVisible: 1
   allegiance: 2
-  overrideDeactivationRange: 0
-  newDeactivationRange: 0
+  checkDeactivation: 0
   targets: 00000000
   canUseBorder: 1
   unitWidth: 0.5
@@ -282,8 +281,8 @@ MonoBehaviour:
   _objectReferences: []
   _serializedStateKeys: []
   _serializedStateValues: []
-  attackingMaxRange: 5
-  tooCloseRange: 2.54
+  attackingMaxRange: 7.5
+  tooCloseRange: 2.5
 --- !u!212 &212074958052663072
 SpriteRenderer:
   m_ObjectHideFlags: 1
