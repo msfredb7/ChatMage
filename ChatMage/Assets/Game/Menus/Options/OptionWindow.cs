@@ -34,6 +34,11 @@ public class OptionWindow : WindowAnimation
         ExitInGame();
     }
 
+    public void ClearSave()
+    {
+        GameSaves.instance.ClearAllSaves();
+    }
+
     public void Restart()
     {
         Game.instance.framework.RestartLevel();

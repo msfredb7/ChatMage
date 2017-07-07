@@ -13,10 +13,10 @@ public class MainMenu : BaseBehavior
     public Button optionsMenuButton;
     public bool DEMO = false; // A ENLEVER
 
-    [InspectorHeader("Tutorial")]
-    public bool doATutorial = false;
-    [InspectorShowIf("doATutorial")]
-    public Tutorial.BaseTutorial tutorial;
+    //[InspectorHeader("Tutorial")]
+    //public bool doATutorial = false;
+    //[InspectorShowIf("doATutorial")]
+    //public Tutorial.BaseTutorial tutorial;
 
     void Start()
     {
@@ -24,8 +24,8 @@ public class MainMenu : BaseBehavior
 
         playButton.onClick.AddListener(GotoLevelSelect);
 
-        if(doATutorial)
-            StartTutorial();
+        //if(doATutorial)
+        //    StartTutorial();
     }
 
     private void GotoLevelSelect()
@@ -35,8 +35,8 @@ public class MainMenu : BaseBehavior
         LoadingScreen.TransitionTo(LevelSelect.LevelSelection.SCENENAME, null);
     }
 
-    void StartTutorial()
-    {
-        Tutorial.TutorialScene.StartTutorial(tutorial.name);
-    }
+    //void StartTutorial()
+    //{
+    //    Tutorial.TutorialScene.StartTutorial(tutorial.name);
+    //}
 }

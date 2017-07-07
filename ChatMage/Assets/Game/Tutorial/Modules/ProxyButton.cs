@@ -23,6 +23,7 @@ namespace Tutorial
             if (currentAction != null)
                 currentAction();
 
+            currentAction = null;
             image.enabled = false;
         }
 

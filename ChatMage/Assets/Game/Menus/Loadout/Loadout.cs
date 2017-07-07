@@ -38,8 +38,10 @@ namespace LoadoutMenu
         public LoadoutResult ProduceResult()
         {
             LoadoutResult result = new LoadoutResult();
-            result.AddEquipable(chosenCar.preview.equipableAssetName, EquipableType.Car);
-            result.AddEquipable(chosenSmash.preview.equipableAssetName, EquipableType.Smash);
+            if (chosenCar != null)
+                result.AddEquipable(chosenCar.preview.equipableAssetName, EquipableType.Car);
+            if (chosenSmash != null)
+                result.AddEquipable(chosenSmash.preview.equipableAssetName, EquipableType.Smash);
 
             for (int i = 0; i < chosenItems.Count; i++)
             {

@@ -216,7 +216,8 @@ public abstract class Unit : MonoBehaviour
             return;
         isDestroying = true;
         gameObject.SetActive(false);
-        Game.instance.StartCoroutine(LateDestroy());
+        if (Game.instance != null)
+            Game.instance.StartCoroutine(LateDestroy());
     }
 
     private IEnumerator LateDestroy()

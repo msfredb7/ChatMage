@@ -8,8 +8,10 @@ namespace Tutorial
 {
     public class TextDisplay : MonoBehaviour
     {
+        public CanvasGroup fade;
         public Text text;
-        public CanvasGroup blackFade;
+        public Image blackFade;
+        public Image characterImage;
 
         [Header("Fade settings")]
         public float fadeDuration;
@@ -56,13 +58,14 @@ namespace Tutorial
 
         public void InstantDisplay(string message, bool blackBackground)
         {
-            blackFade.gameObject.SetActive(true);
-            blackFade.alpha = blackBackground ? 1 : 0;
+            fade.gameObject.SetActive(true);
+            fade.alpha = 1;
+
+            blackFade.enabled = blackBackground;
 
             if (automaticallyAdjustSize)
                 SetSize(message.Length);
-            text.enabled = true;
-            text.color = new Color(1, 1, 1, 1);
+
             text.text = message;
 
             isOn = true;
@@ -70,11 +73,8 @@ namespace Tutorial
 
         public void InstantHide()
         {
-            blackFade.alpha = 0;
-            blackFade.gameObject.SetActive(false);
-            text.enabled = false;
-            text.color = new Color(1, 1, 1, 0);
-
+            fade.gameObject.SetActive(false);
+            fade.alpha = 0;
             isOn = false;
         }
 
@@ -89,45 +89,45 @@ namespace Tutorial
             }
             else
             {
-                if (blackBackground)
-                {
-                    blackFade.gameObject.SetActive(true);
-                    blackFade.DOKill();
-                    blackFade.DOFade(1, fadeDuration).SetEase(fadeEase).SetUpdate(true);
-                }
+                fade.DOKill();
+                fade.gameObject.SetActive(true);
+                Tweener fadeTween = fade.DOFade(1, fadeDuration).SetEase(fadeEase).SetUpdate(true);
+
+                text.text = message;
+
+                blackFade.enabled = blackBackground;
 
                 if (automaticallyAdjustSize)
                     SetSize(message.Length);
-                text.enabled = true;
-                text.text = message;
-                text.DOKill();
-                Tweener textFade = text.DOFade(1, fadeDuration).SetEase(fadeEase).SetUpdate(true);
 
                 isOn = true;
 
                 if (onComplete != null)
-                    textFade.OnComplete(onComplete);
+                    fadeTween.OnComplete(onComplete);
             }
 
         }
 
         public void HideText(TweenCallback onComplete = null)
         {
-            if (blackFade.alpha > 0)
-            {
-                blackFade.DOKill();
-                blackFade.DOFade(0, fadeDuration).SetEase(fadeEase).SetUpdate(true);
-            }
-
-            text.DOKill();
-            text.DOFade(0, fadeDuration).SetEase(fadeEase).SetUpdate(true).OnComplete(delegate ()
+            fade.DOKill();
+            fade.DOFade(0, fadeDuration).SetEase(fadeEase).SetUpdate(true).OnComplete(delegate ()
             {
                 InstantHide();
 
                 if (onComplete != null)
                     onComplete();
             });
+        }
 
+        public void SetCharacterSprite(Sprite character)
+        {
+            characterImage.enabled = true;
+            characterImage.sprite = character;
+        }
+        public void DisableCharacterSprite()
+        {
+            characterImage.enabled = false;
         }
     }
 }

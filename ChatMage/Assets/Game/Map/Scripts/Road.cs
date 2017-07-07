@@ -32,9 +32,14 @@ public class Road : BaseBehavior
         this.gameCamera = gameCamera;
         if (setCameraMinMax)
         {
-            gameCamera.minHeight = bottomHeight + gameCamera.ScreenSize.y / 2;
-            gameCamera.maxHeight = topHeight - gameCamera.ScreenSize.y / 2;
+            ApplyMinMaxToCamera();
         }
+    }
+
+    public void ApplyMinMaxToCamera()
+    {
+        gameCamera.minHeight = bottomHeight + gameCamera.ScreenSize.y / 2;
+        gameCamera.maxHeight = topHeight - gameCamera.ScreenSize.y / 2;
     }
 
     public void OnCompleteTeleport()
@@ -90,7 +95,7 @@ public class Road : BaseBehavior
 
             if (milestoneRelativeHeights[i] >= bottom)
             {
-                if (milestones[i].disapearAfterTrigger && milestones[i].Execute())
+                if (milestones[i].Execute() && milestones[i].disapearAfterTrigger)
                 {
                     Destroy(milestones[i].gameObject);
                     milestones.RemoveAt(i);

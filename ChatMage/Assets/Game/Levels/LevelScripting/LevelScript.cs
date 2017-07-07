@@ -70,8 +70,11 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
     [fsIgnore, NotSerialized]
     private List<UnitWaveV2> manuallyTriggeredWaves;
 
-    private void ResetData()
+    protected virtual void ResetData()
     {
+        onWin = null;
+        onLose = null;
+        onEventReceived = null;
         isOver = false;
         inGameEvents = null;
         eventTriggeredWaves = null;

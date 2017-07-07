@@ -126,6 +126,7 @@ namespace Tutorial
                             modules.shorcuts.TimeUnFreeze();
                             modules.spotlight.Off();
                             modules.textDisplay.HideText();
+                            End(true);
                         });
                     });
             });

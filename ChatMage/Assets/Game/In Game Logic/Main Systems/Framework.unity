@@ -181,7 +181,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthPackPrefab: {fileID: 114870834835718906, guid: d28e2a568fc043140bfc8bc5777eb644,
     type: 2}
-  debugPrints: 1
+  debugPrints: 0
   lerpUpdateRate: 0.0005
   lerpPerKill: 0.1
   lerpCeiling: 50
@@ -582,14 +582,8 @@ MonoBehaviour:
   _keys:
   - {fileID: 986166561}
   _values:
-  - _keys:
-    - DefaultBehaviorEditor.gameCamera.EditProperty
-    - DefaultBehaviorEditor.units.EditProperty
-    _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
+  - _keys: []
+    _values: []
     _target: {fileID: 986166561}
 --- !u!1 &1461222805
 GameObject:
@@ -778,6 +772,8 @@ MonoBehaviour:
   vectorShaker: {fileID: 1842310629}
   defaultBounds: {x: 16, y: 9}
   distance: -10
+  minHeight: -Infinity
+  maxHeight: Infinity
   canScrollUp: 1
   canScrollDown: 1
   followPlayer: 0

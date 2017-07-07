@@ -6,6 +6,7 @@ public class RoadPlayer : MonoBehaviour
 {
     public bool canTeleport = false;
     public List<Road> roads = new List<Road>();
+    public Road CurrentRoad { get { return currentRoad; } }
     public Transform teleportingContainer;
     public bool changeRoadOnTeleport;
 

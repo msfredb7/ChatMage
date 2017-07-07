@@ -292,6 +292,7 @@ public class GameSaves : BaseManager<GameSaves>
     public void ClearSave(Type type)
     {
         Saves.Delete(GetPath() + TypeToFileName(type));
+        NewOfType(type);
     }
 
     #endregion
@@ -305,7 +306,7 @@ public class GameSaves : BaseManager<GameSaves>
     private const string TUTORIAL_FILE = "tutorial.dat";
 
     public enum Type { LevelSelect = 0, Loadout = 1, Account = 2, Armory = 3, Tutorial = 4 }
-    
+
     [ShowInInspector, InspectorDisabled]
     private Data levelSelectData = new Data();
     [ShowInInspector, InspectorDisabled]
@@ -322,15 +323,15 @@ public class GameSaves : BaseManager<GameSaves>
         switch (type)
         {
             case Type.LevelSelect:
-                return LEVELSELECT_FILE;
+                return saveVersion + LEVELSELECT_FILE;
             case Type.Loadout:
-                return LOADOUT_FILE;
+                return saveVersion + LOADOUT_FILE;
             case Type.Account:
-                return ACCOUNT_FILE;
+                return saveVersion + ACCOUNT_FILE;
             case Type.Armory:
-                return ARMORY_FILE;
+                return saveVersion+ ARMORY_FILE;
             case Type.Tutorial:
-                return TUTORIAL_FILE;
+                return saveVersion + TUTORIAL_FILE;
         }
         return "";
     }
