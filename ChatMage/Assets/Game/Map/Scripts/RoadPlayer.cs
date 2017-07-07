@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RoadPlayer : MonoBehaviour
 {
+    public bool canTeleport = false;
     public List<Road> roads = new List<Road>();
     public Transform teleportingContainer;
     public bool changeRoadOnTeleport;
@@ -18,6 +19,8 @@ public class RoadPlayer : MonoBehaviour
 
     public void Init(Transform player)
     {
+        enabled = canTeleport;
+
         playerT = player;
         if (currentRoad == null)
             SetRoad(0);

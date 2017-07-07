@@ -12,6 +12,8 @@ public class GameCamera : MonoBehaviour
     [Header("Settings")]
     public Vector2 defaultBounds;
     public float distance = -10;
+    public float minHeight = float.NegativeInfinity;
+    public float maxHeight = float.PositiveInfinity;
     public bool canScrollUp = true;
     public bool canScrollDown = true;
 
@@ -77,6 +79,8 @@ public class GameCamera : MonoBehaviour
 
     public void SetToHeight(float height)
     {
+        height = Mathf.Clamp(height, minHeight, maxHeight);
+
         if (!canScrollUp)
             height = Mathf.Min(tr.position.y, height);
         if (!canScrollDown)

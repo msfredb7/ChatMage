@@ -13,19 +13,38 @@ public class LS_FirstLevel : LevelScript
     public TirRocheVehicle archer;
 
     [InspectorHeader("Dialog"), InspectorMargin(10)]
-    public Dialoguing.Dialog introDialog;
-    public Dialoguing.Dialog startWavesDialog;
+    public Dialoguing.Dialog whereAmIDialog;
+    public Dialoguing.Dialog lookADoorDialog;
+    public Dialoguing.Dialog enterArenaDialog;
     public Dialoguing.Dialog firstKillDialog;
 
     [fsIgnore, NonSerialized]
     private bool firstWaveLaunched;
 
+    private Map map;
+
     protected override void OnGameReady()
     {
+        map = Game.instance.map;
         Game.instance.smashManager.smashEnabled = false;
         Game.instance.ui.smashDisplay.canBeShown = false;
 
-        IntroEnemies();
+
+        //On ecoute a la mort de la porte
+        List<Unit> allUnits = Game.instance.units;
+        for (int i = 0; i < allUnits.Count; i++)
+        {
+            if(allUnits[i] is DestructibleDoor)
+            {
+                allUnits[i].onDeath += OnDestructibleDoorBroken;
+                break;
+            }
+        }
+    }
+
+    void OnDestructibleDoorBroken(Unit door)
+    {
+        Game.instance.gameCamera.followPlayer = true;
     }
 
     void IntroEnemies()
@@ -43,18 +62,17 @@ public class LS_FirstLevel : LevelScript
 
     protected override void OnGameStarted()
     {
-        Game.instance.ui.dialogDisplay.StartDialog(introDialog, delegate()
+        Game.instance.ui.dialogDisplay.StartDialog(whereAmIDialog);
+
+        inGameEvents.AddDelayedAction(delegate ()
         {
             ReceiveEvent("tuto move");
-        });
-
-        //On start la premiere wave apres 5s (normallement, c'est le tutoriel qui le fait)
-        inGameEvents.AddDelayedAction(StartFirstWave, 5);
+        }, 1.5f);
     }
 
     public void StartFirstWave()
     {
-        Game.instance.ui.dialogDisplay.StartDialog(startWavesDialog, delegate()
+        Game.instance.ui.dialogDisplay.StartDialog(enterArenaDialog, delegate()
         {
             TriggerWaveManually("1st wave");
         });
@@ -72,6 +90,14 @@ public class LS_FirstLevel : LevelScript
     {
         switch (message)
         {
+            case "face door":
+                Game.instance.ui.dialogDisplay.StartDialog(lookADoorDialog);
+                break;
+            case "enter arena":
+                Game.instance.gameCamera.minHeight = 0;
+                StartFirstWave();
+                map.mapping.GetTaggedObject("arena gate").GetComponent<SidewaysFakeGate>().Close();
+                break;
             case "wave 1 complete":
                 inGameEvents.AddDelayedAction(StartSecondWave, 1);
                 break;
@@ -87,10 +113,6 @@ public class LS_FirstLevel : LevelScript
         if (Input.GetKeyDown(KeyCode.L))
         {
             Lose();
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            Time.timeScale = 0;
         }
     }
 }

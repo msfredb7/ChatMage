@@ -369,6 +369,14 @@ public class Mapping : BaseBehavior
         else
             return new List<TaggedObject>();
     }
+    public TaggedObject GetTaggedObject(string tag)
+    {
+        List<TaggedObject> list = GetTaggedObjectsListByTag(tag);
+        if (list != null)
+            return GetTaggedObjectsListByTag(tag)[0];
+        else
+            return null;
+    }
 
     /// <summary>
     /// Retourne la premiere occurence de spawn avec ce tag

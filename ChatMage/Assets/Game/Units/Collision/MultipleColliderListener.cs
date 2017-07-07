@@ -105,9 +105,11 @@ public class MultipleColliderListener : MonoBehaviour
         GameObject group = info.GroupParent;
         ObjectCollider obj = GetObjectByGroup(group);
 
-        ObjectCollider.ColliderPair pair = obj.includedListeners.Find(x => x.a == listener && x.b == info);
+        ObjectCollider.ColliderPair pair = null;
+        if (obj != null)
+            pair = obj.includedListeners.Find(x => x.a == listener && x.b == info);
 
-        if (obj == null || pair == null)
+        if (pair == null)
         {
             forgetList.Add(listener);  //L'objet est entré et sortie dans la même frame
         }

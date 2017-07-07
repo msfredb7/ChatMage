@@ -30,6 +30,13 @@ public class DialogDisplay : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) && CurrentDialog != null && currentDialog.isActive)
+            End();
+
+    }
+
     public void StartDialog(Dialog dialog, Action onComplete = null)
     {
         if (CurrentDialog != null)
@@ -85,12 +92,7 @@ public class DialogDisplay : MonoBehaviour
 
         if (index >= replies.Length)
         {
-            //On a fini
-            currentDialog.isActive = false;
-
-            hideGroup.DOFade(1, textBox.openDuration).SetUpdate(true);
-            characters.HideBoth();
-            textBox.Close(OnCloseComplete);
+            End();
         }
         else
         {
@@ -98,6 +100,16 @@ public class DialogDisplay : MonoBehaviour
             DisplayReply(replies[index]);
             currentDialog.nextReply++;
         }
+    }
+
+    private void End()
+    {
+        //On a fini
+        currentDialog.isActive = false;
+
+        hideGroup.DOFade(1, textBox.openDuration).SetUpdate(true);
+        characters.HideBoth();
+        textBox.Close(OnCloseComplete);
     }
 
     private void DisplayReply(Reply reply)
