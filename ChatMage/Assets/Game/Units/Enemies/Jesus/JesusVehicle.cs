@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -62,7 +62,7 @@ public class JesusVehicle : EnemyVehicle {
 
         // ANIMATION DE DESTRUCTIONS DU BOSS
 
-        Destroy(gameObject);
+        Destroy();
     }
 
     public void GoToLocation(Vector2 location)

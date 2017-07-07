@@ -14,8 +14,7 @@ public abstract class Unit : MonoBehaviour
     [Header("Unit")]
     public bool isVisible = true;
     public Allegiance allegiance = Allegiance.Enemy;
-    public bool overrideDeactivationRange = false;
-    public float newDeactivationRange;
+    public bool checkDeactivation = false;
 
     [Header("Targeting")]
     public List<Allegiance> targets;
@@ -34,6 +33,7 @@ public abstract class Unit : MonoBehaviour
 
     public bool IsDead { get { return isDead; } }
     protected bool isDead = false;
+    protected bool isDestroying = false;
 
     [Header("Border")]
     public bool canUseBorder = true;
@@ -108,8 +108,11 @@ public abstract class Unit : MonoBehaviour
 
     public virtual void CheckActivation()
     {
+        if (!checkDeactivation)
+            return;
+
         float delta = Mathf.Abs(Game.instance.gameCamera.Height - rb.position.y);
-        float range = overrideDeactivationRange ? newDeactivationRange : deactivationRange;
+        float range = deactivationRange;
 
         if (delta > range)
         {
@@ -205,6 +208,22 @@ public abstract class Unit : MonoBehaviour
         if (targets.Remove(targetAllegiance) && onRemoveTarget != null)
             onRemoveTarget();
         return this;
+    }
+
+    protected void Destroy()
+    {
+        if (isDestroying)
+            return;
+        isDestroying = true;
+        gameObject.SetActive(false);
+        Game.instance.StartCoroutine(LateDestroy());
+    }
+
+    private IEnumerator LateDestroy()
+    {
+        yield return new WaitForFixedUpdate();
+        yield return new WaitForFixedUpdate();
+        Destroy(gameObject);
     }
 
     public virtual void SaveRigidbody()

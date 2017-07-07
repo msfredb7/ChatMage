@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -34,8 +34,20 @@ public class MultipleColliderListener : MonoBehaviour
     {
         public GameObject group;
         public int collisionCount;
-        public List<ColliderListener> includedListeners = new List<ColliderListener>();
+        public List<ColliderPair> includedListeners = new List<ColliderPair>();
         public Unit unit;
+
+        [System.Serializable]
+        public class ColliderPair
+        {
+            public ColliderListener a;
+            public ColliderInfo b;
+            public ColliderPair(ColliderListener a, ColliderInfo b)
+            {
+                this.a = a;
+                this.b = b;
+            }
+        }
 
         public ObjectCollider(GameObject group, Unit unit)
         {
@@ -58,28 +70,6 @@ public class MultipleColliderListener : MonoBehaviour
         forgetList.Clear();
     }
 
-    public void OnRemoteTriggerExit2D(ColliderInfo info, ColliderListener listener)
-    {
-        GameObject group = info.GroupParent;
-        ObjectCollider obj = GetObjectByGroup(group);
-
-
-        if (obj == null || !obj.includedListeners.Contains(listener))
-        {
-            forgetList.Add(listener);  //L'objet est entré et sortie dans la même frame
-        }
-        else
-        {
-            obj.includedListeners.Remove(listener);
-            obj.collisionCount--;
-            if (obj.collisionCount <= 0)
-            {
-                inContactWith.Remove(obj);
-                OnExit(info, listener);
-            }
-        }
-    }
-
     public void OnRemoteTriggerEnter2D(ColliderInfo info, ColliderListener listener)
     {
         //Est-ce que l'objet est entré/sortie dans la même frame ?
@@ -96,12 +86,40 @@ public class MultipleColliderListener : MonoBehaviour
         if (obj == null)
             obj = new ObjectCollider(group, info.parentUnit);
 
-        obj.includedListeners.Add(listener);
+        if (obj.includedListeners.Find(x => x.a == listener && x.b == info) != null)
+            return;
+
+        obj.includedListeners.Add(new ObjectCollider.ColliderPair(listener, info));
+        
+
         obj.collisionCount++;
         if (obj.collisionCount == 1)
         {
             inContactWith.Add(obj);
             OnEnter(info, listener);
+        }
+    }
+
+    public void OnRemoteTriggerExit2D(ColliderInfo info, ColliderListener listener)
+    {
+        GameObject group = info.GroupParent;
+        ObjectCollider obj = GetObjectByGroup(group);
+
+        ObjectCollider.ColliderPair pair = obj.includedListeners.Find(x => x.a == listener && x.b == info);
+
+        if (obj == null || pair == null)
+        {
+            forgetList.Add(listener);  //L'objet est entré et sortie dans la même frame
+        }
+        else
+        {
+            obj.includedListeners.Remove(pair);
+            obj.collisionCount--;
+            if (obj.collisionCount <= 0)
+            {
+                inContactWith.Remove(obj);
+                OnExit(info, listener);
+            }
         }
     }
 
