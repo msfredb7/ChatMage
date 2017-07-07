@@ -43,6 +43,6 @@ public class PinataVehicle : Unit, IAttackable
     {
         base.Die();
 
-        Destroy(gameObject);
+        Destroy();
     }
 }

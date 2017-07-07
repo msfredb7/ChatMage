@@ -72,7 +72,7 @@ public class Mine : Unit
         if (Game.instance.Player != null && Game.instance.Player.playerStats.boostedAOE)
             radius = boostedExplosionRadius;
 
-        explosion.Explode(radius, delegate () { Destroy(gameObject); }, this);
+        explosion.Explode(radius, delegate () { Destroy(); }, this);
 
         //Explosion !
         Collider2D[] cols = Physics2D.OverlapCircleAll(Position, boostedExplosionRadius, explosionLayerMask);

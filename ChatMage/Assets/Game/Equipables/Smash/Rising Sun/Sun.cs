@@ -101,7 +101,7 @@ public class Sun : Unit
         size = 0;
         ApplySize(delegate()
         {
-            Destroy(gameObject);
+            Destroy();
         });
     }
 

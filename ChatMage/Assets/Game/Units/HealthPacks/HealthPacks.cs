@@ -87,6 +87,6 @@ public class HealthPacks : MovingUnit
     {
         base.Die();
 
-        Destroy(gameObject);
+        Destroy();
     }
 }

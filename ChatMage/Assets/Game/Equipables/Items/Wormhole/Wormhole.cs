@@ -55,7 +55,7 @@ public class Wormhole : Unit {
     // Appeler par l'animation Death
     public void Kill()
     {
-        Destroy(gameObject);
+        Destroy();
     }
 
     protected override void Die()

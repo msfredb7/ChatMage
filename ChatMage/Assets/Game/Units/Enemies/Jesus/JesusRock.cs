@@ -75,7 +75,7 @@ public class JesusRock : Unit
         {
             // The Rock has been taken !
             onRockTaken.Invoke();
-            Destroy(gameObject);
+            Destroy();
             return true;
         }
         else

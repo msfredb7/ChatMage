@@ -34,7 +34,7 @@ public class ChainChomp : Unit
 
     void OnPlayerDestroyed(Unit unit)
     {
-        Destroy(gameObject);
+        Destroy();
     }
 
     private void ColliderListener_onCollisionEnter(ColliderInfo other, Collision2D collision, ColliderListener listener)
