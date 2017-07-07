@@ -76,9 +76,12 @@ public class TirRocheVehicle : EnemyVehicle
     }
     protected override void Die()
     {
+        if (IsDead)
+            return;
+
         base.Die();
 
         //Death anim
-        Destroy(gameObject);
+        Destroy();
     }
 }

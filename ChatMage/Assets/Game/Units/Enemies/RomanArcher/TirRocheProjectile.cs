@@ -62,12 +62,12 @@ public class TirRocheProjectile : Projectiles
         if (hitSomething)
         {
             //hit something animation (ex: sparks)
-            Destroy(gameObject);
+            Destroy();
         }
         else
         {
             //hit nothing animation (ex: dirt splash)
-            Destroy(gameObject);
+            Destroy();
         }
     }
 }

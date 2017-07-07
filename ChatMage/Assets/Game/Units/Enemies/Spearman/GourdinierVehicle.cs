@@ -39,7 +39,7 @@ public class GourdinierVehicle : EnemyVehicle
     {
         base.Die();
 
-        Destroy(gameObject);
+        Destroy();
     }
 
     public void Attack()

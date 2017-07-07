@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerVehicle : Vehicle
+public class PlayerVehicle : Vehicle, IAttackable
 {
     [Header("Trail Renderers")]
     public string sortingLayer;
@@ -104,7 +104,12 @@ public class PlayerVehicle : Vehicle
         base.Die();
 
         //Death animation
-        Destroy(gameObject);
+        Destroy();
+    }
+
+    public int Attacked(ColliderInfo on, int amount, Unit otherUnit, ColliderInfo source = null)
+    {
+        return controller.playerStats.Attacked(on, amount, otherUnit, source);
     }
 
     #region Drift
