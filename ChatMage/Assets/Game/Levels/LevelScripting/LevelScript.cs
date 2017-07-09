@@ -34,8 +34,8 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
     [InspectorTooltip("No healthpacks during the entire level")]
     public bool noHealthPacks = false;
     public bool followPlayerOnStart = false;
-    public bool verticalUnitSnap = true;
-    public bool horizontalUnitSnap = true;
+    //public bool verticalUnitSnap = true;
+    //public bool horizontalUnitSnap = true;
 
 
     [InspectorHeader("In Game Events")]
@@ -299,7 +299,7 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
 
     void ApplySettings()
     {
-        Game.instance.SetUnitSnapBorders(horizontalUnitSnap, 0, verticalUnitSnap, 0);
+        //Game.instance.SetUnitSnapBorders(horizontalUnitSnap, 0, verticalUnitSnap, 0);
         Game.instance.healthPackManager.enableHealthPackSpawn = !noHealthPacks;
     }
 

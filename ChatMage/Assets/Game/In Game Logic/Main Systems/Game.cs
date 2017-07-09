@@ -55,10 +55,10 @@ public class Game : PublicSingleton<Game>
     public event Unit.Unit_Event onUnitSpawned;
     public event Unit.Unit_Event onUnitDestroyed;
 
-    public bool unitSnap_horizontalBound;
-    public float unitSnap_horizontalBorderWidth;
-    public bool unitSnap_verticalBound;
-    public float unitSnap_verticalBorderWidth;
+    //public bool unitSnap_horizontalBound;
+    //public float unitSnap_horizontalBorderWidth;
+    //public bool unitSnap_verticalBound;
+    //public float unitSnap_verticalBorderWidth;
 
     public void Init(LevelScript level, Framework framework, PlayerController player)
     {
@@ -183,13 +183,13 @@ public class Game : PublicSingleton<Game>
             onUnitDestroyed(unit);
     }
 
-    public void SetUnitSnapBorders(bool horizontalBound, float horizontalBorderWidth, bool verticalBound, float verticalBorderWidth)
-    {
-        unitSnap_horizontalBound = horizontalBound;
-        unitSnap_horizontalBorderWidth = horizontalBorderWidth;
-        unitSnap_verticalBound = verticalBound;
-        unitSnap_verticalBorderWidth = verticalBorderWidth;
-    }
+    //public void SetUnitSnapBorders(bool horizontalBound, float horizontalBorderWidth, bool verticalBound, float verticalBorderWidth)
+    //{
+    //    unitSnap_horizontalBound = horizontalBound;
+    //    unitSnap_horizontalBorderWidth = horizontalBorderWidth;
+    //    unitSnap_verticalBound = verticalBound;
+    //    unitSnap_verticalBorderWidth = verticalBorderWidth;
+    //}
 
     #endregion
 }
