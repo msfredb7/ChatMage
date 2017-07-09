@@ -4,7 +4,7 @@ using UnityEngine;
 using FullInspector;
 using System;
 
-public class GourdinierBrain : EnemyBrain<GourdinierVehicle>
+public class SpearmanBrain : EnemyBrain<SpearmanVehicle>
 {
     [InspectorHeader("Gourdinier Brain")]
     public float startAttackRange = 2;
@@ -20,17 +20,26 @@ public class GourdinierBrain : EnemyBrain<GourdinierVehicle>
 
     protected override void UpdateWithTarget()
     {
+        //Si on est entrain d'attaquer, on ne fait pas de changement a notre behavior
+        if (!vehicle.CanAttack)
+            return;
+
         Vector2 meToPPredic = meToTarget + target.Speed * thinkAheadLength;
         float dist = meToTarget.magnitude;
 
-        if (dist <= startAttackRange || (movementPrediction && meToPPredic.magnitude <= startAttackRange) || vehicle.isAttacking)
+        if (dist <= startAttackRange ||  //En range d'attaque
+            (movementPrediction && meToPPredic.sqrMagnitude <= startAttackRange * startAttackRange))
         {
-            //Attack mode
-            if (CanGoTo<LookTargetBehavior>())
-                SetBehavior(new LookTargetBehavior(vehicle));
 
-            if (vehicle.CanAttack())
-                vehicle.Attack();
+            //Attack mode
+            if (vehicle.CanAttack)
+            {
+                SetBehavior(new SpearmanAttackBehavior(vehicle));
+            }
+            else if (CanGoTo<LookTargetBehavior>())
+            {
+                SetBehavior(new LookTargetBehavior(vehicle));
+            }
         }
         else
         {

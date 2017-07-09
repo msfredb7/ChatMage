@@ -8,6 +8,7 @@ public class IdleBehavior : EnemyBehavior<EnemyVehicle>
 
     public override void Enter(Unit player)
     {
+        vehicle.Stop();
     }
 
     public override void Exit(Unit player)
@@ -16,6 +17,5 @@ public class IdleBehavior : EnemyBehavior<EnemyVehicle>
 
     public override void Update(Unit player, float deltaTime)
     {
-        vehicle.Stop();
     }
 }

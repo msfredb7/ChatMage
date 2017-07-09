@@ -28,14 +28,14 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &1216963666200194
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4585702998755642}
   m_Layer: 10
-  m_Name: Gourdin
+  m_Name: Spear
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -91,6 +91,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1612985089005642
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4285559303737546}
+  m_Layer: 10
+  m_Name: Spear Holder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1871222452349014
 GameObject:
   m_ObjectHideFlags: 0
@@ -139,6 +154,20 @@ Transform:
   m_Father: {fileID: 4552794639155162}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4285559303737546
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1612985089005642}
+  m_LocalRotation: {x: 0, y: 0, z: 0.08715578, w: 0.9961947}
+  m_LocalPosition: {x: 0.18, y: -0.25, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4585702998755642}
+  m_Father: {fileID: 4552794639155162}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 10}
 --- !u!4 &4408294251267548
 Transform:
   m_ObjectHideFlags: 1
@@ -163,7 +192,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4272834586926906}
-  - {fileID: 4585702998755642}
+  - {fileID: 4285559303737546}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -173,14 +202,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1216963666200194}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.237, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0, z: 0}
+  m_LocalScale: {x: 0.16, y: 0.9, z: 1}
   m_Children:
   - {fileID: 4655908650305594}
   - {fileID: 4132355666092926}
-  m_Father: {fileID: 4552794639155162}
-  m_RootOrder: 1
+  m_Father: {fileID: 4285559303737546}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4655908650305594
 Transform:
@@ -189,8 +218,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1274347890908236}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 0.14, z: 1}
+  m_LocalPosition: {x: -0.233, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4585702998755642}
   m_RootOrder: 0
@@ -242,7 +271,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.024534762, y: 0}
+  m_Offset: {x: 0.65, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -253,7 +282,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.005643, y: 0.22326279}
+  m_Size: {x: 0.59, y: 0.22326279}
   m_EdgeRadius: 0
 --- !u!114 &114117048000841424
 MonoBehaviour:
@@ -268,21 +297,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isVisible: 1
   allegiance: 2
-  overrideDeactivationRange: 0
-  newDeactivationRange: 0
+  checkDeactivation: 0
   targets: 00000000
-  canUseBorder: 1
-  unitWidth: 0.7
   moveSpeed: 1
   targetDirection: 0
   rotationSetsTargetDirection: 1
   useWeight: 0
   weight: 0.1
+  unitWidth: 0.7
   useTurnSpeed: 1
-  turnSpeed: 150
+  turnSpeed: 210
   attackCooldown: 0
   animator: {fileID: 114244199259696152}
   bodySprite: {fileID: 212368842169423508}
+  attackListener: {fileID: 114504018691956866}
+  bumpForce: 5
 --- !u!114 &114244199259696152
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -295,14 +324,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vehicle: {fileID: 114117048000841424}
-  gourdin: {fileID: 4585702998755642}
-  chargeDuration: 0.5
-  gourdinXCharge: -0.322
-  attackListener: {fileID: 114504018691956866}
+  spear: {fileID: 4585702998755642}
+  spearScaleDuration: 0.15
+  chargeDuration: 0.9
+  spearXCharge: -0.3
+  spearXScale: 0.9
   attackTrigger: {fileID: 61610854500850692}
-  gourdinXAttack: 1.25
-  attackDuration: 0.35
-  bumpForce: 2.5
+  enableTriggerAfter: 0
+  spearXAttack: 1.15
+  attackDuration: 0.15
+  pause: 0.8
+  retractDuration: 0.25
 --- !u!114 &114281818282303750
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -391,9 +423,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 99d277ac246f1344ba5f869f265b69c1, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: c209141629145904e99a35d4a97405a7, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -429,8 +461,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -852012283
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: e89761395d3e9b845995c6b9ec45d3f3, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}

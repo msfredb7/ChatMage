@@ -9,7 +9,7 @@ using FullSerializer;
 public class LS_FirstLevel : LevelScript
 {
     [InspectorHeader("Enemy Prefabs"), InspectorMargin(10)]
-    public GourdinierVehicle spearMan;
+    public SpearmanVehicle spearMan;
     public ArcherVehicle archer;
 
     [InspectorHeader("Dialog"), InspectorMargin(10)]
