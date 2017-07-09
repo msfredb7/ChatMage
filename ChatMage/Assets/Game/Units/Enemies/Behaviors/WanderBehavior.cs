@@ -13,8 +13,6 @@ public class WanderBehavior : EnemyBehavior<EnemyVehicle>
 
     public WanderBehavior(EnemyVehicle v) : base(v) { }
 
-    public override BehaviorType Type { get { return BehaviorType.Wander; } }
-
     public override void Enter(Unit player)
     {
     }

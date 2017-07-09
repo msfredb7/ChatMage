@@ -7,8 +7,6 @@ public class FleeBehavior : EnemyBehavior<EnemyVehicle>
 {
     public FleeBehavior(EnemyVehicle v) : base(v) { }
 
-    public override BehaviorType Type { get { return BehaviorType.Flee; } }
-
     public override void Enter(Unit player)
     {
     }

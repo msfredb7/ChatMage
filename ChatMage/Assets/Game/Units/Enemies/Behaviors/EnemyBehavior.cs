@@ -1,8 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum BehaviorType { Null = -1, Idle = 0, Flee = 1, Follow = 2, Panic = 3, Wander = 4, LookPlayer = 5 } //On peut en ajouter
 
 public abstract class EnemyBehavior<T> : EnemyBehavior where T : EnemyVehicle
 {
@@ -18,5 +18,4 @@ public abstract class EnemyBehavior
     public abstract void Enter(Unit target);
     public abstract void Update(Unit target, float deltaTime);
     public abstract void Exit(Unit target);
-    public abstract BehaviorType Type { get; }
 }

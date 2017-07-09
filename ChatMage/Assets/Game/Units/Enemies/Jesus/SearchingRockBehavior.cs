@@ -8,14 +8,6 @@ public class SearchingRockBehavior : EnemyBehavior<JesusVehicle>
 
     private JesusRock rockTarget;
 
-    public override BehaviorType Type
-    {
-        get
-        {
-            return BehaviorType.Wander;
-        }
-    }
-
     public override void Enter(Unit target)
     {
         if (rockTarget != null) 

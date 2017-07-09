@@ -20,13 +20,14 @@ public class GourdinierBrain : EnemyBrain<GourdinierVehicle>
 
     protected override void UpdateWithTarget()
     {
-        Vector2 meToPPredic = meToTarger + target.Speed * thinkAheadLength;
-        float dist = meToTarger.magnitude;
+        Vector2 meToPPredic = meToTarget + target.Speed * thinkAheadLength;
+        float dist = meToTarget.magnitude;
 
         if (dist <= startAttackRange || (movementPrediction && meToPPredic.magnitude <= startAttackRange) || vehicle.isAttacking)
         {
             //Attack mode
-            SetBehavior(BehaviorType.LookPlayer);
+            if (CanGoTo<LookTargetBehavior>())
+                SetBehavior(new LookTargetBehavior(vehicle));
 
             if (vehicle.CanAttack())
                 vehicle.Attack();
@@ -34,12 +35,14 @@ public class GourdinierBrain : EnemyBrain<GourdinierVehicle>
         else
         {
             //Go to player
-            SetBehavior(BehaviorType.Follow);
+            if (CanGoTo<FollowBehavior>())
+                SetBehavior(new FollowBehavior(vehicle));
         }
     }
 
     protected override void UpdateWithoutTarget()
     {
-        SetBehavior(BehaviorType.Wander);
+        if (CanGoTo<WanderBehavior>())
+            SetBehavior(new WanderBehavior(vehicle));
     }
 }

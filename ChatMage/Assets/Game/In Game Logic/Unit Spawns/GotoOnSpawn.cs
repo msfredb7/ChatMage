@@ -7,7 +7,6 @@ public class GotoOnSpawn : OnSpawnAction
     public UnitSpawn.PositionType positionType;
     public Vector2 delta = new Vector2(3, 2);
     public bool setUnitDirection = false;
-    public bool restrainToScreenIfApplies = true;
 
 
     public void OnDrawGizmosSelected()
@@ -67,6 +66,6 @@ public class GotoOnSpawn : OnSpawnAction
             //On reactive le cerveau a la fin
             if (brain != null)
                 brain.enabled = true;
-        }, restrainToScreenIfApplies);
+        });
     }
 }

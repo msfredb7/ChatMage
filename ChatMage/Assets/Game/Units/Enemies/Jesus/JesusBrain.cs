@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using FullInspector;
 
-public class JesusBrain : EnemyBrain<JesusVehicle> {
+public class JesusBrain : EnemyBrain<JesusVehicle>
+{
 
     public JesusRock rockPrefab;
 
@@ -17,7 +18,6 @@ public class JesusBrain : EnemyBrain<JesusVehicle> {
     public bool damagableWhilePickingRock = false;
 
     private List<JesusRock> rocks = new List<JesusRock>();
-    private JesusRock rockTarget = null;
 
     private bool hasRock = false;
     private bool shouting = false;
@@ -52,7 +52,8 @@ public class JesusBrain : EnemyBrain<JesusVehicle> {
                 {
                     // on va la chercher
                     SearchForARock();
-                } else
+                }
+                else
                 {
                     // Si on criait pas
                     if (!shouting)
@@ -62,11 +63,14 @@ public class JesusBrain : EnemyBrain<JesusVehicle> {
                         {
                             // Crie
                             FlashAnimation.FlashColor(vehicle, vehicle.animator.render, shoutingDuration, Color.red, null);
-                            SetBehavior(BehaviorType.Idle);
+
+                            if (CanGoTo<IdleBehavior>())
+                                SetBehavior(new IdleBehavior(vehicle));
                             // ANIMATION CRIER
                             shoutingCountdown = shoutingDuration;
                             shouting = true;
-                        } else
+                        }
+                        else
                         {
                             TryToThrowNewRock();
                         }
@@ -111,10 +115,11 @@ public class JesusBrain : EnemyBrain<JesusVehicle> {
         Debug.Log("Searching for the rock");
 
         // Trouver la plus proche
-        rockTarget = ClosestRock();
+        JesusRock rockTarget = ClosestRock();
 
         // Aller la chercher
-        SetBehavior(BehaviorType.Wander);
+        if (CanGoTo<SearchingRockBehavior>())
+            SetBehavior(new SearchingRockBehavior(vehicle, rockTarget));
 
         // On essaie de prendre la roche
         if (rockTarget.TakeTheRock(transform.position))
@@ -131,7 +136,8 @@ public class JesusBrain : EnemyBrain<JesusVehicle> {
         Debug.Log("Launching the rock");
 
         // On regarde le joueur et on lance!
-        SetBehavior(BehaviorType.LookPlayer);
+        if (CanGoTo<LookTargetBehavior>())
+            SetBehavior(new LookTargetBehavior(vehicle));
 
         // Spawn Roche et 
         JesusRock currentRock = Game.instance.SpawnUnit(rockPrefab, transform.position);
@@ -159,7 +165,7 @@ public class JesusBrain : EnemyBrain<JesusVehicle> {
                 result = rocks[i];
                 break;
             }
-            if (Vector2.Distance(rocks[i].Position, transform.position) < Vector2.Distance(result.Position,transform.position))
+            if (Vector2.Distance(rocks[i].Position, transform.position) < Vector2.Distance(result.Position, transform.position))
                 result = rocks[i];
         }
         return result;
@@ -182,13 +188,8 @@ public class JesusBrain : EnemyBrain<JesusVehicle> {
 
     protected override void UpdateWithoutTarget()
     {
-        Debug.Log("Zzzzzzz");
-        SetBehavior(BehaviorType.Idle);
-    }
-
-    protected override EnemyBehavior NewWanderBehavior()
-    {
-        return new SearchingRockBehavior(vehicle, rockTarget);
+        if (CanGoTo<IdleBehavior>())
+            SetBehavior(new IdleBehavior(vehicle));
     }
 
     public void ResetCooldowns()

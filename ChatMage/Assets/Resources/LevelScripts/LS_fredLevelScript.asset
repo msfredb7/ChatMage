@@ -11,7 +11,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 692045aa578ae724ca10f45fcde071d2, type: 3}
   m_Name: LS_fredLevelScript
   m_EditorClassIdentifier: 
-  _objectReferences: []
+  _objectReferences:
+  - {fileID: 114917152140949164, guid: 90a1293e412776e4db23eb9595fcf924, type: 2}
   _serializedStateKeys:
   - winningConditions
   - losingConditions
@@ -22,9 +23,9 @@ MonoBehaviour:
   - '[]'
   - '[]'
   - 
-  - '[]'
+  - '[{"what":{"spawnSequence":[{"unit":0,"quantity":1}],"onSpawnMethod":"","progressCallbacks":[]},"where":{"logErrorIfUnableToLaunch":true,"spawnTag":"plus","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":2},"when":{"type":"At","time":0.0,"name":null,"onlyTriggerOnce":false},"spawnInterval":1.0}]'
   - '{"giveMoney":false,"goldReward":null,"giveLootBox":false,"lootboxs":[],"lootboxColor":"Blue"}'
-  sceneName: MapFred
+  sceneName: RomanArena
   introPrefab: {fileID: 114939908285177620, guid: 6ecb49bd0fe07fd49a2105006011056d,
     type: 2}
   winOutroPrefab: {fileID: 114288339278322360, guid: 1e4d836705c07534fb5b431bb36cb2ab,
@@ -33,8 +34,8 @@ MonoBehaviour:
     type: 2}
   noHealthPacks: 0
   followPlayerOnStart: 0
-  verticalUnitSnap: 1
-  horizontalUnitSnap: 1
+  verticalUnitSnap: 0
+  horizontalUnitSnap: 0
   useCustomGenericEvents: 0
   events: []
   isOver: 0

@@ -27,8 +27,7 @@ namespace GameIntroOutro
 
             playerVehicle.TeleportPosition(new Vector2(0, Game.instance.gameCamera.Bottom - 2));
             playerVehicle.TeleportDirection(90);
-
-            playerVehicle.canUseBorder = false;
+            
             playerVehicle.wheelsOnTheGround.Lock(LOCK_KEY);
             playerVehicle.canTurn.Lock(LOCK_KEY);
 
@@ -37,7 +36,6 @@ namespace GameIntroOutro
                 .OnComplete(delegate ()
                 {
                     //Re-enable player things
-                    playerVehicle.canUseBorder = true;
                     playerVehicle.wheelsOnTheGround.Unlock(LOCK_KEY);
                     playerVehicle.canTurn.Unlock(LOCK_KEY);
                     player.playerDriver.enableInput = true;

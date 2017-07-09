@@ -9,28 +9,13 @@ using FullInspector;
 
 public class TestScript : MonoBehaviour
 {
-    public Transform trs;
-    public float something;
+    public Vector2 v;
+    public Vector2 min;
+    public Vector2 max;
 
     void Start()
     {
-        //Vector2.
-        //print(Vector2.right * Vector2.up);
+        v = v.Clamped(min, max);
+        print(v);
     }
-
-    void Update()
-    {
-        //print("Area: " + CCC.Math.AreaWithin.GetAreaWithin(TrToV()));
-        //print("Resemblance: " + CCC.Math.AreaWithin.ResemblanceToCircle(2.5f, TrToV()));
-    }
-
-    //Vector2[] TrToV()
-    //{
-    //    Vector2[] vs = new Vector2[trs.childCount];
-    //    for (int i = 0; i < vs.Length; i++)
-    //    {
-    //        vs[i] = trs.GetChild(i).position;
-    //    }
-    //    return vs;
-    //}
 }

@@ -15,19 +15,21 @@ public class Game : PublicSingleton<Game>
     public GameCamera gameCamera;
     public Spawner spawner;
     public Transform unitsContainer;
-    public GameBounds gameBounds;
+    public PlayerBounds playerBounds;
     public SmashManager smashManager;
     public HealthPackManager healthPackManager;
 
     //Dynamic references
-    [fsIgnore]
+    [fsIgnore, NonSerialized]
     public Map map;
-    [fsIgnore]
+    [fsIgnore, NonSerialized]
     public UiSystem ui;
-    [fsIgnore]
+    [fsIgnore, NonSerialized]
     public LevelScript currentLevel;
-    [fsIgnore]
+    [fsIgnore, NonSerialized]
     public Framework framework;
+    [fsIgnore, NonSerialized]
+    public PlayableArea aiArea = new PlayableArea();
 
     [InspectorDisabled]
     public List<Unit> units = new List<Unit>();
@@ -76,7 +78,7 @@ public class Game : PublicSingleton<Game>
         gameCamera.Init(player.vehicle);
         healthPackManager.Init(player);
 
-        gameBounds.Resize(gameCamera.ScreenSize.x, -gameCamera.distance);
+        playerBounds.Resize(gameCamera.ScreenSize.x, -gameCamera.distance);
     }
 
     private void GameRunning_onLockStateChange(bool state)

@@ -134,7 +134,7 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
         Game.instance.gameCamera.followPlayer = followPlayerOnStart;
 
         //Les bounds physique qui bloque le joueur
-        Game.instance.gameBounds.EnableAll();
+        Game.instance.playerBounds.EnableAll();
 
         OnGameStarted();
     }

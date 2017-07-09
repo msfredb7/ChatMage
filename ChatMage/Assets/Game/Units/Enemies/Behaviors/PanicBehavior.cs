@@ -11,8 +11,6 @@ public class PanicBehavior : EnemyBehavior<EnemyVehicle>
 
     public PanicBehavior(EnemyVehicle v) : base(v) { }
 
-    public override BehaviorType Type { get { return BehaviorType.Panic; } }
-
     public override void Enter(Unit player)
     {
     }

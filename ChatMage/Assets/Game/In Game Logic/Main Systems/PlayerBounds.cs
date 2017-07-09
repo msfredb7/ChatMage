@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameBounds : MonoBehaviour
+public class PlayerBounds : MonoBehaviour
 {
     [Header("Borders")]
     public bool enabledByDefault = false;

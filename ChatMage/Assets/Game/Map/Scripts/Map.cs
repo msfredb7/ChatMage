@@ -3,22 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using CCC.Manager;
 using UnityEngine.SceneManagement;
+using FullInspector;
+using FullSerializer;
 
-public class Map : MonoBehaviour
+public class Map : BaseBehavior
 {
-    [Header("Waypoints Manager")]
+    [InspectorMargin(10), InspectorHeader("Waypoints Manager")]
     public Mapping mapping; // limite de la map, waypoints, etc.
 
-    [Header("Camera")]
+    [InspectorMargin(10), InspectorHeader("Camera")]
     public CameraSpawn cameraSpawn;
 
-    [Header("Units Already Spawned")]
+    [InspectorMargin(10), InspectorHeader("Units Already Spawned")]
     public List<GameObject> listUnits = new List<GameObject>();
 
-    [SerializeField, Header("Object Needing Camera Adjustement")]
+    [InspectorMargin(10), SerializeField, fsProperty, InspectorHeader("Object Needing Camera Adjustement")]
     private List<GameObject> objectsToAjust = new List<GameObject>();
 
-    [Header("Optional")]
+    [InspectorMargin(10), InspectorHeader("AI Area")]
+    public bool setAIArea = false;
+    [InspectorShowIf("setAIArea")]
+    public Box2D startAIArea;
+    [InspectorShowIf("setAIArea")]
+    public bool ajustAreaToCamera = true;
+
+    [InspectorMargin(10), InspectorHeader("Optional")]
     public RoadPlayer roadPlayer;
 
     /// <summary>
@@ -41,6 +50,14 @@ public class Map : MonoBehaviour
                 Game.instance.AddExistingUnit(unit);
         }
 
+        if (setAIArea)
+        {
+            GameCamera gameCamera = Game.instance.gameCamera;
+            startAIArea.min = gameCamera.AdjustVector(startAIArea.min);
+            startAIArea.max = gameCamera.AdjustVector(startAIArea.max);
+            Game.instance.aiArea.SetArea(startAIArea);
+        }
+
         mapping.Init(Game.instance);
     }
 
@@ -48,5 +65,14 @@ public class Map : MonoBehaviour
     {
         if (obj != null)
             obj.transform.position = Game.instance.gameCamera.AdjustVector(obj.transform.position);
+    }
+
+    public void OnDrawGizmosSelected()
+    {
+        if (setAIArea)
+        {
+            Gizmos.color = new Color(0.2f, 1, 0, 0.4f);
+            Gizmos.DrawCube(startAIArea.Center, startAIArea.Size);
+        }
     }
 }

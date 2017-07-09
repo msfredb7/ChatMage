@@ -10,7 +10,7 @@ public class LS_FirstLevel : LevelScript
 {
     [InspectorHeader("Enemy Prefabs"), InspectorMargin(10)]
     public GourdinierVehicle spearMan;
-    public TirRocheVehicle archer;
+    public ArcherVehicle archer;
 
     [InspectorHeader("Dialog"), InspectorMargin(10)]
     public Dialoguing.Dialog whereAmIDialog;

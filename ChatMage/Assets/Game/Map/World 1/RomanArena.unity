@@ -193,7 +193,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &15498035
 Transform:
@@ -298,7 +298,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &49934720
 Transform:
@@ -369,7 +369,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 886072395
   m_SortingLayer: -1
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 99d277ac246f1344ba5f869f265b69c1, type: 3}
   m_Color: {r: 0.233, g: 0.19779857, b: 0.13242446, a: 1}
   m_FlipX: 0
@@ -716,7 +716,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attachedSpawn: {fileID: 218045420}
   destination: {x: -1.5, y: 0}
-  restrainToScreenIfApplies: 1
 --- !u!1 &266624491
 GameObject:
   m_ObjectHideFlags: 0
@@ -1031,7 +1030,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 337751920}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -19.96, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1095,9 +1094,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 886072395
-  m_SortingLayer: -1
-  m_SortingOrder: 0
+  m_SortingLayerID: -1623435497
+  m_SortingLayer: 4
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 99d277ac246f1344ba5f869f265b69c1, type: 3}
   m_Color: {r: 0.233, g: 0.19779857, b: 0.13242446, a: 1}
   m_FlipX: 0
@@ -1163,7 +1162,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attachedSpawn: {fileID: 585591424}
   destination: {x: 0, y: -1.5}
-  restrainToScreenIfApplies: 1
 --- !u!1 &590648046
 GameObject:
   m_ObjectHideFlags: 0
@@ -1351,9 +1349,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 886072395
-  m_SortingLayer: -1
-  m_SortingOrder: 0
+  m_SortingLayerID: -1623435497
+  m_SortingLayer: 4
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 99d277ac246f1344ba5f869f265b69c1, type: 3}
   m_Color: {r: 0.233, g: 0.19779857, b: 0.13242446, a: 1}
   m_FlipX: 0
@@ -1540,7 +1538,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1623435497
   m_SortingLayer: 4
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 99d277ac246f1344ba5f869f265b69c1, type: 3}
   m_Color: {r: 0.23137257, g: 0.19607845, b: 0.13333334, a: 1}
   m_FlipX: 0
@@ -1719,9 +1717,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 886072395
-  m_SortingLayer: -1
-  m_SortingOrder: 0
+  m_SortingLayerID: -1623435497
+  m_SortingLayer: 4
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 99d277ac246f1344ba5f869f265b69c1, type: 3}
   m_Color: {r: 0.233, g: 0.19779857, b: 0.13242446, a: 1}
   m_FlipX: 0
@@ -1834,7 +1832,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attachedSpawn: {fileID: 1124971337}
   destination: {x: 1.5, y: 0}
-  restrainToScreenIfApplies: 1
 --- !u!1 &1182543747
 GameObject:
   m_ObjectHideFlags: 0
@@ -1985,7 +1982,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1623435497
   m_SortingLayer: 4
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 99d277ac246f1344ba5f869f265b69c1, type: 3}
   m_Color: {r: 0.23137257, g: 0.19607845, b: 0.13333334, a: 1}
   m_FlipX: 0
@@ -2180,6 +2177,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aaeb5c3ac4e10847931e7ba2845ab6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _objectReferences:
+  - {fileID: 307016171}
+  - {fileID: 15498034}
+  - {fileID: 1817001758}
+  - {fileID: 49934719}
+  - {fileID: 1815876680}
+  - {fileID: 1124971336}
+  - {fileID: 218045419}
+  _serializedStateKeys:
+  - listUnits
+  - objectsToAjust
+  - startAIArea
+  _serializedStateValues:
+  - '[0]'
+  - '[1,2,3,4,5,6]'
+  - '{"min":{"x":-7.75,"y":-4.25},"max":{"x":7.75,"y":4.25}}'
   mapping: {fileID: 153121006}
   cameraSpawn: {fileID: 1833739392}
   listUnits:
@@ -2187,6 +2200,15 @@ MonoBehaviour:
   objectsToAjust:
   - {fileID: 15498034}
   - {fileID: 1817001758}
+  - {fileID: 49934719}
+  - {fileID: 1815876680}
+  - {fileID: 1124971336}
+  - {fileID: 218045419}
+  setAIArea: 1
+  startAIArea:
+    min: {x: -7.75, y: -4.25}
+    max: {x: 7.75, y: 4.25}
+  ajustAreaToCamera: 1
   roadPlayer: {fileID: 1644651698}
 --- !u!4 &1644651696
 Transform:
@@ -2212,7 +2234,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ebb0894d9c341046aa5e3855778e87b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultLevelScript: LS_FirstLevel
+  defaultLevelScript: LS_fredLevelScript
 --- !u!114 &1644651698
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2276,6 +2298,7 @@ MonoBehaviour:
   - {fileID: 1425111069}
   - {fileID: 266624493}
   - {fileID: 267499301}
+  - {fileID: 1644651695}
   _values:
   - _keys: []
     _values: []
@@ -2292,6 +2315,9 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 267499301}
+  - _keys: []
+    _values: []
+    _target: {fileID: 1644651695}
 --- !u!114 &1649213853
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2309,42 +2335,19 @@ MonoBehaviour:
   - {fileID: 1425111069}
   - {fileID: 266624493}
   - {fileID: 267499301}
+  - {fileID: 1644651695}
   _values:
   - _keys: []
     _values: []
     _target: {fileID: 153121006}
-  - _keys:
-    - DefaultBehaviorEditor.triggerOn.EditProperty
-    - DefaultBehaviorEditor.modifyFollowPlayer.EditProperty
-    - DefaultBehaviorEditor.modifyCanScrollUp.EditProperty
-    - DefaultBehaviorEditor.modifyCanScrollDown.EditProperty
-    - DefaultBehaviorEditor.fireEventToLevelScript.EditProperty
-    _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
+  - _keys: []
+    _values: []
     _target: {fileID: 864190674}
   - _keys: []
     _values: []
     _target: {fileID: 1425111069}
-  - _keys:
-    - DefaultBehaviorEditor.topHeight.EditProperty
-    - DefaultBehaviorEditor.milestones.EditProperty
-    - DefaultBehaviorEditor.milestoneRelativeHeights.EditProperty
-    _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 1
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
+  - _keys: []
+    _values: []
     _target: {fileID: 266624493}
   - _keys:
     - DefaultBehaviorEditor.triggerOn.EditProperty
@@ -2364,6 +2367,9 @@ MonoBehaviour:
     - _showDropdown: 0
       _serializedIsActive: 1
     _target: {fileID: 267499301}
+  - _keys: []
+    _values: []
+    _target: {fileID: 1644651695}
 --- !u!1 &1659626761
 GameObject:
   m_ObjectHideFlags: 0
@@ -2524,9 +2530,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 886072395
-  m_SortingLayer: -1
-  m_SortingOrder: 0
+  m_SortingLayerID: -1623435497
+  m_SortingLayer: 4
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 99d277ac246f1344ba5f869f265b69c1, type: 3}
   m_Color: {r: 0.233, g: 0.19779857, b: 0.13242446, a: 1}
   m_FlipX: 0
@@ -2686,7 +2692,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &1815876681
 Transform:
@@ -2757,7 +2763,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 886072395
   m_SortingLayer: -1
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 99d277ac246f1344ba5f869f265b69c1, type: 3}
   m_Color: {r: 0.233, g: 0.19779857, b: 0.13242446, a: 1}
   m_FlipX: 0
@@ -2782,7 +2788,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &1817001759
 Transform:
@@ -2906,7 +2912,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1833739391}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -20, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

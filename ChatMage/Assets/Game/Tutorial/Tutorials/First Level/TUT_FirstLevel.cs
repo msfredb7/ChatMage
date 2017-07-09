@@ -57,7 +57,7 @@ namespace Tutorial
 
             Image handClick = Instantiate(handClickPrefab.gameObject, modules.transform).GetComponent<Image>();
 
-            Vector2 leftSide = new Vector2(0.166665f, 0.5f);
+
             RectTransform tr = handClick.GetComponent<RectTransform>();
             tr.anchorMin = new Vector2(0, 0);
             tr.anchorMax = new Vector2(0.333f, 1);

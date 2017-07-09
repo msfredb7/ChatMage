@@ -6,7 +6,6 @@ using UnityEngine;
 public class WalkOnSpawn : OnSpawnAction
 {
     public Vector2 destination = new Vector2(3, 2);
-    public bool restrainToScreenIfApplies = true;
     
     public void OnDrawGizmosSelected()
     {
@@ -35,6 +34,6 @@ public class WalkOnSpawn : OnSpawnAction
             //On reactive le cerveau a la fin
             if (brain != null)
                 brain.enabled = true;
-        }, restrainToScreenIfApplies);
+        });
     }
 }

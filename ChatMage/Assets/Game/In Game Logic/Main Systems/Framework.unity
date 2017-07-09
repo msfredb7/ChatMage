@@ -163,7 +163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ballPrefab: {fileID: 114085357807114524, guid: 6bd4a16ab543608429759f50a4be6b88,
     type: 2}
-  totalCooldown: 30
+  totalCooldown: 45
   followTarget: {fileID: 471814418}
   followTargetParent: {fileID: 1647644409}
   debug: 1
@@ -246,7 +246,7 @@ GameObject:
   - component: {fileID: 545472435}
   - component: {fileID: 545472434}
   m_Layer: 0
-  m_Name: Game Bounds
+  m_Name: Player Bounds
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -359,7 +359,7 @@ MonoBehaviour:
   game: {fileID: 986166561}
   events: {fileID: 218698578}
   playerbuilder: {fileID: 1461222806}
-  defaultLevel: {fileID: 11400000, guid: 69ee3fcb35902f9458ee36f971392e8f, type: 2}
+  defaultLevel: {fileID: 11400000, guid: 47cdc4a54c5c23544977723a44cb47a2, type: 2}
 --- !u!4 &986166560
 Transform:
   m_ObjectHideFlags: 0
@@ -392,13 +392,9 @@ MonoBehaviour:
   gameCamera: {fileID: 1614933839}
   spawner: {fileID: 986166562}
   unitsContainer: {fileID: 1763591741}
-  gameBounds: {fileID: 545472434}
+  playerBounds: {fileID: 545472434}
   smashManager: {fileID: 218698580}
   healthPackManager: {fileID: 218698581}
-  map: {fileID: 0}
-  ui: {fileID: 0}
-  currentLevel: {fileID: 0}
-  framework: {fileID: 0}
   units: []
   worldTimeScale:
     value: 1
@@ -616,7 +612,8 @@ MonoBehaviour:
     type: 2}
   car: {fileID: 11400000, guid: 5ec48ef9ded4cbd41a7f67f29b1030a2, type: 2}
   smash: {fileID: 11400000, guid: bb26fc02c0c760641a95cc25962f46bc, type: 2}
-  items: []
+  items:
+  - {fileID: 11400000, guid: d5829d02815d67f4fa8cf3cd724421bf, type: 2}
 --- !u!4 &1461222807
 Transform:
   m_ObjectHideFlags: 0

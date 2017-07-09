@@ -6,8 +6,6 @@ public class IdleBehavior : EnemyBehavior<EnemyVehicle>
 {
     public IdleBehavior(EnemyVehicle v) : base(v) { }
 
-    public override BehaviorType Type { get { return BehaviorType.Idle; } }
-
     public override void Enter(Unit player)
     {
     }

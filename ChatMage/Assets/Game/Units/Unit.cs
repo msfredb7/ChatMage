@@ -34,10 +34,7 @@ public abstract class Unit : MonoBehaviour
     public bool IsDead { get { return isDead; } }
     protected bool isDead = false;
     protected bool isDestroying = false;
-
-    [Header("Border")]
-    public bool canUseBorder = true;
-    public float unitWidth;
+    //public bool canUseBorder = true;
 
     [System.NonSerialized]
     public Locker canMove = new Locker();
@@ -102,8 +99,8 @@ public abstract class Unit : MonoBehaviour
         if (Game.instance == null)
             return;
 
-        if (canUseBorder && (Game.instance.unitSnap_horizontalBound || Game.instance.unitSnap_verticalBound))
-            Position = RestrainToBounds(Position, Game.instance.unitSnap_horizontalBound, Game.instance.unitSnap_verticalBound);
+        //if (canUseBorder && (Game.instance.unitSnap_horizontalBound || Game.instance.unitSnap_verticalBound))
+        //    Position = RestrainToBounds(Position, Game.instance.unitSnap_horizontalBound, Game.instance.unitSnap_verticalBound);
     }
 
     public virtual void CheckActivation()
@@ -126,24 +123,24 @@ public abstract class Unit : MonoBehaviour
         }
     }
 
-    protected Vector2 RestrainToBounds(Vector2 vector, bool horizontal, bool vertical)
-    {
-        float x = vector.x;
-        float y = vector.y;
+    //protected Vector2 RestrainToBounds(Vector2 vector, bool horizontal, bool vertical)
+    //{
+    //    float x = vector.x;
+    //    float y = vector.y;
 
-        if (horizontal)
-        {
-            float rightBorder = Game.instance.gameCamera.ScreenSize.x / 2 - Game.instance.unitSnap_horizontalBorderWidth - (unitWidth / 2);
-            x = Mathf.Clamp(x, -rightBorder, rightBorder);
-        }
-        if (vertical)
-        {
-            float halfHeight = Game.instance.gameCamera.ScreenSize.y / 2 - Game.instance.unitSnap_verticalBorderWidth - (unitWidth / 2);
-            y = Mathf.Clamp(y, Game.instance.gameCamera.Height - halfHeight, Game.instance.gameCamera.Height + halfHeight);
-        }
+    //    if (horizontal)
+    //    {
+    //        float rightBorder = Game.instance.gameCamera.ScreenSize.x / 2 - Game.instance.unitSnap_horizontalBorderWidth - (unitWidth / 2);
+    //        x = Mathf.Clamp(x, -rightBorder, rightBorder);
+    //    }
+    //    if (vertical)
+    //    {
+    //        float halfHeight = Game.instance.gameCamera.ScreenSize.y / 2 - Game.instance.unitSnap_verticalBorderWidth - (unitWidth / 2);
+    //        y = Mathf.Clamp(y, Game.instance.gameCamera.Height - halfHeight, Game.instance.gameCamera.Height + halfHeight);
+    //    }
 
-        return new Vector2(x, y);
-    }
+    //    return new Vector2(x, y);
+    //}
 
     public virtual Vector3 WorldDirection()
     {

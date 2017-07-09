@@ -34,7 +34,7 @@ public abstract class EnemyBrain<T> : EnemyBrain where T : EnemyVehicle
 public abstract class EnemyBrain : BaseBehavior
 {
     protected Unit target;
-    protected Vector2 meToTarger = Vector2.zero;
+    protected Vector2 meToTarget = Vector2.zero;
 
     private bool noTargetOnThisFrame = false;
 
@@ -55,7 +55,7 @@ public abstract class EnemyBrain : BaseBehavior
         noTargetOnThisFrame = !EvaluateUnit(target);
 
         if (!noTargetOnThisFrame)
-            meToTarger = target.Position - myVehicle.Position;
+            meToTarget = target.Position - myVehicle.Position;
 
         if (noTargetOnThisFrame)
             UpdateWithoutTarget();
@@ -147,106 +147,43 @@ public abstract class EnemyBrain : BaseBehavior
             newBehaviour.Enter(target);
     }
 
-    public void SetBehavior(BehaviorType type)
+    public bool IsBehavior<T>() where T : EnemyBehavior
     {
-        //Already in that type of state ?
-        if (currentBehavior != null && currentBehavior.Type == type)
-            return;
+        return currentBehavior != null && currentBehavior.GetType() == typeof(T);
+    }
+    public bool CanGoTo<T>() where T : EnemyBehavior
+    {
+        return !IsBehavior<T>() && !IsForcedIntoState;
+    }
 
+    public void UpdateForcedDuration(float duration)
+    {
+        forcedInStateDuration = Mathf.Max(duration, forcedInStateDuration);
+    }
+
+    /// <summary>
+    /// On devrait toujours checker CanGoTo() avant. Pour ne pas faire de garbage
+    /// </summary>
+    public void SetBehavior(EnemyBehavior newBehavior)
+    {
         //If forced into another behavior, return
         if (IsForcedIntoState)
             return;
-
-        //New instance
-        EnemyBehavior newBehavior = NewBehaviorByType(type);
 
         //Enter behavior
         EnterBehavior(newBehavior);
     }
 
-    public void ForceBehavior(BehaviorType type, float duration, bool overridePreviousForcedState = false)
+    public void ForceBehavior(EnemyBehavior newBehavior, float duration, bool overridePreviousForcedState = false)
     {
-        //Already in that type of state ?
-        if (currentBehavior != null && currentBehavior.Type == type)
-        {
-            //Update duration
-            forcedInStateDuration = Math.Max(forcedInStateDuration, duration);
-            return;
-        }
-
         //Already in another state ? Can it override it ?
         if (IsForcedIntoState && !overridePreviousForcedState)
             return;
-
-        //New instance
-        EnemyBehavior newBehavior = NewBehaviorByType(type);
 
         //Enter behavior
         EnterBehavior(newBehavior);
 
         //Set duration
         forcedInStateDuration = duration;
-    }
-
-    public BehaviorType CurrentBehaviorType
-    {
-        get
-        {
-            if (currentBehavior != null)
-                return currentBehavior.Type;
-            return BehaviorType.Null;
-        }
-    }
-
-    private EnemyBehavior NewBehaviorByType(BehaviorType type)
-    {
-        switch (type)
-        {
-            default:
-            case BehaviorType.Null:
-                return null;
-            case BehaviorType.Idle:
-                return NewIdleBehavior();
-            case BehaviorType.Flee:
-                return NewFleeBehavior();
-            case BehaviorType.Follow:
-                return NewFollowBehavior();
-            case BehaviorType.Panic:
-                return NewPanicBehaviour();
-            case BehaviorType.Wander:
-                return NewWanderBehavior();
-            case BehaviorType.LookPlayer:
-                return NewLookPlayerBehavior();
-        }
-    }
-
-    protected virtual EnemyBehavior NewFleeBehavior()
-    {
-        return new FleeBehavior(myVehicle);
-    }
-
-    protected virtual EnemyBehavior NewFollowBehavior()
-    {
-        return new FollowBehavior(myVehicle);
-    }
-
-    protected virtual EnemyBehavior NewPanicBehaviour()
-    {
-        return new PanicBehavior(myVehicle);
-    }
-
-    protected virtual EnemyBehavior NewWanderBehavior()
-    {
-        return new WanderBehavior(myVehicle);
-    }
-
-    protected virtual EnemyBehavior NewIdleBehavior()
-    {
-        return new IdleBehavior(myVehicle);
-    }
-
-    protected virtual EnemyBehavior NewLookPlayerBehavior()
-    {
-        return new LookPlayerBehavior(myVehicle);
     }
 }

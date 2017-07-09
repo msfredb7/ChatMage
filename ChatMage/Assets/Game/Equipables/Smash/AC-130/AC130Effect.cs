@@ -132,9 +132,18 @@ public class AC130Effect : MonoBehaviour
 
     private void PanicUnit(Unit unit)
     {
-        EnemyBrain enemyBrain = unit.GetComponent<EnemyBrain>();
-        if (enemyBrain != null)
-            enemyBrain.ForceBehavior(BehaviorType.Panic, remainingDuration);
+        if (unit is EnemyVehicle)
+        {
+            EnemyBrain enemyBrain = unit.GetComponent<EnemyBrain>();
+            EnemyVehicle vehicle = unit as EnemyVehicle;
+            if (enemyBrain != null)
+            {
+                if (enemyBrain.IsBehavior<PanicBehavior>())
+                    enemyBrain.UpdateForcedDuration(remainingDuration);
+                else
+                    enemyBrain.ForceBehavior(new PanicBehavior(vehicle), remainingDuration);
+            }
+        }
     }
 
     void End()

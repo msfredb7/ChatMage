@@ -49,7 +49,6 @@ namespace GameIntroOutro
 
             //Lock player
             player.playerDriver.enableInput = false;
-            veh.canUseBorder = false;
             veh.wheelsOnTheGround.Lock(LOCK_KEY);
             veh.canTurn.Lock(LOCK_KEY);
 
@@ -58,7 +57,6 @@ namespace GameIntroOutro
                 {
                     //Unlock player
                     player.playerDriver.enableInput = true;
-                    veh.canUseBorder = true;
                     veh.wheelsOnTheGround.Unlock(LOCK_KEY);
                     veh.canTurn.Unlock(LOCK_KEY);
 

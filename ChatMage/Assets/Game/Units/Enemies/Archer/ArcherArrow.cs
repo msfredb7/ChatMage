@@ -2,52 +2,48 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TirRocheProjectile : Projectiles
+public class ArcherArrow : Projectiles
 {
     [Header("Linking")]
     public SimpleColliderListener listener;
 
     [Header("Settings")]
     public float shootSpeed = 8;
+    public float flyDistance = 18.5f;
 
-    private float distanceToReach;
-    private bool hitSomething = false;
     private float distanceTravelled = 0;
-    private bool aboutToDie = false;
 
-    public void Init(Vector2 dir, float distance)
+    public void Init(Vector2 dir)
     {
-        distanceToReach = distance;
         listener.onTriggerEnter += Listener_onTriggerEnter;
         Speed = dir.normalized * shootSpeed * timeScale;
-        Rotation = Vehicle.VectorToAngle(dir);
+        transform.rotation = Quaternion.Euler(Vector3.forward * Vehicle.VectorToAngle(dir));
     }
 
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
 
-        distanceTravelled += Speed.magnitude * FixedDeltaTime();
-
-        if (!aboutToDie && distanceTravelled > distanceToReach)
+        if (!isDead)
         {
-            hitSomething = false;
-            Die();
+            distanceTravelled += shootSpeed * FixedDeltaTime();
+
+            if (distanceTravelled > flyDistance)
+                Die();
         }
     }
 
     private void Listener_onTriggerEnter(ColliderInfo other, ColliderListener listener)
     {
-        if (aboutToDie)
+        if (isDead)
             return;
 
-        if (IsValidTarget(other.parentUnit.allegiance) && other.parentUnit != origin)
+        if (other.parentUnit != origin && IsValidTarget(other.parentUnit.allegiance))
         {
             IAttackable attackable = other.parentUnit.GetComponent<IAttackable>();
             if (attackable != null)
             {
                 attackable.Attacked(other, 1, this, listener.info);
-                hitSomething = true;
                 Die();
             }
         }
@@ -57,17 +53,6 @@ public class TirRocheProjectile : Projectiles
     {
         base.Die();
 
-        aboutToDie = true;
-
-        if (hitSomething)
-        {
-            //hit something animation (ex: sparks)
-            Destroy();
-        }
-        else
-        {
-            //hit nothing animation (ex: dirt splash)
-            Destroy();
-        }
+        Destroy();
     }
 }

@@ -6,6 +6,7 @@ using UnityEngine;
 public abstract class EnemyVehicle : Vehicle, IAttackable
 {
     [Header("Enemy Vehicle")]
+    public float unitWidth;
     public bool useTurnSpeed;
     public float turnSpeed = 150;
 
@@ -23,24 +24,27 @@ public abstract class EnemyVehicle : Vehicle, IAttackable
         goingToTargetPosition = false;
     }
 
-    public void GoAndStayAtPosition(Vector2 position, Action onReach = null, bool restrainToScreenIfApplies = true)
+    public void GoAndStayAtPosition(Vector2 position, Action onReach = null)
     {
         tryToStayAtTargetPosition = true;
-        QuickGotoPos(position, onReach, restrainToScreenIfApplies);
+        QuickGotoPos(position, onReach);
     }
 
-    public void GotoPosition(Vector2 position, Action onReach = null, bool restrainToScreenIfApplies = true)
+    public void GotoPosition(Vector2 position, Action onReach = null)
     {
         tryToStayAtTargetPosition = false;
-        QuickGotoPos(position, onReach, restrainToScreenIfApplies);
+        QuickGotoPos(position, onReach);
     }
 
-    private void QuickGotoPos(Vector2 position, Action onReach = null, bool restrainToScreenIfApplies = true)
+    private void QuickGotoPos(Vector2 position, Action onReach = null)
     {
-        if (restrainToScreenIfApplies)
-        {
-            position = RestrainToBounds(position, Game.instance.unitSnap_horizontalBound, Game.instance.unitSnap_verticalBound);
-        }
+        //if (restrainToScreenIfApplies)
+        //{
+        //    position = RestrainToBounds(position, Game.instance.unitSnap_horizontalBound, Game.instance.unitSnap_verticalBound);
+        //}
+
+        //Clamp to AI Area
+        position = Game.instance.aiArea.ClampToArea(position, unitWidth / 2);
 
         targetPosition = position;
         goingToTargetPosition = true;

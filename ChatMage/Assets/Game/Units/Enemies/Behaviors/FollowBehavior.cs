@@ -7,8 +7,6 @@ public class FollowBehavior : EnemyBehavior<EnemyVehicle>
 {
     public FollowBehavior(EnemyVehicle v) : base(v) { }
 
-    public override BehaviorType Type { get { return BehaviorType.Follow; } }
-
     public override void Enter(Unit player)
     {
     }
