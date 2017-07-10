@@ -1,130 +1,134 @@
-﻿using DG.Tweening;
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FlashAnimation {
+public class FlashAnimation
+{
 
     private static float flashSpeed = 5f;
     private static Sequence unhitableSequence;
 
-    public static void Flash(Unit unit, SpriteRenderer render, float unhitableDuration, Action onComplete)
+    private static void InternalFlashV2(Unit unit,
+        SpriteRenderer[] renders,
+        Color flash,
+        bool onAndOffMode,
+        float duration,
+        TweenCallback onComplete = null)
     {
-        unhitableSequence = DOTween.Sequence();
-        unhitableSequence.timeScale = unit.TimeScale;
-        unit.onTimeScaleChange += Unit_onTimeScaleChange;
-        unit.onDeath += Unit_onDeath;
-        unhitableSequence.InsertCallback(
-            (1 / flashSpeed) / 2,
-            delegate
-            {
-                render.enabled = false;
-            });
-        unhitableSequence.InsertCallback(
-            1 / flashSpeed,
-            delegate
-            {
-                render.enabled = true;
-            });
-        unhitableSequence.SetLoops(Mathf.RoundToInt(unhitableDuration * flashSpeed), LoopType.Restart);
-        unhitableSequence.OnComplete(delegate ()
+        if (unit == null || renders == null || duration <= 0)
+            throw new Exception("Invalid flash request. Ya p-e quelque chose de null qui devrais pas.");
+
+        Sequence sq = DOTween.Sequence().SetAutoKill(true);
+
+        //Timescale
+        sq.timeScale = unit.TimeScale;
+
+        //Delegates
+        Unit.Unit_Event onTimeScaleChange = delegate (Unit u)
         {
-            onComplete.Invoke();
+            sq.timeScale = u.TimeScale;
+        };
+        Unit.Unit_Event onUnitDeath = delegate (Unit u)
+        {
+            sq.Kill();
+        };
+
+        // Ajoute les listeners
+        unit.onTimeScaleChange += onTimeScaleChange;
+        unit.onDeath += onUnitDeath;
+
+        // Enleve les listeners
+        sq.OnKill(delegate ()
+        {
+            unit.onTimeScaleChange -= onTimeScaleChange;
+            unit.onDeath -= onUnitDeath;
         });
-    }
 
-    public static void FlashColor(Unit unit, SpriteRenderer render, float unhitableDuration, Color color, Action onComplete)
-    {
-        Color startColor = render.color;
-        unhitableSequence = DOTween.Sequence();
-        unhitableSequence.timeScale = unit.TimeScale;
-        unit.onTimeScaleChange += Unit_onTimeScaleChange;
-        unit.onDeath += Unit_onDeath;
-        unhitableSequence.InsertCallback(
-            (1 / flashSpeed) / 2,
+
+        // Quelques calculs
+        int loops = Mathf.RoundToInt(duration * flashSpeed);
+        float actualFlashSpeed = loops / duration;
+
+        Color[] stdColors = null;
+
+        if (!onAndOffMode)
+        {
+            stdColors = new Color[renders.Length];
+            for (int i = 0; i < renders.Length; i++)
+            {
+                stdColors[i] = renders[i].color;
+            }
+        }
+
+        // ANIMATION 
+        sq.InsertCallback(
+            (1 / actualFlashSpeed) / 2,
             delegate
             {
-                render.color = color;
+                for (int i = 0; i < renders.Length; i++)
+                {
+                    if (onAndOffMode)
+                        renders[i].enabled = false;
+                    else
+                        renders[i].color = flash;
+                }
             });
-        unhitableSequence.InsertCallback(
-            1 / flashSpeed,
+        sq.InsertCallback(
+            1 / actualFlashSpeed,
             delegate
             {
-                render.color = startColor;
+                for (int i = 0; i < renders.Length; i++)
+                {
+                    if (onAndOffMode)
+                        renders[i].enabled = true;
+                    else
+                        renders[i].color = stdColors[i];
+                }
             });
-        unhitableSequence.SetLoops(Mathf.RoundToInt(unhitableDuration * flashSpeed), LoopType.Restart);
-        unhitableSequence.OnComplete(delegate ()
-        {
-            onComplete.Invoke();
-        });
+
+        //Loops
+        sq.SetLoops(loops, LoopType.Restart);
+
+        //On complete
+        if (onComplete != null)
+            sq.OnComplete(onComplete);
     }
 
-    public static void FlashMultiple(Unit unit, List<SpriteRenderer> renders, float unhitableDuration, Action onComplete)
+
+    public static void Flash(Unit unit, SpriteRenderer render, float duration, TweenCallback onComplete = null)
     {
-        for (int i = 0; i < renders.Count; i++)
-        {
-            unhitableSequence = DOTween.Sequence();
-            unhitableSequence.timeScale = unit.TimeScale;
-            unit.onTimeScaleChange += Unit_onTimeScaleChange;
-            unit.onDeath += Unit_onDeath;
-            unhitableSequence.InsertCallback(
-                (1 / flashSpeed) / 2,
-                delegate
-                {
-                    renders[i].enabled = false;
-                });
-            unhitableSequence.InsertCallback(
-                1 / flashSpeed,
-                delegate
-                {
-                    renders[i].enabled = true;
-                });
-            unhitableSequence.SetLoops(Mathf.RoundToInt(unhitableDuration * flashSpeed), LoopType.Restart);
-            unhitableSequence.OnComplete(delegate ()
-            {
-                onComplete.Invoke();
-            });
-        }
+        SpriteRenderer[] renders = new SpriteRenderer[1];
+        renders[0] = render;
+
+        Flash(unit, renders, duration, onComplete);
     }
 
-    public static void FlashMutipleColor(Unit unit, List<SpriteRenderer> renders, float unhitableDuration, Color color, Action onComplete)
+    public static void Flash(Unit unit, SpriteRenderer[] renders, float duration, TweenCallback onComplete = null)
     {
-        for (int i = 0; i < renders.Count; i++)
-        {
-            Color startColor = renders[i].color;
-            unhitableSequence = DOTween.Sequence();
-            unhitableSequence.timeScale = unit.TimeScale;
-            unit.onTimeScaleChange += Unit_onTimeScaleChange;
-            unit.onDeath += Unit_onDeath;
-            unhitableSequence.InsertCallback(
-                (1 / flashSpeed) / 2,
-                delegate
-                {
-                    renders[i].color = color;
-                });
-            unhitableSequence.InsertCallback(
-                1 / flashSpeed,
-                delegate
-                {
-                    renders[i].color = startColor;
-                });
-            unhitableSequence.SetLoops(Mathf.RoundToInt(unhitableDuration * flashSpeed), LoopType.Restart);
-            unhitableSequence.OnComplete(delegate ()
-            {
-                onComplete.Invoke();
-            });
-        }
+        Color dumbColor = Color.white;
+        InternalFlashV2(unit, renders, dumbColor, true, duration, onComplete);
     }
 
-    private static void Unit_onDeath(Unit unit)
+    public static void FlashColor(Unit unit,
+        SpriteRenderer render,
+        float duration,
+        Color flash,
+        TweenCallback onComplete = null)
     {
-        unhitableSequence.Kill();
+        SpriteRenderer[] renders = new SpriteRenderer[1];
+        renders[0] = render;
+
+        InternalFlashV2(unit, renders, flash, false, duration, onComplete);
     }
 
-    private static void Unit_onTimeScaleChange(Unit unit)
+    public static void FlashColor(Unit unit,
+        SpriteRenderer[] renders,
+        float duration,
+        Color flash,
+        TweenCallback onComplete = null)
     {
-        if(unhitableSequence != null)
-            unhitableSequence.timeScale = unit.TimeScale;
+        InternalFlashV2(unit, renders, flash, false, duration, onComplete);
     }
 }

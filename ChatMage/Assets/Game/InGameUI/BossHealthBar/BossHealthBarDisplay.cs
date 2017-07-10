@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,26 +8,33 @@ public class BossHealthBarDisplay : MonoBehaviour {
     public Slider healthBar;
     public Text bossName;
 
-    public void DisplayHealthBar(string bossName)
+    void Awake()
     {
-        healthBar.value = 1;
-        AdjustText(bossName);
+        Hide();
+    }
+
+    public void DisplayBoss(string bossName)
+    {
+        SetSliderValue01(1);
+        ChangeBossNameText(bossName);
+
         gameObject.SetActive(true);
     }
 
-    public void DeactivateHealthBar()
+    public void SetSliderValue01(float value)
+    {
+        value = Mathf.Clamp01(value);
+        healthBar.value = value;
+    }
+
+    public bool IsVisible { get { return gameObject.activeSelf; } }
+
+    public void Hide()
     {
         gameObject.SetActive(false);
     }
 
-    public void AdjustSlider(float value)
-    {
-        if (value > 1 || value < 0)
-            return;
-        healthBar.value = value;
-    }
-
-    public void AdjustText(string name)
+    public void ChangeBossNameText(string name)
     {
         bossName.text = name;
     }

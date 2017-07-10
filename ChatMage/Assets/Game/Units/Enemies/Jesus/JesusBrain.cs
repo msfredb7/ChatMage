@@ -112,8 +112,6 @@ public class JesusBrain : EnemyBrain<JesusVehicle>
 
     private void SearchForARock()
     {
-        Debug.Log("Searching for the rock");
-
         // Trouver la plus proche
         JesusRock rockTarget = ClosestRock();
 

@@ -22,7 +22,16 @@ public abstract class BaseTweenBehavior<T> : EnemyBehavior<T> where T : EnemyVeh
         UpdateTimeScale(vehicle);
     }
 
-    private void UpdateTimeScale(Unit unit)
+    protected void SetTween(Tween newTween)
+    {
+        if (tween != null && tween.IsActive())
+            tween.Kill();
+
+        tween = newTween;
+        UpdateTimeScale(vehicle);
+    }
+
+    protected void UpdateTimeScale(Unit unit)
     {
         tween.timeScale = unit.TimeScale;
     }

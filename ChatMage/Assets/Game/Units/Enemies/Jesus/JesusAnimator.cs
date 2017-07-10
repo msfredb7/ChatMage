@@ -1,4 +1,4 @@
-﻿using DG.Tweening;
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,16 +21,16 @@ public class JesusAnimator : MonoBehaviour
 
     public void DisplayHealthBar()
     {
-        Game.instance.ui.bossHealthBar.DisplayHealthBar("Jesus");
+        Game.instance.ui.bossHealthBar.DisplayBoss("Jesus");
     }
 
     public void UpdateHealthBar(float hp, float hpMax)
     {
-        Game.instance.ui.bossHealthBar.AdjustSlider(hp / hpMax);
+        Game.instance.ui.bossHealthBar.SetSliderValue01(hp / hpMax);
     }
 
     public void JesusDeath()
     {
-        Game.instance.ui.bossHealthBar.DeactivateHealthBar();
+        Game.instance.ui.bossHealthBar.Hide();
     }
 }

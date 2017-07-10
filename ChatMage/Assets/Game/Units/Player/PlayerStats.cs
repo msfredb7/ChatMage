@@ -92,10 +92,7 @@ public class PlayerStats : PlayerComponent, IAttackable
         {
             damagable = false;
             loseHpAnimator.Animate(on.transform.position);
-            FlashAnimation.Flash(Game.instance.Player.vehicle, sprite, unhitableDuration, delegate ()
-            {
-                damagable = true;
-            });
+            FlashAnimation.Flash(Game.instance.Player.vehicle, sprite, unhitableDuration, () => damagable = true);
         }
             
 

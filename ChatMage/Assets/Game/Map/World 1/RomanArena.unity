@@ -1991,6 +1991,11 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+--- !u!1 &1331032014 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1207175243323734, guid: 1a53e9b48d6611642b0ec5731852615c,
+    type: 2}
+  m_PrefabInternal: {fileID: 1868386204}
 --- !u!1 &1425111067
 GameObject:
   m_ObjectHideFlags: 0
@@ -2105,6 +2110,11 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1007840248}
   m_Script: {fileID: 11500000, guid: d320295b82adad64b9d4179d395a1b2a, type: 3}
+--- !u!1 &1570216716 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1207175243323734, guid: 1a53e9b48d6611642b0ec5731852615c,
+    type: 2}
+  m_PrefabInternal: {fileID: 2049916865}
 --- !u!1 &1641421084
 GameObject:
   m_ObjectHideFlags: 0
@@ -2179,6 +2189,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objectReferences:
   - {fileID: 307016171}
+  - {fileID: 2013633714}
+  - {fileID: 1331032014}
+  - {fileID: 1570216716}
   - {fileID: 15498034}
   - {fileID: 1817001758}
   - {fileID: 49934719}
@@ -2190,13 +2203,16 @@ MonoBehaviour:
   - objectsToAjust
   - startAIArea
   _serializedStateValues:
-  - '[0]'
-  - '[1,2,3,4,5,6]'
+  - '[0,1,2,3]'
+  - '[4,5,6,7,8,9]'
   - '{"min":{"x":-7.75,"y":-4.25},"max":{"x":7.75,"y":4.25}}'
   mapping: {fileID: 153121006}
   cameraSpawn: {fileID: 1833739392}
   listUnits:
   - {fileID: 307016171}
+  - {fileID: 2013633714}
+  - {fileID: 1331032014}
+  - {fileID: 1570216716}
   objectsToAjust:
   - {fileID: 15498034}
   - {fileID: 1817001758}
@@ -2346,8 +2362,17 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 1425111069}
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.topHeight.EditProperty
+    - DefaultBehaviorEditor.milestones.EditProperty
+    - DefaultBehaviorEditor.milestoneRelativeHeights.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 1
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
     _target: {fileID: 266624493}
   - _keys:
     - DefaultBehaviorEditor.triggerOn.EditProperty
@@ -2367,8 +2392,26 @@ MonoBehaviour:
     - _showDropdown: 0
       _serializedIsActive: 1
     _target: {fileID: 267499301}
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.mapping.EditProperty
+    - DefaultBehaviorEditor.cameraSpawn.EditProperty
+    - DefaultBehaviorEditor.listUnits.EditProperty
+    - DefaultBehaviorEditor.objectsToAjust.EditProperty
+    - DefaultBehaviorEditor.setAIArea.EditProperty
+    - DefaultBehaviorEditor.roadPlayer.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 1
+      _serializedIsActive: 1
+    - _showDropdown: 1
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
     _target: {fileID: 1644651695}
 --- !u!1 &1659626761
 GameObject:
@@ -2918,6 +2961,52 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1868386204
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4149645464314498, guid: 1a53e9b48d6611642b0ec5731852615c, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -4.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 4149645464314498, guid: 1a53e9b48d6611642b0ec5731852615c, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -2.71
+      objectReference: {fileID: 0}
+    - target: {fileID: 4149645464314498, guid: 1a53e9b48d6611642b0ec5731852615c, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4149645464314498, guid: 1a53e9b48d6611642b0ec5731852615c, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4149645464314498, guid: 1a53e9b48d6611642b0ec5731852615c, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4149645464314498, guid: 1a53e9b48d6611642b0ec5731852615c, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4149645464314498, guid: 1a53e9b48d6611642b0ec5731852615c, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4149645464314498, guid: 1a53e9b48d6611642b0ec5731852615c, type: 2}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1207175243323734, guid: 1a53e9b48d6611642b0ec5731852615c, type: 2}
+      propertyPath: m_Name
+      value: Jesus Rock V2 (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 1a53e9b48d6611642b0ec5731852615c, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1955935615
 GameObject:
   m_ObjectHideFlags: 0
@@ -2987,3 +3076,96 @@ SpriteRenderer:
   m_Size: {x: 17, y: 9.638838}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 1
+--- !u!1 &2013633714 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1207175243323734, guid: 1a53e9b48d6611642b0ec5731852615c,
+    type: 2}
+  m_PrefabInternal: {fileID: 2047626131}
+--- !u!1001 &2047626131
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4149645464314498, guid: 1a53e9b48d6611642b0ec5731852615c, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 3.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 4149645464314498, guid: 1a53e9b48d6611642b0ec5731852615c, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 2.41
+      objectReference: {fileID: 0}
+    - target: {fileID: 4149645464314498, guid: 1a53e9b48d6611642b0ec5731852615c, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4149645464314498, guid: 1a53e9b48d6611642b0ec5731852615c, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4149645464314498, guid: 1a53e9b48d6611642b0ec5731852615c, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4149645464314498, guid: 1a53e9b48d6611642b0ec5731852615c, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4149645464314498, guid: 1a53e9b48d6611642b0ec5731852615c, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4149645464314498, guid: 1a53e9b48d6611642b0ec5731852615c, type: 2}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 1a53e9b48d6611642b0ec5731852615c, type: 2}
+  m_IsPrefabParent: 0
+--- !u!1001 &2049916865
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4149645464314498, guid: 1a53e9b48d6611642b0ec5731852615c, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -4.31
+      objectReference: {fileID: 0}
+    - target: {fileID: 4149645464314498, guid: 1a53e9b48d6611642b0ec5731852615c, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 2.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 4149645464314498, guid: 1a53e9b48d6611642b0ec5731852615c, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4149645464314498, guid: 1a53e9b48d6611642b0ec5731852615c, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4149645464314498, guid: 1a53e9b48d6611642b0ec5731852615c, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4149645464314498, guid: 1a53e9b48d6611642b0ec5731852615c, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4149645464314498, guid: 1a53e9b48d6611642b0ec5731852615c, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4149645464314498, guid: 1a53e9b48d6611642b0ec5731852615c, type: 2}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1207175243323734, guid: 1a53e9b48d6611642b0ec5731852615c, type: 2}
+      propertyPath: m_Name
+      value: Jesus Rock V2 (2)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 1a53e9b48d6611642b0ec5731852615c, type: 2}
+  m_IsPrefabParent: 0
