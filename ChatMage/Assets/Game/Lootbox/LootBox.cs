@@ -3,115 +3,62 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Objet utile pour généré l'effet d'un lootbox, ceci ne gère pas les animations
+// Objet utile pour gï¿½nï¿½rï¿½ l'effet d'un lootbox, ceci ne gï¿½re pas les animations
 public class LootBox
 {
+    public List<LootBoxRewards> rewards;
 
-    public enum LootBoxType
+    public static void NewLootbox(string lootboxRef, Action<LootBox> onComplete, bool goldified = false)
     {
-        small = 1,
-        medium = 2,
-        large = 3
-    }
-
-    public List<LootBoxRef> lootboxes = new List<LootBoxRef>();
-    public List<EquipablePreview> possibleItems = new List<EquipablePreview>();
-
-    public LootBox(string identifiant, Action<List<LootBoxRewards>> callback, bool gold = false)
-    {
-        List<EquipablePreview> equipableRewards = new List<EquipablePreview>();
-        List<LootBoxRewards> rewards = new List<LootBoxRewards>();
-
-        // Load la Lootbox Ref
-        ResourceLoader.LoadLootBoxRefAsync(identifiant, delegate (LootBoxRef lootbox)
+        ResourceLoader.LoadLootBoxRefAsync(lootboxRef, delegate (LootBoxRef reference)
         {
-            // Load les Equipables dans la Lootbox Ref
-            lootbox.LoadAllEquipables(delegate ()
+            LootBox lootbox = null;
+            lootbox = new LootBox(reference, delegate ()
             {
+                if (lootbox == null)
+                    throw new Exception("da fuck is dat shit. ya qqchose qui a pas loadï¿½, ya boi.");
 
-                equipableRewards.AddRange(lootbox.GetRewards(gold));
-
-                for (int i = 0; i < equipableRewards.Count; i++)
-                {
-                    if (equipableRewards[i].unlocked) // Le joueur a deja l'item
-                    {
-                        // On change l'apparence de l'item en double par un item duplicate choisit dans le lootboxRef
-                        rewards.Add(new LootBoxRewards(equipableRewards[i], StorePrice.duplicateReward));
-                        // Et on ajoute la recompense dans le compte du joueur
-                        Account.instance.Command(StorePrice.CommandType.duplicateReward);
-                    }
-                    else
-                    {
-                        rewards.Add(new LootBoxRewards(equipableRewards[i], StorePrice.duplicateReward));
-                        equipableRewards[i].unlocked = true;
-                        equipableRewards[i].Save();
-                    }
-                }
-                GameSaves.instance.SaveData(GameSaves.Type.Armory);
-
-                callback.Invoke(rewards);
-            });
+                onComplete(lootbox);
+            },
+            goldified);
         });
     }
 
-    public LootBox(LootBoxRef lootbox, Action<List<LootBoxRewards>> callback, bool gold = false)
+    private LootBox(LootBoxRef lootbox, Action onComplete, bool goldified = false)
     {
-        List<EquipablePreview> equipableRewards = new List<EquipablePreview>();
-        List<LootBoxRewards> rewards = new List<LootBoxRewards>();
+        rewards = new List<LootBoxRewards>();
 
         // Load les Equipables dans la Lootbox Ref
-        lootbox.LoadAllEquipables(delegate ()
+        lootbox.PickRewards(goldified, delegate (List<EquipablePreview> equipableRewards)
         {
-
-            equipableRewards.AddRange(lootbox.GetRewards(gold));
-
+            bool shouldSaveArmory = false;
+            bool shouldSaveAccount = false;
             for (int i = 0; i < equipableRewards.Count; i++)
             {
-                if (equipableRewards[i].unlocked) // Le joueur a deja l'item
+                equipableRewards[i].Load();
+
+                if (equipableRewards[i].Unlocked) // Le joueur a deja l'item
                 {
-                    // On change l'apparence de l'item en double par un item duplicate choisit dans le lootboxRef
                     rewards.Add(new LootBoxRewards(equipableRewards[i], StorePrice.duplicateReward));
+
                     // Et on ajoute la recompense dans le compte du joueur
-                    Account.instance.Command(StorePrice.CommandType.duplicateReward);
+                    Account.instance.Command(StorePrice.CommandType.duplicateReward, saveAfterwards: false);
+                    shouldSaveAccount = true;
                 }
                 else
                 {
-                    rewards.Add(new LootBoxRewards(equipableRewards[i], StorePrice.duplicateReward));
-                    equipableRewards[i].unlocked = true;
-                    equipableRewards[i].Save();
+                    rewards.Add(new LootBoxRewards(equipableRewards[i], -1));
+                    equipableRewards[i].MarkAsUnlocked();
+                    shouldSaveArmory = true;
                 }
             }
-            GameSaves.instance.SaveData(GameSaves.Type.Armory);
 
-            callback.Invoke(rewards);
+            if (shouldSaveArmory)
+                GameSaves.instance.SaveDataAsync(GameSaves.Type.Armory, null);
+            if (shouldSaveAccount)
+                GameSaves.instance.SaveDataAsync(GameSaves.Type.Account, null);
+
+            onComplete();
         });
-    }
-
-    private List<EquipablePreview> GetRewards(LootBoxType type)
-    {
-        List<EquipablePreview> pickedItems = new List<EquipablePreview>();
-        for (int i = 0; i < (int)LootBoxType.medium; i++)
-        {
-            pickedItems.Add(GetRandomItemsWithout(pickedItems));
-            pickedItems[pickedItems.Count - 1].unlocked = true;
-        }
-        return pickedItems;
-    }
-
-    private EquipablePreview GetRandomItemsWithout(List<EquipablePreview> pickedItems)
-    {
-        bool keepGoing = false;
-        EquipablePreview result;
-        do
-        {
-            keepGoing = false;
-            result = possibleItems[UnityEngine.Random.Range(0, possibleItems.Count - 1)];
-            for (int i = 0; i < pickedItems.Count; i++)
-            {
-                if (result == pickedItems[i])
-                    keepGoing = true;
-            }
-        } while (keepGoing);
-        return result;
     }
 }

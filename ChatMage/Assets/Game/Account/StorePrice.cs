@@ -1,8 +1,8 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StorePrice {
+public static  class StorePrice {
 
     public enum CommandType
     {
@@ -22,24 +22,24 @@ public class StorePrice {
         duplicateReward = 13
     }
 
-    public static int smallLootboxCost = -5;
-    public static int mediumLootboxCost = -10;
-    public static int largeLootboxCost = -15;
+    public const int smallLootboxCost = -5;
+    public const int mediumLootboxCost = -10;
+    public const int largeLootboxCost = -15;
 
-    public static int smallLootboxGoldifyCost = -5;
-    public static int mediumLootboxGoldifyCost = -10;
-    public static int largeLootboxGoldifyCost = -15;
+    public const int smallLootboxGoldifyCost = -5;
+    public const int mediumLootboxGoldifyCost = -10;
+    public const int largeLootboxGoldifyCost = -15;
 
-    public static int smallGoldAmount = 10;
-    public static int mediumGoldAmount = 50;
-    public static int largeGoldAmount = 100;
-    public static int customGoldAmount = 1;
+    public const int smallGoldAmount = 10;
+    public const int mediumGoldAmount = 50;
+    public const int largeGoldAmount = 100;
+    public const int customGoldAmount = 1;
 
-    public static int slotCost = 1;
+    public const int slotCost = 1;
 
-    public static int adReward = 5;
+    public const int adReward = 5;
 
-    public static int duplicateReward = 10;
+    public const int duplicateReward = 10;
 
     public static int GetPrice(CommandType type)
     {

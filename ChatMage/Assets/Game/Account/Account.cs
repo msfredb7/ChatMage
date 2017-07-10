@@ -47,12 +47,12 @@ public class Account : BaseManager<Account>
             return coins;
         }
     }
-    
+
     /// <summary>
     /// Ajout ou retire un certain montant d'argent au compte du joueur
     /// </summary>
     /// <returns>Retourne si le changement a reussi ou pas</returns>
-    public bool AddCoins(int amount)
+    public bool AddCoins(int amount, bool saveAfterwards = true)
     {
         int moneyResult = coins + amount;
         if (moneyResult < 0)
@@ -62,14 +62,15 @@ public class Account : BaseManager<Account>
         if (onCoinsChange != null)
             onCoinsChange();
 
-        Save();
+        if (saveAfterwards)
+            Save();
 
         return true;
     }
 
-    public bool Command(StorePrice.CommandType commandType, int amount = 1)
+    public bool Command(StorePrice.CommandType commandType, int amount = 1, bool saveAfterwards = true)
     {
-        return AddCoins(StorePrice.GetPrice(commandType) * amount);
+        return AddCoins(StorePrice.GetPrice(commandType) * amount, saveAfterwards);
     }
 
     public void BuyCoins(int amount)

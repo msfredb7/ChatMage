@@ -9,7 +9,7 @@ using UnityEditor;
 public class RandomCompositeUnitSpawn : CompositeUnitSpawn
 {
     [System.Serializable]
-    public class SubSpawn : ILottery
+    public class SubSpawn : ILotteryItem
     {
         public UnitSpawn spawn;
         public float weight = 1;

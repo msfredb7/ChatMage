@@ -47,7 +47,7 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
     public List<UnitWaveV2> waves;
 
     [InspectorHeader("Winning Rewards")]
-    public GameRewards rewards;
+    public GameReward rewards;
 
     public event SimpleEvent onWin;
     public event SimpleEvent onLose;

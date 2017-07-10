@@ -18,7 +18,7 @@ namespace EndGameReward
         void Awake()
         {
             background.enabled = false;
-            screenShooter.enabled = false;
+            //screenShooter.enabled = false;
             blur.enabled = false;
         }
 

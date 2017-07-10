@@ -13,33 +13,29 @@ public class EquipablePreview : BaseScriptableObject
     public string equipableAssetName;
     public Sprite icon;
     public EquipableType type;
-    public bool unlocked = false;
+    public bool Unlocked { get { return unlocked; } }
+    private bool unlocked = false;
 
 
-    //[InspectorHeader("Ne pas utiliser")]
-    //public bool affectSmash;
-    //public bool specialInput;
-    //public string specialInputTooltipText;
-
-    //[InspectorHeader("Peut-être")]
-    //public Sprite largeIcon;
-    //public AudioClip selectSound;
-
-    public void Save()
+    public void MarkAsUnlocked()
     {
+        unlocked = true;
         string equipableKey = SAVE_PREFIX + equipableAssetName;
         GameSaves.instance.SetBool(GameSaves.Type.Armory, equipableKey, unlocked);
     }
 
     public void Load()
     {
-        string equipableKey = SAVE_PREFIX + equipableAssetName;
+        unlocked = IsUnlocked(equipableAssetName);
+    }
+
+    public static bool IsUnlocked(string assetName)
+    {
+        string equipableKey = SAVE_PREFIX + assetName;
+
         if (GameSaves.instance.ContainsBool(GameSaves.Type.Armory, equipableKey))
-            unlocked = GameSaves.instance.GetBool(GameSaves.Type.Armory, equipableKey);
+            return GameSaves.instance.GetBool(GameSaves.Type.Armory, equipableKey);
         else
-        {
-            GameSaves.instance.SetBool(GameSaves.Type.Armory, equipableKey, unlocked);
-            GameSaves.instance.SaveData(GameSaves.Type.Armory);
-        }
+            return false;
     }
 }

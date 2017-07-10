@@ -56,7 +56,7 @@ public class ShopMenu : MonoBehaviour
         {
             // On fait un popup pour etre sur que le joueur veut acheter une lootbox
             ShopPopUpMenu.ShowShopPopUpMenu("Bill Confirmation", "You are currently in the process of buying a " + lootbox.identifiant
-                + " lootbox. Are you sure you want to buy it?", lootbox.icon, "$" + StorePrice.GetPrice(lootbox.commandType), lootbox.amount, delegate ()
+                + " lootbox. Are you sure you want to buy it?", null, "$" + StorePrice.GetPrice(lootbox.commandType), lootbox.itemsAmount, delegate ()
             {
                 // On fait une commande pour acheter la lootbox
                 if (Account.instance.Command(lootbox.commandType))
@@ -84,12 +84,12 @@ public class ShopMenu : MonoBehaviour
                                 newLootboxAnimation.GetComponent<LootboxAnimation>().lootboxOpeningEvent = null;
                                 newLootboxAnimation.GetComponent<LootboxAnimation>().lootboxOpeningEvent += delegate ()
                                 {
-                                    // On ouvre la Lootbox et on obtient les recompenses
-                                    new LootBox(identifiant, delegate (List<LootBoxRewards> rewards)
-                                    {
-                                        // On ajoute les recompenses dans l'animation
-                                        newLootboxAnimation.GetComponent<LootboxAnimation>().AddRewards(rewards);
-                                    }, true);
+                                    //// On ouvre la Lootbox et on obtient les recompenses
+                                    //new LootBox(identifiant, delegate (List<LootBoxRewards> rewards)
+                                    //{
+                                    //    // On ajoute les recompenses dans l'animation
+                                    //    newLootboxAnimation.GetComponent<LootboxAnimation>().AddRewards(rewards);
+                                    //}, true);
                                 };
                             }
                         };
@@ -97,11 +97,11 @@ public class ShopMenu : MonoBehaviour
                         newLootboxAnimation.GetComponent<LootboxAnimation>().lootboxOpeningEvent += delegate ()
                         {
                             // On ouvre la Lootbox et on obtient les recompenses
-                            new LootBox(identifiant, delegate (List<LootBoxRewards> rewards)
-                            {
-                                // On ajoute les recompenses dans l'animation
-                                newLootboxAnimation.GetComponent<LootboxAnimation>().AddRewards(rewards);
-                            }, false);
+                            //new LootBox(identifiant, delegate (List<LootBoxRewards> rewards)
+                            //{
+                            //    // On ajoute les recompenses dans l'animation
+                            //    newLootboxAnimation.GetComponent<LootboxAnimation>().AddRewards(rewards);
+                            //}, false);
                         };
                     });
                 }

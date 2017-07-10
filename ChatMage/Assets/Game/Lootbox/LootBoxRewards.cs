@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,11 +6,11 @@ using UnityEngine;
 public class LootBoxRewards {
 
     public EquipablePreview equipable;
-    public int cashAmount;
+    public int goldAmount;
 
 	public LootBoxRewards(EquipablePreview equipable, int cashAmount)
     {
         this.equipable = equipable;
-        this.cashAmount = cashAmount;
+        this.goldAmount = cashAmount;
     }
 }
