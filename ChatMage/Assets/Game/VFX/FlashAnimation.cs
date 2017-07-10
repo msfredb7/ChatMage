@@ -6,9 +6,7 @@ using UnityEngine;
 
 public class FlashAnimation
 {
-
-    private static float flashSpeed = 5f;
-    private static Sequence unhitableSequence;
+    private const float FLASH_SPEED = 5f;
 
     private static void InternalFlashV2(Unit unit,
         SpriteRenderer[] renders,
@@ -48,7 +46,7 @@ public class FlashAnimation
 
 
         // Quelques calculs
-        int loops = Mathf.RoundToInt(duration * flashSpeed);
+        int loops = Mathf.RoundToInt(duration * FLASH_SPEED);
         float actualFlashSpeed = loops / duration;
 
         Color[] stdColors = null;
