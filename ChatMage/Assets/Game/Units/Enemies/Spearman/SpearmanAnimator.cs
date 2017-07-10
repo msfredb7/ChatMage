@@ -67,13 +67,13 @@ public class SpearmanAnimator : MonoBehaviour
         //pause
         sq.AppendInterval(pause);
 
+        //Retrack spear
+        sq.Append(
+            spear.DOLocalMoveX(0, retractDuration).SetEase(Ease.InOutSine));
+
         //Scale back to normal
         sq.Append(
             spear.DOScaleX(beginXScale, retractDuration).SetEase(Ease.InOutSine));
-
-        //Retrack spear
-        sq.Join(
-            spear.DOLocalMoveX(0, retractDuration).SetEase(Ease.InOutSine));
 
         return sq;
     }
