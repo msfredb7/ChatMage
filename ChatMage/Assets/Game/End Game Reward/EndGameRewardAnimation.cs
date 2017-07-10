@@ -17,8 +17,6 @@ public class EndGameRewardAnimation : MonoBehaviour {
 
     public void Init(GameRewards rewards, bool firstWin)
     {
-        //this.rewards = rewards;
-
         // Ajout de toutes les recompenses contenant dans GameRewards dans une seule liste
         lootboxRewards = new List<LootBoxRewards>();
         new LootBox(rewards.lootboxs[0], delegate (List<LootBoxRewards> lootboxRewards) 
@@ -27,7 +25,7 @@ public class EndGameRewardAnimation : MonoBehaviour {
                 this.lootboxRewards.Add(lootboxRewards[i]);
         });
 
-        // Ajout de la récompense en or!
+        // Ajout de la récompense en or! (TODO : A CHANGER, LA RECOMPENSE D'OR SERA AFFICHÉ DIFFÉREMMENT)
         lootboxRewards.Add(new LootBoxRewards(null, rewards.GetGoldReward(firstWin)));
 
         // On commence par montrer la premiere recompense

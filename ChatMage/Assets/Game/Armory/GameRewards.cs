@@ -14,23 +14,17 @@ public class GameRewards {
         public int firstWinAmountMax;
     }
 
-    public bool giveMoney;
-    [InspectorShowIf("giveMoney")]
     public GoldReward goldReward;
     public bool giveLootBox;
     [InspectorShowIf("giveLootBox")]
     public List<LootBoxRef> lootboxs = new List<LootBoxRef>();
-    public PinataExplosion.BallColor lootboxColor;
 
     // Ajout de reward de slot ?
-    // Ajout de reward d'objet directement ?
 
     // To open the lootbox : new LootBox(lootboxs[0], delegate (List<EquipablePreview> rewards) { ... });
 
     public int GetGoldReward(bool firstWin)
     {
-        if (!giveMoney)
-            return 0;
         if (firstWin)
         {
             int goldAmount = Random.Range(goldReward.baseAmountMin, goldReward.baseAmountMax) + Random.Range(goldReward.firstWinAmountMin, goldReward.firstWinAmountMax);
