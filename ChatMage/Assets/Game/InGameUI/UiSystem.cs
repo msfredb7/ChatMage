@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UiSystem : MonoBehaviour {
 
@@ -10,7 +11,7 @@ public class UiSystem : MonoBehaviour {
     public HealthDisplay healthdisplay;
     public PlayerInput playerInputs;
     public SmashDisplay smashDisplay;
-    public OptionMenu menuOption;
+    public OptionsButton optionsButton;
     public DialogDisplay dialogDisplay;
     public CanvasGroup gameRelatedGroup;
     public BossHealthBarDisplay bossHealthBar;

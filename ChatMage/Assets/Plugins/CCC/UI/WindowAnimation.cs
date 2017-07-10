@@ -150,13 +150,13 @@ namespace CCC.UI
             if (bgImage != null)
             {
                 bgImage.DOKill();
-                bgImage.color = new Color(bgImage.color.r, bgImage.color.g, bgImage.color.b, bgImageAlpha);
+                bgImage.SetAlpha(bgImageAlpha);
             }
 
             if (backBg != null)
             {
                 backBg.DOKill();
-                backBg.color = new Color(backBg.color.r, backBg.color.g, backBg.color.b, backBgAlpha);
+                backBg.SetAlpha(backBgAlpha);
                 backBg.gameObject.SetActive(true);
             }
 
@@ -180,13 +180,13 @@ namespace CCC.UI
             if (bgImage != null)
             {
                 bgImage.DOKill();
-                bgImage.color = new Color(bgImage.color.r, bgImage.color.g, bgImage.color.b, fadeStart);
+                bgImage.SetAlpha(fadeStart);
             }
 
             if(backBg != null)
             {
                 backBg.DOKill();
-                backBg.color = new Color(backBg.color.r, backBg.color.g, backBg.color.b, 0);
+                backBg.SetAlpha(0);
                 backBg.gameObject.SetActive(false);
             }
 
