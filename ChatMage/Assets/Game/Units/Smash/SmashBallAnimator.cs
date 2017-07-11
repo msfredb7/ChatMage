@@ -116,12 +116,24 @@ public class SmashBallAnimator : MonoBehaviour
         });
     }
 
-    private void SetVisible(bool state)
+    public void SetVisible(bool state)
     {
         for (int i = 0; i < ballRenderers.Length; i++)
         {
             ballRenderers[i].enabled = state;
         }
+    }
+
+    public bool IsVisible()
+    {
+        for (int i = 0; i < ballRenderers.Length; i++)
+        {
+            // Si un seul des renderers n'est pas enable, la smashball n'est pas visible
+            if (!ballRenderers[i].enabled)
+                return false;
+        }
+        // Sinon elle est visible
+        return true;
     }
 
     private ColorHSV rayColor;

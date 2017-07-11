@@ -8,11 +8,6 @@ using FullSerializer;
 
 public class LS_SecondLevel : LevelScript
 {
-    [InspectorHeader("Enemy Prefabs"), InspectorMargin(10)]
-    public SpearmanVehicle spearMan;
-    public ArcherVehicle archer;
-    public ShielderVehicle romanShielder;
-
     [InspectorHeader("Dialog"), InspectorMargin(10)]
     public Dialoguing.Dialog whatAmISupposeToDo;
     public Dialoguing.Dialog enterArenaDialog;
@@ -72,9 +67,12 @@ public class LS_SecondLevel : LevelScript
         {
             TriggerWaveManually("1st wave");
         });
-        TaggedObject gate = map.mapping.GetTaggedObject("arena gate");
-        gate.GetComponent<SidewaysFakeGate>().Close();
-        gate.GetComponent<Collider2D>().enabled = true;
+        // Gates
+        TaggedObject gate1 = map.mapping.GetTaggedObject("arena gate");
+        gate1.GetComponent<SidewaysFakeGate>().Close();
+        gate1.GetComponent<Collider2D>().enabled = true;
+        TaggedObject gate2 = map.mapping.GetTaggedObject("fake gate top");
+        gate2.gameObject.SetActive(true);
     }
 
     public void StartSecondWave()
@@ -85,21 +83,51 @@ public class LS_SecondLevel : LevelScript
         });
     }
 
-    public void StartFinalWave()
+    public void StartThirdWave()
     {
         Game.instance.ui.dialogDisplay.StartDialog(thirdWaveTalk, delegate ()
         {
-            TriggerWaveManually("final wave");
+            Game.instance.smashManager.smashEnabled = true;
+            Game.instance.smashManager.enabled = true;
+            Game.instance.ui.smashDisplay.canBeShown = true;
+            Game.instance.smashManager.DecreaseCooldown(100);
+
+            inGameEvents.AddDelayedAction(delegate ()
+            {
+                TriggerWaveManually("3rd wave");
+            }, 7.5f);
         });
     }
 
-    public void GoBack()
+    public void StartFourthWave()
     {
-        Game.instance.ui.dialogDisplay.StartDialog(whatIsThisSorcery);
-        TaggedObject gate = map.mapping.GetTaggedObject("arena gate");
-        gate.GetComponent<SidewaysFakeGate>().Open();
-        gate.GetComponent<Collider2D>().enabled = false;
-        map.roadPlayer.CurrentRoad.ApplyMinMaxToCamera();
+        Game.instance.ui.dialogDisplay.StartDialog(whatIsThisSorcery, delegate ()
+        {
+            TriggerWaveManually("4th wave");
+        });
+    }
+
+    public void StartFinalWave()
+    {
+        Game.instance.ui.dialogDisplay.StartDialog(getHim, delegate ()
+        {
+            TriggerWaveManually("final wave");
+            inGameEvents.AddDelayedAction(delegate ()
+            {
+                // Camera
+                Game.instance.gameCamera.followPlayer = true;
+                Game.instance.gameCamera.canScrollUp = true;
+                Game.instance.map.roadPlayer.CurrentRoad.ApplyMinMaxToCamera();
+
+                // Gates
+                TaggedObject gate1 = map.mapping.GetTaggedObject("arena gate top");
+                gate1.GetComponent<SidewaysFakeGate>().Open();
+                gate1.GetComponent<Collider2D>().enabled = true;
+                TaggedObject gate2 = map.mapping.GetTaggedObject("fake gate top");
+                gate2.gameObject.SetActive(false);
+
+            }, 3);
+        });
     }
 
     public override void OnReceiveEvent(string message)
@@ -114,11 +142,16 @@ public class LS_SecondLevel : LevelScript
                 inGameEvents.AddDelayedAction(StartSecondWave, 1);
                 break;
             case "wave 2 complete":
-                inGameEvents.AddDelayedAction(StartFinalWave, 1);
+                inGameEvents.AddDelayedAction(StartThirdWave, 1);
                 break;
-            case "final wave complete":
-                inGameEvents.AddDelayedAction(GoBack, 1);
+            case "wave 3 complete":
+                inGameEvents.AddDelayedAction(StartFourthWave, 1);
+                break;
+            case "wave 4 complete":
+                inGameEvents.AddDelayedAction(StartFinalWave, 1);
                 canWin = true;
+                break;
+            case "last impossible wave":
                 break;
             case "attempt win":
                 if (canWin)

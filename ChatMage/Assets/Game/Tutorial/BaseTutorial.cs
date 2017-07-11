@@ -23,17 +23,23 @@ namespace Tutorial
             public bool useSpecificTime = false;
             [InspectorShowIf("useSpecificTime")]
             public float when = 0;
-            [InspectorHeader("Use a milestone to start the event")]
-            public bool useMileStone = false;
-            [InspectorShowIf("useMileStone")]
-            public List<string> milestoneThatTrigger = new List<string>();
             [InspectorTooltip("If at false, time counter won't start from" +
-                "beginning but from where it was trigger (example : from outside)")]
+    "beginning but from where it was trigger (example : from outside)")]
             public bool invokeOnGameStarted = true;
-            [InspectorHeader("Will start this event when the other one is over")]
+            [InspectorHeader("Use a milestone to start the event"),InspectorHideIf("invokeOnGameStarted")]
+            public bool useMileStone = false;
+            [InspectorHideIf("invokeOnGameStarted")]
+            public List<string> milestoneThatTrigger = new List<string>();
+            [InspectorHeader("Use a Unit Wave to start the event"), InspectorHideIf("invokeOnGameStarted")]
+            public bool useUnitWave = false;
+            [InspectorHideIf("invokeOnGameStarted")]
+            public bool onUnitWaveLaunch = false;
+            [InspectorHideIf("invokeOnGameStarted")]
+            public List<string> unitWaveThatTrigger = new List<string>();
+            [InspectorHeader("Will start this event when the other one is over"), InspectorHideIf("invokeOnGameStarted")]
             public bool startAfterAnEvent = false;
             [InspectorShowIf("startAfterAnEvent")]
-            public int tutorialEventIndex;
+            public int startAfterTutorialEventIndex;
             public SimpleEvent onComplete;
 
             [HideInInspector, NonSerialized]
@@ -49,19 +55,24 @@ namespace Tutorial
             }
         }
 
+        public bool startTutorialOnInit = true;
         public List<TutorialEvent> tutorialEvents = new List<TutorialEvent>();
-        public bool startOnInit = true;
 
         [NonSerialized, fsIgnore]
         protected TutorialScene modules;
 
         private const string TUTORIALSAVE = "cmplt"; //Short pour 'Completed'
 
+        protected LevelScript currentLevel;
+
         public virtual void Init(TutorialScene modules)
         {
             this.modules = modules;
 
-            if (startOnInit)
+            if(Game.instance != null)
+                currentLevel = Game.instance.currentLevel;
+
+            if (startTutorialOnInit)
                 Start();
         }
 
@@ -73,15 +84,19 @@ namespace Tutorial
             // On s'assure que les creation de sauvegarde dans begin on bien sauvegarder
             //GameSaves.instance.SaveData(GameSaves.Type.Tutorial);
 
+            // Écouter aux milestones
+            if(currentLevel != null)
+                currentLevel.onEventReceived += CurrentLevel_onEventReceived;
+
             // Avant meme de commencer a faire les events, on doit s'assurer que l'enchainement se fera comme il faut
             for (int i = 0; i < tutorialEvents.Count; i++)
             {
-                TutorialEvent currentTutorial = tutorialEvents[i];
-                if (currentTutorial.startAfterAnEvent)
+                TutorialEvent currentTutorialEvent = tutorialEvents[i];
+                if (currentTutorialEvent.startAfterAnEvent)
                 {
-                    tutorialEvents[currentTutorial.tutorialEventIndex].onComplete += delegate () { Execute(currentTutorial, true); };
+                    tutorialEvents[currentTutorialEvent.startAfterTutorialEventIndex].onComplete += delegate () { Execute(currentTutorialEvent, true); };
                     // Never Execute It Again
-                    currentTutorial.alreadyExecute = true;
+                    currentTutorialEvent.alreadyExecute = true;
                 }
 
             }
@@ -89,13 +104,50 @@ namespace Tutorial
             // On peut ensuite commencer les events qui sont start au debut
             for (int i = 0; i < tutorialEvents.Count; i++)
             {
-                if (tutorialEvents[i].alreadyExecute)
+                TutorialEvent currentEvent = tutorialEvents[i];
+                if (currentEvent.alreadyExecute)
                     continue;
-                if (tutorialEvents[i].invokeOnGameStarted || tutorialEvents[i].useSpecificTime)
-                    Execute(tutorialEvents[i], true);
+                if (currentEvent.invokeOnGameStarted)
+                    Execute(currentEvent, true);
+                else if(currentEvent.useUnitWave && currentEvent.onUnitWaveLaunch)
+                {
+                    foreach (string unitWave in currentEvent.unitWaveThatTrigger)
+                    {
+                        currentLevel.AddEventOnLaunchedUnitWave(unitWave, delegate ()
+                        {
+                            Execute(currentEvent, true);
+                        });
+                    }
+                }
             }
 
             OnStart();
+        }
+
+        private void CurrentLevel_onEventReceived(string message)
+        {
+            for (int i = 0; i < tutorialEvents.Count; i++)
+            {
+                if (tutorialEvents[i].useMileStone)
+                {
+                    for (int j = 0; j < tutorialEvents[i].milestoneThatTrigger.Count; j++)
+                    {
+                        if (tutorialEvents[i].milestoneThatTrigger[j] == message)
+                        {
+                            Execute(tutorialEvents[i], true);
+                        }
+                    }
+                } else if (tutorialEvents[i].useUnitWave && !tutorialEvents[i].onUnitWaveLaunch)
+                {
+                    for (int j = 0; j < tutorialEvents[i].unitWaveThatTrigger.Count; j++)
+                    {
+                        if (tutorialEvents[i].unitWaveThatTrigger[j] == message)
+                        {
+                            Execute(tutorialEvents[i], true);
+                        }
+                    }
+                }
+            }
         }
 
         protected abstract void OnStart();
@@ -116,7 +168,11 @@ namespace Tutorial
             }
         }
 
-        protected abstract void Cleanup();
+        protected virtual void Cleanup()
+        {
+            if(currentLevel != null)
+                currentLevel.onEventReceived -= CurrentLevel_onEventReceived;
+        }
 
         private void Quit()
         {
@@ -134,6 +190,8 @@ namespace Tutorial
 
         public void Execute(TutorialEvent tutorialEvent, bool useTime)
         {
+            if (tutorialEvent.alreadyExecute)
+                return;
             tutorialEvent.alreadyExecute = true;
 
             // Find the Action/Method to Invoke
@@ -162,5 +220,4 @@ namespace Tutorial
             }
         }
     }
-
 }

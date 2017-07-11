@@ -11,8 +11,7 @@ namespace Tutorial
     public class TUT_FirstLevel : BaseTutorial
     {
         public CanvasGroup handClickPrefab;
-
-
+        
         [NonSerialized, fsIgnore]
         private bool hasStarted = false;
 
@@ -20,7 +19,7 @@ namespace Tutorial
         {
             if (hasStarted)
             {
-                Game.instance.currentLevel.onEventReceived -= CurrentLevel_onEventReceived;
+                currentLevel.onEventReceived -= CurrentLevel_onEventReceived;
                 Game.instance.onUnitSpawned -= TutoEnemy;
             }
         }
@@ -57,7 +56,6 @@ namespace Tutorial
 
             Image handClick = Instantiate(handClickPrefab.gameObject, modules.transform).GetComponent<Image>();
 
-
             RectTransform tr = handClick.GetComponent<RectTransform>();
             tr.anchorMin = new Vector2(0, 0);
             tr.anchorMax = new Vector2(0.333f, 1);
@@ -69,7 +67,6 @@ namespace Tutorial
 
             //Flash le background
             handClick.DOFade(0.15f, 1).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo).SetUpdate(true);
-
 
             modules.delayedAction.Do(0.75f,
                 delegate ()
