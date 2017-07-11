@@ -72,7 +72,7 @@ public class LS_SecondLevel : LevelScript
         gate1.GetComponent<SidewaysFakeGate>().Close();
         gate1.GetComponent<Collider2D>().enabled = true;
         TaggedObject gate2 = map.mapping.GetTaggedObject("fake gate top");
-        gate2.GetComponent<Collider2D>().enabled = true;
+        gate2.gameObject.SetActive(true);
     }
 
     public void StartSecondWave()
@@ -114,14 +114,18 @@ public class LS_SecondLevel : LevelScript
             TriggerWaveManually("final wave");
             inGameEvents.AddDelayedAction(delegate ()
             {
+                // Camera
                 Game.instance.gameCamera.followPlayer = true;
+                Game.instance.gameCamera.canScrollUp = true;
+                Game.instance.map.roadPlayer.CurrentRoad.ApplyMinMaxToCamera();
+
+                // Gates
                 TaggedObject gate1 = map.mapping.GetTaggedObject("arena gate top");
                 gate1.GetComponent<SidewaysFakeGate>().Open();
                 gate1.GetComponent<Collider2D>().enabled = true;
                 TaggedObject gate2 = map.mapping.GetTaggedObject("fake gate top");
-                gate2.GetComponent<Collider2D>().enabled = false;
-                gate2.GetComponent<SpriteRenderer>().enabled = false;
-                
+                gate2.gameObject.SetActive(false);
+
             }, 3);
         });
     }
@@ -145,9 +149,9 @@ public class LS_SecondLevel : LevelScript
                 break;
             case "wave 4 complete":
                 inGameEvents.AddDelayedAction(StartFinalWave, 1);
+                canWin = true;
                 break;
             case "last impossible wave":
-                canWin = true;
                 break;
             case "attempt win":
                 if (canWin)

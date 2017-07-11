@@ -504,7 +504,7 @@ Transform:
   - {fileID: 590648047}
   - {fileID: 70310144}
   - {fileID: 1752222564}
-  - {fileID: 267499302}
+  - {fileID: 1990598052}
   - {fileID: 307016172}
   m_Father: {fileID: 266624492}
   m_RootOrder: 0
@@ -892,77 +892,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _objectReferences:
-  - {fileID: 267499301}
+  - {fileID: 1990598053}
   - {fileID: 864190674}
   - {fileID: 1425111069}
+  - {fileID: 1935804301}
   _serializedStateKeys:
   - milestones
   - milestoneRelativeHeights
   _serializedStateValues:
-  - '[0,1,2]'
-  - '[-15.5,-3.89,4.5]'
-  topHeight: 4.5
+  - '[0,1,2,3]'
+  - '[-15.5,-3.89,4.5,20.16]'
+  topHeight: 20.34
   bottomHeight: -24.5
   setCameraMinMax: 1
   milestones:
-  - {fileID: 267499301}
+  - {fileID: 1990598053}
   - {fileID: 864190674}
   - {fileID: 1425111069}
---- !u!1 &267499300
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 267499302}
-  - component: {fileID: 267499301}
-  m_Layer: 0
-  m_Name: Win Milestone
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
---- !u!114 &267499301
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 267499300}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d16ec1b977bfcb542b9a66a4dab46ed0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _objectReferences: []
-  _serializedStateKeys:
-  - triggerOn
-  _serializedStateValues:
-  - '"BottomOfScreen"'
-  triggerOn: 0
-  disapearAfterTrigger: 0
-  modifyFollowPlayer: 0
-  followPlayerEffect: 0
-  modifyCanScrollUp: 0
-  canScrollUpEffect: 1
-  modifyCanScrollDown: 0
-  canScrollDownEffect: 1
-  fireEventToLevelScript: 1
-  eventMessage: attempt win
---- !u!4 &267499302
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 267499300}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -4.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 120092643}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  - {fileID: 1935804301}
 --- !u!1 &272089696
 GameObject:
   m_ObjectHideFlags: 0
@@ -991,6 +938,7 @@ Transform:
   - {fileID: 1387905571}
   - {fileID: 1266462795}
   - {fileID: 1051935713}
+  - {fileID: 1935804300}
   m_Father: {fileID: 266624492}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2140,6 +2088,11 @@ Prefab:
       propertyPath: m_LocalScale.x
       value: 1.48
       objectReference: {fileID: 0}
+    - target: {fileID: 114653488259285696, guid: ca5c106f3222c5c44bd6eb30ea5bfe88,
+        type: 2}
+      propertyPath: openedLocalPosition.x
+      value: 1.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ca5c106f3222c5c44bd6eb30ea5bfe88, type: 2}
   m_IsPrefabParent: 0
@@ -2845,12 +2798,12 @@ MonoBehaviour:
   - '"TopOfScreen"'
   triggerOn: 1
   disapearAfterTrigger: 1
-  modifyFollowPlayer: 0
+  modifyFollowPlayer: 1
   followPlayerEffect: 0
-  modifyCanScrollUp: 0
-  canScrollUpEffect: 1
-  modifyCanScrollDown: 0
-  canScrollDownEffect: 1
+  modifyCanScrollUp: 1
+  canScrollUpEffect: 0
+  modifyCanScrollDown: 1
+  canScrollDownEffect: 0
   fireEventToLevelScript: 1
   eventMessage: enter arena
 --- !u!1 &1534255055
@@ -3104,8 +3057,9 @@ MonoBehaviour:
   - {fileID: 864190674}
   - {fileID: 1425111069}
   - {fileID: 266624493}
-  - {fileID: 267499301}
   - {fileID: 1644651695}
+  - {fileID: 1935804301}
+  - {fileID: 1990598053}
   _values:
   - _keys: []
     _values: []
@@ -3121,10 +3075,13 @@ MonoBehaviour:
     _target: {fileID: 266624493}
   - _keys: []
     _values: []
-    _target: {fileID: 267499301}
+    _target: {fileID: 1644651695}
   - _keys: []
     _values: []
-    _target: {fileID: 1644651695}
+    _target: {fileID: 1935804301}
+  - _keys: []
+    _values: []
+    _target: {fileID: 1990598053}
 --- !u!114 &1649213853
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3141,15 +3098,13 @@ MonoBehaviour:
   - {fileID: 864190674}
   - {fileID: 1425111069}
   - {fileID: 266624493}
-  - {fileID: 267499301}
   - {fileID: 1644651695}
+  - {fileID: 1935804301}
+  - {fileID: 1990598053}
   _values:
   - _keys: []
     _values: []
     _target: {fileID: 153121006}
-  - _keys: []
-    _values: []
-    _target: {fileID: 864190674}
   - _keys:
     - DefaultBehaviorEditor.triggerOn.EditProperty
     - DefaultBehaviorEditor.modifyFollowPlayer.EditProperty
@@ -3167,11 +3122,35 @@ MonoBehaviour:
       _serializedIsActive: 1
     - _showDropdown: 0
       _serializedIsActive: 1
+    _target: {fileID: 864190674}
+  - _keys: []
+    _values: []
     _target: {fileID: 1425111069}
   - _keys: []
     _values: []
     _target: {fileID: 266624493}
   - _keys:
+    - DefaultBehaviorEditor.mapping.EditProperty
+    - DefaultBehaviorEditor.cameraSpawn.EditProperty
+    - DefaultBehaviorEditor.listUnits.EditProperty
+    - DefaultBehaviorEditor.objectsToAjust.EditProperty
+    - DefaultBehaviorEditor.setAIArea.EditProperty
+    - DefaultBehaviorEditor.roadPlayer.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 1
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    _target: {fileID: 1644651695}
+  - _keys:
     - DefaultBehaviorEditor.triggerOn.EditProperty
     - DefaultBehaviorEditor.modifyFollowPlayer.EditProperty
     - DefaultBehaviorEditor.modifyCanScrollUp.EditProperty
@@ -3188,10 +3167,10 @@ MonoBehaviour:
       _serializedIsActive: 1
     - _showDropdown: 0
       _serializedIsActive: 1
-    _target: {fileID: 267499301}
+    _target: {fileID: 1935804301}
   - _keys: []
     _values: []
-    _target: {fileID: 1644651695}
+    _target: {fileID: 1990598053}
 --- !u!1 &1659626761
 GameObject:
   m_ObjectHideFlags: 0
@@ -3740,6 +3719,61 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1935804299
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1935804300}
+  - component: {fileID: 1935804301}
+  m_Layer: 0
+  m_Name: End Game MileStone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!4 &1935804300
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1935804299}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 20.16, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 272089697}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1935804301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1935804299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d16ec1b977bfcb542b9a66a4dab46ed0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectReferences: []
+  _serializedStateKeys:
+  - triggerOn
+  _serializedStateValues:
+  - '"TopOfScreen"'
+  triggerOn: 1
+  disapearAfterTrigger: 1
+  modifyFollowPlayer: 1
+  followPlayerEffect: 0
+  modifyCanScrollUp: 1
+  canScrollUpEffect: 0
+  modifyCanScrollDown: 1
+  canScrollDownEffect: 0
+  fireEventToLevelScript: 1
+  eventMessage: attempt win
 --- !u!1 &1955935615
 GameObject:
   m_ObjectHideFlags: 0
@@ -3809,3 +3843,58 @@ SpriteRenderer:
   m_Size: {x: 17, y: 9.638838}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 1
+--- !u!1 &1990598051
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1990598052}
+  - component: {fileID: 1990598053}
+  m_Layer: 0
+  m_Name: Win Milestone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!4 &1990598052
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1990598051}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -4.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 120092643}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1990598053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1990598051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d16ec1b977bfcb542b9a66a4dab46ed0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectReferences: []
+  _serializedStateKeys:
+  - triggerOn
+  _serializedStateValues:
+  - '"BottomOfScreen"'
+  triggerOn: 0
+  disapearAfterTrigger: 0
+  modifyFollowPlayer: 0
+  followPlayerEffect: 0
+  modifyCanScrollUp: 0
+  canScrollUpEffect: 1
+  modifyCanScrollDown: 0
+  canScrollDownEffect: 1
+  fireEventToLevelScript: 1
+  eventMessage: attempt win
