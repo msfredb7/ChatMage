@@ -4,37 +4,29 @@ using UnityEngine;
 
 public class PanicBehavior : EnemyBehavior<EnemyVehicle>
 {
-    const float CHOOSE_INTERVAL = 1.5f;
+    const float MIN_DIST = 1.5f;
+    const float MAX_DIST = 3;
 
     float chooseTimer = 0;
     float lastDirectionPick = 0;
 
     public PanicBehavior(EnemyVehicle v) : base(v) { }
 
-    public override void Enter(Unit player)
+    public override void Enter(Unit target)
+    {
+        NewDestination();
+    }
+
+    private void NewDestination()
+    {
+        vehicle.GotoPosition(CCC.Math.Vectors.RandomVector2(0, 360, MIN_DIST, MAX_DIST) + vehicle.Position, NewDestination);
+    }
+
+    public override void Exit(Unit target)
     {
     }
 
-    public override void Exit(Unit player)
+    public override void Update(Unit target, float deltaTime)
     {
-    }
-
-    public override void Update(Unit player, float deltaTime)
-    {
-        chooseTimer -= deltaTime;
-
-        //Pick new destination ?
-        if (chooseTimer < 0)
-        {
-            // on reste sous 360
-            if (lastDirectionPick > 360)
-                lastDirectionPick -= 360;
-
-            //On met cette petite formule pour ne pas pick 2 fois des direction semblable
-            lastDirectionPick = Random.Range(lastDirectionPick + 60, lastDirectionPick + 300);
-            chooseTimer = CHOOSE_INTERVAL;
-        }
-
-        vehicle.GotoDirection(lastDirectionPick, deltaTime);
     }
 }

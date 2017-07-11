@@ -30,6 +30,15 @@ public class AC130Effect : MonoBehaviour
     private int ammo = 3;
     private float remainingReloadTime;
 
+    private class ForcedEnemies
+    {
+        public EnemyBrain brain;
+        public EnemyBehavior behavior;
+        public ForcedEnemies(EnemyBrain brain, EnemyBehavior behavior) { this.brain = brain; this.behavior = behavior; }
+    }
+
+    private LinkedList<ForcedEnemies> forcedBehaviors = new LinkedList<ForcedEnemies>();
+
     void Awake()
     {
         gameObject.SetActive(false);
@@ -138,10 +147,11 @@ public class AC130Effect : MonoBehaviour
             EnemyVehicle vehicle = unit as EnemyVehicle;
             if (enemyBrain != null)
             {
-                if (enemyBrain.IsBehavior<PanicBehavior>())
-                    enemyBrain.UpdateForcedDuration(remainingDuration);
-                else
-                    enemyBrain.ForceBehavior(new PanicBehavior(vehicle), remainingDuration);
+                EnemyBehavior behavior = new PanicBehavior(vehicle);
+                if (enemyBrain.ForceBehavior(behavior))
+                {
+                    forcedBehaviors.AddLast(new ForcedEnemies(enemyBrain, behavior));
+                }
             }
         }
     }
@@ -152,6 +162,12 @@ public class AC130Effect : MonoBehaviour
             return;
 
         ending = true;
+
+        foreach (ForcedEnemies e in forcedBehaviors)
+        {
+            e.brain.RemoveForcedBehavior(e.behavior);
+        }
+        forcedBehaviors.Clear();
 
         //Black fade in
         blackFade.DOKill();

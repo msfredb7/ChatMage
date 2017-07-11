@@ -39,7 +39,8 @@ public abstract class EnemyBrain : BaseBehavior
     private bool noTargetOnThisFrame = false;
 
     private EnemyBehavior currentBehavior;
-    private float forcedInStateDuration = -1;
+    //private float forcedInStateDuration = -1;
+    private EnemyBehavior forcedBehavior;
 
     protected virtual void Start()
     {
@@ -65,7 +66,7 @@ public abstract class EnemyBrain : BaseBehavior
         if (currentBehavior != null)
             currentBehavior.Update(target, myVehicle.DeltaTime());
 
-        forcedInStateDuration -= myVehicle.DeltaTime();
+        //forcedInStateDuration -= myVehicle.DeltaTime();
     }
 
     protected void ClearTarget()
@@ -134,7 +135,7 @@ public abstract class EnemyBrain : BaseBehavior
     protected abstract void UpdateWithoutTarget();
     protected abstract EnemyVehicle myVehicle { get; }
 
-    public bool IsForcedIntoState { get { return forcedInStateDuration > 0; } }
+    public bool IsForcedIntoState { get { return forcedBehavior != null; } }
 
     private void EnterBehavior(EnemyBehavior newBehaviour)
     {
@@ -156,10 +157,10 @@ public abstract class EnemyBrain : BaseBehavior
         return !IsBehavior<T>() && !IsForcedIntoState;
     }
 
-    public void UpdateForcedDuration(float duration)
-    {
-        forcedInStateDuration = Mathf.Max(duration, forcedInStateDuration);
-    }
+    //public void UpdateForcedDuration(float duration)
+    //{
+    //    forcedInStateDuration = Mathf.Max(duration, forcedInStateDuration);
+    //}
 
     /// <summary>
     /// On devrait toujours checker CanGoTo() avant. Pour ne pas faire de garbage
@@ -174,16 +175,26 @@ public abstract class EnemyBrain : BaseBehavior
         EnterBehavior(newBehavior);
     }
 
-    public void ForceBehavior(EnemyBehavior newBehavior, float duration, bool overridePreviousForcedState = false)
+    public void RemoveForcedBehavior(EnemyBehavior behavior)
+    {
+        if (forcedBehavior == behavior)
+            forcedBehavior = null;
+    }
+
+    public bool ForceBehavior(EnemyBehavior newBehavior, bool overridePreviousForcedState = false)
     {
         //Already in another state ? Can it override it ?
         if (IsForcedIntoState && !overridePreviousForcedState)
-            return;
+            return false;
+
+        forcedBehavior = newBehavior;
 
         //Enter behavior
         EnterBehavior(newBehavior);
 
         //Set duration
-        forcedInStateDuration = duration;
+        //forcedInStateDuration = duration;
+
+        return true;
     }
 }

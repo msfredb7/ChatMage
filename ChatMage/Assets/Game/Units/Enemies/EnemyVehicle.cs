@@ -22,6 +22,7 @@ public abstract class EnemyVehicle : Vehicle, IAttackable
     {
         EngineOff();
         goingToTargetPosition = false;
+        onReach = null;
     }
 
     public void GoAndStayAtPosition(Vector2 position, Action onReach = null)
@@ -95,16 +96,24 @@ public abstract class EnemyVehicle : Vehicle, IAttackable
             Vector2 v = targetPosition - rb.position;
 
             //Distance to target ?
-            if (v.magnitude > 0.3f)
+            if (v.sqrMagnitude > 0.09f)
             {
-                // Going to
-                EngineOn();
+                float vAngle = v.ToAngle();
+                float angleDelta = (Rotation - vAngle).Abs();
 
-                TurnToDirection(targetPosition - rb.position, FixedDeltaTime());
+                // Going to
+                if (angleDelta < 90)
+                    EngineOn();
+                else
+                    EngineOff();
+
+                TurnToDirection(vAngle, FixedDeltaTime());
             }
             else
             {
                 EngineOff();
+
+                Action wasOnReach = onReach;
 
                 //Arrived !
                 if (!tryToStayAtTargetPosition)
@@ -112,11 +121,10 @@ public abstract class EnemyVehicle : Vehicle, IAttackable
                     //Dont have to stay...
                     Stop();
                 }
-
-                if (onReach != null)
+                
+                if (wasOnReach != null)
                 {
-                    onReach();
-                    onReach = null;
+                    wasOnReach();
                 }
             }
         }
@@ -125,6 +133,15 @@ public abstract class EnemyVehicle : Vehicle, IAttackable
     }
 
     #endregion
+
+    void OnDrawGizmosSelected()
+    {
+        if (goingToTargetPosition)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawLine(Position, targetPosition);
+        }
+    }
 
     public Vector2 GetPositionAwayFromPlayer(float length)
     {
