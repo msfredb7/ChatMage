@@ -247,22 +247,6 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
                 }
             }
 
-        //A remettre ?
-        //if (tutorial != null)
-        //    for (int i = 0; i < tutorial.tutorialEvents.Count; i++)
-        //    {
-        //        if (tutorial.tutorialEvents[i].useMileStone)
-        //        {
-        //            for (int j = 0; j < tutorial.tutorialEvents[i].milestoneThatTrigger.Count; j++)
-        //            {
-        //                if (tutorial.tutorialEvents[i].milestoneThatTrigger[j] == message)
-        //                {
-        //                    tutorial.Execute(tutorial.tutorialEvents[i], false);
-        //                }
-        //            }
-        //        }
-        //    }
-
         OnReceiveEvent(message);
 
         if (onEventReceived != null)
@@ -281,6 +265,17 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
                     manuallyTriggeredWaves.RemoveAt(i);
                     i--;
                 }
+            }
+        }
+    }
+
+    public void AddEventOnLaunchedUnitWave(string tag, SimpleEvent action)
+    {
+        for (int i = 0; i < manuallyTriggeredWaves.Count; i++)
+        {
+            if (manuallyTriggeredWaves[i].when.name == tag)
+            {
+                manuallyTriggeredWaves[i].onLaunched += action;
             }
         }
     }
