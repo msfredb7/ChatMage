@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class JesusRockV2 : Unit
 {
-    [Header("Rock")]
+    [System.NonSerialized]
     public float flySpeed;
+
+    [Header("Rock")]
     public new Collider2D collider;
     public float onHitShakeStrength = 0.7f;
 

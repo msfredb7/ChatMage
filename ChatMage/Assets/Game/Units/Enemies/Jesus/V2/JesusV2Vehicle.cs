@@ -19,6 +19,9 @@ public class JesusV2Vehicle : EnemyVehicle
     public JesusV2Animator animator;
     public Transform rockTransporter;
 
+    [Header("Throw")]
+    public float throwSpeed;
+
     [Header("Visuals")]
     public SpriteRenderer[] spriteRenderers;
 
