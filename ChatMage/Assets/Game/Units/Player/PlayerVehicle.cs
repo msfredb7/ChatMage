@@ -18,7 +18,8 @@ public class PlayerVehicle : Vehicle, IAttackable
 
     private bool drifting = false;
     //private List<TrailRenderer> blackTrails = new List<TrailRenderer>();
-    PlayerController controller;
+    [NonSerialized]
+    public PlayerController controller;
 
     public ISpeedOverrider speedOverrider = null;
     public List<ISpeedBuff> speedBuffs = new List<ISpeedBuff>();

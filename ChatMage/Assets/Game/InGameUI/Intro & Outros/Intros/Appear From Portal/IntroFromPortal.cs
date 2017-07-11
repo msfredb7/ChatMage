@@ -48,7 +48,6 @@ namespace GameIntroOutro
             veh.TeleportDirection(180);
 
             //Lock player
-            player.playerDriver.enableInput = false;
             veh.wheelsOnTheGround.Lock(LOCK_KEY);
             veh.canTurn.Lock(LOCK_KEY);
 
@@ -56,7 +55,6 @@ namespace GameIntroOutro
                 delegate ()
                 {
                     //Unlock player
-                    player.playerDriver.enableInput = true;
                     veh.wheelsOnTheGround.Unlock(LOCK_KEY);
                     veh.canTurn.Unlock(LOCK_KEY);
 
