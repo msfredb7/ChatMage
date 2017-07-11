@@ -61,7 +61,7 @@ public class BlueShellVehicle : Vehicle
         animator.ResetValues();
     }
 
-    void Update()
+    protected override  void Update()
     {
         if (wandering && wanderingRemains < 0)
             wandering = false;

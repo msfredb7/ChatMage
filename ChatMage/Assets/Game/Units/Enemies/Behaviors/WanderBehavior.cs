@@ -9,7 +9,6 @@ public class WanderBehavior : EnemyBehavior<EnemyVehicle>
     const float DISTANCE_MAX = 3.5f;
 
     float chooseTimer = 0;
-    float lastDirectionPick = 0;
 
     public WanderBehavior(EnemyVehicle v) : base(v) { }
 
@@ -27,10 +26,6 @@ public class WanderBehavior : EnemyBehavior<EnemyVehicle>
 
         if (chooseTimer < 0)
         {
-            //Pick new destination
-            if (lastDirectionPick > 360)
-                lastDirectionPick -= 360;
-
             Vector2 randomVector = Vehicle.AngleToVector(Random.Range(0, 360));
 
             vehicle.GotoPosition(vehicle.Position + randomVector * Random.Range(DISTANCE_MIN, DISTANCE_MAX));

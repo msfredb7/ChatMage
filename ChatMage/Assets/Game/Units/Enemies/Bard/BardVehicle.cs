@@ -5,6 +5,16 @@ using UnityEngine;
 
 public class BardVehicle : EnemyVehicle
 {
+    [Header("Bard")]
+    public BardAnimator animator;
+
+    [Header("Sing")]
+    public float singRadius;
+    public float duration;
+    public float timeScaleMultiplier;
+    public float capOnOtherBards = 2;
+    public float defaultCap = 5;
+
     public override int Attacked(ColliderInfo on, int amount, Unit unit, ColliderInfo source = null)
     {
         if (amount <= 0 && !IsDead)
@@ -20,5 +30,13 @@ public class BardVehicle : EnemyVehicle
 
         //Death animation
         Destroy();
+    }
+
+    protected override void OnDrawGizmosSelected()
+    {
+        base.OnDrawGizmosSelected();
+
+        Gizmos.color = new Color(0, 1, 0, 0.2f);
+        Gizmos.DrawSphere(transform.position, singRadius);
     }
 }

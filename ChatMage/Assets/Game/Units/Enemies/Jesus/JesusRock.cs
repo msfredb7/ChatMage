@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 public class JesusRock : Unit
@@ -13,7 +13,6 @@ public class JesusRock : Unit
     public SimpleEvent onRockTaken;
 
     private Vector2 startingPosition;
-    private Vector2 lastPosition;
     private float countdown;
 
     [HideInInspector]
@@ -30,7 +29,7 @@ public class JesusRock : Unit
         countdown = cooldownUntilSolid;
     }
 
-    void Update()
+    protected override void Update()
     {
         // Si on a parcouru une certaine distance
         if(Vector2.Distance(startingPosition,transform.position) > distanceUntilStopped)
@@ -45,8 +44,6 @@ public class JesusRock : Unit
             gameObject.layer = Layers.SOLID_ENEMIES;
         else
             countdown -= DeltaTime();
-
-        lastPosition = transform.position;
     }
 
     private void ColliderListener_onCollisionEnter(ColliderInfo other, Collision2D collision, ColliderListener listener)

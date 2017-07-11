@@ -48,7 +48,7 @@ public class Pillier : Unit
         fallAnimator.enabled = true;
     }
 
-    void Update()
+    protected override void Update()
     {
         if (strechCenter)
         {

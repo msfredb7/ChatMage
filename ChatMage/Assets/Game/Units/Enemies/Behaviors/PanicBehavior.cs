@@ -7,9 +7,6 @@ public class PanicBehavior : EnemyBehavior<EnemyVehicle>
     const float MIN_DIST = 1.5f;
     const float MAX_DIST = 3;
 
-    float chooseTimer = 0;
-    float lastDirectionPick = 0;
-
     public PanicBehavior(EnemyVehicle v) : base(v) { }
 
     public override void Enter(Unit target)

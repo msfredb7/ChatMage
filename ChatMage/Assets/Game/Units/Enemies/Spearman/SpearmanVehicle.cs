@@ -26,7 +26,7 @@ public class SpearmanVehicle : EnemyVehicle
         attackListener.onTriggerEnter += AttackListener_onTriggerEnter;
     }
 
-    void Update()
+    protected override void Update()
     {
         if (currentCooldown > 0)
             currentCooldown -= DeltaTime();

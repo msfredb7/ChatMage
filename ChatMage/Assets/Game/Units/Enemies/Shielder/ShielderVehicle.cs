@@ -32,7 +32,7 @@ public class ShielderVehicle : EnemyVehicle
 
     public void OnSwordHit(ColliderInfo other, ColliderListener listener)
     {
-        if(other.parentUnit.allegiance == Allegiance.Ally)
+        if (other.parentUnit.allegiance == Allegiance.Ally)
         {
             IAttackable attackable = other.parentUnit.GetComponent<IAttackable>();
             if (attackable != null)
@@ -59,7 +59,7 @@ public class ShielderVehicle : EnemyVehicle
         else
         {
             //Attacked behind !
-            Die();
+            //Die();
 
             return 0;
         }

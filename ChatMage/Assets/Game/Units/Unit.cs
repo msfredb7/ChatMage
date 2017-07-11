@@ -34,7 +34,6 @@ public abstract class Unit : MonoBehaviour
     public bool IsDead { get { return isDead; } }
     protected bool isDead = false;
     protected bool isDestroying = false;
-    //public bool canUseBorder = true;
 
     [System.NonSerialized]
     public Locker canMove = new Locker();
@@ -47,6 +46,9 @@ public abstract class Unit : MonoBehaviour
 
     protected Vector2 sleepRbVelocity = Vector2.zero;
     protected float sleepRbAngVelocity = 0;
+
+    [System.NonSerialized]
+    private List<BaseBuff> buffs;
 
     public Vector2 Speed
     {
@@ -101,6 +103,23 @@ public abstract class Unit : MonoBehaviour
 
         //if (canUseBorder && (Game.instance.unitSnap_horizontalBound || Game.instance.unitSnap_verticalBound))
         //    Position = RestrainToBounds(Position, Game.instance.unitSnap_horizontalBound, Game.instance.unitSnap_verticalBound);
+    }
+
+    protected virtual void Update()
+    {
+        if(buffs != null && buffs.Count > 0)
+        {
+            float worldDeltaTime = Game.instance.worldTimeScale * Time.deltaTime;
+            float localDeltaTime = DeltaTime();
+            for (int i = 0; i < buffs.Count; i++)
+            {
+                if (buffs[i].DecreaseDuration(worldDeltaTime, localDeltaTime) <= 0)
+                {
+                    RemoveBuffAt(i);
+                    i--;
+                }
+            }
+        }
     }
 
     public virtual void CheckActivation()
@@ -256,7 +275,7 @@ public abstract class Unit : MonoBehaviour
                 return;
 
             if (value < 0)
-                value = 0;
+                value = 0.02f;
 
             //On stoppe le temps ? Si oui, prendre en note la velocit� original
             if (value == 0)
@@ -282,5 +301,20 @@ public abstract class Unit : MonoBehaviour
             if (onTimeScaleChange != null)
                 onTimeScaleChange.Invoke(this);
         }
+    }
+
+    public void AddBuff(BaseBuff buff)
+    {
+        if (buffs == null)
+            buffs = new List<BaseBuff>();
+
+        buffs.Add(buff);
+        buff.ApplyEffect(this);
+    }
+
+    private void RemoveBuffAt(int i)
+    {
+        buffs[i].RemoveEffect(this);
+        buffs.RemoveAt(i);
     }
 }

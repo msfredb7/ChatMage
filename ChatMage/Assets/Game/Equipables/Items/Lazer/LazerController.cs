@@ -27,7 +27,7 @@ public class LazerController : Unit
         mainLazer.GetComponentInChildren<SpriteRenderer>().color = new Color(originalColor.r, originalColor.g, originalColor.b, 0);
     }
 
-    void Update()
+    protected override void Update()
     {
         // Le lazer doit être orienter en fonction de la direction du véhicule
         FollowPlayer();

@@ -34,7 +34,7 @@ public class Mine : Unit
         timer = explosionDelay;
     }
 
-    void Update()
+    protected override void Update()
     {
         if (timer < flickerDuration && !flickering)
         {

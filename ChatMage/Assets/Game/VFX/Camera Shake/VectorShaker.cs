@@ -116,9 +116,9 @@ public class VectorShaker : MonoBehaviour
         shakers.AddLast(shaker);
     }
 
-    public void RemoveShaker(IShaker shaker)
+    public bool RemoveShaker(IShaker shaker)
     {
-        shakers.Remove(shaker);
+        return shakers.Remove(shaker);
     }
 
     public void Shake(float strength = 1)

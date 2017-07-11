@@ -42,10 +42,6 @@ public class JesusVehicle : EnemyVehicle {
     {
     }
 
-    void Update()
-    {
-    }
-
     private int Damaged()
     {
         if (!canBeHit)

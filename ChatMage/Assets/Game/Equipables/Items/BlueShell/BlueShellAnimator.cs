@@ -91,12 +91,10 @@ public class BlueShellAnimator : MonoBehaviour
         Game.instance.gameCamera.vectorShaker.Shake();
 
         //Explosion !
-        Collider2D[] cols = Physics2D.OverlapCircleAll(shellUnit.Position, radius, explosionLayerMask);
-        for (int i = 0; i < cols.Length; i++)
+        List<ColliderInfo> infos = UnitDetection.OverlapCircleAll(shellUnit.Position, radius, explosionLayerMask);
+        for (int i = 0; i < infos.Count; i++)
         {
-            ColliderInfo otherInfo = cols[i].GetComponent<ColliderInfo>();
-            if (otherInfo != null)
-                UnitHit(otherInfo);
+            UnitHit(infos[i]);
         }
     }
 

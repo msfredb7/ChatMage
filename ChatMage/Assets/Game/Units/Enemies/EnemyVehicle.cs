@@ -134,7 +134,7 @@ public abstract class EnemyVehicle : Vehicle, IAttackable
 
     #endregion
 
-    void OnDrawGizmosSelected()
+    protected virtual void OnDrawGizmosSelected()
     {
         if (goingToTargetPosition)
         {

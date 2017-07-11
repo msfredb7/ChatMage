@@ -35,7 +35,7 @@ public class ArcherVehicle : EnemyVehicle
         turnSpeed = fleeTurnSpeed;
     }
 
-    void Update()
+    protected override void Update()
     {
         if (shootCooldownRemains > 0)
             shootCooldownRemains -= DeltaTime();

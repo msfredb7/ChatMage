@@ -73,7 +73,7 @@ public class Sun : Unit
         this.duration = duration;
     }
 
-    void Update()
+    protected override void Update()
     {
         duration -= DeltaTime();
         if (duration <= 0)

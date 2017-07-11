@@ -61,7 +61,7 @@ public class PlayerVehicle : Vehicle, IAttackable
         }
     }
 
-    void Update()
+    protected override void Update()
     {
         if (Input.GetKeyDown(KeyCode.O))
         {
