@@ -11,17 +11,15 @@ public class LS_SecondLevel : LevelScript
     [InspectorHeader("Enemy Prefabs"), InspectorMargin(10)]
     public SpearmanVehicle spearMan;
     public ArcherVehicle archer;
+    public ShielderVehicle romanShielder;
 
     [InspectorHeader("Dialog"), InspectorMargin(10)]
-    public Dialoguing.Dialog whereAmIDialog;
-    public Dialoguing.Dialog lookADoorDialog;
+    public Dialoguing.Dialog whatAmISupposeToDo;
     public Dialoguing.Dialog enterArenaDialog;
-    public Dialoguing.Dialog firstKillDialog;
-    public Dialoguing.Dialog moreEnemiesDialog;
-    public Dialoguing.Dialog goBackDialog;
-
-    [fsIgnore, NonSerialized]
-    private bool firstWaveLaunched;
+    public Dialoguing.Dialog secondWaveTalk;
+    public Dialoguing.Dialog thirdWaveTalk;
+    public Dialoguing.Dialog whatIsThisSorcery;
+    public Dialoguing.Dialog getHim;
 
     [fsIgnore, NonSerialized]
     private Map map;
@@ -40,7 +38,6 @@ public class LS_SecondLevel : LevelScript
         map = Game.instance.map;
         Game.instance.smashManager.smashEnabled = false;
         Game.instance.ui.smashDisplay.canBeShown = false;
-
 
         //On ecoute a la mort de la porte
         List<Unit> allUnits = Game.instance.units;
@@ -61,11 +58,11 @@ public class LS_SecondLevel : LevelScript
 
     protected override void OnGameStarted()
     {
-        Game.instance.ui.dialogDisplay.StartDialog(whereAmIDialog);
+        Game.instance.ui.dialogDisplay.StartDialog(whatAmISupposeToDo);
 
         inGameEvents.AddDelayedAction(delegate ()
         {
-            ReceiveEvent("tuto move");
+            ReceiveEvent("smash tutorial");
         }, 1.5f);
     }
 
@@ -82,7 +79,7 @@ public class LS_SecondLevel : LevelScript
 
     public void StartSecondWave()
     {
-        Game.instance.ui.dialogDisplay.StartDialog(firstKillDialog, delegate ()
+        Game.instance.ui.dialogDisplay.StartDialog(secondWaveTalk, delegate ()
         {
             TriggerWaveManually("2nd wave");
         });
@@ -90,7 +87,7 @@ public class LS_SecondLevel : LevelScript
 
     public void StartFinalWave()
     {
-        Game.instance.ui.dialogDisplay.StartDialog(moreEnemiesDialog, delegate ()
+        Game.instance.ui.dialogDisplay.StartDialog(thirdWaveTalk, delegate ()
         {
             TriggerWaveManually("final wave");
         });
@@ -98,7 +95,7 @@ public class LS_SecondLevel : LevelScript
 
     public void GoBack()
     {
-        Game.instance.ui.dialogDisplay.StartDialog(goBackDialog);
+        Game.instance.ui.dialogDisplay.StartDialog(whatIsThisSorcery);
         TaggedObject gate = map.mapping.GetTaggedObject("arena gate");
         gate.GetComponent<SidewaysFakeGate>().Open();
         gate.GetComponent<Collider2D>().enabled = false;
@@ -109,9 +106,6 @@ public class LS_SecondLevel : LevelScript
     {
         switch (message)
         {
-            case "face door":
-                Game.instance.ui.dialogDisplay.StartDialog(lookADoorDialog);
-                break;
             case "enter arena":
                 Game.instance.gameCamera.minHeight = 0;
                 StartFirstWave();

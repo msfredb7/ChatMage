@@ -41,6 +41,21 @@ namespace Tutorial
             return true;
         }
 
+        /// <summary>
+        /// Force le tutoriel a être exécuté
+        /// </summary>
+        public static void ForceStartTutorial(string tutorialAssetName)
+        {
+            // Load la scene + lance le tuto
+            ResourceLoader.LoadTutorialAsync(tutorialAssetName, delegate (BaseTutorial tutorial)
+            {
+                Scenes.LoadAsync(SCENENAME, LoadSceneMode.Additive, delegate (Scene scene)
+                {
+                    Scenes.FindRootObject<TutorialScene>(scene).Init(tutorial);
+                });
+            });
+        }
+
         public bool Init(BaseTutorial tutorial)
         {
             if (tutorial == null)

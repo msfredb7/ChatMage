@@ -127,8 +127,7 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
 
         StartWaves();
 
-        if (activateTutorial) // Debug
-            StartTutorial();
+        StartTutorial(activateTutorial);
 
         //Camera follow player ?
         Game.instance.gameCamera.followPlayer = followPlayerOnStart;
@@ -208,7 +207,7 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
         OnLose();
     }
 
-    void StartTutorial()
+    void StartTutorial(bool force)
     {
         if (!string.IsNullOrEmpty(tutorialAssetName))
         {
