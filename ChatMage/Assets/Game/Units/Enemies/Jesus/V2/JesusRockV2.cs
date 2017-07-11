@@ -32,7 +32,7 @@ public class JesusRockV2 : Unit
         this.cannotHit = cannotHit;
     }
 
-    private void StoppedState()
+    public void StoppedState()
     {
         isFlying = false;
         Speed = Vector2.zero;
