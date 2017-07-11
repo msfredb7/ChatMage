@@ -42,6 +42,9 @@ public class DialogDisplay : MonoBehaviour
         if (CurrentDialog != null)
             throw new Exception("Cannot start a dialog while another is ongoing.");
 
+        if(dialog == null)
+            throw new Exception("Tried to start a null dialog.");
+
         if (dialog.pauseGame)
             Game.instance.gameRunning.Lock("dialog");
 
