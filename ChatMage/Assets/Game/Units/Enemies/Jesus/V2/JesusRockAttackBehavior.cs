@@ -76,6 +76,7 @@ public class JesusRockAttackBehavior : BaseTweenBehavior<JesusV2Vehicle>
         SetTween(vehicle.animator.ThrowRockAnimation(delegate ()
         {
             //Detach rock from arms + give speed
+            rock.Speed *= (vehicle.TimeScale + 1) / 2;
             rock.ThrownState(direction);
             rock.transform.SetParent(Game.instance.unitsContainer, true);
         })
