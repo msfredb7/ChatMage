@@ -44,7 +44,8 @@ public abstract class EnemyVehicle : Vehicle, IAttackable
         //}
 
         //Clamp to AI Area
-        position = Game.instance.aiArea.ClampToArea(position, unitWidth / 2);
+        if (Game.instance != null)
+            position = Game.instance.aiArea.ClampToArea(position, unitWidth / 2);
 
         targetPosition = position;
         goingToTargetPosition = true;

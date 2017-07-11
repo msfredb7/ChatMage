@@ -81,7 +81,7 @@ public abstract class EnemyBrain : BaseBehavior
         //En g�n�ral, on passe ici, sachant que les ennemi cherche pas mal toujours le joueur
         if (myVehicle.targets.Count == 1 && myVehicle.targets[0] == Allegiance.Ally)
         {
-            PlayerController player = Game.instance.Player;
+            PlayerController player = Game.instance == null ? null : Game.instance.Player;
             if (player != null)
             {
                 if (EvaluateUnit(player.vehicle))
@@ -96,7 +96,7 @@ public abstract class EnemyBrain : BaseBehavior
             //Cherche a travers tous les units pour trouver la plus pret
             //Yaurait moyen d'optimiser ca si on fait des listes de units plus pr�cise dans Game
             //  ex: une liste d'IAttackable
-            
+
             List<Unit> allUnits = Game.instance.units;
 
             Vector2 myPos = myVehicle.Position;
@@ -110,10 +110,10 @@ public abstract class EnemyBrain : BaseBehavior
                 if (myVehicle.IsValidTarget(unit.allegiance))
                 {
                     IAttackable attackable = unit.GetComponent<IAttackable>();
-                    if(attackable != null)
+                    if (attackable != null)
                     {
                         float sqrDistance = (unit.Position - myPos).sqrMagnitude;
-                        if(sqrDistance < smallestDistance)
+                        if (sqrDistance < smallestDistance)
                         {
                             smallestDistance = sqrDistance;
                             recordHolder = unit;

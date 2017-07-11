@@ -2,6 +2,10 @@ using UnityEngine;
 
 public static class VectorExtensions
 {
+    public static float ToAngle(this Vector2 v)
+    {
+        return CCC.Math.Vectors.VectorToAngle(v);
+    }
     public static Vector2 Clamped(this Vector2 v, Vector2 min, Vector2 max)
     {
         return new Vector2(Mathf.Clamp(v.x, min.x, max.x),
