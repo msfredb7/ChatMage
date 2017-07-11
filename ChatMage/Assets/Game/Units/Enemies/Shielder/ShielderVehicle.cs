@@ -59,7 +59,7 @@ public class ShielderVehicle : EnemyVehicle
         else
         {
             //Attacked behind !
-            //Die();
+            Die();
 
             return 0;
         }
