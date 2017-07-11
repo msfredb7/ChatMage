@@ -7,107 +7,57 @@ using System;
 public class ShielderAnimator : MonoBehaviour
 {
     [Header("Linking")]
-    public ShielderVehicle vehicle;
     public Transform shield;
     public Transform sword;
     public Collider2D swordTrigger;
 
-    [Header("Shield Bump")]
-    public float bumpDeltaX = 0.25f;
-    public float bumpForwardDuration = 0.25f;
-    public float bumpBackwardDuration = 0.25f;
+    [Header("Shield To The Left")]
+    public Vector2 shieldFinalPos;
+    public float shieldFinalRot;
+    public float shieldMoveDuration;
+    public float pause;
 
     [Header("Attack")]
     public float swordForwardDeltaX = 0.5f;
     public float swordForwardDuration = 0.2f;
     public float swordBackwardDuration = 0.2f;
 
-    private float originalShieldX;
-    private float originalSwordX;
-    private Tween tween;
-    private bool isBumping = false;
-    private bool isAttacking = false;
-
-    void Awake()
+    public Tween AttackAnimation()
     {
-        vehicle.onTimeScaleChange += Vehicle_onTimeScaleChange;
-        originalShieldX = shield.localPosition.x;
-        originalSwordX = sword.localPosition.x;
-    }
-
-    private void Vehicle_onTimeScaleChange(Unit unit)
-    {
-        SetTimeScale();
-    }
-
-    void SetTimeScale()
-    {
-        if (tween != null)
-            tween.timeScale = vehicle.TimeScale;
-    }
-
-    public bool IsBumping { get { return isBumping; } }
-    public bool IsAttacking { get { return isAttacking; } }
-
-    public void BumpShield(Action callback, float callbackDelay = 0)
-    {
-        shield.DOKill();
-
-        isBumping = true;
         Sequence sq = DOTween.Sequence();
 
-        //forward
-        sq.Append(
-            shield.DOLocalMoveX(shield.localPosition.x + bumpDeltaX, bumpForwardDuration).SetEase(Ease.InSine));
+        Vector2 originalShieldPos = shield.localPosition;
+        float originalShieldRot = shield.localRotation.eulerAngles.z;
+        float originalSwordX = sword.localPosition.x;
 
-        //backward
-        sq.Append(
-            shield.DOLocalMoveX(originalShieldX, bumpBackwardDuration).SetEase(Ease.InOutSine));
-
-
-        sq.InsertCallback(bumpForwardDuration + callbackDelay,
-            delegate ()
-            {
-                if (callback != null)
-                    callback();
-            });
-
-        sq.SetUpdate(false).OnComplete(delegate ()
-        {
-            isBumping = false;
-        });
-
-        tween = sq;
-
-        SetTimeScale();
-    }
-
-    public void Attack()
-    {
-        sword.DOKill();
-
-        isAttacking = true;
-        Sequence sq = DOTween.Sequence();
-
-        //forward
-        sq.Append(
-            sword.DOLocalMoveX(sword.localPosition.x + swordForwardDeltaX, swordForwardDuration).SetEase(Ease.InSine));
+        //Tasse le shield a gauche
+        sq.Append(shield.DOLocalMove(shieldFinalPos, shieldMoveDuration).SetEase(Ease.InOutSine));
+        sq.Join(shield.DOLocalRotate(Vector3.forward * shieldFinalRot, shieldMoveDuration).SetEase(Ease.InOutSine));
 
         //Activate sword trigger
-        sq.InsertCallback(swordForwardDuration / 2, delegate ()
-          {
-              swordTrigger.enabled = true;
-          });
+        sq.AppendCallback(delegate ()
+        {
+            swordTrigger.enabled = true;
+        });
+
+        sq.AppendInterval(pause);
+
+        //sword forward
+        sq.Append(
+            sword.DOLocalMoveX(sword.localPosition.x + swordForwardDeltaX, swordForwardDuration).SetEase(Ease.InSine));
 
         //backward
         sq.Append(
             sword.DOLocalMoveX(originalSwordX, swordBackwardDuration).SetEase(Ease.InOutSine));
 
         //Deactivate sword trigger midway in retract
-        sq.InsertCallback(swordForwardDuration + swordBackwardDuration / 2, delegate ()
+        sq.AppendCallback(delegate ()
         {
             swordTrigger.enabled = false;
         });
+
+        sq.Append(shield.DOLocalMove(originalShieldPos, shieldMoveDuration).SetEase(Ease.InOutSine));
+        sq.Join(shield.DOLocalRotate(Vector3.forward * originalShieldRot, shieldMoveDuration).SetEase(Ease.InOutSine));
 
         //Deactivate sword trigger IF CANCELLED
         sq.OnKill(delegate ()
@@ -116,20 +66,7 @@ public class ShielderAnimator : MonoBehaviour
                 swordTrigger.enabled = false;
         });
 
-        sq.SetUpdate(false).OnComplete(delegate () { isAttacking = false; });
 
-        tween = sq;
-
-        SetTimeScale();
-    }
-
-    public void BringOutShield()
-    {
-        shield.gameObject.SetActive(true);
-    }
-
-    public void HideShield()
-    {
-        shield.gameObject.SetActive(false);
+        return sq;
     }
 }

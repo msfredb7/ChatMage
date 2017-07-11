@@ -9,6 +9,7 @@ public class JesusRockAttackBehavior : BaseTweenBehavior<JesusV2Vehicle>
     private JesusRockV2 rock;
     private bool turnTowardsTarget = false;
     private bool throwingRock = false;
+    private bool rockInHands = false;
     private TweenCallback onComplete;
 
     public JesusRockAttackBehavior(JesusV2Vehicle vehicle, JesusRockV2 rock, TweenCallback onComplete) : base(vehicle)
@@ -58,10 +59,16 @@ public class JesusRockAttackBehavior : BaseTweenBehavior<JesusV2Vehicle>
         base.OnCancel();
 
         //Drop rock ?
+        if (rockInHands)
+        {
+            rock.transform.SetParent(Game.instance.unitsContainer, true);
+            rock.StoppedState();
+        }
     }
 
     private void AttachRockToArms()
     {
+        rockInHands = true;
         rock.transform.SetParent(vehicle.rockTransporter, true);
     }
 
@@ -69,15 +76,18 @@ public class JesusRockAttackBehavior : BaseTweenBehavior<JesusV2Vehicle>
     {
         turnTowardsTarget = true;
     }
-    
+
     private void ThrowRock(Vector2 direction)
     {
         throwingRock = true;
         SetTween(vehicle.animator.ThrowRockAnimation(delegate ()
         {
             //Detach rock from arms + give speed
+            rock.flySpeed = vehicle.throwSpeed * (vehicle.TimeScale + 1) / 2;
             rock.ThrownState(direction);
             rock.transform.SetParent(Game.instance.unitsContainer, true);
+
+            rockInHands = false;
         })
         .OnComplete(onComplete));
     }

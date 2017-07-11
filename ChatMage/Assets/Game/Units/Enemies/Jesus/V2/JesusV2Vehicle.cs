@@ -8,6 +8,7 @@ public class JesusV2Vehicle : EnemyVehicle
     [Header("Jesus")]
     public string displayName = "Jesus";
     public int hp = 10;
+    public float finalTimescale = 2;
 
     [Header("On Hit")]
     public float invulnurableDuration = 1.5f;
@@ -17,6 +18,9 @@ public class JesusV2Vehicle : EnemyVehicle
     public new Collider2D collider;
     public JesusV2Animator animator;
     public Transform rockTransporter;
+
+    [Header("Throw")]
+    public float throwSpeed;
 
     [Header("Visuals")]
     public SpriteRenderer[] spriteRenderers;
@@ -37,9 +41,11 @@ public class JesusV2Vehicle : EnemyVehicle
     {
         if (!damagable)
             return hp;
-        
+
         //Decrease hp
         hp -= amount;
+
+        TimeScale *= 1 + ((finalTimescale - 1) / maxHp);
 
         //Flashs animation
         damagable = false;

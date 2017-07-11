@@ -54,7 +54,7 @@ public class Sun : Unit
         IAttackable attackable = other.parentUnit.GetComponent<IAttackable>();
         if (attackable != null)
         {
-            bool unitKilled = attackable.Attacked(null, 100, this, listener.info) == 0;
+            bool unitKilled = attackable.Attacked(other, 100, this, listener.info) == 0;
             
             if (unitKilled)
             {
@@ -63,7 +63,7 @@ public class Sun : Unit
             }
             else
             {
-                Debug.LogWarning("Une unit à été envoyé dans le soleil et elle est pas morte... pls");
+                //Debug.LogWarning("Une unit à été envoyé dans le soleil et elle est pas morte... pls");
             }
         }
     }

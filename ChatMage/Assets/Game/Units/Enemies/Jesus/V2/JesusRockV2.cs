@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class JesusRockV2 : Unit
 {
-    [Header("Rock")]
+    [System.NonSerialized]
     public float flySpeed;
+
+    [Header("Rock")]
     public new Collider2D collider;
     public float onHitShakeStrength = 0.7f;
 
@@ -32,7 +34,7 @@ public class JesusRockV2 : Unit
         this.cannotHit = cannotHit;
     }
 
-    private void StoppedState()
+    public void StoppedState()
     {
         isFlying = false;
         Speed = Vector2.zero;
@@ -62,7 +64,9 @@ public class JesusRockV2 : Unit
                 //Est-ce une autre roche ? Si oui, on fait la bump (on la throw en fait)
                 if (unit is JesusRockV2)
                 {
-                    (unit as JesusRockV2).ThrownState(-collision.contacts[0].normal, this);
+                    JesusRockV2 rock = unit as JesusRockV2;
+                    rock.Speed = Speed;
+                    rock.ThrownState(-collision.contacts[0].normal, this);
                 }
                 else if (IsValidTarget(unit.allegiance))
                 {
