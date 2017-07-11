@@ -70,17 +70,17 @@ public class Armory : BaseScriptableObject
 
         for (int i = 0; i < items.Count; i++)
         {
-            if (items[i].unlocked)
+            if (items[i].Unlocked)
                 result.Add(items[i]);
         }
         for (int i = 0; i < cars.Count; i++)
         {
-            if (cars[i].unlocked)
+            if (cars[i].Unlocked)
                 result.Add(cars[i]);
         }
         for (int i = 0; i < smashes.Count; i++)
         {
-            if (smashes[i].unlocked)
+            if (smashes[i].Unlocked)
                 result.Add(smashes[i]);
         }
         return result;
@@ -92,17 +92,17 @@ public class Armory : BaseScriptableObject
 
         for (int i = 0; i < items.Count; i++)
         {
-            if (!items[i].unlocked)
+            if (!items[i].Unlocked)
                 result.Add(items[i]);
         }
         for (int i = 0; i < cars.Count; i++)
         {
-            if (!cars[i].unlocked)
+            if (!cars[i].Unlocked)
                 result.Add(cars[i]);
         }
         for (int i = 0; i < smashes.Count; i++)
         {
-            if (!smashes[i].unlocked)
+            if (!smashes[i].Unlocked)
                 result.Add(smashes[i]);
         }
         return result;
@@ -113,7 +113,7 @@ public class Armory : BaseScriptableObject
         List<EquipablePreview> result = new List<EquipablePreview>();
         for (int i = 0; i < items.Count; i++)
         {
-            if (items[i].unlocked == true)
+            if (items[i].Unlocked == true)
                 result.Add(items[i]);
         }
         return result;
@@ -124,7 +124,7 @@ public class Armory : BaseScriptableObject
         List<EquipablePreview> result = new List<EquipablePreview>();
         for (int i = 0; i < cars.Count; i++)
         {
-            if (cars[i].unlocked == true)
+            if (cars[i].Unlocked == true)
                 result.Add(cars[i]);
         }
         return result;
@@ -135,7 +135,7 @@ public class Armory : BaseScriptableObject
         List<EquipablePreview> result = new List<EquipablePreview>();
         for (int i = 0; i < smashes.Count; i++)
         {
-            if (smashes[i].unlocked == true)
+            if (smashes[i].Unlocked == true)
                 result.Add(smashes[i]);
         }
         return result;
@@ -146,7 +146,7 @@ public class Armory : BaseScriptableObject
         List<EquipablePreview> result = new List<EquipablePreview>();
         for (int i = 0; i < items.Count; i++)
         {
-            if (items[i].unlocked == false)
+            if (items[i].Unlocked == false)
                 result.Add(items[i]);
         }
         return result;
@@ -157,7 +157,7 @@ public class Armory : BaseScriptableObject
         List<EquipablePreview> result = new List<EquipablePreview>();
         for (int i = 0; i < cars.Count; i++)
         {
-            if (cars[i].unlocked == false)
+            if (cars[i].Unlocked == false)
                 result.Add(cars[i]);
         }
         return result;
@@ -168,7 +168,7 @@ public class Armory : BaseScriptableObject
         List<EquipablePreview> result = new List<EquipablePreview>();
         for (int i = 0; i < smashes.Count; i++)
         {
-            if (smashes[i].unlocked == false)
+            if (smashes[i].Unlocked == false)
                 result.Add(smashes[i]);
         }
         return result;

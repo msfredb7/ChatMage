@@ -20,7 +20,7 @@ public class LoadoutEquipable
         this.preview = preview;
     }
 
-    public bool IsUnlocked { get { return preview.unlocked; } }
+    public bool IsUnlocked { get { return preview.Unlocked; } }
 
     /// <summary>
     /// Ne pas appeler ceci hors de la classe Loadout
