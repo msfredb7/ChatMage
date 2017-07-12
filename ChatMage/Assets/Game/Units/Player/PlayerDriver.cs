@@ -19,6 +19,7 @@ public class PlayerDriver : PlayerComponent
 
     private float lastHorizontalInput;
     private float horizontalInput;
+    private bool doFixedUpdate = false;
 
     public override void OnGameReady()
     {
@@ -28,12 +29,19 @@ public class PlayerDriver : PlayerComponent
     public override void OnGameStarted()
     {
         car.OnGameStarted();
+        doFixedUpdate = car is IFixedUpdate;
     }
 
     public void SetCar(Car car)
     {
         this.car = car;
         car.Init(controller);
+    }
+
+    private void FixedUpdate()
+    {
+        if (doFixedUpdate)
+            (car as IFixedUpdate).RemoteFixedUpdate();
     }
 
     private void Update()

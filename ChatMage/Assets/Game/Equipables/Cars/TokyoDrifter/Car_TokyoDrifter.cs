@@ -1,11 +1,13 @@
-﻿using FullSerializer;
+using FullSerializer;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FullInspector;
 
-public class Car_TokyoDrifter : Car, ISpeedBuff
+public class Car_TokyoDrifter : StdCar, ISpeedBuff
 {
+    [InspectorMargin(12), InspectorHeader("Drifting")]
     public float acceleration;
     public float deceleration;
     public float maxAddedSpeed = 5;
@@ -18,19 +20,13 @@ public class Car_TokyoDrifter : Car, ISpeedBuff
 
     public override void OnGameReady()
     {
+        base.OnGameReady();
         player.vehicle.speedBuffs.Add(this);
     }
-
-    public override void OnGameStarted()
-    {
-    }
-
-    public override void OnInputUpdate(float horizontalInput)
-    {
-    }
-
     public override void OnUpdate()
     {
+        base.OnUpdate();
+
         float targetAddedSpeed = maxAddedSpeed;
         float accel = acceleration;
 
