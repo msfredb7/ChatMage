@@ -10,12 +10,16 @@ public class LS_ThridLevel : LevelScript
     [InspectorHeader("Dialog"), InspectorMargin(10)]
     public Dialoguing.Dialog RUN;
     public Dialoguing.Dialog ItsATrap;
+    public Dialoguing.Dialog anotherDialog;
+    public Dialoguing.Dialog bossDialog;
 
     [fsIgnore, NonSerialized]
     private Map map;
 
     [fsIgnore, NonSerialized]
     private bool canWin = false;
+
+    private TaggedObject jesusWall;
 
     protected override void ResetData()
     {
@@ -31,6 +35,8 @@ public class LS_ThridLevel : LevelScript
     protected override void OnGameStarted()
     {
         Game.instance.ui.dialogDisplay.StartDialog(RUN);
+        jesusWall = map.mapping.GetTaggedObject("jesus wall");
+        jesusWall.gameObject.SetActive(false);
     }
 
     public void StartFirstWave()
@@ -38,6 +44,23 @@ public class LS_ThridLevel : LevelScript
         Game.instance.ui.dialogDisplay.StartDialog(ItsATrap, delegate ()
         {
             TriggerWaveManually("1st wave");
+        });
+    }
+
+    public void StartSecondWave()
+    {
+        Game.instance.ui.dialogDisplay.StartDialog(anotherDialog, delegate ()
+        {
+            TriggerWaveManually("2nd wave");
+        });
+    }
+
+    public void StartBossWave()
+    {
+        Game.instance.ui.dialogDisplay.StartDialog(bossDialog, delegate ()
+        {
+            jesusWall.gameObject.SetActive(true);
+            TriggerWaveManually("jesus");
         });
     }
 
@@ -49,6 +72,27 @@ public class LS_ThridLevel : LevelScript
     public void StartRoadAmbushTwo()
     {
         TriggerWaveManually("road ambush 2");
+    }
+
+    public void StartRoadAmbushThree()
+    {
+        TriggerWaveManually("road ambush 3");
+    }
+
+    public void StartRoadAmbushFour()
+    {
+        TriggerWaveManually("road ambush 4");
+    }
+
+    public void ChasePlayer(Unit unit)
+    {
+        NotDeactivatedWhenOutOfCamera(unit);
+        unit.Speed *= 2;
+    }
+
+    public void NotDeactivatedWhenOutOfCamera(Unit unit)
+    {
+        unit.checkDeactivation = false;
     }
 
     public override void OnReceiveEvent(string message)
@@ -68,9 +112,32 @@ public class LS_ThridLevel : LevelScript
                 Game.instance.gameCamera.followPlayer = true;
                 Game.instance.gameCamera.canScrollUp = true;
                 Game.instance.map.roadPlayer.CurrentRoad.ApplyMinMaxToCamera();
+                break;
+            case "spawn 3":
+                inGameEvents.AddDelayedAction(StartRoadAmbushThree, 1);
+                break;
+            case "spawn 4":
+                inGameEvents.AddDelayedAction(StartRoadAmbushFour, 1);
+                break;
+            case "second intersec":
+                inGameEvents.AddDelayedAction(StartSecondWave, 1);
+                break;
+            case "second intersec completed":
+                Game.instance.gameCamera.followPlayer = true;
+                Game.instance.gameCamera.canScrollUp = true;
+                Game.instance.map.roadPlayer.CurrentRoad.ApplyMinMaxToCamera();
                 canWin = true;
                 break;
-            case "attempt win":
+            case "boss battle entry":
+                List<Unit> unitsInGame = Game.instance.units;
+                for (int i = 0; i < unitsInGame.Count; i++)
+                    unitsInGame[i].checkDeactivation = true;
+                break;
+            case "boss battle":
+                inGameEvents.AddDelayedAction(StartBossWave, 1);
+                canWin = true;
+                break;
+            case "jesus dead":
                 if (canWin)
                     Win();
                 break;

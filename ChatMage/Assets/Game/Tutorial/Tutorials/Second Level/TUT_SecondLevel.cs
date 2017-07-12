@@ -20,8 +20,7 @@ namespace Tutorial
         {
             Game.instance.smashManager.onSmashSpawned += delegate ()
             {
-                modules.delayedAction.Do(1f, FocusOnSmash);
-                modules.delayedAction.Do(7.5f, DeFocusOnSmash);
+                modules.delayedAction.Do(2f, FocusOnSmash);
             };
         }
 
@@ -42,6 +41,7 @@ namespace Tutorial
                 modules.textDisplay.DisplayText("This is a SMASHBALL. " +
                     "You can hit it 3 times to break it and gain an incredible power." +
                     "This power can only be use once until the next SMASHBALL so use it at the right moment!", true);
+                modules.proxyButton.ProxyScreen(DeFocusOnSmash);
             });
         }
 
@@ -82,6 +82,7 @@ namespace Tutorial
                             Destroy(handClick.gameObject);
                             modules.shorcuts.TimeUnFreeze();
                             modules.textDisplay.HideText();
+                            Game.instance.Player.playerSmash.SmashClick();
                             End(true);
                         });
                 });
