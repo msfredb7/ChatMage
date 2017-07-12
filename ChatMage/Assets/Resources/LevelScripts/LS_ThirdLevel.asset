@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7e2b476d9b42704cae45d3360226cbb, type: 3}
+  m_Name: LS_ThirdLevel
+  m_EditorClassIdentifier: 
+  _objectReferences:
+  - {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
+  - {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
+  - {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
+  - {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
+  - {fileID: 114917152140949164, guid: 90a1293e412776e4db23eb9595fcf924, type: 2}
+  - {fileID: 114892083099199946, guid: a97b513999cddca448e173580c0c886f, type: 2}
+  _serializedStateKeys:
+  - winningConditions
+  - losingConditions
+  - events
+  - waves
+  - rewards
+  _serializedStateValues:
+  - '[]'
+  - '[{"$type":"GameCondition.LoseOnPlayerDeath"}]'
+  - 
+  - '[{"what":{"spawnSequence":[{"unit":0,"quantity":1}],"onSpawnMethod":"","progressCallbacks":[]},"where":{"logErrorIfUnableToLaunch":true,"spawnTag":"road
+    1","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0},"when":{"type":"OnManualTrigger","time":0.0,"name":"road
+    ambush 1","onlyTriggerOnce":false},"spawnInterval":0.0},{"what":{"spawnSequence":[{"unit":1,"quantity":1}],"onSpawnMethod":"","progressCallbacks":[]},"where":{"logErrorIfUnableToLaunch":true,"spawnTag":"road
+    1","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":1},"when":{"type":"OnManualTrigger","time":0.0,"name":"road
+    ambush 1","onlyTriggerOnce":false},"spawnInterval":0.0},{"what":{"spawnSequence":[{"unit":2,"quantity":1}],"onSpawnMethod":"","progressCallbacks":[]},"where":{"logErrorIfUnableToLaunch":true,"spawnTag":"road
+    2","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0},"when":{"type":"OnManualTrigger","time":0.0,"name":"road
+    ambush 2","onlyTriggerOnce":false},"spawnInterval":0.0},{"what":{"spawnSequence":[{"unit":3,"quantity":1}],"onSpawnMethod":"","progressCallbacks":[]},"where":{"logErrorIfUnableToLaunch":true,"spawnTag":"road
+    2","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0},"when":{"type":"OnManualTrigger","time":0.0,"name":"road
+    ambush 2","onlyTriggerOnce":false},"spawnInterval":0.0},{"what":{"spawnSequence":[{"unit":4,"quantity":2},{"unit":5,"quantity":2}],"onSpawnMethod":"","progressCallbacks":[{"levelEventName":"first
+    intersec completed","atProgress":1.0,"atKillCount":0,"useProgress":true}]},"where":{"logErrorIfUnableToLaunch":true,"spawnTag":"random
+    around 1","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0},"when":{"type":"OnManualTrigger","time":0.0,"name":"1st
+    wave","onlyTriggerOnce":true},"spawnInterval":1.0}]'
+  - '{"overrideGoldAmount":false,"goldReward":null,"giveLootBox":false,"lootboxRefName":null,"goldified":false}'
+  sceneName: RomanArena3
+  introPrefab: {fileID: 114921437952830070, guid: 002facbad3d5db44e89adaf01930e6fb,
+    type: 2}
+  winOutroPrefab: {fileID: 114288339278322360, guid: 1e4d836705c07534fb5b431bb36cb2ab,
+    type: 2}
+  loseOutroPrefab: {fileID: 114991219666454608, guid: 1e119aa4a9b4fba448ae2ee2adf573eb,
+    type: 2}
+  noHealthPacks: 0
+  followPlayerOnStart: 1
+  useCustomGenericEvents: 0
+  events: []
+  isOver: 0
+  inGameEvents: {fileID: 0}
+  activateTutorial: 0
+  tutorialAssetName: 
+  RUN: {fileID: 11400000, guid: 750d7ceee2f45fd448d6c7b70212815b, type: 2}
+  ItsATrap: {fileID: 11400000, guid: 250c0999783607249bdee6beda0447b1, type: 2}
