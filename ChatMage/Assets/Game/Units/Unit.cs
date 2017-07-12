@@ -9,7 +9,7 @@ public enum Allegiance { Ally = 0, Neutral = 1, Enemy = 2, SmashBall = 3 }
 [RequireComponent(typeof(Rigidbody2D))]
 public abstract class Unit : MonoBehaviour
 {
-    public const float deactivationRange = 10;
+    public const float deactivationRange = 15;
 
     [Header("Unit")]
     public bool isVisible = true;

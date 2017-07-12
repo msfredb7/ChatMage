@@ -51,6 +51,11 @@ public class LS_ThridLevel : LevelScript
         TriggerWaveManually("road ambush 2");
     }
 
+    public void NotDeactivatedWhenOutOfCamera(Unit unit)
+    {
+        unit.checkDeactivation = false;
+    }
+
     public override void OnReceiveEvent(string message)
     {
         switch (message)

@@ -92,10 +92,16 @@ public class LS_SecondLevel : LevelScript
             Game.instance.ui.smashDisplay.canBeShown = true;
             Game.instance.smashManager.DecreaseCooldown(100);
 
-            inGameEvents.AddDelayedAction(delegate ()
+            Game.instance.smashManager.onSmashSpawned += delegate ()
             {
-                TriggerWaveManually("3rd wave");
-            }, 7.5f);
+                Game.instance.smashManager.CurrentSmashBall.onDeath += delegate (Unit unit)
+                {
+                    inGameEvents.AddDelayedAction(delegate ()
+                    {
+                        TriggerWaveManually("3rd wave");
+                    }, 1f);
+                };
+            };
         });
     }
 
