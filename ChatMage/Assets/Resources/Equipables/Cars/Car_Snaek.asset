@@ -12,6 +12,47 @@ MonoBehaviour:
   m_Name: Car_Snaek
   m_EditorClassIdentifier: 
   _objectReferences: []
-  _serializedStateKeys: []
-  _serializedStateValues: []
+  _serializedStateKeys:
+  - pressPower
+  _serializedStateValues:
+  - '{"keys":[{"time":0.0,"value":0.5,"tangentMode":0,"inTangent":3.969498,"outTangent":3.969498},{"time":0.25,"value":1.0,"tangentMode":0,"inTangent":0.0,"outTangent":0.0},{"time":0.6,"value":1.0,"tangentMode":0,"inTangent":0.0,"outTangent":0.0},{"time":1.0,"value":0.0,"tangentMode":0,"inTangent":0.0,"outTangent":0.0}],"preWrapMode":"ClampForever","postWrapMode":"ClampForever"}'
   player: {fileID: 0}
+  pressPower:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0.5
+      inSlope: 3.969498
+      outSlope: 3.969498
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.25
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.6
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  pressPowerDuration: 3
+  powerDeceleration: 2
+  accCeiling: 3
+  speed01: 0.101325355
+  deceleration: 0.5
+  helpWhenBelow: 0.4
+  helpAcc: 1
+  speedCeiling: 7
+  turnSpeed: 300
