@@ -813,6 +813,7 @@ MonoBehaviour:
   triggerOn: 0
   disapearAfterTrigger: 0
   setAiArea: 0
+  aiAreaAdjustToSceenRatio: 1
   aiAreaRelativeToMilestone:
     min: {x: 0, y: 0}
     max: {x: 0, y: 0}
@@ -1653,6 +1654,7 @@ MonoBehaviour:
   triggerOn: 1
   disapearAfterTrigger: 1
   setAiArea: 0
+  aiAreaAdjustToSceenRatio: 1
   aiAreaRelativeToMilestone:
     min: {x: 0, y: 0}
     max: {x: 0, y: 0}
@@ -2085,15 +2087,16 @@ MonoBehaviour:
   - '{"min":{"x":-7.75,"y":-8.75},"max":{"x":7.75,"y":-0.25}}'
   triggerOn: 1
   disapearAfterTrigger: 1
-  setAiArea: 1
+  setAiArea: 0
+  aiAreaAdjustToSceenRatio: 1
   aiAreaRelativeToMilestone:
     min: {x: -7.75, y: -8.75}
     max: {x: 7.75, y: -0.25}
   modifyFollowPlayer: 1
   followPlayerEffect: 0
-  setCameraMin: 1
+  setCameraMin: 0
   cameraMinRelativeToMilestone: 0
-  setCameraMax: 1
+  setCameraMax: 0
   cameraMaxRelativeToMilestone: 0
   fireEventToLevelScript: 1
   eventMessage: enter arena
@@ -2394,26 +2397,8 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 864190674}
-  - _keys:
-    - DefaultBehaviorEditor.triggerOn.EditProperty
-    - DefaultBehaviorEditor.setAiArea.EditProperty
-    - DefaultBehaviorEditor.modifyFollowPlayer.EditProperty
-    - DefaultBehaviorEditor.setCameraMin.EditProperty
-    - DefaultBehaviorEditor.setCameraMax.EditProperty
-    - DefaultBehaviorEditor.fireEventToLevelScript.EditProperty
-    _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
+  - _keys: []
+    _values: []
     _target: {fileID: 1425111069}
   - _keys:
     - DefaultBehaviorEditor.topHeight.EditProperty
