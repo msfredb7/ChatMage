@@ -23,4 +23,9 @@ public static class FloatExtensions
     {
         return Mathf.Max(value, min);
     }
+
+    public static float MoveTowards(this float value, float target, float delta)
+    {
+        return Mathf.MoveTowards(value, target, delta);
+    }
 }

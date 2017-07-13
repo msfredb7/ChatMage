@@ -4,15 +4,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using FullInspector;
 
-public class Car_SnaekV2 : Car, IFixedUpdate
+public class Car_Snek : Car, IFixedUpdate
 {
     [InspectorHeader("Speed")]
     public float topSpeed;
 
     [InspectorMargin(12), InspectorHeader("Acceleration")]
-    public float pressTime = 1.25f;
+    public float pressTime = 1.15f;
     public float acceleration = 2;
-    public float deceleration = 2;
+    public float deceleration = 1;
 
     [InspectorMargin(12), InspectorHeader("Speed")]
     [InspectorRange(0, 1)]
@@ -54,7 +54,7 @@ public class Car_SnaekV2 : Car, IFixedUpdate
 
     public void RemoteFixedUpdate()
     {
-        float deltaTime = player.vehicle.DeltaTime();
+        float deltaTime = player.vehicle.FixedDeltaTime();
 
         if (lastHorizontal != 0)
         {
@@ -79,9 +79,9 @@ public class Car_SnaekV2 : Car, IFixedUpdate
         bool accelerating = accTimer >= 0;
 
         if (accelerating)
-            speed01 = Mathf.MoveTowards(speed01, 1, acceleration * deltaTime);
+            speed01 = speed01.MoveTowards(1, acceleration * deltaTime);
         else
-            speed01 = Mathf.MoveTowards(speed01, 0, deceleration * deltaTime);
+            speed01 = speed01.MoveTowards(0, deceleration * deltaTime);
 
         player.vehicle.MoveSpeed = speed01 * topSpeed + 0.01f;
     }
