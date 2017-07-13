@@ -20,6 +20,8 @@ public class ArmyWallScript : MonoBehaviour {
     {
         if(other.parentUnit is PlayerVehicle)
             (other.parentUnit as PlayerVehicle).Kill();
+        if (other.parentUnit is EnemyVehicle)
+            (other.parentUnit as EnemyVehicle).ForceDie();
     }
 
     void Update ()

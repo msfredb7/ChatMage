@@ -10,7 +10,7 @@ public class LS_ThridLevel : LevelScript
     [InspectorHeader("Dialog"), InspectorMargin(10)]
     public Dialoguing.Dialog RUN;
     public Dialoguing.Dialog ItsATrap;
-    public Dialoguing.Dialog anotherDialog;
+    public Dialoguing.Dialog ItsATrap2;
     public Dialoguing.Dialog bossDialog;
 
     [fsIgnore, NonSerialized]
@@ -20,6 +20,8 @@ public class LS_ThridLevel : LevelScript
     private bool canWin = false;
 
     private TaggedObject jesusWall;
+    private TaggedObject grilleWall1;
+    private TaggedObject grilleWall2;
 
     protected override void ResetData()
     {
@@ -32,6 +34,10 @@ public class LS_ThridLevel : LevelScript
         map = Game.instance.map;
         TaggedObject armyWall = map.mapping.GetTaggedObject("army wall");
         armyWall.gameObject.GetComponent<ArmyWallScript>().beginMarching = true;
+
+        grilleWall1 = map.mapping.GetTaggedObject("grille 1");
+
+        grilleWall2 = map.mapping.GetTaggedObject("grille 2");
     }
 
     protected override void OnGameStarted()
@@ -43,6 +49,7 @@ public class LS_ThridLevel : LevelScript
 
     public void StartFirstWave()
     {
+        grilleWall1.gameObject.SetActive(true);
         Game.instance.ui.dialogDisplay.StartDialog(ItsATrap, delegate ()
         {
             TriggerWaveManually("1st wave");
@@ -51,7 +58,8 @@ public class LS_ThridLevel : LevelScript
 
     public void StartSecondWave()
     {
-        Game.instance.ui.dialogDisplay.StartDialog(anotherDialog, delegate ()
+        grilleWall2.gameObject.SetActive(true);
+        Game.instance.ui.dialogDisplay.StartDialog(ItsATrap2, delegate ()
         {
             TriggerWaveManually("2nd wave");
         });
@@ -102,11 +110,12 @@ public class LS_ThridLevel : LevelScript
                 inGameEvents.AddDelayedAction(StartRoadAmbushTwo, 1);
                 break;
             case "first intersec":
-                inGameEvents.AddDelayedAction(StartFirstWave, 1);
+                inGameEvents.AddDelayedAction(StartFirstWave, 0.5f);
                 break;
             case "first intersec completed":
                 Game.instance.gameCamera.followPlayer = true;
                 Game.instance.gameCamera.canScrollUp = true;
+                grilleWall1.gameObject.SetActive(false); // animation grille
                 Game.instance.map.roadPlayer.CurrentRoad.ApplyMinMaxToCamera();
                 break;
             case "spawn 3":
@@ -116,11 +125,12 @@ public class LS_ThridLevel : LevelScript
                 inGameEvents.AddDelayedAction(StartRoadAmbushFour, 1);
                 break;
             case "second intersec":
-                inGameEvents.AddDelayedAction(StartSecondWave, 1);
+                inGameEvents.AddDelayedAction(StartSecondWave, 0.5f);
                 break;
             case "second intersec completed":
                 Game.instance.gameCamera.followPlayer = true;
                 Game.instance.gameCamera.canScrollUp = true;
+                grilleWall2.gameObject.SetActive(false); // animation grille
                 Game.instance.map.roadPlayer.CurrentRoad.ApplyMinMaxToCamera();
                 canWin = true;
                 break;
@@ -130,7 +140,7 @@ public class LS_ThridLevel : LevelScript
                     unitsInGame[i].checkDeactivation = true;
                 break;
             case "boss battle":
-                inGameEvents.AddDelayedAction(StartBossWave, 1);
+                inGameEvents.AddDelayedAction(StartBossWave, 0.5f);
                 canWin = true;
                 break;
             case "jesus dead":

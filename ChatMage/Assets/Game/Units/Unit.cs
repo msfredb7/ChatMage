@@ -203,6 +203,11 @@ public abstract class Unit : MonoBehaviour
             onDeath(this);
     }
 
+    public void ForceDie()
+    {
+        Die();
+    }
+
     public bool IsValidTarget(Allegiance targetAllegiance)
     {
         return targets != null && targets.Contains(targetAllegiance);
