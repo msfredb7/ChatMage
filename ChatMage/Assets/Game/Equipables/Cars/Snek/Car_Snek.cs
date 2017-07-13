@@ -4,15 +4,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using FullInspector;
 
-public class Car_SnaekV2 : Car, IFixedUpdate
+public class Car_Snek : Car, IFixedUpdate
 {
     [InspectorHeader("Speed")]
     public float topSpeed;
 
     [InspectorMargin(12), InspectorHeader("Acceleration")]
-    public float pressTime = 1.25f;
+    public float pressTime = 1.15f;
     public float acceleration = 2;
-    public float deceleration = 2;
+    public float deceleration = 1;
 
     [InspectorMargin(12), InspectorHeader("Speed")]
     [InspectorRange(0, 1)]
