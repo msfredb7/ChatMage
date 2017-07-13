@@ -30,6 +30,8 @@ public class LS_ThridLevel : LevelScript
     protected override void OnGameReady()
     {
         map = Game.instance.map;
+        TaggedObject armyWall = map.mapping.GetTaggedObject("army wall");
+        armyWall.gameObject.GetComponent<ArmyWallScript>().beginMarching = true;
     }
 
     protected override void OnGameStarted()
@@ -82,12 +84,6 @@ public class LS_ThridLevel : LevelScript
     public void StartRoadAmbushFour()
     {
         TriggerWaveManually("road ambush 4");
-    }
-
-    public void ChasePlayer(Unit unit)
-    {
-        NotDeactivatedWhenOutOfCamera(unit);
-        unit.Speed *= 2;
     }
 
     public void NotDeactivatedWhenOutOfCamera(Unit unit)
