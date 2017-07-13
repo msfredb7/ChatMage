@@ -61,34 +61,23 @@ public class PlayerVehicle : Vehicle, IAttackable
         }
     }
 
-    protected override void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            StopDrift();
-        }
-
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            StartDrift();
-        }
-    }
-
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
 
-
-        float deltaAngle = Mathf.Abs(Mathf.DeltaAngle(targetDirection, Rotation));
-        if (deltaAngle > beginDriftDelta)
+        if (spawnDriftTrails)
         {
-            if (!drifting)
-                StartDrift();
-        }
-        else
-        {
-            if (drifting)
-                StopDrift();
+            float deltaAngle = Mathf.Abs(Mathf.DeltaAngle(targetDirection, Rotation));
+            if (deltaAngle > beginDriftDelta)
+            {
+                if (!drifting)
+                    StartDrift();
+            }
+            else
+            {
+                if (drifting)
+                    StopDrift();
+            }
         }
     }
 

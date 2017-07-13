@@ -11,6 +11,9 @@ public class PlayerCarTriggers : PlayerComponent
     public event UnitDetectionEvent onUnitHit;
     public event UnitDetectionEvent onUnitKilled;
 
+    //[Header("Visuals")]
+    //public SpriteRenderer carSpriteRenderer;
+
     [Header("Hit Animation")]
     public float camHitStrengthOnHit = 0.05f;
     public BasicRepeatedAnimator hitAnimationPrefab;

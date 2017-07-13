@@ -7,8 +7,8 @@ using UnityEngine.Events;
 public class PlayerBuilder : MonoBehaviour
 {
 
-    [Header("Temporaire")]
-    public PlayerController playerPrefab;
+    //[Header("Temporaire")]
+    //public PlayerController playerPrefab;
 
     //Assets, filled when loaded
     [Header("Debug Loadout")]
@@ -91,7 +91,7 @@ public class PlayerBuilder : MonoBehaviour
     /// </summary>
     public PlayerController BuildPlayer()
     {
-        PlayerController playerController = Instantiate(playerPrefab.gameObject).GetComponent<PlayerController>();
+        PlayerController playerController = Instantiate(car.playerPrefab.gameObject).GetComponent<PlayerController>();
         playerController.Init();
 
         playerController.playerDriver.SetCar(car);

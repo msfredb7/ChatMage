@@ -9,13 +9,13 @@ using FullInspector;
 
 public class TestScript : MonoBehaviour
 {
-    public Vector2 v;
-    public Vector2 min;
-    public Vector2 max;
-
-    void Start()
+    void OnTriggerEnter2D(Collider2D other)
     {
-        v = v.Clamped(min, max);
-        print(v);
+        print("Enter");
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        print("Exit");
     }
 }
