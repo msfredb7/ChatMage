@@ -59,6 +59,8 @@ namespace LoadoutMenu
             set
             {
                 currentAlpha = value ? lockedAlpha : 1;
+                icon.color = value ? Color.black : Color.white;
+                text.enabled = !value;
                 button.image.color = new Color(button.image.color.r, button.image.color.g, button.image.color.b, currentAlpha);
             }
         }
@@ -95,19 +97,19 @@ namespace LoadoutMenu
             VisuallyLocked = !equipable.IsUnlocked;
             VisuallySelected = false;
 
-            equippedVisuals.SetActive(equipable.IsEquipped);
+            VisuallyEquipped = equipable.IsEquipped;
 
             gameObject.SetActive(true);
         }
 
         private void OnEquipped(LoadoutEquipable equipable)
         {
-            equippedVisuals.SetActive(true);
+            VisuallyEquipped = true;
         }
 
         private void OnUnequipped(LoadoutEquipable equipable)
         {
-            equippedVisuals.SetActive(false);
+            VisuallyEquipped = false;
         }
     }
 
