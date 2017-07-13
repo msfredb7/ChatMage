@@ -36,6 +36,6 @@ public class EquipablePreview : BaseScriptableObject
         if (GameSaves.instance.ContainsBool(GameSaves.Type.Armory, equipableKey))
             return GameSaves.instance.GetBool(GameSaves.Type.Armory, equipableKey);
         else
-            return false;
+            return true;
     }
 }
