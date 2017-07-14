@@ -307,15 +307,15 @@ public class GameSaves : BaseManager<GameSaves>
 
     public enum Type { LevelSelect = 0, Loadout = 1, Account = 2, Armory = 3, Tutorial = 4 }
 
-    [ShowInInspector, InspectorDisabled]
+    [ShowInInspector]
     private Data levelSelectData = new Data();
-    [ShowInInspector, InspectorDisabled]
+    [ShowInInspector]
     private Data loadoutData = new Data();
-    [ShowInInspector, InspectorDisabled]
+    [ShowInInspector]
     private Data accountData = new Data();
-    [ShowInInspector, InspectorDisabled]
+    [ShowInInspector]
     private Data armoryData = new Data();
-    [ShowInInspector, InspectorDisabled]
+    [ShowInInspector]
     private Data tutorialData = new Data();
 
     private string TypeToFileName(Type type)

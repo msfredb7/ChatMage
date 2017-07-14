@@ -9,7 +9,6 @@ public class SimpleColliderListener : ColliderListener
     public bool useTrigger;
     public bool useCollision;
 
-
     public event TriggerEvent onTriggerEnter;
     public event TriggerEvent onTriggerExit;
     public event CollisionEvent onCollisionEnter;
@@ -19,7 +18,6 @@ public class SimpleColliderListener : ColliderListener
     public override TriggerEvent OnTriggerExit { get { return onTriggerExit; } set { onTriggerExit = value; } }
     public override CollisionEvent OnCollisionEnter { get { return onCollisionEnter; } set { onCollisionEnter = value; } }
     public override CollisionEvent OnCollisionExit { get { return onCollisionExit; } set { onCollisionExit = value; } }
-
 
     public void OnTriggerExit2D(Collider2D other)
     {

@@ -69,18 +69,19 @@ public class LoadoutElementInspector : MonoBehaviour
         else
         {
             //Basic info
-            title.text = equipable.preview.displayName;
-            description.text = equipable.preview.description;
+            imagePreview.sprite = equipable.preview.icon;
 
             if (equipable.IsUnlocked)
             {
                 //Unlocked !
 
-                //Sprite
-                imagePreview.sprite = equipable.preview.icon;
-
-                //Effect
+                //Text
+                title.text = equipable.preview.displayName;
+                description.text = equipable.preview.description;
                 effect.text = equipable.preview.effects;
+
+                //Sprite
+                imagePreview.color = Color.white;
 
                 //Button
                 if (equipable.IsEquipped)
@@ -91,9 +92,11 @@ public class LoadoutElementInspector : MonoBehaviour
             else
             {
                 //Locked !
+                title.text = "??????????";
+                description.text = "???????????????????????????????????????????????";
 
                 //Sprite
-                imagePreview.sprite = lockedSprite;
+                imagePreview.color = Color.black;
 
                 //Button
                 SetButton(ButtonType.Shop);

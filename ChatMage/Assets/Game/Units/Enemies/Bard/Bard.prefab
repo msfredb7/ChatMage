@@ -146,7 +146,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.5
   m_LinearDrag: 0
   m_AngularDrag: 3
   m_GravityScale: 0
@@ -244,9 +244,11 @@ MonoBehaviour:
   useTurnSpeed: 1
   turnSpeed: 150
   animator: {fileID: 114433606263371510}
+  singRadius: 6
   duration: 4
   timeScaleMultiplier: 1.5
-  singRadius: 6
+  capOnOtherBards: 2
+  defaultCap: 5
 --- !u!212 &212052252250856580
 SpriteRenderer:
   m_ObjectHideFlags: 1
