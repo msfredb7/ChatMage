@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FullSerializer;
 
-public class Car_MadJack : StdCar
+public class Car_MadSteve : StdCar
 {
     public TrailOfColliders trailOfCollidersPrefab;
 
