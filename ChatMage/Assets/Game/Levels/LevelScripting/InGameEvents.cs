@@ -9,6 +9,7 @@ public class InGameEvents : MonoBehaviour
 {
     LevelScript currentLevel;
     float timer = 0;
+    public float GameTime { get { return timer; } }
 
     private class DelayedAction
     {

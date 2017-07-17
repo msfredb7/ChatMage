@@ -7,7 +7,7 @@ public class HackerCarZone : MonoBehaviour
 {
     public float timescaleMultiplier = 0.5f;
 
-    private SingleColliderFilter filter = new SingleColliderFilter();
+    private SingleColliderFilter filter = new SingleColliderFilter(true);
 
     void Start()
     {
@@ -22,14 +22,15 @@ public class HackerCarZone : MonoBehaviour
 
     void Unhack(Unit unit)
     {
-        unit.TimeScale /= timescaleMultiplier;
+        if (!unit.IsDead)
+            unit.TimeScale /= timescaleMultiplier;
     }
 
     void OnDisable()
     {
         foreach (SingleColliderFilter.Contact contact in filter.contacts)
         {
-            if (contact.unit != null)
+            if (contact.unit != null && !contact.unit.IsDead)
                 Unhack(contact.unit);
         }
         filter.Clear();

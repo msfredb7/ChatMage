@@ -1,12 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FullSerializer;
 
-public class Car_WarpStar : StdCar
+public class Car_MadJack : StdCar
 {
-    public float timescaleMultiplier;
-    public TrailOfColliders trailofCollidersPrefab;
+    public TrailOfColliders trailOfCollidersPrefab;
 
     [fsIgnore, System.NonSerialized]
     private TrailOfColliders trail;
@@ -21,23 +21,19 @@ public class Car_WarpStar : StdCar
     {
         base.Init(player);
 
-        trail = Instantiate(trailofCollidersPrefab.gameObject).GetComponent<TrailOfColliders>();
+        trail = Instantiate(trailOfCollidersPrefab.gameObject).GetComponent<TrailOfColliders>();
         trail.transform.SetParent(Game.instance.transform);
-
         trail.enabled = false;
 
         trail.OnTriggerEnter += OnUnitEnterTrail;
-        trail.OnTriggerExit += OnUnitExitTrail;
     }
 
     void OnUnitEnterTrail(ColliderInfo other, ColliderListener listener)
     {
-        other.parentUnit.TimeScale *= timescaleMultiplier;
-    }
-
-    void OnUnitExitTrail(ColliderInfo other, ColliderListener listener)
-    {
-        other.parentUnit.TimeScale /= timescaleMultiplier;
+        if (other.parentUnit is IAttackable)
+        {
+            (other.parentUnit as IAttackable).Attacked(other, 1, player.vehicle);
+        }
     }
 
     public override void OnGameStarted()

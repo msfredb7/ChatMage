@@ -11,11 +11,15 @@ public class RendererTest : MonoBehaviour
     public Vector3[] newNormals;
     public float width = 1;
 
+    [Header("Animation")]
+    public Texture[] sprites;
+    public float animationSpeed = 1;
+
     private MeshFilter meshFilter;
 
     private TrailMesh trailMesh;
-    //private Vector3 verticies;
-    //private Vector3 
+    private int nextSpriteIndex = 1;
+
 
     void ApplyMesh()
     {
@@ -25,17 +29,22 @@ public class RendererTest : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            trailMesh.RemoveLastSegment();
-        }
-    }
+    //void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.T))
+    //    {
+    //        trailMesh.RemoveLastSegment();
+    //    }
+    //    if (Input.GetKeyDown(KeyCode.S))
+    //    {
+    //        trailMesh.AdjustLastSegment(width*=0.9f);
+    //    }
+
+    //}
 
     bool CheckResources()
     {
-        if(meshFilter == null)
+        if (meshFilter == null)
         {
             meshFilter = GetComponent<MeshFilter>();
             if (meshFilter == null)
@@ -70,6 +79,31 @@ public class RendererTest : MonoBehaviour
         newNormals = trailMesh.normals;
         newTriangles = trailMesh.triangles;
 
+        StopAllCoroutines();
+        if (Application.isPlaying)
+            StartCoroutine(SpriteAnimation());
+
         ApplyMesh();
+    }
+
+    void SetSprite(int index)
+    {
+        if (nextSpriteIndex >= sprites.Length)
+            nextSpriteIndex -= sprites.Length;
+
+        if (nextSpriteIndex > 0)
+            GetComponent<MeshRenderer>().sharedMaterial.SetTexture("_MainTex", sprites[nextSpriteIndex]);
+
+        nextSpriteIndex++;
+    }
+
+    IEnumerator SpriteAnimation()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(1 / animationSpeed);
+
+            SetSprite(nextSpriteIndex);
+        }
     }
 }
