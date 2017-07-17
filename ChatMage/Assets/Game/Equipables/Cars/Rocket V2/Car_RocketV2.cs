@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using FullSerializer;
 using CCC.Utility;
+using FullInspector;
 
 public class Car_RocketV2 : Car
 {
     //NE PAS MODIFIER IN-GAME
+    [InspectorMargin(12), InspectorHeader("Base Stats")]
     public float turnAcceleration = 5;
     public float turnSpeed = 185;
     public float moveSpeed = 6;
