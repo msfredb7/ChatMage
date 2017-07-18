@@ -61,7 +61,7 @@ public class LS_2_1 : LevelScript {
                 inGameEvents.AddDelayedAction(GateBlockage, 1);
                 break;
             case "gate cleared":
-                GateCleared();
+                inGameEvents.AddDelayedAction(GateCleared, 1);
                 break;
         }
     }
