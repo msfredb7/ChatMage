@@ -10,9 +10,15 @@ public class LS_2_1 : LevelScript {
     [InspectorHeader("Dialog"), InspectorMargin(10)]
     public Dialoguing.Dialog newKingdom;
     public Dialoguing.Dialog gateBlock;
+    public Dialoguing.Dialog gateCleared;
+
+    [fsIgnore, NonSerialized]
+    private Map map;
 
     [fsIgnore, NonSerialized]
     private bool canWin = false;
+
+    private TaggedObject gate;
 
     protected override void ResetData()
     {
@@ -22,7 +28,8 @@ public class LS_2_1 : LevelScript {
 
     protected override void OnGameReady()
     {
-
+        map = Game.instance.map;
+        gate = map.mapping.GetTaggedObject("gate");
     }
 
     protected override void OnGameStarted()
@@ -38,12 +45,23 @@ public class LS_2_1 : LevelScript {
         });
     }
 
+    public void GateCleared()
+    {
+        Game.instance.ui.dialogDisplay.StartDialog(gateCleared, delegate ()
+        {
+            gate.GetComponent<SidewaysFakeGate>().Open();
+        });
+    }
+
     public override void OnReceiveEvent(string message)
     {
         switch (message)
         {
             case "gate":
                 inGameEvents.AddDelayedAction(GateBlockage, 1);
+                break;
+            case "gate cleared":
+                GateCleared();
                 break;
         }
     }

@@ -205,6 +205,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _objectReferences:
+  - {fileID: 1404559390}
   - {fileID: 227145569}
   _serializedStateKeys:
   - unfilteredWaypoints
@@ -228,8 +229,8 @@ MonoBehaviour:
   - '[]'
   - '[]'
   - '{}'
-  - '{}'
-  - '{"ordered gate":[0]}'
+  - '{"gate":[0]}'
+  - '{"ordered gate":[1]}'
   unfilteredWaypoints: []
   unfilteredTaggedObjects: []
   unfilteredSpawns: []
@@ -1033,6 +1034,8 @@ GameObject:
   - component: {fileID: 1404559388}
   - component: {fileID: 1404559387}
   - component: {fileID: 1404559386}
+  - component: {fileID: 1404559389}
+  - component: {fileID: 1404559390}
   m_Layer: 16
   m_Name: KingdomEntryWall
   m_TagString: Untagged
@@ -1128,6 +1131,35 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+--- !u!114 &1404559389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1404559384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f24b29f82e0cd942b9fd9b007149b18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rendering: {fileID: 1404559385}
+  openedLocalPosition: {x: 16, y: 0}
+  openedOnStart: 0
+  animDuration: 1.5
+  ease: 27
+--- !u!114 &1404559390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1404559384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d320295b82adad64b9d4179d395a1b2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tags:
+  - gate
 --- !u!1 &1644651694
 GameObject:
   m_ObjectHideFlags: 0
@@ -1301,8 +1333,17 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 153121006}
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.topHeight.EditProperty
+    - DefaultBehaviorEditor.milestones.EditProperty
+    - DefaultBehaviorEditor.milestoneRelativeHeights.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
     _target: {fileID: 266624493}
   - _keys:
     - DefaultBehaviorEditor.mapping.EditProperty
