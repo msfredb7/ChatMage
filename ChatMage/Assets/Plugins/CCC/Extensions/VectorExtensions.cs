@@ -32,4 +32,19 @@ public static class VectorExtensions
         v.y = (sin * tx) + (cos * ty);
         return v;
     }
+
+    public static Vector2 FlippedX(this Vector2 v)
+    {
+        return new Vector2(-v.x,v.y);
+    }
+
+    public static Vector2 FlippedY(this Vector2 v)
+    {
+        return new Vector2(v.x, -v.y);
+    }
+
+    public static Vector2 Scaled(this Vector2 v, Vector2 scale)
+    {
+        return new Vector2(v.x * scale.x, v.y * scale.y);
+    }
 }
