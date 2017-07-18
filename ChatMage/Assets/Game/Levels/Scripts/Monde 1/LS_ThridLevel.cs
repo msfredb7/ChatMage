@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LS_1_3 : LevelScript
+public class LS_ThridLevel : LevelScript
 {
     [InspectorHeader("Dialog"), InspectorMargin(10)]
     public Dialoguing.Dialog RUN;

@@ -6,7 +6,7 @@ using UnityEngine;
 using FullInspector;
 using FullSerializer;
 
-public class LS_1_1 : LevelScript
+public class LS_FirstLevel : LevelScript
 {
     [InspectorHeader("Enemy Prefabs"), InspectorMargin(10)]
     public SpearmanVehicle spearMan;
