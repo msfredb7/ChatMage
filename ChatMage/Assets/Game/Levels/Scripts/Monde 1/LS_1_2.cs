@@ -6,7 +6,7 @@ using UnityEngine;
 using FullInspector;
 using FullSerializer;
 
-public class LS_SecondLevel : LevelScript
+public class LS_1_2 : LevelScript
 {
     [InspectorHeader("Dialog"), InspectorMargin(10)]
     public Dialoguing.Dialog whatAmISupposeToDo;

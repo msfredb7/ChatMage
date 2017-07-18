@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d533c52ea874bd41a30d409c13ca439, type: 3}
+  m_Name: LS_2_1
+  m_EditorClassIdentifier: 
+  _objectReferences:
+  - {fileID: 114892083099199946, guid: a97b513999cddca448e173580c0c886f, type: 2}
+  _serializedStateKeys:
+  - winningConditions
+  - losingConditions
+  - events
+  - waves
+  - rewards
+  _serializedStateValues:
+  - '[]'
+  - '[{"$type":"GameCondition.LoseOnPlayerDeath"}]'
+  - 
+  - '[{"what":{"spawnSequence":[{"unit":0,"quantity":2}],"onSpawnMethod":"","progressCallbacks":[]},"where":{"logErrorIfUnableToLaunch":true,"spawnTag":"ordered
+    gate","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0},"when":{"type":"OnManualTrigger","time":0.0,"name":"gate","onlyTriggerOnce":true},"spawnInterval":1.0}]'
+  - '{"overrideGoldAmount":false,"goldReward":null,"giveLootBox":false,"lootboxRefName":null,"goldified":false}'
+  sceneName: KingdomEntry
+  introPrefab: {fileID: 114095951920881890, guid: 5d6e2272c4ccd514cb369a8d44abbacd,
+    type: 2}
+  winOutroPrefab: {fileID: 114288339278322360, guid: 1e4d836705c07534fb5b431bb36cb2ab,
+    type: 2}
+  loseOutroPrefab: {fileID: 114991219666454608, guid: 1e119aa4a9b4fba448ae2ee2adf573eb,
+    type: 2}
+  noHealthPacks: 0
+  followPlayerOnStart: 1
+  useCustomGenericEvents: 0
+  events: []
+  isOver: 0
+  inGameEvents: {fileID: 0}
+  activateTutorial: 0
+  tutorialAssetName: 
+  newKingdom: {fileID: 11400000, guid: f855d85d46aa59847b865f2768a5cb8a, type: 2}
+  gateBlock: {fileID: 11400000, guid: f855d85d46aa59847b865f2768a5cb8a, type: 2}

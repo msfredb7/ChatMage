@@ -108,6 +108,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c801aa8919c0852419419fad1580adbb, type: 2}
   - {fileID: 11400000, guid: 21789ce09bae2674eb807a4cf4eee637, type: 2}
   - {fileID: 11400000, guid: 4a25fb01c4d3d2646a34b33e627d1aa3, type: 2}
+  - {fileID: 11400000, guid: 64fc7b7018004934bad5701afc4b5c24, type: 2}
+  - {fileID: 11400000, guid: ec9ee0c6fd6fd0745b10c5b8ee6c2ce0, type: 2}
+  - {fileID: 11400000, guid: f855d85d46aa59847b865f2768a5cb8a, type: 2}
   _values:
   - _keys: []
     _values: []
@@ -281,6 +284,15 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 11400000, guid: 4a25fb01c4d3d2646a34b33e627d1aa3, type: 2}
+  - _keys: []
+    _values: []
+    _target: {fileID: 11400000, guid: 64fc7b7018004934bad5701afc4b5c24, type: 2}
+  - _keys: []
+    _values: []
+    _target: {fileID: 11400000, guid: ec9ee0c6fd6fd0745b10c5b8ee6c2ce0, type: 2}
+  - _keys: []
+    _values: []
+    _target: {fileID: 11400000, guid: f855d85d46aa59847b865f2768a5cb8a, type: 2}
 --- !u!114 &114574157853951048
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -348,6 +360,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c801aa8919c0852419419fad1580adbb, type: 2}
   - {fileID: 11400000, guid: 21789ce09bae2674eb807a4cf4eee637, type: 2}
   - {fileID: 11400000, guid: 4a25fb01c4d3d2646a34b33e627d1aa3, type: 2}
+  - {fileID: 11400000, guid: 64fc7b7018004934bad5701afc4b5c24, type: 2}
+  - {fileID: 11400000, guid: ec9ee0c6fd6fd0745b10c5b8ee6c2ce0, type: 2}
+  - {fileID: 11400000, guid: f855d85d46aa59847b865f2768a5cb8a, type: 2}
   _values:
   - _keys:
     - DefaultBehaviorEditor.sceneName.EditProperty
@@ -415,7 +430,7 @@ MonoBehaviour:
       _serializedIsActive: 1
     - _showDropdown: 0
       _serializedIsActive: 1
-    - _showDropdown: 1
+    - _showDropdown: 0
       _serializedIsActive: 1
     - _showDropdown: 0
       _serializedIsActive: 1
@@ -431,32 +446,8 @@ MonoBehaviour:
       _serializedIsActive: 1
     _target: {fileID: 114015716563977732, guid: 526d875b8e226cf49af4c4a05176f3f2,
       type: 2}
-  - _keys:
-    - DefaultBehaviorEditor.sceneName.EditProperty
-    - DefaultBehaviorEditor.winningConditions.EditProperty
-    - DefaultBehaviorEditor.introPrefab.EditProperty
-    - DefaultBehaviorEditor.noHealthPacks.EditProperty
-    - DefaultBehaviorEditor.useCustomGenericEvents.EditProperty
-    - DefaultBehaviorEditor.waves.EditProperty
-    - DefaultBehaviorEditor.rewards.EditProperty
-    - DefaultBehaviorEditor.activateTutorial.EditProperty
-    _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 1
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
+  - _keys: []
+    _values: []
     _target: {fileID: 11400000, guid: 47cdc4a54c5c23544977723a44cb47a2, type: 2}
   - _keys: []
     _values: []
@@ -526,17 +517,8 @@ MonoBehaviour:
     - _showDropdown: 1
       _serializedIsActive: 0
     _target: {fileID: 11400000, guid: e9ada2128e130fc4a978ce9b9510f223, type: 2}
-  - _keys:
-    - DefaultBehaviorEditor.identifiant.EditProperty
-    - DefaultBehaviorEditor.possibleItems.EditProperty
-    - DefaultBehaviorEditor.items.EditProperty
-    _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
+  - _keys: []
+    _values: []
     _target: {fileID: 11400000, guid: fbbc43776bd7d2347b94e32a26174da5, type: 2}
   - _keys:
     - DefaultBehaviorEditor.identifiant.EditProperty
@@ -613,8 +595,50 @@ MonoBehaviour:
     _values: []
     _target: {fileID: 114658795903442550, guid: 2919f287fa3748f4789d717934dd68b7,
       type: 2}
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.sceneName.EditProperty
+    - DefaultBehaviorEditor.winningConditions.EditProperty
+    - DefaultBehaviorEditor.introPrefab.EditProperty
+    - DefaultBehaviorEditor.noHealthPacks.EditProperty
+    - DefaultBehaviorEditor.useCustomGenericEvents.EditProperty
+    - DefaultBehaviorEditor.waves.EditProperty
+    - DefaultBehaviorEditor.waves.EditProperty.Primary.0.what.EditProperty.progressCallbacks.EditProperty.0.atProgress.EditProperty
+    - DefaultBehaviorEditor.waves.EditProperty.Primary.1.what.EditProperty.progressCallbacks.EditProperty.0.atProgress.EditProperty
+    - DefaultBehaviorEditor.waves.EditProperty.Primary.2.what.EditProperty.progressCallbacks.EditProperty.0.atProgress.EditProperty
+    - DefaultBehaviorEditor.waves.EditProperty.Primary.3.what.EditProperty.progressCallbacks.EditProperty.0.atProgress.EditProperty
+    - DefaultBehaviorEditor.waves.EditProperty.Primary.4.what.EditProperty.progressCallbacks.EditProperty.0.atProgress.EditProperty
+    - DefaultBehaviorEditor.rewards.EditProperty
+    - DefaultBehaviorEditor.activateTutorial.EditProperty
+    - DefaultBehaviorEditor.whatAmISupposeToDo.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 1
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
     _target: {fileID: 11400000, guid: 0b7954abdee1f1a4e8103f76585d123d, type: 2}
   - _keys:
     - DefaultBehaviorEditor.replies.EditProperty.0.message.EditProperty
@@ -809,14 +833,8 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 11400000, guid: 37546db50f10f8642ad5ffdb129368b5, type: 2}
-  - _keys:
-    - DefaultBehaviorEditor.identifiant.EditProperty
-    - DefaultBehaviorEditor.possibleItems.EditProperty
-    _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
+  - _keys: []
+    _values: []
     _target: {fileID: 11400000, guid: 35a664e2945f33149bcb837c7d66e33e, type: 2}
   - _keys:
     - DefaultBehaviorEditor.topSpeed.EditProperty
@@ -878,3 +896,63 @@ MonoBehaviour:
     - _showDropdown: 0
       _serializedIsActive: 1
     _target: {fileID: 11400000, guid: 4a25fb01c4d3d2646a34b33e627d1aa3, type: 2}
+  - _keys:
+    - DefaultBehaviorEditor.identifiant.EditProperty
+    - DefaultBehaviorEditor.possibleItems.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    _target: {fileID: 11400000, guid: 64fc7b7018004934bad5701afc4b5c24, type: 2}
+  - _keys:
+    - DefaultBehaviorEditor.sceneName.EditProperty
+    - DefaultBehaviorEditor.winningConditions.EditProperty
+    - DefaultBehaviorEditor.introPrefab.EditProperty
+    - DefaultBehaviorEditor.noHealthPacks.EditProperty
+    - DefaultBehaviorEditor.useCustomGenericEvents.EditProperty
+    - DefaultBehaviorEditor.waves.EditProperty
+    - DefaultBehaviorEditor.rewards.EditProperty
+    - DefaultBehaviorEditor.activateTutorial.EditProperty
+    - DefaultBehaviorEditor.NewKingdom.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    _target: {fileID: 11400000, guid: ec9ee0c6fd6fd0745b10c5b8ee6c2ce0, type: 2}
+  - _keys:
+    - DefaultBehaviorEditor.replies.EditProperty.0.message.EditProperty
+    - DefaultBehaviorEditor.replies.EditProperty.1.message.EditProperty
+    - DefaultBehaviorEditor.replies.EditProperty.2.message.EditProperty
+    - DefaultBehaviorEditor.replies.EditProperty.3.message.EditProperty
+    - DefaultBehaviorEditor.replies.EditProperty.4.message.EditProperty
+    - DefaultBehaviorEditor.replies.EditProperty.5.message.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    _target: {fileID: 11400000, guid: f855d85d46aa59847b865f2768a5cb8a, type: 2}
