@@ -6,7 +6,7 @@ using FullInspector;
 
 public abstract class StdCar : Car
 {
-    [InspectorHeader("Base Stats")]
+    [InspectorMargin(12), InspectorHeader("Base Stats")]
     public float turnAcceleration = 5;
     public float turnSpeed = 185;
     public float moveSpeed = 6;

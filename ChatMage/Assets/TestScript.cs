@@ -9,13 +9,4 @@ using FullInspector;
 
 public class TestScript : MonoBehaviour
 {
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        print("Enter");
-    }
-
-    void OnTriggerExit2D(Collider2D other)
-    {
-        print("Exit");
-    }
 }

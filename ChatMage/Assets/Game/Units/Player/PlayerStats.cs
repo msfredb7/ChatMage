@@ -140,7 +140,7 @@ public class PlayerStats : PlayerComponent, IAttackable
 
     public void Regen(int amount)
     {
-        health.Set(health + amount);
+        health++;
         if (onRegen != null)
             onRegen();
     }

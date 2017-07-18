@@ -5,9 +5,20 @@ using UnityEngine;
 
 public class SingleColliderFilter
 {
+    /// <summary>
+    /// Si 'groupByUnits' est vrai, alors nous allons compter l'entrer d'une unit comme UNE seul entrer,
+    ///  meme si elle possede plusieur unitsGroup (ex: comme le shielder et son shield)
+    /// </summary>
+    /// <param name="groupByUnits"></param>
+    public SingleColliderFilter(bool groupByUnits = false)
+    {
+        this.groupByUnits = groupByUnits;
+    }
+
     public class Contact
     {
         public Unit unit;
+        public GameObject groupParent;
         public void AddCollision(ColliderInfo other)
         {
             if (!infos.Contains(other))
@@ -19,7 +30,7 @@ public class SingleColliderFilter
         }
         public int CollisionCount { get { return infos.Count; } }
         private LinkedList<ColliderInfo> infos = new LinkedList<ColliderInfo>();
-        public Contact(Unit unit) { this.unit = unit; }
+        public Contact(Unit unit, GameObject head) { this.unit = unit; this.groupParent = head; }
     }
 
     public LinkedList<Contact> contacts = new LinkedList<Contact>();
@@ -28,6 +39,7 @@ public class SingleColliderFilter
 
     public Action<Unit> onUnitAdded;
     public Action<Unit> onUnitRemoved;
+    public bool groupByUnits;
 
     public void Clear()
     {
@@ -48,61 +60,55 @@ public class SingleColliderFilter
                 return;
         }
 
-        Contact hack = null;
-        Unit unit = info.parentUnit;
+        LinkedListNode<Contact> node = GetContactNode(info);
+        Contact contact = node != null ? node.Value : null;
 
-        LinkedListNode<Contact> node = contacts.First;
-        while (node != null)
+        if (contact == null)
         {
-            if (node.Value.unit == unit)
-            {
-                hack = node.Value;
-                break;
-            }
-
-            node = node.Next;
-        }
-
-        if (hack == null)
-        {
-            contacts.AddLast(hack = new Contact(unit));
+            Unit unit = info.parentUnit;
+            contacts.AddLast(contact = new Contact(unit, info.GroupParent));
             if (onUnitAdded != null)
                 onUnitAdded(unit);
         }
 
-        hack.AddCollision(info);
+        contact.AddCollision(info);
     }
 
-    public void OnTriggerExit(ColliderInfo other)
+    public void OnTriggerExit(ColliderInfo info)
     {
-        Contact hack = null;
+        LinkedListNode<Contact> node = GetContactNode(info);
+        Contact contact = node != null ? node.Value : null;
 
+        if (contact == null)
+        {
+            forgetList.Add(info);
+        }
+        else
+        {
+            contact.RemoveCollision(info);
+
+            if (contact.CollisionCount <= 0)
+            {
+                if (onUnitRemoved != null)
+                    onUnitRemoved(contact.unit);
+                contacts.Remove(node);
+            }
+        }
+    }
+
+    private LinkedListNode<Contact> GetContactNode(ColliderInfo info)
+    {
         LinkedListNode<Contact> node = contacts.First;
         while (node != null)
         {
-            if (node.Value.unit == other.parentUnit)
+            if ((groupByUnits && node.Value.unit == node.Value.unit)
+                || (!groupByUnits && node.Value.groupParent == info.GroupParent))
             {
-                hack = node.Value;
-                break;
+                return node;
             }
 
             node = node.Next;
         }
-
-        if (hack == null)
-        {
-            forgetList.Add(other);
-        }
-        else
-        {
-            hack.RemoveCollision(other);
-
-            if (hack.CollisionCount <= 0)
-            {
-                if (onUnitRemoved != null)
-                    onUnitRemoved(node.Value.unit);
-                contacts.Remove(node);
-            }
-        }
+        return null;
     }
 }

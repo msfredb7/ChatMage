@@ -28,4 +28,16 @@ public static class FloatExtensions
     {
         return Mathf.MoveTowards(value, target, delta);
     }
+
+    public static float Mod(this float value, float modulo)
+    {
+        if (modulo <= 0)
+            return 0;
+
+        if (value < 0)
+            value = 0;
+        else
+            return value % modulo;
+        return value;
+    }
 }

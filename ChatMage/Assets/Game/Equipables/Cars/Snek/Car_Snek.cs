@@ -6,7 +6,7 @@ using FullInspector;
 
 public class Car_Snek : Car, IFixedUpdate
 {
-    [InspectorHeader("Speed")]
+    [InspectorMargin(12), InspectorHeader("Speed")]
     public float topSpeed;
 
     [InspectorMargin(12), InspectorHeader("Acceleration")]

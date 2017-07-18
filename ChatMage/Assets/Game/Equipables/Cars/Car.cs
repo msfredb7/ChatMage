@@ -2,27 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FullSerializer;
+using FullInspector;
 
 public abstract class Car : Equipable
 {
+    [InspectorMargin(12), InspectorHeader("Player")]
     public PlayerController playerPrefab;
-    //public Sprite carSprite;
-    //public float spriteSize = 1;
-    //public Vector2 spriteLocalPos = Vector2.zero;
 
-    //public override void Init(PlayerController player)
-    //{
-    //    base.Init(player);
+    [InspectorMargin(12), InspectorHeader("HP")]
+    public int startingHP = 3;
+    public int startingArmor = 0;
 
-    //    if (carSprite != null)
-    //    {
-    //        PlayerCarTriggers playerCar = player.playerCarTriggers;
-    //        SpriteRenderer renderer = playerCar.carSpriteRenderer;
-    //        renderer.sprite = carSprite;
-    //        renderer.transform.localPosition = spriteLocalPos;
-    //        renderer.transform.localScale *= spriteSize;
-    //    }
-    //}
+    public override void Init(PlayerController player)
+    {
+        base.Init(player);
+
+        player.playerStats.health.MAX = startingHP;
+        player.playerStats.health.Set(startingHP);
+
+        player.playerStats.armor.MAX = startingArmor;
+        player.playerStats.armor.Set(startingArmor);
+    }
+
 
     public abstract void OnInputUpdate(float horizontalInput);
 }

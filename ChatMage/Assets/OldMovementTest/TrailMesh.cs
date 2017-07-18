@@ -76,6 +76,45 @@ public class TrailMesh
         ApplyMesh(false);
     }
 
+    public void AdjustFirstSegment(Vector2 newPos)
+    {
+
+    }
+
+    public void AdjustLastSegment(float size)
+    {
+        LinkedListNode<HalfQuad> node = halfQuads.First;
+        HalfQuad hq = node.Value;
+        hq.ApplyWidth(size*0);
+
+        vertices[0] = hq.a;
+        vertices[1] = hq.b;
+        uv[0] = Vector2.zero;
+        uv[1] = Vector2.zero;
+
+
+        node = node.Next;
+        hq = node.Value;
+
+        hq.ApplyWidth(size*0.333f);
+
+        vertices[2] = hq.a;
+        vertices[3] = hq.b;
+
+
+        node = node.Next;
+        hq = node.Value;
+
+        hq.ApplyWidth(size*0.666f);
+
+        vertices[4] = hq.a;
+        vertices[5] = hq.b;
+
+
+        ApplyVerticles();
+        ApplyUV();
+    }
+
     private void ApplyMesh(bool ajout)
     {
         /*int[]*/
@@ -89,7 +128,6 @@ public class TrailMesh
 
         LinkedListNode<HalfQuad> node = halfQuads.First;
 
-        float uvXPerNode = 2f / (halfQuads.Count - 1);
         int i = 0;
         while (node != null)
         {
@@ -102,7 +140,6 @@ public class TrailMesh
             vertices[y] = hq.b;
 
             //Uv
-            float uvX = i * uvXPerNode;
             uv[x] = new Vector2(hq.uvX, 1);
             uv[y] = new Vector2(hq.uvX, 0);
 
@@ -134,6 +171,15 @@ public class TrailMesh
             mesh.triangles = triangles;
     }
 
+    private void ApplyVerticles()
+    {
+        mesh.vertices = vertices;
+    }
+    private void ApplyUV()
+    {
+        mesh.uv = uv;
+    }
+
     private class HalfQuad
     {
         public Vector2 a;
@@ -144,10 +190,15 @@ public class TrailMesh
 
         public void ApplyAngle(float angle, float width)
         {
-            float halfWidth = width * 0.5f;
-            a = (angle + 90).ToVector() * halfWidth + center;
-            b = (angle - 90).ToVector() * halfWidth + center;
+            a = (angle + 90).ToVector() * width + center;
+            b = (angle - 90).ToVector() * width + center;
             this.angle = angle;
+        }
+
+        public void ApplyWidth(float width)
+        {
+            a = (a - center).normalized * width + center;
+            b = (b - center).normalized * width + center;
         }
 
         public void ChangeAngle(float newAngle)
