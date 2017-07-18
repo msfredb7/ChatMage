@@ -1,100 +1,61 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System;
 
-public class BouclierTournant : MonoBehaviour {
-
+public class BouclierTournant : Unit, IAttackable
+{
     public SimpleColliderListener shieldCollider;
+    public GameObject hitVfx;
     public float animationDuration = 3;
+    public Ease turnEase = Ease.OutBack;
+    public float overshoot;
 
-    private enum RotationPosition { up = 0, right = 1, bottom = 2, left = 3 }
+    private Tween rotateTween = null;
 
-    private RotationPosition currentRotationPosition;
-    private bool curentlyRotating;
-
-	void Start ()
+    void Start()
     {
-        curentlyRotating = false;
-        RotateTo(RotationPosition.up);
-        shieldCollider.onTriggerEnter += ShieldCollider_onTriggerEnter;
+        shieldCollider.onCollisionEnter += ShieldCollider_onCollisionEnter;
     }
 
-    private void ShieldCollider_onTriggerEnter(ColliderInfo other, ColliderListener listener)
+    //Si le shield frappe un ennemi, il l'attaque, puis tourne
+    private void ShieldCollider_onCollisionEnter(ColliderInfo other, Collision2D collision, ColliderListener listener)
     {
-        if(other.GetComponent<IAttackable>() != null)
+        if (!IsValidTarget(other.parentUnit.allegiance))
+            return;
+
+        IAttackable attackable = other.GetComponent<IAttackable>();
+        if (attackable != null)
         {
-            other.GetComponent<IAttackable>().Attacked(other, 1, null);
-            UnitKilled();
-        } else
-        {
-            if (other.parentUnit.allegiance == Allegiance.Enemy)
-            {
-                Destroy(other.gameObject);
-                UnitKilled();
-            }
+            attackable.Attacked(other, 1, null);
+            OnShieldHit();
         }
     }
 
-    void UnitKilled()
+    //Si le shield se fait frapper, il resiste et tourne
+    public int Attacked(ColliderInfo on, int amount, Unit otherUnit, ColliderInfo source = null)
     {
-        if (!curentlyRotating)
-        {
-            curentlyRotating = true;
-            switch (currentRotationPosition)
-            {
-                case RotationPosition.up:
-                    RotateTo(RotationPosition.right);
-                    break;
-                case RotationPosition.right:
-                    RotateTo(RotationPosition.bottom);
-                    break;
-                case RotationPosition.bottom:
-                    RotateTo(RotationPosition.left);
-                    break;
-                case RotationPosition.left:
-                    RotateTo(RotationPosition.up);
-                    break;
-                default:
-                    break;
-            }
-        }
+        OnShieldHit();
+        return 1;
     }
 
-    void RotateTo(RotationPosition position)
+    void OnShieldHit()
     {
-        switch (position)
-        {
-            case RotationPosition.up:
-                currentRotationPosition = RotationPosition.up;
-                transform.DOLocalRotate(new Vector3(0, 0, -90), animationDuration).OnComplete(delegate ()
-                {
-                    curentlyRotating = false;
-                });
-                break;
-            case RotationPosition.right:
-                currentRotationPosition = RotationPosition.right;
-                transform.DOLocalRotate(new Vector3(0, 0, -180), animationDuration).OnComplete(delegate ()
-                {
-                    curentlyRotating = false;
-                });
-                break;
-            case RotationPosition.bottom:
-                currentRotationPosition = RotationPosition.bottom;
-                transform.DOLocalRotate(new Vector3(0, 0, 90), animationDuration).OnComplete(delegate ()
-                {
-                    curentlyRotating = false;
-                });
-                break;
-            case RotationPosition.left:
-                currentRotationPosition = RotationPosition.left;
-                transform.DOLocalRotate(new Vector3(0, 0, 0), animationDuration).OnComplete(delegate ()
-                {
-                    curentlyRotating = false;
-                });
-                break;
-            default:
-                break;
-        }
+        if (!IsTurning())
+            TurnShield();
+
+        Instantiate(hitVfx, shieldCollider.transform.position, Quaternion.identity);
+    }
+
+    private bool IsTurning()
+    {
+        return rotateTween != null && rotateTween.IsActive() && !rotateTween.IsComplete();
+    }
+
+    private void TurnShield()
+    {
+        rotateTween = transform.DOLocalRotate(new Vector3(0, 0, -90), animationDuration, RotateMode.LocalAxisAdd)
+            .SetEase(turnEase, overshoot);
     }
 }
