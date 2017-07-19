@@ -113,6 +113,7 @@ public class Game : PublicSingleton<Game>
                 currentLevel.Update();
             }
         }
+        //OPTIMISATION: Faire une liste a part (une liste de unit pour lequelle il faut 'CheckActivation')
         if (gameCamera.MovedSinceLastFrame)
         {
             for (int i = 0; i < units.Count; i++)

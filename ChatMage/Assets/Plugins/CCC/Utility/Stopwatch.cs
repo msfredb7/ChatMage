@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Diagnostics;
 
 /// <summary>
@@ -35,5 +35,18 @@ public class Stopwatch
         }
         stopwatch.Reset();
         stopwatch.Start();
+    }
+
+    public float GetTime()
+    {
+        float deltaTicks = stopwatch.ElapsedTicks;
+        switch (printType)
+        {
+            default:
+            case PrintType.Milliseconds:
+                return (float)((double)deltaTicks) / 10000;
+            case PrintType.Ticks:
+                return deltaTicks;
+        }
     }
 }

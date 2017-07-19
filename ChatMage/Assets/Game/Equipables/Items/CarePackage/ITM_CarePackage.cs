@@ -1,17 +1,19 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ITM_CarePackage : Item {
+public class ITM_CarePackage : Item
+{
 
     public GameObject carePackagePrefab;
 
-    public int unitAmount = 4;
-    private int unitCounter;
+    public int killsRequired = 4;
+    private int killstreak;
 
     public override void OnGameReady()
     {
+        killstreak = 0;
     }
 
     public override void OnGameStarted()
@@ -20,14 +22,17 @@ public class ITM_CarePackage : Item {
         player.playerStats.onUnitKilled += PlayerStats_onUnitKilled;
     }
 
-    private void PlayerStats_onUnitKilled(Unit unit)
-    {
-        unitCounter++;
-    }
-
     public override void OnUpdate()
     {
-        if(unitCounter >= unitAmount)
+
+    }
+
+    private void PlayerStats_onUnitKilled(Unit unit)
+    {
+        killstreak++;
+        Debug.Log("Killstreak: " + killstreak);
+
+        if (killstreak >= killsRequired)
         {
             SendPackage();
             ResetCounter();
@@ -36,11 +41,13 @@ public class ITM_CarePackage : Item {
 
     void ResetCounter()
     {
-        unitCounter = 0;
+        killstreak = 0;
     }
 
     void SendPackage()
     {
+        GameCamera cam = Game.instance.gameCamera;
+
         //Get Random pos around screen
         Vector2 pos = Vector2.zero;
 
@@ -56,14 +63,11 @@ public class ITM_CarePackage : Item {
             pos = new Vector2(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(0, 2) * 2 - 1);
         }
 
+
         //Scale la position au bordure de l'�cran
-        pos.Scale(Game.instance.gameCamera.ScreenSize * 0.45f);
-
-        SpawnUnitRelativeToTransform(pos, Game.instance.gameCamera.transform);
-    }
-
-    private void SpawnUnitRelativeToTransform(Vector2 relativePosition, Transform transform)
-    {
-        Instantiate(carePackagePrefab, relativePosition + (Vector2)transform.position,Quaternion.Euler(new Vector3(0,0,0)));
+        pos.Scale(cam.ScreenSize * 0.45f);
+        
+        Vector2 spawnPos = pos + cam.Center;
+        Instantiate(carePackagePrefab, spawnPos, Quaternion.identity);
     }
 }

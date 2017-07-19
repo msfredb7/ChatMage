@@ -22,6 +22,12 @@ public class LS_fredLevelScript : LevelScript
 
     }
 
+    public void MakeSmart(Unit unit)
+    {
+        if (unit is EnemyVehicle)
+            (unit as EnemyVehicle).smartMove = true;
+    }
+
     protected override void OnGameReady()
     {
 
@@ -41,10 +47,6 @@ public class LS_fredLevelScript : LevelScript
         if (Input.GetKeyDown(KeyCode.W) && !IsOver)
         {
             Win();
-        }
-        if (Input.GetKeyDown(KeyCode.T) && !IsOver)
-        {
-            Debug.Log("Do nothing");
         }
     }
 }

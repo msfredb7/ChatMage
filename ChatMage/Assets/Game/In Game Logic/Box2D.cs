@@ -34,4 +34,9 @@ public struct Box2D
                 (min.y + max.y) / 2);
         }
     }
+
+    public Vector2 GetRandomPositionWithin()
+    {
+        return new Vector2(Random.Range(min.x, max.x), Random.Range(min.y, max.y));
+    }
 }
