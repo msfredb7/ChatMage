@@ -6,11 +6,23 @@ using UnityEditor;
 public class GameObjectCreator : MonoBehaviour
 {
     [MenuItem("GameObject/Time Drifter/Smart Surface", priority = -1)]
-    private static void CreateSmartWall(MenuCommand command)
+    private static void CreateSmartSurface(MenuCommand command)
     {
         GameObject obj = new GameObject("Smart Surface");
         obj.AddComponent<EdgeCollider2D>();
         obj.AddComponent<NAV_SmartSurface>();
+        obj.layer = Layers.NAVIGATION;
+        obj.isStatic = true;
+
+        AdjustGameobject(obj, command);
+    }
+
+    [MenuItem("GameObject/Time Drifter/Smart Wall", priority = -1)]
+    private static void CreateSmartWall(MenuCommand command)
+    {
+        GameObject obj = new GameObject("Smart Wall");
+        obj.AddComponent<BoxCollider2D>();
+        obj.AddComponent<NAV_SmartWall>();
         obj.layer = Layers.NAVIGATION;
         obj.isStatic = true;
 
