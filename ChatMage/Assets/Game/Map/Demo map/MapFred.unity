@@ -200,7 +200,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!60 &342613016
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -225,12 +225,14 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 2.643424, y: 4.4941797}
-      - {x: -1.0769496, y: 5.196229}
-      - {x: -10.795531, y: 4.957796}
-      - {x: -10.888021, y: -5.5185647}
-      - {x: -0.080666065, y: -5.3970275}
-      - {x: 3.108332, y: -0.17712982}
+    - - {x: 2.7719975, y: 0.28122073}
+      - {x: 3.4033787, y: 2.0228274}
+      - {x: 2.5126684, y: 3.9711556}
+      - {x: -0.77807856, y: 5.2335877}
+      - {x: -2.090877, y: 2.0498621}
+      - {x: -3.0630002, y: -1.9773138}
+      - {x: -0.22345829, y: -4.9400916}
+      - {x: 1.4519391, y: -2.7188344}
 --- !u!4 &342613018
 Transform:
   m_ObjectHideFlags: 0
@@ -511,7 +513,7 @@ GameObject:
   - component: {fileID: 1526266545}
   - component: {fileID: 1526266544}
   m_Layer: 16
-  m_Name: Crack
+  m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -687,6 +689,7 @@ MonoBehaviour:
   - {fileID: 1237816615}
   - {fileID: 153121006}
   - {fileID: 1644651695}
+  - {fileID: 2029140832}
   _values:
   - _keys: []
     _values: []
@@ -697,6 +700,9 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 1644651695}
+  - _keys: []
+    _values: []
+    _target: {fileID: 2029140832}
 --- !u!114 &1649213853
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -712,6 +718,7 @@ MonoBehaviour:
   - {fileID: 1237816615}
   - {fileID: 153121006}
   - {fileID: 1644651695}
+  - {fileID: 2029140832}
   _values:
   - _keys:
     - DefaultBehaviorEditor.topHeight.EditProperty
@@ -725,6 +732,9 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 1644651695}
+  - _keys: []
+    _values: []
+    _target: {fileID: 2029140832}
 --- !u!1 &1794875319
 GameObject:
   m_ObjectHideFlags: 1
@@ -918,3 +928,78 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
+--- !u!1 &2029140831
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 2029140834}
+  - component: {fileID: 2029140833}
+  - component: {fileID: 2029140832}
+  m_Layer: 0
+  m_Name: Position Displacer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2029140832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2029140831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c76b8a6f39a46594e898440a8fbc51ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectReferences: []
+  _serializedStateKeys:
+  - type
+  - displacement
+  - dir
+  - point
+  _serializedStateValues:
+  - '"CrossBorder"'
+  - '{"x":2.0,"y":0.0}'
+  - '{"x":0.38,"y":1.0}'
+  - '{"x":2.75,"y":0.0}'
+  type: 1
+  displacement: {x: 2, y: 0}
+  dir: {x: 0.38, y: 1}
+  point: {x: 2.75, y: 0}
+--- !u!114 &2029140833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2029140831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f407e45a4f04264f9473410f7a3e329, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canBeRotatedAndScaled: 1
+  willBeMoved: 0
+  area:
+    min: {x: -1, y: -1}
+    max: {x: 1, y: 1}
+  worldBounds:
+    min: {x: -9.045563, y: -4.898898}
+    max: {x: -0.45443738, y: 5.418898}
+--- !u!4 &2029140834
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2029140831}
+  m_LocalRotation: {x: -0, y: -0, z: -0.21555412, w: 0.9764919}
+  m_LocalPosition: {x: -4.75, y: 0.26, z: 0}
+  m_LocalScale: {x: 2.6715124, y: 4.447561, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -24.896002}
