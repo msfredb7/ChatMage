@@ -22,7 +22,7 @@ public class NAV_SmartSurface : NAV_SmartMover
 
     private void Verif()
     {
-        worldBorderPoint = transform.localToWorldMatrix.MultiplyPoint(borderPoint);
+        worldBorderPoint = transform.localToWorldMatrix.MultiplyPoint3x4(borderPoint);
         worldDirection = (direction + transform.rotation.eulerAngles.z).ToVector();
     }
 

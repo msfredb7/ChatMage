@@ -43,8 +43,19 @@ public static class VectorExtensions
         return new Vector2(v.x, -v.y);
     }
 
+    /// <summary>
+    /// Multiplie les parametre par ceux du 'scale'
+    /// </summary>
     public static Vector2 Scaled(this Vector2 v, Vector2 scale)
     {
         return new Vector2(v.x * scale.x, v.y * scale.y);
+    }
+
+    /// <summary>
+    /// Divise les parametre par ceux du 'invertedScale'
+    /// </summary>
+    public static Vector2 ScaledInv(this Vector2 v, Vector2 invertedScale)
+    {
+        return new Vector2(v.x / invertedScale.x, v.y / invertedScale.y);
     }
 }

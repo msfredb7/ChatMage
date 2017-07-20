@@ -39,4 +39,9 @@ public struct Box2D
     {
         return new Vector2(Random.Range(min.x, max.x), Random.Range(min.y, max.y));
     }
+
+    public bool OverlapsPoint(Vector2 point)
+    {
+        return min.y <= point.y && max.y >= point.y && min.x <= point.x && max.x >= point.x;
+    }
 }

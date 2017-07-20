@@ -28,7 +28,7 @@ public class NAV_SmartWall : NAV_SmartMover
     public override Vector2 Smartify(RaycastHit2D hit, Vector2 start, Vector2 end, float unitWidth)
     {
         bool sensHoraire = Vector3.Cross(end - start, worldCenter - start).z < 0;
-        Vector2 localStart = tr.worldToLocalMatrix.MultiplyPoint(start);
+        Vector2 localStart = tr.worldToLocalMatrix.MultiplyPoint3x4(start);
 
         float stretchExtract = 0.5f * Mathf.Sign(localStart.x);
         float stretchedX = (localStart.x - stretchExtract) * xOnYScale + stretchExtract;
@@ -110,7 +110,7 @@ public class NAV_SmartWallEditor : Editor
         base.OnInspectorGUI();
 
         NAV_SmartWall wall = (target as NAV_SmartWall);
-        wall.worldCenter = wall.transform.localToWorldMatrix.MultiplyPoint(wall.center);
+        wall.worldCenter = wall.transform.localToWorldMatrix.MultiplyPoint3x4(wall.center);
     }
 }
 #endif
