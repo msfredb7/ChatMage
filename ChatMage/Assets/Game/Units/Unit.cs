@@ -12,7 +12,6 @@ public abstract class Unit : MonoBehaviour
     public const float deactivationRange = 10;
 
     [Header("Unit")]
-    public bool isVisible = true;
     public Allegiance allegiance = Allegiance.Enemy;
     public bool checkDeactivation = false;
 

@@ -130,7 +130,7 @@ public abstract class EnemyBrain : BaseBehavior
 
     private bool EvaluateUnit(Unit unit)
     {
-        return unit != null && unit.isVisible && !unit.IsDead && unit.gameObject.activeSelf;
+        return unit != null && !unit.IsDead && unit.gameObject.activeSelf && (!(unit is IVisible) || (unit as IVisible).IsVisible());
     }
 
     protected abstract void UpdateWithTarget();
