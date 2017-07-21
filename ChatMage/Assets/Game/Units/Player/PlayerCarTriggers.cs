@@ -11,9 +11,6 @@ public class PlayerCarTriggers : PlayerComponent
     public event UnitDetectionEvent onUnitHit;
     public event UnitDetectionEvent onUnitKilled;
 
-    //[Header("Visuals")]
-    //public SpriteRenderer carSpriteRenderer;
-
     [Header("Hit Animation")]
     public float camHitStrengthOnHit = 0.05f;
     public BasicRepeatedAnimator hitAnimationPrefab;
@@ -59,8 +56,8 @@ public class PlayerCarTriggers : PlayerComponent
 
     private void MasterTriggerListener_onTriggerEnter(ColliderInfo other, ColliderListener listener)//Unit unit, RemoteTriggerListener source, GameObject other)
     {
-        if (other.parentUnit.allegiance != Allegiance.Enemy
-            && other.parentUnit.allegiance != Allegiance.SmashBall)
+        Allegiance al = other.parentUnit.allegiance;
+        if (al == Allegiance.Ally)
             return;
 
         CarSide trigger = TriggerToSide(listener);

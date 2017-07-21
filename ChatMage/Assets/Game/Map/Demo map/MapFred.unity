@@ -600,15 +600,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aaeb5c3ac4e10847931e7ba2845ab6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectReferences: []
+  _objectReferences:
+  - {fileID: 2029140832}
   _serializedStateKeys:
   - listUnits
   - objectsToAjust
   - startAIArea
+  - positionDisplacers
   _serializedStateValues:
   - '[]'
   - '[]'
   - '{"min":{"x":-8.0,"y":-4.5},"max":{"x":8.0,"y":4.5}}'
+  - '[0]'
   mapping: {fileID: 153121006}
   cameraSpawn: {fileID: 1833739392}
   listUnits: []
@@ -619,6 +622,8 @@ MonoBehaviour:
     max: {x: 8, y: 4.5}
   ajustAreaToCamera: 1
   roadPlayer: {fileID: 458826281}
+  positionDisplacers:
+  - {fileID: 2029140832}
 --- !u!4 &1644651696
 Transform:
   m_ObjectHideFlags: 0
@@ -729,8 +734,26 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 153121006}
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.mapping.EditProperty
+    - DefaultBehaviorEditor.cameraSpawn.EditProperty
+    - DefaultBehaviorEditor.listUnits.EditProperty
+    - DefaultBehaviorEditor.objectsToAjust.EditProperty
+    - DefaultBehaviorEditor.setAIArea.EditProperty
+    - DefaultBehaviorEditor.roadPlayer.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
     _target: {fileID: 1644651695}
   - _keys: []
     _values: []
@@ -965,11 +988,11 @@ MonoBehaviour:
   _serializedStateValues:
   - '"CrossBorder"'
   - '{"x":2.0,"y":0.0}'
-  - '{"x":0.38,"y":1.0}'
+  - '{"x":0.465,"y":1.0}'
   - '{"x":2.75,"y":0.0}'
   type: 1
   displacement: {x: 2, y: 0}
-  dir: {x: 0.38, y: 1}
+  dir: {x: 0.465, y: 1}
   point: {x: 2.75, y: 0}
 --- !u!114 &2029140833
 MonoBehaviour:
@@ -986,10 +1009,10 @@ MonoBehaviour:
   willBeMoved: 0
   area:
     min: {x: -1, y: -1}
-    max: {x: 1, y: 1}
+    max: {x: 0.91, y: 1}
   worldBounds:
-    min: {x: -9.045563, y: -4.898898}
-    max: {x: -0.45443738, y: 5.418898}
+    min: {x: -9.045563, y: -4.797681}
+    max: {x: -0.6725304, y: 5.418898}
 --- !u!4 &2029140834
 Transform:
   m_ObjectHideFlags: 0

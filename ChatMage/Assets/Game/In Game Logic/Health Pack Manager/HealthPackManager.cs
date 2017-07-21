@@ -48,6 +48,9 @@ public class HealthPackManager : MonoBehaviour
 
     private void PlayerStats_onUnitKilled(Unit unit)
     {
+        if (unit.allegiance != Allegiance.Enemy)
+            return;
+
         //On n'augmente pas si le joueur est full hp
         if (player.playerStats.health >= player.playerStats.health.MAX)
             return;

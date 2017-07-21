@@ -63,10 +63,10 @@ public class PositionDisplacer : BaseBehavior
                 break;
         }
 
-        Vector2 somePoint = Vector2.up;
-        Vector2 newPoint = Vector2.zero;
-        Displace(somePoint, 0.5f, out newPoint);
-        Gizmos.DrawSphere(newPoint, 0.5f);
+        //Vector2 somePoint = Vector2.up;
+        //Vector2 newPoint = Vector2.zero;
+        //Displace(somePoint, 0.5f, out newPoint);
+        //Gizmos.DrawSphere(newPoint, 0.5f);
     }
 
     bool DispIsVectorToAdd { get { return type == DisplacementType.VectorToAdd; } }

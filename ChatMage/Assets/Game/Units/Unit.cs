@@ -237,6 +237,7 @@ public abstract class Unit : MonoBehaviour
             return;
         isDestroying = true;
         gameObject.SetActive(false);
+        checkDeactivation = false;
         if (Game.instance != null)
             Game.instance.StartCoroutine(LateDestroy());
     }
