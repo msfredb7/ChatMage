@@ -6,8 +6,12 @@ using System;
 
 public class BouclierTournant : Unit, IAttackable
 {
+    [Header("Linking"), Forward]
+    public Targets targets;
     public SimpleColliderListener shieldCollider;
     public GameObject hitVfx;
+
+    [Header("Turn Animation")]
     public float animationDuration = 3;
     public Ease turnEase = Ease.OutBack;
     public float overshoot;
@@ -22,13 +26,19 @@ public class BouclierTournant : Unit, IAttackable
     //Si le shield frappe un ennemi, il l'attaque, puis tourne
     private void ShieldCollider_onCollisionEnter(ColliderInfo other, Collision2D collision, ColliderListener listener)
     {
-        if (!IsValidTarget(other.parentUnit.allegiance))
+        Unit unit = other.parentUnit;
+        if (!targets.IsValidTarget(unit))
             return;
 
-        IAttackable attackable = other.GetComponent<IAttackable>();
+        IAttackable attackable = unit.GetComponent<IAttackable>();
         if (attackable != null)
         {
-            attackable.Attacked(other, 1, null);
+            bool wasDead = unit.IsDead;
+            int hitResult = attackable.Attacked(other, 1, null);
+
+            if (unit.IsDead && !wasDead)
+                Game.instance.Player.playerStats.RegisterKilledUnit(unit);
+
             OnShieldHit();
         }
     }
@@ -55,7 +65,8 @@ public class BouclierTournant : Unit, IAttackable
 
     private void TurnShield()
     {
-        rotateTween = transform.DOLocalRotate(new Vector3(0, 0, -90), animationDuration, RotateMode.LocalAxisAdd)
+        float mult = Game.instance.Player.playerStats.cooldownMultiplier;
+        rotateTween = transform.DOLocalRotate(new Vector3(0, 0, -90), animationDuration * mult, RotateMode.LocalAxisAdd)
             .SetEase(turnEase, overshoot);
     }
 }

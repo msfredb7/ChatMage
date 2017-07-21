@@ -10,6 +10,8 @@ public class JesusRockV2 : Unit
     [Header("Rock")]
     public new Collider2D collider;
     public float onHitShakeStrength = 0.7f;
+    [Forward]
+    public Targets targets;
 
     private bool isFlying = false;
     public bool IsFlying { get { return isFlying; } }
@@ -68,7 +70,7 @@ public class JesusRockV2 : Unit
                     rock.Speed = Speed;
                     rock.ThrownState(-collision.contacts[0].normal, this);
                 }
-                else if (IsValidTarget(unit.allegiance))
+                else if (targets.IsValidTarget(unit))
                 {
                     IAttackable attackable = unit.GetComponent<IAttackable>();
                     if (attackable != null)

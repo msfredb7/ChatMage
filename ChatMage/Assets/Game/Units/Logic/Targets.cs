@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Targets : MonoBehaviour
+[System.Serializable]
+public class Targets
 {
     public List<Allegiance> targetAllegiances;
+    public event SimpleEvent onTargetAdded;
+    public event SimpleEvent onTargetRemoved;
 
     public bool IsValidTarget(Allegiance allegiance)
     {
@@ -29,6 +32,26 @@ public class Targets : MonoBehaviour
         if (!IsValidTarget(targetAllegiance))
         {
             targetAllegiances.Add(targetAllegiance);
+
+            //Event
+            if (onTargetAdded != null)
+                onTargetAdded();
         }
+    }
+
+    public void RemoveTargetAllegiance(Allegiance targetAllegiance)
+    {
+        if (targetAllegiances.Remove(targetAllegiance))
+        {
+            //Event
+            if (onTargetRemoved != null)
+                onTargetRemoved();
+        }
+    }
+
+    public void CopyTargetsFrom(Targets copy)
+    {
+        targetAllegiances.Clear();
+        targetAllegiances.AddRange(copy.targetAllegiances);
     }
 }

@@ -45,7 +45,7 @@ public abstract class EnemyBrain : BaseBehavior
     protected virtual void Start()
     {
         myVehicle.Stop();
-        myVehicle.onRemoveTarget += ClearTarget;
+        myVehicle.targets.onTargetRemoved += ClearTarget;
     }
 
     void Update()
@@ -76,11 +76,12 @@ public abstract class EnemyBrain : BaseBehavior
 
     public void TryToFindTarget()
     {
-        if (myVehicle.targets == null || myVehicle.targets.Count == 0)
+        Targets targ = myVehicle.targets;
+        if (targ == null || targ.targetAllegiances.Count == 0)
             return;
 
         //En g�n�ral, on passe ici, sachant que les ennemi cherche pas mal toujours le joueur
-        if (myVehicle.targets.Count == 1 && myVehicle.targets[0] == Allegiance.Ally)
+        if (targ.targetAllegiances.Count == 1 && targ.targetAllegiances[0] == Allegiance.Ally)
         {
             PlayerController player = Game.instance == null ? null : Game.instance.Player;
             if (player != null)
@@ -108,7 +109,8 @@ public abstract class EnemyBrain : BaseBehavior
                 Unit unit = allUnits[i];
                 if (unit == myVehicle)
                     continue;
-                if (myVehicle.IsValidTarget(unit.allegiance))
+
+                if (myVehicle.targets.IsValidTarget(unit))
                 {
                     IAttackable attackable = unit.GetComponent<IAttackable>();
                     if (attackable != null)

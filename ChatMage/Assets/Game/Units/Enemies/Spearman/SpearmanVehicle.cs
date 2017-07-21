@@ -73,7 +73,7 @@ public class SpearmanVehicle : EnemyVehicle
         if (spearAttackConsumed)
             return;
 
-        if (IsValidTarget(other.parentUnit.allegiance))
+        if (targets.IsValidTarget(other.parentUnit.allegiance))
         {
             IAttackable attackable = other.parentUnit.GetComponent<IAttackable>();
             if (attackable != null)

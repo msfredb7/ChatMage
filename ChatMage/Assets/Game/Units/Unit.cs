@@ -16,9 +16,6 @@ public abstract class Unit : MonoBehaviour
     public Allegiance allegiance = Allegiance.Enemy;
     public bool checkDeactivation = false;
 
-    [Header("Targeting")]
-    public List<Allegiance> targets;
-
     protected float timeScale = 1;
     public Locker isAffectedByTimeScale = new Locker();
 
@@ -28,8 +25,6 @@ public abstract class Unit : MonoBehaviour
     public event UnitMove_Event onTeleportPosition;
     public event Unit_Event onDestroy;
     public event Unit_Event onDeath;
-    public event SimpleEvent onAddTarget;
-    public event SimpleEvent onRemoveTarget;
 
     public bool IsDead { get { return isDead; } }
     protected bool isDead = false;
@@ -100,9 +95,6 @@ public abstract class Unit : MonoBehaviour
     {
         if (Game.instance == null)
             return;
-
-        //if (canUseBorder && (Game.instance.unitSnap_horizontalBound || Game.instance.unitSnap_verticalBound))
-        //    Position = RestrainToBounds(Position, Game.instance.unitSnap_horizontalBound, Game.instance.unitSnap_verticalBound);
     }
 
     protected virtual void Update()
@@ -141,25 +133,6 @@ public abstract class Unit : MonoBehaviour
                 gameObject.SetActive(true);
         }
     }
-
-    //protected Vector2 RestrainToBounds(Vector2 vector, bool horizontal, bool vertical)
-    //{
-    //    float x = vector.x;
-    //    float y = vector.y;
-
-    //    if (horizontal)
-    //    {
-    //        float rightBorder = Game.instance.gameCamera.ScreenSize.x / 2 - Game.instance.unitSnap_horizontalBorderWidth - (unitWidth / 2);
-    //        x = Mathf.Clamp(x, -rightBorder, rightBorder);
-    //    }
-    //    if (vertical)
-    //    {
-    //        float halfHeight = Game.instance.gameCamera.ScreenSize.y / 2 - Game.instance.unitSnap_verticalBorderWidth - (unitWidth / 2);
-    //        y = Mathf.Clamp(y, Game.instance.gameCamera.Height - halfHeight, Game.instance.gameCamera.Height + halfHeight);
-    //    }
-
-    //    return new Vector2(x, y);
-    //}
 
     public virtual Vector3 WorldDirection()
     {
@@ -206,29 +179,6 @@ public abstract class Unit : MonoBehaviour
     public void ForceDie()
     {
         Die();
-    }
-
-    public bool IsValidTarget(Allegiance targetAllegiance)
-    {
-        return targets != null && targets.Contains(targetAllegiance);
-    }
-
-    public Unit AddTargetAllegiance(Allegiance targetAllegiance)
-    {
-        if (!targets.Contains(targetAllegiance))
-        {
-            targets.Add(targetAllegiance);
-            if (onAddTarget != null)
-                onAddTarget();
-        }
-        return this;
-    }
-
-    public Unit RemoveTargetAllegiance(Allegiance targetAllegiance)
-    {
-        if (targets.Remove(targetAllegiance) && onRemoveTarget != null)
-            onRemoveTarget();
-        return this;
     }
 
     protected void Destroy()

@@ -11,6 +11,8 @@ public abstract class EnemyVehicle : Vehicle, IAttackable
     public float turnSpeed = 150;
     public bool smartMove = false;
     public bool clampToAIArea = true;
+    [Forward]
+    public Targets targets;
 
     protected bool tryToStayAtTargetPosition = false;
     protected Vector2 targetPosition;

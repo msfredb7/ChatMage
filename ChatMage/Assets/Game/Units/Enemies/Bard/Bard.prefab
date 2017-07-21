@@ -234,7 +234,6 @@ MonoBehaviour:
   isVisible: 1
   allegiance: 2
   checkDeactivation: 0
-  targets: 00000000
   moveSpeed: 1.5
   targetDirection: 0
   rotationSetsTargetDirection: 1
@@ -243,7 +242,13 @@ MonoBehaviour:
   unitWidth: 0.9
   useTurnSpeed: 1
   turnSpeed: 150
+  smartMove: 0
+  clampToAIArea: 1
+  targets:
+    targetAllegiances: 00000000
   animator: {fileID: 114433606263371510}
+  boostTargets:
+    targetAllegiances: 02000000
   singRadius: 6
   duration: 4
   timeScaleMultiplier: 1.5
