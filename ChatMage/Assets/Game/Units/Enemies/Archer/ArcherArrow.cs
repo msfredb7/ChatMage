@@ -25,7 +25,7 @@ public class ArcherArrow : MovingUnit
         Speed = dir.normalized * shootSpeed * timeScale;
         transform.rotation = Quaternion.Euler(Vector3.forward * Vehicle.VectorToAngle(dir));
 
-        targets.CopyTargetsFrom(targetsToCopy);
+        targets = new Targets(targetsToCopy);
     }
 
     protected override void FixedUpdate()

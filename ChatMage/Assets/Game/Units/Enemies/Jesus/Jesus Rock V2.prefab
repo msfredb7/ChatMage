@@ -39,6 +39,7 @@ GameObject:
   - component: {fileID: 114822494269072402}
   - component: {fileID: 58730756894721598}
   - component: {fileID: 114067683644906356}
+  - component: {fileID: 114867625650297156}
   m_Layer: 11
   m_Name: Jesus Rock V2
   m_TagString: Untagged
@@ -132,13 +133,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 268e523949f367d4c8eaa50ef407e99f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isVisible: 1
   allegiance: 2
-  checkDeactivation: 0
   collider: {fileID: 58730756894721598}
   onHitShakeStrength: 0.5
   targets:
     targetAllegiances: 0000000003000000
+--- !u!114 &114867625650297156
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1207175243323734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1efa4468b39abf64cb05fd696ec88f51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enabled: 1
+  deactivationRange: 10
 --- !u!212 &212169775817953764
 SpriteRenderer:
   m_ObjectHideFlags: 1

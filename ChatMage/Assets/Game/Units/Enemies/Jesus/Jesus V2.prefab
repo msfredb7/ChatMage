@@ -117,6 +117,7 @@ GameObject:
   - component: {fileID: 114066475894699088}
   - component: {fileID: 114658795903442550}
   - component: {fileID: 114390172310932002}
+  - component: {fileID: 114343178850019822}
   m_Layer: 11
   m_Name: Jesus V2
   m_TagString: Untagged
@@ -297,9 +298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 028c4106b0a8ae242b5972a57c20c8ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isVisible: 1
   allegiance: 2
-  checkDeactivation: 1
   moveSpeed: 2
   targetDirection: 0
   rotationSetsTargetDirection: 1
@@ -325,6 +324,19 @@ MonoBehaviour:
   - {fileID: 212066517561174182}
   - {fileID: 212608522578969004}
   - {fileID: 212928741708293916}
+--- !u!114 &114343178850019822
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1962559319646076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1efa4468b39abf64cb05fd696ec88f51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enabled: 1
+  deactivationRange: 10
 --- !u!114 &114390172310932002
 MonoBehaviour:
   m_ObjectHideFlags: 1

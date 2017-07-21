@@ -9,6 +9,19 @@ public class Targets
     public event SimpleEvent onTargetAdded;
     public event SimpleEvent onTargetRemoved;
 
+    public Targets()
+    {
+        targetAllegiances = new List<Allegiance>();
+    }
+    public Targets(Targets copy)
+    {
+        targetAllegiances = new List<Allegiance>(copy.targetAllegiances);
+    }
+    public Targets(params Allegiance[] targetAllegiances)
+    {
+        this.targetAllegiances = new List<Allegiance>(targetAllegiances);
+    }
+
     public bool IsValidTarget(Allegiance allegiance)
     {
         if (targetAllegiances == null)
@@ -47,11 +60,5 @@ public class Targets
             if (onTargetRemoved != null)
                 onTargetRemoved();
         }
-    }
-
-    public void CopyTargetsFrom(Targets copy)
-    {
-        targetAllegiances.Clear();
-        targetAllegiances.AddRange(copy.targetAllegiances);
     }
 }

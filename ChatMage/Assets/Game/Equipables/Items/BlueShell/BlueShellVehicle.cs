@@ -170,11 +170,6 @@ public class BlueShellVehicle : Vehicle
         Die();
     }
 
-    public override void CheckActivation()
-    {
-        //On ne desactive jamais
-    }
-
     protected override void Die()
     {
         base.Die();

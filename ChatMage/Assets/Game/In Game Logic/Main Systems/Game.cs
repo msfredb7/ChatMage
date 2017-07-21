@@ -33,6 +33,8 @@ public class Game : PublicSingleton<Game>
 
     [InspectorDisabled]
     public List<Unit> units = new List<Unit>();
+    [fsIgnore, NonSerialized]
+    private List<AutoDeactivation> autoDeactivated = new List<AutoDeactivation>();
 
     // NON AFFICH�
 
@@ -113,13 +115,13 @@ public class Game : PublicSingleton<Game>
                 currentLevel.Update();
             }
         }
-        //OPTIMISATION: Faire une liste a part (une liste de unit pour lequelle il faut 'CheckActivation')
+
         if (gameCamera.MovedSinceLastFrame)
         {
-            for (int i = 0; i < units.Count; i++)
+            float cameraHeight = gameCamera.Height;
+            for (int i = 0; i < autoDeactivated.Count; i++)
             {
-                if (units[i] != player.vehicle)
-                    units[i].CheckActivation();
+                autoDeactivated[i].CheckActivation(cameraHeight);
             }
         }
     }
@@ -159,6 +161,10 @@ public class Game : PublicSingleton<Game>
 
         units.Add(unit);
 
+        AutoDeactivation autoDeactivation = unit.GetComponent<AutoDeactivation>();
+        if (autoDeactivation != null)
+            autoDeactivated.Add(autoDeactivation);
+
         if (onUnitSpawned != null)
             onUnitSpawned(unit);
 
@@ -174,11 +180,15 @@ public class Game : PublicSingleton<Game>
 
     private void OnUnitDestroy(Unit unit)
     {
-        units.Remove(unit);
-
         //est-ce qu'on est entrain de quit ?
         if (instance == null)
             return;
+
+        units.Remove(unit);
+
+        AutoDeactivation autoDeactivation = unit.GetComponent<AutoDeactivation>();
+        if (autoDeactivation != null)
+            autoDeactivated.Remove(autoDeactivation);
 
         if (onUnitDestroyed != null)
             onUnitDestroyed(unit);

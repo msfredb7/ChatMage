@@ -13,7 +13,6 @@ public abstract class Unit : MonoBehaviour
 
     [Header("Unit")]
     public Allegiance allegiance = Allegiance.Enemy;
-    public bool checkDeactivation = false;
 
     protected float timeScale = 1;
     public Locker isAffectedByTimeScale = new Locker();
@@ -113,26 +112,6 @@ public abstract class Unit : MonoBehaviour
         }
     }
 
-    public virtual void CheckActivation()
-    {
-        if (!checkDeactivation)
-            return;
-
-        float delta = Mathf.Abs(Game.instance.gameCamera.Height - rb.position.y);
-        float range = deactivationRange;
-
-        if (delta > range)
-        {
-            if (gameObject.activeSelf)
-                gameObject.SetActive(false);
-        }
-        else
-        {
-            if (!gameObject.activeSelf)
-                gameObject.SetActive(true);
-        }
-    }
-
     public virtual Vector3 WorldDirection()
     {
         return Vector3.up;
@@ -185,8 +164,9 @@ public abstract class Unit : MonoBehaviour
         if (isDestroying)
             return;
         isDestroying = true;
+
         gameObject.SetActive(false);
-        checkDeactivation = false;
+
         if (Game.instance != null)
             Game.instance.StartCoroutine(LateDestroy());
     }

@@ -57,6 +57,7 @@ GameObject:
   - component: {fileID: 114433606263371510}
   - component: {fileID: 58566883772118204}
   - component: {fileID: 114323347849817982}
+  - component: {fileID: 114184005338430608}
   m_Layer: 11
   m_Name: Bard
   m_TagString: Untagged
@@ -170,6 +171,19 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.38
+--- !u!114 &114184005338430608
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1717130100696532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1efa4468b39abf64cb05fd696ec88f51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enabled: 1
+  deactivationRange: 10
 --- !u!114 &114241056511188392
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -231,9 +245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 650cfefc5661edc419484f50fda27bb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isVisible: 1
   allegiance: 2
-  checkDeactivation: 0
   moveSpeed: 1.5
   targetDirection: 0
   rotationSetsTargetDirection: 1
