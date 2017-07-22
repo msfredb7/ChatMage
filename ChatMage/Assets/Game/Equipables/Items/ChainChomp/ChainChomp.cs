@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChainChomp : Unit
+public class ChainChomp : MovingUnit
 {
     [Header("Chain Chomp")]
     public Rigidbody2D anchor;
@@ -44,14 +44,15 @@ public class ChainChomp : Unit
             //Bump !
             if (other.parentUnit is Vehicle)
             {
-                if (other.parentUnit.rb.bodyType == RigidbodyType2D.Dynamic)
+                Vehicle otherVeh = other.parentUnit as Vehicle;
+                if (otherVeh.rb.bodyType == RigidbodyType2D.Dynamic)
                     (other.parentUnit as Vehicle).Bump(
-                        (other.parentUnit.rb.position - realBall.position).normalized * realBall.velocity.magnitude * 1.5f,
+                        (otherVeh.Position - realBall.position).normalized * realBall.velocity.magnitude * 1.5f,
                         0,
                         BumpMode.VelocityAdd);
                 else
                     (other.parentUnit as Vehicle).Bump(
-                        (other.parentUnit.rb.position - realBall.position).normalized * realBall.velocity.magnitude * 1.5f,
+                        (otherVeh.Position - realBall.position).normalized * realBall.velocity.magnitude * 1.5f,
                         0.25f,
                         BumpMode.VelocityAdd);
             }

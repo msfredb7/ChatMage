@@ -6,16 +6,14 @@ using UnityEngine.Events;
 
 public enum Allegiance { Ally = 0, Neutral = 1, Enemy = 2, SmashBall = 3 }
 
-[RequireComponent(typeof(Rigidbody2D))]
 public abstract class Unit : MonoBehaviour
 {
-    public const float deactivationRange = 10;
+    private const float MIN_TIMESCALE = .02f;
 
     [Header("Unit")]
     public Allegiance allegiance = Allegiance.Enemy;
 
     protected float timeScale = 1;
-    public Locker isAffectedByTimeScale = new Locker();
 
     public delegate void Unit_Event(Unit unit);
     public delegate void UnitMove_Event(Unit unit, Vector2 delta);
@@ -28,13 +26,6 @@ public abstract class Unit : MonoBehaviour
     protected bool isDead = false;
     protected bool isDestroying = false;
 
-    [System.NonSerialized]
-    public Locker canMove = new Locker();
-    [System.NonSerialized]
-    public Locker canTurn = new Locker();
-
-    [System.NonSerialized]
-    public Rigidbody2D rb;
     protected Transform tr;
 
 
@@ -45,57 +36,30 @@ public abstract class Unit : MonoBehaviour
     public LinkedListNode<Unit> stdNode;
     public LinkedListNode<Unit> attackableNode;
 
-
-    protected Vector2 sleepRbVelocity = Vector2.zero;
-    protected float sleepRbAngVelocity = 0;
-
     [System.NonSerialized]
     private List<BaseBuff> buffs;
 
-    public Vector2 Speed
+    public virtual Vector2 Position
     {
-        get { return rb.velocity; }
-        set { rb.velocity = value; }
-    }
-
-    public Vector2 Position
-    {
-        get { return rb.position; }
+        get { return tr.position; }
         protected set
         {
-            if (canMove)
-                rb.position = value;
+            tr.position = value;
         }
     }
 
-    public float Rotation
+    public virtual float Rotation
     {
-        get { return rb.rotation; }
+        get { return tr.rotation.eulerAngles.z; }
         set
         {
-            if (canTurn)
-                rb.rotation = value;
+            tr.rotation = Quaternion.Euler(Vector3.forward * value);
         }
     }
 
     protected virtual void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
         tr = GetComponent<Transform>();
-        canMove.onLockStateChange += OnLockMoveChange;
-        canTurn.onLockStateChange += OnLockTurnChange;
-    }
-
-    void OnLockTurnChange(bool state)
-    {
-        rb.freezeRotation = !state;
-    }
-    void OnLockMoveChange(bool state)
-    {
-        if (rb.freezeRotation)
-            rb.constraints = state ? RigidbodyConstraints2D.FreezeRotation : RigidbodyConstraints2D.FreezeAll;
-        else
-            rb.constraints = state ? RigidbodyConstraints2D.None : RigidbodyConstraints2D.FreezePosition;
     }
 
     protected virtual void FixedUpdate()
@@ -106,7 +70,7 @@ public abstract class Unit : MonoBehaviour
 
     protected virtual void Update()
     {
-        if(buffs != null && buffs.Count > 0)
+        if (buffs != null && buffs.Count > 0)
         {
             float worldDeltaTime = Game.instance.worldTimeScale * Time.deltaTime;
             float localDeltaTime = DeltaTime();
@@ -131,11 +95,11 @@ public abstract class Unit : MonoBehaviour
     }
     public float DeltaTime()
     {
-        return isAffectedByTimeScale ? Time.deltaTime * timeScale : Time.deltaTime;
+        return Time.deltaTime * timeScale;
     }
     public float FixedDeltaTime()
     {
-        return isAffectedByTimeScale ? Time.fixedDeltaTime * timeScale : Time.fixedDeltaTime;
+        return Time.fixedDeltaTime * timeScale;
     }
 
     protected virtual void OnDestroy()
@@ -146,8 +110,8 @@ public abstract class Unit : MonoBehaviour
 
     public void TeleportPosition(Vector2 newPosition)
     {
-        Vector2 delta = newPosition - rb.position;
-        rb.position = newPosition;
+        Vector2 delta = newPosition - Position;
+        Position = newPosition;
         if (onTeleportPosition != null)
             onTeleportPosition.Invoke(this, delta);
     }
@@ -187,30 +151,7 @@ public abstract class Unit : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public virtual void SaveRigidbody()
-    {
-        if (rb.bodyType == RigidbodyType2D.Static)
-            return;
-
-        sleepRbVelocity = rb.velocity;
-        sleepRbAngVelocity = rb.angularVelocity;
-    }
-
-    public virtual void LoadRigidbody()
-    {
-        if (rb.bodyType == RigidbodyType2D.Static)
-            return;
-
-        rb.velocity = sleepRbVelocity;
-        rb.angularVelocity = sleepRbAngVelocity;
-    }
-
-    [System.NonSerialized]
-    private Vector2 referenceVelocity;
-    [System.NonSerialized]
-    private bool wasStopped = false;
-
-    public float TimeScale
+    public virtual float TimeScale
     {
         get { return timeScale; }
         set
@@ -218,27 +159,8 @@ public abstract class Unit : MonoBehaviour
             if (value == timeScale)
                 return;
 
-            if (value < 0)
-                value = 0.02f;
-
-            //On stoppe le temps ? Si oui, prendre en note la velocit� original
-            if (value == 0)
-            {
-                referenceVelocity = rb.velocity / timeScale;
-
-                rb.velocity = Vector2.zero;
-                wasStopped = true;
-            }
-            else if (wasStopped) // Sinon, est-ce qu'on �tait arret� auparavant ? Si oui, utilis� la formule
-            {
-                rb.velocity = referenceVelocity * value;
-                wasStopped = false;
-            }
-            else    // Sinon, formule standard
-            {
-                if (rb.bodyType != RigidbodyType2D.Static)
-                    rb.velocity *= value / timeScale;
-            }
+            if (value < MIN_TIMESCALE)
+                value = MIN_TIMESCALE;
 
             timeScale = value;
 

@@ -71,7 +71,7 @@ public class RoadPlayer : MonoBehaviour
         //Load rigidbods data
         for (int i = 0; i < Game.instance.unitsContainer.childCount; i++)
         {
-            Unit unit = Game.instance.unitsContainer.GetChild(i).GetComponent<Unit>();
+            MovingUnit unit = Game.instance.unitsContainer.GetChild(i).GetComponent<MovingUnit>();
             if (unit != null)
                 unit.LoadRigidbody();
         }
@@ -102,7 +102,7 @@ public class RoadPlayer : MonoBehaviour
         //Save rigidbods data
         for (int i = 0; i < unitContainer.childCount; i++)
         {
-            Unit unit = unitContainer.GetChild(i).GetComponent<Unit>();
+            MovingUnit unit = unitContainer.GetChild(i).GetComponent<MovingUnit>();
             if (unit != null)
                 unit.SaveRigidbody();
         }

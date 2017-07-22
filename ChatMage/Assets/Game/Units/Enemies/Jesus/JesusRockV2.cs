@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JesusRockV2 : Unit
+public class JesusRockV2 : MovingUnit
 {
     [System.NonSerialized]
     public float flySpeed;

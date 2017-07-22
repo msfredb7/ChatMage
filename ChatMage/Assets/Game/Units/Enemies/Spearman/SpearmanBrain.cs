@@ -24,7 +24,10 @@ public class SpearmanBrain : EnemyBrain<SpearmanVehicle>
         if (!vehicle.CanAttack)
             return;
 
-        Vector2 meToPPredic = meToTarget + target.Speed * thinkAheadLength;
+        Vector2 meToPPredic = meToTarget;
+        if (target is MovingUnit)
+            meToPPredic += (target as MovingUnit).Speed * thinkAheadLength;
+
         float dist = meToTarget.magnitude;
 
         if (dist <= startAttackRange ||  //En range d'attaque

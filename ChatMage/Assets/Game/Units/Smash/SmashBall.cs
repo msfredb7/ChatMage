@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class SmashBall : Unit, IAttackable
+public class SmashBall : MovingUnit, IAttackable
 {
     [Header("Smash Ball")]
     public int hp = 3;
