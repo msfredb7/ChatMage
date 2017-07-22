@@ -386,7 +386,7 @@ MonoBehaviour:
   _objectReferences: []
   _serializedStateKeys:
   - units
-  - _unit
+  - attackableUnits
   _serializedStateValues:
   - '[]'
   - '[]'
@@ -397,7 +397,6 @@ MonoBehaviour:
   smashManager: {fileID: 218698580}
   healthPackManager: {fileID: 218698581}
   events: {fileID: 218698578}
-  units: []
   worldTimeScale:
     value: 1
     min: 0
@@ -614,7 +613,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   car: {fileID: 11400000, guid: 5ec48ef9ded4cbd41a7f67f29b1030a2, type: 2}
   smash: {fileID: 11400000, guid: 5805026d5cd333a4e947df8e4f1771ce, type: 2}
-  items: []
+  items:
+  - {fileID: 11400000, guid: 2916228895a570345a773b5fabbb8289, type: 2}
+  - {fileID: 11400000, guid: 41bf824f75bf21b41bd78dad9e78d4cc, type: 2}
 --- !u!4 &1461222807
 Transform:
   m_ObjectHideFlags: 0

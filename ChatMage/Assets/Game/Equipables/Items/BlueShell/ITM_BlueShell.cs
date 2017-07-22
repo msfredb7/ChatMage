@@ -18,7 +18,6 @@ public class ITM_BlueShell : Item
     private float countdown;
     [NonSerialized, FullSerializer.fsIgnore]
     private BlueShellVehicle currentBlueShell;
-    private bool gameStarted = false; // A ENLEVER
 
     public override void OnGameReady()
     {
@@ -28,13 +27,11 @@ public class ITM_BlueShell : Item
     {
         countdown = 0;
         shellSpawned = false;
-        
-        gameStarted = true;
     }
 
     public override void OnUpdate()
     {
-        if (!gameStarted || shellSpawned)
+        if (!Game.instance.gameStarted || shellSpawned)
             return;
 
         if (countdown < 0)
@@ -50,16 +47,19 @@ public class ITM_BlueShell : Item
             return;
 
         if (currentBlueShell == null)
-            currentBlueShell = Game.instance.SpawnUnit(blueShellPrefab, player.vehicle.Position); // A changer ??
+        {
+            currentBlueShell = Game.instance.SpawnUnit(blueShellPrefab, player.vehicle.Position);
+            currentBlueShell.onDeath += delegate (Unit unit)
+            {
+                shellSpawned = false;
+                countdown = Cooldown;
+            };
+        }
 
         currentBlueShell.ResetValues(player.vehicle.Position);
 
         shellSpawned = true;
-
-        currentBlueShell.onDeath += delegate (Unit unit)
-        {
-            shellSpawned = false;
-            countdown = spawnCooldown;
-        };
     }
+
+    private float Cooldown { get { return spawnCooldown * player.playerStats.cooldownMultiplier; } }
 }

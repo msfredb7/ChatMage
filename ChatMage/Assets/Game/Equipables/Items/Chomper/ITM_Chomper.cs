@@ -18,6 +18,7 @@ public class ITM_Chomper : Item, ISpeedOverrider
     public bool resetOnMeleeKill = true;
 
     [InspectorHeader("Detection Settings")]
+    public float boostedMaxRange;
     public float maxRange;
     public float minRange = 0.5f;
     public float maxAttackAngle = 10;
@@ -50,12 +51,7 @@ public class ITM_Chomper : Item, ISpeedOverrider
     {
         listener = Instantiate(sphereTrigger.gameObject, player.body).GetComponent<MultipleColliderListener>();
 
-        for (int i = 0; i < listener.colliderListeners.Length; i++)
-        {
-            listener.colliderListeners[i].info.parentUnit = player.vehicle;
-        }
-
-        listener.GetComponent<CircleCollider2D>().radius = maxRange;
+        listener.GetComponent<CircleCollider2D>().radius = MaxRange;
         player.playerCarTriggers.onUnitKilled += PlayerCarTriggers_onUnitKilled;
     }
 
@@ -69,6 +65,8 @@ public class ITM_Chomper : Item, ISpeedOverrider
     {
     }
 
+    private float MaxRange { get { return player.playerStats.boostedAOE ? boostedMaxRange : maxRange; } }
+
     public override void OnUpdate()
     {
         if (debugRays)
@@ -77,14 +75,14 @@ public class ITM_Chomper : Item, ISpeedOverrider
             Vector2 vDir = Vehicle.AngleToVector(dir);
             Debug.DrawRay(
                 player.vehicle.Position + vDir * minRange, //Start
-                vDir * Mathf.Max(maxRange - minRange, 0),  //Dir
+                vDir * Mathf.Max(MaxRange - minRange, 0),  //Dir
                 Color.red);
 
             dir = player.vehicle.Rotation - maxAttackAngle;
             vDir = Vehicle.AngleToVector(dir);
             Debug.DrawRay(
                 player.vehicle.Position + vDir * minRange, //Start
-                vDir * Mathf.Max(maxRange - minRange, 0),  //Dir
+                vDir * Mathf.Max(MaxRange - minRange, 0),  //Dir
                 Color.red);
         }
 
@@ -96,8 +94,12 @@ public class ITM_Chomper : Item, ISpeedOverrider
             //Verifie l'angle
             for (int i = 0; i < listener.inContactWith.Count; i++)
             {
-                Vector2 deltaPos = listener.inContactWith[i].unit.Position - player.vehicle.Position;
-                if (deltaPos.magnitude < minRange)
+                Unit unit = listener.inContactWith[i].unit;
+                if (!(unit is IAttackable))
+                    continue;
+
+                Vector2 deltaPos = unit.Position - player.vehicle.Position;
+                if (deltaPos.sqrMagnitude < minRange * minRange)
                     continue;
 
                 float absoluteAngle = Vehicle.VectorToAngle(deltaPos);
@@ -110,7 +112,6 @@ public class ITM_Chomper : Item, ISpeedOverrider
                 }
             }
         }
-        //player.playerDriver.enableInput
     }
 
     void Dash(float targetAngle)

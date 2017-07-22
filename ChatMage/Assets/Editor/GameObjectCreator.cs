@@ -5,7 +5,7 @@ using UnityEditor;
 
 public class GameObjectCreator : MonoBehaviour
 {
-    [MenuItem("GameObject/Time Drifter/Smart Surface", priority = -1)]
+    [MenuItem("GameObject/Time Drifter/Smart Surface(AI)", priority = -1)]
     private static void CreateSmartSurface(MenuCommand command)
     {
         GameObject obj = new GameObject("Smart Surface");
@@ -17,13 +17,24 @@ public class GameObjectCreator : MonoBehaviour
         AdjustGameobject(obj, command);
     }
 
-    [MenuItem("GameObject/Time Drifter/Smart Wall", priority = -1)]
+    [MenuItem("GameObject/Time Drifter/Smart Wall(AI)", priority = -1)]
     private static void CreateSmartWall(MenuCommand command)
     {
         GameObject obj = new GameObject("Smart Wall");
         obj.AddComponent<BoxCollider2D>();
         obj.AddComponent<NAV_SmartWall>();
         obj.layer = Layers.NAVIGATION;
+        obj.isStatic = true;
+
+        AdjustGameobject(obj, command);
+    }
+
+    [MenuItem("GameObject/Time Drifter/Position Displacer", priority = -1)]
+    private static void CreatePositionDisplacer(MenuCommand command)
+    {
+        GameObject obj = new GameObject("Position Displacer");
+        obj.AddComponent<Box>();
+        obj.AddComponent<PositionDisplacer>();
         obj.isStatic = true;
 
         AdjustGameobject(obj, command);

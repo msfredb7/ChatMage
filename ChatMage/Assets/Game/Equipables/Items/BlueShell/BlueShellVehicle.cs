@@ -13,6 +13,8 @@ public class BlueShellVehicle : Vehicle
     [Header("Behavior")]
     public float wanderDuration;
     public float screenBorderWidth = 1.5f;
+    [Forward]
+    public Targets targets;
 
     [Header("Movement")]
     public float maxTurnSpeed = 500;
@@ -57,6 +59,7 @@ public class BlueShellVehicle : Vehicle
         turnAcc = 0;
         turnSpeed = 0;
         chooseNewTurnAcc = 0;
+        isDead = false;
 
         animator.ResetValues();
     }
@@ -147,23 +150,19 @@ public class BlueShellVehicle : Vehicle
         float smallestDistance = float.PositiveInfinity;
 
         LinkedListNode<Unit> node = Game.instance.attackableUnits.First;
-        while (node != null)
+        foreach (Unit unit in Game.instance.attackableUnits)
         {
-            Unit val = node.Value;
-
             //Ignore allies
-            if (val.allegiance == Allegiance.Ally)
+            if (!targets.IsValidTarget(unit))
                 continue;
 
-            float distance = (val.Position - pos).sqrMagnitude;
+            float distance = (unit.Position - pos).sqrMagnitude;
 
             if (distance < smallestDistance)
             {
-                closestUnit = val;
+                closestUnit = unit;
                 smallestDistance = distance;
             }
-
-            node = node.Next;
         }
         
         return closestUnit;

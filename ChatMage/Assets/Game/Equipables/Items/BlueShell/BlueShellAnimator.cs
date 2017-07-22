@@ -100,12 +100,19 @@ public class BlueShellAnimator : MonoBehaviour
 
     private void UnitHit(ColliderInfo other)
     {
-        if (other.parentUnit.allegiance != Allegiance.Ally)
+        Unit unit = other.parentUnit;
+        if (unit != null && unit.allegiance != Allegiance.Ally)
         {
-            IAttackable attackable = other.parentUnit.GetComponent<IAttackable>();
+            IAttackable attackable = unit.GetComponent<IAttackable>();
             if (attackable != null)
             {
+                bool wasDead = unit.IsDead;
                 attackable.Attacked(other, 1, shellUnit);
+
+                //Register kill
+                if (unit.IsDead && !wasDead && Game.instance.Player != null)
+                    Game.instance.Player.playerStats.RegisterKilledUnit(unit);
+                    
             }
         }
     }

@@ -65,8 +65,7 @@ public class BouclierTournant : Unit, IAttackable
 
     private void TurnShield()
     {
-        float mult = Game.instance.Player.playerStats.cooldownMultiplier;
-        rotateTween = transform.DOLocalRotate(new Vector3(0, 0, -90), animationDuration * mult, RotateMode.LocalAxisAdd)
+        rotateTween = transform.DOLocalRotate(new Vector3(0, 0, -90), animationDuration, RotateMode.LocalAxisAdd)
             .SetEase(turnEase, overshoot);
     }
 }
