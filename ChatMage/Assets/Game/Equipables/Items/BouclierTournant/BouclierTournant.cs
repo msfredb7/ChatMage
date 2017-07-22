@@ -9,17 +9,23 @@ public class BouclierTournant : Unit, IAttackable
     [Header("Linking"), Forward]
     public Targets targets;
     public SimpleColliderListener shieldCollider;
-    public GameObject hitVfx;
 
     [Header("Turn Animation")]
     public float animationDuration = 3;
     public Ease turnEase = Ease.OutBack;
     public float overshoot;
 
+    [Header("Size")]
+    public float boostedSizeMultiplier = 1.4f;
+
     private Tween rotateTween = null;
 
     void Start()
     {
+        //On grossie le shield si on a 'boostedAOE'
+        if (Game.instance.Player.playerStats.boostedAOE)
+            shieldCollider.transform.localScale *= boostedSizeMultiplier;
+
         shieldCollider.onCollisionEnter += ShieldCollider_onCollisionEnter;
     }
 
@@ -55,7 +61,7 @@ public class BouclierTournant : Unit, IAttackable
         if (!IsTurning())
             TurnShield();
 
-        Instantiate(hitVfx, shieldCollider.transform.position, Quaternion.identity);
+        Game.instance.commonVfx.SmallHit(shieldCollider.transform.position, Color.white);
     }
 
     private bool IsTurning()

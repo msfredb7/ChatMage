@@ -13,7 +13,7 @@ Prefab:
   m_IsPrefabParent: 1
 --- !u!1 &1641315752462502
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
@@ -86,9 +86,10 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4536433334596782}
   m_Father: {fileID: 4519439357117984}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4430410855924038
 Transform:
@@ -113,9 +114,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4536433334596782}
-  - {fileID: 4430410855924038}
   - {fileID: 4369278577295612}
+  - {fileID: 4430410855924038}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -125,11 +125,11 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1641315752462502}
-  m_LocalRotation: {x: 0, y: 0, z: -1, w: 0}
-  m_LocalPosition: {x: 0, y: 0.7, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -1, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.75, y: 0.18, z: 1}
   m_Children: []
-  m_Father: {fileID: 4519439357117984}
+  m_Father: {fileID: 4369278577295612}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -180}
 --- !u!61 &61688760504628812
@@ -168,16 +168,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 856851f95ef2de14084e23a1c0335069, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isVisible: 1
   allegiance: 0
-  checkDeactivation: 0
   targets:
-    targetAllegiances: 00000000
+    targetAllegiances: 02000000
   shieldCollider: {fileID: 114399415122396710}
   hitVfx: {fileID: 1749030248422802, guid: fc36608c1de1222458f3e08d98c83118, type: 2}
   animationDuration: 1.75
   turnEase: 24
   overshoot: 1.07
+  boostedSizeMultiplier: 1.5
 --- !u!114 &114399415122396710
 MonoBehaviour:
   m_ObjectHideFlags: 1

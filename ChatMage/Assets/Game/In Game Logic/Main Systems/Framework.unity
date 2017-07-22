@@ -119,6 +119,7 @@ GameObject:
   - component: {fileID: 218698578}
   - component: {fileID: 218698580}
   - component: {fileID: 218698581}
+  - component: {fileID: 218698582}
   m_Layer: 0
   m_Name: Motton de script
   m_TagString: Untagged
@@ -190,6 +191,20 @@ MonoBehaviour:
   enableHealthPackSpawn: 1
   replaceWithArmorPack: 0
   spawnChance: 0
+--- !u!114 &218698582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 218698577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd3f197dcb0abcb4a8617340e1c07087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mediumHit: {fileID: 114796196922008038, guid: f5ff237a9e9a63c41a795cad2e5355a5,
+    type: 2}
+  smallHit: {fileID: 114796196922008038, guid: fc36608c1de1222458f3e08d98c83118, type: 2}
 --- !u!1 &471814416
 GameObject:
   m_ObjectHideFlags: 0
@@ -397,6 +412,7 @@ MonoBehaviour:
   smashManager: {fileID: 218698580}
   healthPackManager: {fileID: 218698581}
   events: {fileID: 218698578}
+  commonVfx: {fileID: 218698582}
   worldTimeScale:
     value: 1
     min: 0
@@ -578,7 +594,10 @@ MonoBehaviour:
   - _keys:
     - DefaultBehaviorEditor.gameCamera.EditProperty
     - DefaultBehaviorEditor.units.EditProperty
+    - DefaultBehaviorEditor.attackableUnits.EditProperty
     _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
     - _showDropdown: 0
       _serializedIsActive: 1
     - _showDropdown: 0

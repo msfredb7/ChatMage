@@ -19,6 +19,7 @@ public class Game : PublicSingleton<Game>
     public SmashManager smashManager;
     public HealthPackManager healthPackManager;
     public InGameEvents events;
+    public CommonVFX commonVfx;
 
     //Dynamic references
     [fsIgnore, NonSerialized]
@@ -34,6 +35,7 @@ public class Game : PublicSingleton<Game>
 
     [InspectorDisabled]
     public LinkedList<Unit> units = new LinkedList<Unit>();
+    [InspectorDisabled]
     public LinkedList<Unit> attackableUnits = new LinkedList<Unit>();
     [fsIgnore, NonSerialized]
     private LinkedList<AutoDeactivation> autoDeactivated = new LinkedList<AutoDeactivation>();
