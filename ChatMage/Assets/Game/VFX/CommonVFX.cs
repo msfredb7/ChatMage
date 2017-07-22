@@ -12,19 +12,25 @@ public class CommonVFX : MonoBehaviour
     private List<BasicRepeatedAnimator> mediumHits = new List<BasicRepeatedAnimator>();
     private List<BasicRepeatedAnimator> smallHits = new List<BasicRepeatedAnimator>();
 
-    public void MediumHit(Vector2 position, Color color)
+    public void MediumHit(Vector2 position, Color color, int sortingLayer = SortingLayers.DEFAULT)
     {
         BasicRepeatedAnimator vfx = GetUnactiveFrom(mediumHits, mediumHit);
 
-        vfx.GetComponent<SpriteRenderer>().color = color;
+        SpriteRenderer renderer = vfx.GetComponent<SpriteRenderer>();
+        renderer.color = color;
+        renderer.sortingLayerID = SortingLayer.layers[sortingLayer].id;
+
         vfx.Animate(position);
     }
 
-    public void SmallHit(Vector2 position, Color color)
+    public void SmallHit(Vector2 position, Color color, int sortingLayer = SortingLayers.DEFAULT)
     {
         BasicRepeatedAnimator vfx = GetUnactiveFrom(smallHits, smallHit);
 
-        vfx.GetComponent<SpriteRenderer>().color = color;
+        SpriteRenderer renderer = vfx.GetComponent<SpriteRenderer>();
+        renderer.color = color;
+        renderer.sortingLayerID = SortingLayer.layers[sortingLayer].id;
+
         vfx.Animate(position);
     }
 
@@ -43,6 +49,6 @@ public class CommonVFX : MonoBehaviour
 
         list.Add(newAnimator);
 
-        return newAnimator; 
+        return newAnimator;
     }
 }

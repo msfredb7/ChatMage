@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChainChomp : MovingUnit
+public class ChainChomp : MovingUnit, IAttackable
 {
     [Header("Chain Chomp")]
     public Rigidbody2D anchor;
@@ -59,7 +59,10 @@ public class ChainChomp : MovingUnit
 
             IAttackable attackable = other.parentUnit.GetComponent<IAttackable>();
             if (attackable != null)
+            {
+                Game.instance.commonVfx.SmallHit(collision.contacts[0].point, Color.white);
                 attackable.Attacked(other, hitDamage * Game.instance.Player.playerStats.damageMultiplier, this, listener.info);
+            }
         }
     }
 
@@ -93,5 +96,10 @@ public class ChainChomp : MovingUnit
         container.transform.position += new Vector3(delta.x, delta.y);
         teleported = true;
         rb.velocity = Vector3.zero;
+    }
+
+    public int Attacked(ColliderInfo on, int amount, Unit otherUnit, ColliderInfo source = null)
+    {
+        return 1;
     }
 }

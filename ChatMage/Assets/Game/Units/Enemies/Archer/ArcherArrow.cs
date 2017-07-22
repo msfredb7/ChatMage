@@ -12,6 +12,9 @@ public class ArcherArrow : MovingUnit
     public float shootSpeed = 8;
     public float flyDistance = 18.5f;
 
+    [Header("VFX")]
+    public Transform arrowTip;
+
     [NonSerialized]
     private float distanceTravelled = 0;
     [NonSerialized]
@@ -52,6 +55,8 @@ public class ArcherArrow : MovingUnit
             IAttackable attackable = unit.GetComponent<IAttackable>();
             if (attackable != null)
             {
+                Game.instance.commonVfx.SmallHit(arrowTip.position, Color.white);
+
                 attackable.Attacked(other, 1, this, listener.info);
                 Die();
             }
