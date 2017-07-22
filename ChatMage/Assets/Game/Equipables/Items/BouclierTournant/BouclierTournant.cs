@@ -34,7 +34,7 @@ public class BouclierTournant : Unit, IAttackable
         if (attackable != null)
         {
             bool wasDead = unit.IsDead;
-            int hitResult = attackable.Attacked(other, 1, null);
+            attackable.Attacked(other, 1, null);
 
             if (unit.IsDead && !wasDead)
                 Game.instance.Player.playerStats.RegisterKilledUnit(unit);

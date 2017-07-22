@@ -143,25 +143,29 @@ public class BlueShellVehicle : Vehicle
 
     Unit FindClosestTargetTo(Vector2 pos)
     {
-        List<Unit> units = Game.instance.units;
         Unit closestUnit = null;
-
         float smallestDistance = float.PositiveInfinity;
 
-        for (int i = 0; i < units.Count; i++)
+        LinkedListNode<Unit> node = Game.instance.units.First;
+        while (node != null)
         {
+            Unit val = node.Value;
+
             //Ignore allies
-            if (units[i].allegiance == Allegiance.Ally)
+            if (val.allegiance == Allegiance.Ally)
                 continue;
 
-            float distance = Vector3.Distance(units[i].Position, pos);
+            float distance = (val.Position - pos).sqrMagnitude;
 
             if (distance < smallestDistance)
             {
-                closestUnit = units[i];
+                closestUnit = val;
                 smallestDistance = distance;
             }
+
+            node = node.Next;
         }
+        
         return closestUnit;
     }
 

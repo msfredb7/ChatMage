@@ -98,15 +98,13 @@ public abstract class EnemyBrain : BaseBehavior
             //Cherche a travers tous les units pour trouver la plus pret
             //Yaurait moyen d'optimiser ca si on fait des listes de units plus pr�cise dans Game
             //  ex: une liste d'IAttackable
-
-            List<Unit> allUnits = Game.instance.units;
-
+            
             Vector2 myPos = myVehicle.Position;
             float smallestDistance = float.PositiveInfinity;
             Unit recordHolder = null;
-            for (int i = 0; i < allUnits.Count; i++)
+            
+            foreach (Unit unit in Game.instance.units)
             {
-                Unit unit = allUnits[i];
                 if (unit == myVehicle)
                     continue;
 

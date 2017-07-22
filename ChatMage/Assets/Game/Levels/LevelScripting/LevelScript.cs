@@ -122,7 +122,7 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
     // Game Started for Level Script
     public void GameStarted()
     {
-        CreateObjectives();
+        ApplyWLConditions();
 
         StartWaves();
 
@@ -298,7 +298,10 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
 
     ///////////////////////////////////////////////////// Loosing/Winning Conditions
 
-    void CreateObjectives()
+    /// <summary>
+    /// Apply winning and losing conditions
+    /// </summary>
+    void ApplyWLConditions()
     {
         // Init les losing conditions
         if (losingConditions != null)

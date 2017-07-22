@@ -386,7 +386,9 @@ MonoBehaviour:
   _objectReferences: []
   _serializedStateKeys:
   - units
+  - _unit
   _serializedStateValues:
+  - '[]'
   - '[]'
   gameCamera: {fileID: 1614933839}
   spawner: {fileID: 986166562}
@@ -574,8 +576,14 @@ MonoBehaviour:
   _keys:
   - {fileID: 986166561}
   _values:
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.gameCamera.EditProperty
+    - DefaultBehaviorEditor.units.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
     _target: {fileID: 986166561}
 --- !u!1 &1461222805
 GameObject:
@@ -605,9 +613,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   car: {fileID: 11400000, guid: 5ec48ef9ded4cbd41a7f67f29b1030a2, type: 2}
-  smash: {fileID: 11400000, guid: d32e43f24ca6b964f89ef83a2f490d25, type: 2}
-  items:
-  - {fileID: 11400000, guid: aecc2db9fec31d3499b615ff4fb037fb, type: 2}
+  smash: {fileID: 11400000, guid: 5805026d5cd333a4e947df8e4f1771ce, type: 2}
+  items: []
 --- !u!4 &1461222807
 Transform:
   m_ObjectHideFlags: 0

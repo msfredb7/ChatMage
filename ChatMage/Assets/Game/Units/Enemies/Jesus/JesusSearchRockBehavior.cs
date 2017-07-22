@@ -74,14 +74,18 @@ public class JesusSearchRockBehavior : EnemyBehavior<JesusV2Vehicle>
     private void GetAvailableRocks()
     {
         availableRocks = new List<JesusRockV2>();
-        List<Unit> allUnits = Game.instance.units;
 
-        for (int i = 0; i < allUnits.Count; i++)
+        LinkedListNode<Unit> node = Game.instance.units.First;
+        while (node != null)
         {
-            if (allUnits[i] is JesusRockV2)
+            Unit val = node.Value;
+
+            if (val is JesusRockV2)
             {
-                availableRocks.Add(allUnits[i] as JesusRockV2);
+                availableRocks.Add(val as JesusRockV2);
             }
+
+            node = node.Next;
         }
     }
 

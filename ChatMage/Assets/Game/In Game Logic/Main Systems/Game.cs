@@ -33,9 +33,9 @@ public class Game : PublicSingleton<Game>
     public PlayableArea aiArea = new PlayableArea();
 
     [InspectorDisabled]
-    public List<Unit> units = new List<Unit>();
+    public LinkedList<Unit> units = new LinkedList<Unit>();
     [fsIgnore, NonSerialized]
-    private List<AutoDeactivation> autoDeactivated = new List<AutoDeactivation>();
+    private LinkedList<AutoDeactivation> autoDeactivated = new LinkedList<AutoDeactivation>();
 
     // NON AFFICH�
 
@@ -57,11 +57,6 @@ public class Game : PublicSingleton<Game>
     public event SimpleEvent onDestroy;
     public event Unit.Unit_Event onUnitSpawned;
     public event Unit.Unit_Event onUnitDestroyed;
-
-    //public bool unitSnap_horizontalBound;
-    //public float unitSnap_horizontalBorderWidth;
-    //public bool unitSnap_verticalBound;
-    //public float unitSnap_verticalBorderWidth;
 
     public void Init(LevelScript level, Framework framework, PlayerController player)
     {
@@ -120,9 +115,13 @@ public class Game : PublicSingleton<Game>
         if (gameCamera.MovedSinceLastFrame)
         {
             float cameraHeight = gameCamera.Height;
-            for (int i = 0; i < autoDeactivated.Count; i++)
+
+            LinkedListNode<AutoDeactivation> node = autoDeactivated.First;
+            while (node != null)
             {
-                autoDeactivated[i].CheckActivation(cameraHeight);
+                AutoDeactivation val = node.Value;
+                val.CheckActivation(cameraHeight);
+                node = node.Next;
             }
         }
     }
@@ -160,11 +159,11 @@ public class Game : PublicSingleton<Game>
         unit.transform.SetParent(unitsContainer);
         unit.TimeScale = worldTimeScale;
 
-        units.Add(unit);
+        units.AddLast(unit);
 
         AutoDeactivation autoDeactivation = unit.GetComponent<AutoDeactivation>();
         if (autoDeactivation != null)
-            autoDeactivated.Add(autoDeactivation);
+            autoDeactivated.AddLast(autoDeactivation);
 
         if (onUnitSpawned != null)
             onUnitSpawned(unit);
@@ -185,6 +184,7 @@ public class Game : PublicSingleton<Game>
         if (instance == null)
             return;
 
+        //On l'enleve de la liste
         units.Remove(unit);
 
         AutoDeactivation autoDeactivation = unit.GetComponent<AutoDeactivation>();
@@ -194,14 +194,6 @@ public class Game : PublicSingleton<Game>
         if (onUnitDestroyed != null)
             onUnitDestroyed(unit);
     }
-
-    //public void SetUnitSnapBorders(bool horizontalBound, float horizontalBorderWidth, bool verticalBound, float verticalBorderWidth)
-    //{
-    //    unitSnap_horizontalBound = horizontalBound;
-    //    unitSnap_horizontalBorderWidth = horizontalBorderWidth;
-    //    unitSnap_verticalBound = verticalBound;
-    //    unitSnap_verticalBorderWidth = verticalBorderWidth;
-    //}
 
     #endregion
 }

@@ -137,12 +137,16 @@ public class LS_ThridLevel : LevelScript
                 canWin = true;
                 break;
             case "boss battle entry":
-                List<Unit> unitsInGame = Game.instance.units;
-                for (int i = 0; i < unitsInGame.Count; i++)
+                LinkedListNode<Unit> node = Game.instance.units.First;
+                while (node != null)
                 {
-                    AutoDeactivation deac = unitsInGame[i].GetComponent<AutoDeactivation>();
+                    Unit val = node.Value;
+
+                    AutoDeactivation deac = val.GetComponent<AutoDeactivation>();
                     if (deac != null)
                         deac.enabled = true;
+
+                    node = node.Next;
                 }
                 break;
             case "boss battle":

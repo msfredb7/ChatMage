@@ -105,16 +105,17 @@ public class SM_Warudo : Smash
 
     void SetTimeScale(float amount)
     {
-        List<Unit> units = Game.instance.units;
-        if (units == null)
-            return;
-        for (int i = 0; i < units.Count; i++)
+        LinkedListNode<Unit> node = Game.instance.units.First;
+        while (node != null)
         {
-            if (units[i] == player.vehicle)
-                continue;
+            Unit val = node.Value;
 
-            units[i].TimeScale = amount;
+            if (val != player.vehicle)
+                val.TimeScale = amount;
+
+            node = node.Next;
         }
+
         if (amount == 1)
             Game.instance.worldTimeScale.RemoveBuff("zwrdo");
         else
