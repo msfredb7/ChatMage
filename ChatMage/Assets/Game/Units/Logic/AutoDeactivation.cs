@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AutoDeactivation : MonoBehaviour
@@ -9,6 +10,9 @@ public class AutoDeactivation : MonoBehaviour
     private Transform tr;
     [System.NonSerialized]
     private GameCamera cam;
+
+    [System.NonSerialized]
+    public LinkedListNode<AutoDeactivation> gameNode;
 
     void Awake()
     {

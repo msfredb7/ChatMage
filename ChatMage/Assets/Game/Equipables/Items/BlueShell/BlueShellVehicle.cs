@@ -146,7 +146,7 @@ public class BlueShellVehicle : Vehicle
         Unit closestUnit = null;
         float smallestDistance = float.PositiveInfinity;
 
-        LinkedListNode<Unit> node = Game.instance.units.First;
+        LinkedListNode<Unit> node = Game.instance.attackableUnits.First;
         while (node != null)
         {
             Unit val = node.Value;

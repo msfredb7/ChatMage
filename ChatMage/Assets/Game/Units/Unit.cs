@@ -37,6 +37,15 @@ public abstract class Unit : MonoBehaviour
     public Rigidbody2D rb;
     protected Transform tr;
 
+
+    //Ici, on a une referance vers les nodes de linkedlist de Game. En gros, lorsque la unit est delete, et
+    // qu'elle doit etre elever de la liste, game n'a pas a chercher dans la liste pour la bonne node car
+    // elle est enregistrer ici. O(n) -> O(1)
+    [System.NonSerialized]
+    public LinkedListNode<Unit> stdNode;
+    public LinkedListNode<Unit> attackableNode;
+
+
     protected Vector2 sleepRbVelocity = Vector2.zero;
     protected float sleepRbAngVelocity = 0;
 

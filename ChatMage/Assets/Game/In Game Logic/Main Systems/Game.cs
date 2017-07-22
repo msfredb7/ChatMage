@@ -34,6 +34,7 @@ public class Game : PublicSingleton<Game>
 
     [InspectorDisabled]
     public LinkedList<Unit> units = new LinkedList<Unit>();
+    public LinkedList<Unit> attackableUnits = new LinkedList<Unit>();
     [fsIgnore, NonSerialized]
     private LinkedList<AutoDeactivation> autoDeactivated = new LinkedList<AutoDeactivation>();
 
@@ -160,10 +161,22 @@ public class Game : PublicSingleton<Game>
         unit.TimeScale = worldTimeScale;
 
         units.AddLast(unit);
+        unit.stdNode = units.Last;
 
+        //Auto Deactivation ?
         AutoDeactivation autoDeactivation = unit.GetComponent<AutoDeactivation>();
         if (autoDeactivation != null)
+        {
             autoDeactivated.AddLast(autoDeactivation);
+            autoDeactivation.gameNode = autoDeactivated.Last;
+        }
+
+        //Attackable ?
+        if (unit is IAttackable)
+        {
+            attackableUnits.AddLast(unit);
+            unit.attackableNode = attackableUnits.Last;
+        }
 
         if (onUnitSpawned != null)
             onUnitSpawned(unit);
@@ -185,11 +198,16 @@ public class Game : PublicSingleton<Game>
             return;
 
         //On l'enleve de la liste
-        units.Remove(unit);
-
+        units.Remove(unit.stdNode);
+        
+        //Auto Deactivation ?
         AutoDeactivation autoDeactivation = unit.GetComponent<AutoDeactivation>();
         if (autoDeactivation != null)
-            autoDeactivated.Remove(autoDeactivation);
+            autoDeactivated.Remove(autoDeactivation.gameNode);
+
+        //Attackable ?
+        if (unit is IAttackable)
+            attackableUnits.Remove(unit.attackableNode);
 
         if (onUnitDestroyed != null)
             onUnitDestroyed(unit);
