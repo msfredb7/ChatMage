@@ -18,6 +18,7 @@ public class Game : PublicSingleton<Game>
     public PlayerBounds playerBounds;
     public SmashManager smashManager;
     public HealthPackManager healthPackManager;
+    public InGameEvents events;
 
     //Dynamic references
     [fsIgnore, NonSerialized]

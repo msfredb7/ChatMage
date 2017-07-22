@@ -58,10 +58,10 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
     public bool isOver = false;
 
     [fsIgnore, NotSerialized]
-    public InGameEvents inGameEvents;
+    protected InGameEvents inGameEvents;
 
     [InspectorHeader("Tutoriel")]
-    public bool activateTutorial = false; // Debug
+    public bool activateTutorial = false;
     [InspectorShowIf("activateTutorial")]
     public string tutorialAssetName;
 
@@ -82,14 +82,13 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
     }
 
     // Init Level Script
-    public void Init(System.Action onComplete, InGameEvents inGameEvents)
+    public void Init(System.Action onComplete)
     {
         ResetData();
         Game.instance.onGameReady += GameReady;
         Game.instance.onGameStarted += GameStarted;
 
-        this.inGameEvents = inGameEvents;
-        this.inGameEvents.Init(this);
+        this.inGameEvents = Game.instance.events;
 
         if (useCustomGenericEvents)
             foreach (EventScripting ev in events)
