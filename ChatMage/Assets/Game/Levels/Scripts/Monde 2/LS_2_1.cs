@@ -57,11 +57,25 @@ public class LS_2_1 : LevelScript {
     {
         switch (message)
         {
+            case "start":
+                break;
+            case "survival1":
+                TriggerWaveManually("survival1");
+                break;
+            case "survival1 complete":
+                break;
+            case "survival2":
+                TriggerWaveManually("survival2");
+                break;
+            case "survival2 complete":
+                break;
             case "gate":
-                inGameEvents.AddDelayedAction(GateBlockage, 1);
+                GateBlockage();
                 break;
             case "gate cleared":
                 inGameEvents.AddDelayedAction(GateCleared, 1);
+                break;
+            case "win":
                 break;
         }
     }
