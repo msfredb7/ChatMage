@@ -30,9 +30,16 @@ public class Car_MadSteve : StdCar
 
     void OnUnitEnterTrail(ColliderInfo other, ColliderListener listener)
     {
-        if (other.parentUnit is IAttackable)
+        Unit unit = other.parentUnit;
+        if (unit is IAttackable)
         {
-            (other.parentUnit as IAttackable).Attacked(other, 1, player.vehicle);
+            bool wasDead = unit.IsDead;
+
+            IAttackable attackable = unit as IAttackable;
+            attackable.Attacked(other, 1, player.vehicle);
+
+            if (unit.IsDead && !wasDead)
+                player.playerStats.RegisterKilledUnit(unit);
         }
     }
 
