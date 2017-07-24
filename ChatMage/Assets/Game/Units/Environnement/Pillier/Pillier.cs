@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pillier : Unit
+public class Pillier : MovingUnit
 {
     [Header("Linking")]
     public SimpleColliderListener listener;

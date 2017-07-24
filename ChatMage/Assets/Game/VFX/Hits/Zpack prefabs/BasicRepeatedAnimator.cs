@@ -30,4 +30,6 @@ public class BasicRepeatedAnimator : MonoBehaviour
         gameObject.SetActive(false);
         animator.SetTrigger("end");
     }
+
+    public bool IsPlaying { get { return gameObject.activeSelf; } }
 }

@@ -119,6 +119,7 @@ GameObject:
   - component: {fileID: 218698578}
   - component: {fileID: 218698580}
   - component: {fileID: 218698581}
+  - component: {fileID: 218698582}
   m_Layer: 0
   m_Name: Motton de script
   m_TagString: Untagged
@@ -190,6 +191,20 @@ MonoBehaviour:
   enableHealthPackSpawn: 1
   replaceWithArmorPack: 0
   spawnChance: 0
+--- !u!114 &218698582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 218698577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd3f197dcb0abcb4a8617340e1c07087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mediumHit: {fileID: 114796196922008038, guid: f5ff237a9e9a63c41a795cad2e5355a5,
+    type: 2}
+  smallHit: {fileID: 114796196922008038, guid: fc36608c1de1222458f3e08d98c83118, type: 2}
 --- !u!1 &471814416
 GameObject:
   m_ObjectHideFlags: 0
@@ -357,7 +372,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadScenesAsync: 0
   game: {fileID: 986166561}
-  events: {fileID: 218698578}
   playerbuilder: {fileID: 1461222806}
   defaultLevel: {fileID: 11400000, guid: 47cdc4a54c5c23544977723a44cb47a2, type: 2}
 --- !u!4 &986166560
@@ -387,7 +401,9 @@ MonoBehaviour:
   _objectReferences: []
   _serializedStateKeys:
   - units
+  - attackableUnits
   _serializedStateValues:
+  - '[]'
   - '[]'
   gameCamera: {fileID: 1614933839}
   spawner: {fileID: 986166562}
@@ -395,7 +411,8 @@ MonoBehaviour:
   playerBounds: {fileID: 545472434}
   smashManager: {fileID: 218698580}
   healthPackManager: {fileID: 218698581}
-  units: []
+  events: {fileID: 218698578}
+  commonVfx: {fileID: 218698582}
   worldTimeScale:
     value: 1
     min: 0
@@ -574,8 +591,17 @@ MonoBehaviour:
   _keys:
   - {fileID: 986166561}
   _values:
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.gameCamera.EditProperty
+    - DefaultBehaviorEditor.units.EditProperty
+    - DefaultBehaviorEditor.attackableUnits.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
     _target: {fileID: 986166561}
 --- !u!1 &1461222805
 GameObject:
@@ -605,9 +631,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   car: {fileID: 11400000, guid: 5ec48ef9ded4cbd41a7f67f29b1030a2, type: 2}
-  smash: {fileID: 11400000, guid: d32e43f24ca6b964f89ef83a2f490d25, type: 2}
+  smash: {fileID: 11400000, guid: 5805026d5cd333a4e947df8e4f1771ce, type: 2}
   items:
-  - {fileID: 11400000, guid: 2916228895a570345a773b5fabbb8289, type: 2}
+  - {fileID: 11400000, guid: e9934c509f41f20478c8992e4248029a, type: 2}
+  - {fileID: 11400000, guid: 41bf824f75bf21b41bd78dad9e78d4cc, type: 2}
+  - {fileID: 11400000, guid: d5829d02815d67f4fa8cf3cd724421bf, type: 2}
 --- !u!4 &1461222807
 Transform:
   m_ObjectHideFlags: 0

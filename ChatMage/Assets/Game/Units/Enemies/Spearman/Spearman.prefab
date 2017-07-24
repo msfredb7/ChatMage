@@ -120,6 +120,7 @@ GameObject:
   - component: {fileID: 114117048000841424}
   - component: {fileID: 114791420540404272}
   - component: {fileID: 114244199259696152}
+  - component: {fileID: 114924458662569236}
   m_Layer: 10
   m_Name: Spearman
   m_TagString: Untagged
@@ -295,10 +296,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acc6885bd68e74a4b8c851a872bae70c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isVisible: 1
   allegiance: 2
-  checkDeactivation: 1
-  targets: 00000000
   moveSpeed: 1
   targetDirection: 0
   rotationSetsTargetDirection: 1
@@ -307,6 +305,10 @@ MonoBehaviour:
   unitWidth: 0.7
   useTurnSpeed: 1
   turnSpeed: 210
+  smartMove: 0
+  clampToAIArea: 1
+  targets:
+    targetAllegiances: 00000000
   attackCooldown: 0
   animator: {fileID: 114244199259696152}
   bodySprite: {fileID: 212368842169423508}
@@ -391,6 +393,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parentUnit: {fileID: 114117048000841424}
   groupParent: {fileID: 1454592736844244}
+--- !u!114 &114924458662569236
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1871222452349014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1efa4468b39abf64cb05fd696ec88f51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enabled: 1
+  deactivationRange: 10
 --- !u!212 &212074958052663072
 SpriteRenderer:
   m_ObjectHideFlags: 1

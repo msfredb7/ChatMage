@@ -141,13 +141,13 @@ public class GameCamera : MonoBehaviour
     public float Height { get { return tr.position.y; } }
     public Vector2 ScreenSize { get { return screenSize; } }
 
-    public Vector3 AdjustVector(Vector3 position)
+    public Vector3 AdjustVector(Vector3 vector)
     {
-        return new Vector3(position.x / defaultToRealRatio.x, position.y / defaultToRealRatio.y, position.z);
+        return new Vector3(vector.x / defaultToRealRatio.x, vector.y / defaultToRealRatio.y, vector.z);
     }
-    public Vector2 AdjustVector(Vector2 position)
+    public Vector2 AdjustVector(Vector2 vector)
     {
-        return new Vector2(position.x / defaultToRealRatio.x, position.y / defaultToRealRatio.y);
+        return new Vector2(vector.x / defaultToRealRatio.x, vector.y / defaultToRealRatio.y);
     }
 
     #endregion

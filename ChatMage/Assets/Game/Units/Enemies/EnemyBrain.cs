@@ -39,13 +39,12 @@ public abstract class EnemyBrain : BaseBehavior
     private bool noTargetOnThisFrame = false;
 
     private EnemyBehavior currentBehavior;
-    //private float forcedInStateDuration = -1;
     private EnemyBehavior forcedBehavior;
 
     protected virtual void Start()
     {
         myVehicle.Stop();
-        myVehicle.onRemoveTarget += ClearTarget;
+        myVehicle.targets.onTargetRemoved += ClearTarget;
     }
 
     void Update()
@@ -65,8 +64,6 @@ public abstract class EnemyBrain : BaseBehavior
 
         if (currentBehavior != null)
             currentBehavior.Update(target, myVehicle.DeltaTime());
-
-        //forcedInStateDuration -= myVehicle.DeltaTime();
     }
 
     protected void ClearTarget()
@@ -76,11 +73,12 @@ public abstract class EnemyBrain : BaseBehavior
 
     public void TryToFindTarget()
     {
-        if (myVehicle.targets == null || myVehicle.targets.Count == 0)
+        Targets targ = myVehicle.targets;
+        if (targ == null || targ.targetAllegiances.Count == 0)
             return;
 
         //En g�n�ral, on passe ici, sachant que les ennemi cherche pas mal toujours le joueur
-        if (myVehicle.targets.Count == 1 && myVehicle.targets[0] == Allegiance.Ally)
+        if (targ.targetAllegiances.Count == 1 && targ.targetAllegiances[0] == Allegiance.Ally)
         {
             PlayerController player = Game.instance == null ? null : Game.instance.Player;
             if (player != null)
@@ -98,27 +96,22 @@ public abstract class EnemyBrain : BaseBehavior
             //Yaurait moyen d'optimiser ca si on fait des listes de units plus pr�cise dans Game
             //  ex: une liste d'IAttackable
 
-            List<Unit> allUnits = Game.instance.units;
-
             Vector2 myPos = myVehicle.Position;
             float smallestDistance = float.PositiveInfinity;
             Unit recordHolder = null;
-            for (int i = 0; i < allUnits.Count; i++)
+
+            foreach (Unit unit in Game.instance.attackableUnits)
             {
-                Unit unit = allUnits[i];
                 if (unit == myVehicle)
                     continue;
-                if (myVehicle.IsValidTarget(unit.allegiance))
+
+                if (myVehicle.targets.IsValidTarget(unit))
                 {
-                    IAttackable attackable = unit.GetComponent<IAttackable>();
-                    if (attackable != null)
+                    float sqrDistance = (unit.Position - myPos).sqrMagnitude;
+                    if (sqrDistance < smallestDistance)
                     {
-                        float sqrDistance = (unit.Position - myPos).sqrMagnitude;
-                        if (sqrDistance < smallestDistance)
-                        {
-                            smallestDistance = sqrDistance;
-                            recordHolder = unit;
-                        }
+                        smallestDistance = sqrDistance;
+                        recordHolder = unit;
                     }
                 }
             }
@@ -128,7 +121,7 @@ public abstract class EnemyBrain : BaseBehavior
 
     private bool EvaluateUnit(Unit unit)
     {
-        return unit != null && unit.isVisible && !unit.IsDead && unit.gameObject.activeSelf;
+        return unit != null && !unit.IsDead && unit.gameObject.activeSelf && (!(unit is IVisible) || (unit as IVisible).IsVisible());
     }
 
     protected abstract void UpdateWithTarget();
@@ -156,11 +149,6 @@ public abstract class EnemyBrain : BaseBehavior
     {
         return !IsBehavior<T>() && !IsForcedIntoState;
     }
-
-    //public void UpdateForcedDuration(float duration)
-    //{
-    //    forcedInStateDuration = Mathf.Max(duration, forcedInStateDuration);
-    //}
 
     /// <summary>
     /// On devrait toujours checker CanGoTo() avant. Pour ne pas faire de garbage

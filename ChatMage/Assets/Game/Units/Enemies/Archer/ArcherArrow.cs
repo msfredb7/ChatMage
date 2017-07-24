@@ -1,8 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArcherArrow : Projectiles
+public class ArcherArrow : MovingUnit
 {
     [Header("Linking")]
     public SimpleColliderListener listener;
@@ -11,13 +12,23 @@ public class ArcherArrow : Projectiles
     public float shootSpeed = 8;
     public float flyDistance = 18.5f;
 
-    private float distanceTravelled = 0;
+    [Header("VFX")]
+    public Transform arrowTip;
 
-    public void Init(Vector2 dir)
+    [NonSerialized]
+    private float distanceTravelled = 0;
+    [NonSerialized]
+    private Unit origin;
+    [NonSerialized]
+    private Targets targets;
+
+    public void Init(Unit origin, Vector2 dir, Targets targetsToCopy)
     {
         listener.onTriggerEnter += Listener_onTriggerEnter;
         Speed = dir.normalized * shootSpeed * timeScale;
         transform.rotation = Quaternion.Euler(Vector3.forward * Vehicle.VectorToAngle(dir));
+
+        targets = new Targets(targetsToCopy);
     }
 
     protected override void FixedUpdate()
@@ -38,11 +49,14 @@ public class ArcherArrow : Projectiles
         if (isDead)
             return;
 
-        if (other.parentUnit != origin && IsValidTarget(other.parentUnit.allegiance))
+        Unit unit = other.parentUnit;
+        if (unit != origin && targets.IsValidTarget(unit))
         {
-            IAttackable attackable = other.parentUnit.GetComponent<IAttackable>();
+            IAttackable attackable = unit.GetComponent<IAttackable>();
             if (attackable != null)
             {
+                Game.instance.commonVfx.SmallHit(arrowTip.position, Color.white);
+
                 attackable.Attacked(other, 1, this, listener.info);
                 Die();
             }

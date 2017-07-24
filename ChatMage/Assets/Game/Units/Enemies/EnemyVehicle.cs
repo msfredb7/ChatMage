@@ -9,6 +9,10 @@ public abstract class EnemyVehicle : Vehicle, IAttackable
     public float unitWidth;
     public bool useTurnSpeed;
     public float turnSpeed = 150;
+    public bool smartMove = false;
+    public bool clampToAIArea = true;
+    [Forward]
+    public Targets targets;
 
     protected bool tryToStayAtTargetPosition = false;
     protected Vector2 targetPosition;
@@ -39,14 +43,12 @@ public abstract class EnemyVehicle : Vehicle, IAttackable
 
     private void QuickGotoPos(Vector2 position, Action onReach = null)
     {
-        //if (restrainToScreenIfApplies)
-        //{
-        //    position = RestrainToBounds(position, Game.instance.unitSnap_horizontalBound, Game.instance.unitSnap_verticalBound);
-        //}
-
         //Clamp to AI Area
-        if (Game.instance != null)
+        if (clampToAIArea && Game.instance != null)
             position = Game.instance.aiArea.ClampToArea(position, unitWidth / 2);
+
+        if (smartMove)
+            position = NAV_SmartMover.SmartifyMove(Position, position, unitWidth);
 
         targetPosition = position;
         goingToTargetPosition = true;
@@ -121,7 +123,7 @@ public abstract class EnemyVehicle : Vehicle, IAttackable
                     //Dont have to stay...
                     Stop();
                 }
-                
+
                 if (wasOnReach != null)
                 {
                     wasOnReach();

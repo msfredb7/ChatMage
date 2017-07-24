@@ -19,7 +19,7 @@ public class ShielderFollowBehavior : EnemyBehavior<ShielderVehicle>
 
     void OnShieldPhysicalHit(Unit unitHit)
     {
-        if (vehicle.IsValidTarget(unitHit.allegiance))
+        if (vehicle.targets.IsValidTarget(unitHit.allegiance))
         {
             onCanAttack();
         }

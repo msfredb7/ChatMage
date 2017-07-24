@@ -16,7 +16,7 @@ public class SM_AC130 : Smash
 
     public override void OnGameReady()
     {
-        effect = Instantiate(effectPrefab.gameObject, Game.instance.currentLevel.inGameEvents.transform).GetComponent<AC130Effect>();
+        effect = Instantiate(effectPrefab.gameObject, Game.instance.events.transform).GetComponent<AC130Effect>();
     }
 
     public override void OnGameStarted()

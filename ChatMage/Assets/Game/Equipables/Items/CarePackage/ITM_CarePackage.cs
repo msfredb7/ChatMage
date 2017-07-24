@@ -1,69 +1,70 @@
-﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ITM_CarePackage : Item {
+public class ITM_CarePackage : Item
+{
 
-    public GameObject carePackagePrefab;
+    public CarePackage carePackagePrefab;
 
-    public int unitAmount = 4;
-    private int unitCounter;
+    public int killsRequired = 4;
+    private int killstreak;
+    private bool canCount = true;
 
     public override void OnGameReady()
     {
+        killstreak = 0;
     }
 
     public override void OnGameStarted()
     {
         ResetCounter();
+        canCount = true;
         player.playerStats.onUnitKilled += PlayerStats_onUnitKilled;
-    }
-
-    private void PlayerStats_onUnitKilled(Unit unit)
-    {
-        unitCounter++;
     }
 
     public override void OnUpdate()
     {
-        if(unitCounter >= unitAmount)
+
+    }
+
+    private void PlayerStats_onUnitKilled(Unit unit)
+    {
+        if(canCount && !(unit is CarePackage))
         {
-            SendPackage();
-            ResetCounter();
+            killstreak++;
+            if (killstreak >= killsRequired)
+            {
+                SendPackage();
+                ResetCounter();
+            }
         }
     }
 
     void ResetCounter()
     {
-        unitCounter = 0;
+        killstreak = 0;
     }
 
     void SendPackage()
     {
-        //Get Random pos around screen
-        Vector2 pos = Vector2.zero;
+        GameCamera cam = Game.instance.gameCamera;
 
-        //Accot� sur le planfond/plancher OU le cot� droit/gauche ?
-        if (UnityEngine.Random.Range(0, 2) == 1)
-        {
-            //    Donne:        soit -1 ou 1            , random entre -1f et 1f
-            pos = new Vector2(UnityEngine.Random.Range(0, 2) * 2 - 1, UnityEngine.Random.Range(-1f, 1f));
-        }
-        else
-        {
-            //    Donne:     random entre -1f et 1f,        soit -1 ou 1 
-            pos = new Vector2(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(0, 2) * 2 - 1);
-        }
+        canCount = false;
 
-        //Scale la position au bordure de l'�cran
-        pos.Scale(Game.instance.gameCamera.ScreenSize * 0.45f);
+        Vector2 spawnDelta = new Vector2(Random.Range(-7f, 7f), Random.Range(-3.5f, 3.5f));
+        spawnDelta = cam.AdjustVector(spawnDelta);
 
-        SpawnUnitRelativeToTransform(pos, Game.instance.gameCamera.transform);
+        Vector2 spawnPos = cam.Center + spawnDelta;
+        spawnPos = Game.instance.map.VerifyPosition(spawnPos, carePackagePrefab.unitWidth);
+
+        Game.instance.SpawnUnit(carePackagePrefab, spawnPos)
+            .onDeath += ITM_CarePackage_onDeath;
     }
 
-    private void SpawnUnitRelativeToTransform(Vector2 relativePosition, Transform transform)
+    //On �coute � la mort du carepackage. Comme �a, les killstreak ne continue pas tant qu'il n'a pas pris son package (sinon c op)
+    private void ITM_CarePackage_onDeath(Unit unit)
     {
-        Instantiate(carePackagePrefab, relativePosition + (Vector2)transform.position,Quaternion.Euler(new Vector3(0,0,0)));
+        canCount = true;
     }
 }

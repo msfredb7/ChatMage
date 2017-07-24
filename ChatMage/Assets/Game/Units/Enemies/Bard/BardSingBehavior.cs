@@ -37,11 +37,9 @@ public class BardSingBehavior : BaseTweenBehavior<BardVehicle>, IShaker
     {
         Game.instance.gameCamera.vectorShaker.AddShaker(this);
 
-        Allegiance[] allowAlligience = new Allegiance[]
-        {
-            Allegiance.Enemy
-        };
-        List<Unit> hitUnits = UnitDetection.OverlapCircleUnits(vehicle.Position, vehicle.singRadius, vehicle, allowAlligience);
+        Allegiance[] allowedAlligiances = vehicle.boostTargets.targetAllegiances.ToArray();
+
+        List<Unit> hitUnits = UnitDetection.OverlapCircleUnits(vehicle.Position, vehicle.singRadius, vehicle, allowedAlligiances);
 
         for (int i = 0; i < hitUnits.Count; i++)
         {

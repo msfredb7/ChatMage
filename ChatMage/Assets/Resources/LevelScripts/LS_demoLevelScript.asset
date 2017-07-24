@@ -13,7 +13,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objectReferences:
   - {fileID: 114917152140949164, guid: 90a1293e412776e4db23eb9595fcf924, type: 2}
-  - {fileID: 11400000, guid: e9ada2128e130fc4a978ce9b9510f223, type: 2}
   _serializedStateKeys:
   - winningConditions
   - losingConditions
@@ -25,7 +24,7 @@ MonoBehaviour:
   - '[{"$type":"GameCondition.LoseOnPlayerDeath"}]'
   - '[]'
   - '[{"what":{"spawnSequence":[{"unit":0,"quantity":1}],"onSpawnMethod":"","progressCallbacks":[]},"where":{"logErrorIfUnableToLaunch":true,"spawnTag":"plus","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0},"when":{"type":"At","time":0.0,"name":null,"onlyTriggerOnce":false},"spawnInterval":0.0}]'
-  - '{"giveMoney":true,"goldReward":{"baseAmountMin":0,"baseAmountMax":5,"firstWinAmountMin":0,"firstWinAmountMax":5},"giveLootBox":true,"lootboxs":[1],"lootboxColor":"Red"}'
+  - '{"overrideGoldAmount":false,"goldReward":{"baseAmountMin":0,"baseAmountMax":5,"firstWinAmountMin":0,"firstWinAmountMax":5},"giveLootBox":true,"lootboxRefName":null,"goldified":false}'
   sceneName: RomanArena
   introPrefab: {fileID: 114939908285177620, guid: 6ecb49bd0fe07fd49a2105006011056d,
     type: 2}
@@ -35,8 +34,6 @@ MonoBehaviour:
     type: 2}
   noHealthPacks: 0
   followPlayerOnStart: 0
-  verticalUnitSnap: 0
-  horizontalUnitSnap: 0
   useCustomGenericEvents: 0
   events: []
   isOver: 0

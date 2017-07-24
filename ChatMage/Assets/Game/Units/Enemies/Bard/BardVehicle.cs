@@ -7,6 +7,8 @@ public class BardVehicle : EnemyVehicle
 {
     [Header("Bard")]
     public BardAnimator animator;
+    [Forward]
+    public Targets boostTargets;
 
     [Header("Sing")]
     public float singRadius;

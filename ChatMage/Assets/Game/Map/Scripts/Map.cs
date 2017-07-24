@@ -29,6 +29,7 @@ public class Map : BaseBehavior
 
     [InspectorMargin(10), InspectorHeader("Optional")]
     public RoadPlayer roadPlayer;
+    public PositionDisplacer[] positionDisplacers;
 
     /// <summary>
     /// Initialise les settings de la map
@@ -74,5 +75,18 @@ public class Map : BaseBehavior
             Gizmos.color = new Color(0.2f, 1, 0, 0.4f);
             Gizmos.DrawCube(startAIArea.Center, startAIArea.Size);
         }
+    }
+
+    public Vector2 VerifyPosition(Vector2 pos, float unitWidth)
+    {
+        Vector2 newPos = pos;
+        if (positionDisplacers != null)
+            for (int i = 0; i < positionDisplacers.Length; i++)
+            {
+                if (positionDisplacers[i].Displace(pos, unitWidth, out newPos))
+                    break;
+            }
+
+        return newPos;
     }
 }

@@ -39,9 +39,8 @@ public class ArcherShootBehavior : BaseTweenBehavior<ArcherVehicle>
     void OnShootMoment()
     {
         ArcherArrow proj = Game.instance.SpawnUnit(vehicle.arrowPrefab, vehicle.arrowLaunchLocation.position);
-
-        proj.Init(vehicle.WorldDirection2D());
-        proj.Init(vehicle);
+        
+        proj.Init(vehicle, vehicle.WorldDirection2D(), vehicle.targets);
 
         vehicle.animator.AsNoAmmo();
 

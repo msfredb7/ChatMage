@@ -26,5 +26,13 @@ namespace CCC.Math
 
             return AngleToVector(angle) * length;
         }
+
+        public static Vector2 RandomVector2(float minLength, float maxLength)
+        {
+            float angle = Random.Range(0, 360);
+            float length = Random.Range(minLength, maxLength);
+
+            return AngleToVector(angle) * length;
+        }
     }
 }

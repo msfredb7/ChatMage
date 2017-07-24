@@ -1,28 +1,34 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CarePackage : MonoBehaviour {
+public class CarePackage : Unit
+{
+    public SimpleColliderListener listener;
+    public float unitWidth;
+    public Unit[] rewards;
 
-    public List<GameObject> rewards = new List<GameObject>();
-
-    public SimpleColliderListener colliderListener;
-
-	// Use this for initialization
-	void Start ()
+    protected override void Awake()
     {
-        colliderListener.onTriggerEnter += ColliderListener_onTriggerEnter;
+        base.Awake();
+
+        listener.onTriggerEnter += Listener_onTriggerEnter;
     }
 
-    private void ColliderListener_onTriggerEnter(ColliderInfo other, ColliderListener listener)
+    private void Listener_onTriggerEnter(ColliderInfo other, ColliderListener listener)
     {
-        if(other.parentUnit.allegiance == Allegiance.Ally)
-        {
-            int rewardSelected = Random.Range(0, rewards.Count - 1);
-            Instantiate(rewards[rewardSelected], transform.position, transform.rotation);
+        if (other.parentUnit != Game.instance.Player.vehicle)
+            return;
 
-            // TODO: Animation d'explosion de la boite
-            Destroy(gameObject);
-        }
+        Die();
+    }
+
+    protected override void Die()
+    {
+        base.Die();
+
+        Game.instance.SpawnUnit(rewards[Random.Range(0, rewards.Length)], Position);
+
+        Destroy();
     }
 }

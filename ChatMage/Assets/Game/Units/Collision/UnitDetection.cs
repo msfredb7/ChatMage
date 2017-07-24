@@ -8,16 +8,14 @@ public static class UnitDetection
     {
         if (Game.instance == null)
             return null;
-
-        List<Unit> allUnits = Game.instance.units;
+        
         List<Unit> filteredList = new List<Unit>(5);
 
         float sqrRadius = radius * radius;
 
-        for (int i = 0; i < allUnits.Count; i++)
+        
+        foreach (Unit unit in Game.instance.units)
         {
-            Unit unit = allUnits[i];
-
             //Unit
             if (unit == excludedUnit)
                 continue;
@@ -37,7 +35,7 @@ public static class UnitDetection
 
             //Ok !
             Vector2 v = unit.Position - center;
-            if(v.sqrMagnitude <= sqrRadius)
+            if (v.sqrMagnitude <= sqrRadius)
             {
                 filteredList.Add(unit);
             }

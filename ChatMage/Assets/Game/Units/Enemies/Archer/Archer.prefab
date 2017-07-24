@@ -102,6 +102,7 @@ GameObject:
   - component: {fileID: 114917152140949164}
   - component: {fileID: 114973831824587870}
   - component: {fileID: 114196862589388580}
+  - component: {fileID: 114471218669075500}
   m_Layer: 10
   m_Name: Archer
   m_TagString: Untagged
@@ -262,6 +263,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parentUnit: {fileID: 114917152140949164}
   groupParent: {fileID: 1871222452349014}
+--- !u!114 &114471218669075500
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1871222452349014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1efa4468b39abf64cb05fd696ec88f51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enabled: 1
+  deactivationRange: 10
 --- !u!114 &114917152140949164
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -273,10 +287,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47724db1c642a074e9dc6262e02850d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isVisible: 1
   allegiance: 2
-  checkDeactivation: 1
-  targets: 00000000
   moveSpeed: 1
   targetDirection: 0
   rotationSetsTargetDirection: 1
@@ -285,6 +296,10 @@ MonoBehaviour:
   unitWidth: 0.75
   useTurnSpeed: 1
   turnSpeed: 360
+  smartMove: 0
+  clampToAIArea: 1
+  targets:
+    targetAllegiances: 00000000
   animator: {fileID: 114196862589388580}
   walkMoveSpeed: 1.5
   walkTurnSpeed: 200

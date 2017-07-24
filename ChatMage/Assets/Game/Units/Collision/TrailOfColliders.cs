@@ -43,7 +43,7 @@ public class TrailOfColliders : MonoBehaviour
 
     void Start()
     {
-        ingameEvents = Game.instance.currentLevel.inGameEvents;
+        ingameEvents = Game.instance.events;
         segments = new List<Segment>(5);
     }
 
@@ -91,7 +91,7 @@ public class TrailOfColliders : MonoBehaviour
         }
     }
 
-    private float GameTime { get { return Time.time; } }
+    private float GameTime { get { return ingameEvents.GameTime; } }
 
     Transform AddSegment(Vector2 position, Vector2 size, float rotation)
     {

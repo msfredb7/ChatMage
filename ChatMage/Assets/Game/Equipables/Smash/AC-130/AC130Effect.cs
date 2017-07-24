@@ -126,11 +126,14 @@ public class AC130Effect : MonoBehaviour
         if (Game.instance.Player != null)
             Game.instance.Player.gameObject.SetActive(false);
 
-        //Panic to all units
-        for (int i = 0; i < Game.instance.units.Count; i++)
+
+        //Panic units
+        LinkedListNode<Unit> node = Game.instance.units.First;
+        while (node != null)
         {
-            if (Game.instance.units[i] != Game.instance.Player)
-                PanicUnit(Game.instance.units[i]);
+            Unit val = node.Value;
+            PanicUnit(val);
+            node = node.Next;
         }
 
         Game.instance.onUnitSpawned += PanicUnit;

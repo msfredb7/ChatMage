@@ -18,6 +18,8 @@ public class Game : PublicSingleton<Game>
     public PlayerBounds playerBounds;
     public SmashManager smashManager;
     public HealthPackManager healthPackManager;
+    public InGameEvents events;
+    public CommonVFX commonVfx;
 
     //Dynamic references
     [fsIgnore, NonSerialized]
@@ -32,7 +34,11 @@ public class Game : PublicSingleton<Game>
     public PlayableArea aiArea = new PlayableArea();
 
     [InspectorDisabled]
-    public List<Unit> units = new List<Unit>();
+    public LinkedList<Unit> units = new LinkedList<Unit>();
+    [InspectorDisabled]
+    public LinkedList<Unit> attackableUnits = new LinkedList<Unit>();
+    [fsIgnore, NonSerialized]
+    private LinkedList<AutoDeactivation> autoDeactivated = new LinkedList<AutoDeactivation>();
 
     // NON AFFICH�
 
@@ -54,11 +60,6 @@ public class Game : PublicSingleton<Game>
     public event SimpleEvent onDestroy;
     public event Unit.Unit_Event onUnitSpawned;
     public event Unit.Unit_Event onUnitDestroyed;
-
-    //public bool unitSnap_horizontalBound;
-    //public float unitSnap_horizontalBorderWidth;
-    //public bool unitSnap_verticalBound;
-    //public float unitSnap_verticalBorderWidth;
 
     public void Init(LevelScript level, Framework framework, PlayerController player)
     {
@@ -113,12 +114,17 @@ public class Game : PublicSingleton<Game>
                 currentLevel.Update();
             }
         }
+
         if (gameCamera.MovedSinceLastFrame)
         {
-            for (int i = 0; i < units.Count; i++)
+            float cameraHeight = gameCamera.Height;
+
+            LinkedListNode<AutoDeactivation> node = autoDeactivated.First;
+            while (node != null)
             {
-                if (units[i] != player.vehicle)
-                    units[i].CheckActivation();
+                AutoDeactivation val = node.Value;
+                val.CheckActivation(cameraHeight);
+                node = node.Next;
             }
         }
     }
@@ -156,7 +162,23 @@ public class Game : PublicSingleton<Game>
         unit.transform.SetParent(unitsContainer);
         unit.TimeScale = worldTimeScale;
 
-        units.Add(unit);
+        units.AddLast(unit);
+        unit.stdNode = units.Last;
+
+        //Auto Deactivation ?
+        AutoDeactivation autoDeactivation = unit.GetComponent<AutoDeactivation>();
+        if (autoDeactivation != null)
+        {
+            autoDeactivated.AddLast(autoDeactivation);
+            autoDeactivation.gameNode = autoDeactivated.Last;
+        }
+
+        //Attackable ?
+        if (unit is IAttackable)
+        {
+            attackableUnits.AddLast(unit);
+            unit.attackableNode = attackableUnits.Last;
+        }
 
         if (onUnitSpawned != null)
             onUnitSpawned(unit);
@@ -173,23 +195,25 @@ public class Game : PublicSingleton<Game>
 
     private void OnUnitDestroy(Unit unit)
     {
-        units.Remove(unit);
-
         //est-ce qu'on est entrain de quit ?
         if (instance == null)
             return;
 
+        //On l'enleve de la liste
+        units.Remove(unit.stdNode);
+        
+        //Auto Deactivation ?
+        AutoDeactivation autoDeactivation = unit.GetComponent<AutoDeactivation>();
+        if (autoDeactivation != null)
+            autoDeactivated.Remove(autoDeactivation.gameNode);
+
+        //Attackable ?
+        if (unit is IAttackable)
+            attackableUnits.Remove(unit.attackableNode);
+
         if (onUnitDestroyed != null)
             onUnitDestroyed(unit);
     }
-
-    //public void SetUnitSnapBorders(bool horizontalBound, float horizontalBorderWidth, bool verticalBound, float verticalBorderWidth)
-    //{
-    //    unitSnap_horizontalBound = horizontalBound;
-    //    unitSnap_horizontalBorderWidth = horizontalBorderWidth;
-    //    unitSnap_verticalBound = verticalBound;
-    //    unitSnap_verticalBorderWidth = verticalBorderWidth;
-    //}
 
     #endregion
 }

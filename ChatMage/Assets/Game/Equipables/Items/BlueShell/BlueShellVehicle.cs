@@ -13,6 +13,8 @@ public class BlueShellVehicle : Vehicle
     [Header("Behavior")]
     public float wanderDuration;
     public float screenBorderWidth = 1.5f;
+    [Forward]
+    public Targets targets;
 
     [Header("Movement")]
     public float maxTurnSpeed = 500;
@@ -57,6 +59,7 @@ public class BlueShellVehicle : Vehicle
         turnAcc = 0;
         turnSpeed = 0;
         chooseNewTurnAcc = 0;
+        isDead = false;
 
         animator.ResetValues();
     }
@@ -143,36 +146,31 @@ public class BlueShellVehicle : Vehicle
 
     Unit FindClosestTargetTo(Vector2 pos)
     {
-        List<Unit> units = Game.instance.units;
         Unit closestUnit = null;
-
         float smallestDistance = float.PositiveInfinity;
 
-        for (int i = 0; i < units.Count; i++)
+        LinkedListNode<Unit> node = Game.instance.attackableUnits.First;
+        foreach (Unit unit in Game.instance.attackableUnits)
         {
             //Ignore allies
-            if (units[i].allegiance == Allegiance.Ally)
+            if (!targets.IsValidTarget(unit))
                 continue;
 
-            float distance = Vector3.Distance(units[i].Position, pos);
+            float distance = (unit.Position - pos).sqrMagnitude;
 
             if (distance < smallestDistance)
             {
-                closestUnit = units[i];
+                closestUnit = unit;
                 smallestDistance = distance;
             }
         }
+        
         return closestUnit;
     }
 
     private void ColliderListener_onTriggerEnter(ColliderInfo other, ColliderListener listener)
     {
         Die();
-    }
-
-    public override void CheckActivation()
-    {
-        //On ne desactive jamais
     }
 
     protected override void Die()

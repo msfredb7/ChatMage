@@ -47,7 +47,7 @@ public class ShielderVehicle : EnemyVehicle
             //Attacked on shield
             if (onShieldPhysicalHit != null && source != null)
             {
-                if (IsValidTarget(unit.allegiance) && unit is Vehicle)
+                if (targets.IsValidTarget(unit.allegiance) && unit is Vehicle)
                 {
                     //Bump !
                     (unit as Vehicle).Bump((unit.Position - Position).normalized * bumpStrength, bumpDuration, BumpMode.VelocityAdd);

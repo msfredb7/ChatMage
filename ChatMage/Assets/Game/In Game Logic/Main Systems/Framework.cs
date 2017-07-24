@@ -10,7 +10,6 @@ public class Framework : MonoBehaviour
     public const string SCENENAME = "Framework";
     public bool loadScenesAsync = false;
     public Game game;
-    public InGameEvents events;
     [Header("Temporaire")]
     public PlayerBuilder playerbuilder;
 
@@ -121,7 +120,7 @@ public class Framework : MonoBehaviour
         InitQueue initQueue = new InitQueue(OnAllModulesLoaded);
 
         //Ajouter dautre module ici si nécessaire
-        level.Init(initQueue.Register(), events);
+        level.Init(initQueue.Register());
         playerbuilder.LoadAssets(loadoutResult, initQueue.Register());
 
         initQueue.MarkEnd();

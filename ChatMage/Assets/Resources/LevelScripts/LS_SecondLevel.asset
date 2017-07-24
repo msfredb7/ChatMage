@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53f3c83a20da88e47a6a88af09b295a0, type: 3}
+  m_Name: LS_SecondLevel
+  m_EditorClassIdentifier: 
+  _objectReferences:
+  - {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
+  - {fileID: 114892083099199946, guid: a97b513999cddca448e173580c0c886f, type: 2}
+  - {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
+  - {fileID: 114917152140949164, guid: 90a1293e412776e4db23eb9595fcf924, type: 2}
+  - {fileID: 114892083099199946, guid: a97b513999cddca448e173580c0c886f, type: 2}
+  - {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
+  - {fileID: 114917152140949164, guid: 90a1293e412776e4db23eb9595fcf924, type: 2}
+  - {fileID: 114892083099199946, guid: a97b513999cddca448e173580c0c886f, type: 2}
+  _serializedStateKeys:
+  - winningConditions
+  - losingConditions
+  - events
+  - waves
+  - rewards
+  _serializedStateValues:
+  - '[]'
+  - '[{"$type":"GameCondition.LoseOnPlayerDeath"}]'
+  - 
+  - '[{"what":{"spawnSequence":[{"unit":0,"quantity":4}],"onSpawnMethod":"","progressCallbacks":[{"levelEventName":"wave
+    1 complete","atProgress":0.9,"atKillCount":0,"useProgress":true}]},"where":{"logErrorIfUnableToLaunch":true,"spawnTag":"ordered","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0},"when":{"type":"OnManualTrigger","time":0.0,"name":"1st
+    wave","onlyTriggerOnce":true},"spawnInterval":2.0},{"what":{"spawnSequence":[{"unit":1,"quantity":1}],"onSpawnMethod":"","progressCallbacks":[{"levelEventName":"wave
+    2 complete","atProgress":1.0,"atKillCount":0,"useProgress":true}]},"where":{"logErrorIfUnableToLaunch":true,"spawnTag":"ordered","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0},"when":{"type":"OnManualTrigger","time":0.0,"name":"2nd
+    wave","onlyTriggerOnce":true},"spawnInterval":1.0},{"what":{"spawnSequence":[{"unit":2,"quantity":10},{"unit":3,"quantity":10}],"onSpawnMethod":"","progressCallbacks":[{"levelEventName":"wave
+    3 complete","atProgress":1.0,"atKillCount":0,"useProgress":true}]},"where":{"logErrorIfUnableToLaunch":true,"spawnTag":"ordered","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0},"when":{"type":"OnManualTrigger","time":0.0,"name":"3rd
+    wave","onlyTriggerOnce":true},"spawnInterval":0.25},{"what":{"spawnSequence":[{"unit":4,"quantity":4}],"onSpawnMethod":"","progressCallbacks":[{"levelEventName":"wave
+    4 complete","atProgress":1.0,"atKillCount":0,"useProgress":true}]},"where":{"logErrorIfUnableToLaunch":true,"spawnTag":"ordered","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0},"when":{"type":"OnManualTrigger","time":0.0,"name":"4th
+    wave","onlyTriggerOnce":true},"spawnInterval":1.0},{"what":{"spawnSequence":[{"unit":5,"quantity":100},{"unit":6,"quantity":100},{"unit":7,"quantity":100}],"onSpawnMethod":"","progressCallbacks":[{"levelEventName":"last
+    impossible wave","atProgress":1.0,"atKillCount":0,"useProgress":true}]},"where":{"logErrorIfUnableToLaunch":true,"spawnTag":"sides","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0},"when":{"type":"OnManualTrigger","time":0.0,"name":"final
+    wave","onlyTriggerOnce":true},"spawnInterval":0.1}]'
+  - '{"overrideGoldAmount":false,"goldReward":{"baseAmountMin":0,"baseAmountMax":0,"firstWinAmountMin":0,"firstWinAmountMax":0},"giveLootBox":false,"lootboxRefName":null,"goldified":false}'
+  sceneName: RomanArena2
+  introPrefab: {fileID: 114921437952830070, guid: 002facbad3d5db44e89adaf01930e6fb,
+    type: 2}
+  winOutroPrefab: {fileID: 114288339278322360, guid: 1e4d836705c07534fb5b431bb36cb2ab,
+    type: 2}
+  loseOutroPrefab: {fileID: 114991219666454608, guid: 1e119aa4a9b4fba448ae2ee2adf573eb,
+    type: 2}
+  noHealthPacks: 0
+  followPlayerOnStart: 0
+  useCustomGenericEvents: 0
+  events: []
+  isOver: 1
+  inGameEvents: {fileID: 0}
+  activateTutorial: 1
+  tutorialAssetName: TUT_SecondLevel
+  whatAmISupposeToDo: {fileID: 11400000, guid: 312e4147c47dce344bba46ec0a8486db, type: 2}
+  enterArenaDialog: {fileID: 11400000, guid: 493d72e3e92e57a4eb0e7c658b1798e3, type: 2}
+  secondWaveTalk: {fileID: 11400000, guid: d21ab8247cabc184db53f0d86b2f2546, type: 2}
+  thirdWaveTalk: {fileID: 11400000, guid: b825e28f6e967174db39a343046e1066, type: 2}
+  whatIsThisSorcery: {fileID: 11400000, guid: dc6eceab0b5133e43a7326c11e8517a6, type: 2}
+  getHim: {fileID: 11400000, guid: 0f26f2bb04526f841ac7fe9e03eaf2a6, type: 2}

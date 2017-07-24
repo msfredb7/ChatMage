@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChainChomp : Unit
+public class ChainChomp : MovingUnit, IAttackable
 {
     [Header("Chain Chomp")]
     public Rigidbody2D anchor;
@@ -44,21 +44,25 @@ public class ChainChomp : Unit
             //Bump !
             if (other.parentUnit is Vehicle)
             {
-                if (other.parentUnit.rb.bodyType == RigidbodyType2D.Dynamic)
+                Vehicle otherVeh = other.parentUnit as Vehicle;
+                if (otherVeh.rb.bodyType == RigidbodyType2D.Dynamic)
                     (other.parentUnit as Vehicle).Bump(
-                        (other.parentUnit.rb.position - realBall.position).normalized * realBall.velocity.magnitude * 1.5f,
+                        (otherVeh.Position - realBall.position).normalized * realBall.velocity.magnitude * 1.5f,
                         0,
                         BumpMode.VelocityAdd);
                 else
                     (other.parentUnit as Vehicle).Bump(
-                        (other.parentUnit.rb.position - realBall.position).normalized * realBall.velocity.magnitude * 1.5f,
+                        (otherVeh.Position - realBall.position).normalized * realBall.velocity.magnitude * 1.5f,
                         0.25f,
                         BumpMode.VelocityAdd);
             }
 
             IAttackable attackable = other.parentUnit.GetComponent<IAttackable>();
             if (attackable != null)
+            {
+                Game.instance.commonVfx.SmallHit(collision.contacts[0].point, Color.white);
                 attackable.Attacked(other, hitDamage * Game.instance.Player.playerStats.damageMultiplier, this, listener.info);
+            }
         }
     }
 
@@ -92,5 +96,10 @@ public class ChainChomp : Unit
         container.transform.position += new Vector3(delta.x, delta.y);
         teleported = true;
         rb.velocity = Vector3.zero;
+    }
+
+    public int Attacked(ColliderInfo on, int amount, Unit otherUnit, ColliderInfo source = null)
+    {
+        return 1;
     }
 }

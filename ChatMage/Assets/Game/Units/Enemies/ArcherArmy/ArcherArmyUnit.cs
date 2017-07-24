@@ -1,12 +1,18 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.ObjectModel;
 
-public class ArcherArmyUnit : Unit {
-
+public class ArcherArmyUnit : Unit
+{
     public ArcherArrow arrowPrefab;
     public string unitSpawnTag;
     public float cooldown;
+
+    [Header("Targets"), Forward]
+    public Targets targets;
+
+    [Header("If no target")]
     public float minAngle = 45;
     public float maxAngle = 135;
 
@@ -14,45 +20,50 @@ public class ArcherArmyUnit : Unit {
 
     private float countdown;
 
-    void Start ()
+    void Start()
     {
         countdown = 0;
-        if(debug)
+        if (debug)
             Debug.Log("Archer Army Spawn");
     }
 
-    protected override void Update ()
+    protected override void Update()
     {
         base.Update();
-        if(countdown < 0)
+
+        if (countdown <= 0)
         {
             Shoot();
         }
         countdown -= DeltaTime();
-	}
+    }
 
     private void Shoot()
     {
-        List<UnitSpawn> spawnLocations = Game.instance.map.mapping.GetSpawns_NewList(unitSpawnTag);
+        ReadOnlyCollection<UnitSpawn> spawnLocations = Game.instance.map.mapping.GetSpawns(unitSpawnTag);
 
         int randomIndex = Random.Range(0, spawnLocations.Count - 1);
         ArcherArrow currentArrow = spawnLocations[randomIndex].SpawnUnit(arrowPrefab);
-        
-        if(Game.instance.Player != null)
+
+        Vector2 dir = Vector2.zero;
+
+        PlayerVehicle player = Game.instance.Player.vehicle;
+        if (player != null)
         {   // Si on a un joueur, on envoie les fleches vers lui
-            if(debug)
-                Debug.Log("Arrow Spawned Towards Player"); 
-            Vector2 angleTowardsPlayer = new Vector3(Game.instance.Player.vehicle.Position.x, Game.instance.Player.vehicle.Position.y, 0) - spawnLocations[randomIndex].transform.position;
-            currentArrow.Init(angleTowardsPlayer);
+            if (debug)
+                Debug.Log("Arrow Spawned Towards Player");
+
+            dir = player.Position - (Vector2)currentArrow.transform.position;
         }
         else
         {
-            if(debug)
+            if (debug)
                 Debug.Log("Arrow Spawned Randomly");
-            currentArrow.Init(Vehicle.AngleToVector(Random.Range(45, 135))); // Sinon c'est random
+
+            dir = Vehicle.AngleToVector(Random.Range(minAngle, maxAngle));
         }
-       
-        currentArrow.Init(this);
+
+        currentArrow.Init(this, dir, targets);
 
         countdown = cooldown;
     }

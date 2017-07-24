@@ -44,14 +44,18 @@ public class LS_FirstLevel : LevelScript
 
 
         //On ecoute a la mort de la porte
-        List<Unit> allUnits = Game.instance.units;
-        for (int i = 0; i < allUnits.Count; i++)
+        LinkedListNode<Unit> node = Game.instance.units.First;
+        while (node != null)
         {
-            if(allUnits[i] is DestructibleDoor)
+            Unit val = node.Value;
+
+            if (val is DestructibleDoor)
             {
-                allUnits[i].onDeath += OnDestructibleDoorBroken;
+                val.onDeath += OnDestructibleDoorBroken;
                 break;
             }
+
+            node = node.Next;
         }
     }
 

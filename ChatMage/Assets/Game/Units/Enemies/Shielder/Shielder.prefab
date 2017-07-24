@@ -191,6 +191,7 @@ GameObject:
   - component: {fileID: 114892083099199946}
   - component: {fileID: 114959007032342916}
   - component: {fileID: 114967462287717054}
+  - component: {fileID: 114954738160054536}
   m_Layer: 11
   m_Name: Shielder
   m_TagString: Untagged
@@ -586,10 +587,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9fb04a334d7d1e48adab9b6a5de2cca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isVisible: 1
   allegiance: 2
-  checkDeactivation: 1
-  targets: 00000000
   moveSpeed: 1.8
   targetDirection: 0
   rotationSetsTargetDirection: 1
@@ -598,6 +596,10 @@ MonoBehaviour:
   unitWidth: 1.2
   useTurnSpeed: 1
   turnSpeed: 95
+  smartMove: 0
+  clampToAIArea: 1
+  targets:
+    targetAllegiances: 00000000
   shieldGroup: {fileID: 1216963666200194}
   swordListener: {fileID: 114246168422857604}
   animator: {fileID: 114967462287717054}
@@ -605,6 +607,19 @@ MonoBehaviour:
   bumpDuration: 0
   passiveMoveSpeed: 1.5
   passiveTurnSpeed: 200
+--- !u!114 &114954738160054536
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1871222452349014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1efa4468b39abf64cb05fd696ec88f51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enabled: 1
+  deactivationRange: 10
 --- !u!114 &114959007032342916
 MonoBehaviour:
   m_ObjectHideFlags: 1

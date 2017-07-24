@@ -31,7 +31,7 @@ public class AC130Bullet : FullInspector.BaseBehavior
 
         listener.onTriggerEnter += Listener_onTriggerEnter;
 
-        Game.instance.currentLevel.inGameEvents.AddDelayedAction(Detonate, arriveDelay);
+        Game.instance.events.AddDelayedAction(Detonate, arriveDelay);
     }
 
     public void Init(Image blackFade)

@@ -1,4 +1,4 @@
-﻿using FullInspector;
+using FullInspector;
 using FullSerializer;
 using System;
 using System.Collections;
@@ -96,7 +96,9 @@ public class LS_ThridLevel : LevelScript
 
     public void NotDeactivatedWhenOutOfCamera(Unit unit)
     {
-        unit.checkDeactivation = false;
+        AutoDeactivation deac = unit.GetComponent<AutoDeactivation>();
+        if(deac != null)
+            deac.enabled = false;
     }
 
     public override void OnReceiveEvent(string message)
@@ -135,9 +137,17 @@ public class LS_ThridLevel : LevelScript
                 canWin = true;
                 break;
             case "boss battle entry":
-                List<Unit> unitsInGame = Game.instance.units;
-                for (int i = 0; i < unitsInGame.Count; i++)
-                    unitsInGame[i].checkDeactivation = true;
+                LinkedListNode<Unit> node = Game.instance.units.First;
+                while (node != null)
+                {
+                    Unit val = node.Value;
+
+                    AutoDeactivation deac = val.GetComponent<AutoDeactivation>();
+                    if (deac != null)
+                        deac.enabled = true;
+
+                    node = node.Next;
+                }
                 break;
             case "boss battle":
                 inGameEvents.AddDelayedAction(StartBossWave, 0.5f);

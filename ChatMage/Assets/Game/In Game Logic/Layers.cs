@@ -15,4 +15,5 @@ public class Layers
     public const int ENVIRONMENT = 16;
     public const int CHAIN_CHOMP = 17;
     public const int TRIGGER_ON_NON_SOLID_ENEMIES = 18;
+    public const int NAVIGATION = 19;
 }

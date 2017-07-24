@@ -159,7 +159,7 @@ public class Mapping : BaseBehavior
 
     private void OnGameReady()
     {
-        InGameEvents events = Game.instance.currentLevel.inGameEvents;
+        InGameEvents events = Game.instance.events;
         if (spawns != null)
             foreach (KeyValuePair<string, List<UnitSpawn>> spawnGroup in spawns)
             {

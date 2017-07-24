@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerVehicle : Vehicle, IAttackable
+public class PlayerVehicle : Vehicle, IAttackable, IVisible
 {
     [Header("Trail Renderers")]
     public string sortingLayer;
@@ -100,6 +100,11 @@ public class PlayerVehicle : Vehicle, IAttackable
     public int Attacked(ColliderInfo on, int amount, Unit otherUnit, ColliderInfo source = null)
     {
         return controller.playerStats.Attacked(on, amount, otherUnit, source);
+    }
+
+    public bool IsVisible()
+    {
+        return controller.playerStats.isVisible;
     }
 
     #region Drift
