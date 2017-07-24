@@ -17,9 +17,7 @@ MonoBehaviour:
   - {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
   - {fileID: 114917152140949164, guid: 90a1293e412776e4db23eb9595fcf924, type: 2}
   - {fileID: 114892083099199946, guid: a97b513999cddca448e173580c0c886f, type: 2}
-  - {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
-  - {fileID: 114917152140949164, guid: 90a1293e412776e4db23eb9595fcf924, type: 2}
-  - {fileID: 114892083099199946, guid: a97b513999cddca448e173580c0c886f, type: 2}
+  - {fileID: 114344825121110454, guid: 87979850fb6813446a6c13a64c2eebb6, type: 2}
   _serializedStateKeys:
   - winningConditions
   - losingConditions
@@ -38,7 +36,7 @@ MonoBehaviour:
     3 complete","atProgress":1.0,"atKillCount":0,"useProgress":true}]},"where":{"logErrorIfUnableToLaunch":true,"spawnTag":"ordered","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0},"when":{"type":"OnManualTrigger","time":0.0,"name":"3rd
     wave","onlyTriggerOnce":true},"spawnInterval":0.25},{"what":{"spawnSequence":[{"unit":4,"quantity":4}],"onSpawnMethod":"","progressCallbacks":[{"levelEventName":"wave
     4 complete","atProgress":1.0,"atKillCount":0,"useProgress":true}]},"where":{"logErrorIfUnableToLaunch":true,"spawnTag":"ordered","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0},"when":{"type":"OnManualTrigger","time":0.0,"name":"4th
-    wave","onlyTriggerOnce":true},"spawnInterval":1.0},{"what":{"spawnSequence":[{"unit":5,"quantity":100},{"unit":6,"quantity":100},{"unit":7,"quantity":100}],"onSpawnMethod":"","progressCallbacks":[{"levelEventName":"last
+    wave","onlyTriggerOnce":true},"spawnInterval":1.0},{"what":{"spawnSequence":[{"unit":5,"quantity":1}],"onSpawnMethod":"SetArmyWallSideWalk","progressCallbacks":[{"levelEventName":"last
     impossible wave","atProgress":1.0,"atKillCount":0,"useProgress":true}]},"where":{"logErrorIfUnableToLaunch":true,"spawnTag":"sides","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0},"when":{"type":"OnManualTrigger","time":0.0,"name":"final
     wave","onlyTriggerOnce":true},"spawnInterval":0.1}]'
   - '{"overrideGoldAmount":false,"goldReward":{"baseAmountMin":0,"baseAmountMax":0,"firstWinAmountMin":0,"firstWinAmountMax":0},"giveLootBox":false,"lootboxRefName":null,"goldified":false}'
@@ -54,7 +52,6 @@ MonoBehaviour:
   useCustomGenericEvents: 0
   events: []
   isOver: 1
-  inGameEvents: {fileID: 0}
   activateTutorial: 1
   tutorialAssetName: TUT_SecondLevel
   whatAmISupposeToDo: {fileID: 11400000, guid: 312e4147c47dce344bba46ec0a8486db, type: 2}

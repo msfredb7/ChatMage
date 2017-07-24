@@ -182,4 +182,12 @@ public class LS_SecondLevel : LevelScript
             Lose();
         }
     }
+    
+    public void SetArmyWallSideWalk(Unit unit)
+    {
+        (unit as ArmyWallScript).marchinY = false;
+        (unit as ArmyWallScript).beginMarching = true;
+        // À modifier !
+        (unit as ArmyWallScript).transform.rotation = Quaternion.Euler(new Vector3((unit as ArmyWallScript).transform.rotation.x, (unit as ArmyWallScript).transform.rotation.y, (unit as ArmyWallScript).transform.rotation.z - 90));
+    }
 }
