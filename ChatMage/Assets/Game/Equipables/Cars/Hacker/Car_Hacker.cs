@@ -6,11 +6,15 @@ using UnityEngine;
 public class Car_Hacker : StdCar
 {
     public HackerCarZone zonePrefab;
+    public float boostedAOESizeMultiplier = 1.5f;
 
-    public override void Init(PlayerController player)
+    public override void OnGameReady()
     {
-        base.Init(player);
+        base.OnGameReady();
 
-        Instantiate(zonePrefab.gameObject, player.transform);
+        //Il faut faire ceci dans le OnGameReady et non le Init() parce qu'on veut etre sur que stats.boosterAOE se fasse avant.
+        HackerCarZone zone = Instantiate(zonePrefab.gameObject, player.transform).GetComponent<HackerCarZone>();
+        if (player.playerStats.boostedAOE)
+            zone.SetSizeMultiplier(boostedAOESizeMultiplier);
     }
 }

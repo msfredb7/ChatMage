@@ -101,7 +101,7 @@ public class SingleColliderFilter
         LinkedListNode<Contact> node = contacts.First;
         while (node != null)
         {
-            if ((groupByUnits && node.Value.unit == node.Value.unit)
+            if ((groupByUnits && node.Value.unit == info.parentUnit)
                 || (!groupByUnits && node.Value.groupParent == info.GroupParent))
             {
                 return node;
