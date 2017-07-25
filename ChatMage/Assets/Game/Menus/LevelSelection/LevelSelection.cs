@@ -36,7 +36,7 @@ namespace LevelSelect
             {
                 demoButton.gameObject.SetActive(true);
                 ToLoadoutMessage message = new ToLoadoutMessage(demoLevel.levelScriptName);
-                demoButton.onClick.AddListener(delegate() { LoadingScreen.TransitionTo(LoadoutMenu.LoadoutUI.SCENENAME, message); });
+                demoButton.onClick.AddListener(delegate () { LoadingScreen.TransitionTo(LoadoutMenu.LoadoutUI.SCENENAME, message); });
                 for (int i = 0; i < regions.Count; i++)
                 {
                     regions[i].HideAll();
@@ -146,7 +146,7 @@ namespace LevelSelect
             for (int i = 0; i < regions.Count; i++)
             {
                 if (!regions[i].IsUnlocked())
-                    return i--;
+                    return i - 1;
             }
             return regions.Count - 1;
         }
