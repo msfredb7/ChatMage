@@ -20,13 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4575513128123708}
   - component: {fileID: 212141145934061108}
-  - component: {fileID: 95361268422487950}
-  - component: {fileID: 114558890806942004}
-  - component: {fileID: 114334854763484164}
-  - component: {fileID: 58842716966805176}
-  - component: {fileID: 114883677235404680}
   m_Layer: 13
-  m_Name: Animation&Colliders
+  m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40,10 +35,12 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4497338282671394}
-  - component: {fileID: 50823870918219802}
   - component: {fileID: 114351127194551288}
-  m_Layer: 0
-  m_Name: Wormhole
+  - component: {fileID: 114293992652724934}
+  - component: {fileID: 114703742522546132}
+  - component: {fileID: 58914338706505186}
+  m_Layer: 13
+  m_Name: Rasengan
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,32 +73,12 @@ Transform:
   m_Father: {fileID: 4497338282671394}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &50823870918219802
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1906148638846342}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!58 &58842716966805176
+--- !u!58 &58914338706505186
 CircleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1272976988153224}
+  m_GameObject: {fileID: 1906148638846342}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -110,36 +87,19 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.4
---- !u!95 &95361268422487950
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1272976988153224}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a4dec2bfeb11952479cae4a5cc2dc09f, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114334854763484164
+  m_Radius: 1
+--- !u!114 &114293992652724934
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1272976988153224}
+  m_GameObject: {fileID: 1906148638846342}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 65d05512cab53054d8a0b20414ee7974, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  info: {fileID: 114558890806942004}
+  info: {fileID: 114703742522546132}
   useTrigger: 1
   useCollision: 0
 --- !u!114 &114351127194551288
@@ -154,40 +114,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allegiance: 0
-  overrideDeactivationRange: 0
-  newDeactivationRange: 0
-  canUseBorder: 0
-  unitWidth: 0
-  spriteNcollider: {fileID: 1272976988153224}
-  animations: {fileID: 95361268422487950}
-  wormholeFinalSize: 5
-  wormholeGrowEase: 27
-  rotationSpeed: 25
---- !u!114 &114558890806942004
+  spr: {fileID: 212141145934061108}
+  trigger: {fileID: 114293992652724934}
+  targets:
+    targetAllegiances: 02000000
+  boostedAOESizeMultiplier: 1.4
+  finalSize: 1
+  growthDuration: 0.75
+  growthEase: 3
+  duration: 6
+  decayFinalSize: 0.8
+  decayDuration: 0.5
+  decayEase: 2
+--- !u!114 &114703742522546132
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1272976988153224}
+  m_GameObject: {fileID: 1906148638846342}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 75c6e7122024f1b439a1e42789a30e5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   parentUnit: {fileID: 114351127194551288}
-  groupParent: {fileID: 1906148638846342}
---- !u!114 &114883677235404680
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1272976988153224}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f792547a1ba9db7458efb192c40c0f01, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  wormhole: {fileID: 114351127194551288}
+  groupParent: {fileID: 0}
 --- !u!212 &212141145934061108
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -217,14 +168,14 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 58746222cb13f7e4c9e398d56de3d7c9, type: 3}
+  m_SortingLayerID: -852012283
+  m_SortingLayer: 1
+  m_SortingOrder: 52
+  m_Sprite: {fileID: 21300000, guid: 0e14a0802d6881c46aad195347365e68, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2.56, y: 2.56}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0

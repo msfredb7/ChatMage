@@ -5,8 +5,10 @@ using UnityEngine;
 using FullSerializer;
 using FullInspector;
 
-public class ITM_Wormholev2 : Item
+public class ITM_Rasengan : Item
 {
+    public bool debugDraw = true;
+
     [InspectorHeader("Trail")]
     public float minSegmentLength = 0.3f;
     public float maxTrailLength;
@@ -18,11 +20,7 @@ public class ITM_Wormholev2 : Item
     public float minCircleResemblance = 0.93f;
 
     [InspectorHeader("Linking")]
-    public Wormhole wormholePrefab;
-    private Wormhole wormholeSpawned;
-
-    [InspectorHeader("Duration")]
-    public float duration = 5;
+    public Rasengan rasenganPrefab;
 
     [NonSerialized, fsIgnore]
     private LoopTrail trail;
@@ -56,18 +54,18 @@ public class ITM_Wormholev2 : Item
             //Ceci dessine la loop en rouge. 
             // Pour la voire, il faut que tu regarde la 'scene view' et non la 'game view' pendant que tu joue
             //                                                              tip: fait 2 fen�tre
-
-            DrawTrail(
-                points,
-                new Color(
-                    1,
-                    0,
-                    0,
-                    1),
-                1.5f);
+            if (debugDraw)
+                DrawTrail(
+                    points,
+                    new Color(
+                        1,
+                        0,
+                        0,
+                        1),
+                    1.5f);
 
             Vector2 wormholePosition = PositionMoyenne(points);
-            SpawnWormhole(wormholePosition);
+            SpawnRasengan(wormholePosition);
 
             //Lancer l'attaque ici !
             //1. trouver le centre de la loop (simplement faire la moyenne x,y des points)
@@ -92,7 +90,7 @@ public class ITM_Wormholev2 : Item
 
         return new Vector2(allX, allY);
     }
-    
+
     void DrawTrail(Vector2[] points, Color color, float duration)
     {
         for (int i = 0; i < points.Length; i++)
@@ -107,10 +105,8 @@ public class ITM_Wormholev2 : Item
         trail = null;
     }
 
-    void SpawnWormhole(Vector2 position)
+    void SpawnRasengan(Vector2 position)
     {
-        Debug.Log("Spawning Wormhole");
-        wormholeSpawned = Game.instance.SpawnUnit(wormholePrefab, position);
-        wormholeSpawned.StartCountdown(duration);
+        Game.instance.SpawnUnit(rasenganPrefab, position);
     }
 }
