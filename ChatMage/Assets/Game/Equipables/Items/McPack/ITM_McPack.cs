@@ -1,11 +1,12 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ITM_McPack : Item {
 
-    public float maxChance = 35;
+    [FullInspector.InspectorHeader("Health packs")]
+    public float appearanceMultiplier = 0.7f;
     public int regenAmount = 2;
 
     public override void OnGameReady()
@@ -14,8 +15,10 @@ public class ITM_McPack : Item {
 
     public override void OnGameStarted()
     {
-        Game.instance.healthPackManager.lerpCeiling = maxChance;
-        Game.instance.healthPackManager.healthPackPrefab.regenAmount = regenAmount;
+        HealthPackManager hpMan = Game.instance.healthPackManager;
+
+        hpMan.luckMultiplier = appearanceMultiplier;
+        hpMan.healthPackPrefab.regenAmount = regenAmount;
     }
 
     public override void OnUpdate()
