@@ -2,10 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FullInspector;
 
 public class ITM_McPack : Item {
 
-    [FullInspector.InspectorHeader("Health packs")]
+    [InspectorHeader("Health packs"), InspectorRange(0,1)]
     public float appearanceMultiplier = 0.7f;
     public int regenAmount = 2;
 
@@ -17,7 +18,7 @@ public class ITM_McPack : Item {
     {
         HealthPackManager hpMan = Game.instance.healthPackManager;
 
-        hpMan.luckMultiplier = appearanceMultiplier;
+        hpMan.luckMultiplier *= appearanceMultiplier;
         hpMan.healthPackPrefab.regenAmount = regenAmount;
     }
 
