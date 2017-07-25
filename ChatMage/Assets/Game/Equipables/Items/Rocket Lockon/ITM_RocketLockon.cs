@@ -1,0 +1,24 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ITM_RocketLockon : Item
+{
+    public RocketLauncher launcherPrefab;
+
+    public override void OnGameReady()
+    {
+        Instantiate(launcherPrefab.gameObject, player.body);
+    }
+
+    public override void OnGameStarted()
+    {
+
+    }
+
+    public override void OnUpdate()
+    {
+
+    }
+}

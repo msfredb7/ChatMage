@@ -7,6 +7,9 @@ using UnityEngine.Events;
 public class PlayerController : MonoBehaviour
 {
     public PlayerVehicle vehicle;
+    /// <summary>
+    /// Le transform du corps. Celui ci PEUT etre scaled up/down (dependemment des items, de la situation, etc.)
+    /// </summary>
     public Transform body;
     public PlayerSmash playerSmash;
     public PlayerDriver playerDriver;

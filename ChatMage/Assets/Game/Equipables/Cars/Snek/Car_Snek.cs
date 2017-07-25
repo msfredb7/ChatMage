@@ -79,9 +79,9 @@ public class Car_Snek : Car, IFixedUpdate
         bool accelerating = accTimer >= 0;
 
         if (accelerating)
-            speed01 = speed01.MoveTowards(1, acceleration * deltaTime);
+            speed01 = speed01.MovedTowards(1, acceleration * deltaTime);
         else
-            speed01 = speed01.MoveTowards(0, deceleration * deltaTime);
+            speed01 = speed01.MovedTowards(0, deceleration * deltaTime);
 
         player.vehicle.MoveSpeed = speed01 * topSpeed + 0.01f;
     }
