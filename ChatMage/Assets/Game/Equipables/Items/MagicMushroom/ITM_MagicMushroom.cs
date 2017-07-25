@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ITM_MonsterTruck : Item
+public class ITM_MagicMushroom : Item
 {
     public float scaleMultiplier = 2;
     public float hpMultiplier = 2;

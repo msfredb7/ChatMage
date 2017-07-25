@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +9,7 @@ public class ITM_BouclierTournant : Item {
 
     public override void OnGameReady()
     {
-        Instantiate(shieldPrefab, player.vehicle.transform);
+        Instantiate(shieldPrefab, player.transform);
     }
 
     public override void OnGameStarted()
