@@ -15,6 +15,11 @@ public class HackerCarZone : MonoBehaviour
         filter.onUnitRemoved = Unhack;
     }
 
+    public void SetSizeMultiplier(float multiplier = 1)
+    {
+        transform.localScale = Vector3.one * multiplier;
+    }
+
     void Hack(Unit unit)
     {
         unit.TimeScale *= timescaleMultiplier;
@@ -41,7 +46,7 @@ public class HackerCarZone : MonoBehaviour
         filter.RemoteUpdate();
     }
 
-    public void OnTriggerEnter2D(Collider2D col)
+    void OnTriggerEnter2D(Collider2D col)
     {
         ColliderInfo other = col.GetComponent<ColliderInfo>();
         if (other == null)
@@ -53,7 +58,7 @@ public class HackerCarZone : MonoBehaviour
         filter.OnTriggerEnter(other);
     }
 
-    public void OnTriggerExit2D(Collider2D col)
+    void OnTriggerExit2D(Collider2D col)
     {
         ColliderInfo other = col.GetComponent<ColliderInfo>();
         if (other == null)

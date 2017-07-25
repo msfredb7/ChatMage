@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using CCC.EditorUtil;
 
 public class NAV_SmartSurface : NAV_SmartMover
 {

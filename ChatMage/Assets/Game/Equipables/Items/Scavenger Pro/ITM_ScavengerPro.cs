@@ -1,16 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FullInspector;
 
 public class ITM_ScavengerPro : Item
 {
-    [FullInspector.InspectorRange(0, 100)]
-    public float spawnChanceIncrease = 30;
+    [InspectorHeader("Health packs"), InspectorRange(1, 2)]
+    public float appearanceMultiplier = 1.35f;
 
     public override void Init(PlayerController player)
     {
         base.Init(player);
-        Game.instance.healthPackManager.luckMultiplier += spawnChanceIncrease / 100;
+        Game.instance.healthPackManager.luckMultiplier *= appearanceMultiplier;
     }
     public override void OnGameReady()
     {
