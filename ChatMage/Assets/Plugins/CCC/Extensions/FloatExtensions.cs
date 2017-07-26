@@ -24,9 +24,14 @@ public static class FloatExtensions
         return Mathf.Max(value, min);
     }
 
-    public static float MoveTowards(this float value, float target, float delta)
+    public static float MovedTowards(this float value, float target, float delta)
     {
         return Mathf.MoveTowards(value, target, delta);
+    }
+
+    public static float Lerpped(this float value, float target, float t)
+    {
+        return Mathf.Lerp(value, target, t);
     }
 
     public static float Mod(this float value, float modulo)

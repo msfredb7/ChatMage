@@ -22,6 +22,9 @@ public abstract class Unit : MonoBehaviour
     public event Unit_Event onDestroy;
     public event Unit_Event onDeath;
 
+    [System.NonSerialized]
+    public List<string> marks = new List<string>();
+
     public bool IsDead { get { return isDead; } }
     protected bool isDead = false;
     protected bool isDestroying = false;
