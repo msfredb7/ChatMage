@@ -10,7 +10,6 @@ public class LS_2_1 : LevelScript {
     [InspectorHeader("Dialog"), InspectorMargin(10)]
     public Dialoguing.Dialog newKingdom;
     public Dialoguing.Dialog gateBlock;
-    public Dialoguing.Dialog gateCleared;
 
     [fsIgnore, NonSerialized]
     private Map map;
@@ -41,14 +40,6 @@ public class LS_2_1 : LevelScript {
     {
         Game.instance.ui.dialogDisplay.StartDialog(gateBlock, delegate ()
         {
-            TriggerWaveManually("gate");
-        });
-    }
-
-    public void GateCleared()
-    {
-        Game.instance.ui.dialogDisplay.StartDialog(gateCleared, delegate ()
-        {
             gate.GetComponent<SidewaysFakeGate>().Open();
         });
     }
@@ -63,21 +54,66 @@ public class LS_2_1 : LevelScript {
                 TriggerWaveManually("survival1");
                 break;
             case "survival1 complete":
+                ResetRoad();
                 break;
             case "survival2":
                 TriggerWaveManually("survival2");
                 break;
             case "survival2 complete":
+                ResetRoad();
+                break;
+            case "survival3":
+                TriggerWaveManually("survival3");
+                break;
+            case "survival3 complete":
+                ResetRoad();
+                break;
+            case "survival4":
+                TriggerWaveManually("survival4");
+                break;
+            case "survival4 complete":
+                ResetRoad();
+                break;
+            case "survival5":
+                TriggerWaveManually("survival5");
+                break;
+            case "survival5 complete":
+                ResetRoad();
+                break;
+            case "survival6":
+                TriggerWaveManually("survival6");
+                break;
+            case "survival6 complete":
+                ResetRoad();
+                break;
+            case "survival7":
+                TriggerWaveManually("survival7");
+                break;
+            case "survival7 complete":
+                ResetRoad();
+                break;
+            case "survival8":
+                TriggerWaveManually("survival8");
+                break;
+            case "survival8 complete":
+                ResetRoad();
                 break;
             case "gate":
                 GateBlockage();
                 break;
             case "gate cleared":
-                inGameEvents.AddDelayedAction(GateCleared, 1);
                 break;
             case "win":
                 break;
         }
+    }
+
+    private void ResetRoad()
+    {
+        Debug.Log("Reset Road");
+        Game.instance.gameCamera.followPlayer = true;
+        Game.instance.gameCamera.canScrollUp = true;
+        Game.instance.map.roadPlayer.CurrentRoad.ApplyMinMaxToCamera();
     }
 
     protected override void OnUpdate()

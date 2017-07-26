@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objectReferences:
   - {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
-  - {fileID: 114892083099199946, guid: a97b513999cddca448e173580c0c886f, type: 2}
+  - {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
   _serializedStateKeys:
   - winningConditions
   - losingConditions
@@ -24,9 +24,9 @@ MonoBehaviour:
   - '[]'
   - '[{"$type":"GameCondition.LoseOnPlayerDeath"}]'
   - 
-  - '[{"what":{"spawnSequence":[{"unit":0,"quantity":4}],"onSpawnMethod":"","progressCallbacks":[]},"where":null,"when":null,"spawnInterval":1.0},{"what":{"spawnSequence":[{"unit":1,"quantity":4}],"onSpawnMethod":"","progressCallbacks":[{"levelEventName":"gate
-    cleared","atProgress":1.0,"atKillCount":0,"useProgress":true}]},"where":{"logErrorIfUnableToLaunch":true,"spawnTag":"ordered
-    gate","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0},"when":{"type":"OnManualTrigger","time":0.0,"name":"gate","onlyTriggerOnce":true},"spawnInterval":1.0}]'
+  - '[{"what":{"spawnSequence":[{"unit":0,"quantity":4}],"onSpawnMethod":"","progressCallbacks":[{"levelEventName":"survival1
+    complete","atProgress":1.0,"atKillCount":0,"useProgress":true}]},"where":{"logErrorIfUnableToLaunch":true,"spawnTag":"camera","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0},"when":{"type":"OnManualTrigger","time":0.0,"name":"survival1","onlyTriggerOnce":true},"spawnInterval":1.0},{"what":{"spawnSequence":[{"unit":1,"quantity":4}],"onSpawnMethod":"","progressCallbacks":[{"levelEventName":"survival2
+    complete","atProgress":1.0,"atKillCount":0,"useProgress":true}]},"where":null,"when":null,"spawnInterval":1.0}]'
   - '{"overrideGoldAmount":false,"goldReward":null,"giveLootBox":false,"lootboxRefName":null,"goldified":false}'
   sceneName: KingdomEntry
   introPrefab: {fileID: 114095951920881890, guid: 5d6e2272c4ccd514cb369a8d44abbacd,
@@ -44,4 +44,3 @@ MonoBehaviour:
   tutorialAssetName: 
   newKingdom: {fileID: 11400000, guid: f855d85d46aa59847b865f2768a5cb8a, type: 2}
   gateBlock: {fileID: 11400000, guid: f31b1b6fcde63164ebcbc6c040fe9d21, type: 2}
-  gateCleared: {fileID: 11400000, guid: 348f55fee86686d4185e7a717a5c5fb1, type: 2}
