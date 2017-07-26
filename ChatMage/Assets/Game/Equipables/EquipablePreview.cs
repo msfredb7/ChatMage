@@ -8,7 +8,6 @@ public class EquipablePreview : BaseScriptableObject
     public const string SAVE_PREFIX = "equip";
 
     public string displayName;
-    public string description;
     public string effects;
     public string equipableAssetName;
     public Sprite icon;

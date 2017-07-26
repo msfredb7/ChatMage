@@ -77,7 +77,7 @@ public class LoadoutElementInspector : MonoBehaviour
 
                 //Text
                 title.text = equipable.preview.displayName;
-                description.text = equipable.preview.description;
+                //description.text = equipable.preview.description;
                 effect.text = equipable.preview.effects;
 
                 //Sprite
