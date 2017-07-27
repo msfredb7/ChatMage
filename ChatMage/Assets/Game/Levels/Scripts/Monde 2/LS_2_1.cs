@@ -41,6 +41,7 @@ public class LS_2_1 : LevelScript {
         Game.instance.ui.dialogDisplay.StartDialog(gateBlock, delegate ()
         {
             gate.GetComponent<SidewaysFakeGate>().Open();
+            canWin = true;
         });
     }
 
@@ -101,16 +102,14 @@ public class LS_2_1 : LevelScript {
             case "gate":
                 GateBlockage();
                 break;
-            case "gate cleared":
-                break;
             case "win":
+                Win();
                 break;
         }
     }
 
     private void ResetRoad()
     {
-        Debug.Log("Reset Road");
         Game.instance.gameCamera.followPlayer = true;
         Game.instance.gameCamera.canScrollUp = true;
         Game.instance.map.roadPlayer.CurrentRoad.ApplyMinMaxToCamera();
