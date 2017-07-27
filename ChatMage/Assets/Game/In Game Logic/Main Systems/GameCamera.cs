@@ -149,6 +149,15 @@ public class GameCamera : MonoBehaviour
     {
         return new Vector2(vector.x / defaultToRealRatio.x, vector.y / defaultToRealRatio.y);
     }
+    public Vector2 ClampToScreen(Vector2 position, float screenSizeMultiplier = 1)
+    {
+        Vector2 center = Center;
+        Vector2 halfSS = ScreenSize * screenSizeMultiplier / 2;
+
+        return new Vector2(
+            position.x.Clamped(center.x - halfSS.x, center.x + halfSS.x),
+            position.x.Clamped(center.y - halfSS.y, center.y + halfSS.y));
+    }
 
     #endregion
 }

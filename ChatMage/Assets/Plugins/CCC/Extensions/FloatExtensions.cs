@@ -24,6 +24,11 @@ public static class FloatExtensions
         return Mathf.Max(value, min);
     }
 
+    public static float Clamped(this float value, float min, float max)
+    {
+        return Mathf.Clamp(value, min, max);
+    }
+
     public static float MovedTowards(this float value, float target, float delta)
     {
         return Mathf.MoveTowards(value, target, delta);
