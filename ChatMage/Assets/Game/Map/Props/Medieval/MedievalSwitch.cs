@@ -26,6 +26,14 @@ public class MedievalSwitch : MonoBehaviour
         switcher = GetComponent<Switch>();
         stdRotation = visuals.localRotation.eulerAngles;
         listener.onCollisionEnter += Listener_onCollisionEnter;
+        switcher.onToggle.AddListener(OnSwitchToggle);
+    }
+
+    void OnSwitchToggle()
+    {
+        rotState = !rotState;
+        Vector3 endValue = Vector3.forward * (rotState ? toggleRotation : -toggleRotation);
+        visuals.DORotate(endValue, duration, RotateMode.LocalAxisAdd).SetEase(rotateEase, overshoot);
     }
 
     private void Listener_onCollisionEnter(ColliderInfo other, Collision2D collision, ColliderListener listener)
@@ -44,10 +52,18 @@ public class MedievalSwitch : MonoBehaviour
         StartCoroutine(RestoreToggle());
 
         switcher.Toggle();
+    }
 
-        rotState = !rotState;
-        Vector3 endValue = Vector3.forward * (rotState ? toggleRotation : -toggleRotation);
-        visuals.DORotate(endValue, duration, RotateMode.LocalAxisAdd).SetEase(rotateEase, overshoot);
+    public void Off()
+    {
+        if (switcher.State != false)
+            Toggle();
+    }
+
+    public void On()
+    {
+        if (switcher.State != true)
+            Toggle();
     }
 
     public void InstantRestoreToggle()

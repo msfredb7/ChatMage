@@ -15,19 +15,26 @@ public class Switch : MonoBehaviour
     public void Toggle()
     {
         State = !state;
-        onToggle.Invoke();
     }
 
     public void On()
     {
+        if (state == true)
+            return;
+
         state = true;
         onOn.Invoke();
+        onToggle.Invoke();
     }
 
     public void Off()
     {
+        if (state == false)
+            return;
+
         state = false;
         onOff.Invoke();
+        onToggle.Invoke();
     }
 
     public bool State

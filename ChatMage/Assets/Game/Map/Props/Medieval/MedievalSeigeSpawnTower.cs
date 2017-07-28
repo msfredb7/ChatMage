@@ -9,7 +9,7 @@ public class MedievalSeigeSpawnTower : MonoBehaviour
     [NonSerialized]
     public MedievalSeigeSpawn originalSpawn;
     [NonSerialized]
-    public bool infiniteSpawn;
+    public bool selfQuit = false;
 
     public MedievalSwitch switcher;
     public float spawnDistance = 1.5f;
@@ -22,6 +22,9 @@ public class MedievalSeigeSpawnTower : MonoBehaviour
     [Header("Arrival")]
     public float screenShake = 0.2f;
 
+    [Header("Pause before fate")]
+    public float pauseBeforeGate;
+
     [Header("Bridge")]
     public Transform bridgeTr;
     public float bridgeFinalXScale;
@@ -29,56 +32,56 @@ public class MedievalSeigeSpawnTower : MonoBehaviour
     public Ease bridgeOpenEase = Ease.OutSine;
     public Ease bridgeCloseEase = Ease.InSine;
 
-    [Header("Pause")]
-    public float pauseDuration;
+    [Header("Pause before spawn")]
+    public float pauseBeforeSpawn;
 
-    public void SpawnUnits(Unit[] units, float interval)
+    [Header("Quit after wave")]
+    public float quitAfter;
+
+    private bool isSetup = false;
+    private bool hasArrived = false;
+    private Sequence sq = null;
+    private CCC.Utility.StatFloat worldTimeScale;
+    private float timeToLive = -1;
+
+    void Update()
     {
-        ArriveAnimation(delegate ()
+        if (selfQuit && hasArrived)
         {
-            for (int i = 0; i < units.Length; i++)
+            if (worldTimeScale == null)
+                worldTimeScale = Game.instance.worldTimeScale;
+            else
             {
-                float delay = i * interval;
-                originalSpawn.SpawnUnit(units[i], delay);
+                bool wasAlive = timeToLive > 0;
+                timeToLive -= worldTimeScale * Time.deltaTime;
+
+                if (timeToLive <= 0 && wasAlive)
+                    switcher.GetComponent<Switch>().Off();
             }
-        });
-    }
-    public void SpawnUnits(List<Unit> units, float interval)
-    {
-        ArriveAnimation(delegate ()
-        {
-            for (int i = 0; i < units.Count; i++)
-            {
-                float delay = i * interval;
-                originalSpawn.SpawnUnit(units[i], delay);
-            }
-        });
-    }
-    public void SpawnUnits(Unit[] units, float interval, Action<Unit> callback)
-    {
-        ArriveAnimation(delegate ()
-        {
-            for (int i = 0; i < units.Length; i++)
-            {
-                float delay = i * interval;
-                originalSpawn.SpawnUnit(units[i], delay, callback);
-            }
-        });
-    }
-    public void SpawnUnits(List<Unit> units, float interval, Action<Unit> callback)
-    {
-        ArriveAnimation(delegate ()
-        {
-            for (int i = 0; i < units.Count; i++)
-            {
-                float delay = i * interval;
-                originalSpawn.SpawnUnit(units[i], delay, callback);
-            }
-        });
+        }
     }
 
-    void ArriveAnimation(TweenCallback callback)
+    public void StayAliveFor(bool enableSelfQuit, float duration)
     {
+        selfQuit = enableSelfQuit;
+        timeToLive = Mathf.Max(duration + quitAfter, timeToLive);
+    }
+
+    public bool IsSetup { get { return isSetup; } }
+
+    public void ArriveAnimation(TweenCallback callback)
+    {
+        //Si on est deja la, on fait juste callback
+        if (isSetup)
+        {
+            callback();
+            return;
+        }
+
+        isSetup = true;
+
+        gameObject.SetActive(true);
+
         Vector2 destination = originalSpawn.DefaultSpawnPosition();
         float orientation = originalSpawn.DefaultSpawnRotation();
         Vector2 v = orientation.ToVector();
@@ -86,32 +89,49 @@ public class MedievalSeigeSpawnTower : MonoBehaviour
         transform.position = destination - (v * spawnDistance);
         transform.rotation = originalSpawn.transform.rotation;
 
-        Sequence sq = DOTween.Sequence();
+        if (sq != null)
+            sq.Kill();
+
+        sq = DOTween.Sequence();
 
         sq.Join(transform.DOMove(destination, moveDuration).SetEase(moveEase, moveOvershoot));
 
         sq.AppendCallback(() =>
         {
             Game.instance.gameCamera.vectorShaker.Shake(screenShake);
+        });
+
+        sq.AppendInterval(pauseBeforeGate);
+
+        sq.AppendCallback(() =>
+        {
             BridgeOpen();
         });
 
-        sq.AppendInterval(pauseDuration + bridgeOpenDuration);
+        sq.AppendInterval(pauseBeforeSpawn + bridgeOpenDuration);
 
         sq.OnComplete(delegate ()
         {
             switcher.InstantRestoreToggle();
             callback();
+            hasArrived = true;
         });
     }
 
-    public void QuitAnimation()
+    public void Quit()
     {
+        isSetup = false;
+        hasArrived = false;
+        originalSpawn.CancelSpawning();
+
         float orientation = transform.eulerAngles.z;
         Vector2 v = orientation.ToVector();
         Vector2 destination = (Vector2)transform.position - (v * spawnDistance);
 
-        Sequence sq = DOTween.Sequence();
+        if (sq != null)
+            sq.Kill();
+
+        sq = DOTween.Sequence();
 
         sq.Join(BridgeClose());
 
@@ -119,8 +139,8 @@ public class MedievalSeigeSpawnTower : MonoBehaviour
 
         sq.OnComplete(delegate()
         {
-            sq.Kill();
-            Destroy(gameObject);
+            originalSpawn.tower = null;
+            gameObject.SetActive(false);
         });
     }
 
