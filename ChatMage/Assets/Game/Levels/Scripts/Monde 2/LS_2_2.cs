@@ -1,7 +1,6 @@
 ﻿using FullInspector;
 using FullSerializer;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,18 +12,16 @@ public class LS_2_2 : LevelScript
     [fsIgnore, NonSerialized]
     private Map map;
 
-    [fsIgnore, NonSerialized]
-    private bool canWin = false;
-
     private int topWaveNumber;
     private bool topDone;
     private int botWaveNumber;
     private bool botDone;
 
+    private List<int> possibilities = new List<int>();
+
     protected override void ResetData()
     {
         base.ResetData();
-        canWin = false;
     }
 
     protected override void OnGameReady()
@@ -34,13 +31,19 @@ public class LS_2_2 : LevelScript
         topDone = false;
         botWaveNumber = 0;
         botDone = false;
+
+        possibilities.Add(1);
+        possibilities.Add(2);
+        possibilities.Add(3);
+        possibilities.Add(4);
+        possibilities.Add(5);
+        possibilities.Add(6);
     }
 
     protected override void OnGameStarted()
     {
-        Game.instance.ui.dialogDisplay.StartDialog(defendTheWall, delegate() {
-            TriggerWaveManually("start");
-        });
+        Game.instance.ui.dialogDisplay.StartDialog(defendTheWall);
+        ResetRoad();
     }
 
     public override void OnReceiveEvent(string message)
@@ -57,31 +60,55 @@ public class LS_2_2 : LevelScript
                 BotWave();
                 break;
             case "top1":
-                ResetRoad();
+                if (!TriggerTopSiege())
+                    ResetRoad();
                 break;
             case "top2":
-                ResetRoad();
+                if (!TriggerTopSiege())
+                    ResetRoad();
                 break;
             case "top3":
-                ResetRoad();
+                if (!TriggerTopSiege())
+                    ResetRoad();
                 break;
             case "top4":
-                ResetRoad();
+                if (!TriggerTopSiege())
+                    ResetRoad();
+                break;
+            case "top5":
+                if (!TriggerTopSiege())
+                    ResetRoad();
+                break;
+            case "top6":
+                if (!TriggerTopSiege())
+                    ResetRoad();
                 break;
             case "bot1":
-                ResetRoad();
+                if (!TriggerBotSiege())
+                    ResetRoad();
                 break;
             case "bot2":
-                ResetRoad();
+                if (!TriggerBotSiege())
+                    ResetRoad();
                 break;
             case "bot3":
-                ResetRoad();
+                if (!TriggerBotSiege())
+                    ResetRoad();
                 break;
             case "bot4":
-                ResetRoad();
+                if (!TriggerBotSiege())
+                    ResetRoad();
+                break;
+            case "bot5":
+                if (!TriggerBotSiege())
+                    ResetRoad();
+                break;
+            case "bot6":
+                if (!TriggerBotSiege())
+                    ResetRoad();
                 break;
             case "win":
-                if(topWaveNumber >= 4 && botWaveNumber >= 4)
+                if(topDone && botDone)
                 {
                     Game.instance.gameCamera.followPlayer = false;
                     Win();
@@ -92,99 +119,68 @@ public class LS_2_2 : LevelScript
 
     private void TopWave()
     {
-        switch (topWaveNumber)
+        if (!topDone)
         {
-            case 0:
-                if (!topDone)
-                {
-                    StopRoad();
-                    TriggerWaveManually("top1");
-                    topWaveNumber++;            // prochain trigger sera une autre wave (la prochaine planifier)
-                    topDone = true;             // Quand on a fini la vague du haut, on peut pas refaire une vague du haut
-                    botDone = false;            // on autorise a faire la vague du bas
-                }
-                break;
-            case 1:
-                if (!topDone)
-                {
-                    StopRoad();
-                    TriggerWaveManually("top2");
-                    topWaveNumber++;
-                    topDone = true;
-                    botDone = false;
-                }
-                break;
-            case 2:
-                if (!topDone)
-                {
-                    StopRoad();
-                    TriggerWaveManually("top3");
-                    topWaveNumber++;
-                    topDone = true;
-                    botDone = false;
-                }
-                break;
-            case 3:
-                if (!topDone)
-                {
-                    StopRoad();
-                    TriggerWaveManually("top4");
-                    topWaveNumber++;
-                    topDone = true;
-                    botDone = false;
-                }
-                break;
-            default:
-                break;
+            possibilities.Clear();
+            possibilities.Add(1);
+            possibilities.Add(2);
+            possibilities.Add(3);
+            possibilities.Add(4);
+            possibilities.Add(5);
+            possibilities.Add(6);
+
+            TriggerTopSiege();
+            topDone = true;             // Quand on a fini la vague du haut, on peut pas refaire une vague du haut
+        }
+    }
+
+    private bool TriggerTopSiege()
+    {
+        if(possibilities.Count >= 1)
+        {
+            int result = UnityEngine.Random.Range(0, possibilities.Count - 1);
+            
+            StopRoad();
+            TriggerWaveManually("top" + possibilities[result]);
+            possibilities.RemoveAt(result);
+            return true;
+        } else
+        {
+            return false;
         }
     }
 
     private void BotWave()
     {
-        switch (topWaveNumber)
+        if (!botDone)
         {
-            case 0:
-                if (!botDone)
-                {
-                    StopRoad();
-                    TriggerWaveManually("bot1");
-                    botWaveNumber++;
-                    botDone = true;
-                    topDone = false;
-                }
-                break;
-            case 1:
-                if (!botDone)
-                {
-                    StopRoad();
-                    TriggerWaveManually("bot2");
-                    botWaveNumber++;
-                    botDone = true;
-                    topDone = false;
-                }
-                break;
-            case 2:
-                if (!botDone)
-                {
-                    StopRoad();
-                    TriggerWaveManually("bot3");
-                    botWaveNumber++;
-                    botDone = true;
-                    topDone = false;
-                }
-                break;
-            case 3:
-                if (!botDone)
-                {
-                    StopRoad();
-                    TriggerWaveManually("bot4");
-                    botWaveNumber++;
-                    botDone = true;
-                    topDone = false;
-                }
-                break;
-            default:
-                break;
+            possibilities.Clear();
+            possibilities.Add(1);
+            possibilities.Add(2);
+            possibilities.Add(3);
+            possibilities.Add(4);
+            possibilities.Add(5);
+            possibilities.Add(6);
+
+            TriggerBotSiege();
+            botDone = true;             // Quand on a fini la vague du haut, on peut pas refaire une vague du haut
+        }
+    }
+
+    private bool TriggerBotSiege()
+    {
+        if (possibilities.Count >= 1)
+        {
+            int result = UnityEngine.Random.Range(0, possibilities.Count - 1);
+
+            StopRoad();
+            TriggerWaveManually("bot" + possibilities[result]);
+            possibilities.RemoveAt(result);
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 
