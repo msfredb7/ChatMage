@@ -38,18 +38,21 @@ public class PlayerCarTriggers : PlayerComponent
 
     private void MasterCollisionListener_onCollisionEnter(ColliderInfo other, Collision2D collision, ColliderListener listener)
     {
-        if (other.parentUnit.allegiance != Allegiance.Enemy
-            && other.parentUnit.allegiance != Allegiance.SmashBall)
+        Unit unit = other.parentUnit;
+        if (unit == null)
+            return;
+        if (unit.allegiance != Allegiance.Enemy
+            && unit.allegiance != Allegiance.SmashBall)
             return;
 
         CarSide side = ColliderToSide(listener);
 
         //Damage the enemy
-        IAttackable attackable = other.parentUnit.GetComponent<IAttackable>();
+        IAttackable attackable = unit.GetComponent<IAttackable>();
         if (attackable == null)
             return;
 
-        HitUnit(other.parentUnit, attackable, side, other, listener);
+        HitUnit(unit, attackable, side, other, listener);
     }
 
     private void MasterTriggerListener_onTriggerEnter(ColliderInfo other, ColliderListener listener)//Unit unit, RemoteTriggerListener source, GameObject other)

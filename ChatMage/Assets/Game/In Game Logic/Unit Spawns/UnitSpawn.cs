@@ -80,7 +80,7 @@ public abstract class UnitSpawn : MonoBehaviour
             }, delay);
     }
 
-    public void SpawnUnits(Unit[] units, float interval)
+    public virtual void SpawnUnits(Unit[] units, float interval)
     {
         for (int i = 0; i < units.Length; i++)
         {
@@ -88,7 +88,7 @@ public abstract class UnitSpawn : MonoBehaviour
             SpawnUnit(units[i], delay);
         }
     }
-    public void SpawnUnits(List<Unit> units, float interval)
+    public virtual void SpawnUnits(List<Unit> units, float interval)
     {
         for (int i = 0; i < units.Count; i++)
         {
@@ -96,7 +96,7 @@ public abstract class UnitSpawn : MonoBehaviour
             SpawnUnit(units[i], delay);
         }
     }
-    public void SpawnUnits(Unit[] units, float interval, Action<Unit> callback)
+    public virtual void SpawnUnits(Unit[] units, float interval, Action<Unit> callback)
     {
         for (int i = 0; i < units.Length; i++)
         {
@@ -104,7 +104,7 @@ public abstract class UnitSpawn : MonoBehaviour
             SpawnUnit(units[i], delay, callback);
         }
     }
-    public void SpawnUnits(List<Unit> units, float interval, Action<Unit> callback)
+    public virtual void SpawnUnits(List<Unit> units, float interval, Action<Unit> callback)
     {
         for (int i = 0; i < units.Count; i++)
         {
