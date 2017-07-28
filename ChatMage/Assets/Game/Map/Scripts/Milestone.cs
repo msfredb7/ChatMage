@@ -7,15 +7,16 @@ public class Milestone : BaseBehavior
 {
     public enum TriggerType { BottomOfScreen, TopOfScreen }
     [InspectorHeader("Trigger")]
-    public TriggerType triggerOn;
+    public TriggerType triggerOn = TriggerType.TopOfScreen;
     public bool disapearAfterTrigger = true;
+    public bool gizmosAlwaysVisible = true;
 
     [InspectorMargin(12), InspectorHeader("AI Area")]
     public bool setAiArea;
     [InspectorShowIf("setAiArea")]
     public bool aiAreaAdjustToSceenRatio = true;
     [InspectorShowIf("setAiArea")]
-    public Box2D aiAreaRelativeToMilestone;
+    public Box2D aiAreaRelativeToMilestone = new Box2D(new Vector2(-8, -9f), new Vector2(8f, 0f));
 
     [InspectorMargin(12), InspectorHeader("Map Stop")]
     public bool modifyFollowPlayer;
@@ -82,6 +83,18 @@ public class Milestone : BaseBehavior
     }
 
     void OnDrawGizmosSelected()
+    {
+        if (!gizmosAlwaysVisible)
+            DrawGizmos();
+    }
+
+    void OnDrawGizmos()
+    {
+        if (gizmosAlwaysVisible)
+            DrawGizmos();
+    }
+
+    void DrawGizmos()
     {
         Gizmos.color = new Color(triggerOn == TriggerType.BottomOfScreen ? 1 : 0, triggerOn == TriggerType.TopOfScreen ? 1 : 0, 0, 1);
         Gizmos.DrawCube(transform.position, new Vector3(16, disapearAfterTrigger ? 0.25f : 0.5f, 1));

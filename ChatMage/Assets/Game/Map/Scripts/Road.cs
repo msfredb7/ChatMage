@@ -134,8 +134,21 @@ public class Road : BaseBehavior
         Gizmos.DrawCube(new Vector3(0, (topHeight + bottomHeight)/2, 0), new Vector3(16, topHeight - bottomHeight, 1));
     }
 
+    [InspectorButton(), InspectorName("Gather All Milestones")]
+    public void GatherAllMilestones()
+    {
+        milestones.Clear();
+        GameObject[] objs = GameObject.FindGameObjectsWithTag("Milestone");
+
+        for (int i = 0; i < objs.Length; i++)
+        {
+            if (objs[i].GetComponent<Milestone>() != null)
+                milestones.Add(objs[i].GetComponent<Milestone>());
+        }
+    }
+
     [InspectorButton(), InspectorName("Apply Milestones")]
-    void ApplyMilestones()
+    public void ApplyMilestones()
     {
         int count = milestones.Count;
 

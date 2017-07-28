@@ -40,6 +40,19 @@ public class GameObjectCreator : MonoBehaviour
         AdjustGameobject(obj, command);
     }
 
+    [MenuItem("GameObject/Time Drifter/Milestone", priority = -1)]
+    private static void CreateMilestone(MenuCommand command)
+    {
+        GameObject obj = new GameObject("Milestone");
+        obj.AddComponent<Milestone>();
+        obj.isStatic = true;
+        obj.tag = "Milestone";
+
+        AdjustGameobject(obj, command);
+
+        obj.transform.localPosition = new Vector3(0, obj.transform.localPosition.y, 0);
+    }
+
     private static void AdjustGameobject(GameObject obj, MenuCommand command, Vector3 localScale)
     {
         Selection.activeGameObject = obj;
