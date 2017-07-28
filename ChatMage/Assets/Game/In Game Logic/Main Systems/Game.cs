@@ -157,9 +157,10 @@ public class Game : PublicSingleton<Game>
     /// <summary>
     /// Ajoute une unit existante
     /// </summary>
-    public void AddExistingUnit(Unit unit)
+    public void AddExistingUnit(Unit unit, bool putInUnitsContainer = true)
     {
-        unit.transform.SetParent(unitsContainer);
+        if (putInUnitsContainer)
+            unit.transform.SetParent(unitsContainer);
         unit.TimeScale = worldTimeScale;
 
         units.AddLast(unit);
@@ -201,7 +202,7 @@ public class Game : PublicSingleton<Game>
 
         //On l'enleve de la liste
         units.Remove(unit.stdNode);
-        
+
         //Auto Deactivation ?
         AutoDeactivation autoDeactivation = unit.GetComponent<AutoDeactivation>();
         if (autoDeactivation != null)

@@ -19,7 +19,8 @@ public abstract class BaseTweenBehavior<T> : EnemyBehavior<T> where T : EnemyVeh
     {
         tween.Play();
         vehicle.onTimeScaleChange += UpdateTimeScale;
-        UpdateTimeScale(vehicle);
+        if (tween != null)
+            UpdateTimeScale(vehicle);
     }
 
     protected void SetTween(Tween newTween)

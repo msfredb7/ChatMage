@@ -1,10 +1,9 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class JesusRockAttackBehavior : BaseTweenBehavior<JesusV2Vehicle>
+public class TrollRockAttackBehavior : BaseTweenBehavior<TrollVehicle>
 {
     private JesusRockV2 rock;
     private bool turnTowardsTarget = false;
@@ -12,11 +11,15 @@ public class JesusRockAttackBehavior : BaseTweenBehavior<JesusV2Vehicle>
     private bool rockInHands = false;
     private TweenCallback onComplete;
 
-    public JesusRockAttackBehavior(JesusV2Vehicle vehicle, JesusRockV2 rock, TweenCallback onComplete) : base(vehicle)
+    public TrollRockAttackBehavior(TrollVehicle vehicle, JesusRockV2 rock, TweenCallback onComplete, bool alreadyPickedUp) : base(vehicle)
     {
         this.rock = rock;
-        tween = vehicle.animator.PickUpRockAnimation(AttachRockToArms).OnComplete(OnPickUpComplete);
         this.onComplete = onComplete;
+
+        if (alreadyPickedUp)
+            OnPickUpComplete();
+        else
+            tween = vehicle.animator.PickUpRockAnimation(AttachRockToArms).OnComplete(OnPickUpComplete);
     }
 
     public override void Enter(Unit target)
