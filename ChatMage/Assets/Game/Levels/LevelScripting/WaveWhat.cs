@@ -39,12 +39,12 @@ namespace LevelScripting
             return sequence;
         }
 
-        public UnitKillsProgress GetKillsProgress(LevelScript levelScript, bool removeListenersOnDestruction = false)
+        public UnitKillsProgress GetKillsProgress(LevelScript levelScript, bool isInfinite)
         {
             if (progressCallbacks == null || progressCallbacks.Length == 0)
                 return null;
 
-            UnitKillsProgress callbacker = new UnitKillsProgress(TotalUnits, removeListenersOnDestruction);
+            UnitKillsProgress callbacker = isInfinite ? new UnitKillsProgress() : new UnitKillsProgress(TotalUnits);
 
             for (int i = 0; i < progressCallbacks.Length; i++)
             {

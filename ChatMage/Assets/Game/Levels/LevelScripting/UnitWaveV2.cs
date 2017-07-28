@@ -14,6 +14,10 @@ namespace LevelScripting
 
         [InspectorCategory("What")]
         public WaveWhat what;
+        [InspectorCategory("What")]
+        public bool infiniteRepeat = false;
+        [InspectorShowIf("infiniteRepeat")]
+        public float pauseBetweenRepeat = 0;
 
         [InspectorCategory("Where")]
         public WaveWhereV2 where;
@@ -24,11 +28,21 @@ namespace LevelScripting
         [InspectorCategory("Across")]
         public float spawnInterval = 1;
 
+        [NonSerialized, fsIgnore]
+        private bool isInfiniteSpawning = false;
+        [NonSerialized, fsIgnore]
+        private bool stopInfiniteSpawning = false;
+        [NonSerialized, fsIgnore]
+        private UnitKillsProgress infiniteCallbacker = null;
+
 
         public void ResetData()
         {
             onLaunched = null;
             onComplete = null;
+            isInfiniteSpawning = false;
+            stopInfiniteSpawning = false;
+            infiniteCallbacker = null;
         }
 
         /// <summary>
@@ -37,13 +51,19 @@ namespace LevelScripting
         /// </summary>
         public bool LaunchNow(LevelScript levelScript)
         {
+            if (infiniteRepeat && isInfiniteSpawning)
+            {
+                Debug.LogError("Cannot start infinite wave because it is already infiniteSpawning.");
+                return false;
+            }
+
             //Get units
             Unit[] units = what.GetSpawnSequence();
-            
-            //Get callbacks
-            UnitKillsProgress callbacker = what.GetKillsProgress(levelScript);
 
-            if(onComplete != null)
+            //Get callbacks
+            UnitKillsProgress callbacker = what.GetKillsProgress(levelScript, infiniteRepeat);
+
+            if (onComplete != null)
             {
                 //Add on complete callback
                 if (callbacker == null)
@@ -70,19 +90,55 @@ namespace LevelScripting
             //Spawn Action
             Action<Unit> spawnAction = what.GetSpawnAction(levelScript);
 
-            //Spawn units !
-            if (callbacker != null || spawnAction != null)
+            if (spawn.CanSpawn)
             {
-                spawn.SpawnUnits(units, spawnInterval, delegate (Unit unit)
+
+                SimpleEvent cancelAction = null;
+                cancelAction = delegate ()
                 {
                     if (callbacker != null)
-                        callbacker.RegisterUnit(unit);
-                    if (spawnAction != null)
-                        spawnAction(unit);
-                });
+                        callbacker.NoMoreUnitsWillSpawn();
+                    spawn.onCancelSpawning -= cancelAction;
+                    if (isInfiniteSpawning)
+                        StopInfiniteRepeat();
+                };
+
+                //On ecoute au cancel de wave
+                spawn.onCancelSpawning += cancelAction;
+
+
+
+                if (infiniteRepeat)
+                {
+                    isInfiniteSpawning = true;
+                    infiniteCallbacker = callbacker;
+                    InfiniteSpawning(false, spawn, units, spawnAction);
+                }
+                else
+                {
+                    //Spawn units !
+                    if (callbacker != null || spawnAction != null)
+                    {
+                        spawn.SpawnUnits(units, spawnInterval, delegate (Unit unit)
+                        {
+                            if (callbacker != null)
+                                callbacker.RegisterUnit(unit);
+                            if (spawnAction != null)
+                                spawnAction(unit);
+                        });
+                    }
+                    else
+                        spawn.SpawnUnits(units, spawnInterval);
+                }
             }
             else
-                spawn.SpawnUnits(units, spawnInterval);
+            {
+                if (callbacker != null)
+                {
+                    callbacker.NoMoreUnitsWillSpawn();
+                }
+            }
+
 
             //Launch event
             if (onLaunched != null)
@@ -92,6 +148,46 @@ namespace LevelScripting
         }
 
         public float Duration { get { return (what.TotalUnits - 1) * spawnInterval; } }
+
+
+        private void InfiniteSpawning(bool insertDelay, UnitSpawn spawn, Unit[] sequence, Action<Unit> spawnAction)
+        {
+            if (stopInfiniteSpawning)
+            {
+                OnInfiniteSpawningStopped();
+                return;
+            }
+
+            int i = 0;
+            float realInterval = spawnInterval.Floored(0.1f);
+            spawn.SpawnUnits(sequence, realInterval, insertDelay ? (realInterval + pauseBetweenRepeat) : -1, delegate (Unit unit)
+            {
+                i++;
+                if (unit != null)
+                {
+                    if (infiniteCallbacker != null)
+                        infiniteCallbacker.RegisterUnit(unit);
+                    if (spawnAction != null)
+                        spawnAction(unit);
+                }
+
+                //Sommes nous au bout de la sequence ? Si oui, recommancer
+                if (i == sequence.Length)
+                    InfiniteSpawning(true, spawn, sequence, spawnAction);
+            });
+        }
+
+        public void StopInfiniteRepeat()
+        {
+            stopInfiniteSpawning = true;
+        }
+
+        private void OnInfiniteSpawningStopped()
+        {
+            stopInfiniteSpawning = false;
+            isInfiniteSpawning = false;
+            infiniteCallbacker = null;
+        }
 
     }
 }

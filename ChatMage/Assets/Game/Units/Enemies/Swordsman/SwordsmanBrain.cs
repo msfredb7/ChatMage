@@ -14,17 +14,14 @@ public class SwordsmanBrain : EnemyBrain<SwordsmanVehicle>
 
     //private bool isLosingArmor = false;
 
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
-
+        base.Awake();
         vehicle.onArmorLoss += Vehicle_onArmorLoss;
     }
 
     private void Vehicle_onArmorLoss()
     {
-        vehicle.Stop();
-
         //Get animation
         Tween armorLossAnim = vehicle.animator.LoseArmor();
 

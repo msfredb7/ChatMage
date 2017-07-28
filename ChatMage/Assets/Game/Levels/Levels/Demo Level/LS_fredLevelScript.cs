@@ -14,7 +14,7 @@ public class LS_fredLevelScript : LevelScript
 
     public override void OnReceiveEvent(string message)
     {
-
+        Debug.Log(message);
     }
 
     public override void OnWin()
@@ -40,6 +40,8 @@ public class LS_fredLevelScript : LevelScript
 
     protected override void OnUpdate()
     {
+        if (Input.GetKeyDown(KeyCode.T))
+            Game.instance.map.mapping.GetSpawn("plus").CancelSpawning();
         if (Input.GetKeyDown(KeyCode.L) && !IsOver)
         {
             Lose();

@@ -217,6 +217,7 @@ MonoBehaviour:
   posType: 0
   tags:
   - ordered
+  canSpawn: 1
   changeSpawnEvery: 1
   subSpawns:
   - {fileID: 1464203794}
@@ -452,6 +453,7 @@ MonoBehaviour:
   posType: 0
   tags:
   - plus
+  canSpawn: 1
 --- !u!4 &627878963
 Transform:
   m_ObjectHideFlags: 0
@@ -606,6 +608,7 @@ MonoBehaviour:
   posType: 0
   tags:
   - plus
+  canSpawn: 1
 --- !u!4 &1113761379
 Transform:
   m_ObjectHideFlags: 0
@@ -701,6 +704,7 @@ MonoBehaviour:
   posType: 0
   tags:
   - plus
+  canSpawn: 1
 --- !u!4 &1464203795
 Transform:
   m_ObjectHideFlags: 0
@@ -903,8 +907,6 @@ MonoBehaviour:
   - {fileID: 1237816615}
   - {fileID: 153121006}
   - {fileID: 1644651695}
-  - {fileID: 0}
-  - {fileID: 0}
   _values:
   - _keys: []
     _values: []
@@ -915,12 +917,6 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 1644651695}
-  - _keys: []
-    _values: []
-    _target: {fileID: 0}
-  - _keys: []
-    _values: []
-    _target: {fileID: 0}
 --- !u!114 &1649213853
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -936,8 +932,6 @@ MonoBehaviour:
   - {fileID: 1237816615}
   - {fileID: 153121006}
   - {fileID: 1644651695}
-  - {fileID: 0}
-  - {fileID: 0}
   _values:
   - _keys:
     - DefaultBehaviorEditor.topHeight.EditProperty
@@ -975,48 +969,6 @@ MonoBehaviour:
     - _showDropdown: 0
       _serializedIsActive: 1
     _target: {fileID: 1644651695}
-  - _keys:
-    - DefaultBehaviorEditor.triggerOn.EditProperty
-    - DefaultBehaviorEditor.setAiArea.EditProperty
-    - DefaultBehaviorEditor.modifyFollowPlayer.EditProperty
-    - DefaultBehaviorEditor.setCameraMin.EditProperty
-    - DefaultBehaviorEditor.setCameraMax.EditProperty
-    - DefaultBehaviorEditor.fireEventToLevelScript.EditProperty
-    _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    _target: {fileID: 0}
-  - _keys:
-    - DefaultBehaviorEditor.triggerOn.EditProperty
-    - DefaultBehaviorEditor.setAiArea.EditProperty
-    - DefaultBehaviorEditor.modifyFollowPlayer.EditProperty
-    - DefaultBehaviorEditor.setCameraMin.EditProperty
-    - DefaultBehaviorEditor.setCameraMax.EditProperty
-    - DefaultBehaviorEditor.fireEventToLevelScript.EditProperty
-    _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    _target: {fileID: 0}
 --- !u!1 &1689588588
 GameObject:
   m_ObjectHideFlags: 0
@@ -1383,6 +1335,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2005161674}
   - component: {fileID: 2005161673}
+  - component: {fileID: 2005161675}
   m_Layer: 0
   m_Name: Spawn Top
   m_TagString: Untagged
@@ -1404,6 +1357,7 @@ MonoBehaviour:
   posType: 0
   tags:
   - plus
+  canSpawn: 1
 --- !u!4 &2005161674
 Transform:
   m_ObjectHideFlags: 0
@@ -1417,6 +1371,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
+--- !u!114 &2005161675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2005161672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 327238d1d09c9c240b5b63f13cfc5b23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attachedSpawn: {fileID: 2005161673}
+  destination: {x: 3, y: -3.77}
 --- !u!114 &2120832837 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114008029251096486, guid: 1035b9e2c8a379347b030d984c8b96c1,

@@ -48,8 +48,6 @@ public class RandomCompositeUnitSpawn : CompositeUnitSpawn
             throw new Exception("Composite unit spawn has a NULL sub spawn");
         T unit = spawn.SpawnUnit(prefab);
 
-        OnUnitSpawned(unit);
-
         return unit;
     }
 

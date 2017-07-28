@@ -52,8 +52,6 @@ public class OrderedCompositeUnitSpawn : CompositeUnitSpawn
 
         T unit = spawn.SpawnUnit(prefab);
 
-        OnUnitSpawned(unit);
-
         return unit;
     }
 

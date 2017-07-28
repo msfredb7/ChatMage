@@ -14,11 +14,17 @@ public static class FloatExtensions
         return Mathf.Abs(value);
     }
 
+    /// <summary>
+    /// Reduis potentiellement la valeur
+    /// </summary>
     public static float Capped(this float value, float max)
     {
         return Mathf.Min(value, max);
     }
-
+    
+    /// <summary>
+    /// Augmente potentiellement la valeur
+    /// </summary>
     public static float Floored(this float value, float min)
     {
         return Mathf.Max(value, min);

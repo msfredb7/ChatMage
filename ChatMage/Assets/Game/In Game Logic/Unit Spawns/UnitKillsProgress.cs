@@ -47,36 +47,43 @@ public class UnitKillsProgress
         }
     }
 
+    bool isInfinite;
     int count;
     int killCount;
-    Unit[] units;
-    bool cleanup;
+    int unitsAlive = 0;
     LinkedList<Callback> callbacks;
 
     public int KillCount
     {
         get { return killCount; }
     }
+
     public float Progress
     {
-        get { return (float)killCount / (float)count; }
+        get
+        {
+            if (isInfinite)
+                return 0;
+            if (count <= 0)
+                return 1;
+            return (float)killCount / (float)count;
+        }
     }
 
-    public UnitKillsProgress(int amountOfUnits, bool removeListenersOnDestruction = false)
+    /// <summary>
+    /// Infinite units
+    /// </summary>
+    public UnitKillsProgress()
+    {
+        isInfinite = true;
+    }
+
+    /// <summary>
+    /// Finite amount of units
+    /// </summary>
+    public UnitKillsProgress(int amountOfUnits)
     {
         count = amountOfUnits;
-        units = new Unit[amountOfUnits];
-        cleanup = removeListenersOnDestruction;
-    }
-
-    ~UnitKillsProgress()
-    {
-        if (cleanup)
-            for (int i = 0; i < units.Length; i++)
-            {
-                if (units[i] != null)
-                    units[i].onDeath -= Unit_onDeath;
-            }
     }
 
     public void AddCallback(Callback callback)
@@ -99,11 +106,29 @@ public class UnitKillsProgress
 
     public void RegisterUnit(Unit unit)
     {
-        unit.onDeath += Unit_onDeath;
+        if (unit == null)
+        {
+            //Une unit a fail de spawn
+            count--;
+            CheckAllCallbacks();
+        }
+        else
+        {
+            unit.onDeath += Unit_onDeath;
+            unitsAlive++;
+        }
+    }
+
+    public void NoMoreUnitsWillSpawn()
+    {
+        count = unitsAlive + killCount;
+        isInfinite = false;
+        CheckAllCallbacks();
     }
 
     private void Unit_onDeath(Unit unit)
     {
+        unitsAlive--;
         killCount++;
         CheckAllCallbacks();
     }
