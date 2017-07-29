@@ -38,8 +38,10 @@ public class JesusRockV2 : MovingUnit
 
     public void StoppedState()
     {
+        rb.simulated = true;
         isFlying = false;
         Speed = Vector2.zero;
+        collider.enabled = true;
         rb.drag = 20;
 
         Game.instance.gameCamera.vectorShaker.Shake(onHitShakeStrength);

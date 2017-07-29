@@ -19,12 +19,10 @@ public class MedievalSwitch : MonoBehaviour
     private Switch switcher;
     private bool canToggle = true;
     private bool rotState = false;
-    private Vector3 stdRotation;
 
     void Awake()
     {
         switcher = GetComponent<Switch>();
-        stdRotation = visuals.localRotation.eulerAngles;
         listener.onCollisionEnter += Listener_onCollisionEnter;
         switcher.onToggle.AddListener(OnSwitchToggle);
     }
