@@ -24,6 +24,7 @@ public class TrollAnimator : MonoBehaviour
     public float throw_armsExtendedXScale;
     public float throw_extendDuration;
     public float throw_retractDuration;
+    public float throw_endPause;
 
     
     public Tween PickUpRockAnimation(TweenCallback pickUpMoment)
@@ -72,6 +73,9 @@ public class TrollAnimator : MonoBehaviour
         //On retracte les bras
         sq.Append(leftArm.DOScaleX(stdXScale, throw_retractDuration));
         sq.Join(rightArm.DOScaleX(stdXScale, throw_retractDuration));
+
+        //On prend une pause
+        sq.AppendInterval(throw_endPause);
 
         return sq;
     }
