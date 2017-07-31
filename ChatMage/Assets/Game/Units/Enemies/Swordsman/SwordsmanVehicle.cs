@@ -25,7 +25,7 @@ public class SwordsmanVehicle : EnemyVehicle
     private float currentCooldown = 0;
     private bool spearAttackConsumed = false;
     private bool armorUp = true;
-    private float invulnerable = -1;
+    private float invulnerableRemains = -1;
 
     protected override void Awake()
     {
@@ -38,8 +38,8 @@ public class SwordsmanVehicle : EnemyVehicle
         if (currentCooldown > 0)
             currentCooldown -= DeltaTime();
 
-        if (invulnerable > 0)
-            invulnerable -= DeltaTime();
+        if (invulnerableRemains > 0)
+            invulnerableRemains -= DeltaTime();
     }
 
     public bool CanAttack
@@ -52,7 +52,12 @@ public class SwordsmanVehicle : EnemyVehicle
 
     public override int Attacked(ColliderInfo on, int amount, Unit unit, ColliderInfo source = null)
     {
-        if (invulnerable > 0)
+        amount = CheckBuffs_Attacked(on, amount, unit, source);
+
+        if (amount <= 0 && !isDead)
+            return armorUp ? 2 : 1;
+
+        if (invulnerableRemains > 0 && !isDead)
             return armorUp ? 2 : 1;
         
         if (armorUp)
@@ -72,7 +77,7 @@ public class SwordsmanVehicle : EnemyVehicle
 
     private void LoseArmor()
     {
-        invulnerable = invulnerableDuration;
+        invulnerableRemains = invulnerableDuration;
         armorUp = false;
         gameObject.layer = Layers.ENEMIES;
         if (onArmorLoss != null)

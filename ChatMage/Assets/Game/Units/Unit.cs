@@ -40,7 +40,7 @@ public abstract class Unit : MonoBehaviour
     public LinkedListNode<Unit> attackableNode;
 
     [System.NonSerialized]
-    private List<BaseBuff> buffs;
+    protected List<BaseBuff> buffs;
 
     public virtual Vector2 Position
     {
@@ -185,5 +185,30 @@ public abstract class Unit : MonoBehaviour
     {
         buffs[i].RemoveEffect(this);
         buffs.RemoveAt(i);
+    }
+
+    public int CheckBuffs_Attacked(ColliderInfo on, int amount, Unit otherUnit, ColliderInfo source = null)
+    {
+        if (buffs != null)
+            for (int i = 0; i < buffs.Count; i++)
+            {
+                if (buffs[i] is IAttackable)
+                    amount = (buffs[i] as IAttackable).Attacked(on, amount, otherUnit, source);
+            }
+
+        return amount;
+    }
+
+    public bool HasBuffOfType(System.Type type)
+    {
+        if(buffs != null)
+        {
+            for (int i = 0; i < buffs.Count; i++)
+            {
+                if (buffs[i].GetType() == type)
+                    return true;
+            }
+        }
+        return false;
     }
 }

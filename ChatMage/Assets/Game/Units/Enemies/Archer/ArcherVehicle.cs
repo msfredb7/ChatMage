@@ -37,6 +37,8 @@ public class ArcherVehicle : EnemyVehicle
 
     protected override void Update()
     {
+        base.Update();
+
         if (shootCooldownRemains > 0)
             shootCooldownRemains -= DeltaTime();
     }
@@ -63,7 +65,9 @@ public class ArcherVehicle : EnemyVehicle
 
     public override int Attacked(ColliderInfo on, int amount, Unit unit, ColliderInfo source = null)
     {
-        if (amount <= 0)
+        amount = CheckBuffs_Attacked(on, amount, unit, source);
+
+        if (amount <= 0 && !IsDead)
             return 1;
 
         Die();

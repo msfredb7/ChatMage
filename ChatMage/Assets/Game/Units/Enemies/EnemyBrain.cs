@@ -47,7 +47,7 @@ public abstract class EnemyBrain : BaseBehavior
         myVehicle.targets.onTargetRemoved += ClearTarget;
     }
 
-    void Update()
+    protected virtual void Update()
     {
         if (target == null)
             TryToFindTarget();

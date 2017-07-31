@@ -99,6 +99,8 @@ public class PlayerVehicle : Vehicle, IAttackable, IVisible
 
     public int Attacked(ColliderInfo on, int amount, Unit otherUnit, ColliderInfo source = null)
     {
+        amount = CheckBuffs_Attacked(on, amount, otherUnit, source);
+
         return controller.playerStats.Attacked(on, amount, otherUnit, source);
     }
 

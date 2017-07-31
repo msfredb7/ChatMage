@@ -166,5 +166,5 @@ public abstract class EnemyVehicle : Vehicle, IAttackable
         base.LoadRigidbody();
     }
 
-    public abstract int Attacked(ColliderInfo on, int amount, Unit unit, ColliderInfo source = null);
+    public abstract int Attacked(ColliderInfo on, int amount, Unit otherUnit, ColliderInfo source = null);
 }

@@ -19,6 +19,8 @@ public class BardVehicle : EnemyVehicle
 
     public override int Attacked(ColliderInfo on, int amount, Unit unit, ColliderInfo source = null)
     {
+        amount = CheckBuffs_Attacked(on, amount, unit, source);
+
         if (amount <= 0 && !IsDead)
             return 1;
 

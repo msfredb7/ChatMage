@@ -42,7 +42,9 @@ public class SpearmanVehicle : EnemyVehicle
 
     public override int Attacked(ColliderInfo on, int amount, Unit unit, ColliderInfo source = null)
     {
-        if (amount <= 0)
+        amount = CheckBuffs_Attacked(on, amount, unit, source);
+
+        if (amount <= 0 && !isDead)
             return 1;
 
         Die();

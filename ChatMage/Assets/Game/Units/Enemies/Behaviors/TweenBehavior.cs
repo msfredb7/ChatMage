@@ -10,8 +10,6 @@ public class TweenBehavior : BaseTweenBehavior<EnemyVehicle>
     public Action onCancel;
     public Action<float> onProgressPercentage;
 
-    private bool idleOnComplete;
-
     public TweenBehavior(EnemyVehicle vehicle, Tween tween, 
         bool killTweenOnQuit = true,
         bool rewindTweenOnQuit = true)

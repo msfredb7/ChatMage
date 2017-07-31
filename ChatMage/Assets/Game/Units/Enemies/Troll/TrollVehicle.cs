@@ -33,6 +33,11 @@ public class TrollVehicle : EnemyVehicle
 
     public override int Attacked(ColliderInfo on, int amount, Unit unit, ColliderInfo source = null)
     {
+        amount = CheckBuffs_Attacked(on, amount, unit, source);
+
+        if (amount <= 0)
+            return hp;
+
         if (!damagable)
             return hp;
 

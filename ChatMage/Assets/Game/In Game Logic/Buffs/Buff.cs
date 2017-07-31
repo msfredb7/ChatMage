@@ -11,7 +11,7 @@ public abstract class BaseBuff
         this.worldTime = worldTime;
     }
 
-    public float DecreaseDuration(float worldDeltaTime, float localDeltaTime)
+    public virtual float DecreaseDuration(float worldDeltaTime, float localDeltaTime)
     {
         return remainingDuration -= worldTime ? worldDeltaTime : localDeltaTime;
     }
