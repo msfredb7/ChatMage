@@ -20,7 +20,7 @@ public abstract class Car : Equipable
         player.playerStats.health.MAX = startingHP;
         player.playerStats.health.Set(startingHP);
 
-        player.playerStats.armor.MAX = startingArmor;
+        player.playerStats.armor.MAX = int.MaxValue;
         player.playerStats.armor.Set(startingArmor);
     }
 

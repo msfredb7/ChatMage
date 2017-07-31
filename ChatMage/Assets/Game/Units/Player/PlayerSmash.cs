@@ -48,7 +48,7 @@ public class PlayerSmash : PlayerComponent
     //Utilisation du smash !
     public void SmashClick()
     {
-        if (!hasSmash || smash == null)
+        if (!hasSmash || smash == null || controller.vehicle.IsDead)
             return;
         hasSmash = false;
 
