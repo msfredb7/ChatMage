@@ -54,10 +54,10 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
     public event StringEvent onEventReceived;
 
     public bool IsOver { get { return isOver; } }
-    [fsIgnore, NotSerialized]
+    [fsIgnore, NotSerialized, NonSerialized]
     public bool isOver = false;
 
-    [fsIgnore, NotSerialized]
+    [fsIgnore, NotSerialized, NonSerialized]
     protected InGameEvents inGameEvents;
 
     [InspectorHeader("Tutoriel")]

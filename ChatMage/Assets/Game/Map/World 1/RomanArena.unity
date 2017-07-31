@@ -812,6 +812,7 @@ MonoBehaviour:
   - '{"min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0}}'
   triggerOn: 0
   disapearAfterTrigger: 0
+  gizmosAlwaysVisible: 1
   setAiArea: 0
   aiAreaAdjustToSceenRatio: 1
   aiAreaRelativeToMilestone:
@@ -1564,6 +1565,7 @@ MonoBehaviour:
   - '{"min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0}}'
   triggerOn: 1
   disapearAfterTrigger: 1
+  gizmosAlwaysVisible: 1
   setAiArea: 0
   aiAreaAdjustToSceenRatio: 1
   aiAreaRelativeToMilestone:
@@ -1998,13 +2000,14 @@ MonoBehaviour:
   - '{"min":{"x":-7.75,"y":-8.75},"max":{"x":7.75,"y":-0.25}}'
   triggerOn: 1
   disapearAfterTrigger: 1
+  gizmosAlwaysVisible: 1
   setAiArea: 0
   aiAreaAdjustToSceenRatio: 1
   aiAreaRelativeToMilestone:
     min: {x: -7.75, y: -8.75}
     max: {x: 7.75, y: -0.25}
-  modifyFollowPlayer: 1
-  followPlayerEffect: 0
+  modifyFollowPlayer: 0
+  followPlayerEffect: 1
   setCameraMin: 0
   cameraMinRelativeToMilestone: 0
   setCameraMax: 0
@@ -2308,14 +2311,41 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 153121006}
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.triggerOn.EditProperty
+    - DefaultBehaviorEditor.setAiArea.EditProperty
+    - DefaultBehaviorEditor.modifyFollowPlayer.EditProperty
+    - DefaultBehaviorEditor.setCameraMin.EditProperty
+    - DefaultBehaviorEditor.setCameraMax.EditProperty
+    - DefaultBehaviorEditor.fireEventToLevelScript.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
     _target: {fileID: 864190674}
   - _keys: []
     _values: []
     _target: {fileID: 1425111069}
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.topHeight.EditProperty
+    - DefaultBehaviorEditor.milestones.EditProperty
+    - DefaultBehaviorEditor.milestoneRelativeHeights.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 1
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
     _target: {fileID: 266624493}
   - _keys:
     - DefaultBehaviorEditor.triggerOn.EditProperty
