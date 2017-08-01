@@ -34,6 +34,7 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
     [InspectorTooltip("No healthpacks during the entire level")]
     public bool noHealthPacks = false;
     public bool followPlayerOnStart = false;
+    public bool smashEnable = true;
     //public bool verticalUnitSnap = true;
     //public bool horizontalUnitSnap = true;
 
@@ -294,6 +295,8 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
     {
         //Game.instance.SetUnitSnapBorders(horizontalUnitSnap, 0, verticalUnitSnap, 0);
         Game.instance.healthPackManager.enableHealthPackSpawn = !noHealthPacks;
+        Game.instance.smashManager.smashEnabled = smashEnable;
+        Game.instance.ui.smashDisplay.canBeShown = smashEnable;
     }
 
     ///////////////////////////////////////////////////// Loosing/Winning Conditions
