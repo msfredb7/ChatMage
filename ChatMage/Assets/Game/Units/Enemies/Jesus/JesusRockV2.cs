@@ -20,6 +20,7 @@ public class JesusRockV2 : MovingUnit
 
     public void PickedUpState()
     {
+        gameObject.layer = Layers.SOLID_ENEMIES;
         rb.simulated = false;
         isFlying = false;
         Speed = Vector2.zero;
@@ -28,6 +29,7 @@ public class JesusRockV2 : MovingUnit
 
     public void ThrownState(Vector2 direction, Unit cannotHit = null)
     {
+        gameObject.layer = Layers.PROJECTILE;
         rb.simulated = true;
         Speed = direction.normalized * flySpeed;
         collider.enabled = true;
@@ -38,6 +40,7 @@ public class JesusRockV2 : MovingUnit
 
     public void StoppedState()
     {
+        gameObject.layer = Layers.SOLID_ENEMIES;
         rb.simulated = true;
         isFlying = false;
         Speed = Vector2.zero;

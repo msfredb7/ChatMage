@@ -28,8 +28,8 @@ public class BubbleProjectile : MovingUnit
         if (unit != null && unit != doNoHit && !unit.HasBuffOfType(typeof(BubbleBuff)))
         {
             unit.AddBuff(new BubbleBuff(1, bubbleVFX, vfxScaleToUnitWidth));
-            Die();
         }
+        Die();
     }
 
     protected override void Die()
