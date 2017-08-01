@@ -31,8 +31,6 @@ public class LS_SecondLevel : LevelScript
     protected override void OnGameReady()
     {
         map = Game.instance.map;
-        Game.instance.smashManager.smashEnabled = false;
-        Game.instance.ui.smashDisplay.canBeShown = false;
 
         //On ecoute a la mort de la porte
 
@@ -92,6 +90,7 @@ public class LS_SecondLevel : LevelScript
     {
         Game.instance.ui.dialogDisplay.StartDialog(thirdWaveTalk, delegate ()
         {
+            /* Activation du Smash pour le tutoriel du Smash
             Game.instance.smashManager.smashEnabled = true;
             Game.instance.smashManager.enabled = true;
             Game.instance.ui.smashDisplay.canBeShown = true;
@@ -100,13 +99,13 @@ public class LS_SecondLevel : LevelScript
             Game.instance.smashManager.onSmashSpawned += delegate ()
             {
                 Game.instance.smashManager.CurrentSmashBall.onDeath += delegate (Unit unit)
-                {
+                {*/
                     inGameEvents.AddDelayedAction(delegate ()
                     {
                         TriggerWaveManually("3rd wave");
                     }, 1f);
-                };
-            };
+                //};
+            //};
         });
     }
 

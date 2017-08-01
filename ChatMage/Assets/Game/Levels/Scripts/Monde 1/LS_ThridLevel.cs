@@ -106,10 +106,10 @@ public class LS_ThridLevel : LevelScript
         switch (message)
         {
             case "spawn 1":
-                inGameEvents.AddDelayedAction(StartRoadAmbushOne, 1);
+                inGameEvents.AddDelayedAction(StartRoadAmbushOne, 0.5f);
                 break;
             case "spawn 2":
-                inGameEvents.AddDelayedAction(StartRoadAmbushTwo, 1);
+                inGameEvents.AddDelayedAction(StartRoadAmbushTwo, 0.5f);
                 break;
             case "first intersec":
                 inGameEvents.AddDelayedAction(StartFirstWave, 0.5f);
@@ -121,10 +121,10 @@ public class LS_ThridLevel : LevelScript
                 Game.instance.map.roadPlayer.CurrentRoad.ApplyMinMaxToCamera();
                 break;
             case "spawn 3":
-                inGameEvents.AddDelayedAction(StartRoadAmbushThree, 1);
+                inGameEvents.AddDelayedAction(StartRoadAmbushThree, 0.5f);
                 break;
             case "spawn 4":
-                inGameEvents.AddDelayedAction(StartRoadAmbushFour, 1);
+                inGameEvents.AddDelayedAction(StartRoadAmbushFour, 0.5f);
                 break;
             case "second intersec":
                 inGameEvents.AddDelayedAction(StartSecondWave, 0.5f);

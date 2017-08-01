@@ -8,7 +8,7 @@ public class MainMenuCarAnimation : MonoBehaviour {
     public GameObject rightWaypoint;
     public float speed;
 
-	void Start ()
+	public void Init ()
     {
         transform.DOLocalMoveX(rightWaypoint.transform.localPosition.x, speed).SetLoops(-1, LoopType.Restart);
     }

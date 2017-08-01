@@ -12,17 +12,19 @@ public class MainMenu : BaseBehavior
     public Button playButton;
     public Button optionsMenuButton;
     public bool DEMO = false; // A ENLEVER
+    public AudioClip title;
 
     //[InspectorHeader("Tutorial")]
     //public bool doATutorial = false;
     //[InspectorShowIf("doATutorial")]
     //public Tutorial.BaseTutorial tutorial;
 
-    void Start()
+    public void Init()
     {
         MasterManager.Sync();
-
         playButton.onClick.AddListener(GotoLevelSelect);
+
+        SoundManager.PlaySFX(title);
 
         //if(doATutorial)
         //    StartTutorial();
