@@ -4,7 +4,10 @@ using UnityEngine;
 public class AutoDeactivation : MonoBehaviour
 {
     public new bool enabled = true;
-    public float deactivationRange = 10;
+    public const float DFLT_DEACT_RANGE = 6;
+
+    public bool overrideDefaultDeactivationRange = false;
+    public float newDeactivationRange = 10;
 
     [System.NonSerialized]
     private Transform tr;
@@ -35,7 +38,7 @@ public class AutoDeactivation : MonoBehaviour
 
         float delta = Mathf.Abs(cameraHeight - tr.position.y);
 
-        if (delta > deactivationRange)
+        if (delta > GetDeactivationRange())
         {
             if (gameObject.activeSelf)
                 gameObject.SetActive(false);
@@ -45,5 +48,10 @@ public class AutoDeactivation : MonoBehaviour
             if (!gameObject.activeSelf)
                 gameObject.SetActive(true);
         }
+    }
+
+    private float GetDeactivationRange()
+    {
+        return overrideDefaultDeactivationRange ? newDeactivationRange : DFLT_DEACT_RANGE;
     }
 }
