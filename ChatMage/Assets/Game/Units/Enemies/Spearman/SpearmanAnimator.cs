@@ -7,6 +7,7 @@ using System;
 public class SpearmanAnimator : MonoBehaviour
 {
     [Header("Linking")]
+    public SpearmanVehicle vehicle;
     public Transform spear;
 
     [Header("Settings")]
@@ -49,6 +50,7 @@ public class SpearmanAnimator : MonoBehaviour
         sq.InsertCallback(chargeDuration + attackDuration * enableTriggerAfter,
             delegate ()
             {
+                vehicle.spearAttackConsumed = false;
                 attackTrigger.enabled = true;
             });
 

@@ -23,13 +23,13 @@ public class SpearmanAttackBehavior : BaseTweenBehavior<SpearmanVehicle>
     {
         base.Enter(target);
 
-        vehicle.AttackStarted();
+        //vehicle.AttackStarted();
         vehicle.Stop();
     }
 
     void OnComplete()
     {
-        vehicle.AttackCompleted();
+        //vehicle.AttackCompleted();
     }
 
     public override void Update(Unit target, float deltaTime)

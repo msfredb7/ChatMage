@@ -211,4 +211,9 @@ public abstract class Unit : MonoBehaviour
         }
         return false;
     }
+
+    public static bool HasPresence(Unit unit)
+    {
+        return unit != null && !unit.IsDead && unit.gameObject.activeSelf && (!(unit is IVisible) || (unit as IVisible).IsVisible());
+    }
 }
