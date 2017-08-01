@@ -25,7 +25,7 @@ public class ITM_BlueShell : Item
 
     public override void OnGameStarted()
     {
-        countdown = 0;
+        countdown = 2;
         shellSpawned = false;
     }
 
