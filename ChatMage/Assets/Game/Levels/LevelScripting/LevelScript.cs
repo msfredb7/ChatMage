@@ -155,9 +155,10 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
         {
             GameSaves.instance.SetBool(GameSaves.Type.LevelSelect, WINRESULT_KEY, true);
             // On avait déja enregistrer qu'on avait gagner le niveau par la passé, donc déja win
-            GameSaves.instance.SetBool(GameSaves.Type.LevelSelect, FIRST_WINRESULT_KEY, false); 
+            GameSaves.instance.SetBool(GameSaves.Type.LevelSelect, FIRST_WINRESULT_KEY, false);
             GameSaves.instance.SaveData(GameSaves.Type.LevelSelect);
-        } else
+        }
+        else
         {
             GameSaves.instance.SetBool(GameSaves.Type.LevelSelect, WINRESULT_KEY, true);
             // On avait PAS déja enregistrer qu'on avait gagner le niveau par la passé, donc première win
@@ -424,8 +425,19 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
 
     void LaunchWave(UnitWaveV2 wave)
     {
-        wave.LaunchNow(this);
-        OnWaveLaunch();
+        if (wave.preLaunchDialog != null)
+        {
+            Game.instance.ui.dialogDisplay.StartDialog(wave.preLaunchDialog, delegate()
+            {
+                wave.LaunchNow(this);
+                OnWaveLaunch();
+            });
+        }
+        else
+        {
+            wave.LaunchNow(this);
+            OnWaveLaunch();
+        }
     }
     #endregion
 

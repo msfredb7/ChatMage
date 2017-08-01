@@ -76,10 +76,7 @@ public class LS_FirstLevel : LevelScript
 
     public void StartFirstWave()
     {
-        Game.instance.ui.dialogDisplay.StartDialog(enterArenaDialog, delegate()
-        {
-            TriggerWaveManually("1st wave");
-        });
+        TriggerWaveManually("1st wave");
         TaggedObject gate = map.mapping.GetTaggedObject("arena gate");
         gate.GetComponent<SidewaysFakeGate>().Close();
         gate.GetComponent<Collider2D>().enabled = true;
@@ -87,18 +84,12 @@ public class LS_FirstLevel : LevelScript
 
     public void StartSecondWave()
     {
-        Game.instance.ui.dialogDisplay.StartDialog(firstKillDialog, delegate()
-        {
-            TriggerWaveManually("2nd wave");
-        });
+        TriggerWaveManually("2nd wave");
     }
 
     public void StartFinalWave()
     {
-        Game.instance.ui.dialogDisplay.StartDialog(moreEnemiesDialog, delegate ()
-        {
-            TriggerWaveManually("final wave");
-        });
+        TriggerWaveManually("final wave");
     }
 
     public void GoBack()

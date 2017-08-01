@@ -54,7 +54,7 @@ public class SpearmanBrain : EnemyBrain<SpearmanVehicle>
 
     protected override void UpdateWithoutTarget()
     {
-        if (CanGoTo<WanderBehavior>())
+        if(!vehicle.IsAttacking && CanGoTo<WanderBehavior>())
             SetBehavior(new WanderBehavior(vehicle));
     }
 }
