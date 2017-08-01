@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Layers
 {
+    public const int ENVIRONMENT = 0;
     public const int MAP_BORDER = 8;
     public const int PLAYER = 9;
     public const int ENEMIES = 10;
@@ -12,8 +13,9 @@ public class Layers
     public const int TRIGGER_ON_ALL_ENEMIES = 13;
     public const int TRIGGER_ON_BOTH = 14;
     public const int NO_COLLISION = 15;
-    public const int ENVIRONMENT = 16;
+    public const int OBSTACLES = 16;
     public const int CHAIN_CHOMP = 17;
     public const int TRIGGER_ON_NON_SOLID_ENEMIES = 18;
     public const int NAVIGATION = 19;
+    public const int PROJECTILE = 20;
 }

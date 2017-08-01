@@ -33,19 +33,7 @@ public class ShielderFollowBehavior : EnemyBehavior<ShielderVehicle>
         }
         else
         {
-            Vector2 meToTarget = target.Position - vehicle.Position;
-            float meToTargetAngle = meToTarget.ToAngle();
-            float angleDelta = (meToTargetAngle - vehicle.Rotation).Abs();
-
-            if (angleDelta > 70)
-            {
-                vehicle.Stop();
-                vehicle.TurnToDirection(meToTargetAngle, deltaTime);
-            }
-            else
-            {
-                vehicle.GotoDirection(meToTargetAngle, deltaTime);
-            }
+            vehicle.GotoPosition(target.Position);
         }
     }
 
