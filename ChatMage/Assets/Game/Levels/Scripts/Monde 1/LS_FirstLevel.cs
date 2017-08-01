@@ -82,16 +82,6 @@ public class LS_FirstLevel : LevelScript
         gate.GetComponent<Collider2D>().enabled = true;
     }
 
-    public void StartSecondWave()
-    {
-        TriggerWaveManually("2nd wave");
-    }
-
-    public void StartFinalWave()
-    {
-        TriggerWaveManually("final wave");
-    }
-
     public void GoBack()
     {
         Game.instance.ui.dialogDisplay.StartDialog(goBackDialog);
@@ -111,12 +101,6 @@ public class LS_FirstLevel : LevelScript
             case "enter arena":
                 Game.instance.gameCamera.minHeight = 0;
                 StartFirstWave();
-                break;
-            case "wave 1 complete":
-                inGameEvents.AddDelayedAction(StartSecondWave, 1);
-                break;
-            case "wave 2 complete":
-                inGameEvents.AddDelayedAction(StartFinalWave, 1);
                 break;
             case "final wave complete":
                 inGameEvents.AddDelayedAction(GoBack, 1);
