@@ -159,6 +159,7 @@ MonoBehaviour:
   - {fileID: 114658795903442550, guid: 2919f287fa3748f4789d717934dd68b7, type: 2}
   - {fileID: 114966417757089230, guid: dca25e04556fe204da1a495069e8c437, type: 2}
   - {fileID: 11400000, guid: 64fc7b7018004934bad5701afc4b5c24, type: 2}
+  - {fileID: 11400000, guid: ba7434437c98e674f9d4dd04eff56601, type: 2}
   _values:
   - _keys: []
     _values: []
@@ -488,6 +489,9 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 11400000, guid: 64fc7b7018004934bad5701afc4b5c24, type: 2}
+  - _keys: []
+    _values: []
+    _target: {fileID: 11400000, guid: ba7434437c98e674f9d4dd04eff56601, type: 2}
 --- !u!114 &114574157853951048
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -606,6 +610,7 @@ MonoBehaviour:
   - {fileID: 114658795903442550, guid: 2919f287fa3748f4789d717934dd68b7, type: 2}
   - {fileID: 114966417757089230, guid: dca25e04556fe204da1a495069e8c437, type: 2}
   - {fileID: 11400000, guid: 64fc7b7018004934bad5701afc4b5c24, type: 2}
+  - {fileID: 11400000, guid: ba7434437c98e674f9d4dd04eff56601, type: 2}
   _values:
   - _keys:
     - DefaultBehaviorEditor.sceneName.EditProperty
@@ -647,8 +652,6 @@ MonoBehaviour:
     - DefaultBehaviorEditor.noHealthPacks.EditProperty
     - DefaultBehaviorEditor.useCustomGenericEvents.EditProperty
     - DefaultBehaviorEditor.waves.EditProperty
-    - DefaultBehaviorEditor.waves.EditProperty.Primary.0.what.EditProperty.progressCallbacks.EditProperty.0.atProgress.EditProperty
-    - DefaultBehaviorEditor.waves.EditProperty.Primary.2.what.EditProperty.progressCallbacks.EditProperty.0.atProgress.EditProperty
     - DefaultBehaviorEditor.waves.EditProperty.Primary.4.what.EditProperty.progressCallbacks.EditProperty.0.atProgress.EditProperty
     - DefaultBehaviorEditor.rewards.EditProperty
     - DefaultBehaviorEditor.activateTutorial.EditProperty
@@ -677,13 +680,36 @@ MonoBehaviour:
       _serializedIsActive: 1
     - _showDropdown: 0
       _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
     _target: {fileID: 11400000, guid: 69ee3fcb35902f9458ee36f971392e8f, type: 2}
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.sceneName.EditProperty
+    - DefaultBehaviorEditor.winningConditions.EditProperty
+    - DefaultBehaviorEditor.introPrefab.EditProperty
+    - DefaultBehaviorEditor.noHealthPacks.EditProperty
+    - DefaultBehaviorEditor.useCustomGenericEvents.EditProperty
+    - DefaultBehaviorEditor.waves.EditProperty
+    - DefaultBehaviorEditor.waves.EditProperty.Primary.0.what.EditProperty.progressCallbacks.EditProperty.0.atProgress.EditProperty
+    - DefaultBehaviorEditor.rewards.EditProperty
+    - DefaultBehaviorEditor.activateTutorial.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 1
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
     _target: {fileID: 11400000, guid: 47cdc4a54c5c23544977723a44cb47a2, type: 2}
   - _keys: []
     _values: []
@@ -942,8 +968,44 @@ MonoBehaviour:
     _values: []
     _target: {fileID: 114241056511188392, guid: 444a36ca87f7fa248b0d5ff50d76f643,
       type: 2}
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.sceneName.EditProperty
+    - DefaultBehaviorEditor.winningConditions.EditProperty
+    - DefaultBehaviorEditor.introPrefab.EditProperty
+    - DefaultBehaviorEditor.noHealthPacks.EditProperty
+    - DefaultBehaviorEditor.useCustomGenericEvents.EditProperty
+    - DefaultBehaviorEditor.waves.EditProperty
+    - DefaultBehaviorEditor.waves.EditProperty.Primary.4.what.EditProperty.progressCallbacks.EditProperty.0.atProgress.EditProperty
+    - DefaultBehaviorEditor.waves.EditProperty.Primary.5.what.EditProperty.progressCallbacks.EditProperty.0.atProgress.EditProperty
+    - DefaultBehaviorEditor.waves.EditProperty.Primary.6.what.EditProperty.progressCallbacks.EditProperty.0.atProgress.EditProperty
+    - DefaultBehaviorEditor.rewards.EditProperty
+    - DefaultBehaviorEditor.activateTutorial.EditProperty
+    - DefaultBehaviorEditor.RUN.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 1
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
     _target: {fileID: 11400000, guid: 576b04cf77791fc4c9636277cbd8cc3f, type: 2}
   - _keys:
     - DefaultBehaviorEditor.replies.EditProperty.1.message.EditProperty
@@ -1167,8 +1229,17 @@ MonoBehaviour:
     - _showDropdown: 0
       _serializedIsActive: 1
     _target: {fileID: 11400000, guid: 5ec48ef9ded4cbd41a7f67f29b1030a2, type: 2}
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.coinPrefab.EditProperty
+    - DefaultBehaviorEditor.coinsCount.EditProperty
+    - DefaultBehaviorEditor.flashBefore.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
     _target: {fileID: 11400000, guid: 3ed57e7453e07de4a9969ff8d77c3af9, type: 2}
   - _keys: []
     _values: []
@@ -1466,3 +1537,6 @@ MonoBehaviour:
     - _showDropdown: 0
       _serializedIsActive: 1
     _target: {fileID: 11400000, guid: 64fc7b7018004934bad5701afc4b5c24, type: 2}
+  - _keys: []
+    _values: []
+    _target: {fileID: 11400000, guid: ba7434437c98e674f9d4dd04eff56601, type: 2}

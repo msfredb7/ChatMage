@@ -6,16 +6,17 @@ using FullInspector;
 
 public class ShielderBrain : EnemyBrain<ShielderVehicle>
 {
+    private bool isAttacking = false;
     protected override void UpdateWithoutTarget()
     {
-        if (CanGoTo<WanderBehavior>())
+        if (!isAttacking && CanGoTo<WanderBehavior>())
             SetBehavior(new WanderBehavior(vehicle));
         vehicle.PassiveMode();
     }
 
     protected override void UpdateWithTarget()
     {
-        if(!IsBehavior<ShielderAttackBehavior>() && !IsBehavior<ShielderFollowBehavior>())
+        if(!isAttacking && !IsBehavior<ShielderFollowBehavior>() && !IsForcedIntoState)
         {
             SetBehavior(new ShielderFollowBehavior(vehicle, OnCanAttack));
         }
@@ -24,11 +25,24 @@ public class ShielderBrain : EnemyBrain<ShielderVehicle>
 
     private void OnCanAttack()
     {
-        SetBehavior(new ShielderAttackBehavior(vehicle, OnAttackComplete));
+        vehicle.Stop();
+
+        isAttacking = true;
+        TweenBehavior attackBehavior = new TweenBehavior(vehicle, vehicle.animator.AttackAnimation());
+        attackBehavior.onComplete = OnAttackComplete;
+        attackBehavior.onCancel = OnAttackEnd;
+
+        SetBehavior(attackBehavior);
     }
 
     private void OnAttackComplete()
     {
+        OnAttackEnd();
         SetBehavior(new ShielderFollowBehavior(vehicle, OnCanAttack));
+    }
+
+    private void OnAttackEnd()
+    {
+        isAttacking = false;
     }
 }

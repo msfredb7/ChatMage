@@ -76,29 +76,10 @@ public class LS_FirstLevel : LevelScript
 
     public void StartFirstWave()
     {
-        Game.instance.ui.dialogDisplay.StartDialog(enterArenaDialog, delegate()
-        {
-            TriggerWaveManually("1st wave");
-        });
+        TriggerWaveManually("1st wave");
         TaggedObject gate = map.mapping.GetTaggedObject("arena gate");
         gate.GetComponent<SidewaysFakeGate>().Close();
         gate.GetComponent<Collider2D>().enabled = true;
-    }
-
-    public void StartSecondWave()
-    {
-        Game.instance.ui.dialogDisplay.StartDialog(firstKillDialog, delegate()
-        {
-            TriggerWaveManually("2nd wave");
-        });
-    }
-
-    public void StartFinalWave()
-    {
-        Game.instance.ui.dialogDisplay.StartDialog(moreEnemiesDialog, delegate ()
-        {
-            TriggerWaveManually("final wave");
-        });
     }
 
     public void GoBack()
@@ -120,12 +101,6 @@ public class LS_FirstLevel : LevelScript
             case "enter arena":
                 Game.instance.gameCamera.minHeight = 0;
                 StartFirstWave();
-                break;
-            case "wave 1 complete":
-                inGameEvents.AddDelayedAction(StartSecondWave, 1);
-                break;
-            case "wave 2 complete":
-                inGameEvents.AddDelayedAction(StartFinalWave, 1);
                 break;
             case "final wave complete":
                 inGameEvents.AddDelayedAction(GoBack, 1);

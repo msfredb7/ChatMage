@@ -28,6 +28,9 @@ namespace LevelScripting
         [InspectorCategory("Across")]
         public float spawnInterval = 1;
 
+        [InspectorCategory("Other")]
+        public Dialoguing.Dialog preLaunchDialog;
+
         [NonSerialized, fsIgnore]
         private bool isInfiniteSpawning = false;
         [NonSerialized, fsIgnore]

@@ -80,7 +80,7 @@ public class SwordsmanBrain : EnemyBrain<SwordsmanVehicle>
 
     protected override void UpdateWithoutTarget()
     {
-        if (CanGoTo<WanderBehavior>())
+        if (!vehicle.IsAttacking && CanGoTo<WanderBehavior>())
             SetBehavior(new WanderBehavior(vehicle));
     }
 }
