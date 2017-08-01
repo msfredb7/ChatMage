@@ -8,7 +8,7 @@ public class FlashScript : MonoBehaviour {
 
     public float fadeDuration = 1f;
 
-    private void Start()
+    public void Init()
     {
         GetComponent<Text>().color = new Color(GetComponent<Text>().color.r, GetComponent<Text>().color.g, GetComponent<Text>().color.b, 0);
         FadeIn();
