@@ -29,7 +29,7 @@ namespace AI
                     failure = true;
 
                 subGoals.Dequeue();
-                subGoal.Exit();
+                subGoal.Removed();
 
                 if (subGoals.Count > 0)
                 {
@@ -49,7 +49,7 @@ namespace AI
             {
                 Status statusOfSubGoal = subGoal.Process();
 
-                if(statusOfSubGoal == Status.completed && subGoals.Count > 1)
+                if (statusOfSubGoal == Status.completed && subGoals.Count > 1)
                 {
                     return Status.active;
                 }
@@ -82,35 +82,48 @@ namespace AI
                 if (goal.IsActive())
                 {
                     goal.ForceFailure();
-                    goal.Exit();
+                    goal.Removed();
                 }
             }
 
             base.ForceFailure();
         }
 
-        public override void GainFocus()
-        {
-            if(subGoals.Count > 0)
-            {
-                Goal goal = subGoals.Peek();
-                if (goal.IsActive())
-                    goal.GainFocus();
-            }
-
-            base.GainFocus();
-        }
-
-        public override void LoseFocus()
+        public override void Interrupted()
         {
             if (subGoals.Count > 0)
             {
                 Goal goal = subGoals.Peek();
                 if (goal.IsActive())
-                    goal.LoseFocus();
+                    goal.Interrupted();
             }
 
-            base.GainFocus();
+            base.Interrupted();
+        }
+
+        public override bool CanBeInterrupted
+        {
+            get
+            {
+                if(subGoals.Count > 0)
+                {
+                    //s'il y a des sous-but, checkez le but enfant ?
+                    if (base.CanBeInterrupted)
+                        return subGoals.Peek().CanBeInterrupted;
+                    else
+                        return false;
+                }
+                else
+                {
+                    //Si il n'y a aucun sous-but. on PEUT etre interrompu
+                    return true;
+                }
+            }
+
+            set
+            {
+                base.CanBeInterrupted = value;
+            }
         }
     }
 }

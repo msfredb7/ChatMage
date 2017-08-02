@@ -15,7 +15,7 @@ namespace AI
         }
         public Goal_Tween(EnemyVehicle myVehicle, Func<Tween> animationGetter) : base(myVehicle)
         {
-            this.animationGetter = animationGetter;
+            this.tweenGetter = animationGetter;
         }
     }
 }

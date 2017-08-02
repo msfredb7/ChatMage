@@ -80,7 +80,7 @@ namespace AI
                 while (goal.IsComplete() || goal.HasFailed())
                 {
                     forcedGoals.RemoveAt(forcedGoals.Count - 1);
-                    goal.Exit();
+                    goal.Removed();
 
                     if (forcedGoals.Count > 0)
                     {
@@ -102,7 +102,7 @@ namespace AI
                 while (goal.IsComplete() || goal.HasFailed())
                 {
                     goals.Pop();
-                    goal.Exit();
+                    goal.Removed();
 
                     if (goals.Count > 0)
                     {
@@ -122,14 +122,26 @@ namespace AI
                 newGoalInFocus = null;
             }
 
-            //Si l'ancien goal etait encore actif, on appel LoseFocus
-            if (goalInFocus != null && goalInFocus != newGoalInFocus && goalInFocus.IsActive())
+            if(goalInFocus == null)
             {
-                goalInFocus.LoseFocus();
-                newGoalInFocus.GainFocus();
+                goalInFocus = newGoalInFocus;
             }
-
-            goalInFocus = newGoalInFocus;
+            else if(goalInFocus != newGoalInFocus)
+            {
+                //Changement de goal
+                if (!goalInFocus.IsActive())
+                {
+                    //Assign new goal
+                    goalInFocus = newGoalInFocus;
+                }
+                else if(goalInFocus.CanBeInterrupted)
+                {
+                    //Interruption 
+                    goalInFocus.Interrupted();
+                    //Assign new goal
+                    goalInFocus = newGoalInFocus;
+                }
+            }
 
             if (goalInFocus != null)
                 goalInFocus.Process();

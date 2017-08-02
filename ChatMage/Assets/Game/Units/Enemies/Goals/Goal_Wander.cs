@@ -10,7 +10,7 @@ namespace AI
 
         float chooseTimer = 0;
 
-        public Goal_Wander(EnemyVehicle veh, float chooseInterval =5f, float distanceMin = 0.75f, float distanceMax = 3.5f) : base(veh)
+        public Goal_Wander(EnemyVehicle veh, float chooseInterval = 5f, float distanceMin = 0.75f, float distanceMax = 3.5f) : base(veh)
         {
             this.chooseInterval = chooseInterval;
             this.distanceMax = distanceMax;
@@ -21,18 +21,19 @@ namespace AI
         {
             ActivateIfInactive();
 
-            chooseTimer -= veh.DeltaTime();
-
-            if(chooseTimer < 0)
+            if(status == Status.active)
             {
-                Vector2 randomVector = Vehicle.AngleToVector(Random.Range(0, 360));
+                chooseTimer -= veh.DeltaTime();
 
-                veh.GotoPosition(veh.Position + randomVector * Random.Range(distanceMin, distanceMax));
+                if (chooseTimer < 0)
+                {
+                    Vector2 randomVector = Vehicle.AngleToVector(Random.Range(0, 360));
 
-                chooseTimer = Random.Range(chooseInterval * 0.75f, chooseInterval * 1.25f);
+                    veh.GotoPosition(veh.Position + randomVector * Random.Range(distanceMin, distanceMax));
+
+                    chooseTimer = Random.Range(chooseInterval * 0.75f, chooseInterval * 1.25f);
+                }
             }
-
-            status = Status.active;
 
             return status;
         }

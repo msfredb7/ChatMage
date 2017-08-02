@@ -25,11 +25,11 @@ namespace AI
                 //Doit-on aller la chercher ?  (cannot fail)
                 AddSubGoal(new Goal_Follow(veh, myRock, veh.unitWidth));
 
-                //Pick up  (cannot fail)
-                AddSubGoal(new TrollGoal_RockPickUp(veh, myRock));
-
                 //Aim at target  (cannot fail)
                 AddSubGoal(new Goal_LookAt(veh, myRock));
+
+                //Pick up  (cannot fail)
+                AddSubGoal(new TrollGoal_RockPickUp(veh, myRock));
             }
 
             //Aim at target  (CAN FAIL)

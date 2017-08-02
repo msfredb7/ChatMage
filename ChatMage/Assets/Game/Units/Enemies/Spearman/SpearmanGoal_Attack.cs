@@ -7,6 +7,7 @@ namespace AI
 
         public SpearmanGoal_Attack(SpearmanVehicle myVehicle, Unit target) : base(myVehicle)
         {
+            CanBeInterrupted = false;
             tween = myVehicle.animator.AttackAnimation(OnAttackMoment);
             this.target = target;
         }

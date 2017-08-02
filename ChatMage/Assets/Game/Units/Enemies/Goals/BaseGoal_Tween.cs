@@ -13,7 +13,7 @@ namespace AI
         public Func<bool> cancelCondition;
 
         protected Tween tween;
-        protected Func<Tween> animationGetter;
+        protected Func<Tween> tweenGetter;
 
         public BaseGoal_Tween(T veh) : base(veh) { }
 
@@ -21,9 +21,9 @@ namespace AI
         {
             base.Activate();
 
-            if (tween == null && animationGetter != null)
+            if (tween == null && tweenGetter != null)
             {
-                tween = animationGetter();
+                tween = tweenGetter();
             }
 
             if (tween == null)
@@ -68,9 +68,9 @@ namespace AI
             base.ForceFailure();
         }
 
-        public override void Exit()
+        public override void Removed()
         {
-            base.Exit();
+            base.Removed();
 
             if (killTweenOnTerminate && tween != null && tween.IsActive())
                 tween.Kill();

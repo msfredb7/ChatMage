@@ -16,7 +16,8 @@ namespace AI
         public delegate void GoalEvent(Goal goal);
         public enum Status { active = 0, inactive = 1, completed = 2, failed = 3 }
 
-        public GoalEvent onExit;
+        public GoalEvent onRemoved;
+        private bool canBeInterrupted = true;
 
         protected Status status = Status.inactive;
 
@@ -32,24 +33,20 @@ namespace AI
             status = Status.completed;
         }
 
-        public virtual void LoseFocus()
-        {
-
-        }
-        public virtual void GainFocus()
-        {
-
-        }
-
         public virtual void ForceFailure()
         {
             status = Status.failed;
         }
 
-        public virtual void Exit()
+        public virtual void Interrupted()
         {
-            if (onExit != null)
-                onExit(this);
+
+        }
+
+        public virtual void Removed()
+        {
+            if (onRemoved != null)
+                onRemoved(this);
         }
 
         protected void ReactivateIfFailed()
@@ -62,6 +59,12 @@ namespace AI
         {
             if (status == Status.inactive)
                 Activate();
+        }
+
+        public virtual bool CanBeInterrupted
+        {
+            get { return canBeInterrupted; }
+            set { canBeInterrupted = value; }
         }
 
         public bool IsComplete() { return status == Status.completed; }

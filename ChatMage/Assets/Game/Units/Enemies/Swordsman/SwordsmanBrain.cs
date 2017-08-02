@@ -45,7 +45,7 @@ namespace AI
                     else
                         goalFollow = new Goal_Follow(veh, target, startAttackRange);
 
-                    goalFollow.onExit = OnFollowExit;
+                    goalFollow.onRemoved = OnFollowExit;
 
                     AddGoal(goalFollow);
                 }
@@ -62,7 +62,7 @@ namespace AI
             {
                 //Add attack goal
                 attackGoal = new SwordsmanGoal_Attack(veh, target);
-                attackGoal.onExit = (Goal g) => { target = null; attackGoal = null; };
+                attackGoal.onRemoved = (Goal g) => { target = null; attackGoal = null; };
                 AddForcedGoal(attackGoal, 99);
             }
         }

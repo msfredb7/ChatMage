@@ -38,9 +38,9 @@ namespace AI
             myRock.transform.SetParent(Game.instance.unitsContainer, true);
         }
 
-        public override void LoseFocus()
+        public override void Interrupted()
         {
-            base.LoseFocus();
+            base.Interrupted();
 
             ForceFailure();
         }

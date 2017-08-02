@@ -40,7 +40,7 @@ namespace AI
                     else
                         goalFollow = new Goal_Follow(veh, target, startAttackRange);
 
-                    goalFollow.onExit = OnFollowExit;
+                    goalFollow.onRemoved = OnFollowExit;
 
                     AddGoal(goalFollow);
                 }
@@ -57,8 +57,8 @@ namespace AI
             {
                 //Add attack goal
                 Goal attackGoal = new SpearmanGoal_Attack(veh, target);
-                attackGoal.onExit = (Goal g) => target = null;
-                AddForcedGoal(attackGoal, 100);
+                attackGoal.onRemoved = (Goal g) => target = null;
+                AddGoal(attackGoal);
             }
         }
     }

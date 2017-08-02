@@ -24,9 +24,9 @@ namespace AI
             myRock.PickedUpState(veh);
         }
 
-        public override void LoseFocus()
+        public override void Interrupted()
         {
-            base.LoseFocus();
+            base.Interrupted();
 
             ForceFailure();
         }

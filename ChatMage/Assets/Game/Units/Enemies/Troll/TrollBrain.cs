@@ -29,7 +29,7 @@ namespace AI
                 if(target != null)
                 {
                     Goal attackGoal = new TrollGoal_Attack(veh, myRock, target);
-                    attackGoal.onExit = (Goal g) => target = null;
+                    attackGoal.onRemoved = (Goal g) => target = null;
                     AddGoal(attackGoal);
                 }
             }
