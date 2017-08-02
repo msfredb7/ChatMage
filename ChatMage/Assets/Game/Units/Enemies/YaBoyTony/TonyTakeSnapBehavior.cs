@@ -11,7 +11,7 @@ public class TonyTakeSnapBehavior : BaseTweenBehavior<TonyVehicle>
     public TonyTakeSnapBehavior(TonyVehicle veh, Action onComplete) : base(veh)
     {
         this.onComplete = onComplete;
-        tween = veh.animator.TakeSnap(OnZoneComplete);
+        //tween = veh.animator.TakeSnap(OnZoneComplete);
     }
     
     public override void Update(Unit target, float deltaTime)

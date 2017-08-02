@@ -176,6 +176,81 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!1 &138933721
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 138933724}
+  - component: {fileID: 138933723}
+  - component: {fileID: 138933722}
+  m_Layer: 0
+  m_Name: Position Displacer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!114 &138933722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 138933721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c76b8a6f39a46594e898440a8fbc51ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectReferences: []
+  _serializedStateKeys:
+  - type
+  - displacement
+  - dir
+  - point
+  _serializedStateValues:
+  - '"CrossBorder"'
+  - '{"x":1.0,"y":1.0}'
+  - '{"x":0.0,"y":1.0}'
+  - '{"x":0.5,"y":0.0}'
+  type: 1
+  displacement: {x: 1, y: 1}
+  dir: {x: 0, y: 1}
+  point: {x: 0.5, y: 0}
+--- !u!114 &138933723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 138933721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f407e45a4f04264f9473410f7a3e329, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canBeRotatedAndScaled: 0
+  willBeMoved: 0
+  area:
+    min: {x: -0.5, y: -2}
+    max: {x: 0.5, y: 2}
+  worldBounds:
+    min: {x: -1.65, y: 1}
+    max: {x: -0.65, y: 5}
+--- !u!4 &138933724
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 138933721}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.15, y: 3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 19
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &153121005
 GameObject:
   m_ObjectHideFlags: 0
@@ -254,6 +329,81 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &189859208
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 189859211}
+  - component: {fileID: 189859210}
+  - component: {fileID: 189859209}
+  m_Layer: 0
+  m_Name: Position Displacer (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!114 &189859209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 189859208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c76b8a6f39a46594e898440a8fbc51ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectReferences: []
+  _serializedStateKeys:
+  - type
+  - displacement
+  - dir
+  - point
+  _serializedStateValues:
+  - '"CrossBorder"'
+  - '{"x":1.0,"y":1.0}'
+  - '{"x":0.0,"y":1.0}'
+  - '{"x":0.5,"y":0.0}'
+  type: 1
+  displacement: {x: 1, y: 1}
+  dir: {x: 0, y: 1}
+  point: {x: 0.5, y: 0}
+--- !u!114 &189859210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 189859208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f407e45a4f04264f9473410f7a3e329, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canBeRotatedAndScaled: 0
+  willBeMoved: 0
+  area:
+    min: {x: -0.5, y: -2}
+    max: {x: 0.5, y: 2}
+  worldBounds:
+    min: {x: -1.65, y: -5}
+    max: {x: -0.65, y: -1}
+--- !u!4 &189859211
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 189859208}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.15, y: -3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &298466610
 GameObject:
@@ -1416,7 +1566,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aaeb5c3ac4e10847931e7ba2845ab6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectReferences: []
+  _objectReferences:
+  - {fileID: 138933722}
+  - {fileID: 189859209}
   _serializedStateKeys:
   - listUnits
   - objectsToAjust
@@ -1426,7 +1578,7 @@ MonoBehaviour:
   - '[]'
   - '[]'
   - '{"min":{"x":-7.0,"y":-4.5},"max":{"x":8.0,"y":4.5}}'
-  - '[]'
+  - '[0,1]'
   mapping: {fileID: 153121006}
   cameraSpawn: {fileID: 1833739392}
   listUnits: []
@@ -1437,7 +1589,9 @@ MonoBehaviour:
     max: {x: 8, y: 4.5}
   ajustAreaToCamera: 1
   roadPlayer: {fileID: 458826281}
-  positionDisplacers: []
+  positionDisplacers:
+  - {fileID: 138933722}
+  - {fileID: 189859209}
 --- !u!4 &1644651696
 Transform:
   m_ObjectHideFlags: 0
@@ -1508,6 +1662,8 @@ MonoBehaviour:
   - {fileID: 1237816615}
   - {fileID: 153121006}
   - {fileID: 1644651695}
+  - {fileID: 138933722}
+  - {fileID: 189859209}
   _values:
   - _keys: []
     _values: []
@@ -1518,6 +1674,12 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 1644651695}
+  - _keys: []
+    _values: []
+    _target: {fileID: 138933722}
+  - _keys: []
+    _values: []
+    _target: {fileID: 189859209}
 --- !u!114 &1649213853
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1533,6 +1695,8 @@ MonoBehaviour:
   - {fileID: 1237816615}
   - {fileID: 153121006}
   - {fileID: 1644651695}
+  - {fileID: 138933722}
+  - {fileID: 189859209}
   _values:
   - _keys: []
     _values: []
@@ -1540,27 +1704,15 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 153121006}
-  - _keys:
-    - DefaultBehaviorEditor.mapping.EditProperty
-    - DefaultBehaviorEditor.cameraSpawn.EditProperty
-    - DefaultBehaviorEditor.listUnits.EditProperty
-    - DefaultBehaviorEditor.objectsToAjust.EditProperty
-    - DefaultBehaviorEditor.setAIArea.EditProperty
-    - DefaultBehaviorEditor.roadPlayer.EditProperty
-    _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
+  - _keys: []
+    _values: []
     _target: {fileID: 1644651695}
+  - _keys: []
+    _values: []
+    _target: {fileID: 138933722}
+  - _keys: []
+    _values: []
+    _target: {fileID: 189859209}
 --- !u!1 &1689588588
 GameObject:
   m_ObjectHideFlags: 0

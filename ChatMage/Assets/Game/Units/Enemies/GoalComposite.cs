@@ -12,7 +12,7 @@ namespace AI
     }
     public abstract class GoalComposite : Goal
     {
-        public Queue<Goal> subGoals = new Queue<Goal>();
+        public Queue<Goal> subGoals = new Queue<Goal>(4);
 
         public Status ProcessSubGoals()
         {

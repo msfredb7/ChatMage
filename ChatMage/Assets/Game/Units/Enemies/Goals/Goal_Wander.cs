@@ -4,11 +4,11 @@ namespace AI
 {
     public class Goal_Wander : Goal<EnemyVehicle>
     {
-        float chooseInterval;
-        float distanceMin;
-        float distanceMax;
+        protected float chooseInterval;
+        protected float distanceMin;
+        protected float distanceMax;
 
-        float chooseTimer = 0;
+        protected float chooseTimer = 0;
 
         public Goal_Wander(EnemyVehicle veh, float chooseInterval = 3.5f, float distanceMin = 0.75f, float distanceMax = 3.5f) : base(veh)
         {
@@ -27,15 +27,24 @@ namespace AI
 
                 if (chooseTimer < 0)
                 {
-                    Vector2 randomVector = Vehicle.AngleToVector(Random.Range(0, 360));
-
-                    veh.GotoPosition(veh.Position + randomVector * Random.Range(distanceMin, distanceMax));
-
-                    chooseTimer = Random.Range(chooseInterval * 0.75f, chooseInterval * 1.25f);
+                    SetNewDestination();
                 }
             }
 
             return status;
+        }
+
+        protected virtual void SetNewDestination()
+        {
+            veh.GotoPosition(GetNewDestination());
+            chooseTimer = Random.Range(chooseInterval * 0.75f, chooseInterval * 1.25f);
+        }
+
+        protected virtual Vector2 GetNewDestination()
+        {
+            Vector2 randomVector = Vehicle.AngleToVector(Random.Range(0, 360));
+
+            return veh.Position + randomVector * Random.Range(distanceMin, distanceMax);
         }
     }
 }

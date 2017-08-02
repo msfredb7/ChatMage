@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4267170128773732}
   - component: {fileID: 212446400955131396}
-  m_Layer: 15
+  m_Layer: 10
   m_Name: Body Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 58167696585866248}
   - component: {fileID: 114029095611258512}
   - component: {fileID: 114988875581739858}
-  m_Layer: 12
+  m_Layer: 10
   m_Name: Zone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,7 +54,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4855169657308184}
   - component: {fileID: 212314444708525574}
-  m_Layer: 15
+  m_Layer: 10
   m_Name: Nose
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +73,8 @@ GameObject:
   - component: {fileID: 114113534219083486}
   - component: {fileID: 114203498643892728}
   - component: {fileID: 114564324580914688}
-  m_Layer: 15
+  - component: {fileID: 58553453989316384}
+  m_Layer: 10
   m_Name: Tony
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +90,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4865433939780506}
   - component: {fileID: 212888778400409832}
-  m_Layer: 12
+  m_Layer: 10
   m_Name: Flash Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +106,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4101018233783256}
   - component: {fileID: 212058360034842002}
-  m_Layer: 12
+  m_Layer: 10
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -206,9 +207,9 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 5
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 5
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -229,7 +230,22 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.63
+--- !u!58 &58553453989316384
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1258328144987650}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: ac84c7d6c9b5d154a85c1cbeede9ae2c, type: 2}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.175
 --- !u!114 &114029095611258512
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -261,11 +277,11 @@ MonoBehaviour:
   rotationSetsTargetDirection: 1
   useWeight: 0
   weight: 0.1
-  unitWidth: 0
-  useTurnSpeed: 0
-  turnSpeed: 150
+  unitWidth: 0.7
+  useTurnSpeed: 1
+  turnSpeed: 300
   smartMove: 1
-  clampToAIArea: 0
+  clampToAIArea: 1
   targets:
     targetAllegiances: 
   animator: {fileID: 114564324580914688}
@@ -285,9 +301,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18a4c59be33b17543991d762688b1a2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectReferences: []
-  _serializedStateKeys: []
-  _serializedStateValues: []
   roamTime: 9
 --- !u!114 &114564324580914688
 MonoBehaviour:
@@ -301,6 +314,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vehicle: {fileID: 114113534219083486}
+  unitWidthWithZone: 1.88
   zoneDuration: 4
   zoneSprite: {fileID: 212058360034842002}
   zoneTrigger: {fileID: 58167696585866248}

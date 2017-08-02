@@ -8,6 +8,9 @@ public class TonyAnimator : MonoBehaviour
 {
     public TonyVehicle vehicle;
 
+    [Header("Pour reference a l'interne")]
+    public float unitWidthWithZone = 1.75f;
+
     [Header("Zone")]
     public float zoneDuration = 3;
     public SpriteRenderer zoneSprite;
@@ -18,12 +21,12 @@ public class TonyAnimator : MonoBehaviour
     public float flashDuration = 0.1f;
     public float flashAlpha = 0.7f;
 
-    public float ZoneWidth
+    public float UnitWidthWithZone
     {
-        get { return zoneSprite.transform.localScale.x; }
+        get { return unitWidthWithZone; }
     }
 
-    public Tween TakeSnap(TweenCallback onComplete)
+    public Tween TakeSnap()
     {
         Sequence sq = DOTween.Sequence();
 
@@ -43,11 +46,6 @@ public class TonyAnimator : MonoBehaviour
             //Close zone
             zoneSprite.enabled = false;
             zoneTrigger.enabled = false;
-
-            //On complete
-            if (onComplete != null)
-                onComplete();
-            onComplete = null;
 
             //Remove listener
             vehicle.onSnapTaken = null;

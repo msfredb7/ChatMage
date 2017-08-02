@@ -61,6 +61,12 @@ namespace AI
                 Activate();
         }
 
+        protected void ReactivateIfCompleted()
+        {
+            if (status == Status.completed)
+                Activate();
+        }
+
         public virtual bool CanBeInterrupted
         {
             get { return canBeInterrupted; }

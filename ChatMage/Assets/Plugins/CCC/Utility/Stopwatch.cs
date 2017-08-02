@@ -20,17 +20,17 @@ public class Stopwatch
     /// <summary>
     /// Print le temps écoulé en milliseconde depuis la construction OU le dernier Print(). Le temps du log en temps que tel n'est pas inclu.
     /// </summary>
-    public void Print()
+    public void Print(string prefix = "")
     {
         float deltaTicks = stopwatch.ElapsedTicks;
         switch (printType)
         {
             default:
             case PrintType.Milliseconds:
-                UnityEngine.Debug.Log("Exec time(ms): " + (double)deltaTicks / 10000);
+                UnityEngine.Debug.Log(prefix + "Exec time(ms): " + (double)deltaTicks / 10000);
                 break;
             case PrintType.Ticks:
-                UnityEngine.Debug.Log("Exec time(ticks): " + deltaTicks);
+                UnityEngine.Debug.Log(prefix + "Exec time(ticks): " + deltaTicks);
                 break;
         }
         stopwatch.Reset();

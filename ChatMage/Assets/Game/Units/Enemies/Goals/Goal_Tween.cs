@@ -8,6 +8,7 @@ namespace AI
 {
     public class Goal_Tween : BaseGoal_Tween<EnemyVehicle>
     {
+        public bool stopVehicle = false;
         public Goal_Tween(EnemyVehicle myVehicle, Tween animation) : base(myVehicle)
         {
             tween = animation;
@@ -16,6 +17,14 @@ namespace AI
         public Goal_Tween(EnemyVehicle myVehicle, Func<Tween> animationGetter) : base(myVehicle)
         {
             this.tweenGetter = animationGetter;
+        }
+
+        public override void Activate()
+        {
+            base.Activate();
+
+            if (stopVehicle)
+                veh.Stop();
         }
     }
 }
