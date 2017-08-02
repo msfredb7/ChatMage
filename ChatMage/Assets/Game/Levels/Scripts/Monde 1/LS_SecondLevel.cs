@@ -14,7 +14,7 @@ public class LS_SecondLevel : LevelScript
     public Dialoguing.Dialog secondWaveTalk;
     public Dialoguing.Dialog thirdWaveTalk;
     public Dialoguing.Dialog whatIsThisSorcery;
-    public Dialoguing.Dialog getHim;
+    public Dialoguing.Dialog sacrifice;
 
     [fsIgnore, NonSerialized]
     private Map map;
@@ -119,24 +119,27 @@ public class LS_SecondLevel : LevelScript
 
     public void StartFinalWave()
     {
-        Game.instance.ui.dialogDisplay.StartDialog(getHim, delegate ()
+        TriggerWaveManually("final wave");
+        inGameEvents.AddDelayedAction(EscapeEvent, 1);
+    }
+
+    public void EscapeEvent()
+    {
+        Game.instance.ui.dialogDisplay.StartDialog(sacrifice, delegate ()
         {
-            TriggerWaveManually("final wave");
-            inGameEvents.AddDelayedAction(delegate ()
-            {
-                // Camera
-                Game.instance.gameCamera.followPlayer = true;
-                Game.instance.gameCamera.canScrollUp = true;
-                Game.instance.map.roadPlayer.CurrentRoad.ApplyMinMaxToCamera();
+            // Animation explosion ICI
 
-                // Gates
-                TaggedObject gate1 = map.mapping.GetTaggedObject("arena gate top");
-                gate1.GetComponent<SidewaysFakeGate>().Open();
-                gate1.GetComponent<Collider2D>().enabled = true;
-                TaggedObject gate2 = map.mapping.GetTaggedObject("fake gate top");
-                gate2.gameObject.SetActive(false);
+            // Camera
+            Game.instance.gameCamera.followPlayer = true;
+            Game.instance.gameCamera.canScrollUp = true;
+            Game.instance.map.roadPlayer.CurrentRoad.ApplyMinMaxToCamera();
 
-            }, 3);
+            // Gates
+            TaggedObject gate1 = map.mapping.GetTaggedObject("arena gate top");
+            gate1.GetComponent<SidewaysFakeGate>().Open();
+            gate1.GetComponent<Collider2D>().enabled = true;
+            TaggedObject gate2 = map.mapping.GetTaggedObject("fake gate top");
+            gate2.gameObject.SetActive(false);
         });
     }
 
@@ -160,8 +163,6 @@ public class LS_SecondLevel : LevelScript
             case "wave 4 complete":
                 inGameEvents.AddDelayedAction(StartFinalWave, 1);
                 canWin = true;
-                break;
-            case "last impossible wave":
                 break;
             case "attempt win":
                 if (canWin)

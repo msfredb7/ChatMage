@@ -23,7 +23,7 @@ MonoBehaviour:
   - '[]'
   - '[{"$type":"GameCondition.LoseOnPlayerDeath"}]'
   - '[]'
-  - '[{"what":{"spawnSequence":[{"unit":0,"quantity":1}],"onSpawnMethod":"","progressCallbacks":[]},"infiniteRepeat":false,"where":{"logErrorIfUnableToLaunch":true,"spawnTag":"plus","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0},"when":{"type":"At","time":0.0,"name":null,"onlyTriggerOnce":false},"spawnInterval":0.0}]'
+  - '[{"what":{"spawnSequence":[{"unit":0,"quantity":1}],"onSpawnMethod":"","progressCallbacks":[]},"infiniteRepeat":false,"pauseBetweenRepeat":0.0,"where":{"logErrorIfUnableToLaunch":true,"spawnTag":"plus","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0},"when":{"type":"At","time":0.0,"name":null,"onlyTriggerOnce":false},"spawnInterval":0.0,"preLaunchDialog":null}]'
   - '{"overrideGoldAmount":false,"goldReward":{"baseAmountMin":0,"baseAmountMax":5,"firstWinAmountMin":0,"firstWinAmountMax":5},"giveLootBox":true,"lootboxRefName":null,"goldified":false}'
   sceneName: RomanArena
   introPrefab: {fileID: 114939908285177620, guid: 6ecb49bd0fe07fd49a2105006011056d,
@@ -34,9 +34,9 @@ MonoBehaviour:
     type: 2}
   noHealthPacks: 0
   followPlayerOnStart: 0
+  smashEnable: 1
   useCustomGenericEvents: 0
   events: []
-  isOver: 0
   activateTutorial: 0
   tutorialAssetName: 
   healthPacks: {fileID: 114870834835718906, guid: d28e2a568fc043140bfc8bc5777eb644,
