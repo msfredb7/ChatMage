@@ -35,12 +35,18 @@ public class BubbleBuff : BaseBuff, IAttackable
 
     public override void RemoveEffect(Unit unit)
     {
-        Object.Destroy(vfx);
     }
 
     public override float DecreaseDuration(float worldDeltaTime, float localDeltaTime)
     {
-        return removeShield ? -1 : 1;
+        if (removeShield)
+        {
+            return base.DecreaseDuration(worldDeltaTime, localDeltaTime);
+        }
+        else
+        {
+            return 1;
+        }
     }
 
     public int Attacked(ColliderInfo on, int amount, Unit otherUnit, ColliderInfo source = null)
@@ -55,7 +61,11 @@ public class BubbleBuff : BaseBuff, IAttackable
                     BumpMode.VelocityChange);
         }
 
+        if(!removeShield)
+            Object.Destroy(vfx);
+
         removeShield = true;
+
         //Block le dégat
         return 0;
     }

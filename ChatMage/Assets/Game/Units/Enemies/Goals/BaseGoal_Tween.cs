@@ -49,13 +49,12 @@ namespace AI
         {
             ActivateIfInactive();
 
-            if (tween == null || !tween.IsActive() || (cancelCondition != null && cancelCondition()))
+            if (IsActive())
             {
-                status = Status.completed;
-            }
-            else
-            {
-                status = Status.active;
+                if (tween == null || !tween.IsActive() || (cancelCondition != null && cancelCondition()))
+                {
+                    status = Status.completed;
+                }
             }
 
             return status;

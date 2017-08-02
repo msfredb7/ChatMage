@@ -10,7 +10,7 @@ namespace AI
 
         float chooseTimer = 0;
 
-        public Goal_Wander(EnemyVehicle veh, float chooseInterval = 5f, float distanceMin = 0.75f, float distanceMax = 3.5f) : base(veh)
+        public Goal_Wander(EnemyVehicle veh, float chooseInterval = 3.5f, float distanceMin = 0.75f, float distanceMax = 3.5f) : base(veh)
         {
             this.chooseInterval = chooseInterval;
             this.distanceMax = distanceMax;
