@@ -10,7 +10,6 @@ public class MainMenu : BaseBehavior
 {
     public const string SCENENAME = "MainMenu";
     public Button playButton;
-    public Button optionsMenuButton;
     public bool DEMO = false; // A ENLEVER
     public AudioClip title;
 
@@ -21,16 +20,17 @@ public class MainMenu : BaseBehavior
 
     public void Init()
     {
-        MasterManager.Sync();
-        playButton.onClick.AddListener(GotoLevelSelect);
+        MasterManager.Sync(delegate() {
+            playButton.onClick.AddListener(GotoLevelSelect);
 
-        SoundManager.PlaySFX(title);
+            SoundManager.PlaySFX(title);
 
-        //if(doATutorial)
-        //    StartTutorial();
+            //if(doATutorial)
+            //    StartTutorial();
+        });
     }
 
-    private void GotoLevelSelect()
+    public void GotoLevelSelect()
     {
         if(DEMO) // A ENLEVER
             LoadingScreen.TransitionTo(Framework.SCENENAME, null);

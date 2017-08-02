@@ -17,7 +17,8 @@ MonoBehaviour:
   - {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
   - {fileID: 114917152140949164, guid: 90a1293e412776e4db23eb9595fcf924, type: 2}
   - {fileID: 114892083099199946, guid: a97b513999cddca448e173580c0c886f, type: 2}
-  - {fileID: 114344825121110454, guid: 87979850fb6813446a6c13a64c2eebb6, type: 2}
+  - {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
+  - {fileID: 11400000, guid: 0f26f2bb04526f841ac7fe9e03eaf2a6, type: 2}
   _serializedStateKeys:
   - winningConditions
   - losingConditions
@@ -32,13 +33,13 @@ MonoBehaviour:
     1 complete","atProgress":0.9,"atKillCount":0,"useProgress":true}]},"infiniteRepeat":false,"pauseBetweenRepeat":0.0,"where":{"logErrorIfUnableToLaunch":true,"spawnTag":"ordered","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0},"when":{"type":"OnManualTrigger","time":0.0,"name":"1st
     wave","onlyTriggerOnce":true},"spawnInterval":2.0,"preLaunchDialog":null},{"what":{"spawnSequence":[{"unit":1,"quantity":1}],"onSpawnMethod":"","progressCallbacks":[{"levelEventName":"wave
     2 complete","atProgress":1.0,"atKillCount":0,"useProgress":true}]},"infiniteRepeat":false,"pauseBetweenRepeat":0.0,"where":{"logErrorIfUnableToLaunch":true,"spawnTag":"ordered","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0},"when":{"type":"OnManualTrigger","time":0.0,"name":"2nd
-    wave","onlyTriggerOnce":true},"spawnInterval":1.0,"preLaunchDialog":null},{"what":{"spawnSequence":[{"unit":2,"quantity":10},{"unit":3,"quantity":10}],"onSpawnMethod":"","progressCallbacks":[{"levelEventName":"wave
+    wave","onlyTriggerOnce":true},"spawnInterval":1.0,"preLaunchDialog":null},{"what":{"spawnSequence":[{"unit":2,"quantity":2},{"unit":3,"quantity":2}],"onSpawnMethod":"","progressCallbacks":[{"levelEventName":"wave
     3 complete","atProgress":1.0,"atKillCount":0,"useProgress":true}]},"infiniteRepeat":false,"pauseBetweenRepeat":0.0,"where":{"logErrorIfUnableToLaunch":true,"spawnTag":"ordered","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0},"when":{"type":"OnManualTrigger","time":0.0,"name":"3rd
     wave","onlyTriggerOnce":true},"spawnInterval":0.25,"preLaunchDialog":null},{"what":{"spawnSequence":[{"unit":4,"quantity":4}],"onSpawnMethod":"","progressCallbacks":[{"levelEventName":"wave
     4 complete","atProgress":1.0,"atKillCount":0,"useProgress":true}]},"infiniteRepeat":false,"pauseBetweenRepeat":0.0,"where":{"logErrorIfUnableToLaunch":true,"spawnTag":"ordered","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0},"when":{"type":"OnManualTrigger","time":0.0,"name":"4th
-    wave","onlyTriggerOnce":true},"spawnInterval":1.0,"preLaunchDialog":null},{"what":{"spawnSequence":[{"unit":5,"quantity":1}],"onSpawnMethod":"SetArmyWallSideWalk","progressCallbacks":[{"levelEventName":"last
-    impossible wave","atProgress":1.0,"atKillCount":0,"useProgress":true}]},"infiniteRepeat":false,"pauseBetweenRepeat":0.0,"where":{"logErrorIfUnableToLaunch":true,"spawnTag":"sides","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0},"when":{"type":"OnManualTrigger","time":0.0,"name":"final
-    wave","onlyTriggerOnce":true},"spawnInterval":0.1,"preLaunchDialog":null}]'
+    wave","onlyTriggerOnce":true},"spawnInterval":1.0,"preLaunchDialog":null},{"what":{"spawnSequence":[{"unit":5,"quantity":10}],"onSpawnMethod":"","progressCallbacks":[{"levelEventName":"escape
+    event","atProgress":0.0,"atKillCount":0,"useProgress":true}]},"infiniteRepeat":false,"pauseBetweenRepeat":0.0,"where":{"logErrorIfUnableToLaunch":true,"spawnTag":"sides","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0},"when":{"type":"OnManualTrigger","time":0.0,"name":"final
+    wave","onlyTriggerOnce":true},"spawnInterval":0.5,"preLaunchDialog":6}]'
   - '{"overrideGoldAmount":false,"goldReward":{"baseAmountMin":0,"baseAmountMax":0,"firstWinAmountMin":0,"firstWinAmountMax":0},"giveLootBox":false,"lootboxRefName":null,"goldified":false}'
   sceneName: RomanArena2
   introPrefab: {fileID: 114921437952830070, guid: 002facbad3d5db44e89adaf01930e6fb,
@@ -59,4 +60,4 @@ MonoBehaviour:
   secondWaveTalk: {fileID: 11400000, guid: d21ab8247cabc184db53f0d86b2f2546, type: 2}
   thirdWaveTalk: {fileID: 11400000, guid: b825e28f6e967174db39a343046e1066, type: 2}
   whatIsThisSorcery: {fileID: 11400000, guid: dc6eceab0b5133e43a7326c11e8517a6, type: 2}
-  getHim: {fileID: 11400000, guid: 0f26f2bb04526f841ac7fe9e03eaf2a6, type: 2}
+  sacrifice: {fileID: 11400000, guid: 181cd0fe97ce3fd459eb97c1ad16cbd9, type: 2}

@@ -17,8 +17,8 @@ public class MainMenuIntroAnimation : MonoBehaviour {
     {
         flashScriptA.Init();
         flashScriptB.Init();
+        mainMenu.Init();
         canvasGroup.DOFade(1, fadeDuration).OnComplete(delegate () {
-            mainMenu.Init();
             carAnimation.Init();
         });
     }
