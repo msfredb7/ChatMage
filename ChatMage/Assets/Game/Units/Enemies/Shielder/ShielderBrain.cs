@@ -4,45 +4,33 @@ using System.Collections.Generic;
 using UnityEngine;
 using FullInspector;
 
-public class ShielderBrain : EnemyBrain<ShielderVehicle>
+namespace AI
 {
-    private bool isAttacking = false;
-    protected override void UpdateWithoutTarget()
+    public class ShielderBrain : EnemyBrainV2<ShielderVehicle>
     {
-        if (!isAttacking && CanGoTo<WanderBehavior>())
-            SetBehavior(new WanderBehavior(vehicle));
-        vehicle.PassiveMode();
-    }
+        private Unit target;
 
-    protected override void UpdateWithTarget()
-    {
-        if(!isAttacking && !IsBehavior<ShielderFollowBehavior>() && !IsForcedIntoState)
+        void Start()
         {
-            SetBehavior(new ShielderFollowBehavior(vehicle, OnCanAttack));
+            AddGoal(new Goal_Wander(veh));
         }
-        vehicle.BattleMode();
-    }
 
-    private void OnCanAttack()
-    {
-        vehicle.Stop();
+        protected override void Update()
+        {
+            base.Update();
 
-        isAttacking = true;
-        TweenBehavior attackBehavior = new TweenBehavior(vehicle, vehicle.animator.AttackAnimation());
-        attackBehavior.onComplete = OnAttackComplete;
-        attackBehavior.onCancel = OnAttackEnd;
+            if(target == null)
+            {
+                target = veh.targets.TryToFindTarget(veh);
 
-        SetBehavior(attackBehavior);
-    }
+                if(target != null)
+                {
+                    Goal goal = new ShielderGoal_Battle(veh, target);
+                    goal.onRemoved = (Goal g) => target = null;
+                    AddGoal(goal);
+                }
+            }
 
-    private void OnAttackComplete()
-    {
-        OnAttackEnd();
-        SetBehavior(new ShielderFollowBehavior(vehicle, OnCanAttack));
-    }
-
-    private void OnAttackEnd()
-    {
-        isAttacking = false;
+        }
     }
 }

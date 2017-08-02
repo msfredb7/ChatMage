@@ -13,20 +13,14 @@ public class ShielderVehicle : EnemyVehicle
     [Header("Shielder Settings")]
     public float bumpStrength;
     public float bumpDuration = 0f;
-    public float passiveMoveSpeed;
-    public float passiveTurnSpeed;
 
     public Unit_Event onShieldPhysicalHit;
 
-    private float battleMoveSpeed;
-    private float battleTurnSpeed;
-    private bool battleMode = true;
+    private float lastBumpTime = 0;
 
     protected override void Awake()
     {
         base.Awake();
-        battleMoveSpeed = MoveSpeed;
-        battleTurnSpeed = turnSpeed;
         swordListener.OnTriggerEnter += OnSwordHit;
     }
 
@@ -55,7 +49,12 @@ public class ShielderVehicle : EnemyVehicle
                 if (targets.IsValidTarget(unit.allegiance) && unit is Vehicle)
                 {
                     //Bump !
-                    (unit as Vehicle).Bump((unit.Position - Position).normalized * bumpStrength, bumpDuration, BumpMode.VelocityAdd);
+                    float time = Game.instance.events.GameTime;
+                    if(time- lastBumpTime > 0.1f)
+                    {
+                        lastBumpTime = Game.instance.events.GameTime;
+                        (unit as Vehicle).Bump((unit.Position - Position).normalized * bumpStrength, bumpDuration, BumpMode.VelocityAdd);
+                    }
                 }
                 onShieldPhysicalHit(unit);
             }
@@ -68,22 +67,6 @@ public class ShielderVehicle : EnemyVehicle
 
             return 0;
         }
-    }
-    public void PassiveMode()
-    {
-        if (!battleMode)
-            return;
-        battleMode = false;
-        MoveSpeed = passiveMoveSpeed;
-        turnSpeed = passiveTurnSpeed;
-    }
-    public void BattleMode()
-    {
-        if (battleMode)
-            return;
-        battleMode = true;
-        MoveSpeed = battleMoveSpeed;
-        turnSpeed = battleTurnSpeed;
     }
 
     protected override void Die()

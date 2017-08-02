@@ -288,7 +288,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1871222452349014}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.64, y: 3.3, z: 0}
+  m_LocalPosition: {x: -6.528, y: 3.412, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4272834586926906}
@@ -380,7 +380,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1274347890908236}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: ac84c7d6c9b5d154a85c1cbeede9ae2c, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -405,7 +405,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1528585703937850}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: ac84c7d6c9b5d154a85c1cbeede9ae2c, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -430,7 +430,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1676241768457148}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: ac84c7d6c9b5d154a85c1cbeede9ae2c, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -605,8 +605,6 @@ MonoBehaviour:
   animator: {fileID: 114967462287717054}
   bumpStrength: 3
   bumpDuration: 0
-  passiveMoveSpeed: 1.5
-  passiveTurnSpeed: 200
 --- !u!114 &114954738160054536
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -619,7 +617,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enabled: 1
-  deactivationRange: 10
+  overrideDefaultDeactivationRange: 0
+  newDeactivationRange: 10
 --- !u!114 &114959007032342916
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -631,9 +630,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ff3c6ae767029149af4ce0038973958, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectReferences: []
-  _serializedStateKeys: []
-  _serializedStateValues: []
 --- !u!114 &114967462287717054
 MonoBehaviour:
   m_ObjectHideFlags: 1

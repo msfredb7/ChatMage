@@ -104,7 +104,7 @@ public abstract class EnemyVehicle : Vehicle, IAttackable
                 float angleDelta = (Rotation - vAngle).Abs();
 
                 // Going to
-                if (angleDelta < 90)
+                if (angleDelta < 70)
                     EngineOn();
                 else
                     EngineOff();
