@@ -31,8 +31,7 @@ public class AC130Effect : MonoBehaviour
     private int ammo = 3;
     private float remainingReloadTime;
 
-    private Goal[] forcedGoals;
-    private int forcedGoalsI = 0;
+    private List<Goal> forcedGoals;
 
     void Awake()
     {
@@ -123,8 +122,7 @@ public class AC130Effect : MonoBehaviour
 
 
         //Panic units
-        forcedGoalsI = 0;
-        forcedGoals = new Goal[Game.instance.attackableUnits.Count];
+        forcedGoals = new List<Goal>(Game.instance.attackableUnits.Count);
 
         LinkedListNode<Unit> node = Game.instance.attackableUnits.First;
         while (node != null)
@@ -149,8 +147,7 @@ public class AC130Effect : MonoBehaviour
             {
                 Goal panicGoal = new Goal_Panic(unit as EnemyVehicle);
                 enemyBrainV2.AddForcedGoal(panicGoal, 0);
-                forcedGoals[forcedGoalsI] = panicGoal;
-                forcedGoalsI++;
+                forcedGoals.Add(panicGoal);
             }
         }
     }
@@ -162,7 +159,7 @@ public class AC130Effect : MonoBehaviour
 
         ending = true;
 
-        for (int i = 0; i < forcedGoals.Length; i++)
+        for (int i = 0; i < forcedGoals.Count; i++)
         {
             if (forcedGoals[i] == null)
                 break;
