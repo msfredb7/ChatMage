@@ -24,6 +24,8 @@ namespace AI
         }
         protected List<ForcedGoal> forcedGoals = new List<ForcedGoal>();
 
+        protected Goal goalInFocus;
+
         /// <summary>
         /// Ajoute un but sur le top de la liste de but forcer (il aura la plus grande priorite)
         /// </summary>
@@ -69,10 +71,11 @@ namespace AI
 
         protected virtual void Update()
         {
+            Goal newGoalInFocus = null;
+
             if (forcedGoals.Count != 0)
             {
                 //On enleve les sub goals qui on fail ou qui sont fini
-
                 Goal goal = forcedGoals[forcedGoals.Count - 1].goal;
                 while (goal.IsComplete() || goal.HasFailed())
                 {
@@ -90,14 +93,10 @@ namespace AI
                     }
                 }
 
-                if (goal != null)
-                    goal.Process();
+                newGoalInFocus = goal;
             }
-            else
+            else if (goals.Count > 0)
             {
-                if (goals.Count == 0)
-                    return;
-
                 //On enleve les sub goals qui on fail ou qui sont fini
                 Goal goal = goals.Peek();
                 while (goal.IsComplete() || goal.HasFailed())
@@ -116,9 +115,24 @@ namespace AI
                     }
                 }
 
-                if (goal != null)
-                    goal.Process();
+                newGoalInFocus = goal;
             }
+            else
+            {
+                newGoalInFocus = null;
+            }
+
+            //Si l'ancien goal etait encore actif, on appel LoseFocus
+            if (goalInFocus != null && goalInFocus != newGoalInFocus && goalInFocus.IsActive())
+            {
+                goalInFocus.LoseFocus();
+                newGoalInFocus.GainFocus();
+            }
+
+            goalInFocus = newGoalInFocus;
+
+            if (goalInFocus != null)
+                goalInFocus.Process();
         }
     }
 }

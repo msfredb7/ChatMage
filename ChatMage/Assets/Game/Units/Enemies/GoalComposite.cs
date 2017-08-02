@@ -4,8 +4,8 @@ namespace AI
 {
     public abstract class GoalComposite<T> : GoalComposite where T : EnemyVehicle
     {
-        protected EnemyVehicle veh;
-        public GoalComposite(EnemyVehicle vehicle)
+        protected T veh;
+        public GoalComposite(T vehicle)
         {
             veh = vehicle;
         }
@@ -19,10 +19,15 @@ namespace AI
             if (subGoals.Count == 0)
                 return Status.completed;
 
+            bool failure = false;
+
             //On enleve les sub goals qui on fail ou qui sont fini
             Goal subGoal = subGoals.Peek();
             while (subGoal.IsComplete() || subGoal.HasFailed())
             {
+                if (subGoal.HasFailed())
+                    failure = true;
+
                 subGoals.Dequeue();
                 subGoal.Exit();
 
@@ -37,6 +42,8 @@ namespace AI
                 }
             }
 
+            if (failure)
+                return Status.failed;
 
             if (subGoal != null)
             {
@@ -66,6 +73,44 @@ namespace AI
         public void AddSubGoal(Goal goal)
         {
             subGoals.Enqueue(goal);
+        }
+
+        public override void ForceFailure()
+        {
+            foreach (Goal goal in subGoals)
+            {
+                if (goal.IsActive())
+                {
+                    goal.ForceFailure();
+                    goal.Exit();
+                }
+            }
+
+            base.ForceFailure();
+        }
+
+        public override void GainFocus()
+        {
+            if(subGoals.Count > 0)
+            {
+                Goal goal = subGoals.Peek();
+                if (goal.IsActive())
+                    goal.GainFocus();
+            }
+
+            base.GainFocus();
+        }
+
+        public override void LoseFocus()
+        {
+            if (subGoals.Count > 0)
+            {
+                Goal goal = subGoals.Peek();
+                if (goal.IsActive())
+                    goal.LoseFocus();
+            }
+
+            base.GainFocus();
         }
     }
 }

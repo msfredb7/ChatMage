@@ -71,7 +71,7 @@ namespace AI
         {
             //Cancel l'attaque
             if (attackGoal != null)
-                attackGoal.Cancel();
+                attackGoal.ForceFailure();
 
             //New Goal
             Goal_Tween goal = new Goal_Tween(veh, veh.animator.LoseArmor());

@@ -61,12 +61,11 @@ namespace AI
             return status;
         }
 
-        public void Cancel()
+        public override void ForceFailure()
         {
             if (rewindTweenOnCancel && tween != null && tween.IsActive())
                 tween.Rewind(false);
-
-            status = Status.failed;
+            base.ForceFailure();
         }
 
         public override void Exit()

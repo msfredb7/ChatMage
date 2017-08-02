@@ -4,8 +4,8 @@ namespace AI
 {
     public abstract class Goal<T> : Goal where T : EnemyVehicle
     {
-        protected EnemyVehicle veh;
-        public Goal(EnemyVehicle vehicle)
+        protected T veh;
+        public Goal(T vehicle)
         {
             veh = vehicle;
         }
@@ -32,6 +32,15 @@ namespace AI
             status = Status.completed;
         }
 
+        public virtual void LoseFocus()
+        {
+
+        }
+        public virtual void GainFocus()
+        {
+
+        }
+
         public virtual void ForceFailure()
         {
             status = Status.failed;
@@ -43,11 +52,11 @@ namespace AI
                 onExit(this);
         }
 
-        //protected void ReactivateIfFailed()
-        //{
-        //    if (status == Status.failed)
-        //        Activate();
-        //}
+        protected void ReactivateIfFailed()
+        {
+            if (status == Status.failed)
+                Activate();
+        }
 
         protected void ActivateIfInactive()
         {

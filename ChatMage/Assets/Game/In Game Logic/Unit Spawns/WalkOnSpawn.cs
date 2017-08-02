@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using AI;
 
 
 public class WalkOnSpawn : OnSpawnAction
@@ -28,12 +29,18 @@ public class WalkOnSpawn : OnSpawnAction
         if (brain != null)
             brain.enabled = false;
 
+        EnemyBrainV2 brainV2 = veh.GetComponent<EnemyBrainV2>();
+        if (brainV2 != null)
+            brainV2.enabled = false;
+
         //On fait marcher l'ennemi vers le centre de la map
         veh.GotoPosition(veh.Position + destination, delegate ()
         {
             //On reactive le cerveau a la fin
             if (brain != null)
                 brain.enabled = true;
+            if (brainV2 != null)
+                brainV2.enabled = true;
         });
     }
 }
