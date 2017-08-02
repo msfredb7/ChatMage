@@ -58,50 +58,9 @@ namespace AI
                 //Add attack goal
                 Goal attackGoal = new SpearmanGoal_Attack(veh, target);
                 attackGoal.onExit = (Goal g) => target = null;
-                AddGoal(attackGoal);
+                AddForcedGoal(attackGoal, 100);
             }
         }
-
-
-        //protected override void UpdateWithTarget()
-        //{
-        //    //Si on est entrain d'attaquer, on ne fait pas de changement a notre behavior
-        //    if (!vehicle.CanAttack)
-        //        return;
-
-        //    Vector2 meToPPredic = meToTarget;
-        //    if (target is MovingUnit)
-        //        meToPPredic += (target as MovingUnit).Speed * thinkAheadLength;
-
-        //    float dist = meToTarget.magnitude;
-
-        //    if (dist <= startAttackRange ||  //En range d'attaque
-        //        (movementPrediction && meToPPredic.sqrMagnitude <= startAttackRange * startAttackRange))
-        //    {
-
-        //        //Attack mode
-        //        if (vehicle.CanAttack)
-        //        {
-        //            SetBehavior(new SpearmanAttackBehavior(vehicle));
-        //        }
-        //        else if (CanGoTo<LookTargetBehavior>())
-        //        {
-        //            SetBehavior(new LookTargetBehavior(vehicle));
-        //        }
-        //    }
-        //    else
-        //    {
-        //        //Go to player
-        //        if (CanGoTo<FollowBehavior>())
-        //            SetBehavior(new FollowBehavior(vehicle));
-        //    }
-        //}
-
-        //protected override void UpdateWithoutTarget()
-        //{
-        //    if(!vehicle.IsAttacking && CanGoTo<WanderBehavior>())
-        //        SetBehavior(new WanderBehavior(vehicle));
-        //}
     }
 
 }

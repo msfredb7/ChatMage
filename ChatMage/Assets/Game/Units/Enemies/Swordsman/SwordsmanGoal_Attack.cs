@@ -1,11 +1,11 @@
 namespace AI
 {
-    public class SpearmanGoal_Attack : BaseGoal_Tween<SpearmanVehicle>
+    public class SwordsmanGoal_Attack : BaseGoal_Tween<SwordsmanVehicle>
     {
         private bool lookAtTarget = true;
         private Unit target;
 
-        public SpearmanGoal_Attack(SpearmanVehicle myVehicle, Unit target) : base(myVehicle)
+        public SwordsmanGoal_Attack(SwordsmanVehicle myVehicle, Unit target) : base(myVehicle)
         {
             tween = myVehicle.animator.AttackAnimation(OnAttackMoment);
             this.target = target;

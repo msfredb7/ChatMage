@@ -27,9 +27,14 @@ namespace AI
                 subGoal.Exit();
 
                 if (subGoals.Count > 0)
+                {
                     subGoal = subGoals.Peek();
+                }
                 else
+                {
                     subGoal = null;
+                    break;
+                }
             }
 
 

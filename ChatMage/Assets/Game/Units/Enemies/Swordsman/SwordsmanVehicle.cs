@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class SwordsmanVehicle : EnemyVehicle
 {
-    [Header("Spearman"), Range(0.02f, 3)]
-    public float attackCooldown = 3;
+    [Header("Spearman")]
     public SwordsmanAnimator animator;
     public SpriteRenderer bodySprite;
 
@@ -17,13 +16,11 @@ public class SwordsmanVehicle : EnemyVehicle
     public float invulnerableDuration = 0.35f;
     public float armorBumpForce = 5;
 
-    private bool isAttacking = false;
-    public bool IsAttacking { get { return isAttacking; } }
-
     public event SimpleEvent onArmorLoss;
+    
+    [System.NonSerialized]
+    public bool spearAttackConsumed = false;
 
-    private float currentCooldown = 0;
-    private bool spearAttackConsumed = false;
     private bool armorUp = true;
     private float invulnerableRemains = -1;
 
@@ -35,19 +32,8 @@ public class SwordsmanVehicle : EnemyVehicle
 
     protected override void Update()
     {
-        if (currentCooldown > 0)
-            currentCooldown -= DeltaTime();
-
         if (invulnerableRemains > 0)
             invulnerableRemains -= DeltaTime();
-    }
-
-    public bool CanAttack
-    {
-        get
-        {
-            return currentCooldown <= 0 && !isAttacking;
-        }
     }
 
     public override int Attacked(ColliderInfo on, int amount, Unit unit, ColliderInfo source = null)
@@ -89,18 +75,6 @@ public class SwordsmanVehicle : EnemyVehicle
         base.Die();
 
         Destroy();
-    }
-
-    public void AttackStarted()
-    {
-        isAttacking = true;
-        spearAttackConsumed = false;
-    }
-
-    public void AttackEnded()
-    {
-        currentCooldown = attackCooldown;
-        isAttacking = false;
     }
 
     private void AttackListener_onTriggerEnter(ColliderInfo other, ColliderListener listener)

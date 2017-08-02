@@ -17,16 +17,37 @@ namespace AI
     public class EnemyBrainV2 : MonoBehaviour
     {
         protected Stack<Goal> goals = new Stack<Goal>();
-        protected Stack<Goal> forcedGoals = new Stack<Goal>();
+        protected struct ForcedGoal
+        {
+            public Goal goal;
+            public int priority;
+        }
+        protected List<ForcedGoal> forcedGoals = new List<ForcedGoal>();
 
         /// <summary>
         /// Ajoute un but sur le top de la liste de but forcer (il aura la plus grande priorite)
         /// </summary>
-        public void AddForcedGoal(Goal goal)
+        public void AddForcedGoal(Goal goal, int priority)
         {
             if (goal != null)
-                forcedGoals.Push(goal);
+            {
+                AddForcedGoal(new ForcedGoal { goal = goal, priority = priority });
+            }
         }
+
+        private void AddForcedGoal(ForcedGoal goal)
+        {
+            for (int i = 0; i < forcedGoals.Count; i++)
+            {
+                if (forcedGoals[i].priority > goal.priority)
+                {
+                    forcedGoals.Insert(i, goal);
+                    return;
+                }
+            }
+            forcedGoals.Add(goal);
+        }
+
         public void RemoveAllForcedGoal()
         {
             forcedGoals.Clear();
@@ -51,16 +72,22 @@ namespace AI
             if (forcedGoals.Count != 0)
             {
                 //On enleve les sub goals qui on fail ou qui sont fini
-                Goal goal = forcedGoals.Peek();
+
+                Goal goal = forcedGoals[forcedGoals.Count - 1].goal;
                 while (goal.IsComplete() || goal.HasFailed())
                 {
-                    forcedGoals.Pop();
+                    forcedGoals.RemoveAt(forcedGoals.Count - 1);
                     goal.Exit();
 
                     if (forcedGoals.Count > 0)
-                        goal = forcedGoals.Peek();
+                    {
+                        goal = forcedGoals[forcedGoals.Count - 1].goal;
+                    }
                     else
+                    {
                         goal = null;
+                        break;
+                    }
                 }
 
                 if (goal != null)
@@ -79,9 +106,14 @@ namespace AI
                     goal.Exit();
 
                     if (goals.Count > 0)
+                    {
                         goal = goals.Peek();
+                    }
                     else
+                    {
                         goal = null;
+                        break;
+                    }
                 }
 
                 if (goal != null)

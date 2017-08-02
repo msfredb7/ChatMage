@@ -65,6 +65,8 @@ namespace AI
         {
             if (rewindTweenOnCancel && tween != null && tween.IsActive())
                 tween.Rewind(false);
+
+            status = Status.failed;
         }
 
         public override void Exit()
