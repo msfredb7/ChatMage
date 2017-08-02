@@ -4,83 +4,81 @@ using UnityEngine;
 using FullInspector;
 using DG.Tweening;
 
-public class SwordsmanBrain : EnemyBrain<SwordsmanVehicle>
+namespace AI
 {
-    [InspectorHeader("Swordsman Brain")]
-    public float startAttackRange = 2;
-    public bool movementPrediction = true;
-    [InspectorTooltip("Il va prédire le mouvement du joueur dans x s."), InspectorShowIf("movementPrediction")]
-    public float thinkAheadLength = 1;
-
-    //private bool isLosingArmor = false;
-
-    protected override void Awake()
+    public class SwordsmanBrain : EnemyBrainV2<SwordsmanVehicle>
     {
-        base.Awake();
-        vehicle.onArmorLoss += Vehicle_onArmorLoss;
-    }
+        [Header("Gourdinier Brain")]
+        public float startAttackRange = 2;
+        public bool movementPrediction = true;
+        [Tooltip("Il va prédire le mouvement du joueur dans x s.")]
+        public float thinkAheadLength = 1;
 
-    private void Vehicle_onArmorLoss()
-    {
-        //Get animation
-        Tween armorLossAnim = vehicle.animator.LoseArmor();
+        private Unit target;
+        private SwordsmanGoal_Attack attackGoal;
 
-        //Create forced behavior
-        EnemyBehavior forcedBehavior = new TweenBehavior(vehicle, armorLossAnim);
-
-        //Enforce behavior
-        ForceBehavior(forcedBehavior, true);
-
-        //Remove forced behavior when it's animation is complete
-        armorLossAnim.OnComplete(delegate ()
+        void OnDrawGizmosSelected()
         {
-            RemoveForcedBehavior(forcedBehavior);
-        });
-    }
+            Gizmos.color = new Color(1, 0, 0, 0.25F);
+            Gizmos.DrawSphere(transform.position, startAttackRange);
+        }
 
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = new Color(1, 0, 0, 0.25F);
-        Gizmos.DrawSphere(transform.position, startAttackRange);
-    }
-
-    protected override void UpdateWithTarget()
-    {
-        //Si on est entrain d'attaquer, on ne fait pas de changement a notre behavior
-        if (!vehicle.CanAttack)
-            return;
-
-        Vector2 meToPPredic = meToTarget;
-        if (target is MovingUnit)
-            meToPPredic += (target as MovingUnit).Speed * thinkAheadLength;
-
-        float dist = meToTarget.magnitude;
-
-        if (dist <= startAttackRange ||  //En range d'attaque
-            (movementPrediction && meToPPredic.sqrMagnitude <= startAttackRange * startAttackRange))
+        void Start()
         {
+            AddGoal(new Goal_Wander(veh));
+            veh.onArmorLoss += Vehicle_onArmorLoss;
+        }
 
-            //Attack mode
-            if (vehicle.CanAttack && !IsForcedIntoState)
+        protected override void Update()
+        {
+            base.Update();
+
+            if (target == null)
             {
-                SetBehavior(new SwordsmanAttackBehavior(vehicle));
-            }
-            else if (CanGoTo<LookTargetBehavior>())
-            {
-                SetBehavior(new LookTargetBehavior(vehicle));
+                target = veh.targets.TryToFindTarget(veh);
+
+                if (target != null)
+                {
+                    Goal_Follow goalFollow;
+                    if (movementPrediction)
+                        goalFollow = new Goal_Follow(veh, target, startAttackRange, thinkAheadLength);
+                    else
+                        goalFollow = new Goal_Follow(veh, target, startAttackRange);
+
+                    goalFollow.onRemoved = OnFollowExit;
+
+                    AddGoal(goalFollow);
+                }
             }
         }
-        else
+
+        void OnFollowExit(Goal pastGoal)
         {
-            //Go to player
-            if (CanGoTo<FollowBehavior>())
-                SetBehavior(new FollowBehavior(vehicle));
+            if (pastGoal.HasFailed())
+            {
+                target = null;
+            }
+            else
+            {
+                //Add attack goal
+                attackGoal = new SwordsmanGoal_Attack(veh, target);
+                attackGoal.onRemoved = (Goal g) => { target = null; attackGoal = null; };
+                AddForcedGoal(attackGoal, 99);
+            }
+        }
+
+        private void Vehicle_onArmorLoss()
+        {
+            //Cancel l'attaque
+            if (attackGoal != null)
+                attackGoal.ForceFailure();
+
+            //New Goal
+            Goal_Tween goal = new Goal_Tween(veh, veh.animator.LoseArmor());
+
+            //Add forced goal
+            AddForcedGoal(goal, 100);
         }
     }
 
-    protected override void UpdateWithoutTarget()
-    {
-        if (!vehicle.IsAttacking && CanGoTo<WanderBehavior>())
-            SetBehavior(new WanderBehavior(vehicle));
-    }
 }

@@ -396,7 +396,6 @@ MonoBehaviour:
   clampToAIArea: 1
   targets:
     targetAllegiances: 00000000
-  attackCooldown: 0.02
   animator: {fileID: 114600131749444562}
   bodySprite: {fileID: 212569535150933362}
   attackListener: {fileID: 114304675681669396}
@@ -415,6 +414,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spear: {fileID: 4609358809991266}
+  veh: {fileID: 114481925992522316}
   spearScaleDuration: 0.23
   chargeDuration: 0.6
   spearXCharge: -0.25
@@ -455,7 +455,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enabled: 1
-  deactivationRange: 10
+  overrideDefaultDeactivationRange: 0
+  newDeactivationRange: 10
 --- !u!114 &114833601093544724
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -467,9 +468,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2ffadeadda65074884d31968b63878f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectReferences: []
-  _serializedStateKeys: []
-  _serializedStateValues: []
   startAttackRange: 1.5
   movementPrediction: 1
   thinkAheadLength: 0.5

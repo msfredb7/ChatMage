@@ -2,40 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TrollBrain : EnemyBrain<TrollVehicle>
+namespace AI
 {
-    public JesusRockV2 myRock;
-
-    protected override void Start()
+    public class TrollBrain : EnemyBrainV2<TrollVehicle>
     {
-        base.Start();
+        public JesusRockV2 myRock;
 
-        myRock.PickedUpState();
-        Game.instance.AddExistingUnit(myRock);
-        SetBehavior(new TrollRockAttackBehavior(vehicle, myRock, RockThrown, true));
-    }
+        private Unit target;
 
-    protected override void UpdateWithoutTarget()
-    {
-        if (CanGoTo<WanderBehavior>())
-            SetBehavior(new WanderBehavior(vehicle));
-    }
-    protected override void UpdateWithTarget()
-    {
-        //Si nous ne sommes pas entrain de chercher une roche OU de la lancer  ->  aller checker une roche
-        if (myRock == null && !IsBehavior<TrollSearchRockBehavior>() && !IsBehavior<TrollRockAttackBehavior>())
+        void Start()
         {
-            SetBehavior(new TrollSearchRockBehavior(vehicle, myRock, RockReadyToPickup));
+            myRock.PickedUpState(veh);
+            Game.instance.AddExistingUnit(myRock);
+
+            AddGoal(new Goal_Wander(veh));
+        }
+
+        protected override void Update()
+        {
+            base.Update();
+
+            if(target == null)
+            {
+                target = veh.targets.TryToFindTarget(veh);
+
+                if(target != null)
+                {
+                    Goal attackGoal = new TrollGoal_Attack(veh, myRock, target);
+                    attackGoal.onRemoved = (Goal g) => target = null;
+                    AddGoal(attackGoal);
+                }
+            }
         }
     }
 
-    private void RockReadyToPickup(JesusRockV2 rock)
-    {
-        SetBehavior(new TrollRockAttackBehavior(vehicle, rock, RockThrown, false));
-    }
-
-    private void RockThrown()
-    {
-        SetBehavior(new TrollSearchRockBehavior(vehicle, myRock, RockReadyToPickup));
-    }
 }

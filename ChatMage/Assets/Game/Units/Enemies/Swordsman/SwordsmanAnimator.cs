@@ -7,6 +7,7 @@ public class SwordsmanAnimator : MonoBehaviour
 {
     [Header("Linking")]
     public Transform spear;
+    public SwordsmanVehicle veh;
 
     [Header("Settings")]
     [Header("Charge")]
@@ -56,6 +57,7 @@ public class SwordsmanAnimator : MonoBehaviour
         sq.InsertCallback(chargeDuration + attackDuration * enableTriggerAfter,
             delegate ()
             {
+                veh.spearAttackConsumed = false;
                 attackTrigger.enabled = true;
             });
 

@@ -6,7 +6,6 @@ using UnityEngine;
 public class SpearmanVehicle : EnemyVehicle
 {
     [Header("Spearman")]
-    public float attackCooldown = 3;
     public SpearmanAnimator animator;
     public SpriteRenderer bodySprite;
 
@@ -14,30 +13,13 @@ public class SpearmanVehicle : EnemyVehicle
     public SimpleColliderListener attackListener;
     public float bumpForce = 5;
 
-    private bool isAttacking = false;
-    public bool IsAttacking { get { return isAttacking; } }
-
-    private float currentCooldown = 0;
-    private bool spearAttackConsumed = false;
+    [NonSerialized]
+    public bool spearAttackConsumed = false;
 
     protected override void Awake()
     {
         base.Awake();
         attackListener.onTriggerEnter += AttackListener_onTriggerEnter;
-    }
-
-    protected override void Update()
-    {
-        if (currentCooldown > 0)
-            currentCooldown -= DeltaTime();
-    }
-
-    public bool CanAttack
-    {
-        get
-        {
-            return currentCooldown <= 0 && !isAttacking;
-        }
     }
 
     public override int Attacked(ColliderInfo on, int amount, Unit unit, ColliderInfo source = null)
@@ -56,18 +38,6 @@ public class SpearmanVehicle : EnemyVehicle
         base.Die();
 
         Destroy();
-    }
-
-    public void AttackStarted()
-    {
-        isAttacking = true;
-        spearAttackConsumed = false;
-    }
-
-    public void AttackCompleted()
-    {
-        currentCooldown = attackCooldown;
-        isAttacking = false;
     }
 
     private void AttackListener_onTriggerEnter(ColliderInfo other, ColliderListener listener)

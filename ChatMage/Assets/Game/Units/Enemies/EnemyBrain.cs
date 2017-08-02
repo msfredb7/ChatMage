@@ -73,50 +73,7 @@ public abstract class EnemyBrain : BaseBehavior
 
     public void TryToFindTarget()
     {
-        Targets targ = myVehicle.targets;
-        if (targ == null || targ.targetAllegiances.Count == 0)
-            return;
-
-        //En g�n�ral, on passe ici, sachant que les ennemi cherche pas mal toujours le joueur
-        if (targ.targetAllegiances.Count == 1 && targ.targetAllegiances[0] == Allegiance.Ally)
-        {
-            PlayerController player = Game.instance == null ? null : Game.instance.Player;
-            if (player != null)
-            {
-                if (EvaluateUnit(player.vehicle))
-                {
-                    target = player.vehicle;
-                    return;
-                }
-            }
-        }
-        else
-        {
-            //Cherche a travers tous les units pour trouver la plus pret
-            //Yaurait moyen d'optimiser ca si on fait des listes de units plus pr�cise dans Game
-            //  ex: une liste d'IAttackable
-
-            Vector2 myPos = myVehicle.Position;
-            float smallestDistance = float.PositiveInfinity;
-            Unit recordHolder = null;
-
-            foreach (Unit unit in Game.instance.attackableUnits)
-            {
-                if (unit == myVehicle)
-                    continue;
-
-                if (myVehicle.targets.IsValidTarget(unit))
-                {
-                    float sqrDistance = (unit.Position - myPos).sqrMagnitude;
-                    if (sqrDistance < smallestDistance)
-                    {
-                        smallestDistance = sqrDistance;
-                        recordHolder = unit;
-                    }
-                }
-            }
-            target = recordHolder;
-        }
+        target = myVehicle.targets.TryToFindTarget(myVehicle);
     }
 
     private bool EvaluateUnit(Unit unit)

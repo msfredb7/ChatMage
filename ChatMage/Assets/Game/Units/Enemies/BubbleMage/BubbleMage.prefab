@@ -72,7 +72,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1032398140122974}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2, y: -3, z: 0}
+  m_LocalPosition: {x: -5.43, y: -4.55, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4593708294010970}
@@ -134,7 +134,7 @@ CircleCollider2D:
   m_GameObject: {fileID: 1032398140122974}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: ac84c7d6c9b5d154a85c1cbeede9ae2c, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -158,7 +158,7 @@ MonoBehaviour:
   rotationSetsTargetDirection: 1
   useWeight: 0
   weight: 0.1
-  unitWidth: 0.7
+  unitWidth: 0.85
   useTurnSpeed: 1
   turnSpeed: 230
   smartMove: 0
@@ -211,7 +211,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enabled: 1
-  deactivationRange: 10
+  overrideDefaultDeactivationRange: 0
+  newDeactivationRange: 10
 --- !u!114 &114966417757089230
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -223,17 +224,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2039a715421e68f49a87f927c621544c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectReferences: []
-  _serializedStateKeys:
-  - bubbleTargets
-  _serializedStateValues:
-  - '{"targetAllegiances":["Enemy"]}'
   bubbleTargets:
     targetAllegiances: 02000000
   fleePlayer: 1
   fleeDistance: 2.5
   shootDistance: 8
-  shootPause: 2
+  shootCooldown: 2
   projectilePrefab: {fileID: 114688566308760772, guid: 0f840cf7fb9c3204382d19dc22a793c3,
     type: 2}
 --- !u!212 &212286561258265928

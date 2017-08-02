@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
+using AI;
 
 public class AC130Effect : MonoBehaviour
 {
@@ -30,14 +31,7 @@ public class AC130Effect : MonoBehaviour
     private int ammo = 3;
     private float remainingReloadTime;
 
-    private class ForcedEnemies
-    {
-        public EnemyBrain brain;
-        public EnemyBehavior behavior;
-        public ForcedEnemies(EnemyBrain brain, EnemyBehavior behavior) { this.brain = brain; this.behavior = behavior; }
-    }
-
-    private LinkedList<ForcedEnemies> forcedBehaviors = new LinkedList<ForcedEnemies>();
+    private List<Goal> forcedGoals;
 
     void Awake()
     {
@@ -128,7 +122,9 @@ public class AC130Effect : MonoBehaviour
 
 
         //Panic units
-        LinkedListNode<Unit> node = Game.instance.units.First;
+        forcedGoals = new List<Goal>(Game.instance.attackableUnits.Count);
+
+        LinkedListNode<Unit> node = Game.instance.attackableUnits.First;
         while (node != null)
         {
             Unit val = node.Value;
@@ -146,15 +142,12 @@ public class AC130Effect : MonoBehaviour
     {
         if (unit is EnemyVehicle)
         {
-            EnemyBrain enemyBrain = unit.GetComponent<EnemyBrain>();
-            EnemyVehicle vehicle = unit as EnemyVehicle;
-            if (enemyBrain != null)
+            EnemyBrainV2 enemyBrainV2 = unit.GetComponent<EnemyBrainV2>();
+            if (enemyBrainV2 != null)
             {
-                EnemyBehavior behavior = new PanicBehavior(vehicle);
-                if (enemyBrain.ForceBehavior(behavior))
-                {
-                    forcedBehaviors.AddLast(new ForcedEnemies(enemyBrain, behavior));
-                }
+                Goal panicGoal = new Goal_Panic(unit as EnemyVehicle);
+                enemyBrainV2.AddForcedGoal(panicGoal, 0);
+                forcedGoals.Add(panicGoal);
             }
         }
     }
@@ -166,11 +159,13 @@ public class AC130Effect : MonoBehaviour
 
         ending = true;
 
-        foreach (ForcedEnemies e in forcedBehaviors)
+        for (int i = 0; i < forcedGoals.Count; i++)
         {
-            e.brain.RemoveForcedBehavior(e.behavior);
+            if (forcedGoals[i] == null)
+                break;
+            forcedGoals[i].ForceCompletion();
         }
-        forcedBehaviors.Clear();
+        forcedGoals = null;
 
         //Black fade in
         blackFade.DOKill();

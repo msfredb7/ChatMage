@@ -22,19 +22,19 @@ public class SwordsmanAttackBehavior : BaseTweenBehavior<SwordsmanVehicle>
     {
         base.Enter(target);
 
-        vehicle.AttackStarted();
+        //vehicle.AttackStarted();
         vehicle.Stop();
     }
 
     protected override void OnCancel()
     {
         base.OnCancel();
-        vehicle.AttackEnded();
+       // vehicle.AttackEnded();
     }
 
     void OnComplete()
     {
-        vehicle.AttackEnded();
+       // vehicle.AttackEnded();
     }
 
     public override void Update(Unit target, float deltaTime)

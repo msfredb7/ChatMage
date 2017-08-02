@@ -15,11 +15,14 @@ public class JesusRockV2 : MovingUnit
 
     private bool isFlying = false;
     public bool IsFlying { get { return isFlying; } }
+    public Unit InTheHandsOf { get { return inTheHandsOf; } }
 
     private Unit cannotHit = null;
+    private Unit inTheHandsOf;
 
-    public void PickedUpState()
+    public void PickedUpState(Unit holder = null)
     {
+        inTheHandsOf = holder;
         gameObject.layer = Layers.SOLID_ENEMIES;
         rb.simulated = false;
         isFlying = false;
@@ -29,6 +32,7 @@ public class JesusRockV2 : MovingUnit
 
     public void ThrownState(Vector2 direction, Unit cannotHit = null)
     {
+        inTheHandsOf = null;
         gameObject.layer = Layers.PROJECTILE;
         rb.simulated = true;
         Speed = direction.normalized * flySpeed;
@@ -40,6 +44,7 @@ public class JesusRockV2 : MovingUnit
 
     public void StoppedState()
     {
+        inTheHandsOf = null;
         gameObject.layer = Layers.SOLID_ENEMIES;
         rb.simulated = true;
         isFlying = false;

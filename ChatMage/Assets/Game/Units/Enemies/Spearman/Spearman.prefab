@@ -304,16 +304,15 @@ MonoBehaviour:
   weight: 0.1
   unitWidth: 0.7
   useTurnSpeed: 1
-  turnSpeed: 210
+  turnSpeed: 200
   smartMove: 0
   clampToAIArea: 1
   targets:
     targetAllegiances: 00000000
-  attackCooldown: 0
   animator: {fileID: 114244199259696152}
   bodySprite: {fileID: 212368842169423508}
   attackListener: {fileID: 114504018691956866}
-  bumpForce: 5
+  bumpForce: 3.75
 --- !u!114 &114244199259696152
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -325,6 +324,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18768a817bb98ca4285b0a6a9fd32283, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vehicle: {fileID: 114117048000841424}
   spear: {fileID: 4585702998755642}
   spearScaleDuration: 0.23
   chargeDuration: 0.82
@@ -374,9 +374,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3416049e6c0b8b64b9aa5df152a28690, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectReferences: []
-  _serializedStateKeys: []
-  _serializedStateValues: []
   startAttackRange: 1.75
   movementPrediction: 1
   thinkAheadLength: 0.5
@@ -405,7 +402,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enabled: 1
-  deactivationRange: 10
+  overrideDefaultDeactivationRange: 0
+  newDeactivationRange: 10
 --- !u!212 &212074958052663072
 SpriteRenderer:
   m_ObjectHideFlags: 1
