@@ -542,12 +542,6 @@ RectTransform:
   m_AnchoredPosition: {x: -1096, y: -263}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &417594023 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114655111566244296, guid: 3e0b4c0085a15d448989cea717ad8253,
-    type: 2}
-  m_PrefabInternal: {fileID: 117067785}
-  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &558525209
 GameObject:
   m_ObjectHideFlags: 0
@@ -952,6 +946,7 @@ GameObject:
   - component: {fileID: 1214860306}
   - component: {fileID: 1214860308}
   - component: {fileID: 1214860307}
+  - component: {fileID: 1214860309}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1056,9 +1051,8 @@ MonoBehaviour:
   _serializedStateKeys: []
   _serializedStateValues: []
   playButton: {fileID: 732742050}
-  optionsMenuButton: {fileID: 417594023}
   DEMO: 0
-  title: {fileID: 8300000, guid: ec03ef30d30c9cf45a68e50deabd21b2, type: 3}
+  title: {fileID: 0}
 --- !u!114 &1214860307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1087,6 +1081,17 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &1214860309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1214860301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce29cb859d78b634c9d7b447327d88d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1305719923
 GameObject:
   m_ObjectHideFlags: 0
