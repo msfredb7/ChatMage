@@ -11,7 +11,6 @@ namespace AI
         public bool fleeEnemy = true;
         public float fleeDistance = 3;
 
-        private float minFleeStay = -1;
         private float fleeDistSQR;
         private Unit target;
         private bool hasFleeGoal = false;   

@@ -14,6 +14,7 @@ namespace AI
         {
             this.target = target;
             fleeDistSQR = fleeDistance * fleeDistance;
+            this.minDuration = minDuration;
         }
 
         public override Status Process()

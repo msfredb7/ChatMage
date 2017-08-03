@@ -25,13 +25,9 @@ public class WalkOnSpawn : OnSpawnAction
         EnemyVehicle veh = unit as EnemyVehicle;
 
         //Deactivate brain
-        EnemyBrain brain = veh.GetComponent<EnemyBrain>();
+        EnemyBrainV2 brain = veh.GetComponent<EnemyBrainV2>();
         if (brain != null)
             brain.enabled = false;
-
-        EnemyBrainV2 brainV2 = veh.GetComponent<EnemyBrainV2>();
-        if (brainV2 != null)
-            brainV2.enabled = false;
 
         //On fait marcher l'ennemi vers le centre de la map
         veh.GotoPosition(veh.Position + destination, delegate ()
@@ -39,8 +35,6 @@ public class WalkOnSpawn : OnSpawnAction
             //On reactive le cerveau a la fin
             if (brain != null)
                 brain.enabled = true;
-            if (brainV2 != null)
-                brainV2.enabled = true;
         });
     }
 }

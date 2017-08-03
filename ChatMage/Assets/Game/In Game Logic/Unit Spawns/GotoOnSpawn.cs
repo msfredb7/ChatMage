@@ -30,7 +30,7 @@ public class GotoOnSpawn : OnSpawnAction
         EnemyVehicle veh = unit as EnemyVehicle;
 
         //Deactivate brain
-        EnemyBrain brain = veh.GetComponent<EnemyBrain>();
+        AI.EnemyBrainV2 brain = veh.GetComponent<AI.EnemyBrainV2>();
         if (brain != null)
             brain.enabled = false;
 
