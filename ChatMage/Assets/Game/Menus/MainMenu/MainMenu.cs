@@ -13,32 +13,22 @@ public class MainMenu : BaseBehavior
     public bool DEMO = false; // A ENLEVER
     public AudioClip title;
 
-    //[InspectorHeader("Tutorial")]
-    //public bool doATutorial = false;
-    //[InspectorShowIf("doATutorial")]
-    //public Tutorial.BaseTutorial tutorial;
-
     public void Init()
     {
         MasterManager.Sync(delegate() {
-            playButton.onClick.AddListener(GotoLevelSelect);
-
+            playButton.onClick.AddListener(OnClick);
             SoundManager.PlaySFX(title);
-
-            //if(doATutorial)
-            //    StartTutorial();
         });
+    }
+
+    void OnClick()
+    {
+        //Allons directement au premier niveau ?
+        GotoLevelSelect();
     }
 
     public void GotoLevelSelect()
     {
-        if(DEMO) // A ENLEVER
-            LoadingScreen.TransitionTo(Framework.SCENENAME, null);
         LoadingScreen.TransitionTo(LevelSelect.LevelSelection.SCENENAME, null);
     }
-
-    //void StartTutorial()
-    //{
-    //    Tutorial.TutorialScene.StartTutorial(tutorial.name);
-    //}
 }
