@@ -37,6 +37,12 @@ public class AC130Effect : MonoBehaviour
     {
         gameObject.SetActive(false);
         container.SetActive(false);
+        Game.instance.Player.vehicle.onDeath += OnPlayerDeath;
+    }
+
+    void OnPlayerDeath(Unit unit)
+    {
+        End();
     }
 
     void Start()
@@ -75,8 +81,8 @@ public class AC130Effect : MonoBehaviour
     void Shoot()
     {
         Vector2 pos = Game.instance.gameCamera.cam.ScreenToWorldPoint(Toucher.GetTouchPosition());
-        Instantiate(bulletPrefab.gameObject, pos, Quaternion.identity, Game.instance.unitsContainer)
-            .GetComponent<AC130Bullet>().Init(blackFade);
+
+        Game.instance.SpawnUnit(bulletPrefab, pos).Init(blackFade);
 
         //Reload time
         remainingReloadTime = reloadDuration;
@@ -159,13 +165,16 @@ public class AC130Effect : MonoBehaviour
 
         ending = true;
 
-        for (int i = 0; i < forcedGoals.Count; i++)
+        if (forcedGoals != null)
         {
-            if (forcedGoals[i] == null)
-                break;
-            forcedGoals[i].ForceCompletion();
+            for (int i = 0; i < forcedGoals.Count; i++)
+            {
+                if (forcedGoals[i] == null)
+                    break;
+                forcedGoals[i].ForceCompletion();
+            }
+            forcedGoals = null;
         }
-        forcedGoals = null;
 
         //Black fade in
         blackFade.DOKill();
@@ -190,6 +199,7 @@ public class AC130Effect : MonoBehaviour
             Game.instance.Player.gameObject.SetActive(true);
 
         Game.instance.onUnitSpawned -= PanicUnit;
+        Game.instance.Player.vehicle.onDeath -= OnPlayerDeath;
 
         if (onComplete != null)
             onComplete();

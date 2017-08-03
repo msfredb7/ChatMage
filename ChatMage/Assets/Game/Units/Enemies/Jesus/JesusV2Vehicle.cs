@@ -58,7 +58,7 @@ public class JesusV2Vehicle : EnemyVehicle
         FlashAnimation.FlashColor(this, spriteRenderers, invulnurableDuration, Color.red, () => damagable = true);
 
         //Bump unit
-        if (unit is Vehicle)
+        if (unit != null && unit is Vehicle)
             (unit as Vehicle).Bump((unit.Position - Position).normalized * bumpForce, -1, BumpMode.VelocityAdd);
 
         if (hp > 0)

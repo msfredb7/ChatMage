@@ -4,7 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
 
-public class AC130Bullet : FullInspector.BaseBehavior
+public class AC130Bullet : Unit
 {
     [Header("Linking")]
     public Collider2D col;
@@ -24,11 +24,10 @@ public class AC130Bullet : FullInspector.BaseBehavior
     private bool hasReceivedEvent = false;
     private bool lastedAtLeastAFrame = false;
     private Image blackFade;
+    private Tween tween;
 
     void Start()
     {
-        listener.info.parentUnit = Game.instance.Player.vehicle;
-
         listener.onTriggerEnter += Listener_onTriggerEnter;
 
         Game.instance.events.AddDelayedAction(Detonate, arriveDelay);
@@ -51,8 +50,7 @@ public class AC130Bullet : FullInspector.BaseBehavior
                 attackable.Attacked(other, 1, listener.info.parentUnit, listener.info);
         }
     }
-
-    [FullInspector.InspectorButton]
+    
     void Animate()
     {
         cloudTwo.enabled = true;
@@ -75,16 +73,19 @@ public class AC130Bullet : FullInspector.BaseBehavior
         sq.Insert(1, cloudTwo.DOFade(0, 4).SetEase(Ease.Linear));
         sq.Join(cloudThree.DOFade(0, 4).SetEase(Ease.Linear));
         
-        sq.OnComplete(delegate ()
-        {
-            Destroy(gameObject);
-        });
+        sq.OnComplete(Die);
 
+        sq.timeScale = timeScale;
+
+        tween = sq;
+        
         Game.instance.gameCamera.vectorShaker.Shake();
     }
 
-    void FixedUpdate()
+    protected override void FixedUpdate()
     {
+        base.FixedUpdate();
+
         if (col.enabled)
         {
             if (lastedAtLeastAFrame || hasReceivedEvent)
@@ -98,5 +99,31 @@ public class AC130Bullet : FullInspector.BaseBehavior
     {
         col.enabled = true;
         Animate();
+    }
+
+    public override float TimeScale
+    {
+        get
+        {
+            return base.TimeScale;
+        }
+
+        set
+        {
+            base.TimeScale = value;
+
+            if (tween != null && tween.IsActive())
+                tween.timeScale = timeScale;
+        }
+    }
+
+    protected override void Die()
+    {
+        base.Die();
+
+        if (tween != null && tween.IsActive())
+            tween.Kill();
+
+        Destroy();
     }
 }
