@@ -1,52 +1,70 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BardBrain : EnemyBrain<BardVehicle>
+namespace AI
 {
-    public float singEvery = 6;
-    public float safeDistance = 3;
-
-    private float singTimer;
-
-    protected override void Start()
+    public class BardBrain : EnemyBrainV2<BardVehicle>
     {
-        base.Start();
+        public float singEvery = 6;
+        public bool fleeEnemy = true;
+        public float fleeDistance = 3;
 
-        ResetSingTimer();
-    }
+        private float singTimer;
+        private Unit target;
+        private bool hasFleeGoal = false;
+        private float fleeDistSQR;
 
-    protected override void UpdateWithoutTarget()
-    {
-        if (CanGoTo<WanderBehavior>())
-            SetBehavior(new WanderBehavior(vehicle));
-    }
-
-    protected override void UpdateWithTarget()
-    {
-        if(singTimer < 0)
+        void Start()
         {
-            if (CanGoTo<BardSingBehavior>())
-                SetBehavior(new BardSingBehavior(vehicle, ResetSingTimer));
-        }
-        else
-        {
-            if (CanGoTo<SafeWander>())
-                SetBehavior(new SafeWander(vehicle, safeDistance));
+            AddGoal(new Goal_Wander(veh));
+            singTimer = Random.Range(singEvery * 0.35f, singEvery);
+            fleeDistSQR = fleeDistance * fleeDistance;
         }
 
-        singTimer -= vehicle.DeltaTime();
-    }
+        protected override void Update()
+        {
+            base.Update();
 
-    private void ResetSingTimer()
-    {
-        singTimer = singEvery;
-    }
+            if (!hasFleeGoal)
+            {
+                if (target == null)
+                    target = veh.targets.TryToFindTarget(veh);
 
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = new Color(0, 0, 1, 0.2f);
-        Gizmos.DrawSphere(transform.position, safeDistance);
+                if (Unit.HasPresence(target))
+                {
+                    Vector2 meToTarget = target.Position - veh.Position;
+                    if (meToTarget.sqrMagnitude < fleeDistSQR)
+                    {
+                        hasFleeGoal = true;
+
+                        Goal fleeGoal = new Goal_Flee(veh, target, fleeDistance);
+                        fleeGoal.onRemoved = (Goal g) => hasFleeGoal = false;
+                        AddForcedGoal(fleeGoal, -5);
+                    }
+                }
+            }
+
+            if(singTimer <= 0)
+            {
+                singTimer = float.PositiveInfinity;
+                Goal singGoal = new BardGoal_Sing(veh);
+                singGoal.onRemoved = (Goal g) => ResetSingTimer();
+                AddGoal(singGoal);
+            }
+
+            singTimer -= veh.DeltaTime();
+        }
+
+        private void ResetSingTimer()
+        {
+            singTimer = singEvery;
+        }
+
+        void OnDrawGizmosSelected()
+        {
+            Gizmos.color = new Color(0, 0, 1, 0.2f);
+            Gizmos.DrawSphere(transform.position, fleeDistance);
+        }
     }
 }

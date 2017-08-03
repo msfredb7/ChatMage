@@ -164,7 +164,7 @@ CircleCollider2D:
   m_GameObject: {fileID: 1717130100696532}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: ac84c7d6c9b5d154a85c1cbeede9ae2c, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -183,7 +183,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enabled: 1
-  deactivationRange: 10
+  overrideDefaultDeactivationRange: 0
+  newDeactivationRange: 10
 --- !u!114 &114241056511188392
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -195,11 +196,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28302f87b65700943b71a8b2aa31a33f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectReferences: []
-  _serializedStateKeys: []
-  _serializedStateValues: []
   singEvery: 7
-  safeDistance: 4
+  fleeEnemy: 1
+  fleeDistance: 3
 --- !u!114 &114323347849817982
 MonoBehaviour:
   m_ObjectHideFlags: 1

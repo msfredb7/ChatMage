@@ -37,7 +37,17 @@ public class AC130Effect : MonoBehaviour
     {
         gameObject.SetActive(false);
         container.SetActive(false);
+    }
+
+    void OnEnable()
+    {
         Game.instance.Player.vehicle.onDeath += OnPlayerDeath;
+    }
+
+    void OnDisable()
+    {
+        if (Game.instance.Player != null)
+            Game.instance.Player.vehicle.onDeath -= OnPlayerDeath;
     }
 
     void OnPlayerDeath(Unit unit)
@@ -110,7 +120,7 @@ public class AC130Effect : MonoBehaviour
         gameObject.SetActive(true);
 
         //Black fade in
-        blackFade.DOFade(1, fadeDuration).OnComplete(OnEnterCockpit).SetUpdate(false);
+        blackFade.DOFade(1, fadeDuration).OnComplete(OnEnterCockpit);
     }
 
     void OnEnterCockpit()
@@ -141,7 +151,7 @@ public class AC130Effect : MonoBehaviour
         Game.instance.onUnitSpawned += PanicUnit;
 
         //Black fade out
-        blackFade.DOFade(0, fadeDuration).SetUpdate(false);
+        blackFade.DOFade(0, fadeDuration);
     }
 
     private void PanicUnit(Unit unit)
@@ -178,7 +188,7 @@ public class AC130Effect : MonoBehaviour
 
         //Black fade in
         blackFade.DOKill();
-        blackFade.DOFade(1, fadeDuration).OnComplete(OnExitCockpit).SetUpdate(false);
+        blackFade.DOFade(1, fadeDuration).OnComplete(OnExitCockpit);
     }
 
     void OnExitCockpit()
@@ -187,7 +197,7 @@ public class AC130Effect : MonoBehaviour
         blackFade.DOFade(0, fadeDuration).OnComplete(delegate ()
         {
             gameObject.SetActive(false);
-        }).SetUpdate(false);
+        });
 
         //Deactivate black and white effect
         blackAndWhite.enabled = false;
@@ -199,7 +209,6 @@ public class AC130Effect : MonoBehaviour
             Game.instance.Player.gameObject.SetActive(true);
 
         Game.instance.onUnitSpawned -= PanicUnit;
-        Game.instance.Player.vehicle.onDeath -= OnPlayerDeath;
 
         if (onComplete != null)
             onComplete();
