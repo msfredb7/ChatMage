@@ -14,6 +14,15 @@ namespace AI
     {
         public Queue<Goal> subGoals = new Queue<Goal>(4);
 
+        public override Status Process()
+        {
+            ActivateIfInactive();
+
+            status = ProcessSubGoals();
+
+            return status;
+        }
+
         public Status ProcessSubGoals()
         {
             if (subGoals.Count == 0)

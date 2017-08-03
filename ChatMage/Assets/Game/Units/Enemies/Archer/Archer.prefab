@@ -275,7 +275,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enabled: 1
-  deactivationRange: 10
+  overrideDefaultDeactivationRange: 0
+  newDeactivationRange: 10
 --- !u!114 &114917152140949164
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -320,11 +321,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78ad2908c0ec0d143bd7040c4043ef62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectReferences: []
-  _serializedStateKeys: []
-  _serializedStateValues: []
   attackRange: 9
-  fleeRange: 3
+  fleeEnemy: 1
+  fleeDistance: 3
 --- !u!212 &212074958052663072
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -398,7 +397,7 @@ SpriteRenderer:
   m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: e89761395d3e9b845995c6b9ec45d3f3, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

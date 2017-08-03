@@ -6,8 +6,11 @@ namespace AI
     {
         private Unit target;
         private float fleeDistSQR;
+        private float minDuration;
 
-        public Goal_Flee(EnemyVehicle myVehicle, Unit target, float fleeDistance) : base(myVehicle)
+        private float durationSoFar;
+
+        public Goal_Flee(EnemyVehicle myVehicle, Unit target, float fleeDistance, float minDuration = 0.5f) : base(myVehicle)
         {
             this.target = target;
             fleeDistSQR = fleeDistance * fleeDistance;
@@ -17,21 +20,28 @@ namespace AI
         {
             ActivateIfInactive();
 
-            if (Unit.HasPresence(target))
+            if (status == Status.active)
             {
-                Vector2 meToTarget = target.Position - veh.Position;
-                if(meToTarget.sqrMagnitude > fleeDistSQR)
+
+                if (Unit.HasPresence(target))
+                {
+                    Vector2 meToTarget = target.Position - veh.Position;
+                    if (meToTarget.sqrMagnitude > fleeDistSQR)
+                    {
+                        status = Status.completed;
+                    }
+                    else
+                    {
+                        veh.GotoDirection(veh.Position - target.Position, veh.DeltaTime());
+                    }
+                }
+                else if (durationSoFar >= minDuration)
                 {
                     status = Status.completed;
                 }
-                else
-                {
-                    veh.GotoDirection(veh.Position - target.Position, veh.DeltaTime());
-                }
-            }
-            else
-            {
-                status = Status.completed;
+
+                if (durationSoFar < minDuration)
+                    durationSoFar += veh.DeltaTime();
             }
 
             return status;

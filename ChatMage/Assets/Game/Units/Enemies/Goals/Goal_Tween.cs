@@ -8,6 +8,7 @@ namespace AI
 {
     public class Goal_Tween : BaseGoal_Tween<EnemyVehicle>
     {
+        public bool failOnInterruption = true;
         public bool stopVehicle = false;
         public Goal_Tween(EnemyVehicle myVehicle, Tween animation) : base(myVehicle)
         {
@@ -25,6 +26,14 @@ namespace AI
 
             if (stopVehicle)
                 veh.Stop();
+        }
+
+        public override void Interrupted()
+        {
+            base.Interrupted();
+
+            if (failOnInterruption)
+                ForceFailure();
         }
     }
 }

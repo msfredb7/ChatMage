@@ -24,6 +24,8 @@ public class ArcherVehicle : EnemyVehicle
     private bool shooting = false;
     private float shootCooldownRemains;
 
+    public float ShootCooldownRemains { get { return shootCooldownRemains; } }
+
     public void WalkMode()
     {
         MoveSpeed = walkMoveSpeed;
@@ -57,7 +59,7 @@ public class ArcherVehicle : EnemyVehicle
         ammo++;
     }
 
-    public void LoseAmmo()
+    public void OnShoot()
     {
         shootCooldownRemains = shootCooldown;
         ammo--;

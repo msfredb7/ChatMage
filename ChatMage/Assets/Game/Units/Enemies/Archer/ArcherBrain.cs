@@ -3,102 +3,88 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArcherBrain : EnemyBrain<ArcherVehicle>
+namespace AI
 {
-    public float attackRange = 9;
-    public float fleeRange = 3;
-
-    private float minFleeStay = -1;
-
-    void OnDrawGizmosSelected()
+    public class ArcherBrain : EnemyBrainV2<ArcherVehicle>
     {
-        Gizmos.color = new Color(0, 0, 1, 0.25F);
-        Gizmos.DrawSphere(transform.position, attackRange);
-        Gizmos.color = new Color(1, 0, 0, 0.25F);
-        Gizmos.DrawSphere(transform.position, fleeRange);
-    }
+        public float attackRange = 9;
+        public bool fleeEnemy = true;
+        public float fleeDistance = 3;
 
-    protected override void UpdateWithTarget()
-    {
-        if (vehicle.IsShooting)
-            return;
+        private float minFleeStay = -1;
+        private float fleeDistSQR;
+        private Unit target;
+        private bool hasFleeGoal = false;   
 
-        //S'il reste du temps a fuir, fuyons
-        if (minFleeStay > 0)
+        void OnDrawGizmosSelected()
         {
-            minFleeStay -= vehicle.DeltaTime();
-            return;
+            Gizmos.color = new Color(0, 0, 1, 0.25F);
+            Gizmos.DrawSphere(transform.position, attackRange);
+            Gizmos.color = new Color(1, 0, 0, 0.25F);
+            Gizmos.DrawSphere(transform.position, fleeDistance);
         }
 
-        float dist = meToTarget.magnitude;
-
-        if (dist > attackRange)
+        void Start()
         {
-            //Get closer or reload!
-            vehicle.WalkMode();
-
-            if (vehicle.Ammo == 0)
-            {
-                //Si on a pas d'ammo OU on est entrain de reload, restont dans cet �tat
-                if (CanGoTo<ArcherReloadBehavior>())
-                    SetBehavior(new ArcherReloadBehavior(vehicle));
-            }
-            else
-            {
-                //Va vers le joueur
-                if (CanGoTo<FollowBehavior>())
-                    SetBehavior(new FollowBehavior(vehicle));
-            }
+            AddGoal(new Goal_Wander(veh));
+            fleeDistSQR = fleeDistance * fleeDistance;
         }
-        else if (dist > fleeRange)
-        {
-            //Attack or reload
-            vehicle.WalkMode();
 
-            if (vehicle.CanShoot)
+
+        protected override void Update()
+        {
+            base.Update();
+
+            if(target == null)
             {
-                float angleDeltaToTarget = Mathf.Abs(Vector2.Angle(meToTarget, vehicle.WorldDirection2D()));
-                if (angleDeltaToTarget < 4)
+                target = veh.targets.TryToFindTarget(veh);
+                if(target != null)
                 {
-                    //Attaque la cible
-                    if (CanGoTo<ArcherShootBehavior>())
-                        SetBehavior(new ArcherShootBehavior(vehicle));
-                }
-                else
-                {
-                    if (CanGoTo<LookTargetBehavior>())
-                        SetBehavior(new LookTargetBehavior(vehicle));
+                    ArcherGoal_Battle battleGoal = new ArcherGoal_Battle(veh, target, ShootArrow);
+                    battleGoal.onRemoved = (Goal g) => target = null;
+                    AddGoal(battleGoal);
                 }
             }
-            else if (vehicle.Ammo == 0)
+
+            if (ShouldFlee())
             {
-                //Reload
-                if (CanGoTo<ArcherReloadBehavior>())
-                    SetBehavior(new ArcherReloadBehavior(vehicle));
-            }
-            else
-            {
-                //On attend de pouvoir tirer
-                if (CanGoTo<ArcherRepositionBehavior>())
-                    SetBehavior(new ArcherRepositionBehavior(vehicle));
+                LaunchFlee();
             }
         }
-        else
+
+        private bool ShouldFlee()
         {
-            //flee
-            if (!IsBehavior<FleeBehavior>())
-                minFleeStay = 0.5f;
+            if (fleeEnemy && target != null && !hasFleeGoal && Unit.HasPresence(target))
+            {
+                Vector2 meToTarget = target.Position - veh.Position;
 
-            vehicle.FleeMode();
-
-            if (CanGoTo<FleeBehavior>())
-                SetBehavior(new FleeBehavior(vehicle));
+                return meToTarget.sqrMagnitude < fleeDistSQR;
+            }
+            return false; 
         }
-    }
 
-    protected override void UpdateWithoutTarget()
-    {
-        if (CanGoTo<WanderBehavior>())
-            SetBehavior(new WanderBehavior(vehicle));
+        private void LaunchFlee()
+        {
+            veh.FleeMode();
+            hasFleeGoal = true;
+            Goal_Flee fleeGoal = new Goal_Flee(veh, target, fleeDistance);
+            fleeGoal.onRemoved = (Goal g) =>
+            {
+                hasFleeGoal = false;
+                veh.WalkMode();
+            };
+            AddForcedGoal(fleeGoal, -5);
+        }
+
+        void ShootArrow()
+        {
+            ArcherArrow proj = Game.instance.SpawnUnit(veh.arrowPrefab, veh.arrowLaunchLocation.position);
+
+            proj.Init(veh, veh.WorldDirection2D(), veh.targets);
+
+            veh.animator.AsNoAmmo();
+
+            veh.OnShoot();
+        }
     }
 }
