@@ -12,13 +12,13 @@ public class Armory : BaseScriptableObject
     // Items
     private int itemSlots;
     public int defaultItemSlots = 3;
-    public List<EquipablePreview> items = new List<EquipablePreview>(); // catalogue des items
+    public EquipablePreview[] items; // catalogue des items
 
     // Cars
-    public List<EquipablePreview> cars = new List<EquipablePreview>(); // catalogue des voitures
+    public EquipablePreview[] cars; // catalogue des voitures
 
     // Smashs
-    public List<EquipablePreview> smashes = new List<EquipablePreview>(); // catalogue des smash
+    public EquipablePreview[] smashes; // catalogue des smash
 
     public int GetLastSavedSlots()
     {
@@ -44,7 +44,7 @@ public class Armory : BaseScriptableObject
 
     public List<EquipablePreview> GetAllEquipables()
     {
-        List<EquipablePreview> result = new List<EquipablePreview>(items.Count + cars.Count + smashes.Count);
+        List<EquipablePreview> result = new List<EquipablePreview>(items.Length + cars.Length + smashes.Length);
 
         result.AddRange(items);
         result.AddRange(cars);
@@ -68,17 +68,17 @@ public class Armory : BaseScriptableObject
     {
         List<EquipablePreview> result = new List<EquipablePreview>();
 
-        for (int i = 0; i < items.Count; i++)
+        for (int i = 0; i < items.Length; i++)
         {
             if (items[i].Unlocked)
                 result.Add(items[i]);
         }
-        for (int i = 0; i < cars.Count; i++)
+        for (int i = 0; i < cars.Length; i++)
         {
             if (cars[i].Unlocked)
                 result.Add(cars[i]);
         }
-        for (int i = 0; i < smashes.Count; i++)
+        for (int i = 0; i < smashes.Length; i++)
         {
             if (smashes[i].Unlocked)
                 result.Add(smashes[i]);
@@ -90,17 +90,17 @@ public class Armory : BaseScriptableObject
     {
         List<EquipablePreview> result = new List<EquipablePreview>();
 
-        for (int i = 0; i < items.Count; i++)
+        for (int i = 0; i < items.Length; i++)
         {
             if (!items[i].Unlocked)
                 result.Add(items[i]);
         }
-        for (int i = 0; i < cars.Count; i++)
+        for (int i = 0; i < cars.Length; i++)
         {
             if (!cars[i].Unlocked)
                 result.Add(cars[i]);
         }
-        for (int i = 0; i < smashes.Count; i++)
+        for (int i = 0; i < smashes.Length; i++)
         {
             if (!smashes[i].Unlocked)
                 result.Add(smashes[i]);
@@ -111,7 +111,7 @@ public class Armory : BaseScriptableObject
     public List<EquipablePreview> GetAllUnlockedItems()
     {
         List<EquipablePreview> result = new List<EquipablePreview>();
-        for (int i = 0; i < items.Count; i++)
+        for (int i = 0; i < items.Length; i++)
         {
             if (items[i].Unlocked == true)
                 result.Add(items[i]);
@@ -122,7 +122,7 @@ public class Armory : BaseScriptableObject
     public List<EquipablePreview> GetAllUnlockedCars()
     {
         List<EquipablePreview> result = new List<EquipablePreview>();
-        for (int i = 0; i < cars.Count; i++)
+        for (int i = 0; i < cars.Length; i++)
         {
             if (cars[i].Unlocked == true)
                 result.Add(cars[i]);
@@ -133,7 +133,7 @@ public class Armory : BaseScriptableObject
     public List<EquipablePreview> GetAllUnlockedSmashes()
     {
         List<EquipablePreview> result = new List<EquipablePreview>();
-        for (int i = 0; i < smashes.Count; i++)
+        for (int i = 0; i < smashes.Length; i++)
         {
             if (smashes[i].Unlocked == true)
                 result.Add(smashes[i]);
@@ -144,7 +144,7 @@ public class Armory : BaseScriptableObject
     public List<EquipablePreview> GetAllLockedItems()
     {
         List<EquipablePreview> result = new List<EquipablePreview>();
-        for (int i = 0; i < items.Count; i++)
+        for (int i = 0; i < items.Length; i++)
         {
             if (items[i].Unlocked == false)
                 result.Add(items[i]);
@@ -155,7 +155,7 @@ public class Armory : BaseScriptableObject
     public List<EquipablePreview> GetAllLockedCars()
     {
         List<EquipablePreview> result = new List<EquipablePreview>();
-        for (int i = 0; i < cars.Count; i++)
+        for (int i = 0; i < cars.Length; i++)
         {
             if (cars[i].Unlocked == false)
                 result.Add(cars[i]);
@@ -166,7 +166,7 @@ public class Armory : BaseScriptableObject
     public List<EquipablePreview> GetAllLockedSmash()
     {
         List<EquipablePreview> result = new List<EquipablePreview>();
-        for (int i = 0; i < smashes.Count; i++)
+        for (int i = 0; i < smashes.Length; i++)
         {
             if (smashes[i].Unlocked == false)
                 result.Add(smashes[i]);
@@ -194,7 +194,7 @@ public class Armory : BaseScriptableObject
 
     public void LoadEquipable()
     {
-        List<EquipablePreview> result = new List<EquipablePreview>(items.Count + cars.Count + smashes.Count);
+        List<EquipablePreview> result = new List<EquipablePreview>(items.Length + cars.Length + smashes.Length);
 
         result.AddRange(items);
         result.AddRange(cars);
@@ -205,4 +205,42 @@ public class Armory : BaseScriptableObject
             result[i].Load();
         }
     }
+
+    private const string SMASH_ACCESS_KEY = "smACCESS";
+    private const string ITEM_ACCESS_KEY = "itACCESS";
+
+    public static bool HasAccessToSmash()
+    {
+        try
+        {
+            return GameSaves.instance.GetBool(GameSaves.Type.Armory, SMASH_ACCESS_KEY);
+        }
+        catch
+        {
+            return false;
+        }
+    }
+    public static bool HasAccessToItems()
+    {
+        try
+        {
+            return GameSaves.instance.GetBool(GameSaves.Type.Armory, ITEM_ACCESS_KEY);
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    public static void UnlockAccessToSmash()
+    {
+        GameSaves.instance.SetBool(GameSaves.Type.Armory, SMASH_ACCESS_KEY, true);
+        GameSaves.instance.SaveData(GameSaves.Type.Armory);
+    }
+    public static void UnlockAccessToItems()
+    {
+        GameSaves.instance.SetBool(GameSaves.Type.Armory, ITEM_ACCESS_KEY, true);
+        GameSaves.instance.SaveData(GameSaves.Type.Armory);
+    }
+
 }

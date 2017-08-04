@@ -38,6 +38,7 @@ namespace LoadoutMenu
         private LoadoutTab currentTab;
         private string levelScriptName;
         private LoadoutElement previouslySelectedElement;
+        //private LoadoutTab[] availableTabs;
 
         [InspectorButton]
         private void DebugLaunch()
@@ -73,7 +74,7 @@ namespace LoadoutMenu
             LoadoutResult lastLoadoutResult = LoadoutResult.Load();
 
             //TODO Changer les List<T> dans armory pour des arrays
-            currentLoadout = new Loadout(armory.cars.ToArray(), armory.smashes.ToArray(), armory.items.ToArray(), armory.ItemSlots, lastLoadoutResult);
+            currentLoadout = new Loadout(armory.cars, armory.smashes, armory.items, armory.ItemSlots, lastLoadoutResult);
 
             //Top panel qui suis la progression dans le loadout
             progressPanel.Init(currentLoadout);
@@ -108,10 +109,10 @@ namespace LoadoutMenu
                     grid.Fill(currentLoadout.items);
                     break;
                 case LoadoutTab.Recap:
-                    Debug.LogWarning("Pas encore impl�ment�.");
+                    Debug.LogWarning("Pas encore implémenté.");
                     break;
                 default:
-                    throw new System.Exception("hmm, le jeu est bris�!");
+                    throw new System.Exception("hmm, le jeu est brisé!");
             }
 
             //Ceci est pour set divers chose (ex: titre de la tab, bouton next, etc.)

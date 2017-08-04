@@ -27,6 +27,9 @@ public class Framework : MonoBehaviour
     private bool uiLoaded = false;
     private LevelScript level = null;
     private LoadoutResult loadoutResult;
+    private bool canGoToLevelSelect;
+
+    public bool CanGoToLevelSelect { get { return canGoToLevelSelect; } }
 
     void Start()
     {
@@ -38,11 +41,11 @@ public class Framework : MonoBehaviour
     }
 
     //LE init utilisé pour start tout
-    public void Init(string levelScriptName, LoadoutResult loadoutResult)
+    public void Init(string levelScriptName, LoadoutResult loadoutResult, bool canGoToLevelSelect = true)
     {
         ResourceLoader.LoadLevelScriptAsync(levelScriptName, delegate (LevelScript levelScript)
         {
-            Init(levelScript, loadoutResult);
+            Init(levelScript, loadoutResult, canGoToLevelSelect);
         });
     }
 
@@ -51,17 +54,18 @@ public class Framework : MonoBehaviour
     /// </summary>
     private void Init()
     {
-        Init(defaultLevel, null);
+        Init(defaultLevel, null, true);
     }
 
     /// <summary>
     /// Start la game avec le level spécifié
     /// </summary>
-    private void Init(LevelScript level, LoadoutResult loadoutResult)
+    private void Init(LevelScript level, LoadoutResult loadoutResult, bool canGoToLevelSelect)
     {
         hasInit = true;
         this.level = level;
         this.loadoutResult = loadoutResult;
+        this.canGoToLevelSelect = canGoToLevelSelect;
 
         //La map est déjà loadé, probablement du au mode debug. On ne la reload pas
         if (Scenes.Exists(level.sceneName))

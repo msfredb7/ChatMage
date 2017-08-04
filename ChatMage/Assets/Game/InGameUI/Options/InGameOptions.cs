@@ -4,11 +4,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class InGameOptions : WindowAnimation
 {
     public const string SCENENAME = "InGameOptions";
+
+    [Header("Options Menu")]
+    public Button levelSelectButton;
+
     private bool isQuitting = false;
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        levelSelectButton.gameObject.SetActive(Game.instance.framework.CanGoToLevelSelect);
+    }
 
     public void Confirm()
     {

@@ -45,7 +45,7 @@ namespace CCC.UI
         private bool isOpen = false;
         private float backBgAlpha;
 
-        void Awake()
+        protected virtual void Awake()
         {
             bgTr = windowBg.GetComponent<RectTransform>();
             bgImage = windowBg.GetComponent<Image>();
