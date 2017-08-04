@@ -275,11 +275,11 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 71
+    m_FontSize: 75
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
-    m_MaxSize: 100
+    m_MaxSize: 300
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -516,8 +516,20 @@ MonoBehaviour:
   _keys:
   - {fileID: 1607752547}
   _values:
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.armory.EditProperty
+    - DefaultBehaviorEditor.debugLevel.EditProperty
+    - DefaultBehaviorEditor.currentLoadout.EditProperty
+    - DefaultBehaviorEditor.currentLoadout.EditProperty.2.InspectorDisabledAttribute
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 1
+      _serializedIsActive: 0
     _target: {fileID: 1607752547}
 --- !u!1 &555939215
 GameObject:
@@ -1501,11 +1513,11 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 68
+    m_FontSize: 62
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
-    m_MaxSize: 100
+    m_MaxSize: 75
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -2401,7 +2413,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 40, y: 90.00006}
-  m_SizeDelta: {x: 250, y: 135}
+  m_SizeDelta: {x: 410, y: 135}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1422999693
 MonoBehaviour:
@@ -2667,7 +2679,6 @@ GameObject:
   - component: {fileID: 1593244367}
   - component: {fileID: 1593244366}
   - component: {fileID: 1593244370}
-  - component: {fileID: 1593244369}
   m_Layer: 5
   m_Name: Next
   m_TagString: Untagged
@@ -2768,26 +2779,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1593244364}
---- !u!114 &1593244369
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1593244364}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 357ca411a8a9fb24b9a43121df397f23, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  text: {fileID: 231551569}
-  carText: 'Next: Smash'
-  smashText: 'Next: Items'
-  itemsText: Launch Game
-  recapText: Launch Game
-  carAudio: {fileID: 0}
-  smashAudio: {fileID: 0}
-  itemsAudio: {fileID: 0}
-  recapAudio: {fileID: 0}
 --- !u!114 &1593244370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2815,6 +2806,7 @@ GameObject:
   - component: {fileID: 1607752544}
   - component: {fileID: 1607752543}
   - component: {fileID: 1607752547}
+  - component: {fileID: 1607752548}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -2917,13 +2909,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objectReferences:
   - {fileID: 925803099}
-  - {fileID: 1593244369}
   _serializedStateKeys:
   - textChangers
   - debugStartTab
   - currentLoadout
   _serializedStateValues:
-  - '[0,1]'
+  - '[0]'
   - '"Car"'
   - '{"items":[],"cars":[],"smashes":[],"chosenItems":[],"itemSlots":0}'
   armory: {fileID: 11400000, guid: 5e3da66f829332f4f941fcb05175d65b, type: 2}
@@ -2935,7 +2926,6 @@ MonoBehaviour:
   progressPanel: {fileID: 716315764}
   textChangers:
   - {fileID: 925803099}
-  - {fileID: 1593244369}
   debugLevel: {fileID: 11400000, guid: 8158ee834c01fc44b82c857548b48b1c, type: 2}
   debugStartTab: 0
   currentLoadout:
@@ -2945,6 +2935,17 @@ MonoBehaviour:
     chosenItems: []
     itemSlots: 0
   slotIcon: {fileID: 0}
+--- !u!114 &1607752548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1607752542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce29cb859d78b634c9d7b447327d88d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1615912229
 GameObject:
   m_ObjectHideFlags: 0

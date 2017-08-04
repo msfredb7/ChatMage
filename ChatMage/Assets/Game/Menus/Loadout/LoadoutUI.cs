@@ -35,10 +35,10 @@ namespace LoadoutMenu
 
         public Sprite slotIcon;
 
-        private LoadoutTab currentTab;
         private string levelScriptName;
         private LoadoutElement previouslySelectedElement;
-        //private LoadoutTab[] availableTabs;
+        private List<LoadoutTab> availableTabs;
+        private int currentTabIndex;
 
         [InspectorButton]
         private void DebugLaunch()
@@ -71,9 +71,29 @@ namespace LoadoutMenu
             this.levelScriptName = levelScriptName;
             armory.Load();
 
+            //Détermine les tabs qui sont available
+            availableTabs = new List<LoadoutTab>(3);
+            availableTabs.Add(LoadoutTab.Car);
+            if (Armory.HasAccessToItems())
+                availableTabs.Add(LoadoutTab.Items);
+            if (Armory.HasAccessToSmash())
+                availableTabs.Add(LoadoutTab.Smash);
+
+            //Détermine quel tab nous devrions être
+            currentTabIndex = 0;
+            for (int i = 0; i < availableTabs.Count; i++)
+            {
+                if (availableTabs[i] == startTab)
+                {
+                    currentTabIndex = i;
+                    break;
+                }
+            }
+
+            //Le dernier loadoutResult. On veut remettre le même build que la dernière fois
             LoadoutResult lastLoadoutResult = LoadoutResult.Load();
 
-            //TODO Changer les List<T> dans armory pour des arrays
+            //On crée le loadout
             currentLoadout = new Loadout(armory.cars, armory.smashes, armory.items, armory.ItemSlots, lastLoadoutResult);
 
             //Top panel qui suis la progression dans le loadout
@@ -86,18 +106,21 @@ namespace LoadoutMenu
             nextButton.Show(true);
 
             // Load First Tab
-            currentTab = startTab;
-            progressPanel.SetTab(currentTab, false);
+            progressPanel.SetTab(CurrentTab, false);
             FillUI();
             VerifiyNextButton();
         }
+
+        public LoadoutTab CurrentTab { get { return availableTabs[currentTabIndex]; } }
+        public LoadoutTab NextTab { get { return availableTabs[(currentTabIndex + 1).Capped(availableTabs.Count - 1)]; } }
+        public LoadoutTab PreviousTab { get { return availableTabs[(currentTabIndex - 1).Floored(0)]; } }
 
         void FillUI()
         {
             //Cache le previewer
             inspector.Fill(null);
 
-            switch (currentTab)
+            switch (CurrentTab)
             {
                 case LoadoutTab.Car:
                     grid.Fill(currentLoadout.cars);
@@ -115,10 +138,25 @@ namespace LoadoutMenu
                     throw new System.Exception("hmm, le jeu est brisé!");
             }
 
+
+            //Update le text du bouton 'Next'
+            if (currentTabIndex == availableTabs.Count - 1)
+                nextButton.GetComponentInChildren<Text>().text = "Launch Game";
+            else
+                nextButton.GetComponentInChildren<Text>().text = "Next";
+
+
+            //Update le text du bouton 'Back'
+            if (currentTabIndex == 0)
+                backButton.GetComponentInChildren<Text>().text = "Back to Map";
+            else
+                backButton.GetComponentInChildren<Text>().text = "Back";
+
+
             //Ceci est pour set divers chose (ex: titre de la tab, bouton next, etc.)
             for (int i = 0; i < textChangers.Length; i++)
             {
-                textChangers[i].SetCategory(currentTab);
+                textChangers[i].SetCategory(this);
             }
         }
 
@@ -130,16 +168,16 @@ namespace LoadoutMenu
             nextButton.Interactable = false;
 
             //On est au bout ?
-            if (currentTab == 0)            //�ventuellement chang� �a pour 3 (loadout recap)
+            if (currentTabIndex == 0)
             {
                 BackToLevelSelect();
             }
             else
             {
-                currentTab--;
+                currentTabIndex--;
 
                 //Update le progress panel
-                progressPanel.SetTab(currentTab, true);
+                progressPanel.SetTab(CurrentTab, true);
 
                 //Exit
                 panelAnimator.ExitRight(delegate ()
@@ -164,16 +202,16 @@ namespace LoadoutMenu
 
 
             //On est a la derniere tab ?
-            if ((int)currentTab == 2)            //�ventuellement chang� �a pour 3 (loadout recap)
+            if (currentTabIndex == availableTabs.Count - 1)
             {
                 LauchGame();
             }
             else
             {
-                currentTab++;
+                currentTabIndex++;
 
                 //Update le progress panel
-                progressPanel.SetTab(currentTab, true);
+                progressPanel.SetTab(CurrentTab, true);
 
                 //Exit
                 panelAnimator.ExitLeft(delegate ()
@@ -263,7 +301,7 @@ namespace LoadoutMenu
 
         private void VerifiyNextButton()
         {
-            switch (currentTab)
+            switch (CurrentTab)
             {
                 case LoadoutTab.Car:
                     nextButton.Interactable = currentLoadout.chosenCar != null;
@@ -295,7 +333,7 @@ namespace LoadoutMenu
         public void GoToShop()
         {
             SaveLoadout();
-            LoadingScreen.TransitionTo(ShopMenu.SCENENAME, new ToShopMessage(SCENENAME, currentTab));
+            LoadingScreen.TransitionTo(ShopMenu.SCENENAME, new ToShopMessage(SCENENAME, CurrentTab));
         }
 
         public void LauchGame()

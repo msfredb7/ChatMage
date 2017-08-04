@@ -23,9 +23,9 @@ namespace LoadoutMenu
         public AudioClip itemsAudio;
         public AudioClip recapAudio;
 
-        public void SetCategory(LoadoutTab tab)
+        public void SetCategory(LoadoutUI loadoutUI)
         {
-            switch (tab)
+            switch (loadoutUI.CurrentTab)
             {
                 case LoadoutTab.Car:
                     text.text = carText;

@@ -35,6 +35,12 @@ namespace LoadoutMenu
             OnSmashChange();
             OnCarChange();
             OnItemChange();
+
+            //Pourrais �tre fait de mani�re plus sexy dans le futur
+            if (!Armory.HasAccessToSmash())
+                smashImage.rectTransform.parent.gameObject.SetActive(false);
+            if (!Armory.HasAccessToItems())
+                itemSlotsCounter.rectTransform.parent.gameObject.SetActive(false);
         }
 
         public void SetTab(LoadoutTab tab, bool animated)
