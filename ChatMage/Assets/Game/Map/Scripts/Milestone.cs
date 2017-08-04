@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FullInspector;
+using UnityEngine.Events;
 
 public class Milestone : BaseBehavior
 {
@@ -37,11 +38,15 @@ public class Milestone : BaseBehavior
     [InspectorShowIf("fireEventToLevelScript")]
     public string eventMessage;
 
+    public UnityEvent onExecute = new UnityEvent();
+
 
     public bool Execute()
     {
         if (!gameObject.activeSelf)
             return false;
+
+        onExecute.Invoke();
 
         if (setAiArea)
         {
@@ -58,11 +63,15 @@ public class Milestone : BaseBehavior
 
         if (setCameraMax)
         {
-            Game.instance.gameCamera.maxHeight = transform.position.y + cameraMaxRelativeToMilestone;
+            float delta = (triggerOn == TriggerType.BottomOfScreen) ? 4.5f : -4.5f;
+            float yPos = transform.position.y + cameraMaxRelativeToMilestone + delta;
+            Game.instance.gameCamera.maxHeight = yPos;
         }
         if (setCameraMin)
         {
-            Game.instance.gameCamera.minHeight = transform.position.y + cameraMinRelativeToMilestone;
+            float delta = (triggerOn == TriggerType.BottomOfScreen) ? 4.5f : -4.5f;
+            float yPos = transform.position.y + cameraMinRelativeToMilestone + delta;
+            Game.instance.gameCamera.minHeight = yPos;
         }
 
         if (modifyFollowPlayer)

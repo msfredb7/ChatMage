@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class GotoOnSpawn : OnSpawnAction
 {
+    public bool gizmosAlwaysVisible = true;
     public UnitSpawn.PositionType positionType;
     public Vector2 delta = new Vector2(3, 2);
     public bool setUnitDirection = false;
 
 
-    public void OnDrawGizmosSelected()
+    public void DrawGizmos()
     {
         if (attachedSpawn == null)
             return;
@@ -18,6 +19,18 @@ public class GotoOnSpawn : OnSpawnAction
         Gizmos.DrawSphere(Destination, 0.25f);
         Gizmos.color = new Color(0, 0, 1, 0.75f);
         Gizmos.DrawLine(attachedSpawn.transform.position, Destination);
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        if (!gizmosAlwaysVisible)
+            DrawGizmos();
+    }
+
+    void OnDrawGizmos()
+    {
+        if (gizmosAlwaysVisible)
+            DrawGizmos();
     }
 
     Vector2 Destination { get { return (Vector2)transform.position + delta; } }

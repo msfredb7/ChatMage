@@ -5,6 +5,7 @@ using UnityEngine;
 
 public abstract class UnitSpawn : MonoBehaviour
 {
+    public bool gizmosAlwaysVisible = true;
     public enum PositionType { World, RelativeToPlayer, RelativeToCamera }
     public PositionType posType;
     public string[] tags;
@@ -16,7 +17,7 @@ public abstract class UnitSpawn : MonoBehaviour
     private bool canSpawn = true;
 
     #region Gizmo
-    public virtual void OnDrawGizmosSelected()
+    public virtual void DrawGizmos()
     {
         //Color
         Gizmos.color = new Color(0, 1, 0.5f, 0.75f);
@@ -28,6 +29,18 @@ public abstract class UnitSpawn : MonoBehaviour
         Gizmos.DrawCube(Vector3.right * 0.5f, new Vector3(1, 0.2f, 0.2f));
         //Matrix reset
         Gizmos.matrix = stdMatrix;
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        if (!gizmosAlwaysVisible)
+            DrawGizmos();
+    }
+
+    void OnDrawGizmos()
+    {
+        if (gizmosAlwaysVisible)
+            DrawGizmos();
     }
     #endregion
 

@@ -9,14 +9,14 @@ public class CircleUnitSpawn : UnitSpawn
     public float minRange = 1;
     public float maxRange = 2;
 
-    public override void OnDrawGizmosSelected()
+    public override void DrawGizmos()
     {
         Gizmos.color = new Color(1,0,0,0.75f);
         Gizmos.DrawSphere(transform.position, maxRange);
         Gizmos.color = new Color(0, 0, 0, 0.75f);
         Gizmos.DrawSphere(transform.position, minRange);
 
-        base.OnDrawGizmosSelected();
+        base.DrawGizmos();
     }
 
     public override Vector2 DefaultSpawnPosition()

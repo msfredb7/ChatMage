@@ -6,15 +6,28 @@ using AI;
 
 public class WalkOnSpawn : OnSpawnAction
 {
+    public bool gizmosAlwaysVisible = true;
     public Vector2 destination = new Vector2(3, 2);
     
-    public void OnDrawGizmosSelected()
+    public void DrawGizmos()
     {
         if (attachedSpawn == null)
             return;
 
         Gizmos.color = new Color(0, 0, 1, 0.75f);
         Gizmos.DrawLine(attachedSpawn.transform.position, attachedSpawn.transform.position + (Vector3)destination);
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        if (!gizmosAlwaysVisible)
+            DrawGizmos();
+    }
+
+    void OnDrawGizmos()
+    {
+        if (gizmosAlwaysVisible)
+            DrawGizmos();
     }
 
     protected override void AttachedSpawn_onUnitSpawned(Unit unit)

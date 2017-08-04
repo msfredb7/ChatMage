@@ -22,7 +22,7 @@ public class RandomCompositeUnitSpawn : CompositeUnitSpawn
 
     public SubSpawn[] subSpawns;
 
-    public override void OnDrawGizmosSelected()
+    public override void DrawGizmos()
     {
         if (subSpawns != null)
             for (int i = 0; i < subSpawns.Length; i++)
@@ -30,7 +30,7 @@ public class RandomCompositeUnitSpawn : CompositeUnitSpawn
                 if (subSpawns[i].spawn != null)
                 {
                     if (subSpawns[i].spawn != this)
-                        subSpawns[i].spawn.OnDrawGizmosSelected();
+                        subSpawns[i].spawn.DrawGizmos();
                     else
                         Debug.LogError("The Composite Unit Spawn cannot contain itself");
                 }

@@ -14,7 +14,7 @@ public class OrderedCompositeUnitSpawn : CompositeUnitSpawn
     private int spawnCount;
     private int nextIndex;
 
-    public override void OnDrawGizmosSelected()
+    public override void DrawGizmos()
     {
         if (subSpawns != null)
             for (int i = 0; i < subSpawns.Length; i++)
@@ -22,7 +22,7 @@ public class OrderedCompositeUnitSpawn : CompositeUnitSpawn
                 if (subSpawns[i] != null)
                 {
                     if (subSpawns[i] != this)
-                        subSpawns[i].OnDrawGizmosSelected();
+                        subSpawns[i].DrawGizmos();
                     else
                         Debug.LogError("The Composite Unit Spawn cannot contain itself");
                 }

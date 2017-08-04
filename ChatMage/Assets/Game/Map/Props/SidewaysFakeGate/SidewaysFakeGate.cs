@@ -9,6 +9,8 @@ public class SidewaysFakeGate : MonoBehaviour
     public Transform rendering;
     public Vector2 openedLocalPosition;
     public bool openedOnStart = true;
+    public new Collider2D collider;
+    public bool enableDisableColliderOnAnimation = false;
 
     [Header("Animation")]
     public float animDuration = 0.7f;
@@ -32,6 +34,8 @@ public class SidewaysFakeGate : MonoBehaviour
         if (moveTween != null)
             moveTween.Kill();
         moveTween = rendering.DOLocalMove(closedLocalPosition, animDuration).SetEase(ease);
+        if (enableDisableColliderOnAnimation)
+            collider.enabled = true;
     }
 
     public void Open()
@@ -39,15 +43,21 @@ public class SidewaysFakeGate : MonoBehaviour
         if (moveTween != null)
             moveTween.Kill();
         moveTween = rendering.DOLocalMove(openedLocalPosition, animDuration).SetEase(ease);
+        if (enableDisableColliderOnAnimation)
+            collider.enabled = false;
     }
 
     public void InstantOpen()
     {
         rendering.localPosition = openedLocalPosition;
+        if (enableDisableColliderOnAnimation)
+            collider.enabled = false;
     }
 
     public void InstantClose()
     {
         rendering.localPosition = closedLocalPosition;
+        if (enableDisableColliderOnAnimation)
+            collider.enabled = true;
     }
 }

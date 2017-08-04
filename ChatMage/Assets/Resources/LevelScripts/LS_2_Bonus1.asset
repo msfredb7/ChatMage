@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae802e49a38d3a74c8bd3e258974b52d, type: 3}
+  m_Name: LS_2_Bonus1
+  m_EditorClassIdentifier: 
+  _objectReferences:
+  - {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
+  - {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
+  _serializedStateKeys:
+  - winningConditions
+  - losingConditions
+  - events
+  - waves
+  - rewards
+  _serializedStateValues:
+  - '[]'
+  - '[]'
+  - 
+  - '[{"what":{"spawnSequence":[{"unit":0,"quantity":4}],"onSpawnMethod":"","progressCallbacks":[]},"infiniteRepeat":false,"pauseBetweenRepeat":0.0,"where":{"logErrorIfUnableToLaunch":true,"spawnTag":"1
+    both","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0},"when":{"type":"OnLevelEvent","time":1.0,"name":"wave
+    1","onlyTriggerOnce":true},"spawnInterval":1.0,"preLaunchDialog":null},{"what":{"spawnSequence":[{"unit":1,"quantity":7}],"onSpawnMethod":"","progressCallbacks":[]},"infiniteRepeat":false,"pauseBetweenRepeat":0.0,"where":{"logErrorIfUnableToLaunch":true,"spawnTag":"2
+    both","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0},"when":{"type":"OnLevelEvent","time":0.0,"name":"wave
+    2","onlyTriggerOnce":true},"spawnInterval":1.0,"preLaunchDialog":null}]'
+  - '{"overrideGoldAmount":false,"goldReward":{"baseAmountMin":0,"baseAmountMax":0,"firstWinAmountMin":0,"firstWinAmountMax":0},"giveLootBox":false,"lootboxRefName":null,"goldified":false}'
+  sceneName: RabbitFarm
+  introPrefab: {fileID: 114921437952830070, guid: 002facbad3d5db44e89adaf01930e6fb,
+    type: 2}
+  winOutroPrefab: {fileID: 114288339278322360, guid: 1e4d836705c07534fb5b431bb36cb2ab,
+    type: 2}
+  loseOutroPrefab: {fileID: 114019376999675500, guid: 5fb703884a8fef84baed936668fb2290,
+    type: 2}
+  noHealthPacks: 1
+  followPlayerOnStart: 1
+  smashEnable: 1
+  useCustomGenericEvents: 0
+  events: []
+  activateTutorial: 0
+  tutorialAssetName: 

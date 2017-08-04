@@ -5,12 +5,12 @@ public class BoxUnitSpawn : UnitSpawn
 {
     public Vector2 size = Vector2.one;
 
-    public override void OnDrawGizmosSelected()
+    public override void DrawGizmos()
     {
         Gizmos.color = new Color(1, 0, 0, 0.75f);
         Gizmos.DrawCube(transform.position, size);
 
-        base.OnDrawGizmosSelected();
+        base.DrawGizmos();
     }
 
     Vector2 GetRandomLocation()

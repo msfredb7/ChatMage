@@ -38,7 +38,15 @@ public class Road : BaseBehavior
 
     public void ApplyMinMaxToCamera()
     {
+        ApplyMinToCamera();
+        ApplyMaxToCamera();
+    }
+    public void ApplyMinToCamera()
+    {
         gameCamera.minHeight = bottomHeight + gameCamera.ScreenSize.y / 2;
+    }
+    public void ApplyMaxToCamera()
+    {
         gameCamera.maxHeight = topHeight - gameCamera.ScreenSize.y / 2;
     }
 
