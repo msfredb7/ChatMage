@@ -26,13 +26,6 @@ public class MenuOptions : WindowAnimation
         Exit();
     }
 
-    public void ClearSave()
-    {
-        if (isQuitting)
-            return;
-        GameSaves.instance.ClearAllSaves();
-    }
-
     private void Exit()
     {
         if (isQuitting) return;
@@ -65,5 +58,25 @@ public class MenuOptions : WindowAnimation
         }
 
         Scenes.LoadAsync(SCENENAME, LoadSceneMode.Additive);
+    }
+
+
+
+    //------------------------------� enlever------------------------------//
+
+    public void ClearSave()
+    {
+        if (isQuitting)
+            return;
+        GameSaves.instance.ClearAllSaves();
+    }
+
+    public void GainSmashAccess()
+    {
+        Armory.UnlockAccessToSmash();
+    }
+    public void GainItemsAccess()
+    {
+        Armory.UnlockAccessToItems();
     }
 }
