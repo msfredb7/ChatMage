@@ -3,10 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Objet utile pour g�n�r� l'effet d'un lootbox, ceci ne g�re pas les animations
+// Objet utile pour généré l'effet d'un lootbox, ceci ne gère pas les animations
 public class LootBox
 {
     public List<LootBoxRewards> rewards;
+    public LootBoxRef.PickReport.Message specialMessage;
 
     public static void NewLootbox(string lootboxRef, Action<LootBox> onComplete, bool goldified = false)
     {
@@ -16,7 +17,7 @@ public class LootBox
             lootbox = new LootBox(reference, delegate ()
             {
                 if (lootbox == null)
-                    throw new Exception("da fuck is dat shit. ya qqchose qui a pas load�, ya boi.");
+                    throw new Exception("da fuck is dat shit. ya qqchose qui a pas loadé, ya boi.");
 
                 onComplete(lootbox);
             },
@@ -29,8 +30,11 @@ public class LootBox
         rewards = new List<LootBoxRewards>();
 
         // Load les Equipables dans la Lootbox Ref
-        lootbox.PickRewards(goldified, delegate (List<EquipablePreview> equipableRewards)
+        lootbox.PickRewards(goldified, delegate (LootBoxRef.PickReport report)
         {
+            specialMessage = report.specialMessage;
+            List<EquipablePreview> equipableRewards = report.pickedEquipables;
+
             bool shouldSaveArmory = false;
             bool shouldSaveAccount = false;
             for (int i = 0; i < equipableRewards.Count; i++)
@@ -58,7 +62,14 @@ public class LootBox
             if (shouldSaveAccount)
                 GameSaves.instance.SaveDataAsync(GameSaves.Type.Account, null);
 
-            onComplete();
+
+            string txtMessage = LootBoxRef.PickReport.MessageToString(specialMessage);
+
+            if (txtMessage != "")
+                Debug.LogWarning(txtMessage);
+
+
+            CCC.Manager.DelayManager.CallNextFrame(onComplete);
         });
     }
 }

@@ -34,16 +34,6 @@ namespace EndGameReward
             {
                 DisplayTemporaire(null, baseGold, bonusGold);
             }
-
-            //// Ajout de la récompense en or! (TODO : A CHANGER, LA RECOMPENSE D'OR SERA AFFICHÉ DIFFÉREMMENT)
-            //lootboxRewards.Add(new LootBoxRewards(null, rewards.GetGoldReward(firstWin)));
-
-            //// On commence par montrer la premiere recompense
-            //currentReward = 0;
-            //ShowReward(lootboxRewards[currentReward]);
-
-            // On doit savoir quand le joueur a fini de regarder la recompense courante
-            //nextButton.onClick.AddListener(OnNextClicked);
         }
 
         public void DisplayTemporaire(LootBox lootbox, int baseGold, int bonusGold)
@@ -74,67 +64,5 @@ namespace EndGameReward
 
             continueButton.gameObject.SetActive(true);
         }
-
-        //void ShowReward(LootBoxRewards reward)
-        //{
-        //    if (reward.equipable != null)
-        //    {
-        //        if(reward.cashAmount > 0)
-        //        {
-        //            // doublon
-        //            ShowDuplicate(reward);
-        //        } else
-        //        {
-        //            // nouvel equipement
-        //            ShowEquipable(reward.equipable);
-        //        }
-        //    } else
-        //    {
-        //        // recompense de cash
-        //        ShowMoney(reward.cashAmount);
-        //    }
-        //    nextButton.gameObject.SetActive(true);
-        //    rewardImage.gameObject.SetActive(true);
-        //    currentReward++;
-        //}
-
-        //void ShowEquipable(EquipablePreview equipable)
-        //{
-        //    rewardImage.sprite = equipable.icon;
-        //}
-
-        //void ShowMoney(int amount)
-        //{
-        //    rewardImage.sprite = coinsSprite;
-        //    // Faire dequoi avec le montant
-        //}
-
-        //void ShowDuplicate(LootBoxRewards reward)
-        //{
-        //    rewardImage.sprite = reward.equipable.icon;
-        //    // Faire dequoi avec le montant
-        //}
-
-        //void OnNextClicked()
-        //{
-        //    // BOUT DE CODE POUR L'ANIMATION ENTRE LES REWARDS
-        //    nextButton.gameObject.SetActive(false);
-        //    rewardImage.gameObject.SetActive(false);
-        //    DelayManager.LocalCallTo(delegate () {
-        //        // Préparation pour la prochaine Reward
-        //        if (currentReward > lootboxRewards.Count - 1)
-        //        {
-        //            // On doit quitter
-        //            LoadingScreen.TransitionTo(LevelSelect.LevelSelection.SCENENAME, null);
-        //        }else if (currentReward > lootboxRewards.Count - 2)
-        //        {
-        //            // Derniere récompense
-        //            nextButton.GetComponentInChildren<Text>().text = "Continue";
-        //            ShowReward(lootboxRewards[currentReward]);
-        //        }
-        //        else
-        //            ShowReward(lootboxRewards[currentReward]);
-        //    }, 1,this);
-        //}
     }
 }

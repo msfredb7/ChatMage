@@ -22,14 +22,15 @@ public class MainMenu : BaseBehavior
         {
             playButton.onClick.AddListener(OnClick);
             SoundManager.PlaySFX(title);
-            firstLevel.LoadData();
+            if (firstLevel != null)
+                firstLevel.LoadData();
         });
     }
 
     void OnClick()
     {
         //Check first level. Si le premier level n'a pas été complété, on fait -> cinematic -> first level
-        if (!firstLevel.HasBeenCompleted)
+        if (firstLevel != null && !firstLevel.HasBeenCompleted)
         {
             GoToFirstLevel();
         }
