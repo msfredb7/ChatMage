@@ -26,6 +26,11 @@ public static class IntExtensions
         return Mathf.Max(value, min);
     }
 
+    public static int Sign(this int value)
+    {
+        return value > 0 ?  1 : -1;
+    }
+
     public static int Clamped(this int value, int min, int max)
     {
         return Mathf.Clamp(value, min, max);

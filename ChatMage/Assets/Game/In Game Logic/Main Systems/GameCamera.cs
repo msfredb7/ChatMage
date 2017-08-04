@@ -19,9 +19,9 @@ public class GameCamera : MonoBehaviour
 
     [Header("Follow")]
     public bool followPlayer = false;
-    public float maxTurnSpeed = 2;
-    public float lerpSpeed = 1;
     public float followForwardDistance = 2;
+    public float acceleration = 1;
+    public float decelerationSpeedFactor = 1;
 
     public bool MovedSinceLastFrame { get { return movedSinceLastFrame; } }
 
@@ -31,14 +31,11 @@ public class GameCamera : MonoBehaviour
     private Transform tr;
     private PlayerVehicle player;
 
-    //Follow
-    private Vector2 forwardVector;
-    private float followTargetDeltaHeight = 0;
-    private float playerSmoothPosition;
-
     //Teleport follow
-    private float lastKnownPlayerHeight;
     private bool isTeleporting = false;
+
+    //Follow
+    private float verticalSpeed = 0;
 
     void Awake()
     {
@@ -67,8 +64,7 @@ public class GameCamera : MonoBehaviour
 
     public void OnTeleport(float deltaY)
     {
-        playerSmoothPosition += deltaY;
-        SetToHeight(TargetHeight);
+        Debug.LogWarning("Teleportation non support�. La camera va probablement agir bizarrement.");
         isTeleporting = true;
     }
 
@@ -104,32 +100,35 @@ public class GameCamera : MonoBehaviour
         if (isTeleporting)
             return;
 
-        if (player != null && player.gameObject.activeSelf)
+        if (followPlayer && player != null && player.gameObject.activeSelf)
         {
-            if (followPlayer)
-            {
-                playerSmoothPosition = Mathf.MoveTowards(playerSmoothPosition, player.Position.y, Time.deltaTime * 10);
+                float hg = Height;
 
-                forwardVector = Vector2.MoveTowards(forwardVector, player.WorldDirection2D() * followForwardDistance, Time.fixedDeltaTime * maxTurnSpeed);
-                followTargetDeltaHeight = Mathf.Lerp(followTargetDeltaHeight, forwardVector.y, FixedLerp.FixedFix(0.01f * lerpSpeed));
+                float playerHeight = player.Position.y;
+                float dest = playerHeight + player.WorldDirection2D().y * followForwardDistance;
 
-                SetToHeight(TargetHeight);
-            }
-            else
-            {
-                forwardVector = Center - player.Position;
-                followTargetDeltaHeight = Height - player.Position.y;
-            }
+                float delta = dest - hg;
+
+                float targetSpeed = delta.Sign() * float.PositiveInfinity;
+
+                verticalSpeed = verticalSpeed.MovedTowards(targetSpeed, acceleration * Time.fixedDeltaTime);
+
+
+                if (delta > 0)
+                    verticalSpeed = verticalSpeed.Capped(delta * decelerationSpeedFactor);
+                else
+                    verticalSpeed = verticalSpeed.Floored(delta * decelerationSpeedFactor);
+
+
+                SetToHeight(hg + (verticalSpeed * Time.fixedDeltaTime));
+
+                verticalSpeed = (Height - hg) / Time.fixedDeltaTime;
         }
-        //else
-        //{
-        //    followTargetDeltaHeight = 0;
-        //}
-
-        playerSmoothPosition = Height - followTargetDeltaHeight;
+        else
+        {
+            verticalSpeed = 0;
+        }
     }
-
-    private float TargetHeight { get { return playerSmoothPosition + followTargetDeltaHeight; } }
 
     #region Bounds
 

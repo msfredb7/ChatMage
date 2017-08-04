@@ -9,34 +9,23 @@ using FullInspector;
 
 public class TestScript : MonoBehaviour
 {
+
+    void Awake()
+    {
+        Debug.LogWarning("Testscript here on " + gameObject.name + ". Don't forget me !");
+    }
+
     public string lootboxRefName;
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            LootBox.NewLootbox(lootboxRefName, delegate (LootBox lootbox)
-            {
-                for (int i = 0; i < lootbox.rewards.Count; i++)
-                {
-                    string txt = "Reward: " + lootbox.rewards[i].equipable.displayName;
-                    if (lootbox.rewards[i].goldAmount > 0)
-                        txt += "  (Duplicate: +" + lootbox.rewards[i].goldAmount + "g)";
-                    print(txt);
-                }
-            });
+            Game.instance.gameCamera.maxHeight = Game.instance.gameCamera.Height;
+            Game.instance.gameCamera.minHeight = Game.instance.gameCamera.Height;
         }
         if (Input.GetKeyDown(KeyCode.Y))
         {
-            LootBox.NewLootbox(lootboxRefName, delegate (LootBox lootbox)
-            {
-                for (int i = 0; i < lootbox.rewards.Count; i++)
-                {
-                    string txt = "Reward: " + lootbox.rewards[i].equipable.displayName;
-                    if (lootbox.rewards[i].goldAmount > 0)
-                        txt += "  (Duplicate: +" + lootbox.rewards[i].goldAmount + "g)";
-                    print(txt);
-                }
-            }, true);
+            Game.instance.map.roadPlayer.CurrentRoad.ApplyMinMaxToCamera();
         }
     }
 }

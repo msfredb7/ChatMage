@@ -43,7 +43,7 @@ public class Milestone : BaseBehavior
 
     public bool Execute()
     {
-        if (!gameObject.activeSelf)
+        if (!gameObject.activeInHierarchy)
             return false;
 
         onExecute.Invoke();

@@ -22,6 +22,11 @@ public static class FloatExtensions
         return Mathf.Min(value, max);
     }
     
+    public static float Sign(this float value)
+    {
+        return Mathf.Sign(value);
+    }
+
     /// <summary>
     /// Augmente potentiellement la valeur
     /// </summary>

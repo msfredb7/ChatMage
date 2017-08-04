@@ -32,10 +32,12 @@ public class LS_2_Bonus1 : LevelScript
     private void Instance_onUnitDestroyed(Unit unit)
     {
         if (unit.allegiance == Allegiance.Enemy)
+        {
             enemyCount--;
 
-        if (enemyCount == 0 && inWave)
-            RabbitsKilled();
+            if (enemyCount == 0 && inWave)
+                RabbitsKilled();
+        }
     }
 
     public override void OnReceiveEvent(string message)

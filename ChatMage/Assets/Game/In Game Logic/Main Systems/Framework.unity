@@ -373,7 +373,7 @@ MonoBehaviour:
   loadScenesAsync: 0
   game: {fileID: 986166561}
   playerbuilder: {fileID: 1461222806}
-  defaultLevel: {fileID: 11400000, guid: ec9ee0c6fd6fd0745b10c5b8ee6c2ce0, type: 2}
+  defaultLevel: {fileID: 11400000, guid: 0f9be3bdbf8d1a6428f4ebbc23446fa4, type: 2}
 --- !u!4 &986166560
 Transform:
   m_ObjectHideFlags: 0
@@ -591,17 +591,8 @@ MonoBehaviour:
   _keys:
   - {fileID: 986166561}
   _values:
-  - _keys:
-    - DefaultBehaviorEditor.gameCamera.EditProperty
-    - DefaultBehaviorEditor.units.EditProperty
-    - DefaultBehaviorEditor.attackableUnits.EditProperty
-    _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
+  - _keys: []
+    _values: []
     _target: {fileID: 986166561}
 --- !u!1 &1461222805
 GameObject:
@@ -750,6 +741,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1614933837}
   - component: {fileID: 1614933839}
+  - component: {fileID: 1614933833}
   m_Layer: 0
   m_Name: Game Camera
   m_TagString: Untagged
@@ -757,6 +749,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1614933833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1614933832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce29cb859d78b634c9d7b447327d88d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lootboxRefName: 
 --- !u!4 &1614933837
 Transform:
   m_ObjectHideFlags: 0
@@ -793,9 +797,9 @@ MonoBehaviour:
   canScrollUp: 1
   canScrollDown: 1
   followPlayer: 0
-  maxTurnSpeed: 2
-  lerpSpeed: 1
   followForwardDistance: 3
+  acceleration: 6
+  decelerationSpeedFactor: 3
 --- !u!1 &1618090392
 GameObject:
   m_ObjectHideFlags: 0
