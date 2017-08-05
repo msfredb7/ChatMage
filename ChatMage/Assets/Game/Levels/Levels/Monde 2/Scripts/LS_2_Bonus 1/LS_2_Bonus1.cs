@@ -5,8 +5,8 @@ using System;
 
 public class LS_2_Bonus1 : LevelScript
 {
-    //public RabbitCounter counterPrefab;
-    //public int loseOnXRabbits = 15;
+    public RabbitCounter counterPrefab;
+    public int loseOnXRabbits = 15;
 
     [NonSerialized]
     private int enemyCount = 0;
@@ -14,14 +14,15 @@ public class LS_2_Bonus1 : LevelScript
     private bool inWave;
     [NonSerialized]
     private int waveCount = 0;
-    //[NonSerialized]
-    //private RabbitCounter counterInstance;
+    [NonSerialized]
+    private RabbitCounter counterInstance;
 
     protected override void OnGameReady()
     {
         base.OnGameReady();
 
-        //counterInstance = inGameEvents.SpawnUnderUI(counterPrefab);
+        counterInstance = inGameEvents.SpawnUnderUI(counterPrefab);
+        counterInstance.SetMax(loseOnXRabbits);
 
         enemyCount = 0;
         inWave = true;
@@ -35,10 +36,11 @@ public class LS_2_Bonus1 : LevelScript
         if (unit.allegiance == Allegiance.Enemy)
         {
             enemyCount++;
-            //if (enemyCount >= loseOnXRabbits)
-                //Lose();
+            if (enemyCount >= loseOnXRabbits)
+                Lose();
 
-            //counterInstance.UpdateCount(enemyCount);
+            if (counterInstance != null)
+                counterInstance.UpdateCount(enemyCount);
         }
     }
 
@@ -50,6 +52,9 @@ public class LS_2_Bonus1 : LevelScript
 
             if (enemyCount == 0 && inWave)
                 RabbitsKilled();
+
+            if (counterInstance != null)
+                counterInstance.UpdateCount(enemyCount);
         }
     }
 

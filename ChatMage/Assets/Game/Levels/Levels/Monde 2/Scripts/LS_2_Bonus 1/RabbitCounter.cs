@@ -15,17 +15,18 @@ public class RabbitCounter : MonoBehaviour
     public void SetMax(int max)
     {
         this.max = max;
-
+        RefreshDisplay();
     }
 
     public void UpdateCount(int count)
     {
         this.count = count;
+        RefreshDisplay();
     }
 
     private void RefreshDisplay()
     {
         text.text = "Slimes: " + count + "/" + max;
-        text.color = Color.Lerp(colorOk, colorCritical, count / max);
+        text.color = Color.Lerp(colorOk, colorCritical, (float)count / max);
     }
 }
