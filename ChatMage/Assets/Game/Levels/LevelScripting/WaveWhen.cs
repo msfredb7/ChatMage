@@ -20,6 +20,7 @@ namespace LevelScripting
         {
             At = 0,                             // uses: float time
             Join = 1,                           //
+            JoinPlus = 9,                       // uses: float time
             Append = 2,                         //
             AppendPlus = 3,                     // uses: float time
             AppendComplete = 7,
@@ -28,7 +29,8 @@ namespace LevelScripting
             OnManualTrigger = 6,                // uses: string name
         }
 
-        public bool UsesTime { get { return type == Type.At || type == Type.AppendPlus || type == Type.AppendCompletePlus; } }
+        public bool UsesTime { get { return type == Type.At || type == Type.AppendPlus || type == Type.AppendCompletePlus
+                     || type == Type.JoinPlus; } }
         public bool UsesName { get { return type == Type.OnLevelEvent || type == Type.OnManualTrigger; } }
     }
 }

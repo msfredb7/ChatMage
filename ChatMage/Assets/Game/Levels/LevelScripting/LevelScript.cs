@@ -376,6 +376,12 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
                 };
                 break;
 
+            case WaveWhen.Type.JoinPlus:
+                waves[waveIndex - 1].onLaunched += delegate ()
+                {
+                    inGameEvents.AddDelayedAction(delegate () { LaunchWave(wave); }, wave.when.time);
+                };
+                break;
 
             case WaveWhen.Type.Append:
                 if (waveIndex == 0)

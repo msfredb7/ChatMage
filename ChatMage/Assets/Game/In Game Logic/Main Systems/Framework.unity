@@ -623,7 +623,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   car: {fileID: 11400000, guid: 5ec48ef9ded4cbd41a7f67f29b1030a2, type: 2}
   smash: {fileID: 11400000, guid: d32e43f24ca6b964f89ef83a2f490d25, type: 2}
-  items: []
+  items:
+  - {fileID: 11400000, guid: d5829d02815d67f4fa8cf3cd724421bf, type: 2}
 --- !u!4 &1461222807
 Transform:
   m_ObjectHideFlags: 0
@@ -741,7 +742,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1614933837}
   - component: {fileID: 1614933839}
-  - component: {fileID: 1614933833}
   m_Layer: 0
   m_Name: Game Camera
   m_TagString: Untagged
@@ -749,18 +749,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1614933833
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1614933832}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce29cb859d78b634c9d7b447327d88d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lootboxRefName: 
 --- !u!4 &1614933837
 Transform:
   m_ObjectHideFlags: 0
