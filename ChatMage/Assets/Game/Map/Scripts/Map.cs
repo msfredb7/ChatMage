@@ -53,10 +53,7 @@ public class Map : BaseBehavior
 
         if (setAIArea)
         {
-            GameCamera gameCamera = Game.instance.gameCamera;
-            startAIArea.min = gameCamera.AdjustVector(startAIArea.min);
-            startAIArea.max = gameCamera.AdjustVector(startAIArea.max);
-            Game.instance.aiArea.SetArea(startAIArea);
+            ResetAIArea();
         }
 
         mapping.Init(Game.instance);
@@ -66,6 +63,14 @@ public class Map : BaseBehavior
     {
         if (obj != null)
             obj.transform.position = Game.instance.gameCamera.AdjustVector(obj.transform.position);
+    }
+
+    public void ResetAIArea()
+    {
+        GameCamera gameCamera = Game.instance.gameCamera;
+        startAIArea.min = gameCamera.AdjustVector(startAIArea.min);
+        startAIArea.max = gameCamera.AdjustVector(startAIArea.max);
+        Game.instance.aiArea.SetArea(startAIArea);
     }
 
     public void OnDrawGizmosSelected()

@@ -14,11 +14,11 @@ public abstract class EnemyVehicle : Vehicle, IAttackable
     [Forward]
     public Targets targets;
 
-    protected bool tryToStayAtTargetPosition = false;
     protected Vector2 targetPosition;
     protected bool goingToTargetPosition = false;
-    protected bool arrivedAtDestination = false;
     protected Action onReach = null;
+
+    public bool IsEnginOn { get { return currentMoveSpeed > 0; } }
 
 
     #region Public Move Methods
@@ -29,15 +29,8 @@ public abstract class EnemyVehicle : Vehicle, IAttackable
         onReach = null;
     }
 
-    public void GoAndStayAtPosition(Vector2 position, Action onReach = null)
-    {
-        tryToStayAtTargetPosition = true;
-        QuickGotoPos(position, onReach);
-    }
-
     public void GotoPosition(Vector2 position, Action onReach = null)
     {
-        tryToStayAtTargetPosition = false;
         QuickGotoPos(position, onReach);
     }
 
@@ -118,11 +111,7 @@ public abstract class EnemyVehicle : Vehicle, IAttackable
                 Action wasOnReach = onReach;
 
                 //Arrived !
-                if (!tryToStayAtTargetPosition)
-                {
-                    //Dont have to stay...
-                    Stop();
-                }
+                Stop();
 
                 if (wasOnReach != null)
                 {

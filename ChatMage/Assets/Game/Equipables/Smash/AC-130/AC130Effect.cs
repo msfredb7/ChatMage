@@ -159,7 +159,7 @@ public class AC130Effect : MonoBehaviour
         if (unit is EnemyVehicle)
         {
             EnemyBrainV2 enemyBrainV2 = unit.GetComponent<EnemyBrainV2>();
-            if (enemyBrainV2 != null)
+            if (enemyBrainV2 != null && enemyBrainV2.canGetForcedGoals)
             {
                 Goal panicGoal = new Goal_Panic(unit as EnemyVehicle);
                 enemyBrainV2.AddForcedGoal(panicGoal, 0);

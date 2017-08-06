@@ -8,6 +8,10 @@ public class LS_2_Bonus1 : LevelScript
     public RabbitCounter counterPrefab;
     public int loseOnXRabbits = 15;
 
+    public float firstWaveMinDuration;
+    public float secondWaveMinDuration;
+    public float thirdWaveMinDuration;
+
     [NonSerialized]
     private int enemyCount = 0;
     [NonSerialized]
@@ -16,6 +20,8 @@ public class LS_2_Bonus1 : LevelScript
     private int waveCount = 0;
     [NonSerialized]
     private RabbitCounter counterInstance;
+    [NonSerialized]
+    private float minWaveTime;
 
     protected override void OnGameReady()
     {
@@ -25,7 +31,6 @@ public class LS_2_Bonus1 : LevelScript
         counterInstance.SetMax(loseOnXRabbits);
 
         enemyCount = 0;
-        inWave = true;
         waveCount = 0;
         Game.instance.onUnitDestroyed += Instance_onUnitDestroyed;
         Game.instance.onUnitSpawned += Instance_onUnitSpawned;
@@ -33,7 +38,7 @@ public class LS_2_Bonus1 : LevelScript
 
     private void Instance_onUnitSpawned(Unit unit)
     {
-        if (unit.allegiance == Allegiance.Enemy)
+        if (unit is SlimeVehicle)
         {
             enemyCount++;
             if (enemyCount >= loseOnXRabbits)
@@ -46,7 +51,7 @@ public class LS_2_Bonus1 : LevelScript
 
     private void Instance_onUnitDestroyed(Unit unit)
     {
-        if (unit.allegiance == Allegiance.Enemy)
+        if (unit is SlimeVehicle)
         {
             enemyCount--;
 
@@ -63,15 +68,28 @@ public class LS_2_Bonus1 : LevelScript
         switch (message)
         {
             case "wave 3":
+                InWave(thirdWaveMinDuration);
+                break;
             case "wave 2":
+                InWave(secondWaveMinDuration);
+                break;
             case "wave 1":
-                waveCount++;
-                inWave = true;
+                InWave(firstWaveMinDuration);
                 break;
             case "Win":
                 Win();
                 break;
         }
+    }
+
+    private void InWave(float minDuration)
+    {
+        waveCount++;
+        inGameEvents.AddDelayedAction(() => inWave = true, minDuration);
+    }
+
+    protected override void OnUpdate()
+    {
     }
 
     void RabbitsKilled()
@@ -81,6 +99,8 @@ public class LS_2_Bonus1 : LevelScript
         Map map = Game.instance.map;
 
         map.roadPlayer.CurrentRoad.ApplyMaxToCamera();
+
+        map.ResetAIArea();
 
         map.mapping.GetTaggedObject(waveCount + " exit").GetComponent<SidewaysFakeGate>().Open();
     }

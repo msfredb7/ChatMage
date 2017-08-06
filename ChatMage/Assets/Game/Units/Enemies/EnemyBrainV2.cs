@@ -16,6 +16,8 @@ namespace AI
     }
     public class EnemyBrainV2 : MonoBehaviour
     {
+        public bool canGetForcedGoals = true;
+
         protected Stack<Goal> goals = new Stack<Goal>();
         protected struct ForcedGoal
         {
@@ -31,6 +33,9 @@ namespace AI
         /// </summary>
         public void AddForcedGoal(Goal goal, int priority)
         {
+            if (!canGetForcedGoals)
+                return;
+
             if (goal != null)
             {
                 AddForcedGoal(new ForcedGoal { goal = goal, priority = priority });

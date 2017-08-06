@@ -32,8 +32,8 @@ public abstract class Vehicle : MovingUnit
     /// </summary>
     public Locker wheelsOnTheGround = new Locker();
 
-    private float bumpTime = 0;
-    private float currentMoveSpeed;
+    protected float bumpTime = 0;
+    protected float currentMoveSpeed;
 
     //Events
     public class VehicleEvent : UnityEvent<Vehicle> { }
@@ -50,11 +50,11 @@ public abstract class Vehicle : MovingUnit
         EngineOn();
     }
 
-    public void EngineOn()
+    public virtual void EngineOn()
     {
         currentMoveSpeed = moveSpeed;
     }
-    public void EngineOff()
+    public virtual void EngineOff()
     {
         currentMoveSpeed = 0;
     }
