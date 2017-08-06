@@ -41,6 +41,11 @@ public class Milestone : BaseBehavior
     public UnityEvent onExecute = new UnityEvent();
 
 
+    [InspectorMargin(12), InspectorHeader("Dialog")]
+    public Dialoguing.Dialog dialog;
+
+
+
     public bool Execute()
     {
         if (!gameObject.activeInHierarchy)
@@ -73,6 +78,9 @@ public class Milestone : BaseBehavior
             float yPos = transform.position.y + cameraMinRelativeToMilestone + delta;
             Game.instance.gameCamera.minHeight = yPos;
         }
+
+        if (dialog != null)
+            Game.instance.ui.dialogDisplay.StartDialog(dialog);
 
         if (modifyFollowPlayer)
         {
