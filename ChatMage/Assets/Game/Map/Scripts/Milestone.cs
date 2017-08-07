@@ -130,6 +130,12 @@ public class Milestone : BaseBehavior
             }
         }
 
+        if(dialog != null)
+        {
+            Vector3 pos = transform.position + Vector3.right * 8;
+            Gizmos.DrawIcon(pos, "Gizmos Dialog");
+        }
+
         if (setAiArea)
         {
             Gizmos.color = new Color(0.2f, 1, 0, 0.4f);
