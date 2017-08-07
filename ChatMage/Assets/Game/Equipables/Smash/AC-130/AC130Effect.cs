@@ -186,6 +186,8 @@ public class AC130Effect : MonoBehaviour
             forcedGoals = null;
         }
 
+        Game.instance.onUnitSpawned -= PanicUnit;
+
         //Black fade in
         blackFade.DOKill();
         blackFade.DOFade(1, fadeDuration).OnComplete(OnExitCockpit);
@@ -207,8 +209,6 @@ public class AC130Effect : MonoBehaviour
         //Reactivate player
         if (Game.instance.Player != null)
             Game.instance.Player.gameObject.SetActive(true);
-
-        Game.instance.onUnitSpawned -= PanicUnit;
 
         if (onComplete != null)
             onComplete();
