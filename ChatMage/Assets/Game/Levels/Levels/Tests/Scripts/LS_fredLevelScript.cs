@@ -3,15 +3,7 @@ using UnityEngine;
 
 public class LS_fredLevelScript : LevelScript
 {
-    public override void OnInit()
-    {
-
-    }
-
-    public override void OnLose()
-    {
-    }
-
+    public float cameraSize = 4.5f;
     public override void OnReceiveEvent(string message)
     {
         Debug.Log(message);
@@ -28,14 +20,10 @@ public class LS_fredLevelScript : LevelScript
             (unit as EnemyVehicle).smartMove = true;
     }
 
-    protected override void OnGameReady()
-    {
-
-    }
-
     protected override void OnGameStarted()
     {
-
+        Game.instance.playerBounds.DisableAll();
+        Game.instance.gameCamera.cam.orthographicSize = cameraSize;
     }
 
     protected override void OnUpdate()

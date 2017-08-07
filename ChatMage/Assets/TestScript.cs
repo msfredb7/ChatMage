@@ -15,17 +15,17 @@ public class TestScript : MonoBehaviour
         Debug.LogWarning("Testscript here on " + gameObject.name + ". Don't forget me !");
     }
 
-    public string lootboxRefName;
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            Game.instance.gameCamera.maxHeight = Game.instance.gameCamera.Height;
-            Game.instance.gameCamera.minHeight = Game.instance.gameCamera.Height;
+            Camera cam = Game.instance.gameCamera.cam;
+            cam.aspect = 16f / 9f;
         }
         if (Input.GetKeyDown(KeyCode.Y))
         {
-            Game.instance.map.roadPlayer.CurrentRoad.ApplyMinMaxToCamera();
+
         }
     }
 }
