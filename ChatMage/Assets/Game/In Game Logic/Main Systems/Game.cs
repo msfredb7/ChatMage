@@ -61,6 +61,8 @@ public class Game : PublicSingleton<Game>
     public event Unit.Unit_Event onUnitSpawned;
     public event Unit.Unit_Event onUnitDestroyed;
 
+    private bool destroying = false;
+
     public void Init(LevelScript level, Framework framework, PlayerController player)
     {
         gameRunning.onLockStateChange += GameRunning_onLockStateChange;
@@ -84,7 +86,8 @@ public class Game : PublicSingleton<Game>
 
     private void GameRunning_onLockStateChange(bool state)
     {
-        Time.timeScale = gameRunning ? 1 : 0;
+        if (!destroying)
+            Time.timeScale = gameRunning ? 1 : 0;
     }
 
     public void ReadyGame()
@@ -136,7 +139,11 @@ public class Game : PublicSingleton<Game>
 
     protected override void OnDestroy()
     {
+        destroying = true;
         base.OnDestroy();
+
+        Time.timeScale = 1;
+
         if (onDestroy != null)
             onDestroy();
     }
