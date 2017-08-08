@@ -320,7 +320,7 @@ public class Mapping : BaseBehavior
 
         for (int i = 0; i < allWps.Count; i++)
         {
-            if (allWps[i].AdjustedPosition.y > minHeight && allWps[i].AdjustedPosition.y < maxHeight)
+            if (allWps[i].Position.y > minHeight && allWps[i].Position.y < maxHeight)
             {
                 filteredWps.Add(allWps[i]);
             }

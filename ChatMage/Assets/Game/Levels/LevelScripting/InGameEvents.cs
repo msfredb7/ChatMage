@@ -81,6 +81,10 @@ public class InGameEvents : MonoBehaviour
     {
         return Instantiate(prefab, Game.instance.ui.transform).GetComponent<T>();
     }
+    public T SpawnUnderUIWithinGameView<T>(T prefab) where T : MonoBehaviour
+    {
+        return Instantiate(prefab, Game.instance.ui.stayWithinGameView).GetComponent<T>();
+    }
     public T SpawnUnderGame<T>(T prefab) where T : MonoBehaviour
     {
         return Instantiate(prefab, Game.instance.transform).GetComponent<T>();

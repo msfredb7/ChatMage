@@ -6,6 +6,7 @@ using UnityEngine;
 public class VectorShaker : MonoBehaviour
 {
     [Header("Shake")]
+    public float max = 1.2f;
     public float speed = 7;
     public float quitDuration = 0.25f;
     [Header("Hit")]
@@ -124,7 +125,7 @@ public class VectorShaker : MonoBehaviour
     public void Shake(float strength = 1.2f)
     {
         //Shake instantan�
-        currentStrength = Mathf.Max(currentStrength, strength);
+        currentStrength = Mathf.Max(currentStrength, strength, max);
         currentSpeed = speed;
     }
 

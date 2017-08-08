@@ -18,15 +18,10 @@ public class Map : BaseBehavior
     [InspectorMargin(10), InspectorHeader("Units Already Spawned")]
     public List<GameObject> listUnits = new List<GameObject>();
 
-    [InspectorMargin(10), SerializeField, fsProperty, InspectorHeader("Object Needing Camera Adjustement")]
-    private List<GameObject> objectsToAjust = new List<GameObject>();
-
     [InspectorMargin(10), InspectorHeader("AI Area")]
     public bool setAIArea = false;
     [InspectorShowIf("setAIArea")]
     public Box2D startAIArea;
-    [InspectorShowIf("setAIArea")]
-    public bool ajustAreaToCamera = true;
 
     [InspectorMargin(10), InspectorHeader("Optional")]
     public RoadPlayer roadPlayer;
@@ -39,11 +34,6 @@ public class Map : BaseBehavior
     {
         if (roadPlayer != null)
             roadPlayer.Init(player.transform);
-
-        for (int i = 0; i < objectsToAjust.Count; i++)
-        {
-            Adjust(objectsToAjust[i]);
-        }
 
         for (int i = 0; i < listUnits.Count; i++)
         {
@@ -60,12 +50,6 @@ public class Map : BaseBehavior
         mapping.Init(Game.instance);
     }
 
-    public void Adjust(GameObject obj)
-    {
-        if (obj != null)
-            obj.transform.position = Game.instance.gameCamera.AdjustVector(obj.transform.position);
-    }
-
     public void ResetAIArea()
     {
         GameCamera gameCamera = Game.instance.gameCamera;
@@ -80,39 +64,6 @@ public class Map : BaseBehavior
         {
             Gizmos.color = new Color(0.2f, 1, 0, 0.4f);
             Gizmos.DrawCube(startAIArea.Center, startAIArea.Size);
-        }
-    }
-    public void OnDrawGizmos()
-    {
-        if (showCameraTrails)
-        {
-            float halfSC = GameCamera.DEFAULT_SCREEN_WIDTH / 2;
-
-            //Camera size display
-            Gizmos.color = new Color(1, 0, 1, 1);
-
-            //Left side
-            Vector2 start = new Vector2(-halfSC, 900);
-            Vector2 end = new Vector2(-halfSC, -900);
-            Gizmos.DrawLine(start, end);
-
-            //Right side
-            start = new Vector2(halfSC, 900);
-            end = new Vector2(halfSC, -900);
-            Gizmos.DrawLine(start, end);
-
-
-            Gizmos.color = new Color(1, 0, 1, 0.3f);
-
-            //Left side (including shake)
-            start = new Vector2(-halfSC - 1.5f, 900);
-            end = new Vector2(-halfSC - 1.5f, -900);
-            Gizmos.DrawLine(start, end);
-
-            //Right side (including shake)
-            start = new Vector2(halfSC + 1.5f, 900);
-            end = new Vector2(halfSC + 1.5f, -900);
-            Gizmos.DrawLine(start, end);
         }
     }
 

@@ -6,11 +6,10 @@ public class GameCamera : MonoBehaviour
 {
     public const float DEFAULT_SCREEN_WIDTH = 19.2f;
     public const float DEFAULT_SCREEN_HEIGHT = 10.8f;
+    public const float MAX_CAMERA_SHAKE = 1.2f;
 
     public Camera cam;
     public VectorShaker vectorShaker;
-
-    public float Aspect { get { return cam.aspect; } }
 
     [Header("Settings")]
     public float distance = -10;
@@ -28,8 +27,7 @@ public class GameCamera : MonoBehaviour
     public bool MovedSinceLastFrame { get { return movedSinceLastFrame; } }
 
     private bool movedSinceLastFrame = false;
-    private Vector2 screenSize;
-    private Vector2 defaultToRealRatio;
+    private Vector2 screenSize = new Vector2(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT);
     private Transform tr;
     private PlayerVehicle player;
 
@@ -42,15 +40,17 @@ public class GameCamera : MonoBehaviour
     void Awake()
     {
         tr = transform;
+
+        //Screen bounds
+        float aspect = cam.aspect;
+        float width = aspect * cam.orthographicSize * 2;
+        cam.orthographicSize *= DEFAULT_SCREEN_WIDTH / width;
+        vectorShaker.max = MAX_CAMERA_SHAKE;
     }
 
     public void Init(PlayerVehicle player)
     {
         this.player = player;
-
-        //Screen bounds
-        screenSize = new Vector2(cam.orthographicSize * cam.aspect * 2, cam.orthographicSize * 2);
-        defaultToRealRatio = new Vector2(DEFAULT_SCREEN_WIDTH / screenSize.x, DEFAULT_SCREEN_HEIGHT / screenSize.y);
 
         //Spawn a la bonne hauteur
         SetToHeight(Game.instance.map.cameraSpawn.Height);
@@ -92,9 +92,6 @@ public class GameCamera : MonoBehaviour
     {
         //Camera Shake
         cam.transform.localPosition = vectorShaker.CurrentVector;
-
-        //if (Input.GetKeyDown(KeyCode.T))
-        //    vectorShaker.Hit(Vector2.up * 0.2f);
     }
 
     void FixedUpdate()
@@ -134,6 +131,7 @@ public class GameCamera : MonoBehaviour
 
     #region Bounds
 
+    public float Aspect { get { return DEFAULT_SCREEN_WIDTH / DEFAULT_SCREEN_HEIGHT; } }
     public float Top { get { return Height + screenSize.y / 2; } }
     public float Bottom { get { return Height - screenSize.y / 2; } }
     public float Left { get { return -screenSize.x / 2; } }
@@ -148,11 +146,11 @@ public class GameCamera : MonoBehaviour
 
     public Vector3 AdjustVector(Vector3 vector)
     {
-        return new Vector3(vector.x / defaultToRealRatio.x, vector.y / defaultToRealRatio.y, vector.z);
+        return vector;
     }
     public Vector2 AdjustVector(Vector2 vector)
     {
-        return new Vector2(vector.x / defaultToRealRatio.x, vector.y / defaultToRealRatio.y);
+        return vector;
     }
     public Vector2 ClampToScreen(Vector2 position, float screenSizeMultiplier = 1)
     {

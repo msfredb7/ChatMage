@@ -87,8 +87,7 @@ public class LS_FirstLevel : LevelScript
         Game.instance.ui.dialogDisplay.StartDialog(goBackDialog);
         TaggedObject gate = map.mapping.GetTaggedObject("arena gate");
         gate.GetComponent<SidewaysFakeGate>().Open();
-        gate.GetComponent<Collider2D>().enabled = false;
-        map.roadPlayer.CurrentRoad.ApplyMinMaxToCamera();
+        Game.instance.gameCamera.followPlayer = true;
     }
 
     public override void OnReceiveEvent(string message)
@@ -99,7 +98,6 @@ public class LS_FirstLevel : LevelScript
                 Game.instance.ui.dialogDisplay.StartDialog(lookADoorDialog);
                 break;
             case "enter arena":
-                Game.instance.gameCamera.minHeight = 0;
                 StartFirstWave();
                 break;
             case "final wave complete":

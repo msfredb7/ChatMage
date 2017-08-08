@@ -10,6 +10,7 @@ public class Road : BaseBehavior
     public float topHeight = GameCamera.DEFAULT_SCREEN_HEIGHT / 2;
     public float bottomHeight = -GameCamera.DEFAULT_SCREEN_HEIGHT / 2;
     public bool setCameraMinMax = true;
+    public bool showCameraTrails = true;
 
     public float TopHeight { get { return topHeight; } }
     public float BottomHeight { get { return bottomHeight; } }
@@ -136,10 +137,29 @@ public class Road : BaseBehavior
         return topHeight - teleportingMargin;
     }
 
-    void OnDrawGizmosSelected()
+    void OnDrawGizmos()
     {
-        Gizmos.color = new Color(0, 0, 1, 0.5F);
-        Gizmos.DrawCube(new Vector3(0, (topHeight + bottomHeight) / 2, 0), new Vector3(16, topHeight - bottomHeight, 1));
+        if (showCameraTrails)
+        {
+            float halfW = GameCamera.DEFAULT_SCREEN_WIDTH / 2;
+
+            Bounds interiorBounds = new Bounds();
+            interiorBounds.max = new Vector3(halfW, topHeight, 0);
+            interiorBounds.min = new Vector3(-halfW, bottomHeight, 0);
+
+            DebugExtension.DrawBounds(interiorBounds, new Color(1, 0, 1, 1));
+            
+
+            Bounds exteriorBounds = new Bounds();
+            exteriorBounds.max = new Vector3(halfW + GameCamera.MAX_CAMERA_SHAKE, topHeight + GameCamera.MAX_CAMERA_SHAKE, 0);
+            exteriorBounds.min = new Vector3(-halfW - GameCamera.MAX_CAMERA_SHAKE, bottomHeight - GameCamera.MAX_CAMERA_SHAKE, 0);
+
+            DebugExtension.DrawBounds(exteriorBounds, new Color(1, 0, 1, 0.3f));
+        }
+
+        //Gizmos.color = new Color(0, 0, 1, 0.5F);
+        //Gizmos.DrawCube(new Vector3(0, (topHeight + bottomHeight) / 2, 0),
+        //    new Vector3(GameCamera.DEFAULT_SCREEN_WIDTH, topHeight - bottomHeight, 1));
     }
 
     [InspectorButton(), InspectorName("Gather All Milestones")]

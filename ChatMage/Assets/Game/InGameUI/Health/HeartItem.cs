@@ -10,12 +10,7 @@ public class HeartItem : MonoBehaviour
     public Sprite emptyHeart;
     public Sprite fullHeart;
     public Sprite armor;
-    private Image image;
-
-    void Awake()
-    {
-        image = GetComponent<Image>();
-    }
+    public Image image;
 
     public void Display(HeartType type)
     {

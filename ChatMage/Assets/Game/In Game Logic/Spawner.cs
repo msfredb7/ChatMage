@@ -19,7 +19,7 @@ public class Spawner : MonoBehaviour {
 
     public Unit SpawnUnitAtLocation(Unit unitPrefab, Waypoint waypoint)
     {
-        return Game.instance.SpawnUnit(unitPrefab, waypoint.AdjustedPosition);
+        return Game.instance.SpawnUnit(unitPrefab, waypoint.Position);
     }
 
     public List<Unit> SpawnUnitAtMultipleDefinedLocation(Unit unitPrefab, List<Waypoint> waypoint, Action<Unit> function = null)

@@ -172,10 +172,19 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
 
         if (winOutroPrefab != null)
         {
-            if (winOutroPrefab.parentType == BaseWinOutro.ParentType.UnderCanvas)
-                inGameEvents.SpawnUnderUI(winOutroPrefab).Play();
-            else
-                inGameEvents.SpawnUnderGame(winOutroPrefab).Play();
+            switch (winOutroPrefab.parentType)
+            {
+                case BaseWinOutro.ParentType.UnderCanvas:
+                    inGameEvents.SpawnUnderUI(winOutroPrefab).Play();
+                    break;
+                case BaseWinOutro.ParentType.UnderCanvasWithinGameView:
+                    inGameEvents.SpawnUnderUIWithinGameView(winOutroPrefab).Play();
+                    break;
+                default:
+                case BaseWinOutro.ParentType.UnderGame:
+                    inGameEvents.SpawnUnderGame(winOutroPrefab).Play();
+                    break;
+            }
         }
 
         OnWin();
@@ -199,10 +208,19 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
 
         if (loseOutroPrefab != null)
         {
-            if (loseOutroPrefab.parentType == BaseLoseOutro.ParentType.UnderCanvas)
-                inGameEvents.SpawnUnderUI(loseOutroPrefab).Play();
-            else
-                inGameEvents.SpawnUnderGame(loseOutroPrefab).Play();
+            switch (loseOutroPrefab.parentType)
+            {
+                case BaseLoseOutro.ParentType.UnderCanvas:
+                    inGameEvents.SpawnUnderUI(loseOutroPrefab).Play();
+                    break;
+                case BaseLoseOutro.ParentType.UnderCanvasWithinGameView:
+                    inGameEvents.SpawnUnderUIWithinGameView(loseOutroPrefab).Play();
+                    break;
+                default:
+                case BaseLoseOutro.ParentType.UnderGame:
+                    inGameEvents.SpawnUnderGame(loseOutroPrefab).Play();
+                    break;
+            }
         }
 
         OnLose();

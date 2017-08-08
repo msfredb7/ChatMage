@@ -14,8 +14,7 @@ public class Waypoint : BaseBehavior
         BossSpawn = 3,
         Other = 4,
     }
-
-    public bool adjustToMap = true;
+    
     public bool useTag = true;
     [InspectorHideIf("useTag")]
     public WaypointType type;
@@ -26,23 +25,12 @@ public class Waypoint : BaseBehavior
 
     public WaypointType Type { get { return type; } }
 
-    public Vector2 AdjustedPosition
+    public Vector2 Position
     {
         get
         {
-            if (!alreadyConverted)
-                AdjustToMap();
             return transform.position;
         }
-    }
-
-    private void AdjustToMap()
-    {
-        alreadyConverted = true;
-        if (!adjustToMap)
-            return;
-
-        Game.instance.map.Adjust(gameObject);
     }
 
     void OnDrawGizmosSelected()
