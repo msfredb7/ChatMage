@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class LS_2_Bonus2 : LevelScript
 {
-    public ITM_Axe axe;
+    public GameObject axe;
 
     public int woodToCut = 10;
 
@@ -27,9 +27,9 @@ public class LS_2_Bonus2 : LevelScript
     protected override void OnGameReady()
     {
         map = Game.instance.map;
-        Game.instance.Player.playerItems.items.Add(axe);
         currentScoreUI = inGameEvents.SpawnUnderUI<BonusScoreScript>(scoreUI);
         currentScoreUI.SetScore(woodToCut);
+        Instantiate(axe, Game.instance.Player.vehicle.transform);
     }
 
     protected override void OnGameStarted()
@@ -51,6 +51,8 @@ public class LS_2_Bonus2 : LevelScript
 
     protected override void OnUpdate()
     {
+        if (currentScoreUI.GetCurrentScore() <= 0)
+            Win();
         if (Input.GetKeyDown(KeyCode.W))
         {
             Win();

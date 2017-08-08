@@ -218,6 +218,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8298df7b274d40149b17d04ca9417326, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gizmosAlwaysVisible: 1
   posType: 2
   tags:
   - random bot
@@ -240,6 +241,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attachedSpawn: {fileID: 71926986}
+  gizmosAlwaysVisible: 1
   destination: {x: 0, y: 0}
 --- !u!1 &124530950
 GameObject:
@@ -285,17 +287,20 @@ MonoBehaviour:
   _serializedStateKeys:
   - triggerOn
   - aiAreaRelativeToMilestone
+  - onExecute
   _serializedStateValues:
   - '"TopOfScreen"'
-  - '{"min":{"x":-8.0,"y":-9.0},"max":{"x":8.0,"y":0.0}}'
+  - '{"min":{"x":-9.58,"y":-11.0},"max":{"x":9.64,"y":0.0}}'
+  - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  gizmosAlwaysVisible: 1
   triggerOn: 1
   disapearAfterTrigger: 1
-  gizmosAlwaysVisible: 1
   setAiArea: 1
   aiAreaAdjustToSceenRatio: 1
   aiAreaRelativeToMilestone:
-    min: {x: -8, y: -9}
-    max: {x: 8, y: 0}
+    min: {x: -9.58, y: -11}
+    max: {x: 9.64, y: 0}
   modifyFollowPlayer: 1
   followPlayerEffect: 0
   setCameraMin: 0
@@ -304,6 +309,12 @@ MonoBehaviour:
   cameraMaxRelativeToMilestone: 0
   fireEventToLevelScript: 1
   eventMessage: survival8
+  onExecute:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  dialog: {fileID: 0}
 --- !u!1 &153121005
 GameObject:
   m_ObjectHideFlags: 0
@@ -417,7 +428,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 177281355}
   m_LocalRotation: {x: -0, y: -0, z: 1, w: 0}
-  m_LocalPosition: {x: 7.44, y: -3.01, z: 0}
+  m_LocalPosition: {x: 10.06, y: -3.01, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 773987709}
@@ -435,6 +446,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attachedSpawn: {fileID: 177281358}
+  gizmosAlwaysVisible: 1
   destination: {x: -1.5, y: 0}
 --- !u!114 &177281358
 MonoBehaviour:
@@ -447,6 +459,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81e0410c014f5ea4ab3fbd5093871b0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gizmosAlwaysVisible: 1
   posType: 2
   tags:
   - right
@@ -491,6 +504,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf95083f75c25044b8552decffe1601, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gizmosAlwaysVisible: 1
   posType: 2
   tags:
   - camera
@@ -511,6 +525,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attachedSpawn: {fileID: 227145569}
+  gizmosAlwaysVisible: 1
   destination: {x: 0, y: 0}
 --- !u!1 &266624491
 GameObject:
@@ -574,9 +589,9 @@ MonoBehaviour:
   - milestoneRelativeHeights
   _serializedStateValues:
   - '[0,1,2,3,4,5,6,7,8,9,10]'
-  - '[-97.94,-77.0,-42.3,-10.5,29.3,67.1,106.7,147.6,203.1,244.8,253.6]'
+  - '[-96.14,-77.0,-42.3,-10.5,29.3,67.1,106.7,139.1,173.3,210.3,220.78]'
   topHeight: 237.7
-  bottomHeight: -108
+  bottomHeight: -108.69
   setCameraMinMax: 1
   milestones:
   - {fileID: 1990598053}
@@ -752,17 +767,20 @@ MonoBehaviour:
   _serializedStateKeys:
   - triggerOn
   - aiAreaRelativeToMilestone
+  - onExecute
   _serializedStateValues:
   - '"TopOfScreen"'
-  - '{"min":{"x":-8.0,"y":-9.0},"max":{"x":8.0,"y":0.0}}'
+  - '{"min":{"x":-9.41,"y":-11.0},"max":{"x":9.81,"y":0.0}}'
+  - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  gizmosAlwaysVisible: 1
   triggerOn: 1
   disapearAfterTrigger: 1
-  gizmosAlwaysVisible: 1
   setAiArea: 1
   aiAreaAdjustToSceenRatio: 1
   aiAreaRelativeToMilestone:
-    min: {x: -8, y: -9}
-    max: {x: 8, y: 0}
+    min: {x: -9.41, y: -11}
+    max: {x: 9.81, y: 0}
   modifyFollowPlayer: 1
   followPlayerEffect: 0
   setCameraMin: 0
@@ -771,6 +789,12 @@ MonoBehaviour:
   cameraMaxRelativeToMilestone: 0
   fireEventToLevelScript: 1
   eventMessage: survival4
+  onExecute:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  dialog: {fileID: 0}
 --- !u!1 &546571854
 GameObject:
   m_ObjectHideFlags: 0
@@ -815,17 +839,20 @@ MonoBehaviour:
   _serializedStateKeys:
   - triggerOn
   - aiAreaRelativeToMilestone
+  - onExecute
   _serializedStateValues:
   - '"TopOfScreen"'
-  - '{"min":{"x":-8.0,"y":-9.0},"max":{"x":8.0,"y":0.0}}'
+  - '{"min":{"x":-9.64,"y":-11.0},"max":{"x":9.64,"y":0.0}}'
+  - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  gizmosAlwaysVisible: 1
   triggerOn: 1
   disapearAfterTrigger: 1
-  gizmosAlwaysVisible: 1
   setAiArea: 1
   aiAreaAdjustToSceenRatio: 1
   aiAreaRelativeToMilestone:
-    min: {x: -8, y: -9}
-    max: {x: 8, y: 0}
+    min: {x: -9.64, y: -11}
+    max: {x: 9.64, y: 0}
   modifyFollowPlayer: 1
   followPlayerEffect: 0
   setCameraMin: 0
@@ -834,6 +861,12 @@ MonoBehaviour:
   cameraMaxRelativeToMilestone: 0
   fireEventToLevelScript: 1
   eventMessage: survival2
+  onExecute:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  dialog: {fileID: 0}
 --- !u!1 &552480916
 GameObject:
   m_ObjectHideFlags: 0
@@ -897,7 +930,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 573697841}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.73, y: 0.08, z: 0}
+  m_LocalPosition: {x: -10.04, y: 0.08, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 773987709}
@@ -915,6 +948,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attachedSpawn: {fileID: 573697844}
+  gizmosAlwaysVisible: 1
   destination: {x: 1.5, y: 0}
 --- !u!114 &573697844
 MonoBehaviour:
@@ -927,6 +961,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81e0410c014f5ea4ab3fbd5093871b0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gizmosAlwaysVisible: 1
   posType: 2
   tags:
   - left
@@ -1043,17 +1078,20 @@ MonoBehaviour:
   _serializedStateKeys:
   - triggerOn
   - aiAreaRelativeToMilestone
+  - onExecute
   _serializedStateValues:
   - '"TopOfScreen"'
-  - '{"min":{"x":-8.0,"y":-9.0},"max":{"x":8.0,"y":0.0}}'
+  - '{"min":{"x":-9.72,"y":-11.0},"max":{"x":9.66,"y":0.0}}'
+  - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  gizmosAlwaysVisible: 1
   triggerOn: 1
   disapearAfterTrigger: 1
-  gizmosAlwaysVisible: 1
   setAiArea: 1
   aiAreaAdjustToSceenRatio: 1
   aiAreaRelativeToMilestone:
-    min: {x: -8, y: -9}
-    max: {x: 8, y: 0}
+    min: {x: -9.72, y: -11}
+    max: {x: 9.66, y: 0}
   modifyFollowPlayer: 1
   followPlayerEffect: 0
   setCameraMin: 0
@@ -1062,6 +1100,12 @@ MonoBehaviour:
   cameraMaxRelativeToMilestone: 0
   fireEventToLevelScript: 1
   eventMessage: survival1
+  onExecute:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  dialog: {fileID: 0}
 --- !u!1 &773987708
 GameObject:
   m_ObjectHideFlags: 0
@@ -1147,17 +1191,20 @@ MonoBehaviour:
   _serializedStateKeys:
   - triggerOn
   - aiAreaRelativeToMilestone
+  - onExecute
   _serializedStateValues:
   - '"TopOfScreen"'
-  - '{"min":{"x":-8.0,"y":-9.0},"max":{"x":8.0,"y":0.0}}'
+  - '{"min":{"x":-9.57,"y":-11.0},"max":{"x":9.64,"y":0.0}}'
+  - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  gizmosAlwaysVisible: 1
   triggerOn: 1
   disapearAfterTrigger: 1
-  gizmosAlwaysVisible: 1
   setAiArea: 1
   aiAreaAdjustToSceenRatio: 1
   aiAreaRelativeToMilestone:
-    min: {x: -8, y: -9}
-    max: {x: 8, y: 0}
+    min: {x: -9.57, y: -11}
+    max: {x: 9.64, y: 0}
   modifyFollowPlayer: 1
   followPlayerEffect: 0
   setCameraMin: 0
@@ -1166,6 +1213,12 @@ MonoBehaviour:
   cameraMaxRelativeToMilestone: 0
   fireEventToLevelScript: 1
   eventMessage: survival3
+  onExecute:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  dialog: {fileID: 0}
 --- !u!1 &962253921
 GameObject:
   m_ObjectHideFlags: 0
@@ -1190,7 +1243,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 962253921}
   m_LocalRotation: {x: -0, y: -0, z: 1, w: 0}
-  m_LocalPosition: {x: 7.44, y: 0.1, z: 0}
+  m_LocalPosition: {x: 10.06, y: 0.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 773987709}
@@ -1208,6 +1261,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attachedSpawn: {fileID: 962253924}
+  gizmosAlwaysVisible: 1
   destination: {x: -1.5, y: 0}
 --- !u!114 &962253924
 MonoBehaviour:
@@ -1220,6 +1274,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81e0410c014f5ea4ab3fbd5093871b0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gizmosAlwaysVisible: 1
   posType: 2
   tags:
   - right
@@ -1251,6 +1306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81e0410c014f5ea4ab3fbd5093871b0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gizmosAlwaysVisible: 1
   posType: 2
   tags:
   - bot
@@ -1266,6 +1322,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attachedSpawn: {fileID: 974461819}
+  gizmosAlwaysVisible: 1
   destination: {x: 0, y: 1.5}
 --- !u!4 &974461821
 Transform:
@@ -1274,7 +1331,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 974461818}
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0.05, y: -3.89, z: 0}
+  m_LocalPosition: {x: 0.05, y: -5.64, z: 0}
   m_LocalScale: {x: 1.0000005, y: 1.0000005, z: 1}
   m_Children: []
   m_Father: {fileID: 773987709}
@@ -1308,6 +1365,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81e0410c014f5ea4ab3fbd5093871b0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gizmosAlwaysVisible: 1
   posType: 2
   tags:
   - bot
@@ -1323,6 +1381,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attachedSpawn: {fileID: 997129484}
+  gizmosAlwaysVisible: 1
   destination: {x: 0, y: 1.5}
 --- !u!4 &997129486
 Transform:
@@ -1331,7 +1390,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 997129483}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 3.01, y: -3.89, z: 0}
+  m_LocalPosition: {x: 3.01, y: -5.64, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 773987709}
@@ -1365,6 +1424,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81e0410c014f5ea4ab3fbd5093871b0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gizmosAlwaysVisible: 1
   posType: 2
   tags:
   - left
@@ -1375,7 +1435,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1124971336}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.73, y: 2.32, z: 0}
+  m_LocalPosition: {x: -10.04, y: 2.32, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 773987709}
@@ -1393,6 +1453,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attachedSpawn: {fileID: 1124971337}
+  gizmosAlwaysVisible: 1
   destination: {x: 1.5, y: 0}
 --- !u!1 &1170913432
 GameObject:
@@ -1438,17 +1499,20 @@ MonoBehaviour:
   _serializedStateKeys:
   - triggerOn
   - aiAreaRelativeToMilestone
+  - onExecute
   _serializedStateValues:
   - '"TopOfScreen"'
-  - '{"min":{"x":-8.0,"y":-9.0},"max":{"x":8.0,"y":0.0}}'
+  - '{"min":{"x":-9.64,"y":-9.0},"max":{"x":9.74,"y":0.0}}'
+  - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  gizmosAlwaysVisible: 1
   triggerOn: 1
   disapearAfterTrigger: 1
-  gizmosAlwaysVisible: 1
   setAiArea: 1
   aiAreaAdjustToSceenRatio: 1
   aiAreaRelativeToMilestone:
-    min: {x: -8, y: -9}
-    max: {x: 8, y: 0}
+    min: {x: -9.64, y: -9}
+    max: {x: 9.74, y: 0}
   modifyFollowPlayer: 1
   followPlayerEffect: 0
   setCameraMin: 0
@@ -1457,6 +1521,12 @@ MonoBehaviour:
   cameraMaxRelativeToMilestone: 0
   fireEventToLevelScript: 1
   eventMessage: gate
+  onExecute:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  dialog: {fileID: 0}
 --- !u!1 &1317918297
 GameObject:
   m_ObjectHideFlags: 0
@@ -1501,17 +1571,20 @@ MonoBehaviour:
   _serializedStateKeys:
   - triggerOn
   - aiAreaRelativeToMilestone
+  - onExecute
   _serializedStateValues:
   - '"TopOfScreen"'
-  - '{"min":{"x":-8.0,"y":-9.0},"max":{"x":8.0,"y":0.0}}'
+  - '{"min":{"x":-9.84,"y":-11.0},"max":{"x":9.72,"y":0.0}}'
+  - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  gizmosAlwaysVisible: 1
   triggerOn: 1
   disapearAfterTrigger: 1
-  gizmosAlwaysVisible: 1
   setAiArea: 1
   aiAreaAdjustToSceenRatio: 1
   aiAreaRelativeToMilestone:
-    min: {x: -8, y: -9}
-    max: {x: 8, y: 0}
+    min: {x: -9.84, y: -11}
+    max: {x: 9.72, y: 0}
   modifyFollowPlayer: 1
   followPlayerEffect: 0
   setCameraMin: 0
@@ -1520,6 +1593,12 @@ MonoBehaviour:
   cameraMaxRelativeToMilestone: 0
   fireEventToLevelScript: 1
   eventMessage: survival7
+  onExecute:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  dialog: {fileID: 0}
 --- !u!1 &1387905570
 GameObject:
   m_ObjectHideFlags: 0
@@ -1711,6 +1790,8 @@ MonoBehaviour:
   rendering: {fileID: 1404559385}
   openedLocalPosition: {x: 20, y: 317}
   openedOnStart: 0
+  collider: {fileID: 0}
+  enableDisableColliderOnAnimation: 0
   animDuration: 3
   ease: 1
 --- !u!114 &1404559390
@@ -1750,7 +1831,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1562384045}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.73, y: -2.63, z: 0}
+  m_LocalPosition: {x: -10.04, y: -2.63, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 773987709}
@@ -1768,6 +1849,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attachedSpawn: {fileID: 1562384048}
+  gizmosAlwaysVisible: 1
   destination: {x: 1.5, y: 0}
 --- !u!114 &1562384048
 MonoBehaviour:
@@ -1780,6 +1862,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81e0410c014f5ea4ab3fbd5093871b0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gizmosAlwaysVisible: 1
   posType: 2
   tags:
   - left
@@ -1825,6 +1908,7 @@ MonoBehaviour:
   - '[]'
   mapping: {fileID: 153121006}
   cameraSpawn: {fileID: 1833739392}
+  showCameraTrails: 1
   listUnits: []
   objectsToAjust: []
   setAIArea: 1
@@ -2029,92 +2113,29 @@ MonoBehaviour:
       _serializedIsActive: 1
     _target: {fileID: 1644651695}
   - _keys:
-    - DefaultBehaviorEditor.triggerOn.EditProperty
-    - DefaultBehaviorEditor.setAiArea.EditProperty
-    - DefaultBehaviorEditor.modifyFollowPlayer.EditProperty
-    - DefaultBehaviorEditor.setCameraMin.EditProperty
-    - DefaultBehaviorEditor.setCameraMax.EditProperty
-    - DefaultBehaviorEditor.fireEventToLevelScript.EditProperty
+    - DefaultBehaviorEditor.dialog.EditProperty
     _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
     - _showDropdown: 0
       _serializedIsActive: 1
     _target: {fileID: 1990598053}
   - _keys:
-    - DefaultBehaviorEditor.triggerOn.EditProperty
-    - DefaultBehaviorEditor.setAiArea.EditProperty
-    - DefaultBehaviorEditor.modifyFollowPlayer.EditProperty
-    - DefaultBehaviorEditor.setCameraMin.EditProperty
-    - DefaultBehaviorEditor.setCameraMax.EditProperty
-    - DefaultBehaviorEditor.fireEventToLevelScript.EditProperty
+    - DefaultBehaviorEditor.dialog.EditProperty
     _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
     - _showDropdown: 0
       _serializedIsActive: 1
     _target: {fileID: 1170913434}
   - _keys:
-    - DefaultBehaviorEditor.triggerOn.EditProperty
-    - DefaultBehaviorEditor.setAiArea.EditProperty
-    - DefaultBehaviorEditor.modifyFollowPlayer.EditProperty
-    - DefaultBehaviorEditor.setCameraMin.EditProperty
-    - DefaultBehaviorEditor.setCameraMax.EditProperty
-    - DefaultBehaviorEditor.fireEventToLevelScript.EditProperty
+    - DefaultBehaviorEditor.dialog.EditProperty
     _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
     - _showDropdown: 0
       _serializedIsActive: 1
     _target: {fileID: 2086493880}
   - _keys:
-    - DefaultBehaviorEditor.triggerOn.EditProperty
-    - DefaultBehaviorEditor.setAiArea.EditProperty
-    - DefaultBehaviorEditor.modifyFollowPlayer.EditProperty
-    - DefaultBehaviorEditor.setCameraMin.EditProperty
-    - DefaultBehaviorEditor.setCameraMax.EditProperty
-    - DefaultBehaviorEditor.fireEventToLevelScript.EditProperty
+    - DefaultBehaviorEditor.dialog.EditProperty
     _values:
     - _showDropdown: 0
       _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
     _target: {fileID: 641073216}
-  - _keys: []
-    _values: []
-    _target: {fileID: 546571856}
   - _keys:
     - DefaultBehaviorEditor.triggerOn.EditProperty
     - DefaultBehaviorEditor.setAiArea.EditProperty
@@ -2122,6 +2143,7 @@ MonoBehaviour:
     - DefaultBehaviorEditor.setCameraMin.EditProperty
     - DefaultBehaviorEditor.setCameraMax.EditProperty
     - DefaultBehaviorEditor.fireEventToLevelScript.EditProperty
+    - DefaultBehaviorEditor.dialog.EditProperty
     _values:
     - _showDropdown: 0
       _serializedIsActive: 1
@@ -2133,75 +2155,35 @@ MonoBehaviour:
       _serializedIsActive: 1
     - _showDropdown: 0
       _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    _target: {fileID: 546571856}
+  - _keys:
+    - DefaultBehaviorEditor.dialog.EditProperty
+    _values:
     - _showDropdown: 0
       _serializedIsActive: 1
     _target: {fileID: 907085426}
   - _keys:
-    - DefaultBehaviorEditor.triggerOn.EditProperty
-    - DefaultBehaviorEditor.setAiArea.EditProperty
-    - DefaultBehaviorEditor.modifyFollowPlayer.EditProperty
-    - DefaultBehaviorEditor.setCameraMin.EditProperty
-    - DefaultBehaviorEditor.setCameraMax.EditProperty
-    - DefaultBehaviorEditor.fireEventToLevelScript.EditProperty
+    - DefaultBehaviorEditor.dialog.EditProperty
     _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
     - _showDropdown: 0
       _serializedIsActive: 1
     _target: {fileID: 378418664}
   - _keys:
-    - DefaultBehaviorEditor.triggerOn.EditProperty
-    - DefaultBehaviorEditor.setAiArea.EditProperty
-    - DefaultBehaviorEditor.modifyFollowPlayer.EditProperty
-    - DefaultBehaviorEditor.setCameraMin.EditProperty
-    - DefaultBehaviorEditor.setCameraMax.EditProperty
-    - DefaultBehaviorEditor.fireEventToLevelScript.EditProperty
+    - DefaultBehaviorEditor.dialog.EditProperty
     _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
     - _showDropdown: 0
       _serializedIsActive: 1
     _target: {fileID: 1888280306}
   - _keys:
-    - DefaultBehaviorEditor.triggerOn.EditProperty
-    - DefaultBehaviorEditor.setAiArea.EditProperty
-    - DefaultBehaviorEditor.modifyFollowPlayer.EditProperty
-    - DefaultBehaviorEditor.setCameraMin.EditProperty
-    - DefaultBehaviorEditor.setCameraMax.EditProperty
-    - DefaultBehaviorEditor.fireEventToLevelScript.EditProperty
+    - DefaultBehaviorEditor.dialog.EditProperty
     _values:
     - _showDropdown: 0
       _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
     _target: {fileID: 1746307073}
-  - _keys: []
-    _values: []
-    _target: {fileID: 1317918299}
   - _keys:
     - DefaultBehaviorEditor.triggerOn.EditProperty
     - DefaultBehaviorEditor.setAiArea.EditProperty
@@ -2209,6 +2191,7 @@ MonoBehaviour:
     - DefaultBehaviorEditor.setCameraMin.EditProperty
     - DefaultBehaviorEditor.setCameraMax.EditProperty
     - DefaultBehaviorEditor.fireEventToLevelScript.EditProperty
+    - DefaultBehaviorEditor.dialog.EditProperty
     _values:
     - _showDropdown: 0
       _serializedIsActive: 1
@@ -2220,6 +2203,14 @@ MonoBehaviour:
       _serializedIsActive: 1
     - _showDropdown: 0
       _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    _target: {fileID: 1317918299}
+  - _keys:
+    - DefaultBehaviorEditor.dialog.EditProperty
+    _values:
     - _showDropdown: 0
       _serializedIsActive: 1
     _target: {fileID: 124530952}
@@ -2247,7 +2238,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1658729503}
   m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
-  m_LocalPosition: {x: 7.44, y: 2.86, z: 0}
+  m_LocalPosition: {x: 10.06, y: 2.86, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 773987709}
@@ -2265,6 +2256,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attachedSpawn: {fileID: 1658729506}
+  gizmosAlwaysVisible: 1
   destination: {x: -1.5, y: 0}
 --- !u!114 &1658729506
 MonoBehaviour:
@@ -2277,6 +2269,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81e0410c014f5ea4ab3fbd5093871b0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gizmosAlwaysVisible: 1
   posType: 2
   tags:
   - right
@@ -2321,6 +2314,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8298df7b274d40149b17d04ca9417326, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gizmosAlwaysVisible: 1
   posType: 2
   tags:
   - random right
@@ -2343,6 +2337,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attachedSpawn: {fileID: 1659295149}
+  gizmosAlwaysVisible: 1
   destination: {x: 0, y: 0}
 --- !u!1 &1746307071
 GameObject:
@@ -2388,17 +2383,20 @@ MonoBehaviour:
   _serializedStateKeys:
   - triggerOn
   - aiAreaRelativeToMilestone
+  - onExecute
   _serializedStateValues:
   - '"TopOfScreen"'
-  - '{"min":{"x":-8.0,"y":-9.0},"max":{"x":8.0,"y":0.0}}'
+  - '{"min":{"x":-9.89,"y":-11.0},"max":{"x":9.69,"y":0.0}}'
+  - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  gizmosAlwaysVisible: 1
   triggerOn: 1
   disapearAfterTrigger: 1
-  gizmosAlwaysVisible: 1
   setAiArea: 1
   aiAreaAdjustToSceenRatio: 1
   aiAreaRelativeToMilestone:
-    min: {x: -8, y: -9}
-    max: {x: 8, y: 0}
+    min: {x: -9.89, y: -11}
+    max: {x: 9.69, y: 0}
   modifyFollowPlayer: 1
   followPlayerEffect: 0
   setCameraMin: 0
@@ -2407,6 +2405,12 @@ MonoBehaviour:
   cameraMaxRelativeToMilestone: 0
   fireEventToLevelScript: 1
   eventMessage: survival6
+  onExecute:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  dialog: {fileID: 0}
 --- !u!1 &1785554778
 GameObject:
   m_ObjectHideFlags: 0
@@ -2448,6 +2452,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8298df7b274d40149b17d04ca9417326, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gizmosAlwaysVisible: 1
   posType: 2
   tags:
   - random left
@@ -2470,6 +2475,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attachedSpawn: {fileID: 1785554780}
+  gizmosAlwaysVisible: 1
   destination: {x: 0, y: 0}
 --- !u!1 &1794875319
 GameObject:
@@ -2596,17 +2602,20 @@ MonoBehaviour:
   _serializedStateKeys:
   - triggerOn
   - aiAreaRelativeToMilestone
+  - onExecute
   _serializedStateValues:
   - '"TopOfScreen"'
-  - '{"min":{"x":-8.0,"y":-9.0},"max":{"x":8.0,"y":0.0}}'
+  - '{"min":{"x":-9.84,"y":-11.0},"max":{"x":9.72,"y":0.0}}'
+  - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  gizmosAlwaysVisible: 1
   triggerOn: 1
   disapearAfterTrigger: 1
-  gizmosAlwaysVisible: 1
   setAiArea: 1
   aiAreaAdjustToSceenRatio: 1
   aiAreaRelativeToMilestone:
-    min: {x: -8, y: -9}
-    max: {x: 8, y: 0}
+    min: {x: -9.84, y: -11}
+    max: {x: 9.72, y: 0}
   modifyFollowPlayer: 1
   followPlayerEffect: 0
   setCameraMin: 0
@@ -2615,6 +2624,12 @@ MonoBehaviour:
   cameraMaxRelativeToMilestone: 0
   fireEventToLevelScript: 1
   eventMessage: survival5
+  onExecute:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  dialog: {fileID: 0}
 --- !u!1 &1988937639
 GameObject:
   m_ObjectHideFlags: 0
@@ -2643,6 +2658,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81e0410c014f5ea4ab3fbd5093871b0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gizmosAlwaysVisible: 1
   posType: 2
   tags:
   - bot
@@ -2658,6 +2674,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attachedSpawn: {fileID: 1988937640}
+  gizmosAlwaysVisible: 1
   destination: {x: 0, y: 1.5}
 --- !u!4 &1988937642
 Transform:
@@ -2666,7 +2683,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1988937639}
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -2.79, y: -3.89, z: 0}
+  m_LocalPosition: {x: -2.79, y: -5.64, z: 0}
   m_LocalScale: {x: 1.0000005, y: 1.0000005, z: 1}
   m_Children: []
   m_Father: {fileID: 773987709}
@@ -2716,12 +2733,15 @@ MonoBehaviour:
   _serializedStateKeys:
   - triggerOn
   - aiAreaRelativeToMilestone
+  - onExecute
   _serializedStateValues:
   - '"BottomOfScreen"'
   - '{"min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0}}'
+  - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  gizmosAlwaysVisible: 1
   triggerOn: 0
   disapearAfterTrigger: 1
-  gizmosAlwaysVisible: 1
   setAiArea: 0
   aiAreaAdjustToSceenRatio: 1
   aiAreaRelativeToMilestone:
@@ -2735,6 +2755,12 @@ MonoBehaviour:
   cameraMaxRelativeToMilestone: 0
   fireEventToLevelScript: 1
   eventMessage: start
+  onExecute:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  dialog: {fileID: 0}
 --- !u!1 &2086493878
 GameObject:
   m_ObjectHideFlags: 0
@@ -2779,12 +2805,15 @@ MonoBehaviour:
   _serializedStateKeys:
   - triggerOn
   - aiAreaRelativeToMilestone
+  - onExecute
   _serializedStateValues:
   - '"BottomOfScreen"'
   - '{"min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0}}'
+  - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  gizmosAlwaysVisible: 1
   triggerOn: 0
   disapearAfterTrigger: 1
-  gizmosAlwaysVisible: 1
   setAiArea: 0
   aiAreaAdjustToSceenRatio: 1
   aiAreaRelativeToMilestone:
@@ -2798,3 +2827,9 @@ MonoBehaviour:
   cameraMaxRelativeToMilestone: 0
   fireEventToLevelScript: 1
   eventMessage: win
+  onExecute:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  dialog: {fileID: 0}

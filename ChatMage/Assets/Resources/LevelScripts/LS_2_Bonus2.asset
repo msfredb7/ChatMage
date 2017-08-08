@@ -11,7 +11,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d15b40b0b54a5cf44b34aadc7e94ec3c, type: 3}
   m_Name: LS_2_Bonus2
   m_EditorClassIdentifier: 
-  _objectReferences: []
+  _objectReferences:
+  - {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
+  - {fileID: 114917152140949164, guid: 90a1293e412776e4db23eb9595fcf924, type: 2}
+  - {fileID: 114892083099199946, guid: a97b513999cddca448e173580c0c886f, type: 2}
+  - {fileID: 114481925992522316, guid: 3ad6240e35c93a0469e0870f61273c74, type: 2}
   _serializedStateKeys:
   - winningConditions
   - losingConditions
@@ -22,7 +26,7 @@ MonoBehaviour:
   - '[]'
   - '[{"$type":"GameCondition.LoseOnPlayerDeath"}]'
   - 
-  - '[]'
+  - '[{"what":{"spawnSequence":[{"unit":0,"quantity":2}],"onSpawnMethod":"","progressCallbacks":[]},"infiniteRepeat":true,"pauseBetweenRepeat":0.0,"where":{"logErrorIfUnableToLaunch":true,"spawnTag":"camera","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0},"when":{"type":"At","time":2.0,"name":null,"onlyTriggerOnce":false},"spawnInterval":2.0,"preLaunchDialog":null},{"what":{"spawnSequence":[{"unit":1,"quantity":2}],"onSpawnMethod":"","progressCallbacks":[]},"infiniteRepeat":true,"pauseBetweenRepeat":0.0,"where":{"logErrorIfUnableToLaunch":true,"spawnTag":"camera","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0},"when":{"type":"JoinPlus","time":10.0,"name":null,"onlyTriggerOnce":false},"spawnInterval":4.0,"preLaunchDialog":null},{"what":{"spawnSequence":[{"unit":2,"quantity":2}],"onSpawnMethod":"","progressCallbacks":[]},"infiniteRepeat":true,"pauseBetweenRepeat":0.0,"where":{"logErrorIfUnableToLaunch":true,"spawnTag":"camera","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0},"when":{"type":"JoinPlus","time":20.0,"name":null,"onlyTriggerOnce":false},"spawnInterval":6.0,"preLaunchDialog":null},{"what":{"spawnSequence":[{"unit":3,"quantity":2}],"onSpawnMethod":"","progressCallbacks":[]},"infiniteRepeat":true,"pauseBetweenRepeat":0.0,"where":{"logErrorIfUnableToLaunch":true,"spawnTag":"camera","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0},"when":{"type":"JoinPlus","time":30.0,"name":null,"onlyTriggerOnce":false},"spawnInterval":8.0,"preLaunchDialog":null}]'
   - '{"overrideGoldAmount":false,"goldReward":null,"giveLootBox":false,"lootboxRefName":null,"goldified":false}'
   sceneName: WoodCuttingLevel
   introPrefab: {fileID: 114921437952830070, guid: 002facbad3d5db44e89adaf01930e6fb,
@@ -38,7 +42,7 @@ MonoBehaviour:
   events: []
   activateTutorial: 0
   tutorialAssetName: 
-  axe: {fileID: 11400000, guid: 27fc9ddca0141144aac7659155cd804b, type: 2}
-  woodToCut: 10
+  axe: {fileID: 1783300470649272, guid: 51d3eea1727a85045a45cd0b83b903d3, type: 2}
+  woodToCut: 15
   scoreUI: {fileID: 114900037589553150, guid: d38566714fe85674a9bd8faafaecabb1, type: 2}
   currentScoreUI: {fileID: 0}

@@ -7,17 +7,9 @@ public class BonusScoreScript : MonoBehaviour {
 
     public Text text;
 
-    public int baseValue;
-
     public string baseText;
 
     private int currentScore;
-
-    void Start()
-    {
-        currentScore = baseValue;
-        text.text = baseText + currentScore.ToString();
-    }
 
     public void ModifyScore(int value)
     {

@@ -131,7 +131,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 9185023}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.21, z: 0}
+  m_LocalPosition: {x: -0.04, y: -0.02, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 120092643}
@@ -174,7 +174,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 17, y: 9.582565}
+  m_Size: {x: 19.802635, y: 11.257309}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 1
 --- !u!1 &15498034
@@ -202,8 +202,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 15498034}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8.5, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 11, z: 1}
+  m_LocalPosition: {x: 9.46, y: 0, z: 0}
+  m_LocalScale: {x: 0.32640806, y: 12.23628, z: 1}
   m_Children: []
   m_Father: {fileID: 632894113}
   m_RootOrder: 2
@@ -307,7 +307,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 49934719}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8, y: -0, z: 0}
+  m_LocalPosition: {x: -9.4, y: -0.68, z: 0}
   m_LocalScale: {x: 0.5, y: 9.508833, z: 1}
   m_Children: []
   m_Father: {fileID: 120092643}
@@ -402,8 +402,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 70310143}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.75, y: 3.59, z: 0}
-  m_LocalScale: {x: 6.8, y: 0.5, z: 1}
+  m_LocalPosition: {x: -5.26, y: 3.59, z: 0}
+  m_LocalScale: {x: 7.8316875, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 120092643}
   m_RootOrder: 4
@@ -687,6 +687,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81e0410c014f5ea4ab3fbd5093871b0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gizmosAlwaysVisible: 1
   posType: 0
   tags:
   - plus
@@ -697,7 +698,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 218045419}
   m_LocalRotation: {x: -0, y: -0, z: 1, w: 0}
-  m_LocalPosition: {x: 8.5, y: 0, z: 0}
+  m_LocalPosition: {x: 9.87, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 773987709}
@@ -715,6 +716,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attachedSpawn: {fileID: 218045420}
+  gizmosAlwaysVisible: 1
   destination: {x: -1.5, y: 0}
 --- !u!1 &266624491
 GameObject:
@@ -768,9 +770,9 @@ MonoBehaviour:
   - milestoneRelativeHeights
   _serializedStateValues:
   - '[0,1,2]'
-  - '[-15.5,-3.89,4.5]'
-  topHeight: 4.5
-  bottomHeight: -24.5
+  - '[-14.28,-4.5,5.8]'
+  topHeight: 6.6
+  bottomHeight: -25.85
   setCameraMinMax: 1
   milestones:
   - {fileID: 267499301}
@@ -807,12 +809,15 @@ MonoBehaviour:
   _serializedStateKeys:
   - triggerOn
   - aiAreaRelativeToMilestone
+  - onExecute
   _serializedStateValues:
   - '"BottomOfScreen"'
   - '{"min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0}}'
+  - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  gizmosAlwaysVisible: 1
   triggerOn: 0
   disapearAfterTrigger: 0
-  gizmosAlwaysVisible: 1
   setAiArea: 0
   aiAreaAdjustToSceenRatio: 1
   aiAreaRelativeToMilestone:
@@ -826,6 +831,12 @@ MonoBehaviour:
   cameraMaxRelativeToMilestone: 0
   fireEventToLevelScript: 1
   eventMessage: attempt win
+  onExecute:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  dialog: {fileID: 0}
 --- !u!4 &267499302
 Transform:
   m_ObjectHideFlags: 0
@@ -833,7 +844,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 267499300}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -4.5, z: 0}
+  m_LocalPosition: {x: 0, y: -5.08, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 120092643}
@@ -864,8 +875,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 294770579}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 5, z: 0}
-  m_LocalScale: {x: 16, y: 1.5, z: 1}
+  m_LocalPosition: {x: -0.05, y: 6, z: 0}
+  m_LocalScale: {x: 19.743479, y: 0.70234585, z: 1}
   m_Children: []
   m_Father: {fileID: 632894113}
   m_RootOrder: 1
@@ -978,8 +989,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 511401685}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.36, y: -0.34, z: 0}
-  m_LocalScale: {x: 6.4386797, y: 11.821411, z: 1}
+  m_LocalPosition: {x: -5.8, y: -0.34, z: 0}
+  m_LocalScale: {x: 7.645931, y: 11.821411, z: 1}
   m_Children: []
   m_Father: {fileID: 1659626762}
   m_RootOrder: 5
@@ -1052,6 +1063,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81e0410c014f5ea4ab3fbd5093871b0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gizmosAlwaysVisible: 1
   posType: 0
   tags:
   - plus
@@ -1062,7 +1074,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 585591423}
   m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 5, z: 0}
+  m_LocalPosition: {x: 0, y: 6.41, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 773987709}
@@ -1080,6 +1092,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attachedSpawn: {fileID: 585591424}
+  gizmosAlwaysVisible: 1
   destination: {x: 0, y: -1.5}
 --- !u!1 &590648046
 GameObject:
@@ -1105,8 +1118,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 590648046}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -4.5, z: 0}
-  m_LocalScale: {x: 16, y: 0.5, z: 1}
+  m_LocalPosition: {x: 0, y: -5.35, z: 0}
+  m_LocalScale: {x: 18.399998, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 120092643}
   m_RootOrder: 3
@@ -1233,8 +1246,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 714248137}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.17, y: -0.3, z: 0}
-  m_LocalScale: {x: 6.438676, y: 11.732842, z: 1}
+  m_LocalPosition: {x: 5.84, y: -0.3, z: 0}
+  m_LocalScale: {x: 7.7716355, y: 11.732842, z: 1}
   m_Children: []
   m_Father: {fileID: 1659626762}
   m_RootOrder: 4
@@ -1354,6 +1367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81e0410c014f5ea4ab3fbd5093871b0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gizmosAlwaysVisible: 1
   posType: 0
   tags:
   - midtop
@@ -1539,7 +1553,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 864190672}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 6.11, z: 0}
+  m_LocalPosition: {x: 0, y: 5.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1659626762}
@@ -1560,12 +1574,15 @@ MonoBehaviour:
   _serializedStateKeys:
   - triggerOn
   - aiAreaRelativeToMilestone
+  - onExecute
   _serializedStateValues:
   - '"TopOfScreen"'
   - '{"min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0}}'
+  - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  gizmosAlwaysVisible: 1
   triggerOn: 1
   disapearAfterTrigger: 1
-  gizmosAlwaysVisible: 1
   setAiArea: 0
   aiAreaAdjustToSceenRatio: 1
   aiAreaRelativeToMilestone:
@@ -1579,6 +1596,12 @@ MonoBehaviour:
   cameraMaxRelativeToMilestone: 0
   fireEventToLevelScript: 1
   eventMessage: face door
+  onExecute:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  dialog: {fileID: 0}
 --- !u!1 &883916053
 GameObject:
   m_ObjectHideFlags: 0
@@ -1744,6 +1767,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81e0410c014f5ea4ab3fbd5093871b0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gizmosAlwaysVisible: 1
   posType: 0
   tags:
   - plus
@@ -1754,7 +1778,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1124971336}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.5, y: 0, z: 0}
+  m_LocalPosition: {x: -9.9, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 773987709}
@@ -1772,6 +1796,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attachedSpawn: {fileID: 1124971337}
+  gizmosAlwaysVisible: 1
   destination: {x: 1.5, y: 0}
 --- !u!1 &1182543747
 GameObject:
@@ -1800,6 +1825,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8298df7b274d40149b17d04ca9417326, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gizmosAlwaysVisible: 1
   posType: 0
   tags:
   - random
@@ -1974,7 +2000,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1425111067}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.5, z: 0}
+  m_LocalPosition: {x: 0, y: 5.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 632894113}
@@ -1995,25 +2021,34 @@ MonoBehaviour:
   _serializedStateKeys:
   - triggerOn
   - aiAreaRelativeToMilestone
+  - onExecute
   _serializedStateValues:
   - '"TopOfScreen"'
-  - '{"min":{"x":-7.75,"y":-8.75},"max":{"x":7.75,"y":-0.25}}'
+  - '{"min":{"x":-9.28,"y":-10.45},"max":{"x":9.35,"y":0.02}}'
+  - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  gizmosAlwaysVisible: 1
   triggerOn: 1
   disapearAfterTrigger: 1
-  gizmosAlwaysVisible: 1
-  setAiArea: 0
+  setAiArea: 1
   aiAreaAdjustToSceenRatio: 1
   aiAreaRelativeToMilestone:
-    min: {x: -7.75, y: -8.75}
-    max: {x: 7.75, y: -0.25}
-  modifyFollowPlayer: 0
-  followPlayerEffect: 1
+    min: {x: -9.28, y: -10.45}
+    max: {x: 9.35, y: 0.02}
+  modifyFollowPlayer: 1
+  followPlayerEffect: 0
   setCameraMin: 0
   cameraMinRelativeToMilestone: 0
   setCameraMax: 0
   cameraMaxRelativeToMilestone: 0
   fireEventToLevelScript: 1
   eventMessage: enter arena
+  onExecute:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  dialog: {fileID: 0}
 --- !u!1 &1534255055
 GameObject:
   m_ObjectHideFlags: 0
@@ -2041,6 +2076,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf95083f75c25044b8552decffe1601, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gizmosAlwaysVisible: 1
   posType: 0
   tags:
   - ordered
@@ -2113,6 +2149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81e0410c014f5ea4ab3fbd5093871b0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gizmosAlwaysVisible: 1
   posType: 0
   tags:
   - midright
@@ -2165,6 +2202,7 @@ MonoBehaviour:
   - '[]'
   mapping: {fileID: 153121006}
   cameraSpawn: {fileID: 1833739392}
+  showCameraTrails: 1
   listUnits:
   - {fileID: 307016171}
   objectsToAjust:
@@ -2348,14 +2386,11 @@ MonoBehaviour:
       _serializedIsActive: 1
     _target: {fileID: 266624493}
   - _keys:
-    - DefaultBehaviorEditor.triggerOn.EditProperty
-    - DefaultBehaviorEditor.modifyFollowPlayer.EditProperty
-    - DefaultBehaviorEditor.modifyCanScrollUp.EditProperty
-    - DefaultBehaviorEditor.modifyCanScrollDown.EditProperty
-    - DefaultBehaviorEditor.fireEventToLevelScript.EditProperty
+    - DefaultBehaviorEditor.setAiArea.EditProperty
+    - DefaultBehaviorEditor.setCameraMin.EditProperty
+    - DefaultBehaviorEditor.setCameraMax.EditProperty
+    - DefaultBehaviorEditor.dialog.EditProperty
     _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
     - _showDropdown: 0
       _serializedIsActive: 1
     - _showDropdown: 0
@@ -2581,8 +2616,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1752222563}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.75, y: 3.59, z: 0}
-  m_LocalScale: {x: 6.7999997, y: 0.5, z: 1}
+  m_LocalPosition: {x: 5.3, y: 3.59, z: 0}
+  m_LocalScale: {x: 7.8486867, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 120092643}
   m_RootOrder: 5
@@ -2717,7 +2752,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1815876680}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8, y: -0, z: 0}
+  m_LocalPosition: {x: 9.37, y: -0.65, z: 0}
   m_LocalScale: {x: 0.5258269, y: 9.508833, z: 1}
   m_Children: []
   m_Father: {fileID: 120092643}
@@ -2813,8 +2848,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1817001758}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.5, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 11, z: 1}
+  m_LocalPosition: {x: -9.5, y: 0, z: 0}
+  m_LocalScale: {x: 0.38116837, y: 13.06118, z: 1}
   m_Children: []
   m_Father: {fileID: 632894113}
   m_RootOrder: 3
@@ -2957,7 +2992,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1955935615}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.18, z: 0}
+  m_LocalPosition: {x: -0.01, y: 0.61, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 632894113}
@@ -3000,6 +3035,6 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 17, y: 9.638838}
+  m_Size: {x: 18.681568, y: 10.484748}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 1

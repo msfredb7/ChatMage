@@ -234,8 +234,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 886072395
-  m_SortingLayer: -1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 1eb44560403b9404eacf03c41950987f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -302,19 +302,6 @@ MonoBehaviour:
   _objectReferences:
   - {fileID: 95030509}
   - {fileID: 227145569}
-  - {fileID: 227145569}
-  - {fileID: 1659295149}
-  - {fileID: 1658729506}
-  - {fileID: 962253924}
-  - {fileID: 177281358}
-  - {fileID: 1124971337}
-  - {fileID: 573697844}
-  - {fileID: 1562384048}
-  - {fileID: 997129484}
-  - {fileID: 974461819}
-  - {fileID: 1988937640}
-  - {fileID: 1785554780}
-  - {fileID: 71926986}
   _serializedStateKeys:
   - unfilteredWaypoints
   - unfilteredTaggedObjects
@@ -338,8 +325,7 @@ MonoBehaviour:
   - '[]'
   - '{}'
   - '{"woodSpawn":[0]}'
-  - '{"ordered gate":[1],"camera":[2],"random right":[3],"gate":[4,5,6,7,8,9,10,11,12],"random
-    left":[13],"random bot":[14]}'
+  - '{"camera":[1]}'
   unfilteredWaypoints: []
   unfilteredTaggedObjects: []
   unfilteredSpawns: []
@@ -385,7 +371,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 177281355}
   m_LocalRotation: {x: -0, y: -0, z: 1, w: 0}
-  m_LocalPosition: {x: 7.98, y: -3.2, z: 0}
+  m_LocalPosition: {x: 9.94, y: -3.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 773987709}
@@ -458,18 +444,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 227145567}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9cf95083f75c25044b8552decffe1601, type: 3}
+  m_Script: {fileID: 11500000, guid: 8298df7b274d40149b17d04ca9417326, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   gizmosAlwaysVisible: 1
   posType: 2
   tags:
   - camera
-  changeSpawnEvery: 1
   subSpawns:
-  - {fileID: 1659295149}
-  - {fileID: 1785554780}
-  - {fileID: 71926986}
+  - spawn: {fileID: 1659295149}
+    weight: 1
+  - spawn: {fileID: 1785554780}
+    weight: 1
+  - spawn: {fileID: 71926986}
+    weight: 1
 --- !u!114 &227145570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -708,7 +696,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 573697841}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.2, y: 0.08, z: 0}
+  m_LocalPosition: {x: -9.77, y: 0.08, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 773987709}
@@ -877,7 +865,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 962253921}
   m_LocalRotation: {x: -0, y: -0, z: 1, w: 0}
-  m_LocalPosition: {x: 7.98, y: -0.09, z: 0}
+  m_LocalPosition: {x: 9.94, y: -0.09, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 773987709}
@@ -965,7 +953,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 974461818}
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0.05, y: -4.4, z: 0}
+  m_LocalPosition: {x: 0.05, y: -5.71, z: 0}
   m_LocalScale: {x: 1.0000005, y: 1.0000005, z: 1}
   m_Children: []
   m_Father: {fileID: 773987709}
@@ -1024,7 +1012,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 997129483}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 3.01, y: -4.4, z: 0}
+  m_LocalPosition: {x: 3.01, y: -5.71, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 773987709}
@@ -1069,7 +1057,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1124971336}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.2, y: 2.32, z: 0}
+  m_LocalPosition: {x: -9.77, y: 2.32, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 773987709}
@@ -1113,7 +1101,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1562384045}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.2, y: -2.63, z: 0}
+  m_LocalPosition: {x: -9.77, y: -2.63, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 773987709}
@@ -1186,16 +1174,17 @@ MonoBehaviour:
   _serializedStateValues:
   - '[]'
   - '[]'
-  - '{"min":{"x":-8.02,"y":-4.34},"max":{"x":7.89,"y":4.21}}'
+  - '{"min":{"x":-9.57,"y":-5.28},"max":{"x":9.63,"y":5.35}}'
   - '[]'
   mapping: {fileID: 153121006}
   cameraSpawn: {fileID: 1833739392}
+  showCameraTrails: 1
   listUnits: []
   objectsToAjust: []
   setAIArea: 1
   startAIArea:
-    min: {x: -8.02, y: -4.34}
-    max: {x: 7.89, y: 4.21}
+    min: {x: -9.57, y: -5.28}
+    max: {x: 9.63, y: 5.35}
   ajustAreaToCamera: 1
   roadPlayer: {fileID: 1644651698}
   positionDisplacers: []
@@ -1314,11 +1303,38 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 153121006}
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.topHeight.EditProperty
+    - DefaultBehaviorEditor.milestones.EditProperty
+    - DefaultBehaviorEditor.milestoneRelativeHeights.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
     _target: {fileID: 266624493}
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.mapping.EditProperty
+    - DefaultBehaviorEditor.cameraSpawn.EditProperty
+    - DefaultBehaviorEditor.listUnits.EditProperty
+    - DefaultBehaviorEditor.objectsToAjust.EditProperty
+    - DefaultBehaviorEditor.setAIArea.EditProperty
+    - DefaultBehaviorEditor.roadPlayer.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
     _target: {fileID: 1644651695}
 --- !u!1 &1658729503
 GameObject:
@@ -1344,7 +1360,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1658729503}
   m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
-  m_LocalPosition: {x: 7.98, y: 2.67, z: 0}
+  m_LocalPosition: {x: 9.94, y: 2.67, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 773987709}
@@ -1645,7 +1661,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1988937639}
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -2.79, y: -4.4, z: 0}
+  m_LocalPosition: {x: -2.79, y: -5.71, z: 0}
   m_LocalScale: {x: 1.0000005, y: 1.0000005, z: 1}
   m_Children: []
   m_Father: {fileID: 773987709}
