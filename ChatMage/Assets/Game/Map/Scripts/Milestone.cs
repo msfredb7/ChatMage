@@ -6,18 +6,21 @@ using UnityEngine.Events;
 
 public class Milestone : BaseBehavior
 {
+    public bool gizmosAlwaysVisible = true;
+
     public enum TriggerType { BottomOfScreen, TopOfScreen }
     [InspectorHeader("Trigger")]
     public TriggerType triggerOn = TriggerType.TopOfScreen;
     public bool disapearAfterTrigger = true;
-    public bool gizmosAlwaysVisible = true;
 
     [InspectorMargin(12), InspectorHeader("AI Area")]
     public bool setAiArea;
     [InspectorShowIf("setAiArea")]
     public bool aiAreaAdjustToSceenRatio = true;
     [InspectorShowIf("setAiArea")]
-    public Box2D aiAreaRelativeToMilestone = new Box2D(new Vector2(-8, -9f), new Vector2(8f, 0f));
+    public Box2D aiAreaRelativeToMilestone = new Box2D(
+        new Vector2(-GameCamera.DEFAULT_SCREEN_WIDTH / 2, -GameCamera.DEFAULT_SCREEN_HEIGHT),
+        new Vector2(GameCamera.DEFAULT_SCREEN_WIDTH / 2, 0f));
 
     [InspectorMargin(12), InspectorHeader("Map Stop")]
     public bool modifyFollowPlayer;
@@ -68,13 +71,17 @@ public class Milestone : BaseBehavior
 
         if (setCameraMax)
         {
-            float delta = (triggerOn == TriggerType.BottomOfScreen) ? 4.5f : -4.5f;
+            float delta = (triggerOn == TriggerType.BottomOfScreen) ?
+                GameCamera.DEFAULT_SCREEN_HEIGHT / 2 :
+                -GameCamera.DEFAULT_SCREEN_HEIGHT / 2;
             float yPos = transform.position.y + cameraMaxRelativeToMilestone + delta;
             Game.instance.gameCamera.maxHeight = yPos;
         }
         if (setCameraMin)
         {
-            float delta = (triggerOn == TriggerType.BottomOfScreen) ? 4.5f : -4.5f;
+            float delta = (triggerOn == TriggerType.BottomOfScreen) ?
+                GameCamera.DEFAULT_SCREEN_HEIGHT / 2 :
+                -GameCamera.DEFAULT_SCREEN_HEIGHT / 2;
             float yPos = transform.position.y + cameraMinRelativeToMilestone + delta;
             Game.instance.gameCamera.minHeight = yPos;
         }
@@ -94,9 +101,9 @@ public class Milestone : BaseBehavior
         return true;
     }
 
-    public float GetHeight()
+    public float GetVirtualHeight()
     {
-        return transform.position.y + (triggerOn == TriggerType.BottomOfScreen ? 9 : 0);
+        return transform.position.y + (triggerOn == TriggerType.BottomOfScreen ? GameCamera.DEFAULT_SCREEN_HEIGHT : 0);
     }
 
     void OnDrawGizmosSelected()
@@ -114,7 +121,7 @@ public class Milestone : BaseBehavior
     void DrawGizmos()
     {
         Gizmos.color = new Color(triggerOn == TriggerType.BottomOfScreen ? 1 : 0, triggerOn == TriggerType.TopOfScreen ? 1 : 0, 0, 1);
-        Gizmos.DrawCube(transform.position, new Vector3(16, disapearAfterTrigger ? 0.25f : 0.5f, 1));
+        Gizmos.DrawCube(transform.position, new Vector3(GameCamera.DEFAULT_SCREEN_WIDTH, disapearAfterTrigger ? 0.25f : 0.5f, 1));
 
 
         if (modifyFollowPlayer)
@@ -130,9 +137,9 @@ public class Milestone : BaseBehavior
             }
         }
 
-        if(dialog != null)
+        if (dialog != null)
         {
-            Vector3 pos = transform.position + Vector3.right * 8;
+            Vector3 pos = transform.position + Vector3.right * 3;
             Gizmos.DrawIcon(pos, "Gizmos Dialog");
         }
 
@@ -144,13 +151,13 @@ public class Milestone : BaseBehavior
 
         if (setCameraMax)
         {
-            float delta = (triggerOn == TriggerType.BottomOfScreen) ? 9 : 0;
+            float delta = (triggerOn == TriggerType.BottomOfScreen) ? GameCamera.DEFAULT_SCREEN_HEIGHT : 0;
             Vector3 pos = transform.position + Vector3.up * (cameraMaxRelativeToMilestone + delta);
             Gizmos.DrawIcon(pos, "Gizmos CameraTop");
         }
         if (setCameraMin)
         {
-            float delta = (triggerOn == TriggerType.BottomOfScreen) ? 0 : -9;
+            float delta = (triggerOn == TriggerType.BottomOfScreen) ? 0 : -GameCamera.DEFAULT_SCREEN_HEIGHT;
             Vector3 pos = transform.position + Vector3.up * (cameraMinRelativeToMilestone + delta);
             Gizmos.DrawIcon(pos, "Gizmos CameraBottom");
         }

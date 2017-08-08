@@ -7,8 +7,8 @@ using FullSerializer;
 public class Road : BaseBehavior
 {
     [InspectorHeader("Doit etre < 1000 x 2")]
-    public float topHeight = 4.5f;
-    public float bottomHeight = -4.5f;
+    public float topHeight = GameCamera.DEFAULT_SCREEN_HEIGHT / 2;
+    public float bottomHeight = -GameCamera.DEFAULT_SCREEN_HEIGHT / 2;
     public bool setCameraMinMax = true;
 
     public float TopHeight { get { return topHeight; } }
@@ -139,7 +139,7 @@ public class Road : BaseBehavior
     void OnDrawGizmosSelected()
     {
         Gizmos.color = new Color(0, 0, 1, 0.5F);
-        Gizmos.DrawCube(new Vector3(0, (topHeight + bottomHeight)/2, 0), new Vector3(16, topHeight - bottomHeight, 1));
+        Gizmos.DrawCube(new Vector3(0, (topHeight + bottomHeight) / 2, 0), new Vector3(16, topHeight - bottomHeight, 1));
     }
 
     [InspectorButton(), InspectorName("Gather All Milestones")]
@@ -169,16 +169,16 @@ public class Road : BaseBehavior
             float record = Mathf.Infinity;
             for (int u = 0; u < milestones.Count; u++)
             {
-                if (milestones[u].GetHeight() < record)
+                if (milestones[u].GetVirtualHeight() < record)
                 {
                     plusBas = u;
                     switch (milestones[u].triggerOn)
                     {
                         case Milestone.TriggerType.BottomOfScreen:
-                            record = milestones[u].GetHeight();
+                            record = milestones[u].GetVirtualHeight();
                             break;
                         case Milestone.TriggerType.TopOfScreen:
-                            record = milestones[u].GetHeight();
+                            record = milestones[u].GetVirtualHeight();
                             break;
                     }
                 }

@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class GameCamera : MonoBehaviour
 {
+    public const float DEFAULT_SCREEN_WIDTH = 19.2f;
+    public const float DEFAULT_SCREEN_HEIGHT = 10.8f;
+
     public Camera cam;
     public VectorShaker vectorShaker;
 
     public float Aspect { get { return cam.aspect; } }
 
     [Header("Settings")]
-    public Vector2 defaultBounds;
     public float distance = -10;
     public float minHeight = float.NegativeInfinity;
     public float maxHeight = float.PositiveInfinity;
@@ -48,7 +50,7 @@ public class GameCamera : MonoBehaviour
 
         //Screen bounds
         screenSize = new Vector2(cam.orthographicSize * cam.aspect * 2, cam.orthographicSize * 2);
-        defaultToRealRatio = new Vector2(defaultBounds.x / screenSize.x, defaultBounds.y / screenSize.y);
+        defaultToRealRatio = new Vector2(DEFAULT_SCREEN_WIDTH / screenSize.x, DEFAULT_SCREEN_HEIGHT / screenSize.y);
 
         //Spawn a la bonne hauteur
         SetToHeight(Game.instance.map.cameraSpawn.Height);
@@ -139,6 +141,10 @@ public class GameCamera : MonoBehaviour
     public Vector2 Center { get { return new Vector2(0, Height); } }
     public float Height { get { return tr.position.y; } }
     public Vector2 ScreenSize { get { return screenSize; } }
+    public Vector2 BottomLeft { get { return new Vector2(Bottom, Left); } }
+    public Vector2 BottomRight { get { return new Vector2(Bottom, Right); } }
+    public Vector2 TopLeft { get { return new Vector2(Top, Left); } }
+    public Vector2 TopRight { get { return new Vector2(Top, Right); } }
 
     public Vector3 AdjustVector(Vector3 vector)
     {

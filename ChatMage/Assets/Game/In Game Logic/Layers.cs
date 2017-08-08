@@ -5,7 +5,7 @@ using UnityEngine;
 public class Layers
 {
     public const int ENVIRONMENT = 0;
-    public const int MAP_BORDER = 8;
+    public const int PLAYER_BOUNDS = 8;
     public const int PLAYER = 9;
     public const int ENEMIES = 10;
     public const int SOLID_ENEMIES = 11;

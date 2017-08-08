@@ -209,6 +209,7 @@ public class ITM_8Coins : Item
         return 10;
     }
 
+    //Une ligne de coins
     private float Pattern1()
     {
         float angle = Random.value * 360;

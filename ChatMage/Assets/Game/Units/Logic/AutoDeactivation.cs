@@ -4,7 +4,7 @@ using UnityEngine;
 public class AutoDeactivation : MonoBehaviour
 {
     public new bool enabled = true;
-    public const float DFLT_DEACT_RANGE = 100; // Cetait 6 avant
+    public const float DFLT_DEACT_RANGE = 7.5f; // Cetait 6 avant
 
     public bool overrideDefaultDeactivationRange = false;
     public float newDeactivationRange = 10;

@@ -6,9 +6,13 @@ public class CameraSpawn : MonoBehaviour
 {
     public float Height { get { return transform.position.y; } }
 
-    void OnDrawGizmosSelected()
+    void OnDrawGizmos()
     {
-        Gizmos.color = new Color(0.5f, 0.5f, 0.5f, 0.75f);
-        Gizmos.DrawCube(transform.position, new Vector3(16,9, 1));
+        Gizmos.color = (Color.white).ChangedAlpha(0.25f);
+        Gizmos.DrawCube(transform.position, new Vector3(GameCamera.DEFAULT_SCREEN_WIDTH, GameCamera.DEFAULT_SCREEN_HEIGHT, 1));
+
+        DebugExtension.DrawBounds(
+            new Bounds(transform.position, new Vector3(GameCamera.DEFAULT_SCREEN_WIDTH, GameCamera.DEFAULT_SCREEN_HEIGHT, 1)),
+            Gizmos.color.ChangedAlpha(1));
     }
 }

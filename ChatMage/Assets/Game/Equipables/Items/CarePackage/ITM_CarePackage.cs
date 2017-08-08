@@ -52,7 +52,9 @@ public class ITM_CarePackage : Item
 
         canCount = false;
 
-        Vector2 spawnDelta = new Vector2(Random.Range(-7f, 7f), Random.Range(-3.5f, 3.5f));
+        float x = (GameCamera.DEFAULT_SCREEN_WIDTH / 2) * 0.75f;
+        float y = (GameCamera.DEFAULT_SCREEN_HEIGHT / 2) * 0.75f;
+        Vector2 spawnDelta = new Vector2(Random.Range(-x, x), Random.Range(-y, y));
         spawnDelta = cam.AdjustVector(spawnDelta);
 
         Vector2 spawnPos = cam.Center + spawnDelta;
