@@ -121,7 +121,7 @@ public class VectorShaker : MonoBehaviour
         return shakers.Remove(shaker);
     }
 
-    public void Shake(float strength = 1)
+    public void Shake(float strength = 1.2f)
     {
         //Shake instantan�
         currentStrength = Mathf.Max(currentStrength, strength);
