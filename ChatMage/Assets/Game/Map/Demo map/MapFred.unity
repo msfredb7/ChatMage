@@ -176,6 +176,28 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &118775484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d399fcc01623ff408fcf041573b0b3c, type: 3}
+  m_Name: Test Event
+  m_EditorClassIdentifier: 
+  windowRect:
+    serializedVersion: 2
+    x: 523
+    y: 121
+    width: 150
+    height: 59
+  bullshitOne: 
+  bullshitTwo: 
+  bullshitThree: 
+  bullshitFour: 
+  bullshitFive: 
 --- !u!1 &138933721
 GameObject:
   m_ObjectHideFlags: 0
@@ -963,6 +985,23 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1035b9e2c8a379347b030d984c8b96c1, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &854670898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dd431c951a67d84fb1a4c983ccc357d, type: 3}
+  m_Name: pogoisme
+  m_EditorClassIdentifier: 
+  windowRect:
+    serializedVersion: 2
+    x: 650
+    y: 232
+    width: 150
+    height: 59
 --- !u!1 &856643118
 GameObject:
   m_ObjectHideFlags: 0
@@ -1414,6 +1453,7 @@ MonoBehaviour:
   topHeight: 54.5
   bottomHeight: -4.5
   setCameraMinMax: 1
+  showCameraTrails: 1
   milestones: []
 --- !u!4 &1237816616
 Transform:
@@ -1488,6 +1528,23 @@ MonoBehaviour:
   attachedSpawn: {fileID: 1464203794}
   gizmosAlwaysVisible: 1
   destination: {x: 8, y: 0}
+--- !u!114 &1558740512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dd431c951a67d84fb1a4c983ccc357d, type: 3}
+  m_Name: empty event
+  m_EditorClassIdentifier: 
+  windowRect:
+    serializedVersion: 2
+    x: 900
+    y: 133
+    width: 150
+    height: 59
 --- !u!1 &1573639612
 GameObject:
   m_ObjectHideFlags: 0
@@ -1567,6 +1624,7 @@ GameObject:
   - component: {fileID: 1644651696}
   - component: {fileID: 1644651695}
   - component: {fileID: 1644651697}
+  - component: {fileID: 1644651698}
   m_Layer: 0
   m_Name: Map
   m_TagString: Untagged
@@ -1590,23 +1648,20 @@ MonoBehaviour:
   - {fileID: 189859209}
   _serializedStateKeys:
   - listUnits
-  - objectsToAjust
   - startAIArea
   - positionDisplacers
   _serializedStateValues:
-  - '[]'
   - '[]'
   - '{"min":{"x":-7.0,"y":-4.5},"max":{"x":8.0,"y":4.5}}'
   - '[0,1]'
   mapping: {fileID: 153121006}
   cameraSpawn: {fileID: 1833739392}
+  showCameraTrails: 1
   listUnits: []
-  objectsToAjust: []
   setAIArea: 1
   startAIArea:
     min: {x: -7, y: -4.5}
     max: {x: 8, y: 4.5}
-  ajustAreaToCamera: 1
   roadPlayer: {fileID: 458826281}
   positionDisplacers:
   - {fileID: 138933722}
@@ -1617,12 +1672,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1644651694}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1644651697
 MonoBehaviour:
@@ -1636,6 +1691,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultLevelScript: LS_fredLevelScript
+--- !u!114 &1644651698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1644651694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cb97ae21ffa1914abb4f2312a4eb8ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  virtualEvents:
+  - {fileID: 1558740512}
+  - {fileID: 118775484}
+  - {fileID: 854670898}
+  physicalEvents:
+  - {fileID: 2072076095}
 --- !u!1 &1649213850
 GameObject:
   m_ObjectHideFlags: 1
@@ -1664,7 +1736,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1649213852
 MonoBehaviour:
@@ -1727,15 +1799,12 @@ MonoBehaviour:
     - DefaultBehaviorEditor.mapping.EditProperty
     - DefaultBehaviorEditor.cameraSpawn.EditProperty
     - DefaultBehaviorEditor.listUnits.EditProperty
-    - DefaultBehaviorEditor.objectsToAjust.EditProperty
     - DefaultBehaviorEditor.setAIArea.EditProperty
     - DefaultBehaviorEditor.roadPlayer.EditProperty
     _values:
     - _showDropdown: 0
       _serializedIsActive: 1
     - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 1
       _serializedIsActive: 1
     - _showDropdown: 0
       _serializedIsActive: 1
@@ -1972,7 +2041,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1833507343
 Prefab:
@@ -2361,6 +2430,53 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
+--- !u!1 &2072076094
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 2072076096}
+  - component: {fileID: 2072076095}
+  m_Layer: 0
+  m_Name: Hello, my name is tom
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2072076095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2072076094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4efc0984c719fe439267eb3c1a48c3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  windowRect:
+    serializedVersion: 2
+    x: 404
+    y: 398
+    width: 150
+    height: 61
+  graph: {fileID: 1644651698}
+--- !u!4 &2072076096
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2072076094}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.1894636, y: 3.1172407, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 21
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2120832837 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114008029251096486, guid: 1035b9e2c8a379347b030d984c8b96c1,
