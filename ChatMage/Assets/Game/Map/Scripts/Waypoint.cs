@@ -21,8 +21,6 @@ public class Waypoint : BaseBehavior
     [InspectorShowIf("useTag")]
     public string[] tags;
 
-    private bool alreadyConverted = false;
-
     public WaypointType Type { get { return type; } }
 
     public Vector2 Position
