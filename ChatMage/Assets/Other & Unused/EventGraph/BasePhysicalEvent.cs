@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 [ExecuteInEditMode]
-public class BasePhysicalEvent : MonoBehaviour, INodeDisplay, IEvent
+public class BasePhysicalEvent : MonoBehaviour, IEventDisplay, IEvent
 {
     [HideInInspector]
     public Rect windowRect = new Rect(300, 300, 150, 10);
@@ -16,22 +16,27 @@ public class BasePhysicalEvent : MonoBehaviour, INodeDisplay, IEvent
     {
         if (!Application.isPlaying)
         {
-            graph = SceneManager.GetActiveScene().FindRootObject<EventGraph>();
-            if(graph != null)
+            Scene scene = SceneManager.GetActiveScene();
+            if (scene.isLoaded)
             {
-                graph.AddPhysicalEvent(this);
-            }
-            else
-            {
-                Debug.LogError("No EventGraph component on root objects. Removing PhysicalEvent component.");
-                DestroyImmediate(this);
+                graph = scene.FindRootObject<EventGraph>();
+                if (graph != null)
+                {
+                    if (!graph.ContainsPhysicalEvent(this))
+                        graph.AddPhysicalEvent(this);
+                }
+                else
+                {
+                    Debug.LogError("No EventGraph component on root objects. Removing PhysicalEvent component.");
+                    DestroyImmediate(this);
+                }
             }
         }
     }
 
     protected virtual void OnDestroy()
     {
-        if (graph != null)
+        if (!Application.isPlaying && graph != null)
             graph.RemovePhysicalEvent(this);
     }
 
@@ -68,4 +73,12 @@ public class BasePhysicalEvent : MonoBehaviour, INodeDisplay, IEvent
     public bool CanBeManuallyDestroyed() { return false; }
 
     public virtual string DefaultLabel() { return "Base Physical"; }
+
+    public string TypeLabel() { return "Physical"; }
+
+    public virtual void GetAdditionalMoments(out Moment[] moments, out string[] names)
+    {
+        moments = null;
+        names = null;
+    }
 }

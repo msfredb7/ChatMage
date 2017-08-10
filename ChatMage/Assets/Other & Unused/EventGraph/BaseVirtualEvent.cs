@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseVirtualEvent : ScriptableObject, INodeDisplay, IEvent
+public class BaseVirtualEvent : ScriptableObject, IEventDisplay, IEvent
 {
     [HideInInspector]
     public Rect windowRect = new Rect(200, 200, 150, 10);
@@ -46,4 +46,12 @@ public class BaseVirtualEvent : ScriptableObject, INodeDisplay, IEvent
     public bool CanBeManuallyDestroyed() { return true; }
 
     public virtual string DefaultLabel() { return "Base Virtual"; }
+
+    public string TypeLabel() { return "Virtual"; }
+
+    public virtual void GetAdditionalMoments(out Moment[] moments, out string[] names)
+    {
+        moments = null;
+        names = null;
+    }
 }

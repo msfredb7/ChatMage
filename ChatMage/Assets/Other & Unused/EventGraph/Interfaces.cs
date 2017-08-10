@@ -5,7 +5,7 @@ public interface IEvent
 {
     void Trigger();
 }
-public interface INodeDisplay
+public interface IEventDisplay
 {
     Rect WindowRect { get; set; }
     void ResetWindowRectPos();
@@ -15,4 +15,6 @@ public interface INodeDisplay
     UnityEngine.Object AsObject();
     bool CanBeManuallyDestroyed();
     string DefaultLabel();
+    string TypeLabel();
+    void GetAdditionalMoments(out Moment[] moments, out string[] names);
 }

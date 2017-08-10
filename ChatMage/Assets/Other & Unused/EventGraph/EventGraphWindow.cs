@@ -8,13 +8,13 @@ using System;
 
 public class EventGraphWindow : EditorWindow
 {
-    public GameObject gameobject;
-
-    private EventGraph graph;
+    public EventGraph graph;
+    public OngoingLink ongoingLink;
 
     private List<EventGraphWindowItem> items;
     private EventGraphWindowItem selectedItem;
     private Vector2 contextMenuMousePos;
+    private Vector2 lastMousePos;
 
     [MenuItem("The Time Drifter/Event Graph")]
     static void Init()
@@ -28,6 +28,12 @@ public class EventGraphWindow : EditorWindow
     {
         SetScene(EditorSceneManager.GetActiveScene());
         EditorSceneManager.activeSceneChanged += EditorSceneManager_activeSceneChanged;
+    }
+
+    void Update()
+    {
+        if (ongoingLink.CanDraw)
+            Repaint();
     }
 
     void OnDestroy()
@@ -52,8 +58,6 @@ public class EventGraphWindow : EditorWindow
 
     void SetGraph(EventGraph newGraph)
     {
-        Debug.Log("Rebuilding graph");
-
         //On le met vrm a null pour ne pas faire d'erreur avec les Object detruit
         if (graph == null)
             graph = null;
@@ -76,18 +80,20 @@ public class EventGraphWindow : EditorWindow
         }
     }
 
-    void ClearItems()
+    void ClearItems(bool repaint = true)
     {
         selectedItem = null;
+        ongoingLink.source = null;
         items = null;
+        ResetNodeDetailsPanel();
         Repaint();
     }
 
     void RebuildItems()
     {
-        Debug.Log("Rebuilding items");
-
         selectedItem = null;
+        ongoingLink.source = null;
+        ResetNodeDetailsPanel();
 
         items = new List<EventGraphWindowItem>(graph.virtualEvents.Count + graph.physicalEvents.Count);
         for (int i = 0; i < graph.virtualEvents.Count; i++)
@@ -102,9 +108,9 @@ public class EventGraphWindow : EditorWindow
         Repaint();
     }
 
-    EventGraphWindowItem NewItem(INodeDisplay theEvent)
+    EventGraphWindowItem NewItem(IEventDisplay theEvent)
     {
-        EventGraphWindowItem newItem = new EventGraphWindowItem(theEvent, RemoveEvent);
+        EventGraphWindowItem newItem = new EventGraphWindowItem(theEvent, RemoveItem, this);
         items.Add(newItem);
         return newItem;
     }
@@ -114,20 +120,28 @@ public class EventGraphWindow : EditorWindow
         EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
     }
 
-    public Rect graphInfoRect = new Rect(0, 0, 200, 10);
-    public Rect nodeDetailsRect = new Rect(0, 0, 200, 10);
+    public Rect graphInfoRect = new Rect(0, 0, 240, 10);
+    public Rect nodeDetailsRect = new Rect(0, 0, DEFAULT_PANEL_WIDTH, DEFAULT_NDP_HEIGHT);
+    private const float DEFAULT_PANEL_WIDTH = 240;
+    private const float DEFAULT_NDP_HEIGHT = 50;
+
+    private void ResetNodeDetailsPanel()
+    {
+        nodeDetailsRect = new Rect(0, 0, DEFAULT_PANEL_WIDTH, DEFAULT_NDP_HEIGHT);
+    }
 
     void OnGUI()
     {
         Event e = Event.current;
         EventType eventPastType = e.type;
 
+        lastMousePos = e.mousePosition;
         //Debug.Log(e.type);
 
         //On ouvre le minimenu
         if (e.type == EventType.ContextClick)
         {
-            EventGraphWindowItem item = GetItemOnMousePosition(e.mousePosition);
+            EventGraphWindowItem item = GetItemOnMousePosition(lastMousePos);
             if (item != null)
             {
                 item.OpenContextMenu();
@@ -136,9 +150,9 @@ public class EventGraphWindow : EditorWindow
             }
             else
             {
-                if (!graphInfoRect.Contains(e.mousePosition) && !nodeDetailsRect.Contains(e.mousePosition))
+                if (!graphInfoRect.Contains(lastMousePos) && !nodeDetailsRect.Contains(lastMousePos))
                 {
-                    contextMenuMousePos = e.mousePosition;
+                    contextMenuMousePos = lastMousePos;
                     e.Use();
                     OpenContextMenu();
                 }
@@ -147,21 +161,38 @@ public class EventGraphWindow : EditorWindow
         //On selectionne l'item
         else if (e.type == EventType.MouseDown)
         {
-            EventGraphWindowItem newSelection = GetItemOnMousePosition(e.mousePosition);
+            EventGraphWindowItem newSelection = GetItemOnMousePosition(lastMousePos);
             if (newSelection == null)
             {
-                if (selectedItem != null && !graphInfoRect.Contains(e.mousePosition) && !nodeDetailsRect.Contains(e.mousePosition))
+                //Cancel ongoing moment link
+                if (ongoingLink.source != null && e.button == 0)
+                {
+                    ongoingLink.source = null;
+                }
+
+                //Unselect the previous item
+                if (selectedItem != null && !graphInfoRect.Contains(lastMousePos) && !nodeDetailsRect.Contains(lastMousePos))
                 {
                     selectedItem = null;
                     ClearFocus();
+                    ResetNodeDetailsPanel();
                     Repaint();
                 }
             }
             else
             {
+                //Create moment link !
+                if (ongoingLink.source != null && e.button == 0)
+                {
+                    ongoingLink.BuildLink(newSelection);
+                    MarkSceneAsDirty();
+                }
+
+                //Change selected item
                 if (selectedItem != newSelection)
                 {
                     selectedItem = newSelection;
+                    ResetNodeDetailsPanel();
                     Repaint();
                 }
                 ClearFocus();
@@ -189,7 +220,7 @@ public class EventGraphWindow : EditorWindow
                 if (items[i].myEvent == null || items[i].myEvent.AsObject() == null)
                 {
                     graph.RemoveNulls();
-                    items = null;
+                    ClearItems(false);
                     break;
                 }
                 GUI.color = items[i].myEvent.DefaultColor();
@@ -208,6 +239,18 @@ public class EventGraphWindow : EditorWindow
 
         EndWindows();
 
+
+        //----------------Links----------------//
+
+        if (items != null)
+        {
+            for (int i = 0; i < items.Count; i++)
+            {
+                items[i].DrawLinks();
+            }
+
+            ongoingLink.Draw(lastMousePos);
+        }
     }
 
     void ClearFocus()
@@ -234,8 +277,7 @@ public class EventGraphWindow : EditorWindow
             return;
 
         GenericMenu menu = new GenericMenu();
-        menu.AddItem(new GUIContent("New Empty Event"), false, NewVirtualEvent<BaseVirtualEvent>);
-        menu.AddItem(new GUIContent("New Test Event"), false, NewVirtualEvent<TestVirtualEvent>);
+        menu.AddItem(new GUIContent("Delayed Moment"), false, NewDelayedMoment);
 
         menu.ShowAsContext();
     }
@@ -255,15 +297,31 @@ public class EventGraphWindow : EditorWindow
         catch { }
     }
 
+    void NewDelayedMoment()
+    {
+        NewVirtualEvent<DelayedMoment>("Delay");
+    }
+
     void NewVirtualEvent<T>(string name) where T : BaseVirtualEvent
     {
         Debug.Log("New event of type " + typeof(T) + ": " + name);
-        
-        graph.CreateAndAddVirtualEvent<T>(name, contextMenuMousePos);
+
+
+        T newEvent = ScriptableObject.CreateInstance<T>();
+        newEvent.name = name;
+        newEvent.MoveToPos(contextMenuMousePos);
+
+        if(ongoingLink.source != null)
+        {
+            ongoingLink.BuildLink(newEvent);
+        }
+
+        graph.CreateAndAddVirtualEvent<T>(newEvent);
+
         MarkSceneAsDirty();
     }
 
-    void RemoveEvent(EventGraphWindowItem item)
+    void RemoveItem(EventGraphWindowItem item)
     {
         Rect popupRect = new Rect(Vector2.zero, new Vector2(210, 65));
         try
@@ -277,11 +335,15 @@ public class EventGraphWindow : EditorWindow
 
                     UnityEngine.Object obj = item.myEvent.AsObject();
                     if (obj is BaseVirtualEvent)
+                    {
                         graph.RemoveVirtualEvent(obj as BaseVirtualEvent);
-                    //else if (obj is BasePhysicalEvent)
-                    //    graph.RemoveEvent(obj as BasePhysicalEvent);
+                    }
+                    else if (obj is BasePhysicalEvent)
+                    {
+                        graph.RemovePhysicalEvent(obj as BasePhysicalEvent);
+                    }
                     else
-                        Debug.LogError("Removing a graph item that holds neither BaseVirtualEvent nor BasePhysicalEvent");
+                        Debug.LogError("Removing a graph item that holds an undefined object.");
 
                     MarkSceneAsDirty();
                 }));
@@ -353,7 +415,7 @@ public class EventNamePopup : PopupWindowContent
 
         if (GUILayout.Button("Submit") || (Event.current.isKey && Event.current.keyCode == KeyCode.Return))
         {
-            if (name == "")
+            if (name == "" || name == DelayedMoment.DEFAULT_NAME)
             {
                 error = "Invalid name";
             }
@@ -393,5 +455,37 @@ public class EventRemovePopup : PopupWindowContent
         {
             onConfirm();
         }
+    }
+}
+
+public struct OngoingLink
+{
+    public EventGraphWindowItem source;
+    public int momentIndex;
+    public void Draw(Vector2 mousePosition)
+    {
+        if (!CanDraw)
+            return;
+        source.DrawOngoingLink(momentIndex, mousePosition);
+    }
+    public bool CanDraw { get { return source != null; } }
+
+    public void BuildLink(EventGraphWindowItem other)
+    {
+        if(source != null && (other.myEvent is IEvent))
+        {
+            IEvent iEvent = other.myEvent as IEvent;
+            source.moments[momentIndex].moment.AddIEvent(iEvent);
+        }
+        source = null;
+    }
+    public void BuildLink(UnityEngine.Object other)
+    {
+        if (source != null && (other is IEvent))
+        {
+            IEvent iEvent = other as IEvent;
+            source.moments[momentIndex].moment.AddIEvent(iEvent);
+        }
+        source = null;
     }
 }
