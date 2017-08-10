@@ -275,32 +275,6 @@ namespace GameEvents
             return null;
         }
 
-        void NewVirtualEvent<T>() where T : BaseVirtualEvent
-        {
-            Rect popupRect = new Rect(contextMenuMousePos + Vector2.right * 100, new Vector2(210, 90));
-            try
-            {
-                PopupWindow.Show(popupRect, new EventNamePopup(graph.IsVirtualNameAvailable,
-                    delegate (string name)
-                    {
-                        PopupWindow.focusedWindow.Close();
-                        NewVirtualEvent<T>(name);
-                    }));
-            }
-            catch { }
-        }
-
-        void NewDelayedMoment()
-        {
-            NewVirtualEvent<DelayedMoment>("Delay");
-        }
-
-        void NewVirtualEvent<T>(string name) where T : BaseVirtualEvent
-        {
-            T newEvent = ScriptableObject.CreateInstance<T>();
-            NewVirtualEvent(newEvent, name);
-        }
-
         void NewVirtualEvent(string className, string name)
         {
             BaseVirtualEvent newEvent = ScriptableObject.CreateInstance(className) as BaseVirtualEvent;
@@ -361,9 +335,7 @@ namespace GameEvents
                         MarkSceneAsDirty();
                     }));
             }
-            catch
-            {
-            }
+            catch { }
         }
 
         void Window_GraphInfo(int unusedWindowID)
@@ -404,13 +376,11 @@ namespace GameEvents
                 return;
 
             GenericMenu menu = new GenericMenu();
-            //menu.AddItem(new GUIContent("Delayed Moment"), false, NewDelayedMoment);
-            //menu.AddItem(new GUIContent("Delayed Moment"), false, NewDelayedMoment);
-
+            
             Assembly thisAssembly = GetType().Assembly;
             var virtualTypes = from type in thisAssembly.GetTypes()
-                          where typeof(BaseVirtualEvent).IsAssignableFrom(type)
-                          select type;
+                               where typeof(BaseVirtualEvent).IsAssignableFrom(type)
+                               select type;
 
             foreach (var type in virtualTypes)
             {
@@ -420,10 +390,10 @@ namespace GameEvents
                 List<FieldInfo> constants = GetConstants(type);
 
                 FieldInfo nameField = constants.Find(x => x.Name == "NODE_NAME" && x.FieldType == typeof(string));
-                if(nameField != null)
+                if (nameField != null)
                 {
                     string name = nameField.GetRawConstantValue() as string;
-                    menu.AddItem(new GUIContent("New " + type.Name), false, delegate()
+                    menu.AddItem(new GUIContent("New " + type.Name), false, delegate ()
                     {
                         NewVirtualEvent(type.Name, name);
                     });

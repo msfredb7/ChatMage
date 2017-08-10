@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 namespace GameEvents
 {
-    public class DelayedMoment : BaseVirtualEvent
+    public class Delay : BaseVirtualEvent
     {
         public const string NODE_NAME = "Delay";
 
