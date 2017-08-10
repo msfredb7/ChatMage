@@ -364,7 +364,7 @@ public class EventGraphWindow : EditorWindow
         else
         {
             EditorGUILayout.BeginHorizontal();
-            GUILayout.Label("Graph nodes: " + graph.virtualEvents.Count);
+            GUILayout.Label("Graph nodes: " + (graph.virtualEvents.Count + graph.physicalEvents.Count));
             GUILayout.FlexibleSpace();
             if (GUILayout.Button("Rebuild"))
             {
