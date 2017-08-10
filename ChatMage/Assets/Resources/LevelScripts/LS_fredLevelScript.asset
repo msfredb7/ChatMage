@@ -11,8 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 692045aa578ae724ca10f45fcde071d2, type: 3}
   m_Name: LS_fredLevelScript
   m_EditorClassIdentifier: 
-  _objectReferences:
-  - {fileID: 114108277431155286, guid: ad8eab3ceee8d3943a37526e651f16c7, type: 2}
+  _objectReferences: []
   _serializedStateKeys:
   - winningConditions
   - losingConditions
@@ -23,8 +22,7 @@ MonoBehaviour:
   - '[]'
   - '[{"$type":"GameCondition.LoseOnPlayerDeath"}]'
   - 
-  - '[{"what":{"spawnSequence":[{"unit":0,"quantity":1}],"onSpawnMethod":"MakeSmart","progressCallbacks":[{"levelEventName":"completed
-    !","atProgress":1.0,"atKillCount":0,"useProgress":true}]},"infiniteRepeat":false,"pauseBetweenRepeat":0.0,"where":{"logErrorIfUnableToLaunch":true,"spawnTag":"ordered","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0},"when":{"type":"At","time":0.0,"name":null,"onlyTriggerOnce":false},"spawnInterval":1.5,"preLaunchDialog":null}]'
+  - '[]'
   - '{"overrideGoldAmount":false,"goldReward":{"baseAmountMin":10,"baseAmountMax":20,"firstWinAmountMin":30,"firstWinAmountMax":40},"giveLootBox":false,"lootboxRefName":"large","goldified":false}'
   sceneName: MapFred
   introPrefab: {fileID: 114921437952830070, guid: 002facbad3d5db44e89adaf01930e6fb,
@@ -34,10 +32,10 @@ MonoBehaviour:
   loseOutroPrefab: {fileID: 114019376999675500, guid: 5fb703884a8fef84baed936668fb2290,
     type: 2}
   noHealthPacks: 0
-  followPlayerOnStart: 0
+  followPlayerOnStart: 1
   smashEnable: 1
   useCustomGenericEvents: 0
   events: []
   activateTutorial: 0
   tutorialAssetName: 
-  cameraSize: 4.5
+  cameraSize: 5.4

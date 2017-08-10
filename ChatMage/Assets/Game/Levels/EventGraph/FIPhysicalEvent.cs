@@ -33,6 +33,7 @@ namespace GameEvents
             LinkToGraph();
         }
 
+        [InspectorButton]
         public bool LinkToGraph()
         {
             if (!Application.isPlaying)
@@ -49,8 +50,7 @@ namespace GameEvents
                     }
                     else
                     {
-                        Debug.LogError("No EventGraph component on root objects. Removing PhysicalEvent component.");
-                        DestroyImmediate(this);
+                        Debug.LogError("Il doit y avoir un component EventGraph sur un des gameobjects racine.");
                     }
                 }
             }
@@ -105,7 +105,7 @@ namespace GameEvents
             names = null;
         }
 
-        public bool AcceptExternalTriggering()
+        public bool AcceptMomentLinking()
         {
             return true;
         }

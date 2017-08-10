@@ -100,7 +100,7 @@ namespace GameEvents
             names = null;
         }
 
-        public bool AcceptExternalTriggering()
+        public bool AcceptMomentLinking()
         {
             return true;
         }

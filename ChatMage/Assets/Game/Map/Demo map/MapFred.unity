@@ -405,6 +405,97 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &252051433
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 252051435}
+  - component: {fileID: 252051434}
+  m_Layer: 0
+  m_Name: Milestone
+  m_TagString: Milestone
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!114 &252051434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 252051433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d16ec1b977bfcb542b9a66a4dab46ed0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectReferences: []
+  _serializedStateKeys:
+  - windowRect
+  - onTigger
+  - triggerOn
+  - aiAreaRelativeToMilestone
+  - onExecute
+  _serializedStateValues:
+  - '{"xMin":185.0,"yMin":354.0,"xMax":335.0,"yMax":364.0}'
+  - '{"iEvents":[],"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}}'
+  - '"TopOfScreen"'
+  - '{"min":{"x":-9.6,"y":-10.8},"max":{"x":9.6,"y":0.0}}'
+  - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  windowRect:
+    serializedVersion: 2
+    x: 185
+    y: 354
+    width: 150
+    height: 10
+  graph: {fileID: 1644651698}
+  onTigger:
+    iEvents: []
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+  gizmosAlwaysVisible: 1
+  triggerOn: 1
+  disapearAfterTrigger: 1
+  setAiArea: 0
+  aiAreaAdjustToSceenRatio: 1
+  aiAreaRelativeToMilestone:
+    min: {x: -9.6, y: -10.8}
+    max: {x: 9.6, y: 0}
+  modifyFollowPlayer: 0
+  followPlayerEffect: 0
+  setCameraMin: 0
+  cameraMinRelativeToMilestone: 0
+  setCameraMax: 0
+  cameraMaxRelativeToMilestone: 0
+  fireEventToLevelScript: 0
+  eventMessage: 
+  onExecute:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  dialog: {fileID: 0}
+--- !u!4 &252051435
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 252051433}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 7.11, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 21
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &298466610
 GameObject:
   m_ObjectHideFlags: 0
@@ -641,6 +732,25 @@ Transform:
   m_Father: {fileID: 1237816616}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &574845941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d2db7471a6a119489863c385f7dc95a, type: 3}
+  m_Name: Print
+  m_EditorClassIdentifier: 
+  windowRect:
+    serializedVersion: 2
+    x: 577
+    y: 127
+    width: 150
+    height: 10
+  graph: {fileID: 1644651698}
+  message: Game Started
 --- !u!1 &603044746
 GameObject:
   m_ObjectHideFlags: 0
@@ -824,7 +934,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &777449430
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1049,7 +1159,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &1052540837
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1280,7 +1390,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &1205445593
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1404,18 +1514,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 914aebc8b10f48949bd6b9ad2cf0c25a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectReferences: []
+  _objectReferences:
+  - {fileID: 252051434}
   _serializedStateKeys:
   - milestones
   - milestoneRelativeHeights
   _serializedStateValues:
-  - '[]'
-  - '[]'
+  - '[0]'
+  - '[7.11]'
   topHeight: 54.5
-  bottomHeight: -4.5
+  bottomHeight: -5.4
   setCameraMinMax: 1
   showCameraTrails: 1
-  milestones: []
+  milestones:
+  - {fileID: 252051434}
 --- !u!4 &1237816616
 Transform:
   m_ObjectHideFlags: 0
@@ -1568,6 +1680,7 @@ GameObject:
   - component: {fileID: 1644651696}
   - component: {fileID: 1644651695}
   - component: {fileID: 1644651697}
+  - component: {fileID: 1644651698}
   - component: {fileID: 1644651699}
   m_Layer: 0
   m_Name: Map
@@ -1596,7 +1709,7 @@ MonoBehaviour:
   - positionDisplacers
   _serializedStateValues:
   - '[]'
-  - '{"min":{"x":-7.0,"y":-4.5},"max":{"x":8.0,"y":4.5}}'
+  - '{"min":{"x":-7.0,"y":-5.4},"max":{"x":9.6,"y":5.4}}'
   - '[0,1]'
   mapping: {fileID: 153121006}
   cameraSpawn: {fileID: 1833739392}
@@ -1604,8 +1717,8 @@ MonoBehaviour:
   listUnits: []
   setAIArea: 1
   startAIArea:
-    min: {x: -7, y: -4.5}
-    max: {x: 8, y: 4.5}
+    min: {x: -7, y: -5.4}
+    max: {x: 9.6, y: 5.4}
   roadPlayer: {fileID: 458826281}
   positionDisplacers:
   - {fileID: 138933722}
@@ -1635,7 +1748,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultLevelScript: LS_fredLevelScript
---- !u!114 &1644651699
+--- !u!114 &1644651698
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -1646,7 +1759,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cb97ae21ffa1914abb4f2312a4eb8ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  events: []
+  events:
+  - {fileID: 252051434}
+  - {fileID: 1644651699}
+  - {fileID: 574845941}
+--- !u!114 &1644651699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1644651694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd49420f0394cab48a9f23f929884117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  windowRect:
+    serializedVersion: 2
+    x: 190
+    y: 132
+    width: 150
+    height: 10
+  graph: {fileID: 1644651698}
+  onGameStart:
+    iEvents:
+    - {fileID: 574845941}
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
 --- !u!1 &1649213850
 GameObject:
   m_ObjectHideFlags: 1
@@ -1694,6 +1836,7 @@ MonoBehaviour:
   - {fileID: 1644651695}
   - {fileID: 138933722}
   - {fileID: 189859209}
+  - {fileID: 252051434}
   _values:
   - _keys: []
     _values: []
@@ -1710,6 +1853,9 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 189859209}
+  - _keys: []
+    _values: []
+    _target: {fileID: 252051434}
 --- !u!114 &1649213853
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1727,6 +1873,7 @@ MonoBehaviour:
   - {fileID: 1644651695}
   - {fileID: 138933722}
   - {fileID: 189859209}
+  - {fileID: 252051434}
   _values:
   - _keys: []
     _values: []
@@ -1758,6 +1905,33 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 189859209}
+  - _keys:
+    - DefaultBehaviorEditor.onTigger.EditProperty
+    - DefaultBehaviorEditor.triggerOn.EditProperty
+    - DefaultBehaviorEditor.setAiArea.EditProperty
+    - DefaultBehaviorEditor.modifyFollowPlayer.EditProperty
+    - DefaultBehaviorEditor.setCameraMin.EditProperty
+    - DefaultBehaviorEditor.setCameraMax.EditProperty
+    - DefaultBehaviorEditor.fireEventToLevelScript.EditProperty
+    - DefaultBehaviorEditor.dialog.EditProperty
+    _values:
+    - _showDropdown: 1
+      _serializedIsActive: 0
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    _target: {fileID: 252051434}
 --- !u!1 &1689588588
 GameObject:
   m_ObjectHideFlags: 0
@@ -1844,7 +2018,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &1707838893
 BoxCollider2D:
   m_ObjectHideFlags: 0

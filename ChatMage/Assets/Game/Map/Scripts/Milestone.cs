@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using FullInspector;
 using UnityEngine.Events;
+using GameEvents;
 
-public class Milestone : BaseBehavior
+public class Milestone : FIPhysicalEvent
 {
+    public Moment onTigger = new Moment();
+
     public bool gizmosAlwaysVisible = true;
 
     public enum TriggerType { BottomOfScreen, TopOfScreen }
@@ -46,14 +49,18 @@ public class Milestone : BaseBehavior
 
     [InspectorMargin(12), InspectorHeader("Dialog")]
     public Dialoguing.Dialog dialog;
-
-
-
+    
     public bool Execute()
     {
         if (!gameObject.activeInHierarchy)
             return false;
+        Trigger();
+        return true;
+    }
 
+    public override void Trigger()
+    {
+        onTigger.Launch();
         onExecute.Invoke();
 
         if (setAiArea)
@@ -98,7 +105,6 @@ public class Milestone : BaseBehavior
         {
             Game.instance.currentLevel.ReceiveEvent(eventMessage);
         }
-        return true;
     }
 
     public float GetVirtualHeight()

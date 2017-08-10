@@ -20,7 +20,7 @@ namespace GameEvents
         string DefaultLabel();
         string TypeLabel();
         void GetAdditionalMoments(out Moment[] moments, out string[] names);
-        bool AcceptExternalTriggering();
+        bool AcceptMomentLinking();
         bool LinkToGraph();
         void MoveToPos(Vector2 position);
     }

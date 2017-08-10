@@ -16,14 +16,14 @@ namespace GameEvents
         public bool CheckForNameDuplicate(string name)
         {
             if (events == null)
-                return true;
+                return false;
 
             for (int i = 0; i < events.Count; i++)
             {
                 if (events[i].name == name)
-                    return false;
+                    return true;
             }
-            return true;
+            return false;
         }
 
         public INodedEvent AddEvent(INodedEvent existingEvent)
