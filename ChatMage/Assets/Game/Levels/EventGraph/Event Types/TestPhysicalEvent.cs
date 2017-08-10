@@ -1,14 +1,13 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace GameEvents
 {
-    public class TestPhysicalEvent : BasePhysicalEvent
+    public class TestPhysicalEvent : PhysicalEvent
     {
         public Moment onUnitKilled = new Moment();
 
-        public List<SomeClass> someList = new List<SomeClass>();
+        public List<SomeClass> someList = new List<SomeClass>();//
 
         [System.Serializable]
         public class SomeClass

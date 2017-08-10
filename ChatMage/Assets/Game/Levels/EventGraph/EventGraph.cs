@@ -7,67 +7,45 @@ namespace GameEvents
 {
     public class EventGraph : MonoBehaviour
     {
-        [Header("NE PAS TOUCHER AU LISTES")]
+        [Header("NE PAS TOUCHER A LA LISTE")]
         [ReadOnly(forwardToChildren = false)]
-        public List<BaseVirtualEvent> virtualEvents;
-        [ReadOnly(forwardToChildren = false)]
-        public List<BasePhysicalEvent> physicalEvents;
+        public List<Object> events = new List<Object>();
 
         public event SimpleEvent onEventsAddedOrRemoved;
 
-        public bool IsVirtualNameAvailable(string name)
+        public bool CheckForNameDuplicate(string name)
         {
-            if (virtualEvents == null)
+            if (events == null)
                 return true;
 
-            for (int i = 0; i < virtualEvents.Count; i++)
+            for (int i = 0; i < events.Count; i++)
             {
-                if (virtualEvents[i].name == name)
+                if (events[i].name == name)
                     return false;
             }
             return true;
         }
 
-        public BaseVirtualEvent CreateAndAddVirtualEvent(BaseVirtualEvent newEvent)
+        public INodedEvent AddEvent(INodedEvent existingEvent)
         {
-            virtualEvents.Add(newEvent);
-
-            if (onEventsAddedOrRemoved != null)
-                onEventsAddedOrRemoved();
-            return newEvent;
-        }
-
-        public void RemoveVirtualEvent(BaseVirtualEvent theEvent)
-        {
-            RemoveAllLinksTo(theEvent);
-
-            if (virtualEvents.Remove(theEvent))
-            {
-                if (onEventsAddedOrRemoved != null)
-                    onEventsAddedOrRemoved();
-            }
-        }
-
-        public BasePhysicalEvent AddPhysicalEvent(BasePhysicalEvent existingEvent)
-        {
-            physicalEvents.Add(existingEvent);
-            existingEvent.graph = this;
+            events.Add(existingEvent.AsObject());
+            existingEvent.Graph = this;
 
             if (onEventsAddedOrRemoved != null)
                 onEventsAddedOrRemoved();
             return existingEvent;
         }
 
-        public bool ContainsPhysicalEvent(BasePhysicalEvent existingEvent)
+        public bool ContainsEvent(INodedEvent existingEvent)
         {
-            return physicalEvents.Contains(existingEvent);
+            return events.Contains(existingEvent.AsObject());
         }
 
-        public void RemovePhysicalEvent(BasePhysicalEvent theEvent)
+        public void RemoveEvent(INodedEvent theEvent)
         {
             RemoveAllLinksTo(theEvent);
 
-            if (physicalEvents.Remove(theEvent))
+            if (events.Remove(theEvent.AsObject()))
             {
                 if (onEventsAddedOrRemoved != null)
                     onEventsAddedOrRemoved();
@@ -76,34 +54,21 @@ namespace GameEvents
 
         public void RemoveNulls()
         {
-            for (int i = 0; i < virtualEvents.Count; i++)
+            for (int i = 0; i < events.Count; i++)
             {
-                if (virtualEvents[i] == null)
+                if (events[i] == null)
                 {
-                    virtualEvents.RemoveAt(0);
-                    i--;
-                }
-            }
-            for (int i = 0; i < physicalEvents.Count; i++)
-            {
-                if (physicalEvents[i] == null)
-                {
-                    physicalEvents.RemoveAt(0);
+                    events.RemoveAt(0);
                     i--;
                 }
             }
         }
 
-
         public void RemoveAllLinksTo(IEvent theEvent)
         {
-            for (int i = 0; i < virtualEvents.Count; i++)
+            for (int i = 0; i < events.Count; i++)
             {
-                RemoveAllLinksTo(theEvent, virtualEvents[i]);
-            }
-            for (int i = 0; i < physicalEvents.Count; i++)
-            {
-                RemoveAllLinksTo(theEvent, physicalEvents[i]);
+                RemoveAllLinksTo(theEvent, events[i]);
             }
         }
 
@@ -121,9 +86,9 @@ namespace GameEvents
             }
 
 
-            if (on is IEventDisplay)
+            if (on is INodedEvent)
             {
-                IEventDisplay onDisplay = on as IEventDisplay;
+                INodedEvent onDisplay = on as INodedEvent;
 
                 Moment[] additionalMoments;
                 string[] additionalNames;

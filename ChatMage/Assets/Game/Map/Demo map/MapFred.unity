@@ -1032,31 +1032,6 @@ SpriteRenderer:
   m_Size: {x: 17, y: 10}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 1
---- !u!114 &996238629
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 770cead41c9345b438c5073249a62a88, type: 3}
-  m_Name: Delay
-  m_EditorClassIdentifier: 
-  windowRect:
-    serializedVersion: 2
-    x: 666
-    y: 103
-    width: 150
-    height: 105
-  delay: 0
-  moment:
-    iEvents: []
-    unityEvent:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
 --- !u!1 &1052540836
 GameObject:
   m_ObjectHideFlags: 0
@@ -1514,23 +1489,6 @@ MonoBehaviour:
   attachedSpawn: {fileID: 1464203794}
   gizmosAlwaysVisible: 1
   destination: {x: 8, y: 0}
---- !u!114 &1558740512
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7dd431c951a67d84fb1a4c983ccc357d, type: 3}
-  m_Name: empty event
-  m_EditorClassIdentifier: 
-  windowRect:
-    serializedVersion: 2
-    x: 933
-    y: 189
-    width: 150
-    height: 85
 --- !u!1 &1573639612
 GameObject:
   m_ObjectHideFlags: 0
@@ -1610,7 +1568,7 @@ GameObject:
   - component: {fileID: 1644651696}
   - component: {fileID: 1644651695}
   - component: {fileID: 1644651697}
-  - component: {fileID: 1644651698}
+  - component: {fileID: 1644651699}
   m_Layer: 0
   m_Name: Map
   m_TagString: Untagged
@@ -1677,7 +1635,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultLevelScript: LS_fredLevelScript
---- !u!114 &1644651698
+--- !u!114 &1644651699
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -1688,11 +1646,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cb97ae21ffa1914abb4f2312a4eb8ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  virtualEvents:
-  - {fileID: 1558740512}
-  - {fileID: 996238629}
-  physicalEvents:
-  - {fileID: 2072076095}
+  events: []
 --- !u!1 &1649213850
 GameObject:
   m_ObjectHideFlags: 1
@@ -2415,78 +2369,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
---- !u!1 &2072076094
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 2072076096}
-  - component: {fileID: 2072076095}
-  m_Layer: 0
-  m_Name: Hello, my name is tom
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2072076095
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2072076094}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69c054d736ad831499f4a9ff6f274abc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  windowRect:
-    serializedVersion: 2
-    x: 408
-    y: 203
-    width: 150
-    height: 143
-  graph: {fileID: 1644651698}
-  onUnitKilled:
-    iEvents:
-    - {fileID: 996238629}
-    unityEvent:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-  someList:
-  - someMoment:
-      iEvents: []
-      unityEvent:
-        m_PersistentCalls:
-          m_Calls: []
-        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-          PublicKeyToken=null
-    id: Helloi
-  - someMoment:
-      iEvents: []
-      unityEvent:
-        m_PersistentCalls:
-          m_Calls: []
-        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-          PublicKeyToken=null
-    id: 
---- !u!4 &2072076096
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2072076094}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.1894636, y: 3.1172407, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 21
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2120832837 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114008029251096486, guid: 1035b9e2c8a379347b030d984c8b96c1,

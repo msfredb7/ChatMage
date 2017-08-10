@@ -7,8 +7,9 @@ namespace GameEvents
     {
         void Trigger();
     }
-    public interface IEventDisplay
+    public interface INodedEvent : IEvent
     {
+        EventGraph Graph { get; set; }
         Rect WindowRect { get; set; }
         void ResetWindowRectPos();
         void ResetWindowRectSize();
@@ -19,5 +20,8 @@ namespace GameEvents
         string DefaultLabel();
         string TypeLabel();
         void GetAdditionalMoments(out Moment[] moments, out string[] names);
+        bool AcceptExternalTriggering();
+        bool LinkToGraph();
+        void MoveToPos(Vector2 position);
     }
 }

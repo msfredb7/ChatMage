@@ -16,7 +16,6 @@ namespace GameEvents
         public OngoingLink ongoingLink;
 
         private List<EventGraphWindowItem> items;
-        private EventGraphWindowItem selectedItem;
         private Vector2 contextMenuMousePos;
         private Vector2 lastMousePos;
 
@@ -86,33 +85,27 @@ namespace GameEvents
 
         void ClearItems(bool repaint = true)
         {
-            selectedItem = null;
             ongoingLink.source = null;
             items = null;
-            ResetNodeDetailsPanel();
             Repaint();
         }
 
         void RebuildItems()
         {
-            selectedItem = null;
             ongoingLink.source = null;
-            ResetNodeDetailsPanel();
 
-            items = new List<EventGraphWindowItem>(graph.virtualEvents.Count + graph.physicalEvents.Count);
-            for (int i = 0; i < graph.virtualEvents.Count; i++)
+            items = new List<EventGraphWindowItem>(graph.events.Count);
+            for (int i = 0; i < graph.events.Count; i++)
             {
-                NewItem(graph.virtualEvents[i]);
-            }
-            for (int i = 0; i < graph.physicalEvents.Count; i++)
-            {
-                NewItem(graph.physicalEvents[i]);
+                UnityEngine.Object obj = graph.events[i];
+                if (obj is INodedEvent)
+                    NewItem(obj as INodedEvent);
             }
 
             Repaint();
         }
 
-        EventGraphWindowItem NewItem(IEventDisplay theEvent)
+        EventGraphWindowItem NewItem(INodedEvent theEvent)
         {
             EventGraphWindowItem newItem = new EventGraphWindowItem(theEvent, RemoveItem, this);
             items.Add(newItem);
@@ -125,14 +118,6 @@ namespace GameEvents
         }
 
         public Rect graphInfoRect = new Rect(0, 0, 240, 10);
-        public Rect nodeDetailsRect = new Rect(0, 0, DEFAULT_PANEL_WIDTH, DEFAULT_NDP_HEIGHT);
-        private const float DEFAULT_PANEL_WIDTH = 240;
-        private const float DEFAULT_NDP_HEIGHT = 50;
-
-        private void ResetNodeDetailsPanel()
-        {
-            nodeDetailsRect = new Rect(0, 0, DEFAULT_PANEL_WIDTH, DEFAULT_NDP_HEIGHT);
-        }
 
         void OnGUI()
         {
@@ -154,7 +139,7 @@ namespace GameEvents
                 }
                 else
                 {
-                    if (!graphInfoRect.Contains(lastMousePos) && !nodeDetailsRect.Contains(lastMousePos))
+                    if (!graphInfoRect.Contains(lastMousePos))
                     {
                         contextMenuMousePos = lastMousePos;
                         e.Use();
@@ -175,11 +160,9 @@ namespace GameEvents
                     }
 
                     //Unselect the previous item
-                    if (selectedItem != null && !graphInfoRect.Contains(lastMousePos) && !nodeDetailsRect.Contains(lastMousePos))
+                    if (!graphInfoRect.Contains(lastMousePos))
                     {
-                        selectedItem = null;
                         ClearFocus();
-                        ResetNodeDetailsPanel();
                         Repaint();
                     }
                 }
@@ -193,10 +176,9 @@ namespace GameEvents
                     }
 
                     //Change selected item
-                    if (selectedItem != newSelection)
+                    if (Selection.activeObject != newSelection.myEvent.AsObject())
                     {
-                        selectedItem = newSelection;
-                        ResetNodeDetailsPanel();
+                        SetSelectedItem(newSelection);
                         Repaint();
                     }
                     ClearFocus();
@@ -211,10 +193,6 @@ namespace GameEvents
 
             //Graph info
             graphInfoRect = GUILayout.Window(winC++, graphInfoRect, Window_GraphInfo, "Graph Info");
-
-            //Node info (inspecteur a gauche)
-            nodeDetailsRect.min = new Vector2(nodeDetailsRect.xMin, graphInfoRect.yMax + 5);
-            nodeDetailsRect = GUILayout.Window(winC++, nodeDetailsRect, Window_NodeDetails, "Event Info");
 
             //Items !
             if (items != null)
@@ -275,37 +253,40 @@ namespace GameEvents
             return null;
         }
 
-        void NewVirtualEvent(string className, string name)
-        {
-            BaseVirtualEvent newEvent = ScriptableObject.CreateInstance(className) as BaseVirtualEvent;
-            NewVirtualEvent(newEvent, name);
-        }
         void NewVirtualEvent(string className)
         {
             Rect popupRect = new Rect(contextMenuMousePos + Vector2.right * 100, new Vector2(210, 90));
             try
             {
-                PopupWindow.Show(popupRect, new EventNamePopup(graph.IsVirtualNameAvailable,
+                PopupWindow.Show(popupRect, new EventNamePopup(
                     delegate (string name)
                     {
                         PopupWindow.focusedWindow.Close();
                         NewVirtualEvent(className, name);
+                        if (graph.CheckForNameDuplicate(name))
+                            Debug.LogWarning("Attention, la nouvelle node utilise le meme nom qu'une autre node."
+                                + " Ceci peut vous empecher d'appeler l'event manuellement par nom.");
                     }));
             }
             catch { }
         }
+        void NewVirtualEvent(string className, string name)
+        {
+            VirtualEvent newEvent = ScriptableObject.CreateInstance(className) as VirtualEvent;
+            NewVirtualEvent(newEvent, name);
+        }
 
-        void NewVirtualEvent(BaseVirtualEvent newEvent, string name)
+        void NewVirtualEvent(INodedEvent newEvent, string name)
         {
             newEvent.name = name;
             newEvent.MoveToPos(contextMenuMousePos);
 
             if (ongoingLink.source != null)
             {
-                ongoingLink.BuildLink(newEvent);
+                ongoingLink.BuildLink(newEvent.AsObject());
             }
 
-            graph.CreateAndAddVirtualEvent(newEvent);
+            newEvent.LinkToGraph();
 
             MarkSceneAsDirty();
         }
@@ -321,16 +302,8 @@ namespace GameEvents
                         PopupWindow.focusedWindow.Close();
 
                         UnityEngine.Object obj = item.myEvent.AsObject();
-                        if (obj is BaseVirtualEvent)
-                        {
-                            graph.RemoveVirtualEvent(obj as BaseVirtualEvent);
-                        }
-                        else if (obj is BasePhysicalEvent)
-                        {
-                            graph.RemovePhysicalEvent(obj as BasePhysicalEvent);
-                        }
-                        else
-                            Debug.LogError("Removing a graph item that holds an undefined object.");
+                        DestroyImmediate(obj);
+                        SetSelectedItem(null);
 
                         MarkSceneAsDirty();
                     }));
@@ -349,7 +322,7 @@ namespace GameEvents
             else
             {
                 EditorGUILayout.BeginHorizontal();
-                GUILayout.Label("Graph nodes: " + (graph.virtualEvents.Count + graph.physicalEvents.Count));
+                GUILayout.Label("Graph nodes: " + graph.events.Count);
                 GUILayout.FlexibleSpace();
                 if (GUILayout.Button("Rebuild"))
                 {
@@ -359,32 +332,21 @@ namespace GameEvents
             }
         }
 
-        void Window_NodeDetails(int unusedWindowID)
-        {
-            if (selectedItem != null && selectedItem.myEvent == null)
-                selectedItem = null;
-
-            if (selectedItem != null)
-                selectedItem.DrawDetails();
-            else
-                GUILayout.Label("No event to edit.");
-        }
-
         void OpenContextMenu()
         {
             if (graph == null)
                 return;
 
             GenericMenu menu = new GenericMenu();
-            
+
             Assembly thisAssembly = GetType().Assembly;
             var virtualTypes = from type in thisAssembly.GetTypes()
-                               where typeof(BaseVirtualEvent).IsAssignableFrom(type)
+                               where typeof(VirtualEvent).IsAssignableFrom(type) /*|| typeof(VirtualEvent).IsAssignableFrom(type)*/
                                select type;
 
             foreach (var type in virtualTypes)
             {
-                if (type == typeof(BaseVirtualEvent))
+                if (type == typeof(VirtualEvent))
                     continue;
 
                 List<FieldInfo> constants = GetConstants(type);
@@ -417,12 +379,19 @@ namespace GameEvents
 
             return fieldInfos.Where(fi => fi.IsLiteral && !fi.IsInitOnly).ToList();
         }
+
+        public void SetSelectedItem(EventGraphWindowItem item)
+        {
+            if (item == null)
+                Selection.SetActiveObjectWithContext(null, null);
+            else
+                Selection.SetActiveObjectWithContext(item.myEvent.AsObject(), null);
+        }
     }
 
     public class EventNamePopup : PopupWindowContent
     {
         string name = "";
-        Func<string, bool> nameVerifier;
         string error = "";
         Action<string> onSuccess;
 
@@ -431,12 +400,9 @@ namespace GameEvents
             return new Vector2(210, 90);
         }
 
-        public EventNamePopup(Func<string, bool> nameVerifier, Action<string> onSuccess)
+        public EventNamePopup(Action<string> onSuccess)
         {
-            this.nameVerifier = nameVerifier;
             this.onSuccess = onSuccess;
-
-
         }
         public override void OnGUI(Rect rect)
         {
@@ -456,14 +422,6 @@ namespace GameEvents
                 {
                     onSuccess(name);
                 }
-                //else if (nameVerifier(name))
-                //{
-                //    onSuccess(name);
-                //}
-                //else
-                //{
-                //    error = "Name taken by another event";
-                //}
             }
 
             if (error != "")

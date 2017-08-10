@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace GameEvents
 {
-    public class Print : BaseVirtualEvent
+    public class Print : VirtualEvent
     {
         public const string NODE_NAME = "Print";
         public string message;

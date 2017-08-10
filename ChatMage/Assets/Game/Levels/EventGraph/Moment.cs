@@ -8,7 +8,6 @@ namespace GameEvents
     [System.Serializable]
     public class Moment
     {
-        [HideInInspector]
         public List<Object> iEvents = new List<Object>();
         public UnityEvent unityEvent = new UnityEvent();
 

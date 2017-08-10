@@ -18,20 +18,17 @@ namespace GameEvents
         public const float MOMENT_BUTTON_HEIGHT = 18;
 
         private const string DRAG_KEY = "egwidr"; //Pour Event Graph Window Item DRag
-        public IEventDisplay myEvent;
-        public Editor editor;
+        public INodedEvent myEvent;
         public List<NamedMoments> moments;
 
         Action<EventGraphWindowItem> removeRequest;
         EventGraphWindow parentWindow;
 
-        public EventGraphWindowItem(IEventDisplay myEvent, Action<EventGraphWindowItem> removeRequest, EventGraphWindow window)
+        public EventGraphWindowItem(INodedEvent myEvent, Action<EventGraphWindowItem> removeRequest, EventGraphWindow window)
         {
             this.myEvent = myEvent;
             if (myEvent == null)
                 throw new Exception("my event == null");
-
-            editor = Editor.CreateEditor(myEvent.AsObject());
 
             this.removeRequest = removeRequest;
             this.parentWindow = window;
@@ -72,6 +69,8 @@ namespace GameEvents
                     });
                 }
             }
+
+            myEvent.ResetWindowRectSize();
         }
 
         public Rect WindowRect
@@ -96,11 +95,6 @@ namespace GameEvents
         public string NodeLabel
         {
             get { return myEvent.name; }
-        }
-
-        public void DrawDetails()
-        {
-            editor.DrawDefaultInspector();
         }
 
         public void DrawNode(int unusedWindowId)
@@ -176,11 +170,6 @@ namespace GameEvents
 
         }
 
-        public void ClearNullLinks()
-        {
-            //todo: it�rer sur les iEvents des moments. retirer les nulls
-        }
-
         public void DrawLinks()
         {
             Handles.BeginGUI();
@@ -191,9 +180,9 @@ namespace GameEvents
                 for (int u = 0; u < moment.iEvents.Count; u++)
                 {
                     UnityEngine.Object iEvent = moment.iEvents[u];
-                    if (iEvent is IEventDisplay)
+                    if (iEvent is INodedEvent)
                     {
-                        IEventDisplay otherDisplay = iEvent as IEventDisplay;
+                        INodedEvent otherDisplay = iEvent as INodedEvent;
                         Rect targetRect = otherDisplay.WindowRect;
                         DrawBezierRight(WindowRect.position + moments[i].lastDrawnPos,
                             new Vector2(targetRect.xMin, targetRect.y + 28));
