@@ -2,38 +2,41 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestPhysicalEvent : BasePhysicalEvent
+namespace GameEvents
 {
-    public Moment onUnitKilled = new Moment();
-
-    public List<SomeClass> someList = new List<SomeClass>();
-
-    [System.Serializable]
-    public class SomeClass
+    public class TestPhysicalEvent : BasePhysicalEvent
     {
-        public Moment someMoment = new Moment();
-        public string id;
-    }
+        public Moment onUnitKilled = new Moment();
 
-    public override void GetAdditionalMoments(out Moment[] moments, out string[] names)
-    {
-        names = new string[someList.Count];
-        moments = new Moment[someList.Count];
+        public List<SomeClass> someList = new List<SomeClass>();
 
-        for (int i = 0; i < someList.Count; i++)
+        [System.Serializable]
+        public class SomeClass
         {
-            names[i] = "Some Class " + i;
-            moments[i] = someList[i].someMoment;
+            public Moment someMoment = new Moment();
+            public string id;
         }
-    }
 
-    public override Color DefaultColor()
-    {
-        return new Color(0.7f, 1, 1, 1);
-    }
+        public override void GetAdditionalMoments(out Moment[] moments, out string[] names)
+        {
+            names = new string[someList.Count];
+            moments = new Moment[someList.Count];
 
-    public override string DefaultLabel()
-    {
-        return "Test Physical";
+            for (int i = 0; i < someList.Count; i++)
+            {
+                names[i] = "Some Class " + i;
+                moments[i] = someList[i].someMoment;
+            }
+        }
+
+        public override Color DefaultColor()
+        {
+            return new Color(0.7f, 1, 1, 1);
+        }
+
+        public override string DefaultLabel()
+        {
+            return "Test Physical";
+        }
     }
 }

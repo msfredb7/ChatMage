@@ -4,81 +4,84 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-[ExecuteInEditMode]
-public class BasePhysicalEvent : MonoBehaviour, IEventDisplay, IEvent
+namespace GameEvents
 {
-    [HideInInspector]
-    public Rect windowRect = new Rect(300, 300, 150, 10);
-    [HideInInspector]
-    public EventGraph graph;
-
-    protected virtual void Awake()
+    [ExecuteInEditMode]
+    public class BasePhysicalEvent : MonoBehaviour, IEventDisplay, IEvent
     {
-        if (!Application.isPlaying)
+        [HideInInspector]
+        public Rect windowRect = new Rect(300, 300, 150, 10);
+        [HideInInspector]
+        public EventGraph graph;
+
+        protected virtual void Awake()
         {
-            Scene scene = SceneManager.GetActiveScene();
-            if (scene.isLoaded)
+            if (!Application.isPlaying)
             {
-                graph = scene.FindRootObject<EventGraph>();
-                if (graph != null)
+                Scene scene = SceneManager.GetActiveScene();
+                if (scene.isLoaded)
                 {
-                    if (!graph.ContainsPhysicalEvent(this))
-                        graph.AddPhysicalEvent(this);
-                }
-                else
-                {
-                    Debug.LogError("No EventGraph component on root objects. Removing PhysicalEvent component.");
-                    DestroyImmediate(this);
+                    graph = scene.FindRootObject<EventGraph>();
+                    if (graph != null)
+                    {
+                        if (!graph.ContainsPhysicalEvent(this))
+                            graph.AddPhysicalEvent(this);
+                    }
+                    else
+                    {
+                        Debug.LogError("No EventGraph component on root objects. Removing PhysicalEvent component.");
+                        DestroyImmediate(this);
+                    }
                 }
             }
         }
-    }
 
-    protected virtual void OnDestroy()
-    {
-        if (!Application.isPlaying && graph != null)
-            graph.RemovePhysicalEvent(this);
-    }
-
-    public Rect WindowRect
-    {
-        get
+        protected virtual void OnDestroy()
         {
-            return windowRect;
+            if (!Application.isPlaying && graph != null)
+                graph.RemovePhysicalEvent(this);
         }
-        set
+
+        public Rect WindowRect
         {
-            windowRect = value;
+            get
+            {
+                return windowRect;
+            }
+            set
+            {
+                windowRect = value;
+            }
         }
-    }
 
-    public void ResetWindowRectPos()
-    {
-        windowRect = new Rect(250, 250, windowRect.width, windowRect.height);
-    }
-    public void ResetWindowRectSize()
-    {
-        windowRect = new Rect(windowRect.x, windowRect.y, 150, 10);
-    }
+        public void ResetWindowRectPos()
+        {
+            windowRect = new Rect(250, 250, windowRect.width, windowRect.height);
+        }
+        public void ResetWindowRectSize()
+        {
+            windowRect = new Rect(windowRect.x, windowRect.y, 150, 10);
+        }
 
-    public virtual Color DefaultColor() { return Color.white; }
+        public virtual Color DefaultColor() { return Color.white; }
 
-    public UnityEngine.Object AsObject() { return this; }
+        public UnityEngine.Object AsObject() { return this; }
 
-    public virtual void Trigger()
-    {
+        public virtual void Trigger()
+        {
 
-    }
+        }
 
-    public bool CanBeManuallyDestroyed() { return false; }
+        public bool CanBeManuallyDestroyed() { return false; }
 
-    public virtual string DefaultLabel() { return "Base Physical"; }
+        public virtual string DefaultLabel() { return "Base Physical"; }
 
-    public string TypeLabel() { return "Physical"; }
+        public string TypeLabel() { return "Physical"; }
 
-    public virtual void GetAdditionalMoments(out Moment[] moments, out string[] names)
-    {
-        moments = null;
-        names = null;
+        public virtual void GetAdditionalMoments(out Moment[] moments, out string[] names)
+        {
+            moments = null;
+            names = null;
+        }
     }
 }

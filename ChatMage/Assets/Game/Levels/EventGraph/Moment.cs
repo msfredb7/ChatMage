@@ -3,57 +3,60 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[System.Serializable]
-public class Moment
+namespace GameEvents
 {
-    [HideInInspector]
-    public List<Object> iEvents = new List<Object>();
-    public UnityEvent unityEvent = new UnityEvent();
-
-    public void Launch()
+    [System.Serializable]
+    public class Moment
     {
-        for (int i = 0; i < iEvents.Count; i++)
+        [HideInInspector]
+        public List<Object> iEvents = new List<Object>();
+        public UnityEvent unityEvent = new UnityEvent();
+
+        public void Launch()
         {
-            if (iEvents[i] != null)
-                (iEvents[i] as IEvent).Trigger();
-        }
-        unityEvent.Invoke();
-    }
-
-    public void AddIEvent(IEvent theEvent)
-    {
-        if (!(theEvent is Object))
-            return;
-
-        Object obj = theEvent as Object;
-        if (iEvents.Contains(obj))
-            return;
-        iEvents.Add(obj);
-    }
-
-    public void RemoveIEvent(IEvent theEvent)
-    {
-        if (!(theEvent is Object))
-            return;
-
-        Object obj = theEvent as Object;
-        iEvents.Remove(obj);
-    }
-
-    public void RemoveNulls()
-    {
-        for (int i = 0; i < iEvents.Count; i++)
-        {
-            if (iEvents[i] == null)
+            for (int i = 0; i < iEvents.Count; i++)
             {
-                iEvents.RemoveAt(i);
-                i--;
+                if (iEvents[i] != null)
+                    (iEvents[i] as IEvent).Trigger();
+            }
+            unityEvent.Invoke();
+        }
+
+        public void AddIEvent(IEvent theEvent)
+        {
+            if (!(theEvent is Object))
+                return;
+
+            Object obj = theEvent as Object;
+            if (iEvents.Contains(obj))
+                return;
+            iEvents.Add(obj);
+        }
+
+        public void RemoveIEvent(IEvent theEvent)
+        {
+            if (!(theEvent is Object))
+                return;
+
+            Object obj = theEvent as Object;
+            iEvents.Remove(obj);
+        }
+
+        public void RemoveNulls()
+        {
+            for (int i = 0; i < iEvents.Count; i++)
+            {
+                if (iEvents[i] == null)
+                {
+                    iEvents.RemoveAt(i);
+                    i--;
+                }
             }
         }
-    }
 
-    public void ClearMoments()
-    {
-        iEvents.Clear();
+        public void ClearMoments()
+        {
+            iEvents.Clear();
+        }
     }
 }

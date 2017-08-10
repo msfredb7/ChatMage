@@ -4,249 +4,252 @@ using UnityEngine;
 using System.Reflection;
 using System.Collections.Generic;
 
-public class EventGraphWindowItem
+namespace GameEvents
 {
-    public class NamedMoments
+    public class EventGraphWindowItem
     {
-        public string displayName;
-        public Moment moment;
-        public Vector2 lastDrawnPos;
-    }
-    public const float MOMENT_BUTTON_WIDTH = 20;
-    public const float MOMENT_BUTTON_HEIGHT = 18;
-
-    private const string DRAG_KEY = "egwidr"; //Pour Event Graph Window Item DRag
-    public IEventDisplay myEvent;
-    public Editor editor;
-    public List<NamedMoments> moments;
-
-    Action<EventGraphWindowItem> removeRequest;
-    EventGraphWindow parentWindow;
-
-    public EventGraphWindowItem(IEventDisplay myEvent, Action<EventGraphWindowItem> removeRequest, EventGraphWindow window)
-    {
-        this.myEvent = myEvent;
-        if (myEvent == null)
-            throw new Exception("my event == null");
-
-        editor = Editor.CreateEditor(myEvent.AsObject());
-
-        this.removeRequest = removeRequest;
-        this.parentWindow = window;
-
-        BuildNamedMoments();
-    }
-
-    private void BuildNamedMoments()
-    {
-        //On cherche a travers tous les membres, lesquels sont de type 'MomentLauncher'
-        Type myEventType = myEvent.GetType();
-        FieldInfo[] allFields = myEventType.GetFields();
-        moments = new List<NamedMoments>();
-        for (int i = 0; i < allFields.Length; i++)
+        public class NamedMoments
         {
-            if (allFields[i].FieldType == typeof(Moment))
-                moments.Add(new NamedMoments()
-                {
-                    displayName = allFields[i].Name,
-                    moment = allFields[i].GetValue(myEvent) as Moment
-                });
+            public string displayName;
+            public Moment moment;
+            public Vector2 lastDrawnPos;
+        }
+        public const float MOMENT_BUTTON_WIDTH = 20;
+        public const float MOMENT_BUTTON_HEIGHT = 18;
+
+        private const string DRAG_KEY = "egwidr"; //Pour Event Graph Window Item DRag
+        public IEventDisplay myEvent;
+        public Editor editor;
+        public List<NamedMoments> moments;
+
+        Action<EventGraphWindowItem> removeRequest;
+        EventGraphWindow parentWindow;
+
+        public EventGraphWindowItem(IEventDisplay myEvent, Action<EventGraphWindowItem> removeRequest, EventGraphWindow window)
+        {
+            this.myEvent = myEvent;
+            if (myEvent == null)
+                throw new Exception("my event == null");
+
+            editor = Editor.CreateEditor(myEvent.AsObject());
+
+            this.removeRequest = removeRequest;
+            this.parentWindow = window;
+
+            BuildNamedMoments();
         }
 
-        Moment[] additionalMoments;
-        string[] additionalNames;
-        myEvent.GetAdditionalMoments(out additionalMoments, out additionalNames);
-
-        if(additionalMoments != null && additionalNames != null)
+        private void BuildNamedMoments()
         {
-            int count = Mathf.Min(additionalNames.Length, additionalMoments.Length);
-            moments.Capacity = moments.Count + count;
-            for (int i = 0; i < count; i++)
+            //On cherche a travers tous les membres, lesquels sont de type 'MomentLauncher'
+            Type myEventType = myEvent.GetType();
+            FieldInfo[] allFields = myEventType.GetFields();
+            moments = new List<NamedMoments>();
+            for (int i = 0; i < allFields.Length; i++)
             {
-                moments.Add(new NamedMoments()
-                {
-                    displayName = additionalNames[i],
-                    moment = additionalMoments[i]
-                });
-            }
-        }
-    }
-
-    public Rect WindowRect
-    {
-        get
-        {
-            return myEvent.WindowRect;
-        }
-        set
-        {
-            myEvent.WindowRect = value;
-        }
-    }
-
-    public void MoveToPos(Vector2 position)
-    {
-        Rect rect = myEvent.WindowRect;
-        rect.position = position;
-        myEvent.WindowRect = rect;
-    }
-
-    public string NodeLabel
-    {
-        get { return myEvent.name; }
-    }
-
-    public void DrawDetails()
-    {
-        editor.DrawDefaultInspector();
-    }
-
-    public void DrawNode(int unusedWindowId)
-    {
-        Event e = Event.current;
-
-        EditorGUILayout.BeginHorizontal();
-
-        GUILayout.Label(myEvent.TypeLabel(), EditorStyles.miniLabel);
-
-        //Label  +  x button
-        GUILayout.FlexibleSpace();
-        if (myEvent.CanBeManuallyDestroyed() && GUILayout.Button("x"))
-        {
-            removeRequest(this);
-            return;
-        }
-        EditorGUILayout.EndHorizontal();
-
-        GUILayout.Label(myEvent.DefaultLabel(), EditorStyles.boldLabel);
-
-
-        //---------------Reference Box---------------//
-
-        EditorGUILayout.ObjectField(myEvent.AsObject(), myEvent.AsObject().GetType(), true);
-        if (GUILayoutUtility.GetLastRect().Contains(e.mousePosition) && e.type == EventType.MouseDrag)
-        {
-            DragAndDrop.PrepareStartDrag();
-            DragAndDrop.objectReferences = new UnityEngine.Object[] { myEvent.AsObject() };
-            DragAndDrop.StartDrag(DRAG_KEY);
-            e.Use();
-        }
-
-
-        //---------------Moment launchers---------------//
-        for (int i = 0; i < moments.Count; i++)
-        {
-            if (moments[i].moment == null)
-            {
-                moments.RemoveAt(i);
-                i--;
-            }
-            else
-            {
-                EditorGUILayout.BeginHorizontal();
-
-                GUILayout.Label(moments[i].displayName);
-                GUILayout.FlexibleSpace();
-                if (GUILayout.Button(">"))
-                {
-                    if(e.button == 0)
+                if (allFields[i].FieldType == typeof(Moment))
+                    moments.Add(new NamedMoments()
                     {
-                        parentWindow.ongoingLink.source = this;
-                        parentWindow.ongoingLink.momentIndex = i;
-                    }
-                    else
-                    {
-                        moments[i].moment.ClearMoments();
-                    }
+                        displayName = allFields[i].Name,
+                        moment = allFields[i].GetValue(myEvent) as Moment
+                    });
+            }
 
+            Moment[] additionalMoments;
+            string[] additionalNames;
+            myEvent.GetAdditionalMoments(out additionalMoments, out additionalNames);
+
+            if (additionalMoments != null && additionalNames != null)
+            {
+                int count = Mathf.Min(additionalNames.Length, additionalMoments.Length);
+                moments.Capacity = moments.Count + count;
+                for (int i = 0; i < count; i++)
+                {
+                    moments.Add(new NamedMoments()
+                    {
+                        displayName = additionalNames[i],
+                        moment = additionalMoments[i]
+                    });
                 }
-                moments[i].lastDrawnPos = GUILayoutUtility.GetLastRect().position;
-                EditorGUILayout.EndHorizontal();
             }
         }
 
-
-
-        //---------------Drag---------------//
-
-        if (e.button != 1)
-            GUI.DragWindow();
-
-    }
-
-    public void ClearNullLinks()
-    {
-        //todo: it�rer sur les iEvents des moments. retirer les nulls
-    }
-
-    public void DrawLinks()
-    {
-        Handles.BeginGUI();
-
-        for (int i = 0; i < moments.Count; i++)
+        public Rect WindowRect
         {
-            Moment moment = moments[i].moment;
-            for (int u = 0; u < moment.iEvents.Count; u++)
+            get
             {
-                UnityEngine.Object iEvent = moment.iEvents[u];
-                if (iEvent is IEventDisplay)
+                return myEvent.WindowRect;
+            }
+            set
+            {
+                myEvent.WindowRect = value;
+            }
+        }
+
+        public void MoveToPos(Vector2 position)
+        {
+            Rect rect = myEvent.WindowRect;
+            rect.position = position;
+            myEvent.WindowRect = rect;
+        }
+
+        public string NodeLabel
+        {
+            get { return myEvent.name; }
+        }
+
+        public void DrawDetails()
+        {
+            editor.DrawDefaultInspector();
+        }
+
+        public void DrawNode(int unusedWindowId)
+        {
+            Event e = Event.current;
+
+            EditorGUILayout.BeginHorizontal();
+
+            GUILayout.Label(myEvent.TypeLabel(), EditorStyles.miniLabel);
+
+            //Label  +  x button
+            GUILayout.FlexibleSpace();
+            if (myEvent.CanBeManuallyDestroyed() && GUILayout.Button("x"))
+            {
+                removeRequest(this);
+                return;
+            }
+            EditorGUILayout.EndHorizontal();
+
+            GUILayout.Label(myEvent.DefaultLabel(), EditorStyles.boldLabel);
+
+
+            //---------------Reference Box---------------//
+
+            EditorGUILayout.ObjectField(myEvent.AsObject(), myEvent.AsObject().GetType(), true);
+            if (GUILayoutUtility.GetLastRect().Contains(e.mousePosition) && e.type == EventType.MouseDrag)
+            {
+                DragAndDrop.PrepareStartDrag();
+                DragAndDrop.objectReferences = new UnityEngine.Object[] { myEvent.AsObject() };
+                DragAndDrop.StartDrag(DRAG_KEY);
+                e.Use();
+            }
+
+
+            //---------------Moment launchers---------------//
+            for (int i = 0; i < moments.Count; i++)
+            {
+                if (moments[i].moment == null)
                 {
-                    IEventDisplay otherDisplay = iEvent as IEventDisplay;
-                    Rect targetRect = otherDisplay.WindowRect;
-                    DrawBezierRight(WindowRect.position + moments[i].lastDrawnPos,
-                        new Vector2(targetRect.xMin, targetRect.y + 28));
+                    moments.RemoveAt(i);
+                    i--;
                 }
                 else
                 {
-                    Debug.LogWarning("Le moment apparenant a: " + NodeLabel + " a un lien vers un IEvent qui n'est pas IEventDisplay."
-                        + "dis is weird.");
+                    EditorGUILayout.BeginHorizontal();
+
+                    GUILayout.Label(moments[i].displayName);
+                    GUILayout.FlexibleSpace();
+                    if (GUILayout.Button(">"))
+                    {
+                        if (e.button == 0)
+                        {
+                            parentWindow.ongoingLink.source = this;
+                            parentWindow.ongoingLink.momentIndex = i;
+                        }
+                        else
+                        {
+                            moments[i].moment.ClearMoments();
+                        }
+
+                    }
+                    moments[i].lastDrawnPos = GUILayoutUtility.GetLastRect().position;
+                    EditorGUILayout.EndHorizontal();
                 }
             }
+
+
+
+            //---------------Drag---------------//
+
+            if (e.button != 1)
+                GUI.DragWindow();
+
         }
 
-        Handles.EndGUI();
-    }
+        public void ClearNullLinks()
+        {
+            //todo: it�rer sur les iEvents des moments. retirer les nulls
+        }
 
-    public void DrawOngoingLink(int momentIndex, Vector2 mousePosition)
-    {
-        Handles.BeginGUI();
+        public void DrawLinks()
+        {
+            Handles.BeginGUI();
 
-        DrawBezierRight(moments[momentIndex].lastDrawnPos + WindowRect.position, mousePosition);
-
-        Handles.EndGUI();
-    }
-
-    private void DrawBezierRight(Vector2 from, Vector2 to)
-    {
-        from += Vector2.right * MOMENT_BUTTON_WIDTH + Vector2.up * MOMENT_BUTTON_HEIGHT / 2;
-
-        float xDif = (from.x - to.x).Abs();
-        Vector2 startTangent = from + (Vector2.right * xDif / 2);
-        Vector2 endTangent = to + (Vector2.left * xDif / 2);
-
-        Handles.DrawBezier(from, to, startTangent, endTangent, new Color(0.6f, 0, 0.6f), null, 2);
-    }
-
-    public void OpenContextMenu()
-    {
-        GenericMenu menu = new GenericMenu();
-        //menu.AddItem(new GUIContent("Reset Rect Size"), false, myEvent.ResetWindowRectSize);
-        //menu.AddItem(new GUIContent("Reset Rect Position"), false, myEvent.ResetWindowRectPos);
-
-        menu.AddItem(new GUIContent("Remove outgoing links"), false, delegate ()
+            for (int i = 0; i < moments.Count; i++)
             {
-                for (int i = 0; i < moments.Count; i++)
+                Moment moment = moments[i].moment;
+                for (int u = 0; u < moment.iEvents.Count; u++)
                 {
-                    moments[i].moment.ClearMoments();
+                    UnityEngine.Object iEvent = moment.iEvents[u];
+                    if (iEvent is IEventDisplay)
+                    {
+                        IEventDisplay otherDisplay = iEvent as IEventDisplay;
+                        Rect targetRect = otherDisplay.WindowRect;
+                        DrawBezierRight(WindowRect.position + moments[i].lastDrawnPos,
+                            new Vector2(targetRect.xMin, targetRect.y + 28));
+                    }
+                    else
+                    {
+                        Debug.LogWarning("Le moment apparenant a: " + NodeLabel + " a un lien vers un IEvent qui n'est pas IEventDisplay."
+                            + "dis is weird.");
+                    }
                 }
-            });
-        if (myEvent is IEvent)
-            menu.AddItem(new GUIContent("Remove incoming links"), false, delegate ()
-            {
-                parentWindow.graph.RemoveAllLinksTo(myEvent as IEvent);
-            });
+            }
 
-        menu.AddItem(new GUIContent("Refresh moments"), false, BuildNamedMoments);
-        menu.ShowAsContext();
+            Handles.EndGUI();
+        }
+
+        public void DrawOngoingLink(int momentIndex, Vector2 mousePosition)
+        {
+            Handles.BeginGUI();
+
+            DrawBezierRight(moments[momentIndex].lastDrawnPos + WindowRect.position, mousePosition);
+
+            Handles.EndGUI();
+        }
+
+        private void DrawBezierRight(Vector2 from, Vector2 to)
+        {
+            from += Vector2.right * MOMENT_BUTTON_WIDTH + Vector2.up * MOMENT_BUTTON_HEIGHT / 2;
+
+            float xDif = (from.x - to.x).Abs();
+            Vector2 startTangent = from + (Vector2.right * xDif / 2);
+            Vector2 endTangent = to + (Vector2.left * xDif / 2);
+
+            Handles.DrawBezier(from, to, startTangent, endTangent, new Color(0.6f, 0, 0.6f), null, 2);
+        }
+
+        public void OpenContextMenu()
+        {
+            GenericMenu menu = new GenericMenu();
+            //menu.AddItem(new GUIContent("Reset Rect Size"), false, myEvent.ResetWindowRectSize);
+            //menu.AddItem(new GUIContent("Reset Rect Position"), false, myEvent.ResetWindowRectPos);
+
+            menu.AddItem(new GUIContent("Remove outgoing links"), false, delegate ()
+                {
+                    for (int i = 0; i < moments.Count; i++)
+                    {
+                        moments[i].moment.ClearMoments();
+                    }
+                });
+            if (myEvent is IEvent)
+                menu.AddItem(new GUIContent("Remove incoming links"), false, delegate ()
+                {
+                    parentWindow.graph.RemoveAllLinksTo(myEvent as IEvent);
+                });
+
+            menu.AddItem(new GUIContent("Refresh moments"), false, BuildNamedMoments);
+            menu.ShowAsContext();
+        }
     }
 }
