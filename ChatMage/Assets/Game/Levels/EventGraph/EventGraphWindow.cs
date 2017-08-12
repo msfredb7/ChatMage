@@ -253,9 +253,9 @@ namespace GameEvents
             return null;
         }
 
-        void NewVirtualEvent(string className)
+        void NewVirtualEvent(Type type)
         {
-            Rect popupRect = new Rect(position.position + contextMenuMousePos + new Vector2(-70,-90), new Vector2(210, 90));
+            Rect popupRect = new Rect(position.position + contextMenuMousePos + new Vector2(-70, -90), new Vector2(210, 90));
             try
             {
                 PopupWindow.Show(popupRect, new EventNamePopup(
@@ -265,14 +265,14 @@ namespace GameEvents
                         if (graph.CheckForNameDuplicate(name))
                             Debug.LogWarning("Attention, la nouvelle node utilise le meme nom qu'une autre node."
                                 + " Ceci peut vous empecher d'appeler l'event manuellement par nom.");
-                        NewVirtualEvent(className, name);
+                        NewVirtualEvent(type, name);
                     }));
             }
             catch { }
         }
-        void NewVirtualEvent(string className, string name)
+        void NewVirtualEvent(Type type, string name)
         {
-            VirtualEvent newEvent = ScriptableObject.CreateInstance(className) as VirtualEvent;
+            INodedEvent newEvent = ScriptableObject.CreateInstance(type) as INodedEvent;
             NewVirtualEvent(newEvent, name);
         }
 
@@ -341,12 +341,12 @@ namespace GameEvents
 
             Assembly thisAssembly = GetType().Assembly;
             var virtualTypes = from type in thisAssembly.GetTypes()
-                               where typeof(VirtualEvent).IsAssignableFrom(type) /*|| typeof(VirtualEvent).IsAssignableFrom(type)*/
+                               where typeof(VirtualEvent).IsAssignableFrom(type) || typeof(FIVirtualEvent).IsAssignableFrom(type)
                                select type;
 
             foreach (var type in virtualTypes)
             {
-                if (type == typeof(VirtualEvent))
+                if (type == typeof(VirtualEvent) || type == typeof(FIVirtualEvent))
                     continue;
 
                 List<FieldInfo> constants = GetConstants(type);
@@ -357,14 +357,14 @@ namespace GameEvents
                     string name = nameField.GetRawConstantValue() as string;
                     menu.AddItem(new GUIContent("New " + type.Name), false, delegate ()
                     {
-                        NewVirtualEvent(type.Name, name);
+                        NewVirtualEvent(type, name);
                     });
                 }
                 else
                 {
                     menu.AddItem(new GUIContent("New " + type.Name), false, delegate ()
                     {
-                        NewVirtualEvent(type.Name);
+                        NewVirtualEvent(type);
                     });
                 }
             }
@@ -473,7 +473,7 @@ namespace GameEvents
         {
             if (source != null && (other is IEvent))
             {
-                if(!(other is INodedEvent) || (other as INodedEvent).AcceptMomentLinking())
+                if (!(other is INodedEvent) || (other as INodedEvent).AcceptMomentLinking())
                 {
                     IEvent iEvent = other as IEvent;
                     source.moments[momentIndex].moment.AddIEvent(iEvent);

@@ -432,7 +432,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d16ec1b977bfcb542b9a66a4dab46ed0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectReferences: []
+  _objectReferences:
+  - {fileID: 1639610061}
   _serializedStateKeys:
   - windowRect
   - onTigger
@@ -440,8 +441,8 @@ MonoBehaviour:
   - aiAreaRelativeToMilestone
   - onExecute
   _serializedStateValues:
-  - '{"xMin":185.0,"yMin":354.0,"xMax":335.0,"yMax":364.0}'
-  - '{"iEvents":[],"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+  - '{"xMin":261.0,"yMin":343.0,"xMax":411.0,"yMax":446.0}'
+  - '{"iEvents":[0],"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}}'
   - '"TopOfScreen"'
   - '{"min":{"x":-9.6,"y":-10.8},"max":{"x":9.6,"y":0.0}}'
@@ -449,13 +450,14 @@ MonoBehaviour:
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
   windowRect:
     serializedVersion: 2
-    x: 185
-    y: 354
+    x: 261
+    y: 343
     width: 150
-    height: 10
+    height: 103
   graph: {fileID: 1644651698}
   onTigger:
-    iEvents: []
+    iEvents:
+    - {fileID: 1639610061}
     unityEvent:
       m_PersistentCalls:
         m_Calls: []
@@ -745,10 +747,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowRect:
     serializedVersion: 2
-    x: 577
-    y: 127
+    x: 603
+    y: 141
     width: 150
-    height: 10
+    height: 85
   graph: {fileID: 1644651698}
   message: Game Started
 --- !u!1 &603044746
@@ -1542,6 +1544,25 @@ Transform:
   m_Father: {fileID: 458826280}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1387695992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bde49ba600c8a8548a8851471ba9cd42, type: 3}
+  m_Name: First Dialog
+  m_EditorClassIdentifier: 
+  windowRect:
+    serializedVersion: 2
+    x: 860
+    y: 171
+    width: 150
+    height: 85
+  graph: {fileID: 1644651698}
+  dialog: {fileID: 0}
 --- !u!1 &1464203793
 GameObject:
   m_ObjectHideFlags: 0
@@ -1670,6 +1691,32 @@ SpriteRenderer:
   m_Size: {x: 17, y: 10}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 1
+--- !u!114 &1639610061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 770cead41c9345b438c5073249a62a88, type: 3}
+  m_Name: Delay
+  m_EditorClassIdentifier: 
+  windowRect:
+    serializedVersion: 2
+    x: 559
+    y: 247
+    width: 150
+    height: 105
+  graph: {fileID: 1644651698}
+  delay: 0
+  moment:
+    iEvents: []
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
 --- !u!1 &1644651694
 GameObject:
   m_ObjectHideFlags: 0
@@ -1763,6 +1810,8 @@ MonoBehaviour:
   - {fileID: 252051434}
   - {fileID: 1644651699}
   - {fileID: 574845941}
+  - {fileID: 1387695992}
+  - {fileID: 1639610061}
 --- !u!114 &1644651699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1776,10 +1825,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowRect:
     serializedVersion: 2
-    x: 190
-    y: 132
+    x: 252
+    y: 100
     width: 150
-    height: 10
+    height: 103
   graph: {fileID: 1644651698}
   onGameStart:
     iEvents:
@@ -1837,6 +1886,7 @@ MonoBehaviour:
   - {fileID: 138933722}
   - {fileID: 189859209}
   - {fileID: 252051434}
+  - {fileID: 0}
   _values:
   - _keys: []
     _values: []
@@ -1856,6 +1906,9 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 252051434}
+  - _keys: []
+    _values: []
+    _target: {fileID: 0}
 --- !u!114 &1649213853
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1874,6 +1927,7 @@ MonoBehaviour:
   - {fileID: 138933722}
   - {fileID: 189859209}
   - {fileID: 252051434}
+  - {fileID: 0}
   _values:
   - _keys: []
     _values: []
@@ -1932,6 +1986,15 @@ MonoBehaviour:
     - _showDropdown: 0
       _serializedIsActive: 1
     _target: {fileID: 252051434}
+  - _keys:
+    - DefaultBehaviorEditor.modifyCanScrollUp.EditProperty
+    - DefaultBehaviorEditor.modifyCanScrollDown.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    _target: {fileID: 0}
 --- !u!1 &1689588588
 GameObject:
   m_ObjectHideFlags: 0
