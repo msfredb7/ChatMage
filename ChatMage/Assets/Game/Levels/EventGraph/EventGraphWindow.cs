@@ -205,7 +205,7 @@ namespace GameEvents
                         ClearItems(false);
                         break;
                     }
-                    GUI.color = items[i].myEvent.DefaultColor();
+                    GUI.backgroundColor = items[i].myEvent.DefaultColor();
                     items[i].WindowRect = GUILayout.Window(winC++, items[i].WindowRect, items[i].DrawNode, items[i].NodeLabel);
                 }
                 GUI.color = Color.white;

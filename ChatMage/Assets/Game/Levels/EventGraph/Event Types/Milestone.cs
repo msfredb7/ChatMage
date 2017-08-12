@@ -168,4 +168,14 @@ public class Milestone : FIPhysicalEvent
             Gizmos.DrawIcon(pos, "Gizmos CameraBottom");
         }
     }
+
+    public override Color DefaultColor()
+    {
+        return new Color(.8f, 10, .8f,1);
+    }
+
+    public override string DefaultLabel()
+    {
+        return "Milestone";
+    }
 }
