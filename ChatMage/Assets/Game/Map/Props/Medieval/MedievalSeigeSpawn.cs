@@ -9,8 +9,9 @@ public class MedievalSeigeSpawn : PointUnitSpawn
     public bool reEnableSpawingAfterQuitting = true;
     public MedievalSeigeSpawnTower tower;
 
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         onCancelSpawning += MedievalSeigeSpawn_onCancelSpawning;
         tower.originalSpawn = this;
         tower.gameObject.SetActive(false);
