@@ -36,18 +36,13 @@ namespace GameEvents
                 game.onGameStarted += Trigger;
         }
 
-        public override void Trigger()
+        public void Trigger()
         {
             if (triggered)
                 return;
             onGameStart.Launch();
             enabled = false;
             triggered = true;
-        }
-
-        public override bool AcceptMomentLinking()
-        {
-            return false;
         }
 
         public override string DefaultLabel()

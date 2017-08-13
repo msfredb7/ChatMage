@@ -4,12 +4,12 @@ using UnityEngine;
 
 namespace GameEvents
 {
-    public class Print : VirtualEvent
+    public class Print : VirtualEvent, IEvent
     {
         public const string NODE_NAME = "Print";
         public string message;
 
-        public override void Trigger()
+        public void Trigger()
         {
             Debug.Log(message);
         }

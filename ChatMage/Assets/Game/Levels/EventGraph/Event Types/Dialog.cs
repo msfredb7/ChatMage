@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace GameEvents
 {
-    public class Dialog : VirtualEvent
+    public class Dialog : VirtualEvent, IEvent
     {
         public Dialoguing.Dialog dialog;
 
-        public override void Trigger()
+        public void Trigger()
         {
             if (dialog != null)
                 Game.instance.ui.dialogDisplay.StartDialog(dialog);

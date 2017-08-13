@@ -34,7 +34,7 @@ namespace Tutorial
             }
 
             hasStarted = true;
-            Game.instance.currentLevel.onEventReceived += CurrentLevel_onEventReceived;
+            Game.instance.levelScript.onEventReceived += CurrentLevel_onEventReceived;
             Game.instance.onUnitSpawned += TutoEnemy;
         }
 

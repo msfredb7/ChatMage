@@ -70,7 +70,7 @@ namespace Tutorial
             this.modules = modules;
 
             if(Game.instance != null)
-                currentLevel = Game.instance.currentLevel;
+                currentLevel = Game.instance.levelScript;
 
             if (startTutorialOnInit)
                 Start();
@@ -84,7 +84,7 @@ namespace Tutorial
             // On s'assure que les creation de sauvegarde dans begin on bien sauvegarder
             //GameSaves.instance.SaveData(GameSaves.Type.Tutorial);
 
-            // Écouter aux milestones
+            // ï¿½couter aux milestones
             if(currentLevel != null)
                 currentLevel.onEventReceived += CurrentLevel_onEventReceived;
 

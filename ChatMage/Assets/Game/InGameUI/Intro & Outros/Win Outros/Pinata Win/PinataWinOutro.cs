@@ -75,7 +75,7 @@ namespace GameIntroOutro
 
             bool firstWin = GameSaves.instance.GetBool(GameSaves.Type.LevelSelect, LevelScript.FIRST_WINRESULT_KEY);
 
-            rewardUI.Init(Game.instance.currentLevel.rewards, Game.instance.currentLevel.name, firstWin);
+            rewardUI.Init(Game.instance.levelScript.rewards, Game.instance.levelScript.name, firstWin);
 
             canSpawnBall = true;
         }

@@ -41,7 +41,7 @@ namespace GameEvents
             return events.Contains(existingEvent.AsObject());
         }
 
-        public void RemoveEvent(INodedEvent theEvent)
+        public void RemoveEvent(IEvent theEvent)
         {
             RemoveAllLinksTo(theEvent);
 

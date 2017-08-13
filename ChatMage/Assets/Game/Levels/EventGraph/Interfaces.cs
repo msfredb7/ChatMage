@@ -3,11 +3,15 @@ using UnityEngine;
 
 namespace GameEvents
 {
-    public interface IEvent
+    public interface IObjEvent
+    {
+        UnityEngine.Object AsObject();
+    }
+    public interface IEvent : IObjEvent
     {
         void Trigger();
     }
-    public interface INodedEvent : IEvent
+    public interface INodedEvent : IObjEvent
     {
         EventGraph Graph { get; set; }
         Rect WindowRect { get; set; }
@@ -15,12 +19,10 @@ namespace GameEvents
         void ResetWindowRectSize();
         Color DefaultColor();
         string name { get; set; }
-        UnityEngine.Object AsObject();
         bool CanBeManuallyDestroyed();
         string DefaultLabel();
         string TypeLabel();
         void GetAdditionalMoments(out Moment[] moments, out string[] names);
-        bool AcceptMomentLinking();
         bool LinkToGraph();
         void MoveToPos(Vector2 position);
     }

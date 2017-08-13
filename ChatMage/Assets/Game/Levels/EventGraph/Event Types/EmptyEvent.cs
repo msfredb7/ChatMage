@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace GameEvents
 {
-    public class EmptyEvent : VirtualEvent
+    public class EmptyEvent : VirtualEvent, IEvent
     {
         public Moment onTrigger = new Moment();
 
-        public override void Trigger()
+        public void Trigger()
         {
             onTrigger.Launch();
         }

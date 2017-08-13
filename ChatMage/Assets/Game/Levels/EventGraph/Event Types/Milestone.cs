@@ -5,7 +5,7 @@ using FullInspector;
 using UnityEngine.Events;
 using GameEvents;
 
-public class Milestone : FIPhysicalEvent
+public class Milestone : FIPhysicalEvent, IEvent
 {
     public Moment onTigger = new Moment();
 
@@ -58,7 +58,7 @@ public class Milestone : FIPhysicalEvent
         return true;
     }
 
-    public override void Trigger()
+    public void Trigger()
     {
         onTigger.Launch();
         onExecute.Invoke();
@@ -103,7 +103,7 @@ public class Milestone : FIPhysicalEvent
 
         if (fireEventToLevelScript)
         {
-            Game.instance.currentLevel.ReceiveEvent(eventMessage);
+            Game.instance.levelScript.ReceiveEvent(eventMessage);
         }
     }
 
@@ -151,7 +151,7 @@ public class Milestone : FIPhysicalEvent
 
         if (setAiArea)
         {
-            Gizmos.color = new Color(0.2f, 1, 0, 0.4f);
+            Gizmos.color = new Color(0.2f, 0.2f, 1, 0.4f);
             Gizmos.DrawCube((Vector2)transform.position + aiAreaRelativeToMilestone.Center, aiAreaRelativeToMilestone.Size);
         }
 

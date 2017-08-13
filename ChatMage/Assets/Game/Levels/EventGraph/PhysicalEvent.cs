@@ -54,8 +54,8 @@ namespace GameEvents
 
         protected virtual void OnDestroy()
         {
-            if (!Application.isPlaying && graph != null)
-                graph.RemoveEvent(this);
+            if (!Application.isPlaying && graph != null && this is IEvent)
+                graph.RemoveEvent(this as IEvent);
         }
 
         public Rect WindowRect
@@ -83,11 +83,6 @@ namespace GameEvents
 
         public UnityEngine.Object AsObject() { return this; }
 
-        public virtual void Trigger()
-        {
-
-        }
-
         public bool CanBeManuallyDestroyed() { return false; }
 
         public virtual string DefaultLabel() { return "Base Physical"; }
@@ -98,11 +93,6 @@ namespace GameEvents
         {
             moments = null;
             names = null;
-        }
-
-        public virtual bool AcceptMomentLinking()
-        {
-            return true;
         }
 
         public void MoveToPos(Vector2 position)

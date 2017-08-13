@@ -62,7 +62,7 @@ public class Map : BaseBehavior
     {
         if (setAIArea)
         {
-            Gizmos.color = new Color(0.2f, 1, 0, 0.4f);
+            Gizmos.color = new Color(0.2f, 0.2f, 1, 0.4f);
             Gizmos.DrawCube(startAIArea.Center, startAIArea.Size);
         }
     }

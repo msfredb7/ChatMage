@@ -1,4 +1,4 @@
-﻿using DG.Tweening;
+using DG.Tweening;
 using FullInspector;
 using System;
 using System.Collections;
@@ -69,7 +69,7 @@ namespace LevelScripting
         {
             Type thisType = Type.GetType(eventWhat.scriptName);
             MethodInfo theMethod = thisType.GetMethod(eventWhat.functionName);
-            theMethod.Invoke(Game.instance.currentLevel, null);
+            theMethod.Invoke(Game.instance.levelScript, null);
             onComplete.Invoke(this);
             done = true;
         }

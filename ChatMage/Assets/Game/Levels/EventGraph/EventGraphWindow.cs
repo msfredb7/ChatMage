@@ -473,15 +473,12 @@ namespace GameEvents
         {
             if (source != null && (other is IEvent))
             {
-                if (!(other is INodedEvent) || (other as INodedEvent).AcceptMomentLinking())
-                {
-                    IEvent iEvent = other as IEvent;
-                    source.moments[momentIndex].moment.AddIEvent(iEvent);
-                }
-                else
-                {
-                    Debug.LogError("Cette node n'accepte pas les liens 'Moment'.");
-                }
+                IEvent iEvent = other as IEvent;
+                source.moments[momentIndex].moment.AddIEvent(iEvent);
+            }
+            else
+            {
+                Debug.LogError("Cette node n'accepte pas les liens 'Moment'. Elle n'implémente pas l'interface IEvent.");
             }
             source = null;
         }

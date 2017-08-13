@@ -58,5 +58,10 @@ namespace GameEvents
         {
             iEvents.Clear();
         }
+
+        public bool HasListeners()
+        {
+            return unityEvent.GetPersistentEventCount() > 0 || iEvents.Count > 0;
+        }
     }
 }

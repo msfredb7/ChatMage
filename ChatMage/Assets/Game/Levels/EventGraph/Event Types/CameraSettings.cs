@@ -5,7 +5,7 @@ using FullInspector;
 
 namespace GameEvents
 {
-    public class CameraSettings : FIVirtualEvent
+    public class CameraSettings : FIVirtualEvent, IEvent
     {
         public bool modifyFollowPlayer;
         [InspectorShowIf("modifyFollowPlayer")]
@@ -21,7 +21,7 @@ namespace GameEvents
         [InspectorShowIf("modifyCanScrollDown")]
         public bool canScrollDownEffect = false;
 
-        public override void Trigger()
+        public void Trigger()
         {
             GameCamera cam = Game.instance.gameCamera;
 

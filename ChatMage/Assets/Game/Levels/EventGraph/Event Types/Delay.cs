@@ -6,14 +6,14 @@ using UnityEngine.Events;
 
 namespace GameEvents
 {
-    public class Delay : VirtualEvent
+    public class Delay : VirtualEvent, IEvent
     {
         public const string NODE_NAME = "Delay";
 
         public float delay = 0;
         public Moment moment = new Moment();
 
-        public override void Trigger()
+        public void Trigger()
         {
             if (delay > 0)
             {

@@ -27,7 +27,7 @@ public class Game : PublicSingleton<Game>
     [fsIgnore, NonSerialized]
     public UiSystem ui;
     [fsIgnore, NonSerialized]
-    public LevelScript currentLevel;
+    public LevelScript levelScript;
     [fsIgnore, NonSerialized]
     public Framework framework;
     [fsIgnore, NonSerialized]
@@ -74,7 +74,7 @@ public class Game : PublicSingleton<Game>
         this.framework = framework;
 
         // Init LevelScript
-        currentLevel = level;
+        levelScript = level;
 
         AddPlayer(player);
 
@@ -114,7 +114,7 @@ public class Game : PublicSingleton<Game>
             // Coutdown 1-2-3 ??
             if (gameStarted)
             {
-                currentLevel.Update();
+                levelScript.Update();
             }
         }
 
