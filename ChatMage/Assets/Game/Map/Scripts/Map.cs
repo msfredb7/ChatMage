@@ -25,7 +25,7 @@ public class Map : BaseBehavior
 
     [InspectorMargin(10), InspectorHeader("Optional")]
     public RoadPlayer roadPlayer;
-    public PositionDisplacer[] positionDisplacers;
+    public List<PositionDisplacer> positionDisplacers;
 
     /// <summary>
     /// Initialise les settings de la map
@@ -71,7 +71,7 @@ public class Map : BaseBehavior
     {
         Vector2 newPos = pos;
         if (positionDisplacers != null)
-            for (int i = 0; i < positionDisplacers.Length; i++)
+            for (int i = 0; i < positionDisplacers.Count; i++)
             {
                 if (positionDisplacers[i].Displace(pos, unitWidth, out newPos))
                     break;

@@ -4,8 +4,9 @@ using UnityEngine;
 using FullInspector;
 using FullSerializer;
 using CCC.Math;
+using UnityEngine.SceneManagement;
 
-[RequireComponent(typeof(Box))]
+[RequireComponent(typeof(Box)), ExecuteInEditMode]
 public class PositionDisplacer : BaseBehavior
 {
     public enum DisplacementType { VectorToAdd, CrossBorder }
@@ -19,6 +20,49 @@ public class PositionDisplacer : BaseBehavior
     public Vector2 dir = Vector2.up;
     [InspectorShowIf("DispIsCrossBorder")]
     public Vector2 point = Vector2.right * 0.5f;
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        if (!Application.isPlaying)
+        {
+            Scene scene = SceneManager.GetActiveScene();
+            if (scene.isLoaded)
+            {
+                Map map = scene.FindRootObject<Map>();
+                if (map != null)
+                {
+                    if (!map.positionDisplacers.Contains(this))
+                    {
+                        map.positionDisplacers.Add(this);
+                        Debug.Log("Added to map automatically...");
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning("Map non-existant, be sure to add this position displacer manually later.");
+                }
+            }
+        }
+    }
+
+    void OnDestroy()
+    {
+        if (!Application.isPlaying)
+        {
+            Scene scene = SceneManager.GetActiveScene();
+            if (scene.isLoaded)
+            {
+                Map map = scene.FindRootObject<Map>();
+                if (map != null)
+                {
+                    map.positionDisplacers.Remove(this);
+                    Debug.Log("Removed from map automatically...");
+                }
+            }
+        }
+    }
 
     [NotSerialized, fsIgnore]
     private Box box;
