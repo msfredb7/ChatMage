@@ -112,7 +112,7 @@ namespace GameEvents
             return newItem;
         }
 
-        void MarkSceneAsDirty()
+        public void MarkSceneAsDirty()
         {
             EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
         }

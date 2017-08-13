@@ -224,6 +224,8 @@ namespace GameEvents
             //menu.AddItem(new GUIContent("Reset Rect Size"), false, myEvent.ResetWindowRectSize);
             //menu.AddItem(new GUIContent("Reset Rect Position"), false, myEvent.ResetWindowRectPos);
 
+            menu.AddItem(new GUIContent("Rename"), false, Rename);
+
             menu.AddItem(new GUIContent("Remove outgoing links"), false, delegate ()
                 {
                     for (int i = 0; i < moments.Count; i++)
@@ -231,6 +233,7 @@ namespace GameEvents
                         moments[i].moment.ClearMoments();
                     }
                 });
+
             if (myEvent is IEvent)
                 menu.AddItem(new GUIContent("Remove incoming links"), false, delegate ()
                 {
@@ -238,7 +241,24 @@ namespace GameEvents
                 });
 
             menu.AddItem(new GUIContent("Refresh moments"), false, BuildNamedMoments);
+
             menu.ShowAsContext();
+        }
+
+        void Rename()
+        {
+            Rect popupRect = new Rect(WindowRect.position, new Vector2(210, 90));
+            try
+            {
+                PopupWindow.Show(popupRect, new EventNamePopup(
+                    delegate (string name)
+                    {
+                        PopupWindow.focusedWindow.Close();
+                        myEvent.AsObject().name = name;
+                        parentWindow.MarkSceneAsDirty();
+                    }));
+            }
+            catch { }
         }
     }
 }
