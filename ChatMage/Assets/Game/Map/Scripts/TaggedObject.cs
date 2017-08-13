@@ -61,21 +61,32 @@ public class TaggedObject : BaseBehavior
         }
     }
 
+
+    [InspectorButton]
+    void RemoveFromMapping()
+    {
+        RemoveFromMapping("Removed from mapping successfully...");
+    }
+
     void OnDestroy()
     {
         if (!Application.isPlaying)
         {
-            Scene scene = SceneManager.GetActiveScene();
-            if (scene.isLoaded)
+            RemoveFromMapping("Removed from mapping automatically...");
+        }
+    }
+    void RemoveFromMapping(string log)
+    {
+        Scene scene = SceneManager.GetActiveScene();
+        if (scene.isLoaded)
+        {
+            Map map = scene.FindRootObject<Map>();
+            if (map != null)
             {
-                Map map = scene.FindRootObject<Map>();
-                if (map != null)
+                if (map.mapping != null)
                 {
-                    if (map.mapping != null)
-                    {
-                        ClearMappingOfMe(map.mapping);
-                        Debug.Log("Removed from mapping automatically...");
-                    }
+                    ClearMappingOfMe(map.mapping);
+                    Debug.Log(log);
                 }
             }
         }
