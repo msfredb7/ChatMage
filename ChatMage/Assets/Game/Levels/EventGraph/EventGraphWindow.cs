@@ -18,6 +18,7 @@ namespace GameEvents
         private List<EventGraphWindowItem> items;
         private Vector2 contextMenuMousePos;
         private Vector2 lastMousePos;
+        private EventGraphWindowItem lastHilighted;
 
         [MenuItem("The Time Drifter/Event Graph")]
         static void Init()
@@ -87,12 +88,14 @@ namespace GameEvents
         {
             ongoingLink.source = null;
             items = null;
+            lastHilighted = null;
             Repaint();
         }
 
         void RebuildItems()
         {
             ongoingLink.source = null;
+            lastHilighted = null;
 
             items = new List<EventGraphWindowItem>(graph.events.Count);
             for (int i = 0; i < graph.events.Count; i++)
@@ -165,6 +168,8 @@ namespace GameEvents
                         ClearFocus();
                         Repaint();
                     }
+
+                    HighLightItem(null);
                 }
                 else
                 {
@@ -181,6 +186,8 @@ namespace GameEvents
                         SetSelectedItem(newSelection);
                         Repaint();
                     }
+
+                    HighLightItem(newSelection);
                     ClearFocus();
                 }
             }
@@ -383,9 +390,24 @@ namespace GameEvents
         public void SetSelectedItem(EventGraphWindowItem item)
         {
             if (item == null)
+            {
                 Selection.SetActiveObjectWithContext(null, null);
+            }
             else
+            {
                 Selection.SetActiveObjectWithContext(item.myEvent.AsObject(), null);
+            }
+        }
+
+        public void HighLightItem(EventGraphWindowItem item)
+        {
+            if (lastHilighted != null)
+                lastHilighted.isHilighted = false;
+
+            lastHilighted = item;
+
+            if (lastHilighted != null)
+                lastHilighted.isHilighted = true;
         }
     }
 

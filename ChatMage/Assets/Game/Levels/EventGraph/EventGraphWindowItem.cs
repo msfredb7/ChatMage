@@ -20,6 +20,7 @@ namespace GameEvents
         private const string DRAG_KEY = "egwidr"; //Pour Event Graph Window Item DRag
         public INodedEvent myEvent;
         public List<NamedMoments> moments;
+        public bool isHilighted = false;
 
         Action<EventGraphWindowItem> removeRequest;
         EventGraphWindow parentWindow;
@@ -120,7 +121,7 @@ namespace GameEvents
             //---------------Reference Box---------------//
 
             EditorGUILayout.ObjectField(myEvent.AsObject(), myEvent.AsObject().GetType(), true);
-            if (GUILayoutUtility.GetLastRect().Contains(e.mousePosition) && e.type == EventType.MouseDrag)
+            if (isHilighted && GUILayoutUtility.GetLastRect().Contains(e.mousePosition) && e.type == EventType.MouseDrag)
             {
                 DragAndDrop.PrepareStartDrag();
                 DragAndDrop.objectReferences = new UnityEngine.Object[] { myEvent.AsObject() };
