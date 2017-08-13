@@ -68,13 +68,6 @@ public class TaggedObject : BaseBehavior
         RemoveFromMapping("Removed from mapping successfully...");
     }
 
-    void OnDestroy()
-    {
-        if (!Application.isPlaying)
-        {
-            RemoveFromMapping("Removed from mapping automatically...");
-        }
-    }
     void RemoveFromMapping(string log)
     {
         Scene scene = SceneManager.GetActiveScene();

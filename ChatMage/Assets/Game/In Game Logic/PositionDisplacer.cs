@@ -58,7 +58,6 @@ public class PositionDisplacer : BaseBehavior
                 if (map != null)
                 {
                     map.positionDisplacers.Remove(this);
-                    Debug.Log("Removed from map automatically...");
                 }
             }
         }

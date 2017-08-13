@@ -279,7 +279,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _objectReferences:
-  - {fileID: 748000555}
   - {fileID: 1464203794}
   - {fileID: 627878962}
   - {fileID: 2005161673}
@@ -294,8 +293,8 @@ MonoBehaviour:
   _serializedStateValues:
   - '[]'
   - '[]'
-  - '{"wdawd":[0]}'
-  - '{"plus":[1,2,3,4],"ordered":[5],"seige":[6]}'
+  - '{}'
+  - '{"plus":[0,1,2,3],"ordered":[4],"seige":[5]}'
   unfilteredTaggedObjects: []
   unfilteredSpawns: []
 --- !u!4 &153121007
@@ -504,6 +503,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf95083f75c25044b8552decffe1601, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _objectReferences:
+  - {fileID: 1464203794}
+  - {fileID: 2005161673}
+  - {fileID: 627878962}
+  - {fileID: 1113761378}
+  _serializedStateKeys:
+  - posType
+  - subSpawns
+  _serializedStateValues:
+  - '"World"'
+  - '[0,1,2,3]'
   gizmosAlwaysVisible: 1
   posType: 0
   tags:
@@ -914,6 +924,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81e0410c014f5ea4ab3fbd5093871b0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _objectReferences: []
+  _serializedStateKeys:
+  - posType
+  _serializedStateValues:
+  - '"World"'
   gizmosAlwaysVisible: 1
   posType: 0
   tags:
@@ -950,51 +965,6 @@ MonoBehaviour:
     height: 85
   graph: {fileID: 1644651698}
   dialog: {fileID: 11400000, guid: 57e8a01644b37294495bd743ddbdcf4d, type: 2}
---- !u!1 &748000554
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 748000556}
-  - component: {fileID: 748000555}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &748000555
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 748000554}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d320295b82adad64b9d4179d395a1b2a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _objectReferences: []
-  _serializedStateKeys: []
-  _serializedStateValues: []
-  tags:
-  - wdawd
---- !u!4 &748000556
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 748000554}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.3849485, y: 2.2742276, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 22
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &767416915
 GameObject:
   m_ObjectHideFlags: 0
@@ -1429,6 +1399,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81e0410c014f5ea4ab3fbd5093871b0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _objectReferences: []
+  _serializedStateKeys:
+  - posType
+  _serializedStateValues:
+  - '"World"'
   gizmosAlwaysVisible: 1
   posType: 0
   tags:
@@ -1735,6 +1710,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81e0410c014f5ea4ab3fbd5093871b0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _objectReferences: []
+  _serializedStateKeys:
+  - posType
+  _serializedStateValues:
+  - '"World"'
   gizmosAlwaysVisible: 1
   posType: 0
   tags:
@@ -2009,7 +1989,8 @@ MonoBehaviour:
   - {fileID: 189859209}
   - {fileID: 252051434}
   - {fileID: 346059841}
-  - {fileID: 748000555}
+  - {fileID: 1464203794}
+  - {fileID: 627878962}
   _values:
   - _keys: []
     _values: []
@@ -2034,7 +2015,10 @@ MonoBehaviour:
     _target: {fileID: 346059841}
   - _keys: []
     _values: []
-    _target: {fileID: 748000555}
+    _target: {fileID: 1464203794}
+  - _keys: []
+    _values: []
+    _target: {fileID: 627878962}
 --- !u!114 &1649213853
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2054,7 +2038,8 @@ MonoBehaviour:
   - {fileID: 189859209}
   - {fileID: 252051434}
   - {fileID: 346059841}
-  - {fileID: 748000555}
+  - {fileID: 1464203794}
+  - {fileID: 627878962}
   _values:
   - _keys: []
     _values: []
@@ -2062,23 +2047,8 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 153121006}
-  - _keys:
-    - DefaultBehaviorEditor.mapping.EditProperty
-    - DefaultBehaviorEditor.cameraSpawn.EditProperty
-    - DefaultBehaviorEditor.listUnits.EditProperty
-    - DefaultBehaviorEditor.setAIArea.EditProperty
-    - DefaultBehaviorEditor.roadPlayer.EditProperty
-    _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
+  - _keys: []
+    _values: []
     _target: {fileID: 1644651695}
   - _keys: []
     _values: []
@@ -2121,7 +2091,10 @@ MonoBehaviour:
     _target: {fileID: 346059841}
   - _keys: []
     _values: []
-    _target: {fileID: 748000555}
+    _target: {fileID: 1464203794}
+  - _keys: []
+    _values: []
+    _target: {fileID: 627878962}
 --- !u!1 &1689588588
 GameObject:
   m_ObjectHideFlags: 0
@@ -2716,6 +2689,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81e0410c014f5ea4ab3fbd5093871b0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _objectReferences: []
+  _serializedStateKeys:
+  - posType
+  _serializedStateValues:
+  - '"World"'
   gizmosAlwaysVisible: 1
   posType: 0
   tags:
