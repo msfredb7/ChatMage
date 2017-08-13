@@ -142,9 +142,6 @@ public class Framework : MonoBehaviour
         //Init map
         map.Init(player);
 
-        //Spawner Init
-        Game.instance.spawner.Init();
-
         // UI Init
         uiSystem.Init(player);
         game.ui = uiSystem;

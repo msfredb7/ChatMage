@@ -13,7 +13,6 @@ public class Game : PublicSingleton<Game>
     //Linked references
     [InspectorHeader("References")]
     public GameCamera gameCamera;
-    public Spawner spawner;
     public Transform unitsContainer;
     public PlayerBounds playerBounds;
     public SmashManager smashManager;
