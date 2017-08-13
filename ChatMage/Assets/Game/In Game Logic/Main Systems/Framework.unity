@@ -351,7 +351,6 @@ GameObject:
   - component: {fileID: 986166560}
   - component: {fileID: 986166559}
   - component: {fileID: 986166561}
-  - component: {fileID: 986166562}
   m_Layer: 0
   m_Name: Framework & Game
   m_TagString: Untagged
@@ -406,7 +405,6 @@ MonoBehaviour:
   - '[]'
   - '[]'
   gameCamera: {fileID: 1614933839}
-  spawner: {fileID: 986166562}
   unitsContainer: {fileID: 1763591741}
   playerBounds: {fileID: 545472434}
   smashManager: {fileID: 218698580}
@@ -424,17 +422,6 @@ MonoBehaviour:
     boundMode: 0
   gameReady: 0
   gameStarted: 0
---- !u!114 &986166562
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 986166558}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a01a549187de07c4fa3a48b3852465aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1101745399
 GameObject:
   m_ObjectHideFlags: 0
@@ -550,8 +537,17 @@ MonoBehaviour:
   _keys:
   - {fileID: 986166561}
   _values:
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.gameCamera.EditProperty
+    - DefaultBehaviorEditor.units.EditProperty
+    - DefaultBehaviorEditor.attackableUnits.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
     _target: {fileID: 986166561}
 --- !u!1 &1461222805
 GameObject:
@@ -971,6 +967,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eed73e3c20082994e9913d78ab691dae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  max: 1.2
   speed: 7
   quitDuration: 0.25
   hitQuitSpeed: 0.1
