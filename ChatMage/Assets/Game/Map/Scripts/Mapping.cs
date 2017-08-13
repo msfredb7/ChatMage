@@ -13,21 +13,27 @@ using UnityEditor;
 public class Mapping : BaseBehavior
 {
     [SerializeField, InspectorCategory("Fill")]
-    public TaggedObject[] unfilteredTaggedObjects;
+    public List<TaggedObject> unfilteredTaggedObjects;
     [SerializeField, InspectorCategory("Fill")]
-    public UnitSpawn[] unfilteredSpawns;
+    public List<UnitSpawn> unfilteredSpawns;
 
     [SerializeField, ReadOnly(), InspectorCategory("Result")]
-    private Dictionary<string, List<TaggedObject>> taggedObjects;
+    public Dictionary<string, List<TaggedObject>> taggedObjects;
 
     [SerializeField, ReadOnly(), InspectorCategory("Result")]
-    private Dictionary<string, List<UnitSpawn>> spawns;
+    public Dictionary<string, List<UnitSpawn>> spawns;
 
     [InspectorButton(), InspectorCategory("Fill")]
     public void Filter()
     {
+        FilterTaggedObjects();
+        FilterSpawns();
+    }
+
+    public void FilterTaggedObjects()
+    {
         //Tagged objects
-        for (int i = 0; i < unfilteredTaggedObjects.Length; i++)
+        for (int i = 0; i < unfilteredTaggedObjects.Count; i++)
         {
             for (int u = 0; u < unfilteredTaggedObjects[i].tags.Length; u++)
             {
@@ -47,10 +53,13 @@ public class Mapping : BaseBehavior
                 }
             }
         }
-        unfilteredTaggedObjects = new TaggedObject[0];
+        unfilteredTaggedObjects.Clear();
+    }
 
+    public void FilterSpawns()
+    {
         //Spawns
-        for (int i = 0; i < unfilteredSpawns.Length; i++)
+        for (int i = 0; i < unfilteredSpawns.Count; i++)
         {
             for (int u = 0; u < unfilteredSpawns[i].tags.Length; u++)
             {
@@ -70,16 +79,7 @@ public class Mapping : BaseBehavior
                 }
             }
         }
-        unfilteredSpawns = new UnitSpawn[0];
-    }
-
-    [InspectorButton(), InspectorCategory("Result")]
-    public void ClearLists()
-    {
-        if (taggedObjects != null)
-            taggedObjects.Clear();
-        if (spawns != null)
-            spawns.Clear();
+        unfilteredSpawns.Clear();
     }
 
     public void Init(Game instance)
