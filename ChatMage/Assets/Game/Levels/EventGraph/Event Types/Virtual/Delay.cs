@@ -17,20 +17,13 @@ namespace GameEvents
         {
             if (delay > 0)
             {
-                Game.instance.events.AddDelayedAction(TriggerInstant, delay);
+                Game.instance.events.AddDelayedAction(moment.Launch, delay);
             }
             else
             {
-                TriggerInstant();
+                moment.Launch();
             }
         }
-
-        private void TriggerInstant()
-        {
-            moment.Launch();
-        }
-
-
 
         //------------------Display------------------//
 
