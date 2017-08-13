@@ -173,7 +173,9 @@ namespace GameEvents
 
         public override void GetAdditionalMoments(out Moment[] moments, out string[] names)
         {
-            int count = what.progressCallbacks.Length;
+            int count = 0;
+            if (what != null && what.progressCallbacks != null)
+                count = what.progressCallbacks.Length;
             moments = new Moment[count];
             names = new string[count];
 
@@ -186,6 +188,16 @@ namespace GameEvents
                 else
                     names[i] = "at " + callback.atKillCount + " kills";
             }
+        }
+
+        public override string DefaultLabel()
+        {
+            return "Wave";
+        }
+
+        public override Color DefaultColor()
+        {
+            return new Color(1, 0.5f, 0.5f, 1);
         }
     }
 

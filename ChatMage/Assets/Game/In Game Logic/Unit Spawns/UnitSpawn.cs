@@ -247,7 +247,7 @@ public abstract class UnitSpawn : BaseBehavior
                 item.Value.Remove(this);
                 if (item.Value.Count == 0)
                 {
-                    mapping.taggedObjects.Remove(item.Key);
+                    mapping.spawns.Remove(item.Key);
                     removed = true;
                     break;
                 }
