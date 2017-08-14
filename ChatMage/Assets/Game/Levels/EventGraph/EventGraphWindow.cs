@@ -210,7 +210,7 @@ namespace GameEvents
                 {
                     if (items[i].myEvent == null || items[i].myEvent.AsObject() == null)
                     {
-                        graph.RemoveNulls();
+                        graph.events.RemoveNulls();
                         ClearItems(false);
                         break;
                     }

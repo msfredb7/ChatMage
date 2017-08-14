@@ -192,7 +192,7 @@ namespace GameEvents
 
         public override string DefaultLabel()
         {
-            return "Wave";
+            return name;
         }
 
         public override Color DefaultColor()

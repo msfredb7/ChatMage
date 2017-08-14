@@ -53,18 +53,6 @@ namespace GameEvents
             }
         }
 
-        public void RemoveNulls()
-        {
-            for (int i = 0; i < events.Count; i++)
-            {
-                if (events[i] == null)
-                {
-                    events.RemoveAt(i);
-                    i--;
-                }
-            }
-        }
-
         public void RemoveAllLinksTo(IEvent theEvent)
         {
             for (int i = 0; i < events.Count; i++)

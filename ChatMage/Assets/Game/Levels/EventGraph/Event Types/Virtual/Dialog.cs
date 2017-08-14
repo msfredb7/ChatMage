@@ -6,6 +6,8 @@ namespace GameEvents
 {
     public class Dialog : VirtualEvent, IEvent
     {
+        public const string NODE_NAME = "Dialog";
+
         public Dialoguing.Dialog dialog;
 
         public void Trigger()
@@ -16,7 +18,7 @@ namespace GameEvents
 
         public override string DefaultLabel()
         {
-            return "Dialog";
+            return "Dialog: " + dialog.name;
         }
         public override Color DefaultColor()
         {

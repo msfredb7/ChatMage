@@ -385,6 +385,44 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &227023158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d2db7471a6a119489863c385f7dc95a, type: 3}
+  m_Name: Print
+  m_EditorClassIdentifier: 
+  windowRect:
+    serializedVersion: 2
+    x: 874
+    y: 378
+    width: 150
+    height: 43
+  graph: {fileID: 1644651698}
+  message: 
+--- !u!114 &243853357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1d4a821a714d1b42a196d790f3383b2, type: 3}
+  m_Name: Walking
+  m_EditorClassIdentifier: 
+  windowRect:
+    serializedVersion: 2
+    x: 511
+    y: 191
+    width: 150
+    height: 43
+  graph: {fileID: 1644651698}
+  value: 0
 --- !u!114 &261677623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -682,6 +720,26 @@ Transform:
   m_Father: {fileID: 1237816616}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &571146982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f38618b4b0d69704e9ecf2e0d077ab56, type: 3}
+  m_Name: Set Bool
+  m_EditorClassIdentifier: 
+  windowRect:
+    serializedVersion: 2
+    x: 321
+    y: 341
+    width: 150
+    height: 43
+  graph: {fileID: 1644651698}
+  valueToSet: 0
+  variable: {fileID: 243853357}
 --- !u!1 &603044746
 GameObject:
   m_ObjectHideFlags: 0
@@ -785,6 +843,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
+--- !u!114 &645275771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d2db7471a6a119489863c385f7dc95a, type: 3}
+  m_Name: Print
+  m_EditorClassIdentifier: 
+  windowRect:
+    serializedVersion: 2
+    x: 874
+    y: 527
+    width: 150
+    height: 43
+  graph: {fileID: 1644651698}
+  message: 
 --- !u!1 &767416915
 GameObject:
   m_ObjectHideFlags: 0
@@ -1703,7 +1780,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cb97ae21ffa1914abb4f2312a4eb8ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  events: []
+  events:
+  - {fileID: 645275771}
+  - {fileID: 1811596699}
+  - {fileID: 571146982}
+  - {fileID: 243853357}
+  - {fileID: 227023158}
 --- !u!1 &1649213850
 GameObject:
   m_ObjectHideFlags: 1
@@ -1755,6 +1837,7 @@ MonoBehaviour:
   - {fileID: 627878962}
   - {fileID: 261677623}
   - {fileID: 1113761378}
+  - {fileID: 0}
   _values:
   - _keys: []
     _values: []
@@ -1783,6 +1866,9 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 1113761378}
+  - _keys: []
+    _values: []
+    _target: {fileID: 0}
 --- !u!114 &1649213853
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1804,6 +1890,7 @@ MonoBehaviour:
   - {fileID: 627878962}
   - {fileID: 261677623}
   - {fileID: 1113761378}
+  - {fileID: 0}
   _values:
   - _keys:
     - DefaultBehaviorEditor.topHeight.EditProperty
@@ -1856,6 +1943,9 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 1113761378}
+  - _keys: []
+    _values: []
+    _target: {fileID: 0}
 --- !u!1 &1689588588
 GameObject:
   m_ObjectHideFlags: 0
@@ -2080,6 +2170,41 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1811596699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fb3e267a799ad848862e6055f374c8f, type: 3}
+  m_Name: if
+  m_EditorClassIdentifier: 
+  windowRect:
+    serializedVersion: 2
+    x: 528
+    y: 384
+    width: 150
+    height: 83
+  graph: {fileID: 1644651698}
+  variable: {fileID: 243853357}
+  _true:
+    iEvents:
+    - {fileID: 227023158}
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+  _false:
+    iEvents:
+    - {fileID: 645275771}
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
 --- !u!1001 &1833507343
 Prefab:
   m_ObjectHideFlags: 0

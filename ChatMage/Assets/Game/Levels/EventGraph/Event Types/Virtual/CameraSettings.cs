@@ -7,6 +7,8 @@ namespace GameEvents
 {
     public class CameraSettings : FIVirtualEvent, IEvent
     {
+        public const string NODE_NAME = "Cam Settings";
+
         public bool modifyFollowPlayer;
         [InspectorShowIf("modifyFollowPlayer")]
         public bool followPlayerEffect = false;

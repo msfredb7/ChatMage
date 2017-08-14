@@ -6,6 +6,8 @@ namespace GameEvents
 {
     public class MessageToLevel : VirtualEvent, IEvent
     {
+        public const string NODE_NAME = "MsgToLvl";
+
         public string message;
 
         public void Trigger()
@@ -15,7 +17,7 @@ namespace GameEvents
 
         public override string DefaultLabel()
         {
-            return "Message to Level";
+            return "To Level: " + message;
         }
 
         public override Color DefaultColor()

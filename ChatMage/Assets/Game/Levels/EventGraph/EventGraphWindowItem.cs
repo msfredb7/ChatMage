@@ -17,10 +17,12 @@ namespace GameEvents
         public const float MOMENT_BUTTON_WIDTH = 20;
         public const float MOMENT_BUTTON_HEIGHT = 18;
 
-        private const string DRAG_KEY = "egwidr"; //Pour Event Graph Window Item DRag
+        private const string DRAG_KEY = "egwid"; //Pour Event Graph Window Item Drag
         public INodedEvent myEvent;
         public List<NamedMoments> moments;
         public bool isHilighted = false;
+
+        private bool collapsed = true;
 
         Action<EventGraphWindowItem> removeRequest;
         EventGraphWindow parentWindow;
@@ -95,7 +97,7 @@ namespace GameEvents
 
         public string NodeLabel
         {
-            get { return myEvent.name; }
+            get { return myEvent.DefaultLabel(); }
         }
 
         public void DrawNode(int unusedWindowId)
@@ -108,6 +110,11 @@ namespace GameEvents
 
             //Label  +  x button
             GUILayout.FlexibleSpace();
+            if (GUILayout.Button("-"))
+            {
+                collapsed = !collapsed;
+                myEvent.ResetWindowRectSize();
+            }
             if (myEvent.CanBeManuallyDestroyed() && GUILayout.Button("x"))
             {
                 removeRequest(this);
@@ -115,18 +122,20 @@ namespace GameEvents
             }
             EditorGUILayout.EndHorizontal();
 
-            GUILayout.Label(myEvent.DefaultLabel(), EditorStyles.boldLabel);
+            //GUILayout.Label(myEvent.name, EditorStyles.boldLabel);
 
 
             //---------------Reference Box---------------//
-
-            EditorGUILayout.ObjectField(myEvent.AsObject(), myEvent.AsObject().GetType(), true);
-            if (isHilighted && GUILayoutUtility.GetLastRect().Contains(e.mousePosition) && e.type == EventType.MouseDrag)
+            if (!collapsed)
             {
-                DragAndDrop.PrepareStartDrag();
-                DragAndDrop.objectReferences = new UnityEngine.Object[] { myEvent.AsObject() };
-                DragAndDrop.StartDrag(DRAG_KEY);
-                e.Use();
+                EditorGUILayout.ObjectField(myEvent.AsObject(), myEvent.AsObject().GetType(), true);
+                if (isHilighted && GUILayoutUtility.GetLastRect().Contains(e.mousePosition) && e.type == EventType.MouseDrag)
+                {
+                    DragAndDrop.PrepareStartDrag();
+                    DragAndDrop.objectReferences = new UnityEngine.Object[] { myEvent.AsObject() };
+                    DragAndDrop.StartDrag(DRAG_KEY);
+                    e.Use();
+                }
             }
 
 

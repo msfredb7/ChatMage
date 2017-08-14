@@ -4,18 +4,18 @@ using UnityEngine;
 
 namespace GameEvents
 {
-    public class EmptyEvent : VirtualEvent, IEvent
+    public class Bool : VirtualEvent
     {
-        public Moment onTrigger = new Moment();
+        public bool value;
 
-        public void Trigger()
+        public override Color DefaultColor()
         {
-            onTrigger.Launch();
+            return new Color(1, 0.85f, 0.5f, 1);
         }
 
         public override string DefaultLabel()
         {
-            return name;
+            return "bool: " + name;
         }
     }
 }
