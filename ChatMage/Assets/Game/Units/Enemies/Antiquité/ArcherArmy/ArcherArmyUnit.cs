@@ -38,6 +38,12 @@ public class ArcherArmyUnit : Unit
         countdown -= DeltaTime();
     }
 
+    protected override void Die()
+    {
+        base.Die();
+        Destroy();
+    }
+
     private void Shoot()
     {
         ReadOnlyCollection<UnitSpawn> spawnLocations = Game.instance.map.mapping.GetSpawns(unitSpawnTag);

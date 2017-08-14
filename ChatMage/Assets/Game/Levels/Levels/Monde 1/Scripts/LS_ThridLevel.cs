@@ -19,6 +19,7 @@ public class LS_ThridLevel : LevelScript
     [fsIgnore, NonSerialized]
     private bool canWin = false;
 
+    private Unit archerArmy;
     private TaggedObject jesusWall;
     private TaggedObject grilleWall1;
     private TaggedObject grilleWall2;
@@ -118,6 +119,7 @@ public class LS_ThridLevel : LevelScript
                 Game.instance.gameCamera.followPlayer = true;
                 Game.instance.gameCamera.canScrollUp = true;
                 grilleWall1.gameObject.SetActive(false); // animation grille
+                inGameEvents.AddDelayedAction(delegate () { archerArmy.ForceDie(); }, 1);
                 Game.instance.map.roadPlayer.CurrentRoad.ApplyMinMaxToCamera();
                 break;
             case "spawn 3":
@@ -133,6 +135,7 @@ public class LS_ThridLevel : LevelScript
                 Game.instance.gameCamera.followPlayer = true;
                 Game.instance.gameCamera.canScrollUp = true;
                 grilleWall2.gameObject.SetActive(false); // animation grille
+                inGameEvents.AddDelayedAction(delegate () { archerArmy.ForceDie(); }, 1);
                 Game.instance.map.roadPlayer.CurrentRoad.ApplyMinMaxToCamera();
                 canWin = true;
                 break;
@@ -158,6 +161,12 @@ public class LS_ThridLevel : LevelScript
                     Win();
                 break;
         }
+    }
+
+    public void FindArcherWall(Unit unit)
+    {
+        if (unit is ArcherArmyUnit)
+            archerArmy = unit;
     }
 
     protected override void OnUpdate()
