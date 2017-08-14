@@ -1,26 +1,25 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace GameEvents
 {
+    [MenuItem("Level/Win"), DefaultNodeName("Win")]
     public class Win : VirtualEvent, IEvent
     {
-        public const string NODE_NAME = "Win The Game";
-
         public void Trigger()
         {
             Game.instance.levelScript.Win();
         }
 
-        public override Color DefaultColor()
+        public override Color GUIColor()
         {
             return new Color(0.95f, 0.65f, 0, 1);
         }
 
-        public override string DefaultLabel()
+        public override string NodeLabel()
         {
-            return "Win The Game";
+            return "Win the Game";
         }
     }
 }
