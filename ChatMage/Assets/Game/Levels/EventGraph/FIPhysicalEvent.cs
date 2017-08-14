@@ -59,8 +59,8 @@ namespace GameEvents
 
         protected virtual void OnDestroy()
         {
-            if (!Application.isPlaying && graph != null && this is IEvent)
-                graph.RemoveEvent(this as IEvent);
+            if (!Application.isPlaying && graph != null)
+                graph.RemoveEvent(this);
         }
 
         public Rect WindowRect

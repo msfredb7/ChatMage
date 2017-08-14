@@ -97,6 +97,8 @@ namespace GameEvents
             ongoingLink.source = null;
             lastHilighted = null;
 
+            graph.events.RemoveNulls();
+
             items = new List<EventGraphWindowItem>(graph.events.Count);
             for (int i = 0; i < graph.events.Count; i++)
             {

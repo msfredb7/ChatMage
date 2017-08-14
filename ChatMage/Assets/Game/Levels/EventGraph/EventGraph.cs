@@ -41,9 +41,10 @@ namespace GameEvents
             return events.Contains(existingEvent.AsObject());
         }
 
-        public void RemoveEvent(IEvent theEvent)
+        public void RemoveEvent(INodedEvent theEvent)
         {
-            RemoveAllLinksTo(theEvent);
+            if (theEvent is IEvent)
+                RemoveAllLinksTo(theEvent as IEvent);
 
             if (events.Remove(theEvent.AsObject()))
             {
@@ -58,7 +59,7 @@ namespace GameEvents
             {
                 if (events[i] == null)
                 {
-                    events.RemoveAt(0);
+                    events.RemoveAt(i);
                     i--;
                 }
             }

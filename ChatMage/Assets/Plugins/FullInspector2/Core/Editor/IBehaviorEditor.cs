@@ -1,7 +1,6 @@
 ﻿using FullInspector.Internal;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Profiling;
 using UnityObject = UnityEngine.Object;
 
 namespace FullInspector {
@@ -68,7 +67,7 @@ namespace FullInspector {
         }
 
         public void Edit(Rect rect, UnityObject behavior) {
-            Profiler.BeginSample("BehaviorEditor.Edit");
+            UnityEngine.Profiling.Profiler.BeginSample("BehaviorEditor.Edit");
             Undo.RecordObject(behavior, "Inspector Modification");
 
             //-
@@ -106,7 +105,7 @@ namespace FullInspector {
                 }
             }
 
-            Profiler.EndSample();
+            UnityEngine.Profiling.Profiler.EndSample();
         }
 
         public float GetHeight(UnityObject behavior) {
