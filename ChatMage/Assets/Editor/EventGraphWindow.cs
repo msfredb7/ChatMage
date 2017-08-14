@@ -195,6 +195,20 @@ namespace GameEvents
                     ClearFocus();
                 }
             }
+            else if (e.type == EventType.MouseDrag)
+            {
+                if (e.button == 2)
+                {
+                    Vector2 delta = e.delta;
+                    for (int i = 0; i < items.Count; i++)
+                    {
+                        Rect rect = items[i].WindowRect;
+                        rect.position = rect.position + delta;
+                        items[i].WindowRect = rect;
+                    }
+                    Repaint();
+                }
+            }
 
             // The position of the window
             BeginWindows();
@@ -358,7 +372,7 @@ namespace GameEvents
                     continue;
 
                 object[] menuItemAt = type.GetCustomAttributes(typeof(MenuItem), false);
-                
+
                 if (menuItemAt.Length <= 0)
                     continue;
 
@@ -367,7 +381,7 @@ namespace GameEvents
                 contextMenu.AddItem(new GUIContent(nodeItem.menuItem), false, delegate ()
                 {
                     object[] nodeNameAt = type.GetCustomAttributes(typeof(DefaultNodeName), false);
-                    if(nodeNameAt.Length > 0)
+                    if (nodeNameAt.Length > 0)
                     {
                         string name = (nodeNameAt[0] as DefaultNodeName).nodeName;
                         NewVirtualEvent(type, name);

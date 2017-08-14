@@ -122,14 +122,15 @@ namespace GameEvents
             }
             EditorGUILayout.EndHorizontal();
 
-            //GUILayout.Label(myEvent.name, EditorStyles.boldLabel);
-
 
             //---------------Reference Box---------------//
             if (!collapsed)
             {
                 EditorGUILayout.ObjectField(myEvent.AsObject(), myEvent.AsObject().GetType(), true);
-                if (isHilighted && GUILayoutUtility.GetLastRect().Contains(e.mousePosition) && e.type == EventType.MouseDrag)
+                if (isHilighted && 
+                    GUILayoutUtility.GetLastRect().Contains(e.mousePosition) && 
+                    e.type == EventType.MouseDrag &&
+                    e.button == 0)
                 {
                     DragAndDrop.PrepareStartDrag();
                     DragAndDrop.objectReferences = new UnityEngine.Object[] { myEvent.AsObject() };
@@ -175,7 +176,7 @@ namespace GameEvents
 
             //---------------Drag---------------//
 
-            if (e.button != 1)
+            if (e.button == 0)
                 GUI.DragWindow();
 
         }
