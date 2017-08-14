@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Reflection;
 using System.Collections.Generic;
 using UnityEditor;
+using System.Linq;
 
 namespace GameEvents
 {
@@ -11,8 +12,22 @@ namespace GameEvents
         public class NamedMoments
         {
             public string displayName;
-            public Moment moment;
+            public BaseMoment moment;
             public Vector2 lastDrawnPos;
+            public Type[] genericTypes;
+            public NamedMoments(BaseMoment moment, string varName)
+            {
+                this.moment = moment;
+                this.genericTypes = moment.GetGenericTypes();
+                displayName = varName + "(";
+                for (int i = 0; i < genericTypes.Length; i++)
+                {
+                    if (i > 0)
+                        displayName += ", ";
+                    displayName += genericTypes[i].Name;
+                }
+                displayName += ")";
+            }
         }
         public const float MOMENT_BUTTON_WIDTH = 20;
         public const float MOMENT_BUTTON_HEIGHT = 18;
@@ -23,6 +38,7 @@ namespace GameEvents
         public bool isHilighted = false;
 
         private bool collapsed = true;
+        public Type[] entryTypes;
 
         Action<EventGraphWindowItem> removeRequest;
         EventGraphWindow parentWindow;
@@ -36,7 +52,15 @@ namespace GameEvents
             this.removeRequest = removeRequest;
             this.parentWindow = window;
 
+            BuildEntryTypes();
             BuildNamedMoments();
+        }
+
+        private void BuildEntryTypes()
+        {
+            entryTypes = myEvent.GetType().FindInterfaces(
+                (Type t, System.Object obj) => t.GetInterfaces().Contains(typeof(IBaseEvent)),
+                null);
         }
 
         private void BuildNamedMoments()
@@ -47,15 +71,14 @@ namespace GameEvents
             moments = new List<NamedMoments>();
             for (int i = 0; i < allFields.Length; i++)
             {
-                if (allFields[i].FieldType == typeof(Moment))
-                    moments.Add(new NamedMoments()
-                    {
-                        displayName = allFields[i].Name,
-                        moment = allFields[i].GetValue(myEvent) as Moment
-                    });
+                if (allFields[i].FieldType.IsSubclassOf(typeof(BaseMoment)))
+                {
+                    BaseMoment moment = allFields[i].GetValue(myEvent) as BaseMoment;
+                    moments.Add(new NamedMoments(moment, allFields[i].Name));
+                }
             }
 
-            Moment[] additionalMoments;
+            BaseMoment[] additionalMoments;
             string[] additionalNames;
             myEvent.GetAdditionalMoments(out additionalMoments, out additionalNames);
 
@@ -65,11 +88,7 @@ namespace GameEvents
                 moments.Capacity = moments.Count + count;
                 for (int i = 0; i < count; i++)
                 {
-                    moments.Add(new NamedMoments()
-                    {
-                        displayName = additionalNames[i],
-                        moment = additionalMoments[i]
-                    });
+                    moments.Add(new NamedMoments(additionalMoments[i], additionalNames[i]));
                 }
             }
 
@@ -106,9 +125,20 @@ namespace GameEvents
 
             EditorGUILayout.BeginHorizontal();
 
-            GUILayout.Label(myEvent.TypeLabel(), EditorStyles.miniLabel);
+            if (myEvent is IBaseEvent && GUILayout.Button(">"))
+            {
+                if (e.button == 0)
+                {
+                    parentWindow.ongoingLink.BuildLink(this);
+                    parentWindow.MarkSceneAsDirty();
+                }
+                else
+                {
+                    parentWindow.graph.RemoveAllLinksTo(myEvent as IBaseEvent);
+                }
+            }
 
-            //Label  +  x button
+            //Buttons: - et x
             GUILayout.FlexibleSpace();
             if (GUILayout.Button("-"))
             {
@@ -123,12 +153,28 @@ namespace GameEvents
             EditorGUILayout.EndHorizontal();
 
 
-            //---------------Reference Box---------------//
             if (!collapsed)
             {
+                //---------------Entries---------------//
+                for (int i = 0; i < entryTypes.Length; i++)
+                {
+                    Type[] genericArgs = entryTypes[i].GetGenericArguments();
+                    string text = "";
+                    for (int u = 0; u < genericArgs.Length; u++)
+                    {
+                        if (u > 0)
+                            text += ", ";
+                        text += genericArgs[u].Name;
+                    }
+                    GUILayout.Label("(" + text + ")");
+                }
+
+
+                //---------------Reference Box---------------//
+
                 EditorGUILayout.ObjectField(myEvent.AsObject(), myEvent.AsObject().GetType(), true);
-                if (isHilighted && 
-                    GUILayoutUtility.GetLastRect().Contains(e.mousePosition) && 
+                if (isHilighted &&
+                    GUILayoutUtility.GetLastRect().Contains(e.mousePosition) &&
                     e.type == EventType.MouseDrag &&
                     e.button == 0)
                 {
@@ -140,7 +186,7 @@ namespace GameEvents
             }
 
 
-            //---------------Moment launchers---------------//
+            //---------------Moment---------------//
             for (int i = 0; i < moments.Count; i++)
             {
                 if (moments[i].moment == null)
@@ -150,10 +196,10 @@ namespace GameEvents
                 }
                 else
                 {
-                    EditorGUILayout.BeginHorizontal();
+                    GUILayout.BeginHorizontal();
 
-                    GUILayout.Label(moments[i].displayName);
                     GUILayout.FlexibleSpace();
+                    GUILayout.Label(moments[i].displayName);
                     if (GUILayout.Button(">"))
                     {
                         if (e.button == 0)
@@ -168,11 +214,9 @@ namespace GameEvents
 
                     }
                     moments[i].lastDrawnPos = GUILayoutUtility.GetLastRect().position;
-                    EditorGUILayout.EndHorizontal();
+                    GUILayout.EndHorizontal();
                 }
             }
-
-
 
             //---------------Drag---------------//
 
@@ -187,13 +231,13 @@ namespace GameEvents
 
             for (int i = 0; i < moments.Count; i++)
             {
-                Moment moment = moments[i].moment;
+                BaseMoment moment = moments[i].moment;
                 for (int u = 0; u < moment.iEvents.Count; u++)
                 {
-                    UnityEngine.Object iEvent = moment.iEvents[u];
-                    if (iEvent is INodedEvent)
+                    UnityEngine.Object otherNode = moment.iEvents[u];
+                    if (otherNode is INodedEvent)
                     {
-                        INodedEvent otherDisplay = iEvent as INodedEvent;
+                        INodedEvent otherDisplay = otherNode as INodedEvent;
                         Rect targetRect = otherDisplay.WindowRect;
                         DrawBezierRight(WindowRect.position + moments[i].lastDrawnPos,
                             new Vector2(targetRect.xMin, targetRect.y + 28));
@@ -245,13 +289,13 @@ namespace GameEvents
                     }
                 });
 
-            if (myEvent is IEvent)
+            if (myEvent is IBaseEvent)
                 menu.AddItem(new GUIContent("Remove incoming links"), false, delegate ()
                 {
-                    parentWindow.graph.RemoveAllLinksTo(myEvent as IEvent);
+                    parentWindow.graph.RemoveAllLinksTo(myEvent as IBaseEvent);
                 });
 
-            menu.AddItem(new GUIContent("Refresh moments"), false, BuildNamedMoments);
+            menu.AddItem(new GUIContent("Rebuild"), false, () => { BuildEntryTypes(); BuildNamedMoments(); });
 
             menu.ShowAsContext();
         }

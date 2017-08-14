@@ -177,13 +177,6 @@ namespace GameEvents
                 }
                 else
                 {
-                    //Create moment link !
-                    if (ongoingLink.source != null && e.button == 0)
-                    {
-                        ongoingLink.BuildLink(newSelection);
-                        MarkSceneAsDirty();
-                    }
-
                     //Change selected item
                     if (Selection.activeObject != newSelection.myEvent.AsObject())
                     {
@@ -507,20 +500,40 @@ namespace GameEvents
 
         public void BuildLink(EventGraphWindowItem other)
         {
+            if (source == null)
+                return;
             BuildLink(other.myEvent.AsObject());
         }
         public void BuildLink(UnityEngine.Object other)
         {
-            if (source != null && (other is IEvent))
-            {
-                IEvent iEvent = other as IEvent;
-                source.moments[momentIndex].moment.AddIEvent(iEvent);
-            }
-            else
+            Type otherType = other.GetType();
+            if (otherType == typeof(IBaseEvent) || !(other is IBaseEvent) || source == null)
             {
                 Debug.LogError("Cette node n'accepte pas les liens 'Moment'. Elle n'implémente pas l'interface IEvent.");
             }
+            else
+            {
+                BaseMoment moment = source.moments[momentIndex].moment;
+                Type[] interfaces = otherType.FindInterfaces(
+                    InterfaceFilter,
+                    otherType);
+
+                for (int i = 0; i < interfaces.Length; i++)
+                {
+                    Type[] types = interfaces[i].GetGenericArguments();
+                    if (moment.MatchWithGenericTypes(types))
+                    {
+                        source.moments[momentIndex].moment.AddIEvent(other);
+                        break;
+                    }
+                }
+            }
             source = null;
+        }
+
+        private bool InterfaceFilter(Type t, System.Object criteriaObj)
+        {
+            return t.GetInterfaces().Contains(typeof(IBaseEvent));
         }
     }
 }

@@ -172,7 +172,7 @@ namespace GameEvents
             infiniteCallbacker = null;
         }
 
-        public override void GetAdditionalMoments(out Moment[] moments, out string[] names)
+        public override void GetAdditionalMoments(out BaseMoment[] moments, out string[] names)
         {
             int count = 0;
             if (what != null && what.progressCallbacks != null)

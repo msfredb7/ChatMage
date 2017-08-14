@@ -89,7 +89,7 @@ namespace GameEvents
 
         public string TypeLabel() { return "Physical"; }
 
-        public virtual void GetAdditionalMoments(out Moment[] moments, out string[] names)
+        public virtual void GetAdditionalMoments(out BaseMoment[] moments, out string[] names)
         {
             moments = null;
             names = null;

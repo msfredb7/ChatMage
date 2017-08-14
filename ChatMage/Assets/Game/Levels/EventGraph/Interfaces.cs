@@ -7,9 +7,17 @@ namespace GameEvents
     {
         UnityEngine.Object AsObject();
     }
-    public interface IEvent : IObjEvent
+    public interface IBaseEvent : IObjEvent
+    {
+
+    }
+    public interface IEvent : IBaseEvent
     {
         void Trigger();
+    }
+    public interface IEvent<T> : IBaseEvent
+    {
+        void Trigger(T a);
     }
     public interface INodedEvent : IObjEvent
     {
@@ -22,7 +30,7 @@ namespace GameEvents
         bool CanBeManuallyDestroyed();
         string NodeLabel();
         string TypeLabel();
-        void GetAdditionalMoments(out Moment[] moments, out string[] names);
+        void GetAdditionalMoments(out BaseMoment[] moments, out string[] names);
         bool LinkToGraph();
         void MoveToPos(Vector2 position);
     }

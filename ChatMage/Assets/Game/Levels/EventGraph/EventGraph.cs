@@ -43,8 +43,8 @@ namespace GameEvents
 
         public void RemoveEvent(INodedEvent theEvent)
         {
-            if (theEvent is IEvent)
-                RemoveAllLinksTo(theEvent as IEvent);
+            if (theEvent is IBaseEvent)
+                RemoveAllLinksTo(theEvent as IBaseEvent);
 
             if (events.Remove(theEvent.AsObject()))
             {
@@ -53,7 +53,7 @@ namespace GameEvents
             }
         }
 
-        public void RemoveAllLinksTo(IEvent theEvent)
+        public void RemoveAllLinksTo(IBaseEvent theEvent)
         {
             for (int i = 0; i < events.Count; i++)
             {
@@ -61,16 +61,16 @@ namespace GameEvents
             }
         }
 
-        private void RemoveAllLinksTo(IEvent theEvent, Object on)
+        private void RemoveAllLinksTo(IBaseEvent theEvent, Object on)
         {
             FieldInfo[] fields = on.GetType().GetFields();
 
             for (int i = 0; i < fields.Length; i++)
             {
-                if (fields[i].FieldType == typeof(Moment))
+                if (fields[i].FieldType.IsSubclassOf(typeof(BaseMoment)))
                 {
-                    Moment moment = fields[i].GetValue(on) as Moment;
-                    moment.RemoveIEvent(theEvent);
+                    BaseMoment moment = fields[i].GetValue(on) as BaseMoment;
+                    moment.RemoveIEvent(theEvent.AsObject());
                 }
             }
 
@@ -79,7 +79,7 @@ namespace GameEvents
             {
                 INodedEvent onDisplay = on as INodedEvent;
 
-                Moment[] additionalMoments;
+                BaseMoment[] additionalMoments;
                 string[] additionalNames;
                 onDisplay.GetAdditionalMoments(out additionalMoments, out additionalNames);
 
@@ -87,7 +87,7 @@ namespace GameEvents
                 {
                     for (int i = 0; i < additionalMoments.Length; i++)
                     {
-                        additionalMoments[i].RemoveIEvent(theEvent);
+                        additionalMoments[i].RemoveIEvent(theEvent.AsObject());
                     }
                 }
             }
