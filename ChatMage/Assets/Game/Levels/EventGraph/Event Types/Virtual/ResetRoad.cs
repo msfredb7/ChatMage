@@ -9,7 +9,9 @@ namespace GameEvents
     {
         public void Trigger()
         {
-            //...
+            Game.instance.gameCamera.followPlayer = true;
+            Game.instance.gameCamera.canScrollUp = true;
+            Game.instance.map.roadPlayer.CurrentRoad.ApplyMinMaxToCamera();
         }
 
         public override Color GUIColor()
