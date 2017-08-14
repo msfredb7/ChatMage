@@ -10,7 +10,6 @@ namespace GameEvents
     {
         public bool valueToSet;
         public Bool variable;
-        public MomentBool onSet = new MomentBool();
 
         public void Trigger()
         {
