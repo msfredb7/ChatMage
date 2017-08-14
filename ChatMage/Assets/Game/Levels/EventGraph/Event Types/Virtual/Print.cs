@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace GameEvents
 {
+    [MenuItem("Debug/Print"), DefaultNodeName("Print")]
     public class Print : VirtualEvent, IEvent
     {
-        public const string NODE_NAME = "Print";
         public string message;
 
         public void Trigger()
@@ -14,11 +14,11 @@ namespace GameEvents
             Debug.Log(message);
         }
 
-        public override Color DefaultColor()
+        public override Color GUIColor()
         {
             return new Color(0.9f, 1, 1, 1);
         }
-        public override string DefaultLabel()
+        public override string NodeLabel()
         {
             string label = "Log: " + message;
             if(label.Length > 20)

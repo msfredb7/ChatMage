@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace GameEvents
 {
+    [MenuItem("Other/Empty")]
     public class EmptyEvent : VirtualEvent, IEvent
     {
         public Moment onTrigger = new Moment();
@@ -13,7 +14,7 @@ namespace GameEvents
             onTrigger.Launch();
         }
 
-        public override string DefaultLabel()
+        public override string NodeLabel()
         {
             return name;
         }

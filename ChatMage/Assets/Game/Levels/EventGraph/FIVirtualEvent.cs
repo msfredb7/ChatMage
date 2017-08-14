@@ -79,13 +79,13 @@ namespace GameEvents
             windowRect.position = position;
         }
 
-        public virtual Color DefaultColor() { return Color.white; }
+        public virtual Color GUIColor() { return Color.white; }
 
         public UnityEngine.Object AsObject() { return this; }
 
         public bool CanBeManuallyDestroyed() { return true; }
 
-        public virtual string DefaultLabel() { return "Base Virtual"; }
+        public virtual string NodeLabel() { return "Base Virtual"; }
 
         public string TypeLabel() { return "Virtual"; }
 

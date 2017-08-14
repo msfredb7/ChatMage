@@ -6,10 +6,9 @@ using UnityEngine.Events;
 
 namespace GameEvents
 {
+    [MenuItem("Other/Delay"), DefaultNodeName("Delay")]
     public class Delay : VirtualEvent, IEvent
     {
-        public const string NODE_NAME = "Delay";
-
         public float delay = 0;
         public Moment moment = new Moment();
 
@@ -27,12 +26,12 @@ namespace GameEvents
 
         //------------------Display------------------//
 
-        public override Color DefaultColor()
+        public override Color GUIColor()
         {
             return new Color(1, 0.8f, 1, 1);
         }
 
-        public override string DefaultLabel()
+        public override string NodeLabel()
         {
             return "+ " + ((float)((int)(delay * 100))) / 100 + "s";
         }

@@ -19,8 +19,9 @@ namespace GameEvents
         private Vector2 contextMenuMousePos;
         private Vector2 lastMousePos;
         private EventGraphWindowItem lastHilighted;
+        private GenericMenu contextMenu;
 
-        [MenuItem("The Time Drifter/Event Graph")]
+        [UnityEditor.MenuItem("The Time Drifter/Event Graph")]
         static void Init()
         {
             // Get existing open window or if none, make a new one:
@@ -32,6 +33,7 @@ namespace GameEvents
         {
             SetScene(EditorSceneManager.GetActiveScene());
             EditorSceneManager.activeSceneChanged += EditorSceneManager_activeSceneChanged;
+            BuildContextMenu();
         }
 
         void Update()
@@ -214,7 +216,7 @@ namespace GameEvents
                         ClearItems(false);
                         break;
                     }
-                    GUI.backgroundColor = items[i].myEvent.DefaultColor();
+                    GUI.backgroundColor = items[i].myEvent.GUIColor();
                     items[i].WindowRect = GUILayout.Window(winC++, items[i].WindowRect, items[i].DrawNode, items[i].NodeLabel);
                 }
                 GUI.color = Color.white;
@@ -341,15 +343,12 @@ namespace GameEvents
             }
         }
 
-        void OpenContextMenu()
+        void BuildContextMenu()
         {
-            if (graph == null)
-                return;
+            contextMenu = new GenericMenu();
 
-            GenericMenu menu = new GenericMenu();
-
-            Assembly thisAssembly = GetType().Assembly;
-            var virtualTypes = from type in thisAssembly.GetTypes()
+            Assembly gameAssembly = typeof(Game).Assembly;
+            var virtualTypes = from type in gameAssembly.GetTypes()
                                where typeof(VirtualEvent).IsAssignableFrom(type) || typeof(FIVirtualEvent).IsAssignableFrom(type)
                                select type;
 
@@ -358,35 +357,38 @@ namespace GameEvents
                 if (type == typeof(VirtualEvent) || type == typeof(FIVirtualEvent))
                     continue;
 
-                List<FieldInfo> constants = GetConstants(type);
+                object[] menuItemAt = type.GetCustomAttributes(typeof(MenuItem), false);
+                
+                if (menuItemAt.Length <= 0)
+                    continue;
 
-                FieldInfo nameField = constants.Find(x => x.Name == "NODE_NAME" && x.FieldType == typeof(string));
-                if (nameField != null)
+                MenuItem nodeItem = menuItemAt[0] as MenuItem;
+
+                contextMenu.AddItem(new GUIContent(nodeItem.menuItem), false, delegate ()
                 {
-                    string name = nameField.GetRawConstantValue() as string;
-                    menu.AddItem(new GUIContent("New " + type.Name), false, delegate ()
+                    object[] nodeNameAt = type.GetCustomAttributes(typeof(DefaultNodeName), false);
+                    if(nodeNameAt.Length > 0)
                     {
+                        string name = (nodeNameAt[0] as DefaultNodeName).nodeName;
                         NewVirtualEvent(type, name);
-                    });
-                }
-                else
-                {
-                    menu.AddItem(new GUIContent("New " + type.Name), false, delegate ()
+                    }
+                    else
                     {
                         NewVirtualEvent(type);
-                    });
-                }
+                    }
+                });
             }
-
-            menu.ShowAsContext();
         }
 
-        private List<FieldInfo> GetConstants(Type type)
+        void OpenContextMenu()
         {
-            FieldInfo[] fieldInfos = type.GetFields(BindingFlags.Public |
-                 BindingFlags.Static | BindingFlags.FlattenHierarchy);
+            if (graph == null)
+                return;
 
-            return fieldInfos.Where(fi => fi.IsLiteral && !fi.IsInitOnly).ToList();
+            if (contextMenu == null)
+                BuildContextMenu();
+
+            contextMenu.ShowAsContext();
         }
 
         public void SetSelectedItem(EventGraphWindowItem item)
@@ -430,7 +432,7 @@ namespace GameEvents
         }
         public override void OnGUI(Rect rect)
         {
-            GUILayout.Label("Event Name", EditorStyles.boldLabel);
+            GUILayout.Label("Object Name", EditorStyles.boldLabel);
 
             GUI.SetNextControlName("NameField");
             name = EditorGUILayout.TextField(name);

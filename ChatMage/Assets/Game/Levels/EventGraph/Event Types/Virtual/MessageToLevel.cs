@@ -4,10 +4,9 @@ using UnityEngine;
 
 namespace GameEvents
 {
+    [MenuItem("Level/Message"), DefaultNodeName("MsgToLvl")]
     public class MessageToLevel : VirtualEvent, IEvent
     {
-        public const string NODE_NAME = "MsgToLvl";
-
         public string message;
 
         public void Trigger()
@@ -15,12 +14,12 @@ namespace GameEvents
             Game.instance.levelScript.ReceiveEvent(message);
         }
 
-        public override string DefaultLabel()
+        public override string NodeLabel()
         {
             return "To Level: " + message;
         }
 
-        public override Color DefaultColor()
+        public override Color GUIColor()
         {
             return new Color(0.7f, 0.7f, 0.7f, 1);
         }

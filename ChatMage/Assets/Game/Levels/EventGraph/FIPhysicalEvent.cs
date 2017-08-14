@@ -84,13 +84,13 @@ namespace GameEvents
             windowRect = new Rect(windowRect.x, windowRect.y, 150, 10);
         }
 
-        public virtual Color DefaultColor() { return Color.white; }
+        public virtual Color GUIColor() { return Color.white; }
 
         public UnityEngine.Object AsObject() { return this; }
 
         public bool CanBeManuallyDestroyed() { return false; }
 
-        public virtual string DefaultLabel() { return "Base Physical"; }
+        public virtual string NodeLabel() { return "Base Physical"; }
 
         public string TypeLabel() { return "Physical"; }
 

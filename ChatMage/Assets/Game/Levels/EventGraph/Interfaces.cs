@@ -17,10 +17,10 @@ namespace GameEvents
         Rect WindowRect { get; set; }
         void ResetWindowRectPos();
         void ResetWindowRectSize();
-        Color DefaultColor();
+        Color GUIColor();
         string name { get; set; }
         bool CanBeManuallyDestroyed();
-        string DefaultLabel();
+        string NodeLabel();
         string TypeLabel();
         void GetAdditionalMoments(out Moment[] moments, out string[] names);
         bool LinkToGraph();

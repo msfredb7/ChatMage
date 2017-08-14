@@ -169,12 +169,12 @@ public class Milestone : FIPhysicalEvent, IEvent
         }
     }
 
-    public override Color DefaultColor()
+    public override Color GUIColor()
     {
         return new Color(.8f, 10, .8f,1);
     }
 
-    public override string DefaultLabel()
+    public override string NodeLabel()
     {
         return "Milestone";
     }

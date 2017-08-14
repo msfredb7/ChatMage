@@ -5,10 +5,9 @@ using FullInspector;
 
 namespace GameEvents
 {
+    [MenuItem("Camera/Settings"), DefaultNodeName("Cam Settings")]
     public class CameraSettings : FIVirtualEvent, IEvent
     {
-        public const string NODE_NAME = "Cam Settings";
-
         public bool modifyFollowPlayer;
         [InspectorShowIf("modifyFollowPlayer")]
         public bool followPlayerEffect = false;
@@ -43,12 +42,12 @@ namespace GameEvents
             }
         }
 
-        public override string DefaultLabel()
+        public override string NodeLabel()
         {
             return "Camera Settings";
         }
 
-        public override Color DefaultColor()
+        public override Color GUIColor()
         {
             return new Color(1f, 0.75f, 0.9f, 1);
         }

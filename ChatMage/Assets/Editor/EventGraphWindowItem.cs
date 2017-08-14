@@ -1,8 +1,8 @@
-using UnityEditor;
 using System;
 using UnityEngine;
 using System.Reflection;
 using System.Collections.Generic;
+using UnityEditor;
 
 namespace GameEvents
 {
@@ -97,7 +97,7 @@ namespace GameEvents
 
         public string NodeLabel
         {
-            get { return myEvent.DefaultLabel(); }
+            get { return myEvent.NodeLabel(); }
         }
 
         public void DrawNode(int unusedWindowId)

@@ -2,20 +2,20 @@ using UnityEngine;
 
 namespace GameEvents
 {
+    [MenuItem("Units/Reset AI Area"), DefaultNodeName("AI Area Reset")]
     public class AIArea_Reset : VirtualEvent, IEvent
     {
-        public const string NODE_NAME = "AI Area Reset";
         public void Trigger()
         {
             Game.instance.map.ResetAIArea();
         }
 
-        public override Color DefaultColor()
+        public override Color GUIColor()
         {
             return new Color(0.75f, 0.8f, 1f, 1);
         }
 
-        public override string DefaultLabel()
+        public override string NodeLabel()
         {
             return "Reset AI Area";
         }

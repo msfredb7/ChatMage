@@ -4,10 +4,9 @@ using UnityEngine;
 
 namespace GameEvents
 {
+    [MenuItem("Level/Dialog"), DefaultNodeName("Dialog")]
     public class Dialog : VirtualEvent, IEvent
     {
-        public const string NODE_NAME = "Dialog";
-
         public Dialoguing.Dialog dialog;
 
         public void Trigger()
@@ -16,11 +15,11 @@ namespace GameEvents
                 Game.instance.ui.dialogDisplay.StartDialog(dialog);
         }
 
-        public override string DefaultLabel()
+        public override string NodeLabel()
         {
             return "Dialog: " + dialog.name;
         }
-        public override Color DefaultColor()
+        public override Color GUIColor()
         {
             return new Color(1, 1, 0.5f, 1);
         }

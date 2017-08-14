@@ -45,7 +45,7 @@ namespace GameEvents
             triggered = true;
         }
 
-        public override string DefaultLabel()
+        public override string NodeLabel()
         {
             return "Game Start";
         }

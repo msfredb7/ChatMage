@@ -16,12 +16,12 @@ namespace GameEvents
             Game.instance.aiArea.SetArea(area);
         }
 
-        public override Color DefaultColor()
+        public override Color GUIColor()
         {
             return new Color(0.75f, 0.8f, 1f, 1);
         }
 
-        public override string DefaultLabel()
+        public override string NodeLabel()
         {
             return "Set AI Area";
         }

@@ -4,10 +4,9 @@ using UnityEngine;
 
 namespace GameEvents
 {
+    [MenuItem("Variables/bool/if")]
     public class IfBool : VirtualEvent, IEvent
     {
-        public const string NODE_NAME = "if";
-
         public Bool variable;
         public Moment _true = new Moment();
         public Moment _false = new Moment();
@@ -23,12 +22,12 @@ namespace GameEvents
             }
         }
 
-        public override string DefaultLabel()
+        public override string NodeLabel()
         {
             return "If " + (variable != null ? variable.name : "_____");
         }
 
-        public override Color DefaultColor()
+        public override Color GUIColor()
         {
             GUI.contentColor = Color.black;
             return new Color(1, 1, 1, 1);

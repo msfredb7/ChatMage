@@ -5,10 +5,9 @@ using UnityEngine;
 
 namespace GameEvents
 {
+    [MenuItem("Variables/bool/set"), DefaultNodeName("Set Bool")]
     public class SetBool : VirtualEvent, IEvent
     {
-        public const string NODE_NAME = "Set Bool";
-
         public bool valueToSet;
         public Bool variable;
 
@@ -18,12 +17,12 @@ namespace GameEvents
                 variable.value = valueToSet;
         }
 
-        public override string DefaultLabel()
+        public override string NodeLabel()
         {
             return "Set " + (variable != null ? variable.name : "_____");
         }
 
-        public override Color DefaultColor()
+        public override Color GUIColor()
         {
             return new Color(1, 0.7f, 0.5f, 1);
         }

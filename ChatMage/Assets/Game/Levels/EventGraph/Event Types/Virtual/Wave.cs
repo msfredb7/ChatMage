@@ -9,6 +9,7 @@ using UnityEngine;
 
 namespace GameEvents
 {
+    [MenuItem("Units/Wave")]
     public class Wave : FIVirtualEvent, IEvent
     {
         public Moment onComplete = new Moment();
@@ -190,12 +191,12 @@ namespace GameEvents
             }
         }
 
-        public override string DefaultLabel()
+        public override string NodeLabel()
         {
             return name;
         }
 
-        public override Color DefaultColor()
+        public override Color GUIColor()
         {
             return new Color(1, 0.5f, 0.5f, 1);
         }
