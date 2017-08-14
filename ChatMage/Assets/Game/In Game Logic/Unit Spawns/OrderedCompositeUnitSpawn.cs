@@ -2,9 +2,6 @@ using UnityEngine;
 using System.Collections;
 using System;
 using CCC.Utility;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 
 public class OrderedCompositeUnitSpawn : CompositeUnitSpawn
 {
@@ -85,25 +82,3 @@ public class OrderedCompositeUnitSpawn : CompositeUnitSpawn
         return subSpawns.Length;
     }
 }
-
-#if UNITY_EDITOR
-[CustomEditor(typeof(OrderedCompositeUnitSpawn))]
-public class OrderedCompositeUnitSpawnEditor : Editor
-{
-    public override void OnInspectorGUI()
-    {
-        EditorGUI.BeginChangeCheck();
-        base.OnInspectorGUI();
-        if (EditorGUI.EndChangeCheck())
-        {
-            int problematicIndex = -1;
-            if ((target as CompositeUnitSpawn).IsThereALoop(out problematicIndex, target as CompositeUnitSpawn))
-            {
-                (target as CompositeUnitSpawn).RemoveSubSpawnAt(problematicIndex);
-                Debug.LogError("Loop detected within Composite Unit Spawns");
-            }
-        }
-    }
-}
-
-#endif
