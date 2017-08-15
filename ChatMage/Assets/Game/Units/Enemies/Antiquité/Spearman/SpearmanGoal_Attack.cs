@@ -1,6 +1,6 @@
 namespace AI
 {
-    public class SpearmanGoal_Attack : BaseGoal_Tween<SpearmanVehicle>
+    public class SpearmanGoal_Attack : Goal<SpearmanVehicle>
     {
         private bool lookAtTarget = true;
         private Unit target;
@@ -8,7 +8,7 @@ namespace AI
         public SpearmanGoal_Attack(SpearmanVehicle myVehicle, Unit target) : base(myVehicle)
         {
             CanBeInterrupted = false;
-            tween = myVehicle.animator.AttackAnimation(OnAttackMoment);
+            myVehicle.animator.AttackAnimation(OnAttackMoment, ForceCompletion);
             this.target = target;
         }
 
@@ -21,12 +21,14 @@ namespace AI
 
         public override Status Process()
         {
+            ActivateIfInactive();
+
             if (lookAtTarget && Unit.HasPresence(target))
             {
                 veh.TurnToDirection(target.Position - veh.Position, veh.DeltaTime());
             }
 
-            return base.Process();
+            return status;
         }
 
         private void OnAttackMoment()

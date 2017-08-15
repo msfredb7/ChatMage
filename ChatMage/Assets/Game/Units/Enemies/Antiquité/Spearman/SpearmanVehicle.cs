@@ -6,7 +6,7 @@ using UnityEngine;
 public class SpearmanVehicle : EnemyVehicle
 {
     [Header("Spearman")]
-    public SpearmanAnimator animator;
+    public SpearmanAnimatorV2 animator;
     public SpriteRenderer bodySprite;
 
     [Header("Attack")]

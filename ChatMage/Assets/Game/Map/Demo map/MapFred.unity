@@ -385,25 +385,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &227023158
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d2db7471a6a119489863c385f7dc95a, type: 3}
-  m_Name: Print
-  m_EditorClassIdentifier: 
-  windowRect:
-    serializedVersion: 2
-    x: 1010
-    y: 375
-    width: 150
-    height: 43
-  graph: {fileID: 1644651698}
-  message: 
 --- !u!114 &261677623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -701,26 +682,6 @@ Transform:
   m_Father: {fileID: 1237816616}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &571146982
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f38618b4b0d69704e9ecf2e0d077ab56, type: 3}
-  m_Name: Set Bool
-  m_EditorClassIdentifier: 
-  windowRect:
-    serializedVersion: 2
-    x: 374
-    y: 333
-    width: 150
-    height: 80
-  graph: {fileID: 1644651698}
-  valueToSet: 0
-  variable: {fileID: 1917015756}
 --- !u!1 &603044746
 GameObject:
   m_ObjectHideFlags: 0
@@ -824,25 +785,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
---- !u!114 &645275771
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d2db7471a6a119489863c385f7dc95a, type: 3}
-  m_Name: Print
-  m_EditorClassIdentifier: 
-  windowRect:
-    serializedVersion: 2
-    x: 1012
-    y: 543
-    width: 150
-    height: 43
-  graph: {fileID: 1644651698}
-  message: 
 --- !u!1 &767416915
 GameObject:
   m_ObjectHideFlags: 0
@@ -928,7 +870,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!61 &777449430
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1153,7 +1095,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!61 &1052540837
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1389,7 +1331,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!61 &1205445593
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1518,14 +1460,13 @@ MonoBehaviour:
   - milestones
   - milestoneRelativeHeights
   _serializedStateValues:
-  - '[null]'
-  - '[7.17]'
+  - '[]'
+  - '[]'
   topHeight: 54.5
   bottomHeight: -5.4
   setCameraMinMax: 1
   showCameraTrails: 1
-  milestones:
-  - {fileID: 0}
+  milestones: []
 --- !u!4 &1237816616
 Transform:
   m_ObjectHideFlags: 0
@@ -1684,6 +1625,7 @@ GameObject:
   - component: {fileID: 1644651695}
   - component: {fileID: 1644651697}
   - component: {fileID: 1644651698}
+  - component: {fileID: 1644651699}
   m_Layer: 0
   m_Name: Map
   m_TagString: Untagged
@@ -1762,11 +1704,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   events:
-  - {fileID: 645275771}
-  - {fileID: 1811596699}
-  - {fileID: 571146982}
-  - {fileID: 227023158}
-  - {fileID: 1917015756}
+  - {fileID: 1644651699}
+  - {fileID: 1934595440}
+--- !u!114 &1644651699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1644651694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd49420f0394cab48a9f23f929884117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  windowRect:
+    serializedVersion: 2
+    x: 506.09998
+    y: 389
+    width: 150
+    height: 64
+  graph: {fileID: 1644651698}
+  onGameStart:
+    iEvents:
+    - {fileID: 1934595440}
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
 --- !u!1 &1649213850
 GameObject:
   m_ObjectHideFlags: 1
@@ -1818,6 +1783,7 @@ MonoBehaviour:
   - {fileID: 627878962}
   - {fileID: 261677623}
   - {fileID: 1113761378}
+  - {fileID: 1934595440}
   _values:
   - _keys: []
     _values: []
@@ -1846,6 +1812,9 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 1113761378}
+  - _keys: []
+    _values: []
+    _target: {fileID: 1934595440}
 --- !u!114 &1649213853
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1867,6 +1836,7 @@ MonoBehaviour:
   - {fileID: 627878962}
   - {fileID: 261677623}
   - {fileID: 1113761378}
+  - {fileID: 1934595440}
   _values:
   - _keys:
     - DefaultBehaviorEditor.topHeight.EditProperty
@@ -1883,23 +1853,8 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 153121006}
-  - _keys:
-    - DefaultBehaviorEditor.mapping.EditProperty
-    - DefaultBehaviorEditor.cameraSpawn.EditProperty
-    - DefaultBehaviorEditor.listUnits.EditProperty
-    - DefaultBehaviorEditor.setAIArea.EditProperty
-    - DefaultBehaviorEditor.roadPlayer.EditProperty
-    _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
+  - _keys: []
+    _values: []
     _target: {fileID: 1644651695}
   - _keys: []
     _values: []
@@ -1919,6 +1874,9 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 1113761378}
+  - _keys: []
+    _values: []
+    _target: {fileID: 1934595440}
 --- !u!1 &1689588588
 GameObject:
   m_ObjectHideFlags: 0
@@ -2005,7 +1963,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!61 &1707838893
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2143,41 +2101,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1811596699
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8fb3e267a799ad848862e6055f374c8f, type: 3}
-  m_Name: if
-  m_EditorClassIdentifier: 
-  windowRect:
-    serializedVersion: 2
-    x: 686
-    y: 347
-    width: 150
-    height: 84
-  graph: {fileID: 1644651698}
-  defaultVariable: {fileID: 0}
-  _true:
-    iEvents:
-    - {fileID: 227023158}
-    unityEvent:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-  _false:
-    iEvents:
-    - {fileID: 645275771}
-    unityEvent:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
 --- !u!1001 &1833507343
 Prefab:
   m_ObjectHideFlags: 0
@@ -2329,7 +2252,7 @@ SpriteRenderer:
   m_Size: {x: 17, y: 10}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 1
---- !u!114 &1917015756
+--- !u!114 &1934595440
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -2337,17 +2260,47 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1d4a821a714d1b42a196d790f3383b2, type: 3}
-  m_Name: Surfing
+  m_Script: {fileID: 11500000, guid: c410d79d6dcad2c49b47308746d246c7, type: 3}
+  m_Name: Unit Wave
   m_EditorClassIdentifier: 
+  _objectReferences:
+  - {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
+  _serializedStateKeys:
+  - windowRect
+  - onComplete
+  - what
+  - where
+  _serializedStateValues:
+  - '{"xMin":732.0,"yMin":374.0,"xMax":882.0,"yMax":438.0}'
+  - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]}'
+  - '{"spawnSequence":[{"unit":0,"quantity":15}],"onSpawnMethod":"MakeSmart","progressCallbacks":[]}'
+  - '{"logErrorIfUnableToLaunch":true,"spawnTag":"ordered","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0}'
   windowRect:
     serializedVersion: 2
-    x: 617
-    y: 131
+    x: 732
+    y: 374
     width: 150
-    height: 43
+    height: 64
   graph: {fileID: 1644651698}
-  value: 0
+  onComplete:
+    iEvents: []
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+  infiniteRepeat: 0
+  pauseBetweenRepeat: 0
+  where:
+    logErrorIfUnableToLaunch: 1
+    spawnTag: ordered
+    filterType: 0
+    min: {x: 0, y: 0}
+    max: {x: 0, y: 0}
+    selectType: 0
+    index: 0
+  spawnInterval: 0.5
 --- !u!1 &1945247614
 GameObject:
   m_ObjectHideFlags: 0
