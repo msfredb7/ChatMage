@@ -472,12 +472,13 @@ MonoBehaviour:
   _objectReferences:
   - {fileID: 1170913434}
   - {fileID: 2086493880}
+  - {fileID: 1656082252}
   _serializedStateKeys:
   - milestones
   - milestoneRelativeHeights
   _serializedStateValues:
-  - '[0,1]'
-  - '[-86.51,-85.52]'
+  - '[0,1,2]'
+  - '[-86.51,-85.52,-58.78]'
   topHeight: 237.7
   bottomHeight: -108
   setCameraMinMax: 1
@@ -485,6 +486,7 @@ MonoBehaviour:
   milestones:
   - {fileID: 1170913434}
   - {fileID: 2086493880}
+  - {fileID: 1656082252}
 --- !u!1 &272089696
 GameObject:
   m_ObjectHideFlags: 0
@@ -616,10 +618,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowRect:
     serializedVersion: 2
-    x: 306
-    y: 177
+    x: 393
+    y: 187
     width: 150
-    height: 85
+    height: 43
   graph: {fileID: 1644651699}
   dialog: {fileID: 11400000, guid: 6271c6304b5c9a4468ab39733332fe10, type: 2}
 --- !u!1 &419336717
@@ -698,6 +700,25 @@ Transform:
   m_Father: {fileID: 773987709}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &542401859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bde49ba600c8a8548a8851471ba9cd42, type: 3}
+  m_Name: Dialog
+  m_EditorClassIdentifier: 
+  windowRect:
+    serializedVersion: 2
+    x: 572
+    y: 461
+    width: 150
+    height: 43
+  graph: {fileID: 1644651699}
+  dialog: {fileID: 11400000, guid: 631da21472be1064a84da5cd2895a006, type: 2}
 --- !u!1 &552480916
 GameObject:
   m_ObjectHideFlags: 0
@@ -725,6 +746,7 @@ Transform:
   m_Children:
   - {fileID: 1170913433}
   - {fileID: 2086493879}
+  - {fileID: 1656082253}
   m_Father: {fileID: 266624492}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -905,6 +927,52 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &778524171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1d4a821a714d1b42a196d790f3383b2, type: 3}
+  m_Name: canWin
+  m_EditorClassIdentifier: 
+  windowRect:
+    serializedVersion: 2
+    x: 741
+    y: 406
+    width: 150
+    height: 43
+  graph: {fileID: 1644651699}
+  value: 0
+--- !u!114 &805535863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a13e632081026d14b82f35e9dbe2ebf8, type: 3}
+  m_Name: Litteral Bool
+  m_EditorClassIdentifier: 
+  windowRect:
+    serializedVersion: 2
+    x: 572
+    y: 384
+    width: 150
+    height: 64
+  graph: {fileID: 1644651699}
+  value: 1
+  boolean:
+    iEvents:
+    - {fileID: 778524171}
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: GameEvents.MomentEvent_bool, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
 --- !u!114 &814094164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -917,6 +985,8 @@ MonoBehaviour:
   m_Name: Ambush
   m_EditorClassIdentifier: 
   _objectReferences:
+  - {fileID: 1817649173}
+  - {fileID: 805535863}
   - {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
   _serializedStateKeys:
   - windowRect
@@ -924,21 +994,22 @@ MonoBehaviour:
   - what
   - where
   _serializedStateValues:
-  - '{"xMin":302.0,"yMin":281.0,"xMax":452.0,"yMax":406.0}'
-  - '{"iEvents":[],"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
-    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}}'
-  - '{"spawnSequence":[{"unit":0,"quantity":4}],"onSpawnMethod":"","progressCallbacks":[{"moment":{"iEvents":[],"unityEvent":{"m_PersistentCalls":{"m_Calls":[{"m_Target":null,"m_MethodName":"","m_Mode":"Void","m_Arguments":{"m_ObjectArgument":null,"m_ObjectArgumentAssemblyTypeName":"","m_IntArgument":0,"m_FloatArgument":0.0,"m_StringArgument":"","m_BoolArgument":false},"m_CallState":"RuntimeOnly"}]},"m_TypeName":"UnityEngine.Events.UnityEvent,
-    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}},"useProgress":true,"atProgress":1.0,"atKillCount":0}]}'
+  - '{"xMin":393.0,"yMin":355.0,"xMax":543.0,"yMax":419.0}'
+  - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[0,1]}'
+  - '{"spawnSequence":[{"unit":2,"quantity":4}],"onSpawnMethod":"","progressCallbacks":[]}'
   - '{"logErrorIfUnableToLaunch":true,"spawnTag":"camera","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0}'
   windowRect:
     serializedVersion: 2
-    x: 302
-    y: 281
+    x: 393
+    y: 355
     width: 150
-    height: 125
+    height: 64
   graph: {fileID: 1644651699}
   onComplete:
-    iEvents: []
+    iEvents:
+    - {fileID: 1817649173}
+    - {fileID: 805535863}
     unityEvent:
       m_PersistentCalls:
         m_Calls: []
@@ -1106,7 +1177,7 @@ GameObject:
   - component: {fileID: 1170913434}
   m_Layer: 0
   m_Name: FrontOfGate
-  m_TagString: Untagged
+  m_TagString: Milestone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1136,7 +1207,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _objectReferences:
-  - {fileID: 814094164}
+  - {fileID: 2026401718}
   _serializedStateKeys:
   - windowRect
   - onTigger
@@ -1144,23 +1215,23 @@ MonoBehaviour:
   - aiAreaRelativeToMilestone
   - onExecute
   _serializedStateValues:
-  - '{"xMin":137.0,"yMin":226.0,"xMax":287.0,"yMax":329.0}'
-  - '{"iEvents":[0],"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
-    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}}'
+  - '{"xMin":212.0,"yMin":261.0,"xMax":362.0,"yMax":325.0}'
+  - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[0]}'
   - '"TopOfScreen"'
   - '{"min":{"x":-9.66,"y":-10.83},"max":{"x":9.6,"y":0.18}}'
   - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
   windowRect:
     serializedVersion: 2
-    x: 137
-    y: 226
+    x: 212
+    y: 261
     width: 150
-    height: 103
+    height: 64
   graph: {fileID: 1644651699}
   onTigger:
     iEvents:
-    - {fileID: 814094164}
+    - {fileID: 2026401718}
     unityEvent:
       m_PersistentCalls:
         m_Calls: []
@@ -1615,6 +1686,41 @@ MonoBehaviour:
   attachedSpawn: {fileID: 1461814167}
   gizmosAlwaysVisible: 1
   destination: {x: 0, y: 0}
+--- !u!114 &1577730653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fb3e267a799ad848862e6055f374c8f, type: 3}
+  m_Name: canWin
+  m_EditorClassIdentifier: 
+  windowRect:
+    serializedVersion: 2
+    x: 389
+    y: 452
+    width: 150
+    height: 84
+  graph: {fileID: 1644651699}
+  defaultVariable: {fileID: 778524171}
+  _true:
+    iEvents:
+    - {fileID: 542401859}
+    - {fileID: 1711074704}
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+  _false:
+    iEvents: []
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
 --- !u!1 &1598963439
 GameObject:
   m_ObjectHideFlags: 0
@@ -1787,6 +1893,14 @@ MonoBehaviour:
   - {fileID: 1170913434}
   - {fileID: 814094164}
   - {fileID: 2086493880}
+  - {fileID: 1656082252}
+  - {fileID: 542401859}
+  - {fileID: 1817649173}
+  - {fileID: 778524171}
+  - {fileID: 1577730653}
+  - {fileID: 805535863}
+  - {fileID: 2026401718}
+  - {fileID: 1711074704}
 --- !u!114 &1644651700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1800,10 +1914,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowRect:
     serializedVersion: 2
-    x: 134
-    y: 114
+    x: 212
+    y: 180
     width: 150
-    height: 103
+    height: 64
   graph: {fileID: 1644651699}
   onGameStart:
     iEvents:
@@ -1933,6 +2047,7 @@ MonoBehaviour:
   - {fileID: 1820994278}
   - {fileID: 1657192852}
   - {fileID: 1404559390}
+  - {fileID: 1656082252}
   _values:
   - _keys: []
     _values: []
@@ -1976,6 +2091,9 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 1404559390}
+  - _keys: []
+    _values: []
+    _target: {fileID: 1656082252}
 --- !u!114 &1649213853
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2002,6 +2120,7 @@ MonoBehaviour:
   - {fileID: 1820994278}
   - {fileID: 1657192852}
   - {fileID: 1404559390}
+  - {fileID: 1656082252}
   _values:
   - _keys: []
     _values: []
@@ -2009,8 +2128,23 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 266624493}
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.mapping.EditProperty
+    - DefaultBehaviorEditor.cameraSpawn.EditProperty
+    - DefaultBehaviorEditor.listUnits.EditProperty
+    - DefaultBehaviorEditor.setAIArea.EditProperty
+    - DefaultBehaviorEditor.roadPlayer.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
     _target: {fileID: 1644651695}
   - _keys:
     - DefaultBehaviorEditor.triggerOn.EditProperty
@@ -2019,7 +2153,10 @@ MonoBehaviour:
     - DefaultBehaviorEditor.setCameraMin.EditProperty
     - DefaultBehaviorEditor.setCameraMax.EditProperty
     - DefaultBehaviorEditor.fireEventToLevelScript.EditProperty
+    - DefaultBehaviorEditor.dialog.EditProperty
     _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
     - _showDropdown: 0
       _serializedIsActive: 1
     - _showDropdown: 0
@@ -2036,11 +2173,8 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 2086493880}
-  - _keys:
-    - DefaultBehaviorEditor.what.EditProperty.progressCallbacks.EditProperty.0.atProgress.EditProperty
-    _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
+  - _keys: []
+    _values: []
     _target: {fileID: 814094164}
   - _keys: []
     _values: []
@@ -2066,6 +2200,123 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 1404559390}
+  - _keys:
+    - DefaultBehaviorEditor.triggerOn.EditProperty
+    - DefaultBehaviorEditor.setAiArea.EditProperty
+    - DefaultBehaviorEditor.modifyFollowPlayer.EditProperty
+    - DefaultBehaviorEditor.setCameraMin.EditProperty
+    - DefaultBehaviorEditor.setCameraMax.EditProperty
+    - DefaultBehaviorEditor.fireEventToLevelScript.EditProperty
+    - DefaultBehaviorEditor.dialog.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    _target: {fileID: 1656082252}
+--- !u!1 &1656082251
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1656082253}
+  - component: {fileID: 1656082252}
+  m_Layer: 0
+  m_Name: FirstAmbush
+  m_TagString: Milestone
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!114 &1656082252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1656082251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d16ec1b977bfcb542b9a66a4dab46ed0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectReferences:
+  - {fileID: 814094164}
+  _serializedStateKeys:
+  - windowRect
+  - onTigger
+  - triggerOn
+  - aiAreaRelativeToMilestone
+  - onExecute
+  _serializedStateValues:
+  - '{"xMin":214.0,"yMin":354.0,"xMax":364.0,"yMax":418.0}'
+  - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[0]}'
+  - '"TopOfScreen"'
+  - '{"min":{"x":-9.66,"y":-10.83},"max":{"x":9.6,"y":0.18}}'
+  - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  windowRect:
+    serializedVersion: 2
+    x: 214
+    y: 354
+    width: 150
+    height: 64
+  graph: {fileID: 1644651699}
+  onTigger:
+    iEvents:
+    - {fileID: 814094164}
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+  gizmosAlwaysVisible: 1
+  triggerOn: 1
+  disapearAfterTrigger: 1
+  setAiArea: 1
+  aiAreaAdjustToSceenRatio: 1
+  aiAreaRelativeToMilestone:
+    min: {x: -9.66, y: -10.83}
+    max: {x: 9.6, y: 0.18}
+  modifyFollowPlayer: 1
+  followPlayerEffect: 0
+  setCameraMin: 0
+  cameraMinRelativeToMilestone: 0
+  setCameraMax: 0
+  cameraMaxRelativeToMilestone: 0
+  fireEventToLevelScript: 1
+  eventMessage: ambush1
+  onExecute:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  dialog: {fileID: 0}
+--- !u!4 &1656082253
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1656082251}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -38.78, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 552480917}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1657192851
 GameObject:
   m_ObjectHideFlags: 0
@@ -2130,6 +2381,24 @@ Transform:
   m_Father: {fileID: 773987709}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
+--- !u!114 &1711074704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90f376bc791a4024a8d0934c929e6c9e, type: 3}
+  m_Name: Win
+  m_EditorClassIdentifier: 
+  windowRect:
+    serializedVersion: 2
+    x: 572
+    y: 511
+    width: 150
+    height: 43
+  graph: {fileID: 1644651699}
 --- !u!1 &1794875319
 GameObject:
   m_ObjectHideFlags: 1
@@ -2171,6 +2440,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1817649173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1d6ed79ce26bc941827370db1bc5dc6, type: 3}
+  m_Name: Road Reset
+  m_EditorClassIdentifier: 
+  windowRect:
+    serializedVersion: 2
+    x: 571
+    y: 327
+    width: 150
+    height: 43
+  graph: {fileID: 1644651699}
 --- !u!1 &1820994277
 GameObject:
   m_ObjectHideFlags: 0
@@ -2403,6 +2690,24 @@ MonoBehaviour:
   posType: 2
   tags:
   - bot
+--- !u!114 &2026401718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1d6ed79ce26bc941827370db1bc5dc6, type: 3}
+  m_Name: Road Reset
+  m_EditorClassIdentifier: 
+  windowRect:
+    serializedVersion: 2
+    x: 390
+    y: 263
+    width: 150
+    height: 43
+  graph: {fileID: 1644651699}
 --- !u!1 &2086493878
 GameObject:
   m_ObjectHideFlags: 0
@@ -2414,7 +2719,7 @@ GameObject:
   - component: {fileID: 2086493880}
   m_Layer: 0
   m_Name: Ending
-  m_TagString: Untagged
+  m_TagString: Milestone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2443,7 +2748,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d16ec1b977bfcb542b9a66a4dab46ed0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectReferences: []
+  _objectReferences:
+  - {fileID: 1577730653}
   _serializedStateKeys:
   - windowRect
   - onTigger
@@ -2451,22 +2757,23 @@ MonoBehaviour:
   - aiAreaRelativeToMilestone
   - onExecute
   _serializedStateValues:
-  - '{"xMin":137.0,"yMin":354.0,"xMax":287.0,"yMax":457.0}'
-  - '{"iEvents":[],"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
-    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}}'
+  - '{"xMin":216.0,"yMin":451.0,"xMax":366.0,"yMax":515.0}'
+  - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[0]}'
   - '"BottomOfScreen"'
   - '{"min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0}}'
   - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
   windowRect:
     serializedVersion: 2
-    x: 137
-    y: 354
+    x: 216
+    y: 451
     width: 150
-    height: 103
+    height: 64
   graph: {fileID: 1644651699}
   onTigger:
-    iEvents: []
+    iEvents:
+    - {fileID: 1577730653}
     unityEvent:
       m_PersistentCalls:
         m_Calls: []

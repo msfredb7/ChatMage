@@ -17,7 +17,10 @@ namespace GameEvents
 
         public override string NodeLabel()
         {
-            return "Dialog: " + dialog.name;
+            if (dialog != null)
+                return "Dialog: " + dialog.name;
+            else
+                return "Dialog";
         }
         public override Color GUIColor()
         {
