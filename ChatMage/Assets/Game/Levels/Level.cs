@@ -1,4 +1,4 @@
-﻿using FullInspector;
+using FullInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,14 +14,20 @@ public class Level : BaseScriptableObject
     [InspectorHeader("Data"), InspectorMargin(25)]
     [fsProperty]
     private bool hasBeenCompleted;
+    [fsProperty]
+    private bool hasBeenSeen;
 
     public bool HasBeenCompleted
     {
         get { return hasBeenCompleted; }
     }
+    public bool HasBeenSeen
+    {
+        get { return hasBeenSeen; }
+        set { hasBeenSeen = value; ApplyData(); }
+    }
 
-    private const string SAVE_PREFIX = "lvl";
-    private const string COMPLETED_KEY = "cpt";
+    private const string SEEN_KEY = "_seen";
 
     public bool IsUnlocked()
     {
@@ -38,27 +44,18 @@ public class Level : BaseScriptableObject
 
     public void LoadData()
     {
-        string completedCompleteKey = SAVE_PREFIX + name + COMPLETED_KEY;
-
-        if (GameSaves.instance.ContainsBool(GameSaves.Type.LevelSelect, completedCompleteKey))
-            hasBeenCompleted = GameSaves.instance.GetBool(GameSaves.Type.LevelSelect, completedCompleteKey);
-        else
-        {
-            hasBeenCompleted = false;
-            SaveData();
-        }
+        hasBeenCompleted = LevelScript.HasBeenCompleted(levelScriptName);
+        hasBeenSeen = GameSaves.instance.GetBool(GameSaves.Type.Levels, GetCompleteSeenKey());
     }
 
     [InspectorButton]
-    private void SaveData()
+    private void ApplyData()
     {
-        string completedCompleteKey = SAVE_PREFIX + name + COMPLETED_KEY;
-        GameSaves.instance.SetBool(GameSaves.Type.LevelSelect, completedCompleteKey, hasBeenCompleted);
+        GameSaves.instance.SetBool(GameSaves.Type.Levels, GetCompleteSeenKey(), hasBeenSeen);
     }
 
-    public void Complete()
+    private string GetCompleteSeenKey()
     {
-        hasBeenCompleted = true;
-        SaveData();
+        return name + SEEN_KEY;
     }
 }

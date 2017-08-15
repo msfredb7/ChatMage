@@ -14,8 +14,35 @@ using System.Reflection;
 
 public abstract class LevelScript : BaseScriptableObject, IEventReceiver
 {
-    public const string WINRESULT_KEY = "winr";
-    public const string FIRST_WINRESULT_KEY = "first-winr";
+    //public const string WINRESULT_KEY = "winr";
+    //public const string HAS_EVER_BEEN_WON = "first-winr";
+    public const string COMPLETED_KEY = "cmplt_";
+    public static bool HasBeenCompleted(LevelScript lvlScript)
+    {
+        return HasBeenCompleted(lvlScript.name);
+    }
+    public static bool HasBeenCompleted(string lvlScriptName)
+    {
+        return GameSaves.instance.GetBool(GameSaves.Type.Levels, COMPLETED_KEY + lvlScriptName, false);
+    }
+    public static void MarkAsCompleted(LevelScript lvlScript)
+    {
+        MarkAsCompleted(lvlScript.name);
+    }
+    public static void MarkAsCompleted(string lvlScriptName)
+    {
+        GameSaves.instance.SetBool(GameSaves.Type.Levels, COMPLETED_KEY + lvlScriptName, true);
+        GameSaves.instance.SaveData(GameSaves.Type.Levels);
+    }
+
+
+
+
+
+
+
+
+
 
     [InspectorHeader("General Info")]
     public string sceneName;
@@ -144,6 +171,12 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
         OnUpdate();
     }
 
+    [InspectorButton]
+    private void Debug_MarkHasCompleted()
+    {
+        MarkAsCompleted(this);
+    }
+
     public void Win()
     {
         if (IsOver)
@@ -151,21 +184,15 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
 
         isOver = true;
 
-        //On enregistre la Win
-        if (GameSaves.instance.ContainsBool(GameSaves.Type.LevelSelect, WINRESULT_KEY))
+
+        bool wasCompleted = HasBeenCompleted(this);
+
+        rewards.firstWin = !wasCompleted;
+        if (!wasCompleted)
         {
-            GameSaves.instance.SetBool(GameSaves.Type.LevelSelect, WINRESULT_KEY, true);
-            // On avait déja enregistrer qu'on avait gagner le niveau par la passé, donc déja win
-            GameSaves.instance.SetBool(GameSaves.Type.LevelSelect, FIRST_WINRESULT_KEY, false);
-            GameSaves.instance.SaveData(GameSaves.Type.LevelSelect);
+            MarkAsCompleted(this);
         }
-        else
-        {
-            GameSaves.instance.SetBool(GameSaves.Type.LevelSelect, WINRESULT_KEY, true);
-            // On avait PAS déja enregistrer qu'on avait gagner le niveau par la passé, donc première win
-            GameSaves.instance.SetBool(GameSaves.Type.LevelSelect, FIRST_WINRESULT_KEY, true);
-            GameSaves.instance.SaveData(GameSaves.Type.LevelSelect);
-        }
+
 
         if (onWin != null)
             onWin();
@@ -454,7 +481,7 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
     {
         if (wave.preLaunchDialog != null)
         {
-            Game.instance.ui.dialogDisplay.StartDialog(wave.preLaunchDialog, delegate()
+            Game.instance.ui.dialogDisplay.StartDialog(wave.preLaunchDialog, delegate ()
             {
                 wave.LaunchNow(this);
                 OnWaveLaunch();

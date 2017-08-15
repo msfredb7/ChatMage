@@ -18,14 +18,14 @@ namespace EndGameReward
         public Button continueButton;
         public RewardDisplayItem[] items;
 
-        public void Init(GameReward rewards, bool firstWin)
+        public void Init(GameReward rewards)
         {
             int baseGold;
             int bonusGold;
-            rewards.GetAndApplyGoldReward(firstWin, out baseGold, out bonusGold);
+            rewards.GetAndApplyGoldReward(out baseGold, out bonusGold);
 
             // Ajout de toutes les recompenses contenant dans GameRewards dans une seule liste
-            if (rewards.HasLootbox())
+            if (rewards.firstWin && rewards.HasLootbox())
                 LootBox.NewLootbox(rewards.lootboxRefName, delegate (LootBox lootbox)
                 {
                     DisplayTemporaire(lootbox, baseGold, bonusGold);

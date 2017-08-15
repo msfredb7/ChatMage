@@ -112,8 +112,8 @@ namespace Tutorial
                 else
                     modules.spotlight.OnWorld(Game.instance.Player.vehicle.Position);
 
-                modules.textDisplay.DisplayText("Defeat your enemies hitting them with your car."
-                    + " But be careful, they will try to attack you to!", true);
+                modules.textDisplay.DisplayText("Defeat your enemies by hitting them with your car."
+                    + " But be careful, they will try to attack you too!", true);
 
                 modules.delayedAction.Do(0.75f,
                     delegate ()

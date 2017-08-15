@@ -18,7 +18,8 @@ public class GameReward
         public const int default_firstWinAmountMin = 30;
         public const int default_firstWinAmountMax = 40;
     }
-
+    [NotSerialized, FullSerializer.fsIgnore]
+    public bool firstWin = false;
     public bool overrideGoldAmount = false;
     [InspectorShowIf("overrideGoldAmount")]
     public GoldReward goldReward;
@@ -37,7 +38,7 @@ public class GameReward
         return giveLootBox && lootboxRefName != "";
     }
 
-    public void GetAndApplyGoldReward(bool firstWin, out int baseGold, out int bonusGold)
+    public void GetAndApplyGoldReward(out int baseGold, out int bonusGold)
     {
         if (overrideGoldAmount)
         {

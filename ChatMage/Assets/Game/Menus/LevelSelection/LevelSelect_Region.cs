@@ -53,22 +53,6 @@ namespace LevelSelect
             }
         }
 
-        /// <summary>
-        /// Returns true if the level was indeed in this list
-        /// </summary>
-        public bool MarkAsCompleted(string levelName)
-        {
-            for (int i = 0; i < levelItems.Count; i++)
-            {
-                if (levelItems[i].level.name == levelName)
-                {
-                    levelItems[i].level.Complete();
-                    return true;
-                }
-            }
-            return false;
-        }
-
         public void HideAll()
         {
             for (int i = 0; i < levelItems.Count; i++)

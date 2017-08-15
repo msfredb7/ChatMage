@@ -180,4 +180,9 @@ public class LS_ThridLevel : LevelScript
             Lose();
         }
     }
+
+    public override void OnWin()
+    {
+        Armory.UnlockAccessToItems();
+    }
 }

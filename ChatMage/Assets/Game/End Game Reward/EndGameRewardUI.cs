@@ -17,15 +17,13 @@ namespace EndGameReward
 
         //private string levelScriptAssetName;
         private GameReward reward;
-        private bool firstWin;
 
         private Vector2 pinataCenter;
 
-        public void Init(GameReward reward, string levelScriptAssetName, bool firstWin)
+        public void Init(GameReward reward, string levelScriptAssetName)
         {
             //this.levelScriptAssetName = levelScriptAssetName;  //On en a pas de besoin pour l'instant
             this.reward = reward;
-            this.firstWin = firstWin;
         }
 
         public void PinataHasBeenDestroyed(Vector2 explosionPosition, Camera currentCamera, Action canUnloadCallback)
@@ -39,7 +37,7 @@ namespace EndGameReward
 
             DelayManager.LocalCallTo(delegate ()
             {
-                rewardDisplay.Init(reward, firstWin);
+                rewardDisplay.Init(reward);
             }, 1, this);
         }
 

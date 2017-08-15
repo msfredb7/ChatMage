@@ -40,37 +40,37 @@ public class GameSaves : BaseManager<GameSaves>
     }
 
     #region Get Value
-    public int GetInt(Type type, string key)
+    public int GetInt(Type type, string key, int defaultVal = 0)
     {
         Data data = TypeToData(type);
         if (data.ints.ContainsKey(key))
             return data.ints[key];
         else
-            throw new Exception(type.ToString() + ": '" + key + "' does not exist.");
+            return defaultVal;
     }
-    public float GetFloat(Type type, string key)
+    public float GetFloat(Type type, string key, float defaultVal)
     {
         Data data = TypeToData(type);
         if (data.floats.ContainsKey(key))
             return data.floats[key];
         else
-            throw new Exception(type.ToString() + ": '" + key + "' does not exist.");
+            return defaultVal;
     }
-    public string GetString(Type type, string key)
+    public string GetString(Type type, string key, string defaultVal = "")
     {
         Data data = TypeToData(type);
         if (data.strings.ContainsKey(key))
             return data.strings[key];
         else
-            throw new Exception(type.ToString() + ": '" + key + "' does not exist.");
+            return defaultVal;
     }
-    public bool GetBool(Type type, string key)
+    public bool GetBool(Type type, string key, bool defaultVal = false)
     {
         Data data = TypeToData(type);
         if (data.bools.ContainsKey(key))
             return data.bools[key];
         else
-            throw new Exception(type.ToString() + ": '" + key + "' does not exist.");
+            return defaultVal;
     }
     #endregion
 
@@ -140,7 +140,7 @@ public class GameSaves : BaseManager<GameSaves>
     {
         InitQueue queue = new InitQueue(onComplete);
         LoadDataAsync(Type.Loadout, queue.Register());
-        LoadDataAsync(Type.LevelSelect, queue.Register());
+        LoadDataAsync(Type.Levels, queue.Register());
         LoadDataAsync(Type.Account, queue.Register());
         LoadDataAsync(Type.Armory, queue.Register());
         LoadDataAsync(Type.Tutorial, queue.Register());
@@ -151,7 +151,7 @@ public class GameSaves : BaseManager<GameSaves>
     public void LoadAll()
     {
         LoadData(Type.Loadout);
-        LoadData(Type.LevelSelect);
+        LoadData(Type.Levels);
         LoadData(Type.Account);
         LoadData(Type.Armory);
         LoadData(Type.Tutorial);
@@ -161,7 +161,7 @@ public class GameSaves : BaseManager<GameSaves>
     {
         InitQueue queue = new InitQueue(onComplete);
         SaveDataAsync(Type.Loadout, queue.Register());
-        SaveDataAsync(Type.LevelSelect, queue.Register());
+        SaveDataAsync(Type.Levels, queue.Register());
         SaveDataAsync(Type.Account, queue.Register());
         SaveDataAsync(Type.Armory, queue.Register());
         SaveDataAsync(Type.Tutorial, queue.Register());
@@ -173,7 +173,7 @@ public class GameSaves : BaseManager<GameSaves>
     public void SaveAll()
     {
         SaveData(Type.Loadout);
-        SaveData(Type.LevelSelect);
+        SaveData(Type.Levels);
         SaveData(Type.Account);
         SaveData(Type.Armory);
         SaveData(Type.Tutorial);
@@ -242,7 +242,7 @@ public class GameSaves : BaseManager<GameSaves>
     public void ClearAllSaves()
     {
         ClearSave(Type.Account);
-        ClearSave(Type.LevelSelect);
+        ClearSave(Type.Levels);
         ClearSave(Type.Loadout);
         ClearSave(Type.Armory);
         ClearSave(Type.Tutorial);
@@ -259,7 +259,7 @@ public class GameSaves : BaseManager<GameSaves>
     [InspectorButton()]
     public void ClearLevelSelect()
     {
-        ClearSave(Type.LevelSelect);
+        ClearSave(Type.Levels);
 #if UNITY_EDITOR
         Debug.Log("LevelSelect Cleared");
 #endif
@@ -305,7 +305,7 @@ public class GameSaves : BaseManager<GameSaves>
     private const string ARMORY_FILE = "armory.dat";
     private const string TUTORIAL_FILE = "tutorial.dat";
 
-    public enum Type { LevelSelect = 0, Loadout = 1, Account = 2, Armory = 3, Tutorial = 4 }
+    public enum Type { Levels = 0, Loadout = 1, Account = 2, Armory = 3, Tutorial = 4 }
 
     [ShowInInspector]
     private Data levelSelectData = new Data();
@@ -322,7 +322,7 @@ public class GameSaves : BaseManager<GameSaves>
     {
         switch (type)
         {
-            case Type.LevelSelect:
+            case Type.Levels:
                 return saveVersion + LEVELSELECT_FILE;
             case Type.Loadout:
                 return saveVersion + LOADOUT_FILE;
@@ -340,7 +340,7 @@ public class GameSaves : BaseManager<GameSaves>
     {
         switch (type)
         {
-            case Type.LevelSelect:
+            case Type.Levels:
                 return levelSelectData;
             case Type.Loadout:
                 return loadoutData;
@@ -358,7 +358,7 @@ public class GameSaves : BaseManager<GameSaves>
     {
         switch (type)
         {
-            case Type.LevelSelect:
+            case Type.Levels:
                 levelSelectData = newData;
                 break;
             case Type.Loadout:
@@ -380,7 +380,7 @@ public class GameSaves : BaseManager<GameSaves>
     {
         switch (type)
         {
-            case Type.LevelSelect:
+            case Type.Levels:
                 levelSelectData = new Data();
                 break;
             case Type.Loadout:

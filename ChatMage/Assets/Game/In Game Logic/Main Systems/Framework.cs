@@ -25,7 +25,7 @@ public class Framework : MonoBehaviour
 
     private bool mapLoaded = false;
     private bool uiLoaded = false;
-    private LevelScript level = null;
+    private LevelScript levelScript = null;
     private LoadoutResult loadoutResult;
     private bool canGoToLevelSelect;
 
@@ -63,7 +63,7 @@ public class Framework : MonoBehaviour
     private void Init(LevelScript level, LoadoutResult loadoutResult, bool canGoToLevelSelect)
     {
         hasInit = true;
-        this.level = level;
+        this.levelScript = level;
         this.loadoutResult = loadoutResult;
         this.canGoToLevelSelect = canGoToLevelSelect;
 
@@ -124,7 +124,7 @@ public class Framework : MonoBehaviour
         InitQueue initQueue = new InitQueue(OnAllModulesLoaded);
 
         //Ajouter dautre module ici si nécessaire
-        level.Init(initQueue.Register());
+        levelScript.Init(initQueue.Register());
         playerbuilder.LoadAssets(loadoutResult, initQueue.Register());
 
         initQueue.MarkEnd();
@@ -137,7 +137,7 @@ public class Framework : MonoBehaviour
 
         //Game Init
         game.map = map;
-        game.Init(level,this, player);
+        game.Init(levelScript,this, player);
 
         //Init map
         map.Init(player);
@@ -154,6 +154,6 @@ public class Framework : MonoBehaviour
 
     public void RestartLevel()
     {
-        LoadingScreen.TransitionTo(SCENENAME,new ToGameMessage(level.name,loadoutResult),true);
+        LoadingScreen.TransitionTo(SCENENAME,new ToGameMessage(levelScript.name,loadoutResult),true);
     }
 }
