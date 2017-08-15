@@ -60,9 +60,6 @@ public class Milestone : FIPhysicalEvent, IEvent
 
     public void Trigger()
     {
-        onTigger.Launch();
-        onExecute.Invoke();
-
         if (setAiArea)
         {
             Vector2 min = aiAreaRelativeToMilestone.min + (Vector2)transform.position;
@@ -105,6 +102,9 @@ public class Milestone : FIPhysicalEvent, IEvent
         {
             Game.instance.levelScript.ReceiveEvent(eventMessage);
         }
+
+        onTigger.Launch();
+        onExecute.Invoke();
     }
 
     public float GetVirtualHeight()
@@ -176,6 +176,6 @@ public class Milestone : FIPhysicalEvent, IEvent
 
     public override string NodeLabel()
     {
-        return "Milestone";
+        return gameObject.name;
     }
 }
