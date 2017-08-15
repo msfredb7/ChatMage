@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
@@ -11,11 +11,11 @@ public class CuttingAxe : Unit
 
     void Start()
     {
-        shieldCollider.onCollisionEnter += ShieldCollider_onCollisionEnter;
+        shieldCollider.onTriggerEnter += ShieldCollider_onTiggerEnter;
     }
 
     //Si la hache frappe un ennemi, il l'attaque
-    private void ShieldCollider_onCollisionEnter(ColliderInfo other, Collision2D collision, ColliderListener listener)
+    private void ShieldCollider_onTiggerEnter(ColliderInfo other, ColliderListener listener)
     {
         Unit unit = other.parentUnit;
         if (!targets.IsValidTarget(unit))

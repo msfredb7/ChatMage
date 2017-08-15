@@ -37,7 +37,6 @@ GameObject:
   - component: {fileID: 4692665024444616}
   - component: {fileID: 212780387892945398}
   - component: {fileID: 114369363374499524}
-  - component: {fileID: 114698521880213226}
   - component: {fileID: 58231429579418034}
   m_Layer: 11
   m_Name: Collider/Sprite
@@ -102,7 +101,6 @@ MonoBehaviour:
   allegiance: 2
   targets:
     targetAllegiances: 00000000
-  woodCollider: {fileID: 114698521880213226}
 --- !u!114 &114369363374499524
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -116,20 +114,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parentUnit: {fileID: 114057066178036988}
   groupParent: {fileID: 1304982809765278}
---- !u!114 &114698521880213226
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1670933573238560}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65d05512cab53054d8a0b20414ee7974, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  info: {fileID: 114369363374499524}
-  useTrigger: 0
-  useCollision: 1
 --- !u!212 &212780387892945398
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -159,11 +143,11 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -852012283
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 85be59f18cb1eb74dbe44654e02c0903, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.491, g: 0.31010523, b: 0.17658769, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
