@@ -218,6 +218,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8298df7b274d40149b17d04ca9417326, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _objectReferences:
+  - {fileID: 997129484}
+  - {fileID: 974461819}
+  - {fileID: 1988937640}
+  _serializedStateKeys:
+  - posType
+  - subSpawns
+  _serializedStateValues:
+  - '"RelativeToCamera"'
+  - '[{"spawn":0,"weight":1.0},{"spawn":1,"weight":1.0},{"spawn":2,"weight":1.0}]'
   gizmosAlwaysVisible: 1
   posType: 2
   tags:
@@ -285,14 +295,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objectReferences: []
   _serializedStateKeys:
+  - windowRect
+  - onTigger
   - triggerOn
   - aiAreaRelativeToMilestone
   - onExecute
   _serializedStateValues:
+  - '{"xMin":300.0,"yMin":300.0,"xMax":450.0,"yMax":310.0}'
+  - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]}'
   - '"TopOfScreen"'
   - '{"min":{"x":-9.58,"y":-11.0},"max":{"x":9.64,"y":0.0}}'
   - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  windowRect:
+    serializedVersion: 2
+    x: 300
+    y: 300
+    width: 150
+    height: 10
+  graph: {fileID: 0}
+  onTigger:
+    iEvents: []
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
   gizmosAlwaysVisible: 1
   triggerOn: 1
   disapearAfterTrigger: 1
@@ -359,38 +388,18 @@ MonoBehaviour:
   - {fileID: 1785554780}
   - {fileID: 71926986}
   _serializedStateKeys:
-  - unfilteredWaypoints
   - unfilteredTaggedObjects
   - unfilteredSpawns
-  - enemyWaypoints
-  - playerWaypoints
-  - bossWaypoints
-  - itemWaypoints
-  - otherWaypoints
-  - taggedWaypoints
   - taggedObjects
   - spawns
   _serializedStateValues:
   - '[]'
   - '[]'
-  - '[]'
-  - '[]'
-  - '[]'
-  - '[]'
-  - '[]'
-  - '[]'
-  - '{}'
   - '{"gate":[0]}'
   - '{"ordered gate":[1],"camera":[2],"random right":[3],"gate":[4,5,6,7,8,9,10,11,12],"random
     left":[13],"random bot":[14]}'
-  unfilteredWaypoints: []
   unfilteredTaggedObjects: []
   unfilteredSpawns: []
-  enemyWaypoints: []
-  playerWaypoints: []
-  bossWaypoints: []
-  itemWaypoints: []
-  otherWaypoints: []
 --- !u!4 &153121007
 Transform:
   m_ObjectHideFlags: 0
@@ -459,6 +468,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81e0410c014f5ea4ab3fbd5093871b0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _objectReferences: []
+  _serializedStateKeys:
+  - posType
+  _serializedStateValues:
+  - '"RelativeToCamera"'
   gizmosAlwaysVisible: 1
   posType: 2
   tags:
@@ -504,6 +518,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf95083f75c25044b8552decffe1601, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _objectReferences:
+  - {fileID: 1659295149}
+  - {fileID: 1785554780}
+  - {fileID: 71926986}
+  _serializedStateKeys:
+  - posType
+  - subSpawns
+  _serializedStateValues:
+  - '"RelativeToCamera"'
+  - '[0,1,2]'
   gizmosAlwaysVisible: 1
   posType: 2
   tags:
@@ -593,6 +617,7 @@ MonoBehaviour:
   topHeight: 237.7
   bottomHeight: -108.69
   setCameraMinMax: 1
+  showCameraTrails: 1
   milestones:
   - {fileID: 1990598053}
   - {fileID: 641073216}
@@ -765,14 +790,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objectReferences: []
   _serializedStateKeys:
+  - windowRect
+  - onTigger
   - triggerOn
   - aiAreaRelativeToMilestone
   - onExecute
   _serializedStateValues:
+  - '{"xMin":300.0,"yMin":300.0,"xMax":450.0,"yMax":310.0}'
+  - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]}'
   - '"TopOfScreen"'
   - '{"min":{"x":-9.41,"y":-11.0},"max":{"x":9.81,"y":0.0}}'
   - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  windowRect:
+    serializedVersion: 2
+    x: 300
+    y: 300
+    width: 150
+    height: 10
+  graph: {fileID: 0}
+  onTigger:
+    iEvents: []
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
   gizmosAlwaysVisible: 1
   triggerOn: 1
   disapearAfterTrigger: 1
@@ -837,14 +881,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objectReferences: []
   _serializedStateKeys:
+  - windowRect
+  - onTigger
   - triggerOn
   - aiAreaRelativeToMilestone
   - onExecute
   _serializedStateValues:
+  - '{"xMin":300.0,"yMin":300.0,"xMax":450.0,"yMax":310.0}'
+  - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]}'
   - '"TopOfScreen"'
   - '{"min":{"x":-9.64,"y":-11.0},"max":{"x":9.64,"y":0.0}}'
   - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  windowRect:
+    serializedVersion: 2
+    x: 300
+    y: 300
+    width: 150
+    height: 10
+  graph: {fileID: 0}
+  onTigger:
+    iEvents: []
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
   gizmosAlwaysVisible: 1
   triggerOn: 1
   disapearAfterTrigger: 1
@@ -961,6 +1024,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81e0410c014f5ea4ab3fbd5093871b0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _objectReferences: []
+  _serializedStateKeys:
+  - posType
+  _serializedStateValues:
+  - '"RelativeToCamera"'
   gizmosAlwaysVisible: 1
   posType: 2
   tags:
@@ -1076,14 +1144,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objectReferences: []
   _serializedStateKeys:
+  - windowRect
+  - onTigger
   - triggerOn
   - aiAreaRelativeToMilestone
   - onExecute
   _serializedStateValues:
+  - '{"xMin":300.0,"yMin":300.0,"xMax":450.0,"yMax":310.0}'
+  - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]}'
   - '"TopOfScreen"'
   - '{"min":{"x":-9.72,"y":-11.0},"max":{"x":9.66,"y":0.0}}'
   - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  windowRect:
+    serializedVersion: 2
+    x: 300
+    y: 300
+    width: 150
+    height: 10
+  graph: {fileID: 0}
+  onTigger:
+    iEvents: []
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
   gizmosAlwaysVisible: 1
   triggerOn: 1
   disapearAfterTrigger: 1
@@ -1189,14 +1276,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objectReferences: []
   _serializedStateKeys:
+  - windowRect
+  - onTigger
   - triggerOn
   - aiAreaRelativeToMilestone
   - onExecute
   _serializedStateValues:
+  - '{"xMin":300.0,"yMin":300.0,"xMax":450.0,"yMax":310.0}'
+  - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]}'
   - '"TopOfScreen"'
   - '{"min":{"x":-9.57,"y":-11.0},"max":{"x":9.64,"y":0.0}}'
   - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  windowRect:
+    serializedVersion: 2
+    x: 300
+    y: 300
+    width: 150
+    height: 10
+  graph: {fileID: 0}
+  onTigger:
+    iEvents: []
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
   gizmosAlwaysVisible: 1
   triggerOn: 1
   disapearAfterTrigger: 1
@@ -1274,6 +1380,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81e0410c014f5ea4ab3fbd5093871b0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _objectReferences: []
+  _serializedStateKeys:
+  - posType
+  _serializedStateValues:
+  - '"RelativeToCamera"'
   gizmosAlwaysVisible: 1
   posType: 2
   tags:
@@ -1306,6 +1417,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81e0410c014f5ea4ab3fbd5093871b0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _objectReferences: []
+  _serializedStateKeys:
+  - posType
+  _serializedStateValues:
+  - '"RelativeToCamera"'
   gizmosAlwaysVisible: 1
   posType: 2
   tags:
@@ -1365,6 +1481,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81e0410c014f5ea4ab3fbd5093871b0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _objectReferences: []
+  _serializedStateKeys:
+  - posType
+  _serializedStateValues:
+  - '"RelativeToCamera"'
   gizmosAlwaysVisible: 1
   posType: 2
   tags:
@@ -1424,6 +1545,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81e0410c014f5ea4ab3fbd5093871b0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _objectReferences: []
+  _serializedStateKeys:
+  - posType
+  _serializedStateValues:
+  - '"RelativeToCamera"'
   gizmosAlwaysVisible: 1
   posType: 2
   tags:
@@ -1497,14 +1623,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objectReferences: []
   _serializedStateKeys:
+  - windowRect
+  - onTigger
   - triggerOn
   - aiAreaRelativeToMilestone
   - onExecute
   _serializedStateValues:
+  - '{"xMin":300.0,"yMin":300.0,"xMax":450.0,"yMax":310.0}'
+  - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]}'
   - '"TopOfScreen"'
   - '{"min":{"x":-9.64,"y":-9.0},"max":{"x":9.74,"y":0.0}}'
   - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  windowRect:
+    serializedVersion: 2
+    x: 300
+    y: 300
+    width: 150
+    height: 10
+  graph: {fileID: 0}
+  onTigger:
+    iEvents: []
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
   gizmosAlwaysVisible: 1
   triggerOn: 1
   disapearAfterTrigger: 1
@@ -1569,14 +1714,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objectReferences: []
   _serializedStateKeys:
+  - windowRect
+  - onTigger
   - triggerOn
   - aiAreaRelativeToMilestone
   - onExecute
   _serializedStateValues:
+  - '{"xMin":300.0,"yMin":300.0,"xMax":450.0,"yMax":310.0}'
+  - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]}'
   - '"TopOfScreen"'
   - '{"min":{"x":-9.84,"y":-11.0},"max":{"x":9.72,"y":0.0}}'
   - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  windowRect:
+    serializedVersion: 2
+    x: 300
+    y: 300
+    width: 150
+    height: 10
+  graph: {fileID: 0}
+  onTigger:
+    iEvents: []
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
   gizmosAlwaysVisible: 1
   triggerOn: 1
   disapearAfterTrigger: 1
@@ -1805,6 +1969,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d320295b82adad64b9d4179d395a1b2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _objectReferences: []
+  _serializedStateKeys: []
+  _serializedStateValues: []
   tags:
   - gate
 --- !u!1 &1562384045
@@ -1862,6 +2029,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81e0410c014f5ea4ab3fbd5093871b0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _objectReferences: []
+  _serializedStateKeys:
+  - posType
+  _serializedStateValues:
+  - '"RelativeToCamera"'
   gizmosAlwaysVisible: 1
   posType: 2
   tags:
@@ -1898,11 +2070,9 @@ MonoBehaviour:
   _objectReferences: []
   _serializedStateKeys:
   - listUnits
-  - objectsToAjust
   - startAIArea
   - positionDisplacers
   _serializedStateValues:
-  - '[]'
   - '[]'
   - '{"min":{"x":-8.0,"y":-107.7},"max":{"x":8.04,"y":210.5}}'
   - '[]'
@@ -1910,12 +2080,10 @@ MonoBehaviour:
   cameraSpawn: {fileID: 1833739392}
   showCameraTrails: 1
   listUnits: []
-  objectsToAjust: []
   setAIArea: 1
   startAIArea:
     min: {x: -8, y: -107.7}
     max: {x: 8.04, y: 210.5}
-  ajustAreaToCamera: 1
   roadPlayer: {fileID: 1644651698}
   positionDisplacers: []
 --- !u!4 &1644651696
@@ -2088,8 +2256,17 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 153121006}
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.topHeight.EditProperty
+    - DefaultBehaviorEditor.milestones.EditProperty
+    - DefaultBehaviorEditor.milestoneRelativeHeights.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 1
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
     _target: {fileID: 266624493}
   - _keys:
     - DefaultBehaviorEditor.mapping.EditProperty
@@ -2269,6 +2446,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81e0410c014f5ea4ab3fbd5093871b0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _objectReferences: []
+  _serializedStateKeys:
+  - posType
+  _serializedStateValues:
+  - '"RelativeToCamera"'
   gizmosAlwaysVisible: 1
   posType: 2
   tags:
@@ -2314,6 +2496,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8298df7b274d40149b17d04ca9417326, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _objectReferences:
+  - {fileID: 1658729506}
+  - {fileID: 962253924}
+  - {fileID: 177281358}
+  _serializedStateKeys:
+  - posType
+  - subSpawns
+  _serializedStateValues:
+  - '"RelativeToCamera"'
+  - '[{"spawn":0,"weight":1.0},{"spawn":1,"weight":1.0},{"spawn":2,"weight":1.0}]'
   gizmosAlwaysVisible: 1
   posType: 2
   tags:
@@ -2381,14 +2573,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objectReferences: []
   _serializedStateKeys:
+  - windowRect
+  - onTigger
   - triggerOn
   - aiAreaRelativeToMilestone
   - onExecute
   _serializedStateValues:
+  - '{"xMin":300.0,"yMin":300.0,"xMax":450.0,"yMax":310.0}'
+  - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]}'
   - '"TopOfScreen"'
   - '{"min":{"x":-9.89,"y":-11.0},"max":{"x":9.69,"y":0.0}}'
   - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  windowRect:
+    serializedVersion: 2
+    x: 300
+    y: 300
+    width: 150
+    height: 10
+  graph: {fileID: 0}
+  onTigger:
+    iEvents: []
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
   gizmosAlwaysVisible: 1
   triggerOn: 1
   disapearAfterTrigger: 1
@@ -2452,6 +2663,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8298df7b274d40149b17d04ca9417326, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _objectReferences:
+  - {fileID: 1124971337}
+  - {fileID: 573697844}
+  - {fileID: 1562384048}
+  _serializedStateKeys:
+  - posType
+  - subSpawns
+  _serializedStateValues:
+  - '"RelativeToCamera"'
+  - '[{"spawn":0,"weight":1.0},{"spawn":1,"weight":1.0},{"spawn":2,"weight":1.0}]'
   gizmosAlwaysVisible: 1
   posType: 2
   tags:
@@ -2600,14 +2821,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objectReferences: []
   _serializedStateKeys:
+  - windowRect
+  - onTigger
   - triggerOn
   - aiAreaRelativeToMilestone
   - onExecute
   _serializedStateValues:
+  - '{"xMin":300.0,"yMin":300.0,"xMax":450.0,"yMax":310.0}'
+  - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]}'
   - '"TopOfScreen"'
   - '{"min":{"x":-9.84,"y":-11.0},"max":{"x":9.72,"y":0.0}}'
   - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  windowRect:
+    serializedVersion: 2
+    x: 300
+    y: 300
+    width: 150
+    height: 10
+  graph: {fileID: 0}
+  onTigger:
+    iEvents: []
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
   gizmosAlwaysVisible: 1
   triggerOn: 1
   disapearAfterTrigger: 1
@@ -2658,6 +2898,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81e0410c014f5ea4ab3fbd5093871b0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _objectReferences: []
+  _serializedStateKeys:
+  - posType
+  _serializedStateValues:
+  - '"RelativeToCamera"'
   gizmosAlwaysVisible: 1
   posType: 2
   tags:
@@ -2731,14 +2976,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objectReferences: []
   _serializedStateKeys:
+  - windowRect
+  - onTigger
   - triggerOn
   - aiAreaRelativeToMilestone
   - onExecute
   _serializedStateValues:
+  - '{"xMin":300.0,"yMin":300.0,"xMax":450.0,"yMax":310.0}'
+  - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]}'
   - '"BottomOfScreen"'
   - '{"min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0}}'
   - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  windowRect:
+    serializedVersion: 2
+    x: 300
+    y: 300
+    width: 150
+    height: 10
+  graph: {fileID: 0}
+  onTigger:
+    iEvents: []
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
   gizmosAlwaysVisible: 1
   triggerOn: 0
   disapearAfterTrigger: 1
@@ -2803,14 +3067,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objectReferences: []
   _serializedStateKeys:
+  - windowRect
+  - onTigger
   - triggerOn
   - aiAreaRelativeToMilestone
   - onExecute
   _serializedStateValues:
+  - '{"xMin":300.0,"yMin":300.0,"xMax":450.0,"yMax":310.0}'
+  - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]}'
   - '"BottomOfScreen"'
   - '{"min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0}}'
   - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  windowRect:
+    serializedVersion: 2
+    x: 300
+    y: 300
+    width: 150
+    height: 10
+  graph: {fileID: 0}
+  onTigger:
+    iEvents: []
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
   gizmosAlwaysVisible: 1
   triggerOn: 0
   disapearAfterTrigger: 1
