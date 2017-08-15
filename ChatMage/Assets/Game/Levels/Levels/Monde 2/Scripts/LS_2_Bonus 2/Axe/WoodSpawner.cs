@@ -1,34 +1,40 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WoodSpawner : MonoBehaviour {
+public class WoodSpawner : MonoBehaviour
+{
 
     public GameObject woodPrefab;
     public Transform spawnPoint;
-    public SimpleEvent woodCut;
+    public event SimpleEvent woodCut;
     public float spawnRate;
 
     private float countdown;
     private Wood currentWood;
+    private CCC.Utility.StatFloat worldTimeScale;
 
-	void Start ()
+    void Start()
     {
         countdown = 0;
     }
 
     void Update()
     {
-        if(currentWood == null)
+        if (worldTimeScale == null)
         {
-            if (countdown <= 0)
-                SpawnWood();
+            if (Game.instance != null)
+                worldTimeScale = Game.instance.worldTimeScale;
         }
-
-        if(Game.instance != null)
+        else
         {
-            if (Game.instance.Player != null)
-                countdown -= Game.instance.Player.vehicle.DeltaTime();
+            if (currentWood == null)
+            {
+                if (countdown <= 0)
+                    SpawnWood();
+
+                countdown -= worldTimeScale * Time.deltaTime;
+            }
         }
     }
 
@@ -40,6 +46,7 @@ public class WoodSpawner : MonoBehaviour {
         {
             woodCut.Invoke();
             countdown = spawnRate;
+            currentWood = null;
         };
     }
 }
