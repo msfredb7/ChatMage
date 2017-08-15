@@ -385,6 +385,8 @@ namespace GameEvents
                     }
                 });
             }
+
+            contextMenu.AddItem(new GUIContent("Recenter nodes"), false, RecenterNodes);
         }
 
         void OpenContextMenu()
@@ -419,6 +421,36 @@ namespace GameEvents
 
             if (lastHilighted != null)
                 lastHilighted.isHilighted = true;
+        }
+
+        public void RecenterNodes()
+        {
+            float x = 0;
+            float y = 0;
+
+            for (int i = 0; i < items.Count; i++)
+            {
+                Vector2 pos = items[i].WindowRect.position;
+                x += pos.x;
+                y += pos.y;
+            }
+
+            x /= items.Count;
+            y /= items.Count;
+            Vector2 moyenne = new Vector2(x, y);
+            Vector2 center = position.size / 2;
+            Vector2 delta = (center - moyenne).Rounded();
+
+            for (int i = 0; i < items.Count; i++)
+            {
+                Rect rect = items[i].WindowRect;
+                rect.position = rect.position + delta;
+                float posX = rect.position.x;
+                float posY = rect.position.y;
+                Vector2 newPos = new Vector2(posX, posY).Clamped(Vector2.zero, position.size * 0.95f);
+                rect.position = newPos;
+                items[i].WindowRect = rect;
+            }
         }
     }
 

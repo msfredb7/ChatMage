@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace GameEvents
 {
-    [MenuItem("Units/Wave")]
+    [MenuItem("Units/Wave"), DefaultNodeName("Unit Wave")]
     public class Wave : FIVirtualEvent, IEvent
     {
         public Moment onComplete = new Moment();

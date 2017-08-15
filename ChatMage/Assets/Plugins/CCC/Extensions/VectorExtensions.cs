@@ -17,6 +17,10 @@ public static class VectorExtensions
                 Mathf.Clamp(v.y, min.y, max.y),
                 Mathf.Clamp(v.z, min.z, max.z));
     }
+    public static Vector2 Rounded(this Vector2 v)
+    {
+        return new Vector2(v.x.Rounded(), v.y.Rounded());
+    }
     public static Vector2 Rotate(this Vector2 v, float angle)
     {
         return v.RotateRad(angle * Mathf.Deg2Rad);

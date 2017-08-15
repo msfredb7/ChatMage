@@ -14,6 +14,16 @@ public static class FloatExtensions
         return Mathf.Abs(value);
     }
 
+    public static float Rounded(this float value)
+    {
+        return Mathf.Round(value);
+    }
+
+    public static float RoundedToInt(this float value)
+    {
+        return Mathf.RoundToInt(value);
+    }
+
     /// <summary>
     /// Reduis potentiellement la valeur
     /// </summary>
