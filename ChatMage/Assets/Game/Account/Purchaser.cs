@@ -31,7 +31,7 @@ namespace CompleteProject
         public Sprite coinsLogo;
 
         // Google Play Store-specific product identifier subscription product.
-        private static string kProductNameGooglePlaySubscription = "com.unity3d.subscription.original";
+        //private static string kProductNameGooglePlaySubscription = "com.unity3d.subscription.original";
 
         public void Init()
         {

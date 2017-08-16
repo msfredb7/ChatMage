@@ -9,9 +9,6 @@ public class LS_2_3 : LevelScript
     [InspectorHeader("Dialog"), InspectorMargin(10)]
     public Dialoguing.Dialog thankYou;
 
-    [fsIgnore, NonSerialized]
-    private Map map;
-
     private bool canWin;
 
     protected override void ResetData()
@@ -21,7 +18,6 @@ public class LS_2_3 : LevelScript
 
     protected override void OnGameReady()
     {
-        map = Game.instance.map;
         canWin = false;
     }
 
