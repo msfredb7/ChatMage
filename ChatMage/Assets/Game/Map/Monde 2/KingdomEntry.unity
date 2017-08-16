@@ -166,8 +166,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 886072395
-  m_SortingLayer: -1
+  m_SortingLayerID: 1250817847
+  m_SortingLayer: -2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: ccd62ff5d4d6f174698e156f6ec71d3a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1091,8 +1091,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 886072395
-  m_SortingLayer: -1
+  m_SortingLayerID: 1250817847
+  m_SortingLayer: -2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: ccd62ff5d4d6f174698e156f6ec71d3a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1829,7 +1829,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 10, y: 420}
+  m_Size: {x: 10, y: 424.31}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 1
 --- !u!1 &1404559384
@@ -1952,7 +1952,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rendering: {fileID: 1404559385}
-  openedLocalPosition: {x: 20, y: 317}
+  openedLocalPosition: {x: 20, y: 229.2}
   openedOnStart: 0
   collider: {fileID: 0}
   enableDisableColliderOnAnimation: 0
@@ -2183,6 +2183,7 @@ MonoBehaviour:
   - {fileID: 1746307073}
   - {fileID: 1317918299}
   - {fileID: 124530952}
+  - {fileID: 1404559390}
   _values:
   - _keys: []
     _values: []
@@ -2226,6 +2227,9 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 124530952}
+  - _keys: []
+    _values: []
+    _target: {fileID: 1404559390}
 --- !u!114 &1649213853
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2252,6 +2256,7 @@ MonoBehaviour:
   - {fileID: 1746307073}
   - {fileID: 1317918299}
   - {fileID: 124530952}
+  - {fileID: 1404559390}
   _values:
   - _keys: []
     _values: []
@@ -2296,8 +2301,23 @@ MonoBehaviour:
       _serializedIsActive: 1
     _target: {fileID: 1990598053}
   - _keys:
-    - DefaultBehaviorEditor.dialog.EditProperty
+    - DefaultBehaviorEditor.triggerOn.EditProperty
+    - DefaultBehaviorEditor.setAiArea.EditProperty
+    - DefaultBehaviorEditor.modifyFollowPlayer.EditProperty
+    - DefaultBehaviorEditor.setCameraMin.EditProperty
+    - DefaultBehaviorEditor.setCameraMax.EditProperty
+    - DefaultBehaviorEditor.fireEventToLevelScript.EditProperty
     _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
     - _showDropdown: 0
       _serializedIsActive: 1
     _target: {fileID: 1170913434}
@@ -2391,6 +2411,9 @@ MonoBehaviour:
     - _showDropdown: 0
       _serializedIsActive: 1
     _target: {fileID: 124530952}
+  - _keys: []
+    _values: []
+    _target: {fileID: 1404559390}
 --- !u!1 &1658729503
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,13 +8,8 @@ public class LS_2_2 : LevelScript
 {
     [InspectorHeader("Dialog"), InspectorMargin(10)]
     public Dialoguing.Dialog defendTheWall;
-
-    [fsIgnore, NonSerialized]
-    private Map map;
-
-    private int topWaveNumber;
+    
     private bool topDone;
-    private int botWaveNumber;
     private bool botDone;
 
     private List<int> possibilities = new List<int>();
@@ -26,10 +21,7 @@ public class LS_2_2 : LevelScript
 
     protected override void OnGameReady()
     {
-        map = Game.instance.map;
-        topWaveNumber = 0;
         topDone = false;
-        botWaveNumber = 0;
         botDone = false;
 
         possibilities.Add(1);

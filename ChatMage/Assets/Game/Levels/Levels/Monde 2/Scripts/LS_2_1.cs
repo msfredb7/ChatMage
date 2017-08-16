@@ -41,6 +41,7 @@ public class LS_2_1 : LevelScript {
         Game.instance.ui.dialogDisplay.StartDialog(gateBlock, delegate ()
         {
             gate.GetComponent<SidewaysFakeGate>().Open();
+            ResetRoad();
             canWin = true;
         });
     }
@@ -103,7 +104,8 @@ public class LS_2_1 : LevelScript {
                 GateBlockage();
                 break;
             case "win":
-                Win();
+                if(canWin)
+                    Win();
                 break;
         }
     }
