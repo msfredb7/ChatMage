@@ -52,7 +52,7 @@ public class Milestone : FIPhysicalEvent, IEvent
     
     public bool Execute()
     {
-        if (!gameObject.activeInHierarchy)
+        if (!enabled)
             return false;
         Trigger();
         return true;
