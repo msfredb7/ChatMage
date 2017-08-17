@@ -61,4 +61,28 @@ public class IntroCreditsAnimation : MonoBehaviour {
             }, startDelay, this);
         });
     }
+
+    void Update()
+    {
+        // Vraiment étonnant que ceci donne un behavior parfait. (on est sur de voir le logo lonely boy mais on peut skip rapide)
+        if (Input.anyKey)
+        {
+            if(logo2Sprite.color.a == 1)
+                logo2Sprite.DOFade(0, fadeDuration).OnComplete(delegate() {
+                    if (backgroundSprite.color.a == 1)
+                        backgroundSprite.DOFade(0, fadeDuration).OnComplete(delegate () {
+                            // On load le jeu
+                            Scenes.Load("MainMenu");
+                        });
+                });
+            if(logoSprite.color.a == 1)
+                logoSprite.DOFade(0, fadeDuration).OnComplete(delegate() {
+                    if (backgroundSprite.color.a == 1)
+                        backgroundSprite.DOFade(0, fadeDuration).OnComplete(delegate () {
+                            // On load le jeu
+                            Scenes.Load("MainMenu");
+                        });
+                });
+        }
+    }
 }

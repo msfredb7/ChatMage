@@ -8,8 +8,14 @@ public class LS_2_3 : LevelScript
 {
     [InspectorHeader("Dialog"), InspectorMargin(10)]
     public Dialoguing.Dialog thankYou;
+    public Dialoguing.Dialog princessSaved;
+
+    [fsIgnore, NonSerialized]
+    private Map map;
 
     private bool canWin;
+
+    private TaggedObject gate;
 
     protected override void ResetData()
     {
@@ -19,6 +25,8 @@ public class LS_2_3 : LevelScript
     protected override void OnGameReady()
     {
         canWin = false;
+        map = Game.instance.map;
+        gate = map.mapping.GetTaggedObject("gate");
     }
 
     protected override void OnGameStarted()
@@ -30,14 +38,22 @@ public class LS_2_3 : LevelScript
     {
         switch (message)
         {
+            case "saveDialogEvent":
+                Game.instance.ui.dialogDisplay.StartDialog(princessSaved);
+                canWin = true;
+                break;
             case "ending":
-                if(canWin)
-                    Win();
-                else
+                if (!canWin)
                 {
                     Game.instance.gameCamera.followPlayer = true;
                     Game.instance.gameCamera.canScrollUp = true;
                     Game.instance.map.roadPlayer.CurrentRoad.ApplyMinMaxToCamera();
+                } else
+                {
+                    Game.instance.ui.dialogDisplay.StartDialog(thankYou,delegate() {
+                        gate.GetComponent<SidewaysFakeGate>().Open();
+                        Win();
+                    });
                 }
                 break;
         }

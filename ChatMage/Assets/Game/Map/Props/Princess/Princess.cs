@@ -8,7 +8,7 @@ public class Princess : Unit, IAttackable
     [Header("Linking"), Forward]
     public Targets targets;
 
-    public string saveDialogEvent;
+    public string saveDialogEvent = "saveDialogEvent";
 
     void Start()
     {
@@ -21,6 +21,12 @@ public class Princess : Unit, IAttackable
         if (otherUnit is PlayerVehicle)
         {
             // TRIGGER LES EVENNEMENTS DE PRENDRE LA PRINCESSE
+            // Animation ?
+            List<Milestone> milestones = Game.instance.map.roadPlayer.CurrentRoad.milestones;
+            for (int i = 0; i < milestones.Count; i++)
+            {
+                milestones[i].gameObject.SetActive(true);
+            }
 
             if (!IsDead)
                 Die();
