@@ -39,7 +39,11 @@ public abstract class MovingUnit : Unit
     public Vector2 Speed
     {
         get { return rb.velocity; }
-        set { rb.velocity = value; }
+        set
+        {
+            if (canMove)
+                rb.velocity = value;
+        }
     }
 
     public override Vector2 Position
@@ -104,7 +108,7 @@ public abstract class MovingUnit : Unit
             float oldTimescale = timeScale;
 
             base.TimeScale = value;
-            
+
             if (rb.bodyType != RigidbodyType2D.Static)
                 rb.velocity *= value / oldTimescale;
         }

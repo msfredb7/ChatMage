@@ -179,6 +179,7 @@ public class BlueShellVehicle : Vehicle
 
         rb.velocity = Vector2.zero;
         enabled = false;
+        canMove.Lock("exl");
 
         animator.Explode(delegate ()
             {
