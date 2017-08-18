@@ -19,6 +19,7 @@ namespace GameEvents
         private Vector2 contextMenuMousePos;
         private Vector2 lastMousePos;
         private EventGraphWindowItem lastHilighted;
+        private INodedEvent copyNode;
         private GenericMenu contextMenu;
 
         [UnityEditor.MenuItem("The Time Drifter/Event Graph")]
@@ -91,6 +92,7 @@ namespace GameEvents
             ongoingLink.source = null;
             items = null;
             lastHilighted = null;
+            copyNode = null;
             Repaint();
         }
 
@@ -132,10 +134,22 @@ namespace GameEvents
             EventType eventPastType = e.type;
 
             lastMousePos = e.mousePosition;
-            //Debug.Log(e.type);
 
+            if (e.type == EventType.ValidateCommand)
+            {
+                if (e.commandName == "Copy")
+                {
+                    Copy();
+                    e.Use();
+                }
+                else if (e.commandName == "Paste")
+                {
+                    Paste();
+                    e.Use();
+                }
+            }
             //On ouvre le minimenu
-            if (e.type == EventType.ContextClick)
+            else if (e.type == EventType.ContextClick)
             {
                 EventGraphWindowItem item = GetItemOnMousePosition(lastMousePos);
                 if (item != null)
@@ -398,6 +412,30 @@ namespace GameEvents
                 BuildContextMenu();
 
             contextMenu.ShowAsContext();
+        }
+
+        void Copy()
+        {
+            if (lastHilighted == null)
+                Debug.Log("Cannot copy. No selected node.");
+            else
+            {
+                copyNode = lastHilighted.myEvent;
+            }
+        }
+        void Paste()
+        {
+            if (copyNode == null || copyNode.AsObject() == null)
+                Debug.Log("Cannot paste. No copied node.");
+            else
+            {
+                INodedEvent newEvent = Instantiate(copyNode.AsObject()) as INodedEvent;
+
+                newEvent.LinkToGraph();
+                newEvent.MoveToPos(copyNode.WindowRect.position + Vector2.one * 75);
+
+                MarkSceneAsDirty();
+            }
         }
 
         public void SetSelectedItem(EventGraphWindowItem item)
