@@ -5,6 +5,8 @@ using UnityEngine;
 public class BasicRepeatedAnimator : MonoBehaviour
 {
     public Animator animator;
+    int speedHash = Animator.StringToHash("speed");
+    int endHash = Animator.StringToHash("end");
 
     void Start()
     {
@@ -16,7 +18,7 @@ public class BasicRepeatedAnimator : MonoBehaviour
 
     void UpdateTimescale(float value)
     {
-        animator.SetFloat("speed", value);
+        animator.SetFloat(speedHash, value);
     }
 
     public void Animate(Vector2 position)
@@ -27,8 +29,8 @@ public class BasicRepeatedAnimator : MonoBehaviour
 
     void OnAnimationEnd()
     {
+        animator.SetTrigger(endHash);
         gameObject.SetActive(false);
-        animator.SetTrigger("end");
     }
 
     public bool IsPlaying { get { return gameObject.activeSelf; } }

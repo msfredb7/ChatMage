@@ -7,7 +7,7 @@ public class SpearmanVehicle : EnemyVehicle
 {
     [Header("Spearman")]
     public SpearmanAnimatorV2 animator;
-    public SpriteRenderer bodySprite;
+    public Transform deadBody;
 
     [Header("Attack")]
     public SimpleColliderListener attackListener;
@@ -29,6 +29,9 @@ public class SpearmanVehicle : EnemyVehicle
         if (amount <= 0 && !isDead)
             return 1;
 
+        if (unit != null)
+            deadBody.rotation = Quaternion.Euler(Vector3.forward *((Position - unit.Position).ToAngle() - 90));
+
         Die();
         return 0;
     }
@@ -37,7 +40,10 @@ public class SpearmanVehicle : EnemyVehicle
     {
         base.Die();
 
-        Destroy();
+        canTurn.Lock("dead");
+        canMove.Lock("dead");
+
+        animator.DeathAnimation(Destroy);
     }
 
     private void AttackListener_onTriggerEnter(ColliderInfo other, ColliderListener listener)
