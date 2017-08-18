@@ -1054,6 +1054,12 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &769530401 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114507732207030814, guid: 1035b9e2c8a379347b030d984c8b96c1,
+    type: 2}
+  m_PrefabInternal: {fileID: 793686668}
+  m_Script: {fileID: 11500000, guid: 6c1d2f66bd7959447810493878bafbc5, type: 3}
 --- !u!1 &777449429
 GameObject:
   m_ObjectHideFlags: 0
@@ -1208,10 +1214,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 10
       objectReference: {fileID: 0}
-    - target: {fileID: 1956361401552158, guid: 1035b9e2c8a379347b030d984c8b96c1, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
+    - target: {fileID: 114008029251096486, guid: 1035b9e2c8a379347b030d984c8b96c1,
+        type: 2}
+      propertyPath: tower
+      value: 
+      objectReference: {fileID: 769530401}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1035b9e2c8a379347b030d984c8b96c1, type: 2}
   m_IsPrefabParent: 0
@@ -2382,14 +2389,14 @@ MonoBehaviour:
   - what
   - where
   _serializedStateValues:
-  - '{"xMin":674.0,"yMin":155.0,"xMax":824.0,"yMax":219.0}'
+  - '{"xMin":675.0,"yMin":155.0,"xMax":825.0,"yMax":219.0}'
   - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]}'
   - '{"spawnSequence":[{"unit":0,"quantity":5}],"onSpawnMethod":"MakeSmart","progressCallbacks":[]}'
-  - '{"logErrorIfUnableToLaunch":true,"spawnTag":"ordered","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0}'
+  - '{"logErrorIfUnableToLaunch":true,"spawnTag":"seige","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0}'
   windowRect:
     serializedVersion: 2
-    x: 674
+    x: 675
     y: 155
     width: 150
     height: 64
@@ -2405,7 +2412,7 @@ MonoBehaviour:
   pauseBetweenRepeat: 0
   where:
     logErrorIfUnableToLaunch: 1
-    spawnTag: ordered
+    spawnTag: seige
     filterType: 0
     min: {x: 0, y: 0}
     max: {x: 0, y: 0}
