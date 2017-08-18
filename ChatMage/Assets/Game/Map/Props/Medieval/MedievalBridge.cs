@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class MedievalBridge : MonoBehaviour
 {
-    public SpriteRenderer bridgeCenterVisuals;
     public new Collider2D collider;
+    public Animator controller;
 
     public bool startState;
+
+    private int openHash = Animator.StringToHash("open");
     private bool state;
 
     void Start()
@@ -21,9 +23,8 @@ public class MedievalBridge : MonoBehaviour
     public void OpenInstant()
     {
         collider.enabled = false;
-        //collider.transform.localScale = new Vector3(0, 1, 0);
-        bridgeCenterVisuals.enabled = true;
         state = true;
+        controller.SetBool(openHash, true);
     }
 
     public void Open()
@@ -34,9 +35,8 @@ public class MedievalBridge : MonoBehaviour
     public void CloseInstant()
     {
         collider.enabled = true;
-        //collider.transform.localScale = Vector3.one;
-        bridgeCenterVisuals.enabled = false;
         state = false;
+        controller.SetBool(openHash, false);
     }
 
     public void Close()
