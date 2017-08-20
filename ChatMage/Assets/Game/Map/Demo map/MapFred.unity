@@ -608,6 +608,62 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.418
   m_SpriteTileMode: 1
   m_WasSpriteAssigned: 1
+--- !u!1001 &337016062
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4552794639155162, guid: 90a1293e412776e4db23eb9595fcf924, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -3.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 4552794639155162, guid: 90a1293e412776e4db23eb9595fcf924, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -0.46
+      objectReference: {fileID: 0}
+    - target: {fileID: 4552794639155162, guid: 90a1293e412776e4db23eb9595fcf924, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4552794639155162, guid: 90a1293e412776e4db23eb9595fcf924, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4552794639155162, guid: 90a1293e412776e4db23eb9595fcf924, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4552794639155162, guid: 90a1293e412776e4db23eb9595fcf924, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4552794639155162, guid: 90a1293e412776e4db23eb9595fcf924, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4552794639155162, guid: 90a1293e412776e4db23eb9595fcf924, type: 2}
+      propertyPath: m_RootOrder
+      value: 23
+      objectReference: {fileID: 0}
+    - target: {fileID: 114196862589388580, guid: 90a1293e412776e4db23eb9595fcf924,
+        type: 2}
+      propertyPath: spriteRenderer
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114196862589388580, guid: 90a1293e412776e4db23eb9595fcf924,
+        type: 2}
+      propertyPath: arm
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1871222452349014, guid: 90a1293e412776e4db23eb9595fcf924, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 90a1293e412776e4db23eb9595fcf924, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &340652786
 GameObject:
   m_ObjectHideFlags: 0
@@ -2382,7 +2438,7 @@ MonoBehaviour:
   m_Name: Unit Wave
   m_EditorClassIdentifier: 
   _objectReferences:
-  - {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
+  - {fileID: 114917152140949164, guid: 90a1293e412776e4db23eb9595fcf924, type: 2}
   _serializedStateKeys:
   - windowRect
   - onComplete
@@ -2392,8 +2448,8 @@ MonoBehaviour:
   - '{"xMin":675.0,"yMin":155.0,"xMax":825.0,"yMax":219.0}'
   - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]}'
-  - '{"spawnSequence":[{"unit":0,"quantity":5}],"onSpawnMethod":"MakeSmart","progressCallbacks":[]}'
-  - '{"logErrorIfUnableToLaunch":true,"spawnTag":"seige","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0}'
+  - '{"spawnSequence":[{"unit":0,"quantity":1}],"onSpawnMethod":"MakeSmart","progressCallbacks":[]}'
+  - '{"logErrorIfUnableToLaunch":true,"spawnTag":"ordered","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0}'
   windowRect:
     serializedVersion: 2
     x: 675
@@ -2412,7 +2468,7 @@ MonoBehaviour:
   pauseBetweenRepeat: 0
   where:
     logErrorIfUnableToLaunch: 1
-    spawnTag: seige
+    spawnTag: ordered
     filterType: 0
     min: {x: 0, y: 0}
     max: {x: 0, y: 0}

@@ -8,12 +8,10 @@ public class SpearmanAnimatorV2 : EnemyAnimator
     public SpearmanVehicle vehicle;
 
     private int attackHash = Animator.StringToHash("attack");
-    private int movingHash = Animator.StringToHash("moving");
     private int deadHash = Animator.StringToHash("dead");
     private Action attackCallback;
     private Action attackMoment;
     private Action deathCallback;
-    private bool moving = false;
 
     public void DeathAnimation(Action onComplete)
     {
@@ -26,26 +24,6 @@ public class SpearmanAnimatorV2 : EnemyAnimator
         get
         {
             return vehicle;
-        }
-    }
-
-    void Update()
-    {
-        if(vehicle.Speed.sqrMagnitude < 0.1f)
-        {
-            if (moving)
-            {
-                moving = false;
-                controller.SetBool(movingHash, false);
-            }
-        }
-        else
-        {
-            if (!moving)
-            {
-                moving = true;
-                controller.SetBool(movingHash, true);
-            }
         }
     }
 

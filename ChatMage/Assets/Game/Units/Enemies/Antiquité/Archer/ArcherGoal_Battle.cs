@@ -15,12 +15,10 @@ namespace AI
         private const float TOO_CLOSE_DIST = 10; //CETTE DISTANCE EST ^2
 
         Unit target;
-        TweenCallback shootArrowMoment;
 
-        public ArcherGoal_Battle(ArcherVehicle veh, Unit target, TweenCallback shootArrowMoment) : base(veh)
+        public ArcherGoal_Battle(ArcherVehicle veh, Unit target) : base(veh)
         {
             this.target = target;
-            this.shootArrowMoment = shootArrowMoment;
         }
 
         public override void Activate()
@@ -40,13 +38,7 @@ namespace AI
             //Reload ?
             if (veh.Ammo == 0)
             {
-                Goal_Tween reloadGoal = new Goal_Tween(veh, veh.animator.ReloadAnimation());
-                reloadGoal.onRemoved = (Goal g) =>
-                {
-                    if (g.IsComplete())
-                        veh.GainAmmo();
-                };
-
+                ArcherGoal_Reload reloadGoal = new ArcherGoal_Reload(veh);
                 AddSubGoal(reloadGoal);
             }
 
@@ -54,8 +46,9 @@ namespace AI
             AddSubGoal(new Goal_LookAt(veh, target));
 
             //Shoot
-            Goal_LookAtTween shootGoal = new Goal_LookAtTween(veh, target, veh.animator.ShootAnim(shootArrowMoment));
+            ArcherGoal_Shoot shootGoal = new ArcherGoal_Shoot(veh, target);
             shootGoal.CanBeInterrupted = false;
+            
             AddSubGoal(shootGoal);
         }
 

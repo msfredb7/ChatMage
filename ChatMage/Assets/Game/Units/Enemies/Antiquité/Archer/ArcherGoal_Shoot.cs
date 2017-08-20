@@ -6,12 +6,9 @@ using UnityEngine;
 
 namespace AI
 {
-    public class ArcherGoal_Shoot : Goal_LookAtTween
+    public class ArcherGoal_Shoot : Goal_LookAt
     {
-        public ArcherGoal_Shoot(EnemyVehicle myVehicle, Unit target, Tween animation) : base(myVehicle, target ,animation)
-        {
-        }
-        public ArcherGoal_Shoot(EnemyVehicle myVehicle, Unit target, Func<Tween> animationGetter) : base(myVehicle, target, animationGetter)
+        public ArcherGoal_Shoot(EnemyVehicle myVehicle, Unit target) : base(myVehicle, target ,-1)
         {
         }
 
@@ -19,8 +16,21 @@ namespace AI
         {
             base.Activate();
 
-            if (!Unit.HasPresence(target))
-                status = Status.failed;
+            ArcherVehicle aVeh = veh as ArcherVehicle;
+
+            aVeh.animator.ShootAnimation(ShootArrow, ForceCompletion);
+        }
+
+
+        void ShootArrow()
+        {
+            ArcherVehicle aVeh = veh as ArcherVehicle;
+
+            ArcherArrow proj = Game.instance.SpawnUnit(aVeh.arrowPrefab, aVeh.arrowLaunchLocation.position);
+
+            proj.Init(veh, veh.WorldDirection2D(), veh.targets);
+
+            aVeh.OnShoot();
         }
     }
 }

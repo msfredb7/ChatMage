@@ -6,7 +6,7 @@ using UnityEngine;
 public class ArcherVehicle : EnemyVehicle
 {
     [Header("Archer"), Header("Animations")]
-    public ArcherAnimator animator;
+    public ArcherAnimatorV2 animator;
 
     [Header("Walk")]
     public float walkMoveSpeed = 2;
@@ -19,6 +19,8 @@ public class ArcherVehicle : EnemyVehicle
     public float shootCooldown;
     public ArcherArrow arrowPrefab;
     public Transform arrowLaunchLocation;
+
+    public event SimpleEvent onAmmoChange;
 
     private int ammo = 1;
     private bool shooting = false;
@@ -57,12 +59,16 @@ public class ArcherVehicle : EnemyVehicle
     public void GainAmmo()
     {
         ammo++;
+        if (onAmmoChange != null)
+            onAmmoChange();
     }
 
     public void OnShoot()
     {
         shootCooldownRemains = shootCooldown;
         ammo--;
+        if (onAmmoChange != null)
+            onAmmoChange();
     }
 
     public override int Attacked(ColliderInfo on, int amount, Unit unit, ColliderInfo source = null)

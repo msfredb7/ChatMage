@@ -17,6 +17,7 @@ namespace AI
         public enum Status { active = 0, inactive = 1, completed = 2, failed = 3 }
 
         public GoalEvent onRemoved;
+        public GoalEvent onActivated;
         private bool canBeInterrupted = true;
 
         protected Status status = Status.inactive;

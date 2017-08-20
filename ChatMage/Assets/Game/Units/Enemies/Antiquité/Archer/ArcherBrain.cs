@@ -39,7 +39,7 @@ namespace AI
                 target = veh.targets.TryToFindTarget(veh);
                 if(target != null)
                 {
-                    ArcherGoal_Battle battleGoal = new ArcherGoal_Battle(veh, target, ShootArrow);
+                    ArcherGoal_Battle battleGoal = new ArcherGoal_Battle(veh, target);
                     battleGoal.onRemoved = (Goal g) => target = null;
                     AddGoal(battleGoal);
                 }
@@ -64,26 +64,20 @@ namespace AI
 
         private void LaunchFlee()
         {
-            veh.FleeMode();
             hasFleeGoal = true;
             Goal_Flee fleeGoal = new Goal_Flee(veh, target, fleeDistance);
+            fleeGoal.onActivated = (Goal g) =>
+            {
+                veh.FleeMode();
+                veh.animator.FleeAnimation();
+            };
             fleeGoal.onRemoved = (Goal g) =>
             {
                 hasFleeGoal = false;
                 veh.WalkMode();
+                veh.animator.StopFleeAnimation();
             };
             AddForcedGoal(fleeGoal, -5);
-        }
-
-        void ShootArrow()
-        {
-            ArcherArrow proj = Game.instance.SpawnUnit(veh.arrowPrefab, veh.arrowLaunchLocation.position);
-
-            proj.Init(veh, veh.WorldDirection2D(), veh.targets);
-
-            veh.animator.AsNoAmmo();
-
-            veh.OnShoot();
         }
     }
 }

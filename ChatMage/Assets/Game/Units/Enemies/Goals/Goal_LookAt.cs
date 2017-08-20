@@ -6,6 +6,7 @@ namespace AI
     {
         private Unit target;
         private float minAngle;
+        private bool stopVehicle;
 
         /// <summary>
         /// Va vers la target. Se complete lorsqu'on atteint un range necessaire. SANS prediction de movement de la target
@@ -14,6 +15,13 @@ namespace AI
         {
             this.target = target;
             this.minAngle = minAngle;
+            this.stopVehicle = stopVehicle;
+        }
+
+        public override void Activate()
+        {
+            base.Activate();
+
             if (stopVehicle)
                 veh.Stop();
         }
