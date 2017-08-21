@@ -11,11 +11,13 @@ public class ArcherAnimatorV2 : EnemyAnimator
     int cancelReloadHash = Animator.StringToHash("cancelReload");
     int moveSpeedHash = Animator.StringToHash("moveSpeed");
     int reloadHash = Animator.StringToHash("reload");
+    int deadHash = Animator.StringToHash("dead");
 
     Action shootCallback;
     Action shootMoment;
     Action reloadCallback;
     Action reloadMoment;
+    Action deathCallback;
 
     ArcherVehicle veh;
     void Awake()
@@ -29,6 +31,12 @@ public class ArcherAnimatorV2 : EnemyAnimator
         base.Start();
         OnAmmoChange();
         veh.onAmmoChange += OnAmmoChange;
+    }
+    
+    public void DeathAnimation(Action onComplete)
+    {
+        deathCallback = onComplete;
+        controller.SetTrigger(deadHash);
     }
 
     public void FleeAnimation()
@@ -94,5 +102,14 @@ public class ArcherAnimatorV2 : EnemyAnimator
             reloadCallback();
         }
         reloadCallback = null;
+    }
+
+    private void _DeathComplete()
+    {
+        if (deathCallback != null)
+        {
+            deathCallback();
+        }
+        deathCallback = null;
     }
 }

@@ -7,6 +7,7 @@ public class ArcherVehicle : EnemyVehicle
 {
     [Header("Archer"), Header("Animations")]
     public ArcherAnimatorV2 animator;
+    public Transform deadBody;
 
     [Header("Walk")]
     public float walkMoveSpeed = 2;
@@ -77,6 +78,9 @@ public class ArcherVehicle : EnemyVehicle
 
         if (amount <= 0 && !IsDead)
             return 1;
+        
+        if (unit != null)
+            deadBody.rotation = Quaternion.Euler(Vector3.forward * ((unit.Position - Position).ToAngle()));
 
         Die();
         return 0;
@@ -88,7 +92,10 @@ public class ArcherVehicle : EnemyVehicle
 
         base.Die();
 
-        //Death anim
-        Destroy();
+        canTurn.Lock("dead");
+        canMove.Lock("dead");
+
+        animator.DeathAnimation(Destroy);
+        GetComponent<AI.ArcherBrain>().enabled = false;
     }
 }
