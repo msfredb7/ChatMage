@@ -712,15 +712,15 @@ MonoBehaviour:
   - what
   - where
   _serializedStateValues:
-  - '{"xMin":514.0,"yMin":430.0,"xMax":664.0,"yMax":494.0}'
+  - '{"xMin":514.0,"yMin":431.0,"xMax":664.0,"yMax":495.0}'
   - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[0]}'
   - '{"spawnSequence":[{"unit":1,"quantity":4}],"onSpawnMethod":"","progressCallbacks":[]}'
-  - '{"logErrorIfUnableToLaunch":true,"spawnTag":"random","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0}'
+  - '{"logErrorIfUnableToLaunch":true,"spawnTag":"ordered","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0}'
   windowRect:
     serializedVersion: 2
     x: 514
-    y: 430
+    y: 431
     width: 150
     height: 64
   graph: {fileID: 1644651699}
@@ -736,7 +736,7 @@ MonoBehaviour:
   pauseBetweenRepeat: 0
   where:
     logErrorIfUnableToLaunch: 1
-    spawnTag: random
+    spawnTag: ordered
     filterType: 0
     min: {x: 0, y: 0}
     max: {x: 0, y: 0}
@@ -1637,33 +1637,6 @@ Transform:
   m_Father: {fileID: 266624492}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &634912651
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 770cead41c9345b438c5073249a62a88, type: 3}
-  m_Name: Delay
-  m_EditorClassIdentifier: 
-  windowRect:
-    serializedVersion: 2
-    x: 393
-    y: 391
-    width: 150
-    height: 64
-  graph: {fileID: 1644651699}
-  delay: 2
-  moment:
-    iEvents:
-    - {fileID: 203195441}
-    unityEvent:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
 --- !u!114 &674445829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1676,7 +1649,7 @@ MonoBehaviour:
   m_Name: Wave 2
   m_EditorClassIdentifier: 
   _objectReferences:
-  - {fileID: 634912651}
+  - {fileID: 203195441}
   - {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
   _serializedStateKeys:
   - windowRect
@@ -1688,7 +1661,7 @@ MonoBehaviour:
   - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[0]}'
   - '{"spawnSequence":[{"unit":1,"quantity":2}],"onSpawnMethod":"","progressCallbacks":[]}'
-  - '{"logErrorIfUnableToLaunch":true,"spawnTag":"random","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0}'
+  - '{"logErrorIfUnableToLaunch":true,"spawnTag":"ordered","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0}'
   windowRect:
     serializedVersion: 2
     x: 863
@@ -1698,7 +1671,7 @@ MonoBehaviour:
   graph: {fileID: 1644651699}
   onComplete:
     iEvents:
-    - {fileID: 634912651}
+    - {fileID: 203195441}
     unityEvent:
       m_PersistentCalls:
         m_Calls: []
@@ -1708,13 +1681,31 @@ MonoBehaviour:
   pauseBetweenRepeat: 0
   where:
     logErrorIfUnableToLaunch: 1
-    spawnTag: random
+    spawnTag: ordered
     filterType: 0
     min: {x: 0, y: 0}
     max: {x: 0, y: 0}
     selectType: 0
     index: 0
   spawnInterval: 2
+--- !u!114 &698323778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90f376bc791a4024a8d0934c929e6c9e, type: 3}
+  m_Name: Win
+  m_EditorClassIdentifier: 
+  windowRect:
+    serializedVersion: 2
+    x: 840
+    y: 727
+    width: 150
+    height: 43
+  graph: {fileID: 1644651699}
 --- !u!1 &714248137
 GameObject:
   m_ObjectHideFlags: 0
@@ -2574,7 +2565,7 @@ MonoBehaviour:
   - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[0]}'
   - '{"spawnSequence":[{"unit":1,"quantity":3}],"onSpawnMethod":"","progressCallbacks":[]}'
-  - '{"logErrorIfUnableToLaunch":true,"spawnTag":"random","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0}'
+  - '{"logErrorIfUnableToLaunch":true,"spawnTag":"ordered","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0}'
   windowRect:
     serializedVersion: 2
     x: 875
@@ -2594,7 +2585,7 @@ MonoBehaviour:
   pauseBetweenRepeat: 0
   where:
     logErrorIfUnableToLaunch: 1
-    spawnTag: random
+    spawnTag: ordered
     filterType: 0
     min: {x: 0, y: 0}
     max: {x: 0, y: 0}
@@ -3010,8 +3001,8 @@ MonoBehaviour:
   every: 2
   moment:
     iEvents:
-    - {fileID: 1524745245}
     - {fileID: 2076455324}
+    - {fileID: 698323778}
     unityEvent:
       m_PersistentCalls:
         m_Calls: []
@@ -3226,7 +3217,6 @@ MonoBehaviour:
   - {fileID: 1659888082}
   - {fileID: 674445829}
   - {fileID: 793676877}
-  - {fileID: 634912651}
   - {fileID: 203195441}
   - {fileID: 534806415}
   - {fileID: 1274387392}
@@ -3238,6 +3228,7 @@ MonoBehaviour:
   - {fileID: 2134107360}
   - {fileID: 1399027876}
   - {fileID: 1639443951}
+  - {fileID: 698323778}
 --- !u!114 &1644651700
 MonoBehaviour:
   m_ObjectHideFlags: 0
