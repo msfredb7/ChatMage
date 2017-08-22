@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BossHealthBarDisplay : MonoBehaviour {
+public class BossHealthBarDisplay : MonoBehaviour
+{
 
     public Slider healthBar;
     public Text bossName;
 
+    private bool doAwake = true;
+
     void Awake()
     {
-        Hide();
+        if (doAwake)
+            Hide();
     }
 
     public void DisplayBoss(string bossName)
@@ -18,7 +22,7 @@ public class BossHealthBarDisplay : MonoBehaviour {
         SetSliderValue01(1);
         ChangeBossNameText(bossName);
 
-        gameObject.SetActive(true);
+        Show();
     }
 
     public void SetSliderValue01(float value)
@@ -31,7 +35,14 @@ public class BossHealthBarDisplay : MonoBehaviour {
 
     public void Hide()
     {
+        doAwake = false;
         gameObject.SetActive(false);
+    }
+
+    public void Show()
+    {
+        doAwake = false;
+        gameObject.SetActive(true);
     }
 
     public void ChangeBossNameText(string name)

@@ -22,6 +22,10 @@ namespace GameEvents
         [InspectorShowIf("modifyCanScrollDown")]
         public bool canScrollDownEffect = false;
 
+        [InspectorMargin(5)]
+        public bool resetCameraMax = false;
+        public bool resetCameraMin = false;
+
         public void Trigger()
         {
             GameCamera cam = Game.instance.gameCamera;
@@ -39,6 +43,16 @@ namespace GameEvents
             if (modifyCanScrollDown)
             {
                 cam.canScrollDown = canScrollDownEffect;
+            }
+
+            if (resetCameraMax)
+            {
+                Game.instance.map.roadPlayer.CurrentRoad.ApplyMaxToCamera();
+            }
+
+            if (resetCameraMin)
+            {
+                Game.instance.map.roadPlayer.CurrentRoad.ApplyMinToCamera();
             }
         }
 
