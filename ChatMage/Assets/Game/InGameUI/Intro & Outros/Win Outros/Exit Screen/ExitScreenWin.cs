@@ -20,6 +20,8 @@ namespace GameIntroOutro
         private Func<Vector2, bool> testPlayerExit;
         private Unit player;
 
+        private const float CarHalfLength = 0.5f;
+
         void Update()
         {
             if (!playerHasExited && player != null && !player.IsDead)
@@ -46,28 +48,28 @@ namespace GameIntroOutro
                 case Direction.Up:
                     {
                         Game.instance.playerBounds.top.enabled = false;
-                        float up = cam.Top;
+                        float up = cam.Top + CarHalfLength;
                         testPlayerExit = (Vector2 playerPos) => playerPos.y >= up;
                     }
                     break;
                 case Direction.Down:
                     {
                         Game.instance.playerBounds.bottom.enabled = false;
-                        float down = cam.Bottom;
+                        float down = cam.Bottom - CarHalfLength;
                         testPlayerExit = (Vector2 playerPos) => playerPos.y <= down;
                     }
                     break;
                 case Direction.Right:
                     {
                         Game.instance.playerBounds.right.enabled = false;
-                        float right = cam.Right;
+                        float right = cam.Right + CarHalfLength;
                         testPlayerExit = (Vector2 playerPos) => playerPos.x >= right;
                     }
                     break;
                 case Direction.Left:
                     {
                         Game.instance.playerBounds.left.enabled = false;
-                        float left = cam.Left;
+                        float left = cam.Left - CarHalfLength;
                         testPlayerExit = (Vector2 playerPos) => playerPos.x <= left;
                     }
                     break;
