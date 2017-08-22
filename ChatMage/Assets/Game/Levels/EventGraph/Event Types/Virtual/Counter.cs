@@ -10,8 +10,10 @@ namespace GameEvents
     {
         public int i = 0;
         public int every = 3;
+        [SerializeField]
         private Moment moment = new Moment();
-        private Moment non_moment = new Moment();
+        [SerializeField]
+        private Moment other = new Moment();
 
         public void Trigger()
         {
@@ -23,7 +25,7 @@ namespace GameEvents
             }
             else
             {
-                non_moment.Launch();
+                other.Launch();
             }
         }
 
@@ -38,7 +40,7 @@ namespace GameEvents
             names = new string[2];
 
             moments[0] = moment;
-            moments[1] = non_moment;
+            moments[1] = other;
 
             names[0] = "every " + every;
             names[1] = "other";
