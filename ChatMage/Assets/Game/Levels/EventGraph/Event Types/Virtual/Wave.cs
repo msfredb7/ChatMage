@@ -198,7 +198,7 @@ namespace GameEvents
 
         public override Color GUIColor()
         {
-            return new Color(1, 0.5f, 0.5f, 1);
+            return Colors.WAVES;
         }
     }
 

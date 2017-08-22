@@ -171,7 +171,7 @@ public class Milestone : FIPhysicalEvent, IEvent
 
     public override Color GUIColor()
     {
-        return new Color(.8f, 10, .8f,1);
+        return Colors.MILESTONE;
     }
 
     public override string NodeLabel()
