@@ -189,7 +189,7 @@ GameObject:
   - component: {fileID: 15498036}
   - component: {fileID: 15498039}
   - component: {fileID: 15498038}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: Right Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -295,7 +295,7 @@ GameObject:
   - component: {fileID: 49934720}
   - component: {fileID: 49934722}
   - component: {fileID: 49934721}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: Wall Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -391,7 +391,7 @@ GameObject:
   - component: {fileID: 70310144}
   - component: {fileID: 70310146}
   - component: {fileID: 70310145}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: Wall Top Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -865,7 +865,7 @@ MonoBehaviour:
   _serializedStateValues:
   - '[0,1,2]'
   - '[-14.28,-4.5,5.8]'
-  topHeight: 5.99
+  topHeight: 6
   bottomHeight: -25.4
   setCameraMinMax: 1
   showCameraTrails: 1
@@ -977,7 +977,7 @@ GameObject:
   - component: {fileID: 294770581}
   - component: {fileID: 294770584}
   - component: {fileID: 294770583}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: Top Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1157,7 +1157,7 @@ GameObject:
   m_Component:
   - component: {fileID: 511401686}
   - component: {fileID: 511401687}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: Fill Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1321,7 +1321,7 @@ GameObject:
   - component: {fileID: 590648047}
   - component: {fileID: 590648049}
   - component: {fileID: 590648048}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: Wall Bottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1723,7 +1723,7 @@ GameObject:
   m_Component:
   - component: {fileID: 714248138}
   - component: {fileID: 714248139}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: Fill Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1857,8 +1857,7 @@ GameObject:
   - component: {fileID: 824030165}
   - component: {fileID: 824030164}
   - component: {fileID: 824030162}
-  - component: {fileID: 824030163}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1888,7 +1887,7 @@ BoxCollider2D:
   m_Density: 1
   m_Material: {fileID: 6200000, guid: ac84c7d6c9b5d154a85c1cbeede9ae2c, type: 2}
   m_IsTrigger: 0
-  m_UsedByEffector: 1
+  m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
@@ -1903,24 +1902,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!251 &824030163
-PlatformEffector2D:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 824030160}
-  m_Enabled: 1
-  m_UseColliderMask: 1
-  m_ColliderMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RotationalOffset: 0
-  m_UseOneWay: 1
-  m_UseOneWayGrouping: 0
-  m_SurfaceArc: 180
-  m_UseSideFriction: 0
-  m_UseSideBounce: 0
-  m_SideArc: 1
 --- !u!114 &824030164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2468,8 +2449,7 @@ GameObject:
   - component: {fileID: 1257454831}
   - component: {fileID: 1257454830}
   - component: {fileID: 1257454828}
-  - component: {fileID: 1257454829}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: Wall (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2499,7 +2479,7 @@ BoxCollider2D:
   m_Density: 1
   m_Material: {fileID: 6200000, guid: ac84c7d6c9b5d154a85c1cbeede9ae2c, type: 2}
   m_IsTrigger: 0
-  m_UsedByEffector: 1
+  m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
@@ -2514,24 +2494,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!251 &1257454829
-PlatformEffector2D:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1257454826}
-  m_Enabled: 1
-  m_UseColliderMask: 1
-  m_ColliderMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RotationalOffset: 0
-  m_UseOneWay: 1
-  m_UseOneWayGrouping: 0
-  m_SurfaceArc: 180
-  m_UseSideFriction: 0
-  m_UseSideBounce: 0
-  m_SideArc: 1
 --- !u!114 &1257454830
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2757,7 +2719,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1425111067}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 5.8, z: 0}
+  m_LocalPosition: {x: 0, y: 6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 632894113}
@@ -2791,7 +2753,7 @@ MonoBehaviour:
     UnityEngine","m_IntArgument":0,"m_FloatArgument":0.0,"m_StringArgument":"","m_BoolArgument":false},"m_CallState":"RuntimeOnly"}]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[2,3]}'
   - '"TopOfScreen"'
-  - '{"min":{"x":-9.3,"y":-10.0},"max":{"x":9.3,"y":-0.2}}'
+  - '{"min":{"x":-9.3,"y":-10.2},"max":{"x":9.3,"y":-0.4}}'
   - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
   windowRect:
@@ -2827,8 +2789,8 @@ MonoBehaviour:
   setAiArea: 1
   aiAreaAdjustToSceenRatio: 1
   aiAreaRelativeToMilestone:
-    min: {x: -9.3, y: -10}
-    max: {x: 9.3, y: -0.2}
+    min: {x: -9.3, y: -10.2}
+    max: {x: 9.3, y: -0.4}
   modifyFollowPlayer: 0
   followPlayerEffect: 0
   setCameraMin: 1
@@ -3353,6 +3315,8 @@ MonoBehaviour:
   - {fileID: 627822515}
   - {fileID: 1569576615}
   - {fileID: 1182543748}
+  - {fileID: 1257454830}
+  - {fileID: 824030164}
   _values:
   - _keys: []
     _values: []
@@ -3408,6 +3372,12 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 1182543748}
+  - _keys: []
+    _values: []
+    _target: {fileID: 1257454830}
+  - _keys: []
+    _values: []
+    _target: {fileID: 824030164}
 --- !u!114 &1649213853
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3438,13 +3408,12 @@ MonoBehaviour:
   - {fileID: 627822515}
   - {fileID: 1569576615}
   - {fileID: 1182543748}
+  - {fileID: 1257454830}
+  - {fileID: 824030164}
   _values:
   - _keys: []
     _values: []
     _target: {fileID: 153121006}
-  - _keys: []
-    _values: []
-    _target: {fileID: 864190674}
   - _keys:
     - DefaultBehaviorEditor.triggerOn.EditProperty
     - DefaultBehaviorEditor.setAiArea.EditProperty
@@ -3468,39 +3437,18 @@ MonoBehaviour:
       _serializedIsActive: 1
     - _showDropdown: 0
       _serializedIsActive: 1
+    _target: {fileID: 864190674}
+  - _keys: []
+    _values: []
     _target: {fileID: 1425111069}
-  - _keys:
-    - DefaultBehaviorEditor.topHeight.EditProperty
-    - DefaultBehaviorEditor.milestones.EditProperty
-    - DefaultBehaviorEditor.milestoneRelativeHeights.EditProperty
-    _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 1
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
+  - _keys: []
+    _values: []
     _target: {fileID: 266624493}
   - _keys: []
     _values: []
     _target: {fileID: 267499301}
-  - _keys:
-    - DefaultBehaviorEditor.mapping.EditProperty
-    - DefaultBehaviorEditor.cameraSpawn.EditProperty
-    - DefaultBehaviorEditor.listUnits.EditProperty
-    - DefaultBehaviorEditor.setAIArea.EditProperty
-    - DefaultBehaviorEditor.roadPlayer.EditProperty
-    _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
+  - _keys: []
+    _values: []
     _target: {fileID: 1644651695}
   - _keys: []
     _values: []
@@ -3547,6 +3495,12 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 1182543748}
+  - _keys: []
+    _values: []
+    _target: {fileID: 1257454830}
+  - _keys: []
+    _values: []
+    _target: {fileID: 824030164}
 --- !u!1 &1659626761
 GameObject:
   m_ObjectHideFlags: 0
@@ -3780,7 +3734,7 @@ GameObject:
   - component: {fileID: 1752222564}
   - component: {fileID: 1752222566}
   - component: {fileID: 1752222565}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: Wall Top Left (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3917,7 +3871,7 @@ GameObject:
   - component: {fileID: 1815876681}
   - component: {fileID: 1815876683}
   - component: {fileID: 1815876682}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: Wall Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4014,7 +3968,7 @@ GameObject:
   - component: {fileID: 1817001760}
   - component: {fileID: 1817001763}
   - component: {fileID: 1817001762}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: Left Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
