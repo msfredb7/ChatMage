@@ -29,7 +29,8 @@ public class ArmyWallScript : Unit {
         if (other.parentUnit is PlayerVehicle)
         {
             Game.instance.Player.playerStats.Attacked(other, 1, this);
-            (other.parentUnit as PlayerVehicle).Bump(WorldDirection2D() * bumpStrength, bumpDuration, BumpMode.VelocityAdd);
+            if(!justHitPlayer)
+                (other.parentUnit as PlayerVehicle).Bump(WorldDirection2D() * bumpStrength, bumpDuration, BumpMode.VelocityAdd);
             justHitPlayer = true;
             cooldown = 2; // Le ArmyWall recommence a marcher apres 2 secondes
         }
