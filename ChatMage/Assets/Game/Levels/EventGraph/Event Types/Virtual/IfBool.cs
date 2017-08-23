@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace GameEvents
 {
-    [MenuItem("Variables/bool/if")]
+    [MenuItem("Variables/bool/if"), DefaultNodeName("If")]
     public class IfBool : VirtualEvent, IEvent, IEvent<bool>
     {
         public Bool defaultVariable;
@@ -25,13 +25,12 @@ namespace GameEvents
 
         public override string NodeLabel()
         {
-            return "If " + (defaultVariable != null ? defaultVariable.name : "_____");
+            return "If" + (defaultVariable != null ? " " + defaultVariable.name : "");
         }
 
         public override Color GUIColor()
         {
-            GUI.contentColor = Color.black;
-            return new Color(1, 1, 1, 1);
+            return Colors.FLOW_CONTROL;
         }
 
         public void Trigger(bool a)

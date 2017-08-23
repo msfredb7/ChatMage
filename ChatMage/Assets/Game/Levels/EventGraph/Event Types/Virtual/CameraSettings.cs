@@ -63,7 +63,7 @@ namespace GameEvents
 
         public override Color GUIColor()
         {
-            return new Color(1f, 0.75f, 0.9f, 1);
+            return Colors.CAMERA;
         }
     }
 }

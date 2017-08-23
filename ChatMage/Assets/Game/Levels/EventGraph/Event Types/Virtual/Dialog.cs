@@ -24,7 +24,7 @@ namespace GameEvents
         }
         public override Color GUIColor()
         {
-            return new Color(1, 1, 0.5f, 1);
+            return Colors.DIALOG;
         }
     }
 }

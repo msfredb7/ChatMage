@@ -12,7 +12,7 @@ namespace GameEvents
 
         public override Color GUIColor()
         {
-            return new Color(0.75f, 0.8f, 1f, 1);
+            return Colors.AI;
         }
 
         public override string NodeLabel()

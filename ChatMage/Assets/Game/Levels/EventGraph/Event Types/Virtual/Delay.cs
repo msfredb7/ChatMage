@@ -28,7 +28,7 @@ namespace GameEvents
 
         public override Color GUIColor()
         {
-            return new Color(1, 0.8f, 1, 1);
+            return Colors.DELAY;
         }
 
         public override string NodeLabel()

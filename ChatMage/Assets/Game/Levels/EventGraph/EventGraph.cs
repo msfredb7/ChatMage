@@ -94,4 +94,57 @@ namespace GameEvents
         }
 
     }
+
+    public static class Colors
+    {
+        public static Color FLOW_CONTROL
+        {
+            get { return new Color(0.9f, 1, 1, 1); }
+        }
+
+        public static Color MAP
+        {
+            get { return new Color(0.65f, 0.65f, 1, 1); }
+        }
+
+        public static Color LEVEL_SCRIPT
+        {
+            get { return new Color(0.95f, 0.65f, 0, 1); }
+        }
+
+        public static Color VARIABLES
+        {
+            get { return new Color(0.67f, 0.67f, 0.67f, 1); }
+        }
+
+        public static Color WAVES
+        {
+            get { return new Color(1, 0.5f, 0.5f, 1); }
+        }
+
+        public static Color DIALOG
+        {
+            get { return new Color(1, 1, 0.5f, 1); }
+        }
+
+        public static Color DELAY
+        {
+            get { return new Color(1, 0.8f, 1, 1); }
+        }
+
+        public static Color CAMERA
+        {
+            get { return new Color(1f, 0.75f, 0.9f, 1); }
+        }
+
+        public static Color AI
+        {
+            get { return new Color(0.75f, 0.8f, 1f, 1); }
+        }
+
+        public static Color MILESTONE
+        {
+            get { return new Color(.8f, 10, .8f, 1); }
+        }
+    }
 }

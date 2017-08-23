@@ -13,11 +13,6 @@ namespace GameEvents
         {
             Debug.Log(message);
         }
-
-        public override Color GUIColor()
-        {
-            return new Color(0.9f, 1, 1, 1);
-        }
         public override string NodeLabel()
         {
             string label = "Log: " + message;

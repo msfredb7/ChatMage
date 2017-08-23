@@ -21,7 +21,7 @@ namespace GameEvents
 
         public override Color GUIColor()
         {
-            return new Color(0.7f, 0.7f, 0.7f, 1);
+            return Colors.LEVEL_SCRIPT;
         }
     }
 }

@@ -49,5 +49,10 @@ namespace GameEvents
         {
             return "Game Start";
         }
+
+        public override Color GUIColor()
+        {
+            return Colors.LEVEL_SCRIPT;
+        }
     }
 }

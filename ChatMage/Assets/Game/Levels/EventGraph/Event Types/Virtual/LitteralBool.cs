@@ -22,7 +22,7 @@ namespace GameEvents
 
         public override Color GUIColor()
         {
-            return new Color(1, 0.7f, 0.5f, 1);
+            return Colors.VARIABLES;
         }
     }
 }
