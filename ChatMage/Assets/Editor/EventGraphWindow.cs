@@ -123,7 +123,8 @@ namespace GameEvents
 
         public void MarkSceneAsDirty()
         {
-            EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
+            if (!Application.isPlaying)
+                EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
         }
 
         public Rect graphInfoRect = new Rect(0, 0, 240, 10);
