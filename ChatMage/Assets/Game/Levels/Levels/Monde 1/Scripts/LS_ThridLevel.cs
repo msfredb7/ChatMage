@@ -170,8 +170,9 @@ public class LS_ThridLevel : LevelScript
         {
             case "spawn 1":
                 //armyWall.gameObject.GetComponent<ArmyWallScript>().ForceDie(); marche pas ?
-                GameObject.Destroy(armyWall.gameObject); // marche !
-                Game.instance.units.Remove(armyWall.GetComponent<ArmyWallScript>());
+
+                armyWall.GetComponent<Unit>().ForceDie();
+
                 // inGameEvents.AddDelayedAction(StartRoadAmbushOne, 0.5f); marche pas ? bug...
                 break;
             case "spawn 2":

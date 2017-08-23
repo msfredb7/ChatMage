@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -64,5 +64,12 @@ public class ArmyWallScript : Unit {
             if (cooldown < 0)
                 justHitPlayer = false;
         cooldown -= DeltaTime();
+    }
+
+    protected override void Die()
+    {
+        base.Die();
+
+        Destroy();
     }
 }
