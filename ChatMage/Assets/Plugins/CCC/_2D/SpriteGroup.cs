@@ -24,7 +24,7 @@ namespace CCC._2D
         }
 
         [SerializeField, Range(0,1)]
-        private float alpha;
+        private float alpha = 1;
 
         public void GatherChildData()
         {
@@ -32,17 +32,16 @@ namespace CCC._2D
             defaultAlphas = new float[childRenderers.Length];
 
             if (alpha > 0)
+            {
                 for (int i = 0; i < childRenderers.Length; i++)
                 {
                     defaultAlphas[i] = (childRenderers[i].color.a / alpha).Capped(1);
                 }
+                ApplyAlphaToChildren();
+            }
             else
-                for (int i = 0; i < childRenderers.Length; i++)
-                {
-                    defaultAlphas[i] = 1;
-                }
+                Debug.LogWarning("Cannot gather child data if alpha = 0. It must be > 0");
 
-            ApplyAlphaToChildren();
         }
 
         public void ApplyAlphaToChildren()
