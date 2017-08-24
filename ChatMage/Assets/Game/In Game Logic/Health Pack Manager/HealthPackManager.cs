@@ -6,7 +6,8 @@ public class HealthPackManager : MonoBehaviour
 {
     [Header("Linking")]
     public HealthPacks healthPackPrefab;
-    //public ArmorPacks armorPackPrefab;
+    public ArmorPacks armorPackPrefab;
+    public bool spawnArmor = false;
 
     [Header("Debug Setting")]
     public bool debugPrints = false;
@@ -30,7 +31,7 @@ public class HealthPackManager : MonoBehaviour
     {
         controller.playerStats.onUnitKilled += PlayerStats_onUnitKilled;
         player = controller;
-
+        spawnArmor = false;
     }
 
     void Update()
@@ -62,13 +63,13 @@ public class HealthPackManager : MonoBehaviour
         TryToSpawnHealthPack(unit.Position);
     }
 
-    public HealthPacks TryToSpawnHealthPack(Vector2 position)
+    public void TryToSpawnHealthPack(Vector2 position)
     {
         if (player == null)
-            return null;
+            return;
 
         if (!enableHealthPackSpawn)
-            return null;
+            return;
 
         float realSpawnChance = spawnChance
             + (player.playerStats.health.MAX - player.playerStats.health) * luckIncreaseByHealthDeficit;
@@ -82,22 +83,21 @@ public class HealthPackManager : MonoBehaviour
             //Success !
 
             //Spawn
-            HealthPacks hp= Game.instance.SpawnUnit(healthPackPrefab, position);
+            if(spawnArmor)
+                Game.instance.SpawnUnit(armorPackPrefab, position);
+            else
+                Game.instance.SpawnUnit(healthPackPrefab, position);
 
             //Reset
             spawnChance = 0;
 
             if (debugPrints)
                 Debug.LogWarning("Health pack spawn: " + realSpawnChance + "% chances. Result: Success!");
-
-            return hp;
         }
         else
         {
             if (debugPrints)
                 Debug.LogWarning("Health pack spawn: " + realSpawnChance + "% chances. Result: Failed!");
-
-            return null;
         }
     }
 }

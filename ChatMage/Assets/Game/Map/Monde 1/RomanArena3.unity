@@ -3034,7 +3034,7 @@ GameObject:
   - component: {fileID: 1051935716}
   - component: {fileID: 1051935715}
   - component: {fileID: 1051935714}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: Right Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3333,7 +3333,8 @@ GameObject:
   - component: {fileID: 1097219383}
   - component: {fileID: 1097219382}
   - component: {fileID: 1097219380}
-  m_Layer: 16
+  - component: {fileID: 1097219381}
+  m_Layer: 0
   m_Name: Bottom Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3369,6 +3370,24 @@ MonoBehaviour:
   _serializedStateValues: []
   tags:
   - jesus wall
+--- !u!251 &1097219381
+PlatformEffector2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1097219378}
+  m_Enabled: 1
+  m_UseColliderMask: 0
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RotationalOffset: -90
+  m_UseOneWay: 1
+  m_UseOneWayGrouping: 0
+  m_SurfaceArc: 180
+  m_UseSideFriction: 0
+  m_UseSideBounce: 0
+  m_SideArc: 1
 --- !u!68 &1097219382
 EdgeCollider2D:
   m_ObjectHideFlags: 0
@@ -3379,7 +3398,7 @@ EdgeCollider2D:
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_UsedByEffector: 0
+  m_UsedByEffector: 1
   m_UsedByComposite: 0
   m_Offset: {x: 0.5, y: 0}
   m_EdgeRadius: 0
@@ -3437,7 +3456,8 @@ GameObject:
   - component: {fileID: 1103040314}
   - component: {fileID: 1103040317}
   - component: {fileID: 1103040316}
-  m_Layer: 16
+  - component: {fileID: 1103040315}
+  m_Layer: 0
   m_Name: Top Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3457,6 +3477,24 @@ Transform:
   m_Father: {fileID: 1454204862}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
+--- !u!251 &1103040315
+PlatformEffector2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1103040313}
+  m_Enabled: 1
+  m_UseColliderMask: 0
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RotationalOffset: -90
+  m_UseOneWay: 1
+  m_UseOneWayGrouping: 0
+  m_SurfaceArc: 180
+  m_UseSideFriction: 0
+  m_UseSideBounce: 0
+  m_SideArc: 1
 --- !u!68 &1103040316
 EdgeCollider2D:
   m_ObjectHideFlags: 0
@@ -3467,7 +3505,7 @@ EdgeCollider2D:
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_UsedByEffector: 0
+  m_UsedByEffector: 1
   m_UsedByComposite: 0
   m_Offset: {x: 0.5, y: 0}
   m_EdgeRadius: 0
@@ -3996,7 +4034,7 @@ GameObject:
   - component: {fileID: 1266462798}
   - component: {fileID: 1266462797}
   - component: {fileID: 1266462796}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: Left Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5353,6 +5391,7 @@ MonoBehaviour:
   - {fileID: 1033381811}
   - {fileID: 981590458}
   - {fileID: 348432818}
+  - {fileID: 680225726}
   _values:
   - _keys: []
     _values: []
@@ -5507,6 +5546,9 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 348432818}
+  - _keys: []
+    _values: []
+    _target: {fileID: 680225726}
 --- !u!114 &1649213853
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5570,6 +5612,7 @@ MonoBehaviour:
   - {fileID: 1033381811}
   - {fileID: 981590458}
   - {fileID: 348432818}
+  - {fileID: 680225726}
   _values:
   - _keys: []
     _values: []
@@ -5604,35 +5647,17 @@ MonoBehaviour:
     - _showDropdown: 0
       _serializedIsActive: 1
     _target: {fileID: 1644651695}
+  - _keys: []
+    _values: []
+    _target: {fileID: 1990598053}
   - _keys:
-    - DefaultBehaviorEditor.triggerOn.EditProperty
     - DefaultBehaviorEditor.setAiArea.EditProperty
-    - DefaultBehaviorEditor.modifyFollowPlayer.EditProperty
     - DefaultBehaviorEditor.setCameraMin.EditProperty
     - DefaultBehaviorEditor.setCameraMax.EditProperty
-    - DefaultBehaviorEditor.fireEventToLevelScript.EditProperty
     - DefaultBehaviorEditor.dialog.EditProperty
     _values:
     - _showDropdown: 0
       _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    _target: {fileID: 1990598053}
-  - _keys:
-    - DefaultBehaviorEditor.triggerOn.EditProperty
-    - DefaultBehaviorEditor.modifyFollowPlayer.EditProperty
-    - DefaultBehaviorEditor.fireEventToLevelScript.EditProperty
-    _values:
     - _showDropdown: 0
       _serializedIsActive: 1
     - _showDropdown: 0
@@ -5665,8 +5690,23 @@ MonoBehaviour:
       _serializedIsActive: 1
     _target: {fileID: 964073460}
   - _keys:
-    - DefaultBehaviorEditor.dialog.EditProperty
+    - DefaultBehaviorEditor.triggerOn.EditProperty
+    - DefaultBehaviorEditor.setAiArea.EditProperty
+    - DefaultBehaviorEditor.modifyFollowPlayer.EditProperty
+    - DefaultBehaviorEditor.setCameraMin.EditProperty
+    - DefaultBehaviorEditor.setCameraMax.EditProperty
+    - DefaultBehaviorEditor.fireEventToLevelScript.EditProperty
     _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
     - _showDropdown: 0
       _serializedIsActive: 1
     _target: {fileID: 1170913434}
@@ -5826,6 +5866,9 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 348432818}
+  - _keys: []
+    _values: []
+    _target: {fileID: 680225726}
 --- !u!1 &1688720690
 GameObject:
   m_ObjectHideFlags: 0

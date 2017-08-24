@@ -136,4 +136,9 @@ public class PlayerStats : PlayerComponent, IAttackable
         if (onUnitKilled != null)
             onUnitKilled(unit);
     }
+
+    public void GiveArmor()
+    {
+        armor++;
+    }
 }
