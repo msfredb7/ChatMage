@@ -131,7 +131,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 42554340}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8.5, y: 100, z: 0}
+  m_LocalPosition: {x: 8.5, y: 67.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 266624492}
@@ -169,14 +169,15 @@ SpriteRenderer:
   m_SortingLayerID: 1250817847
   m_SortingLayer: -2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ccd62ff5d4d6f174698e156f6ec71d3a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6b948144259d7324fa979c180b25235a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 10, y: 420}
+  m_Size: {x: 10, y: 361}
   m_AdaptiveModeThreshold: 0.116
   m_SpriteTileMode: 1
+  m_WasSpriteAssigned: 1
 --- !u!1 &71926984
 GameObject:
   m_ObjectHideFlags: 0
@@ -264,7 +265,7 @@ GameObject:
   - component: {fileID: 124530952}
   m_Layer: 0
   m_Name: Survival8
-  m_TagString: Untagged
+  m_TagString: Milestone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -276,7 +277,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 124530950}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 193.3, z: 0}
+  m_LocalPosition: {x: 0, y: 183, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 552480917}
@@ -336,6 +337,11 @@ MonoBehaviour:
   cameraMinRelativeToMilestone: 0
   setCameraMax: 0
   cameraMaxRelativeToMilestone: 0
+  useCadre: 0
+  openTop: 0
+  openBot: 0
+  openLeft: 0
+  openRight: 0
   fireEventToLevelScript: 1
   eventMessage: survival8
   onExecute:
@@ -477,6 +483,76 @@ MonoBehaviour:
   posType: 2
   tags:
   - right
+--- !u!1 &220499131
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 220499132}
+  - component: {fileID: 220499133}
+  m_Layer: 16
+  m_Name: New Sprite
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &220499132
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 220499131}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: -0.044, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1292727433}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!212 &220499133
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 220499131}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: f5552be376213c441a3c3420b42dcaae, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 2.56, y: 0.64}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!1 &227145567
 GameObject:
   m_ObjectHideFlags: 0
@@ -613,7 +689,7 @@ MonoBehaviour:
   - milestoneRelativeHeights
   _serializedStateValues:
   - '[0,1,2,3,4,5,6,7,8,9,10]'
-  - '[-96.14,-77.0,-42.3,-10.5,29.3,67.1,106.7,139.1,173.3,210.3,220.78]'
+  - '[-97.3,-65.8,-31.5,0.3000031,36.5,73.9,109.5,145.9,183.0,210.09,220.57]'
   topHeight: 237.7
   bottomHeight: -108.69
   setCameraMinMax: 1
@@ -656,6 +732,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1404559385}
+  - {fileID: 1292727433}
+  - {fileID: 1396699876}
   m_Father: {fileID: 266624492}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -759,7 +837,7 @@ GameObject:
   - component: {fileID: 378418664}
   m_Layer: 0
   m_Name: Survival4
-  m_TagString: Untagged
+  m_TagString: Milestone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -771,7 +849,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 378418662}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 49.3, z: 0}
+  m_LocalPosition: {x: 0, y: 36.500004, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 552480917}
@@ -800,7 +878,7 @@ MonoBehaviour:
   - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]}'
   - '"TopOfScreen"'
-  - '{"min":{"x":-9.41,"y":-11.0},"max":{"x":9.81,"y":0.0}}'
+  - '{"min":{"x":-9.59,"y":-10.0},"max":{"x":9.54,"y":-0.09}}'
   - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
   windowRect:
@@ -823,14 +901,19 @@ MonoBehaviour:
   setAiArea: 1
   aiAreaAdjustToSceenRatio: 1
   aiAreaRelativeToMilestone:
-    min: {x: -9.41, y: -11}
-    max: {x: 9.81, y: 0}
+    min: {x: -9.59, y: -10}
+    max: {x: 9.54, y: -0.09}
   modifyFollowPlayer: 1
   followPlayerEffect: 0
   setCameraMin: 0
   cameraMinRelativeToMilestone: 0
   setCameraMax: 0
   cameraMaxRelativeToMilestone: 0
+  useCadre: 0
+  openTop: 0
+  openBot: 0
+  openLeft: 0
+  openRight: 0
   fireEventToLevelScript: 1
   eventMessage: survival4
   onExecute:
@@ -850,7 +933,7 @@ GameObject:
   - component: {fileID: 546571856}
   m_Layer: 0
   m_Name: Survival2
-  m_TagString: Untagged
+  m_TagString: Milestone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -862,7 +945,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 546571854}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -22.3, z: 0}
+  m_LocalPosition: {x: 0, y: -31.499996, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 552480917}
@@ -922,6 +1005,11 @@ MonoBehaviour:
   cameraMinRelativeToMilestone: 0
   setCameraMax: 0
   cameraMaxRelativeToMilestone: 0
+  useCadre: 0
+  openTop: 0
+  openBot: 0
+  openLeft: 0
+  openRight: 0
   fireEventToLevelScript: 1
   eventMessage: survival2
   onExecute:
@@ -952,7 +1040,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 552480916}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -20, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1990598052}
@@ -1056,7 +1144,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 596825831}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.5, y: 100, z: 0}
+  m_LocalPosition: {x: -8.5, y: 67.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 266624492}
@@ -1094,14 +1182,15 @@ SpriteRenderer:
   m_SortingLayerID: 1250817847
   m_SortingLayer: -2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ccd62ff5d4d6f174698e156f6ec71d3a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6b948144259d7324fa979c180b25235a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 10, y: 420}
+  m_Size: {x: 10, y: 361}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 1
+  m_WasSpriteAssigned: 1
 --- !u!1 &641073214
 GameObject:
   m_ObjectHideFlags: 0
@@ -1113,7 +1202,7 @@ GameObject:
   - component: {fileID: 641073216}
   m_Layer: 0
   m_Name: Survival1
-  m_TagString: Untagged
+  m_TagString: Milestone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1125,7 +1214,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 641073214}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -57, z: 0}
+  m_LocalPosition: {x: 0, y: -65.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 552480917}
@@ -1185,6 +1274,11 @@ MonoBehaviour:
   cameraMinRelativeToMilestone: 0
   setCameraMax: 0
   cameraMaxRelativeToMilestone: 0
+  useCadre: 1
+  openTop: 0
+  openBot: 0
+  openLeft: 0
+  openRight: 0
   fireEventToLevelScript: 1
   eventMessage: survival1
   onExecute:
@@ -1245,7 +1339,7 @@ GameObject:
   - component: {fileID: 907085426}
   m_Layer: 0
   m_Name: Survival3
-  m_TagString: Untagged
+  m_TagString: Milestone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1257,7 +1351,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 907085424}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 9.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0.30000305, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 552480917}
@@ -1317,6 +1411,11 @@ MonoBehaviour:
   cameraMinRelativeToMilestone: 0
   setCameraMax: 0
   cameraMaxRelativeToMilestone: 0
+  useCadre: 0
+  openTop: 0
+  openBot: 0
+  openLeft: 0
+  openRight: 0
   fireEventToLevelScript: 1
   eventMessage: survival3
   onExecute:
@@ -1592,7 +1691,7 @@ GameObject:
   - component: {fileID: 1170913434}
   m_Layer: 0
   m_Name: FrontOfGate
-  m_TagString: Untagged
+  m_TagString: Milestone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1604,7 +1703,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1170913432}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 230.3, z: 0}
+  m_LocalPosition: {x: 0, y: 210.09, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 552480917}
@@ -1664,6 +1763,11 @@ MonoBehaviour:
   cameraMinRelativeToMilestone: 0
   setCameraMax: 0
   cameraMaxRelativeToMilestone: 0
+  useCadre: 0
+  openTop: 0
+  openBot: 0
+  openLeft: 0
+  openRight: 0
   fireEventToLevelScript: 1
   eventMessage: gate
   onExecute:
@@ -1672,6 +1776,72 @@ MonoBehaviour:
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   dialog: {fileID: 0}
+--- !u!1 &1292727432
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1292727433}
+  - component: {fileID: 1292727435}
+  - component: {fileID: 1292727434}
+  m_Layer: 16
+  m_Name: Wall
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1292727433
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1292727432}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: -7.18, y: 229.39, z: 0}
+  m_LocalScale: {x: 2.9064968, y: 3.1535773, z: 1}
+  m_Children:
+  - {fileID: 220499132}
+  m_Father: {fileID: 272089697}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
+--- !u!251 &1292727434
+PlatformEffector2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1292727432}
+  m_Enabled: 1
+  m_UseColliderMask: 0
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RotationalOffset: -90
+  m_UseOneWay: 1
+  m_UseOneWayGrouping: 0
+  m_SurfaceArc: 180
+  m_UseSideFriction: 1
+  m_UseSideBounce: 1
+  m_SideArc: 0
+--- !u!68 &1292727435
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1292727432}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 1
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.32, y: -0.26}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: -0.008791894, y: 1.4342769}
+  - {x: -0.008796811, y: -1.0005261}
 --- !u!1 &1317918297
 GameObject:
   m_ObjectHideFlags: 0
@@ -1683,7 +1853,7 @@ GameObject:
   - component: {fileID: 1317918299}
   m_Layer: 0
   m_Name: Survival7
-  m_TagString: Untagged
+  m_TagString: Milestone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1695,7 +1865,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1317918297}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 159.1, z: 0}
+  m_LocalPosition: {x: 0, y: 145.90001, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 552480917}
@@ -1755,6 +1925,11 @@ MonoBehaviour:
   cameraMinRelativeToMilestone: 0
   setCameraMax: 0
   cameraMaxRelativeToMilestone: 0
+  useCadre: 0
+  openTop: 0
+  openBot: 0
+  openLeft: 0
+  openRight: 0
   fireEventToLevelScript: 1
   eventMessage: survival7
   onExecute:
@@ -1786,7 +1961,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1387905570}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.19, y: 102.1, z: 0}
+  m_LocalPosition: {x: 0.19, y: 66.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 266624492}
@@ -1824,14 +1999,81 @@ SpriteRenderer:
   m_SortingLayerID: 1250817847
   m_SortingLayer: -2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: dc701d86e5c913140970bda429ad54ff, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5fd4bf0008f5583468ad075d1188503d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 10, y: 424.31}
+  m_Size: {x: 10, y: 361.4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 1
+  m_WasSpriteAssigned: 1
+--- !u!1 &1396699875
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1396699876}
+  - component: {fileID: 1396699878}
+  - component: {fileID: 1396699877}
+  m_Layer: 16
+  m_Name: Wall (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1396699876
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1396699875}
+  m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 7.81, y: 229.39, z: 0}
+  m_LocalScale: {x: 2.9065008, y: 3.1535819, z: 1}
+  m_Children:
+  - {fileID: 1951351194}
+  m_Father: {fileID: 272089697}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
+--- !u!251 &1396699877
+PlatformEffector2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1396699875}
+  m_Enabled: 1
+  m_UseColliderMask: 0
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RotationalOffset: -90
+  m_UseOneWay: 1
+  m_UseOneWayGrouping: 0
+  m_SurfaceArc: 180
+  m_UseSideFriction: 1
+  m_UseSideBounce: 1
+  m_SideArc: 0
+--- !u!68 &1396699878
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1396699875}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 1
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.32, y: -0.26}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: -0.008791894, y: 1.4342769}
+  - {x: -0.008796811, y: -1.0005261}
 --- !u!1 &1404559384
 GameObject:
   m_ObjectHideFlags: 0
@@ -1859,8 +2101,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1404559384}
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -0, y: 229.2, z: 0}
-  m_LocalScale: {x: 2.7658882, y: 16.787333, z: 1}
+  m_LocalPosition: {x: 0.28, y: 229.4, z: 0}
+  m_LocalScale: {x: 2.2670562, y: 4.520641, z: 1}
   m_Children: []
   m_Father: {fileID: 272089697}
   m_RootOrder: 0
@@ -1929,8 +2171,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1623435497
-  m_SortingLayer: 4
+  m_SortingLayerID: 886072395
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: d6975b56e3b7f3a429b7f05c7d6674fb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1940,6 +2182,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!114 &1404559389
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1952,7 +2195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rendering: {fileID: 1404559385}
-  openedLocalPosition: {x: 20, y: 229.2}
+  openedLocalPosition: {x: 10, y: 229.2}
   openedOnStart: 0
   collider: {fileID: 0}
   enableDisableColliderOnAnimation: 0
@@ -2184,6 +2427,8 @@ MonoBehaviour:
   - {fileID: 1317918299}
   - {fileID: 124530952}
   - {fileID: 1404559390}
+  - {fileID: 0}
+  - {fileID: 0}
   _values:
   - _keys: []
     _values: []
@@ -2230,6 +2475,12 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 1404559390}
+  - _keys: []
+    _values: []
+    _target: {fileID: 0}
+  - _keys: []
+    _values: []
+    _target: {fileID: 0}
 --- !u!114 &1649213853
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2257,6 +2508,8 @@ MonoBehaviour:
   - {fileID: 1317918299}
   - {fileID: 124530952}
   - {fileID: 1404559390}
+  - {fileID: 0}
+  - {fileID: 0}
   _values:
   - _keys: []
     _values: []
@@ -2270,14 +2523,13 @@ MonoBehaviour:
       _serializedIsActive: 1
     - _showDropdown: 1
       _serializedIsActive: 1
-    - _showDropdown: 0
+    - _showDropdown: 1
       _serializedIsActive: 1
     _target: {fileID: 266624493}
   - _keys:
     - DefaultBehaviorEditor.mapping.EditProperty
     - DefaultBehaviorEditor.cameraSpawn.EditProperty
     - DefaultBehaviorEditor.listUnits.EditProperty
-    - DefaultBehaviorEditor.objectsToAjust.EditProperty
     - DefaultBehaviorEditor.setAIArea.EditProperty
     - DefaultBehaviorEditor.roadPlayer.EditProperty
     _values:
@@ -2291,15 +2543,34 @@ MonoBehaviour:
       _serializedIsActive: 1
     - _showDropdown: 0
       _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
     _target: {fileID: 1644651695}
+  - _keys: []
+    _values: []
+    _target: {fileID: 1990598053}
   - _keys:
-    - DefaultBehaviorEditor.dialog.EditProperty
+    - DefaultBehaviorEditor.triggerOn.EditProperty
+    - DefaultBehaviorEditor.setAiArea.EditProperty
+    - DefaultBehaviorEditor.modifyFollowPlayer.EditProperty
+    - DefaultBehaviorEditor.setCameraMin.EditProperty
+    - DefaultBehaviorEditor.setCameraMax.EditProperty
+    - DefaultBehaviorEditor.useCadre.EditProperty
+    - DefaultBehaviorEditor.fireEventToLevelScript.EditProperty
     _values:
     - _showDropdown: 0
       _serializedIsActive: 1
-    _target: {fileID: 1990598053}
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    _target: {fileID: 1170913434}
   - _keys:
     - DefaultBehaviorEditor.triggerOn.EditProperty
     - DefaultBehaviorEditor.setAiArea.EditProperty
@@ -2320,16 +2591,13 @@ MonoBehaviour:
       _serializedIsActive: 1
     - _showDropdown: 0
       _serializedIsActive: 1
-    _target: {fileID: 1170913434}
+    _target: {fileID: 2086493880}
   - _keys:
+    - DefaultBehaviorEditor.useCadre.EditProperty
     - DefaultBehaviorEditor.dialog.EditProperty
     _values:
     - _showDropdown: 0
       _serializedIsActive: 1
-    _target: {fileID: 2086493880}
-  - _keys:
-    - DefaultBehaviorEditor.dialog.EditProperty
-    _values:
     - _showDropdown: 0
       _serializedIsActive: 1
     _target: {fileID: 641073216}
@@ -2370,17 +2638,26 @@ MonoBehaviour:
       _serializedIsActive: 1
     _target: {fileID: 378418664}
   - _keys:
-    - DefaultBehaviorEditor.dialog.EditProperty
+    - DefaultBehaviorEditor.triggerOn.EditProperty
+    - DefaultBehaviorEditor.setAiArea.EditProperty
+    - DefaultBehaviorEditor.modifyFollowPlayer.EditProperty
+    - DefaultBehaviorEditor.setCameraMin.EditProperty
+    - DefaultBehaviorEditor.setCameraMax.EditProperty
+    - DefaultBehaviorEditor.fireEventToLevelScript.EditProperty
     _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
     - _showDropdown: 0
       _serializedIsActive: 1
     _target: {fileID: 1888280306}
-  - _keys:
-    - DefaultBehaviorEditor.dialog.EditProperty
-    _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    _target: {fileID: 1746307073}
   - _keys:
     - DefaultBehaviorEditor.triggerOn.EditProperty
     - DefaultBehaviorEditor.setAiArea.EditProperty
@@ -2388,7 +2665,6 @@ MonoBehaviour:
     - DefaultBehaviorEditor.setCameraMin.EditProperty
     - DefaultBehaviorEditor.setCameraMax.EditProperty
     - DefaultBehaviorEditor.fireEventToLevelScript.EditProperty
-    - DefaultBehaviorEditor.dialog.EditProperty
     _values:
     - _showDropdown: 0
       _serializedIsActive: 1
@@ -2402,18 +2678,40 @@ MonoBehaviour:
       _serializedIsActive: 1
     - _showDropdown: 0
       _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
+    _target: {fileID: 1746307073}
+  - _keys: []
+    _values: []
     _target: {fileID: 1317918299}
   - _keys:
-    - DefaultBehaviorEditor.dialog.EditProperty
+    - DefaultBehaviorEditor.triggerOn.EditProperty
+    - DefaultBehaviorEditor.setAiArea.EditProperty
+    - DefaultBehaviorEditor.modifyFollowPlayer.EditProperty
+    - DefaultBehaviorEditor.setCameraMin.EditProperty
+    - DefaultBehaviorEditor.setCameraMax.EditProperty
+    - DefaultBehaviorEditor.fireEventToLevelScript.EditProperty
     _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
     - _showDropdown: 0
       _serializedIsActive: 1
     _target: {fileID: 124530952}
   - _keys: []
     _values: []
     _target: {fileID: 1404559390}
+  - _keys: []
+    _values: []
+    _target: {fileID: 0}
+  - _keys: []
+    _values: []
+    _target: {fileID: 0}
 --- !u!1 &1658729503
 GameObject:
   m_ObjectHideFlags: 0
@@ -2565,7 +2863,7 @@ GameObject:
   - component: {fileID: 1746307073}
   m_Layer: 0
   m_Name: Survival6
-  m_TagString: Untagged
+  m_TagString: Milestone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2577,7 +2875,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1746307071}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 126.7, z: 0}
+  m_LocalPosition: {x: 0, y: 109.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 552480917}
@@ -2637,6 +2935,11 @@ MonoBehaviour:
   cameraMinRelativeToMilestone: 0
   setCameraMax: 0
   cameraMaxRelativeToMilestone: 0
+  useCadre: 0
+  openTop: 0
+  openBot: 0
+  openLeft: 0
+  openRight: 0
   fireEventToLevelScript: 1
   eventMessage: survival6
   onExecute:
@@ -2813,7 +3116,7 @@ GameObject:
   - component: {fileID: 1888280306}
   m_Layer: 0
   m_Name: Survival5
-  m_TagString: Untagged
+  m_TagString: Milestone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2825,7 +3128,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1888280304}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 87.1, z: 0}
+  m_LocalPosition: {x: 0, y: 73.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 552480917}
@@ -2885,6 +3188,11 @@ MonoBehaviour:
   cameraMinRelativeToMilestone: 0
   setCameraMax: 0
   cameraMaxRelativeToMilestone: 0
+  useCadre: 0
+  openTop: 0
+  openBot: 0
+  openLeft: 0
+  openRight: 0
   fireEventToLevelScript: 1
   eventMessage: survival5
   onExecute:
@@ -2893,6 +3201,76 @@ MonoBehaviour:
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   dialog: {fileID: 0}
+--- !u!1 &1951351193
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1951351194}
+  - component: {fileID: 1951351195}
+  m_Layer: 16
+  m_Name: New Sprite
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1951351194
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1951351193}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: -0, y: 0.015, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1396699876}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!212 &1951351195
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1951351193}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: f5552be376213c441a3c3420b42dcaae, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 2.56, y: 0.64}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!1 &1988937639
 GameObject:
   m_ObjectHideFlags: 0
@@ -2968,7 +3346,7 @@ GameObject:
   - component: {fileID: 1990598053}
   m_Layer: 0
   m_Name: Start Milestone
-  m_TagString: Untagged
+  m_TagString: Milestone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2980,7 +3358,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1990598051}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -86.94, z: 0}
+  m_LocalPosition: {x: 0, y: -108.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 552480917}
@@ -3040,6 +3418,11 @@ MonoBehaviour:
   cameraMinRelativeToMilestone: 0
   setCameraMax: 0
   cameraMaxRelativeToMilestone: 0
+  useCadre: 0
+  openTop: 0
+  openBot: 0
+  openLeft: 0
+  openRight: 0
   fireEventToLevelScript: 1
   eventMessage: start
   onExecute:
@@ -3059,7 +3442,7 @@ GameObject:
   - component: {fileID: 2086493880}
   m_Layer: 0
   m_Name: Ending
-  m_TagString: Untagged
+  m_TagString: Milestone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -3071,7 +3454,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2086493878}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 229.98, z: 0}
+  m_LocalPosition: {x: 0, y: 209.76999, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 552480917}
@@ -3131,6 +3514,11 @@ MonoBehaviour:
   cameraMinRelativeToMilestone: 0
   setCameraMax: 0
   cameraMaxRelativeToMilestone: 0
+  useCadre: 0
+  openTop: 0
+  openBot: 0
+  openLeft: 0
+  openRight: 0
   fireEventToLevelScript: 1
   eventMessage: win
   onExecute:

@@ -234,6 +234,7 @@ public class LS_ThridLevel : LevelScript
         Game.instance.gameCamera.followPlayer = true;
         Game.instance.gameCamera.canScrollUp = true;
         Game.instance.map.roadPlayer.CurrentRoad.ApplyMinMaxToCamera();
+        Game.instance.map.mapping.GetTaggedObject("cadre").GetComponent<AjusteCadre>().Disappear();
     }
 
     private void OnFirstAmbushSoldierDeath(Unit unit)
