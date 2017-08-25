@@ -46,6 +46,11 @@ public class SmashBall : MovingUnit, IAttackable
 
     public int Attacked(ColliderInfo on, int amount, Unit otherUnit, ColliderInfo source = null)
     {
+        amount = CheckBuffs_Attacked(on, amount, otherUnit, source);
+
+        if (amount <= 0)
+            return hp;
+
         hp--;
 
         if (onHitPlayer != null)
