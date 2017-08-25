@@ -8,6 +8,11 @@ public class BubbleProjectile : MovingUnit
     public float maxTimeAlive = 2;
     public SimpleColliderListener listener;
     public float turnSpeed;
+
+    [Header("My VFX")]
+    public GameObject core;
+
+    [Header("Bubble Prefab")]
     public GameObject bubbleVFX;
     public float vfxScaleToUnitWidth;
 
@@ -38,9 +43,14 @@ public class BubbleProjectile : MovingUnit
 
     protected override void Die()
     {
+
+        if (!isDead)
+            Game.instance.events.AddDelayedAction(Destroy, 1.5f);
         base.Die();
 
-        Destroy();
+        Speed = Vector2.zero;
+        core.SetActive(false);
+        enabled = false;
     }
 
     public void Init(float dir, Unit doNoHit, Transform seek = null)
