@@ -2,16 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
 
 namespace AI
 {
-    public class BubbleMageGoal_Shoot : BaseGoal_Tween<BubbleMageVehicle>
+    public class BubbleMageGoal_Shoot : Goal<BubbleMageVehicle>
     {
         private Unit target;
-        private TweenCallback shootBubble;
+        private Action shootBubble;
+        private bool charging;
 
-        public BubbleMageGoal_Shoot(BubbleMageVehicle veh, Unit target, TweenCallback shootBubble) : base(veh)
+        public BubbleMageGoal_Shoot(BubbleMageVehicle veh, Unit target, Action shootBubble) : base(veh)
         {
             CanBeInterrupted = false;
             this.target = target;
@@ -20,23 +20,54 @@ namespace AI
 
         public override void Activate()
         {
-            tween = veh.animator.Shoot(shootBubble);
+            charging = true;
+            veh.animator.AttackAnimation(
+                ()=>
+                {
+                    charging = false;
+                }, 
+                shootBubble,
+                ForceCompletion);
 
             veh.Stop();
 
             base.Activate();
         }
 
+        public override void Interrupted()
+        {
+            base.Interrupted();
+
+            veh.animator.CancelAttack();
+        }
+
+        public override void ForceFailure()
+        {
+            base.ForceFailure();
+
+            veh.animator.CancelAttack();
+        }
+
         public override Status Process()
         {
-            if (IsActive() && Unit.HasPresence(target))
+            ActivateIfInactive();
+
+            if (IsActive())
             {
-                //Look at target
-                Vector2 meToTarget = target.Position - veh.Position;
-                veh.TurnToDirection(meToTarget, veh.DeltaTime());
+                if (Unit.HasPresence(target))
+                {
+                    //Look at target
+                    Vector2 meToTarget = target.Position - veh.Position;
+                    veh.TurnToDirection(meToTarget, veh.DeltaTime());
+                }
+                else if (charging)
+                {
+                    //La target n'est plus. on fail
+                    ForceFailure();
+                }
             }
 
-            return base.Process();
+            return status;
         }
     }
 }

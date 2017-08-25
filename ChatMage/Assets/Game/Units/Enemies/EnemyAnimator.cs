@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,8 @@ public abstract class EnemyAnimator : MonoBehaviour
 
     protected bool moving = false;
     protected int movingHash = Animator.StringToHash("moving");
+    protected int deadHash = Animator.StringToHash("dead");
+    protected Action deathCallback;
 
     protected abstract EnemyVehicle Vehicle
     {
@@ -43,5 +46,19 @@ public abstract class EnemyAnimator : MonoBehaviour
                 controller.SetBool(movingHash, true);
             }
         }
+    }
+    public virtual void DeathAnimation(Action onComplete)
+    {
+        deathCallback = onComplete;
+        controller.SetTrigger(deadHash);
+    }
+
+    protected virtual void _DeathComplete()
+    {
+        if (deathCallback != null)
+        {
+            deathCallback();
+        }
+        deathCallback = null;
     }
 }

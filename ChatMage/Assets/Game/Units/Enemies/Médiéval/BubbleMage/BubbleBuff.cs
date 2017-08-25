@@ -18,7 +18,12 @@ public class BubbleBuff : BaseBuff, IAttackable
     }
     public override void ApplyEffect(Unit unit)
     {
-        vfx = Object.Instantiate(vfxPrefab, unit.transform);
+        Transform tr = unit.transform;
+
+        if (unit is EnemyVehicle && (unit as EnemyVehicle).bodyCenter != null)
+            tr = (unit as EnemyVehicle).bodyCenter;
+
+        vfx = Object.Instantiate(vfxPrefab, tr);
 
         float unitWidth = 1;
         if(unit is EnemyVehicle)
@@ -30,7 +35,7 @@ public class BubbleBuff : BaseBuff, IAttackable
             unitWidth = 1.25f;
         }
 
-        vfx.transform.localScale = Vector3.one * vfxScaleToUnitWidth * unitWidth;
+        vfx.transform.localScale = Vector3.one * vfxScaleToUnitWidth * unitWidth / (tr.lossyScale.x);
     }
 
     public override void RemoveEffect(Unit unit)

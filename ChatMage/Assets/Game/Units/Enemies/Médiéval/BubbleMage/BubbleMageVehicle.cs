@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BubbleMageVehicle : EnemyVehicle
 {
-    public BubbleMageAnimator animator;
+    public BubbleMageAnimatorV2 animator;
 
     public override int Attacked(ColliderInfo on, int amount, Unit unit, ColliderInfo source = null)
     {

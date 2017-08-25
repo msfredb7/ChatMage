@@ -14,6 +14,9 @@ public abstract class EnemyVehicle : Vehicle, IAttackable
     [Forward]
     public Targets targets;
 
+    [Header("VFX")]
+    public Transform bodyCenter;
+
     protected Vector2 targetPosition;
     protected bool goingToTargetPosition = false;
     protected Action onReach = null;

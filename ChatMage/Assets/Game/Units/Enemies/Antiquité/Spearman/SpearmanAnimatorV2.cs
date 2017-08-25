@@ -8,16 +8,8 @@ public class SpearmanAnimatorV2 : EnemyAnimator
     public SpearmanVehicle vehicle;
 
     private int attackHash = Animator.StringToHash("attack");
-    private int deadHash = Animator.StringToHash("dead");
     private Action attackCallback;
     private Action attackMoment;
-    private Action deathCallback;
-
-    public void DeathAnimation(Action onComplete)
-    {
-        deathCallback = onComplete;
-        controller.SetTrigger(deadHash);
-    }
 
     protected override EnemyVehicle Vehicle
     {
@@ -43,10 +35,5 @@ public class SpearmanAnimatorV2 : EnemyAnimator
     {
         if (attackCallback != null)
             attackCallback();
-    }
-    private void _DeathComplete()
-    {
-        if (deathCallback != null)
-            deathCallback();
     }
 }

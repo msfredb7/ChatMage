@@ -13,6 +13,7 @@ namespace AI
         [Header("Devrais etre plus long que la duree de voyage de la bubble")]
         public float shootCooldown = 2;
         public BubbleProjectile projectilePrefab;
+        public Transform shootEmitter;
 
         private float fleeDistSQR;
         private float shootCooldownRemains = 0;
@@ -68,8 +69,8 @@ namespace AI
         private void ShootBubble()
         {
             shootCooldownRemains = shootCooldown;
-            Game.instance.SpawnUnit(projectilePrefab, veh.Position)
-                .Init(veh.Rotation, veh, friendTarget.transform);
+            Game.instance.SpawnUnit(projectilePrefab, shootEmitter.position)
+                .Init(veh.Rotation, veh, friendTarget != null ? friendTarget.transform : null);
 
             shootCooldownRemains = shootCooldown;
         }
