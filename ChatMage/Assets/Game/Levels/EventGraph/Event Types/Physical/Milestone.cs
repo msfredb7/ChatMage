@@ -41,13 +41,13 @@ public class Milestone : FIPhysicalEvent, IEvent
     [InspectorMargin(12), InspectorHeader("Cadre")]
     public bool useCadre = false;
     [InspectorShowIf("useCadre")]
-    public bool openTop = false;
+    public Border _leftSide = new Border(true, 0);
     [InspectorShowIf("useCadre")]
-    public bool openBot = false;
+    public Border _rightSide = new Border(true, 0);
     [InspectorShowIf("useCadre")]
-    public bool openLeft = false;
+    public Border _bottomSide = new Border(true, 0);
     [InspectorShowIf("useCadre")]
-    public bool openRight = false;
+    public Border _topSide = new Border(true, 0);
 
     [InspectorMargin(12), InspectorHeader("Event")]
     public bool fireEventToLevelScript;
@@ -85,19 +85,11 @@ public class Milestone : FIPhysicalEvent, IEvent
 
         if (setCameraMax)
         {
-            float delta = (triggerOn == TriggerType.BottomOfScreen) ?
-                GameCamera.DEFAULT_SCREEN_HEIGHT / 2 :
-                -GameCamera.DEFAULT_SCREEN_HEIGHT / 2;
-            float yPos = transform.position.y + cameraMaxRelativeToMilestone + delta;
-            Game.instance.gameCamera.maxHeight = yPos;
+            Game.instance.gameCamera.maxHeight = cameraMaxRelativeToMilestone + GetCamerasCenter();
         }
         if (setCameraMin)
         {
-            float delta = (triggerOn == TriggerType.BottomOfScreen) ?
-                GameCamera.DEFAULT_SCREEN_HEIGHT / 2 :
-                -GameCamera.DEFAULT_SCREEN_HEIGHT / 2;
-            float yPos = transform.position.y + cameraMinRelativeToMilestone + delta;
-            Game.instance.gameCamera.minHeight = yPos;
+            Game.instance.gameCamera.minHeight = cameraMinRelativeToMilestone + GetCamerasCenter();
         }
 
         if (dialog != null)
@@ -115,14 +107,11 @@ public class Milestone : FIPhysicalEvent, IEvent
 
         if (useCadre)
         {
-            TaggedObject cadre = Game.instance.map.mapping.GetTaggedObject("cadre");
-            AjusteCadre ajustementCadre = cadre.GetComponent<AjusteCadre>();
-            if(ajustementCadre != null)
-            {
-                ajustementCadre.SetPosition(transform.position.y);
-                ajustementCadre.SetOpenings(openLeft, openRight, openBot, openTop);
-                ajustementCadre.Appear();
-            }
+            AjusteCadre cadre = Game.instance.cadre;
+            cadre.CenterTo(GetCamerasCenter());
+            cadre.EnableSides(_leftSide.enabled, _rightSide.enabled, _bottomSide.enabled, _topSide.enabled);
+            cadre.SetPaddings(_leftSide.padding, _rightSide.padding, _bottomSide.padding, _topSide.padding);
+            cadre.Appear();
         }
 
         onTigger.Launch();
@@ -132,6 +121,11 @@ public class Milestone : FIPhysicalEvent, IEvent
     public float GetVirtualHeight()
     {
         return transform.position.y + (triggerOn == TriggerType.BottomOfScreen ? GameCamera.DEFAULT_SCREEN_HEIGHT : 0);
+    }
+    public float GetCamerasCenter()
+    {
+        float halfH = GameCamera.DEFAULT_SCREEN_HEIGHT / 2;
+        return transform.position.y + (triggerOn == TriggerType.BottomOfScreen ? halfH : -halfH);
     }
 
     void OnDrawGizmosSelected()
@@ -188,6 +182,11 @@ public class Milestone : FIPhysicalEvent, IEvent
             float delta = (triggerOn == TriggerType.BottomOfScreen) ? 0 : -GameCamera.DEFAULT_SCREEN_HEIGHT;
             Vector3 pos = transform.position + Vector3.up * (cameraMinRelativeToMilestone + delta);
             Gizmos.DrawIcon(pos, "Gizmos CameraBottom");
+        }
+
+        if (useCadre)
+        {
+
         }
     }
 

@@ -19,6 +19,7 @@ public class Game : PublicSingleton<Game>
     public HealthPackManager healthPackManager;
     public InGameEvents events;
     public CommonVFX commonVfx;
+    public AjusteCadre cadre;
 
     //Dynamic references
     [fsIgnore, NonSerialized]
