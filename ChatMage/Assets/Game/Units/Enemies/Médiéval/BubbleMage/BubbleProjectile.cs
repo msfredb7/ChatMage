@@ -55,6 +55,7 @@ public class BubbleProjectile : MovingUnit
 
     public void Init(float dir, Unit doNoHit, Transform seek = null)
     {
+        transform.rotation = Quaternion.Euler(Vector3.forward * dir);
         Rotation = dir;
         UpdateSpeed();
 
