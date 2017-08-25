@@ -38,6 +38,16 @@ public class Milestone : FIPhysicalEvent, IEvent
     [InspectorShowIf("setCameraMax")]
     public float cameraMaxRelativeToMilestone = 0;
 
+    [InspectorMargin(12), InspectorHeader("Cadre")]
+    public bool useCadre = false;
+    [InspectorShowIf("useCadre")]
+    public bool openTop = false;
+    [InspectorShowIf("useCadre")]
+    public bool openBot = false;
+    [InspectorShowIf("useCadre")]
+    public bool openLeft = false;
+    [InspectorShowIf("useCadre")]
+    public bool openRight = false;
 
     [InspectorMargin(12), InspectorHeader("Event")]
     public bool fireEventToLevelScript;
@@ -49,7 +59,7 @@ public class Milestone : FIPhysicalEvent, IEvent
 
     [InspectorMargin(12), InspectorHeader("Dialog")]
     public Dialoguing.Dialog dialog;
-    
+
     public bool Execute()
     {
         if (!enabled)
@@ -101,6 +111,18 @@ public class Milestone : FIPhysicalEvent, IEvent
         if (fireEventToLevelScript)
         {
             Game.instance.levelScript.ReceiveEvent(eventMessage);
+        }
+
+        if (useCadre)
+        {
+            TaggedObject cadre = Game.instance.map.mapping.GetTaggedObject("cadre");
+            AjusteCadre ajustementCadre = cadre.GetComponent<AjusteCadre>();
+            if(ajustementCadre != null)
+            {
+                ajustementCadre.SetPosition(transform.position.y);
+                ajustementCadre.SetOpenings(openLeft, openRight, openBot, openTop);
+                ajustementCadre.Appear();
+            }
         }
 
         onTigger.Launch();
