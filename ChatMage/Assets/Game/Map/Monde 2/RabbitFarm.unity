@@ -177,6 +177,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!1 &31113952
 GameObject:
   m_ObjectHideFlags: 0
@@ -246,6 +247,7 @@ SpriteRenderer:
   m_Size: {x: 3.2, y: 2.33}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!1 &42583298
 GameObject:
   m_ObjectHideFlags: 0
@@ -318,6 +320,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!1 &80796910
 GameObject:
   m_ObjectHideFlags: 0
@@ -390,6 +393,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!1 &88418311
 GameObject:
   m_ObjectHideFlags: 0
@@ -525,43 +529,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aaeb5c3ac4e10847931e7ba2845ab6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectReferences:
-  - {fileID: 1719987174}
-  - {fileID: 1193306636}
-  - {fileID: 1432392797}
-  - {fileID: 1692423516}
-  - {fileID: 974455275}
-  - {fileID: 1576635138}
-  - {fileID: 722341981}
-  - {fileID: 1940876164}
+  _objectReferences: []
   _serializedStateKeys:
   - listUnits
-  - objectsToAjust
   - startAIArea
   - positionDisplacers
   _serializedStateValues:
   - '[]'
-  - '[0,1,2,3,4,5,6,7]'
   - '{"min":{"x":-7.625,"y":-4.5},"max":{"x":7.625,"y":48.25}}'
   - '[]'
   mapping: {fileID: 109365271}
   cameraSpawn: {fileID: 419716394}
   showCameraTrails: 1
   listUnits: []
-  objectsToAjust:
-  - {fileID: 1719987174}
-  - {fileID: 1193306636}
-  - {fileID: 1432392797}
-  - {fileID: 1692423516}
-  - {fileID: 974455275}
-  - {fileID: 1576635138}
-  - {fileID: 722341981}
-  - {fileID: 1940876164}
   setAIArea: 1
   startAIArea:
     min: {x: -7.625, y: -4.5}
     max: {x: 7.625, y: 48.25}
-  ajustAreaToCamera: 1
   roadPlayer: {fileID: 1670268017}
   positionDisplacers: []
 --- !u!114 &109365269
@@ -611,37 +595,17 @@ MonoBehaviour:
   - {fileID: 914037346}
   - {fileID: 1255422767}
   _serializedStateKeys:
-  - unfilteredWaypoints
   - unfilteredTaggedObjects
   - unfilteredSpawns
-  - enemyWaypoints
-  - playerWaypoints
-  - bossWaypoints
-  - itemWaypoints
-  - otherWaypoints
-  - taggedWaypoints
   - taggedObjects
   - spawns
   _serializedStateValues:
   - '[]'
   - '[]'
-  - '[]'
-  - '[]'
-  - '[]'
-  - '[]'
-  - '[]'
-  - '[]'
-  - '{}'
   - '{"1 exit":[0],"2 exit":[1],"3 exit":[2]}'
   - '{"1 both":[3],"2 both":[4],"seige":[5,6,7,8]}'
-  unfilteredWaypoints: []
   unfilteredTaggedObjects: []
   unfilteredSpawns: []
-  enemyWaypoints: []
-  playerWaypoints: []
-  bossWaypoints: []
-  itemWaypoints: []
-  otherWaypoints: []
 --- !u!1 &123084420
 GameObject:
   m_ObjectHideFlags: 0
@@ -766,6 +730,7 @@ SpriteRenderer:
   m_Size: {x: 3.2, y: 2.33}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!1 &211380574
 GameObject:
   m_ObjectHideFlags: 0
@@ -835,6 +800,7 @@ SpriteRenderer:
   m_Size: {x: 3.2, y: 2.33}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!1 &236487771
 GameObject:
   m_ObjectHideFlags: 0
@@ -881,6 +847,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d320295b82adad64b9d4179d395a1b2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _objectReferences: []
+  _serializedStateKeys: []
+  _serializedStateValues: []
   tags:
   - 2 exit
 --- !u!114 &236487774
@@ -1070,6 +1039,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!1 &316379985
 GameObject:
   m_ObjectHideFlags: 0
@@ -1164,6 +1134,7 @@ SpriteRenderer:
   m_Size: {x: 3.2, y: 2.33}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!4 &316880153
 Transform:
   m_ObjectHideFlags: 0
@@ -1246,6 +1217,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!1 &338355587
 GameObject:
   m_ObjectHideFlags: 0
@@ -1301,6 +1273,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 768f3c35bcabdf6499408bbaaf59af7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _objectReferences: []
+  _serializedStateKeys:
+  - posType
+  - size
+  _serializedStateValues:
+  - '"World"'
+  - '{"x":0.25,"y":7.0}'
   gizmosAlwaysVisible: 0
   posType: 0
   tags: []
@@ -1374,6 +1353,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!1 &342724190
 GameObject:
   m_ObjectHideFlags: 0
@@ -1443,6 +1423,7 @@ SpriteRenderer:
   m_Size: {x: 3.2, y: 2.33}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!1 &389789707
 GameObject:
   m_ObjectHideFlags: 0
@@ -1512,6 +1493,7 @@ SpriteRenderer:
   m_Size: {x: 3.2, y: 2.33}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!1 &419716393
 GameObject:
   m_ObjectHideFlags: 0
@@ -1732,15 +1714,42 @@ MonoBehaviour:
   - {fileID: 424093484}
   - {fileID: 0}
   _serializedStateKeys:
+  - windowRect
+  - onTigger
   - triggerOn
   - aiAreaRelativeToMilestone
+  - _leftSide
+  - _rightSide
+  - _bottomSide
+  - _topSide
   - onExecute
   _serializedStateValues:
+  - '{"xMin":300.0,"yMin":300.0,"xMax":450.0,"yMax":310.0}'
+  - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]}'
   - '"TopOfScreen"'
   - '{"min":{"x":-7.625,"y":-8.625},"max":{"x":7.625,"y":-0.375}}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"enabled":true,"padding":0.0}'
   - '{"m_PersistentCalls":{"m_Calls":[{"m_Target":0,"m_MethodName":"Close","m_Mode":"Void","m_Arguments":{"m_ObjectArgument":1,"m_ObjectArgumentAssemblyTypeName":"UnityEngine.Object,
     UnityEngine","m_IntArgument":0,"m_FloatArgument":0.0,"m_StringArgument":"","m_BoolArgument":false},"m_CallState":"RuntimeOnly"}]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  windowRect:
+    serializedVersion: 2
+    x: 300
+    y: 300
+    width: 150
+    height: 10
+  graph: {fileID: 0}
+  onTigger:
+    iEvents: []
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
   gizmosAlwaysVisible: 1
   triggerOn: 1
   disapearAfterTrigger: 1
@@ -1755,6 +1764,7 @@ MonoBehaviour:
   cameraMinRelativeToMilestone: 0
   setCameraMax: 1
   cameraMaxRelativeToMilestone: 0
+  useCadre: 0
   fireEventToLevelScript: 1
   eventMessage: wave 2
   onExecute:
@@ -1890,7 +1900,7 @@ SpriteRenderer:
   m_SortingLayerID: 1250817847
   m_SortingLayer: -2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b2b0a065bd0f6ae4ea67736ad3656fbb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d0cfceb82f09ded4d95c6e4b2d2666c1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1898,6 +1908,7 @@ SpriteRenderer:
   m_Size: {x: 22.4, y: 10}
   m_AdaptiveModeThreshold: 0
   m_SpriteTileMode: 1
+  m_WasSpriteAssigned: 1
 --- !u!1 &532778989
 GameObject:
   m_ObjectHideFlags: 0
@@ -2065,6 +2076,7 @@ SpriteRenderer:
   m_Size: {x: 3.2, y: 2.33}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!1 &594914556
 GameObject:
   m_ObjectHideFlags: 0
@@ -2134,6 +2146,7 @@ SpriteRenderer:
   m_Size: {x: 3.2, y: 2.33}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!1 &627885342
 GameObject:
   m_ObjectHideFlags: 0
@@ -2163,14 +2176,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objectReferences: []
   _serializedStateKeys:
+  - windowRect
+  - onTigger
   - triggerOn
   - aiAreaRelativeToMilestone
+  - _leftSide
+  - _rightSide
+  - _bottomSide
+  - _topSide
   - onExecute
   _serializedStateValues:
+  - '{"xMin":300.0,"yMin":300.0,"xMax":450.0,"yMax":310.0}'
+  - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]}'
   - '"TopOfScreen"'
   - '{"min":{"x":-8.0,"y":-9.0},"max":{"x":8.0,"y":0.0}}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"enabled":true,"padding":0.0}'
   - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  windowRect:
+    serializedVersion: 2
+    x: 300
+    y: 300
+    width: 150
+    height: 10
+  graph: {fileID: 0}
+  onTigger:
+    iEvents: []
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
   gizmosAlwaysVisible: 1
   triggerOn: 1
   disapearAfterTrigger: 1
@@ -2185,6 +2225,7 @@ MonoBehaviour:
   cameraMinRelativeToMilestone: 0
   setCameraMax: 0
   cameraMaxRelativeToMilestone: 0
+  useCadre: 0
   fireEventToLevelScript: 1
   eventMessage: Win
   onExecute:
@@ -2275,6 +2316,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!1 &710836803
 GameObject:
   m_ObjectHideFlags: 0
@@ -2456,6 +2498,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8298df7b274d40149b17d04ca9417326, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _objectReferences:
+  - {fileID: 1932313119}
+  - {fileID: 338355590}
+  _serializedStateKeys:
+  - posType
+  - subSpawns
+  _serializedStateValues:
+  - '"World"'
+  - '[{"spawn":0,"weight":1.0},{"spawn":1,"weight":1.0}]'
   gizmosAlwaysVisible: 1
   posType: 0
   tags:
@@ -2534,6 +2585,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!1 &827835285
 GameObject:
   m_ObjectHideFlags: 0
@@ -2603,6 +2655,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!1 &855871812
 GameObject:
   m_ObjectHideFlags: 0
@@ -2672,6 +2725,7 @@ SpriteRenderer:
   m_Size: {x: 3.2, y: 2.33}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!4 &914037344 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4732921346022430, guid: 1035b9e2c8a379347b030d984c8b96c1,
@@ -2744,7 +2798,7 @@ SpriteRenderer:
   m_SortingLayerID: 1250817847
   m_SortingLayer: -2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b2b0a065bd0f6ae4ea67736ad3656fbb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d0cfceb82f09ded4d95c6e4b2d2666c1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2752,6 +2806,7 @@ SpriteRenderer:
   m_Size: {x: 22.4, y: 10}
   m_AdaptiveModeThreshold: 0
   m_SpriteTileMode: 1
+  m_WasSpriteAssigned: 1
 --- !u!1 &935195458
 GameObject:
   m_ObjectHideFlags: 0
@@ -2889,6 +2944,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!1001 &998230082
 Prefab:
   m_ObjectHideFlags: 0
@@ -3061,6 +3117,7 @@ SpriteRenderer:
   m_Size: {x: 3.2, y: 2.33}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!1 &1036209430
 GameObject:
   m_ObjectHideFlags: 0
@@ -3130,6 +3187,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!1 &1041459634
 GameObject:
   m_ObjectHideFlags: 0
@@ -3199,6 +3257,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!1 &1099473373
 GameObject:
   m_ObjectHideFlags: 0
@@ -3357,6 +3416,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!1 &1164090287
 GameObject:
   m_ObjectHideFlags: 0
@@ -3385,6 +3445,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 768f3c35bcabdf6499408bbaaf59af7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _objectReferences: []
+  _serializedStateKeys:
+  - posType
+  - size
+  _serializedStateValues:
+  - '"World"'
+  - '{"x":0.25,"y":7.0}'
   gizmosAlwaysVisible: 0
   posType: 0
   tags: []
@@ -3462,6 +3529,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d320295b82adad64b9d4179d395a1b2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _objectReferences: []
+  _serializedStateKeys: []
+  _serializedStateValues: []
   tags:
   - 3 exit
 --- !u!114 &1167955833
@@ -3859,6 +3929,7 @@ SpriteRenderer:
   m_Size: {x: 3.2, y: 2.33}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!1 &1327728900
 GameObject:
   m_ObjectHideFlags: 0
@@ -3920,7 +3991,7 @@ SpriteRenderer:
   m_SortingLayerID: 1250817847
   m_SortingLayer: -2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b2b0a065bd0f6ae4ea67736ad3656fbb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d0cfceb82f09ded4d95c6e4b2d2666c1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -3928,6 +3999,7 @@ SpriteRenderer:
   m_Size: {x: 22.4, y: 10}
   m_AdaptiveModeThreshold: 0
   m_SpriteTileMode: 1
+  m_WasSpriteAssigned: 1
 --- !u!1 &1351539412
 GameObject:
   m_ObjectHideFlags: 0
@@ -4038,6 +4110,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d320295b82adad64b9d4179d395a1b2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _objectReferences: []
+  _serializedStateKeys: []
+  _serializedStateValues: []
   tags:
   - 1 exit
 --- !u!1 &1354019764
@@ -4367,6 +4442,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8298df7b274d40149b17d04ca9417326, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _objectReferences:
+  - {fileID: 1706855007}
+  - {fileID: 1164090288}
+  _serializedStateKeys:
+  - posType
+  - subSpawns
+  _serializedStateValues:
+  - '"World"'
+  - '[{"spawn":0,"weight":1.0},{"spawn":1,"weight":1.0}]'
   gizmosAlwaysVisible: 1
   posType: 0
   tags:
@@ -4669,6 +4753,7 @@ SpriteRenderer:
   m_Size: {x: 3.2, y: 2.33}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!4 &1434934020
 Transform:
   m_ObjectHideFlags: 0
@@ -4754,6 +4839,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!1 &1475573890
 GameObject:
   m_ObjectHideFlags: 0
@@ -4823,6 +4909,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!1 &1512315548
 GameObject:
   m_ObjectHideFlags: 0
@@ -4884,7 +4971,7 @@ SpriteRenderer:
   m_SortingLayerID: 1250817847
   m_SortingLayer: -2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b2b0a065bd0f6ae4ea67736ad3656fbb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d0cfceb82f09ded4d95c6e4b2d2666c1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -4892,6 +4979,7 @@ SpriteRenderer:
   m_Size: {x: 22.4, y: 12}
   m_AdaptiveModeThreshold: 0
   m_SpriteTileMode: 1
+  m_WasSpriteAssigned: 1
 --- !u!1 &1526071794
 GameObject:
   m_ObjectHideFlags: 0
@@ -5106,7 +5194,7 @@ SpriteRenderer:
   m_SortingLayerID: 1250817847
   m_SortingLayer: -2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b2b0a065bd0f6ae4ea67736ad3656fbb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d0cfceb82f09ded4d95c6e4b2d2666c1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5114,6 +5202,7 @@ SpriteRenderer:
   m_Size: {x: 22.4, y: 10}
   m_AdaptiveModeThreshold: 0
   m_SpriteTileMode: 1
+  m_WasSpriteAssigned: 1
 --- !u!1 &1576635138
 GameObject:
   m_ObjectHideFlags: 0
@@ -5276,6 +5365,7 @@ MonoBehaviour:
   topHeight: 54.5
   bottomHeight: -5.4
   setCameraMinMax: 1
+  showCameraTrails: 1
   milestones:
   - {fileID: 1711382712}
   - {fileID: 2069691219}
@@ -5365,6 +5455,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!1 &1635474571
 GameObject:
   m_ObjectHideFlags: 0
@@ -5434,6 +5525,7 @@ SpriteRenderer:
   m_Size: {x: 3.2, y: 2.33}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!1 &1645102203
 GameObject:
   m_ObjectHideFlags: 0
@@ -5506,6 +5598,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!1 &1670268015
 GameObject:
   m_ObjectHideFlags: 0
@@ -5710,6 +5803,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 768f3c35bcabdf6499408bbaaf59af7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _objectReferences: []
+  _serializedStateKeys:
+  - posType
+  - size
+  _serializedStateValues:
+  - '"World"'
+  - '{"x":0.25,"y":7.0}'
   gizmosAlwaysVisible: 0
   posType: 0
   tags:
@@ -5771,14 +5871,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objectReferences: []
   _serializedStateKeys:
+  - windowRect
+  - onTigger
   - triggerOn
   - aiAreaRelativeToMilestone
+  - _leftSide
+  - _rightSide
+  - _bottomSide
+  - _topSide
   - onExecute
   _serializedStateValues:
+  - '{"xMin":300.0,"yMin":300.0,"xMax":450.0,"yMax":310.0}'
+  - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]}'
   - '"TopOfScreen"'
   - '{"min":{"x":-8.0,"y":-9.0},"max":{"x":8.0,"y":0.0}}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"enabled":true,"padding":0.0}'
   - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  windowRect:
+    serializedVersion: 2
+    x: 300
+    y: 300
+    width: 150
+    height: 10
+  graph: {fileID: 0}
+  onTigger:
+    iEvents: []
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
   gizmosAlwaysVisible: 1
   triggerOn: 1
   disapearAfterTrigger: 1
@@ -5793,6 +5920,7 @@ MonoBehaviour:
   cameraMinRelativeToMilestone: 0
   setCameraMax: 0
   cameraMaxRelativeToMilestone: 0
+  useCadre: 0
   fireEventToLevelScript: 0
   eventMessage: 
   onExecute:
@@ -5958,6 +6086,7 @@ SpriteRenderer:
   m_Size: {x: 3.2, y: 2.33}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!1 &1755862215
 GameObject:
   m_ObjectHideFlags: 0
@@ -6027,6 +6156,7 @@ SpriteRenderer:
   m_Size: {x: 3.2, y: 2.33}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!1 &1757661277
 GameObject:
   m_ObjectHideFlags: 0
@@ -6096,6 +6226,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!1 &1784996905
 GameObject:
   m_ObjectHideFlags: 0
@@ -6165,6 +6296,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!1 &1807393030
 GameObject:
   m_ObjectHideFlags: 0
@@ -6234,6 +6366,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!1 &1817059907
 GameObject:
   m_ObjectHideFlags: 0
@@ -6303,6 +6436,7 @@ SpriteRenderer:
   m_Size: {x: 3.2, y: 2.33}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!1 &1891771121
 GameObject:
   m_ObjectHideFlags: 0
@@ -6372,6 +6506,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!1 &1909557669
 GameObject:
   m_ObjectHideFlags: 0
@@ -6444,6 +6579,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!1 &1932313116
 GameObject:
   m_ObjectHideFlags: 0
@@ -6499,6 +6635,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 768f3c35bcabdf6499408bbaaf59af7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _objectReferences: []
+  _serializedStateKeys:
+  - posType
+  - size
+  _serializedStateValues:
+  - '"World"'
+  - '{"x":0.25,"y":7.0}'
   gizmosAlwaysVisible: 0
   posType: 0
   tags: []
@@ -6596,7 +6739,7 @@ SpriteRenderer:
   m_SortingLayerID: 1250817847
   m_SortingLayer: -2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b2b0a065bd0f6ae4ea67736ad3656fbb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d0cfceb82f09ded4d95c6e4b2d2666c1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -6604,6 +6747,7 @@ SpriteRenderer:
   m_Size: {x: 22.4, y: 10}
   m_AdaptiveModeThreshold: 0
   m_SpriteTileMode: 1
+  m_WasSpriteAssigned: 1
 --- !u!1 &1955587858
 GameObject:
   m_ObjectHideFlags: 0
@@ -6648,15 +6792,42 @@ MonoBehaviour:
   - {fileID: 1526071796}
   - {fileID: 0}
   _serializedStateKeys:
+  - windowRect
+  - onTigger
   - triggerOn
   - aiAreaRelativeToMilestone
+  - _leftSide
+  - _rightSide
+  - _bottomSide
+  - _topSide
   - onExecute
   _serializedStateValues:
+  - '{"xMin":300.0,"yMin":300.0,"xMax":450.0,"yMax":310.0}'
+  - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]}'
   - '"TopOfScreen"'
   - '{"min":{"x":-7.125,"y":-8.375},"max":{"x":7.125,"y":-0.625}}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"enabled":true,"padding":0.0}'
   - '{"m_PersistentCalls":{"m_Calls":[{"m_Target":0,"m_MethodName":"Close","m_Mode":"Void","m_Arguments":{"m_ObjectArgument":1,"m_ObjectArgumentAssemblyTypeName":"UnityEngine.Object,
     UnityEngine","m_IntArgument":0,"m_FloatArgument":0.0,"m_StringArgument":"","m_BoolArgument":false},"m_CallState":"RuntimeOnly"}]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  windowRect:
+    serializedVersion: 2
+    x: 300
+    y: 300
+    width: 150
+    height: 10
+  graph: {fileID: 0}
+  onTigger:
+    iEvents: []
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
   gizmosAlwaysVisible: 1
   triggerOn: 1
   disapearAfterTrigger: 1
@@ -6671,6 +6842,7 @@ MonoBehaviour:
   cameraMinRelativeToMilestone: 0
   setCameraMax: 1
   cameraMaxRelativeToMilestone: 0
+  useCadre: 0
   fireEventToLevelScript: 1
   eventMessage: wave 3
   onExecute:
@@ -6759,6 +6931,7 @@ SpriteRenderer:
   m_Size: {x: 3.2, y: 2.33}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!1 &2069691217
 GameObject:
   m_ObjectHideFlags: 0
@@ -6803,15 +6976,42 @@ MonoBehaviour:
   - {fileID: 532778991}
   - {fileID: 0}
   _serializedStateKeys:
+  - windowRect
+  - onTigger
   - triggerOn
   - aiAreaRelativeToMilestone
+  - _leftSide
+  - _rightSide
+  - _bottomSide
+  - _topSide
   - onExecute
   _serializedStateValues:
+  - '{"xMin":300.0,"yMin":300.0,"xMax":450.0,"yMax":310.0}'
+  - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]}'
   - '"TopOfScreen"'
   - '{"min":{"x":-7.625,"y":-8.625},"max":{"x":7.625,"y":-0.375}}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"enabled":true,"padding":0.0}'
   - '{"m_PersistentCalls":{"m_Calls":[{"m_Target":0,"m_MethodName":"Close","m_Mode":"Void","m_Arguments":{"m_ObjectArgument":1,"m_ObjectArgumentAssemblyTypeName":"UnityEngine.Object,
     UnityEngine","m_IntArgument":0,"m_FloatArgument":0.0,"m_StringArgument":"","m_BoolArgument":false},"m_CallState":"RuntimeOnly"}]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  windowRect:
+    serializedVersion: 2
+    x: 300
+    y: 300
+    width: 150
+    height: 10
+  graph: {fileID: 0}
+  onTigger:
+    iEvents: []
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
   gizmosAlwaysVisible: 1
   triggerOn: 1
   disapearAfterTrigger: 1
@@ -6826,6 +7026,7 @@ MonoBehaviour:
   cameraMinRelativeToMilestone: 0
   setCameraMax: 1
   cameraMaxRelativeToMilestone: 0
+  useCadre: 0
   fireEventToLevelScript: 1
   eventMessage: wave 1
   onExecute:
@@ -6914,6 +7115,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!1 &2083503887
 GameObject:
   m_ObjectHideFlags: 0
@@ -7038,6 +7240,7 @@ SpriteRenderer:
   m_Size: {x: 3.2, y: 2.33}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!1 &2101355651
 GameObject:
   m_ObjectHideFlags: 0
@@ -7107,3 +7310,4 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1

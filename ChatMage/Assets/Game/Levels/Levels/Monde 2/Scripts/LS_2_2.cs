@@ -11,6 +11,7 @@ public class LS_2_2 : LevelScript
     
     private bool topDone;
     private bool botDone;
+    private bool midDone;
 
     private List<int> possibilities = new List<int>();
 
@@ -99,13 +100,48 @@ public class LS_2_2 : LevelScript
                 if (!TriggerBotSiege())
                     ResetRoad();
                 break;
+            case "mid1":
+                if (!midDone)
+                {
+                    TriggerWaveManually("mid2");
+                    midDone = true;
+                }
+                else
+                    ResetRoad();
+                break;
+            case "mid2":
+                if (!midDone)
+                {
+                    TriggerWaveManually("mid1");
+                    midDone = true;
+                }
+                else
+                    ResetRoad();
+                break;
             case "win":
                 if(topDone && botDone)
                 {
-                    Game.instance.gameCamera.followPlayer = false;
+                    StopRoad();
                     Win();
+                } else
+                {
+                    StopRoad();
+                    MidWave();
                 }
                 break;
+        }
+    }
+
+    private void MidWave()
+    {
+        midDone = false;
+        if(UnityEngine.Random.Range(0,1) > 0.5)
+        {
+            TriggerWaveManually("mid1");
+        }
+        else
+        {
+            TriggerWaveManually("mid2");
         }
     }
 
