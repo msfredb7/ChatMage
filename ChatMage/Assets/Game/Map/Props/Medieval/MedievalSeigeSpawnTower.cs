@@ -139,7 +139,6 @@ public class MedievalSeigeSpawnTower : MonoBehaviour
 
         sq.OnComplete(delegate()
         {
-            originalSpawn.tower = null;
             gameObject.SetActive(false);
         });
     }
