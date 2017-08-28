@@ -1181,6 +1181,10 @@ MonoBehaviour:
   - onTigger
   - triggerOn
   - aiAreaRelativeToMilestone
+  - _leftSide
+  - _rightSide
+  - _bottomSide
+  - _topSide
   - onExecute
   _serializedStateValues:
   - '{"xMin":1154.0,"yMin":105.0,"xMax":1304.0,"yMax":169.0}'
@@ -1188,6 +1192,10 @@ MonoBehaviour:
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[0]}'
   - '"BottomOfScreen"'
   - '{"min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0}}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"enabled":true,"padding":0.0}'
   - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
   windowRect:
@@ -1220,10 +1228,6 @@ MonoBehaviour:
   setCameraMax: 0
   cameraMaxRelativeToMilestone: 0
   useCadre: 0
-  openTop: 0
-  openBot: 0
-  openLeft: 0
-  openRight: 0
   fireEventToLevelScript: 0
   eventMessage: attempt win
   onExecute:
@@ -1502,7 +1506,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 337849481}
   m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -1.78, y: -0.368, z: 0}
+  m_LocalPosition: {x: -1.78, y: -0.307, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1659626762}
@@ -1545,7 +1549,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 11.606793, y: 0.32}
+  m_Size: {x: 11.485152, y: 0.32}
   m_AdaptiveModeThreshold: 0
   m_SpriteTileMode: 1
   m_WasSpriteAssigned: 1
@@ -3664,8 +3668,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 852615379}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.3, y: 3.5900002, z: 0}
-  m_LocalScale: {x: 7.84869, y: 0.5, z: 1}
+  m_LocalPosition: {x: 5.3, y: 3.643, z: 0}
+  m_LocalScale: {x: 7.84869, y: 0.60643387, z: 1}
   m_Children: []
   m_Father: {fileID: 120092643}
   m_RootOrder: 7
@@ -3783,6 +3787,10 @@ MonoBehaviour:
   - onTigger
   - triggerOn
   - aiAreaRelativeToMilestone
+  - _leftSide
+  - _rightSide
+  - _bottomSide
+  - _topSide
   - onExecute
   _serializedStateValues:
   - '{"xMin":206.0,"yMin":638.0,"xMax":356.0,"yMax":702.0}'
@@ -3790,6 +3798,10 @@ MonoBehaviour:
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[0]}'
   - '"TopOfScreen"'
   - '{"min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0}}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"enabled":true,"padding":0.0}'
   - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
   windowRect:
@@ -3822,10 +3834,6 @@ MonoBehaviour:
   setCameraMax: 0
   cameraMaxRelativeToMilestone: 0
   useCadre: 0
-  openTop: 0
-  openBot: 0
-  openLeft: 0
-  openRight: 0
   fireEventToLevelScript: 0
   eventMessage: face door
   onExecute:
@@ -4322,7 +4330,6 @@ GameObject:
   - component: {fileID: 1025631944}
   - component: {fileID: 1025631943}
   - component: {fileID: 1025631942}
-  - component: {fileID: 1025631941}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -4330,13 +4337,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!81 &1025631941
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1025631940}
-  m_Enabled: 1
 --- !u!92 &1025631942
 Behaviour:
   m_ObjectHideFlags: 0
@@ -4394,7 +4394,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1025631940}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.4, z: -10}
+  m_LocalPosition: {x: 0, y: -17.41, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -4423,8 +4423,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1046292220}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.57, y: -0.406, z: 0}
-  m_LocalScale: {x: 0.48558, y: 36.58309, z: 1}
+  m_LocalPosition: {x: 1.57, y: -0.313, z: 0}
+  m_LocalScale: {x: 0.48558, y: 36.001022, z: 1}
   m_Children: []
   m_Father: {fileID: 1659626762}
   m_RootOrder: 1
@@ -4470,6 +4470,53 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
+--- !u!1001 &1091687986
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 120092643}
+    m_Modifications:
+    - target: {fileID: 4119337265666056, guid: 4fda1cd95b3c6524a8f5a9010794e56b, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -0.018856
+      objectReference: {fileID: 0}
+    - target: {fileID: 4119337265666056, guid: 4fda1cd95b3c6524a8f5a9010794e56b, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 3.628
+      objectReference: {fileID: 0}
+    - target: {fileID: 4119337265666056, guid: 4fda1cd95b3c6524a8f5a9010794e56b, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4119337265666056, guid: 4fda1cd95b3c6524a8f5a9010794e56b, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4119337265666056, guid: 4fda1cd95b3c6524a8f5a9010794e56b, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4119337265666056, guid: 4fda1cd95b3c6524a8f5a9010794e56b, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4119337265666056, guid: 4fda1cd95b3c6524a8f5a9010794e56b, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4119337265666056, guid: 4fda1cd95b3c6524a8f5a9010794e56b, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114544346636638264, guid: 4fda1cd95b3c6524a8f5a9010794e56b,
+        type: 2}
+      propertyPath: onDeathEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 106455543}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 4fda1cd95b3c6524a8f5a9010794e56b, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1098509536
 GameObject:
   m_ObjectHideFlags: 0
@@ -5231,92 +5278,16 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0
   m_SpriteTileMode: 1
   m_WasSpriteAssigned: 1
---- !u!1001 &1236529701
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 120092643}
-    m_Modifications:
-    - target: {fileID: 114544346636638264, guid: 4fda1cd95b3c6524a8f5a9010794e56b,
-        type: 2}
-      propertyPath: onDeathEvent.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4119337265666056, guid: 4fda1cd95b3c6524a8f5a9010794e56b, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4119337265666056, guid: 4fda1cd95b3c6524a8f5a9010794e56b, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 3.5900002
-      objectReference: {fileID: 0}
-    - target: {fileID: 4119337265666056, guid: 4fda1cd95b3c6524a8f5a9010794e56b, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4119337265666056, guid: 4fda1cd95b3c6524a8f5a9010794e56b, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4119337265666056, guid: 4fda1cd95b3c6524a8f5a9010794e56b, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4119337265666056, guid: 4fda1cd95b3c6524a8f5a9010794e56b, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4119337265666056, guid: 4fda1cd95b3c6524a8f5a9010794e56b, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4119337265666056, guid: 4fda1cd95b3c6524a8f5a9010794e56b, type: 2}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114544346636638264, guid: 4fda1cd95b3c6524a8f5a9010794e56b,
-        type: 2}
-      propertyPath: onDeathEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114544346636638264, guid: 4fda1cd95b3c6524a8f5a9010794e56b,
-        type: 2}
-      propertyPath: onDeathEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114544346636638264, guid: 4fda1cd95b3c6524a8f5a9010794e56b,
-        type: 2}
-      propertyPath: onDeathEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 106455543}
-    - target: {fileID: 114544346636638264, guid: 4fda1cd95b3c6524a8f5a9010794e56b,
-        type: 2}
-      propertyPath: onDeathEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Trigger
-      objectReference: {fileID: 0}
-    - target: {fileID: 114544346636638264, guid: 4fda1cd95b3c6524a8f5a9010794e56b,
-        type: 2}
-      propertyPath: onDeathEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 1633607746387268, guid: 4fda1cd95b3c6524a8f5a9010794e56b, type: 2}
-      propertyPath: m_Name
-      value: Destructible Door
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 4fda1cd95b3c6524a8f5a9010794e56b, type: 2}
-  m_IsPrefabParent: 0
 --- !u!4 &1236529702 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4119337265666056, guid: 4fda1cd95b3c6524a8f5a9010794e56b,
     type: 2}
-  m_PrefabInternal: {fileID: 1236529701}
+  m_PrefabInternal: {fileID: 1091687986}
 --- !u!1 &1236529703 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1633607746387268, guid: 4fda1cd95b3c6524a8f5a9010794e56b,
     type: 2}
-  m_PrefabInternal: {fileID: 1236529701}
+  m_PrefabInternal: {fileID: 1091687986}
 --- !u!114 &1238986312 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114653488259285696, guid: ca5c106f3222c5c44bd6eb30ea5bfe88,
@@ -5756,6 +5727,10 @@ MonoBehaviour:
   - onTigger
   - triggerOn
   - aiAreaRelativeToMilestone
+  - _leftSide
+  - _rightSide
+  - _bottomSide
+  - _topSide
   - onExecute
   _serializedStateValues:
   - '{"xMin":145.0,"yMin":96.0,"xMax":295.0,"yMax":160.0}'
@@ -5763,6 +5738,10 @@ MonoBehaviour:
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[0]}'
   - '"TopOfScreen"'
   - '{"min":{"x":-9.15,"y":-10.2},"max":{"x":9.15,"y":-0.55}}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"enabled":true,"padding":0.0}'
   - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
   windowRect:
@@ -5795,10 +5774,6 @@ MonoBehaviour:
   setCameraMax: 0
   cameraMaxRelativeToMilestone: 0
   useCadre: 0
-  openTop: 0
-  openBot: 0
-  openLeft: 0
-  openRight: 0
   fireEventToLevelScript: 0
   eventMessage: enter arena
   onExecute:
@@ -5913,8 +5888,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1381120745}
   m_LocalRotation: {x: -0, y: -0, z: 1, w: 0}
-  m_LocalPosition: {x: -1.59, y: -0.412, z: 0}
-  m_LocalScale: {x: 0.48558, y: 36.547142, z: 1}
+  m_LocalPosition: {x: -1.59, y: -0.332, z: 0}
+  m_LocalScale: {x: 0.48558, y: 36.048233, z: 1}
   m_Children: []
   m_Father: {fileID: 1659626762}
   m_RootOrder: 7
@@ -6311,6 +6286,10 @@ MonoBehaviour:
   - onTigger
   - triggerOn
   - aiAreaRelativeToMilestone
+  - _leftSide
+  - _rightSide
+  - _bottomSide
+  - _topSide
   - onExecute
   _serializedStateValues:
   - '{"xMin":432.0,"yMin":179.0,"xMax":582.0,"yMax":243.0}'
@@ -6319,6 +6298,10 @@ MonoBehaviour:
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[2,3]}'
   - '"TopOfScreen"'
   - '{"min":{"x":-9.15,"y":-10.2},"max":{"x":9.15,"y":-0.55}}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"enabled":true,"padding":0.0}'
   - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
   windowRect:
@@ -6363,10 +6346,6 @@ MonoBehaviour:
   setCameraMax: 1
   cameraMaxRelativeToMilestone: 0
   useCadre: 0
-  openTop: 0
-  openBot: 0
-  openLeft: 0
-  openRight: 0
   fireEventToLevelScript: 0
   eventMessage: enter arena
   onExecute:
@@ -6398,7 +6377,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1444965587}
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 1.76, y: -0.364, z: 0}
+  m_LocalPosition: {x: 1.76, y: -0.307, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1659626762}
@@ -6441,7 +6420,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 11.614497, y: 0.32}
+  m_Size: {x: 11.500459, y: 0.32}
   m_AdaptiveModeThreshold: 0
   m_SpriteTileMode: 1
   m_WasSpriteAssigned: 1
@@ -6631,8 +6610,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1513511366}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.26, y: 3.5900002, z: 0}
-  m_LocalScale: {x: 7.83169, y: 0.5, z: 1}
+  m_LocalPosition: {x: -5.26, y: 3.642, z: 0}
+  m_LocalScale: {x: 7.83169, y: 0.6034889, z: 1}
   m_Children: []
   m_Father: {fileID: 120092643}
   m_RootOrder: 6
@@ -7553,26 +7532,8 @@ MonoBehaviour:
       _serializedIsActive: 1
     _target: {fileID: 266624493}
   - _keys:
-    - DefaultBehaviorEditor.triggerOn.EditProperty
-    - DefaultBehaviorEditor.setAiArea.EditProperty
-    - DefaultBehaviorEditor.modifyFollowPlayer.EditProperty
-    - DefaultBehaviorEditor.setCameraMin.EditProperty
-    - DefaultBehaviorEditor.setCameraMax.EditProperty
-    - DefaultBehaviorEditor.fireEventToLevelScript.EditProperty
-    - DefaultBehaviorEditor.dialog.EditProperty
+    - DefaultBehaviorEditor.useCadre.EditProperty
     _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
     - _showDropdown: 0
       _serializedIsActive: 1
     _target: {fileID: 267499301}

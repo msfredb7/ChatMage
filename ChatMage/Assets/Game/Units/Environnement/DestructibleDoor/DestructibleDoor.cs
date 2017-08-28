@@ -9,10 +9,11 @@ public class DestructibleDoor : Unit, IAttackable
     [Header("Door")]
     public int hp = 2;
     public UnityEvent onDeathEvent = new UnityEvent();
+    public Animator animator;
 
     public int Attacked(ColliderInfo on, int amount, Unit otherUnit, ColliderInfo source = null)
     {
-        hp-= amount;
+        hp -= amount;
 
         if (hp <= 0 && !isDead)
             Die();
@@ -23,11 +24,13 @@ public class DestructibleDoor : Unit, IAttackable
     protected override void Die()
     {
         if (!isDead)
+        {
             onDeathEvent.Invoke();
 
-        base.Die();
+            animator.SetTrigger("dead");
+            GetComponent<Collider2D>().enabled = false;
+        }
 
-        //Death anim
-        Destroy();
+        base.Die();
     }
 }
