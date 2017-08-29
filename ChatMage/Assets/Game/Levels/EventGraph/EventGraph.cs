@@ -129,12 +129,12 @@ namespace GameEvents
 
         public static Color DELAY
         {
-            get { return new Color(1, 0.8f, 1, 1); }
+            get { return new Color(1, 0.7f, 1, 1); }
         }
 
         public static Color CAMERA
         {
-            get { return new Color(1f, 0.75f, 0.9f, 1); }
+            get { return new Color(1f, 0.8f, 0.8f, 1); }
         }
 
         public static Color AI

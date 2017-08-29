@@ -84,7 +84,7 @@ namespace GameEvents
 
         public bool CanBeManuallyDestroyed() { return true; }
 
-        public virtual string NodeLabel() { return "Base Virtual"; }
+        public virtual string NodeLabel() { return name; }
 
         public string TypeLabel() { return "Virtual"; }
 

@@ -197,6 +197,6 @@ public class Milestone : FIPhysicalEvent, IEvent
 
     public override string NodeLabel()
     {
-        return gameObject.name;
+        return "MS: " + gameObject.name;
     }
 }

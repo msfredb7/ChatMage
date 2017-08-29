@@ -85,7 +85,7 @@ namespace GameEvents
 
         public bool CanBeManuallyDestroyed() { return false; }
 
-        public virtual string NodeLabel() { return "Base Physical"; }
+        public virtual string NodeLabel() { return gameObject.name; }
 
         public string TypeLabel() { return "Physical"; }
 

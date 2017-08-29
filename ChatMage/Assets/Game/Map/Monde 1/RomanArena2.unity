@@ -274,6 +274,57 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
+--- !u!1001 &65444658
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 178116131}
+    m_Modifications:
+    - target: {fileID: 4885080416962958, guid: 502955382d0489e4586d8849c6d4dbd8, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -0.69
+      objectReference: {fileID: 0}
+    - target: {fileID: 4885080416962958, guid: 502955382d0489e4586d8849c6d4dbd8, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4885080416962958, guid: 502955382d0489e4586d8849c6d4dbd8, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4885080416962958, guid: 502955382d0489e4586d8849c6d4dbd8, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4885080416962958, guid: 502955382d0489e4586d8849c6d4dbd8, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4885080416962958, guid: 502955382d0489e4586d8849c6d4dbd8, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4885080416962958, guid: 502955382d0489e4586d8849c6d4dbd8, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4885080416962958, guid: 502955382d0489e4586d8849c6d4dbd8, type: 2}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1583025474526030, guid: 502955382d0489e4586d8849c6d4dbd8, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 502955382d0489e4586d8849c6d4dbd8, type: 2}
+  m_IsPrefabParent: 0
+--- !u!4 &65444659 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4885080416962958, guid: 502955382d0489e4586d8849c6d4dbd8,
+    type: 2}
+  m_PrefabInternal: {fileID: 65444658}
 --- !u!1 &99288893
 GameObject:
   m_ObjectHideFlags: 0
@@ -674,6 +725,7 @@ Transform:
   - {fileID: 565411200}
   - {fileID: 1502376466}
   - {fileID: 1548582200}
+  - {fileID: 65444659}
   - {fileID: 1013374009}
   m_Father: {fileID: 632894113}
   m_RootOrder: 7
@@ -804,8 +856,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowRect:
     serializedVersion: 2
-    x: 607
-    y: 430
+    x: 592
+    y: 391
     width: 150
     height: 64
   graph: {fileID: 1644651699}
@@ -978,6 +1030,11 @@ Transform:
   m_Father: {fileID: 266624492}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &244177404 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1189289296404276, guid: ca5c106f3222c5c44bd6eb30ea5bfe88,
+    type: 2}
+  m_PrefabInternal: {fileID: 1013374008}
 --- !u!1 &247777590
 GameObject:
   m_ObjectHideFlags: 0
@@ -1563,8 +1620,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowRect:
     serializedVersion: 2
-    x: 596
-    y: 640
+    x: 563
+    y: 533
     width: 150
     height: 43
   graph: {fileID: 1644651699}
@@ -1729,11 +1786,11 @@ MonoBehaviour:
   _serializedStateKeys:
   - windowRect
   _serializedStateValues:
-  - '{"xMin":214.0,"yMin":134.0,"xMax":364.0,"yMax":177.0}'
+  - '{"xMin":199.0,"yMin":95.0,"xMax":349.0,"yMax":138.0}'
   windowRect:
     serializedVersion: 2
-    x: 214
-    y: 134
+    x: 199
+    y: 95
     width: 150
     height: 43
   graph: {fileID: 1644651699}
@@ -1999,15 +2056,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowRect:
     serializedVersion: 2
-    x: 429
-    y: 607
+    x: 348
+    y: 546
     width: 150
     height: 64
   graph: {fileID: 1644651699}
   delay: 1
   moment:
     iEvents:
-    - {fileID: 1719386291}
     - {fileID: 1995109482}
     - {fileID: 366905520}
     unityEvent:
@@ -2055,7 +2111,7 @@ MonoBehaviour:
   - _topSide
   - onExecute
   _serializedStateValues:
-  - '{"xMin":622.0,"yMin":233.0,"xMax":772.0,"yMax":297.0}'
+  - '{"xMin":607.0,"yMin":194.0,"xMax":757.0,"yMax":258.0}'
   - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[0]}'
   - '"TopOfScreen"'
@@ -2068,8 +2124,8 @@ MonoBehaviour:
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
   windowRect:
     serializedVersion: 2
-    x: 622
-    y: 233
+    x: 607
+    y: 194
     width: 150
     height: 64
   graph: {fileID: 1644651699}
@@ -2200,8 +2256,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowRect:
     serializedVersion: 2
-    x: 942
-    y: 479
+    x: 927
+    y: 440
     width: 150
     height: 64
   graph: {fileID: 1644651699}
@@ -3096,8 +3152,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowRect:
     serializedVersion: 2
-    x: 1115
-    y: 439
+    x: 1100
+    y: 400
     width: 150
     height: 43
   graph: {fileID: 1644651699}
@@ -3328,8 +3384,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowRect:
     serializedVersion: 2
-    x: 782
-    y: 399
+    x: 767
+    y: 360
     width: 150
     height: 43
   graph: {fileID: 1644651699}
@@ -3487,8 +3543,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowRect:
     serializedVersion: 2
-    x: 536
-    y: 380
+    x: 521
+    y: 341
     width: 150
     height: 43
   graph: {fileID: 1644651699}
@@ -3580,15 +3636,15 @@ MonoBehaviour:
   - what
   - where
   _serializedStateValues:
-  - '{"xMin":773.0,"yMin":462.0,"xMax":923.0,"yMax":526.0}'
+  - '{"xMin":758.0,"yMin":423.0,"xMax":908.0,"yMax":487.0}'
   - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[0]}'
   - '{"spawnSequence":[{"unit":1,"quantity":3}],"onSpawnMethod":"","progressCallbacks":[]}'
   - '{"logErrorIfUnableToLaunch":true,"spawnTag":"ordered","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0}'
   windowRect:
     serializedVersion: 2
-    x: 773
-    y: 462
+    x: 758
+    y: 423
     width: 150
     height: 64
   graph: {fileID: 1644651699}
@@ -3631,15 +3687,15 @@ MonoBehaviour:
   - what
   - where
   _serializedStateValues:
-  - '{"xMin":533.0,"yMin":436.0,"xMax":683.0,"yMax":500.0}'
+  - '{"xMin":518.0,"yMin":397.0,"xMax":668.0,"yMax":461.0}'
   - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[0]}'
   - '{"spawnSequence":[{"unit":1,"quantity":4}],"onSpawnMethod":"","progressCallbacks":[]}'
   - '{"logErrorIfUnableToLaunch":true,"spawnTag":"ordered","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0}'
   windowRect:
     serializedVersion: 2
-    x: 533
-    y: 436
+    x: 518
+    y: 397
     width: 150
     height: 64
   graph: {fileID: 1644651699}
@@ -3902,7 +3958,7 @@ MonoBehaviour:
   - what
   - where
   _serializedStateValues:
-  - '{"xMin":1115.0,"yMin":491.0,"xMax":1265.0,"yMax":575.0}'
+  - '{"xMin":1100.0,"yMin":452.0,"xMax":1250.0,"yMax":536.0}'
   - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[0]}'
   - '{"spawnSequence":[{"unit":1,"quantity":2},{"unit":2,"quantity":2},{"unit":3,"quantity":1}],"onSpawnMethod":"","progressCallbacks":[{"moment":{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
@@ -3910,8 +3966,8 @@ MonoBehaviour:
   - '{"logErrorIfUnableToLaunch":true,"spawnTag":"ordered","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0}'
   windowRect:
     serializedVersion: 2
-    x: 1115
-    y: 491
+    x: 1100
+    y: 452
     width: 150
     height: 84
   graph: {fileID: 1644651699}
@@ -4098,165 +4154,13 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4030120997031606, guid: ca5c106f3222c5c44bd6eb30ea5bfe88, type: 2}
       propertyPath: m_RootOrder
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 61984815459460338, guid: ca5c106f3222c5c44bd6eb30ea5bfe88,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 212313053566225148, guid: ca5c106f3222c5c44bd6eb30ea5bfe88,
-        type: 2}
-      propertyPath: m_Color.r
-      value: 0.8308824
-      objectReference: {fileID: 0}
-    - target: {fileID: 212313053566225148, guid: ca5c106f3222c5c44bd6eb30ea5bfe88,
-        type: 2}
-      propertyPath: m_Color.g
-      value: 0.8308824
-      objectReference: {fileID: 0}
-    - target: {fileID: 212313053566225148, guid: ca5c106f3222c5c44bd6eb30ea5bfe88,
-        type: 2}
-      propertyPath: m_Color.b
-      value: 0.8308824
-      objectReference: {fileID: 0}
-    - target: {fileID: 114653488259285696, guid: ca5c106f3222c5c44bd6eb30ea5bfe88,
-        type: 2}
-      propertyPath: openedOnStart
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1189289296404276, guid: ca5c106f3222c5c44bd6eb30ea5bfe88, type: 2}
       propertyPath: m_Name
-      value: Sideways Fake Gate top
+      value: Top Spike Gate
       objectReference: {fileID: 0}
-    - target: {fileID: 114452440785569736, guid: ca5c106f3222c5c44bd6eb30ea5bfe88,
-        type: 2}
-      propertyPath: tags.Array.data[0]
-      value: arena gate top
-      objectReference: {fileID: 0}
-    - target: {fileID: 4674384028727626, guid: ca5c106f3222c5c44bd6eb30ea5bfe88, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114653488259285696, guid: ca5c106f3222c5c44bd6eb30ea5bfe88,
-        type: 2}
-      propertyPath: openedLocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4674384028727626, guid: ca5c106f3222c5c44bd6eb30ea5bfe88, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4674384028727626, guid: ca5c106f3222c5c44bd6eb30ea5bfe88, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4674384028727626, guid: ca5c106f3222c5c44bd6eb30ea5bfe88, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114653488259285696, guid: ca5c106f3222c5c44bd6eb30ea5bfe88,
-        type: 2}
-      propertyPath: collider
-      value: 
-      objectReference: {fileID: 1868803952}
-    - target: {fileID: 114653488259285696, guid: ca5c106f3222c5c44bd6eb30ea5bfe88,
-        type: 2}
-      propertyPath: enableDisableColliderOnAnimation
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 251093334515247590, guid: ca5c106f3222c5c44bd6eb30ea5bfe88,
-        type: 2}
-      propertyPath: m_RotationalOffset
-      value: 180
-      objectReference: {fileID: 0}
-    - target: {fileID: 4030120997031606, guid: ca5c106f3222c5c44bd6eb30ea5bfe88, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4030120997031606, guid: ca5c106f3222c5c44bd6eb30ea5bfe88, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 212313053566225148, guid: ca5c106f3222c5c44bd6eb30ea5bfe88,
-        type: 2}
-      propertyPath: m_SortingLayerID
-      value: 1417543483
-      objectReference: {fileID: 0}
-    - target: {fileID: 212313053566225148, guid: ca5c106f3222c5c44bd6eb30ea5bfe88,
-        type: 2}
-      propertyPath: m_SortingLayer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 212313053566225148, guid: ca5c106f3222c5c44bd6eb30ea5bfe88,
-        type: 2}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 061721bf6eb3d484989086aa2f6652cc,
-        type: 3}
-    - target: {fileID: 4674384028727626, guid: ca5c106f3222c5c44bd6eb30ea5bfe88, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 4674384028727626, guid: ca5c106f3222c5c44bd6eb30ea5bfe88, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 4674384028727626, guid: ca5c106f3222c5c44bd6eb30ea5bfe88, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: -90
-      objectReference: {fileID: 0}
-    - target: {fileID: 61984815459460338, guid: ca5c106f3222c5c44bd6eb30ea5bfe88,
-        type: 2}
-      propertyPath: m_Offset.y
-      value: 0.11246973
-      objectReference: {fileID: 0}
-    - target: {fileID: 61984815459460338, guid: ca5c106f3222c5c44bd6eb30ea5bfe88,
-        type: 2}
-      propertyPath: m_Size.y
-      value: 0.77506053
-      objectReference: {fileID: 0}
-    - target: {fileID: 61984815459460338, guid: ca5c106f3222c5c44bd6eb30ea5bfe88,
-        type: 2}
-      propertyPath: m_Offset.x
-      value: -0.00000023841858
-      objectReference: {fileID: 0}
-    - target: {fileID: 61984815459460338, guid: ca5c106f3222c5c44bd6eb30ea5bfe88,
-        type: 2}
-      propertyPath: m_Size.x
-      value: 2.4582248
-      objectReference: {fileID: 0}
-    - target: {fileID: 212313053566225148, guid: ca5c106f3222c5c44bd6eb30ea5bfe88,
-        type: 2}
-      propertyPath: m_DrawMode
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 212313053566225148, guid: ca5c106f3222c5c44bd6eb30ea5bfe88,
-        type: 2}
-      propertyPath: m_Size.y
-      value: 2.41
-      objectReference: {fileID: 0}
-    - target: {fileID: 212313053566225148, guid: ca5c106f3222c5c44bd6eb30ea5bfe88,
-        type: 2}
-      propertyPath: m_Size.x
-      value: 0.64
-      objectReference: {fileID: 0}
-    - target: {fileID: 114653488259285696, guid: ca5c106f3222c5c44bd6eb30ea5bfe88,
-        type: 2}
-      propertyPath: openedLocalPosition.y
-      value: 0.295
-      objectReference: {fileID: 0}
-    - target: {fileID: 114653488259285696, guid: ca5c106f3222c5c44bd6eb30ea5bfe88,
-        type: 2}
-      propertyPath: animDuration
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1189289296404276, guid: ca5c106f3222c5c44bd6eb30ea5bfe88, type: 2}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 114452440785569736, guid: ca5c106f3222c5c44bd6eb30ea5bfe88, type: 2}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ca5c106f3222c5c44bd6eb30ea5bfe88, type: 2}
   m_IsPrefabParent: 0
 --- !u!4 &1013374009 stripped
@@ -5581,11 +5485,11 @@ MonoBehaviour:
   _serializedStateKeys:
   - windowRect
   _serializedStateValues:
-  - '{"xMin":825.0,"yMin":727.0,"xMax":975.0,"yMax":770.0}'
+  - '{"xMin":922.0,"yMin":709.0,"xMax":1072.0,"yMax":752.0}'
   windowRect:
     serializedVersion: 2
-    x: 825
-    y: 727
+    x: 922
+    y: 709
     width: 150
     height: 43
   graph: {fileID: 1644651699}
@@ -5884,8 +5788,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowRect:
     serializedVersion: 2
-    x: 907
-    y: 289
+    x: 892
+    y: 250
     width: 150
     height: 43
   graph: {fileID: 1644651699}
@@ -6082,6 +5986,11 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0
   m_SpriteTileMode: 1
   m_WasSpriteAssigned: 1
+--- !u!1 &1337147280 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1583025474526030, guid: 502955382d0489e4586d8849c6d4dbd8,
+    type: 2}
+  m_PrefabInternal: {fileID: 65444658}
 --- !u!1 &1346159963
 GameObject:
   m_ObjectHideFlags: 0
@@ -6165,8 +6074,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowRect:
     serializedVersion: 2
-    x: 1076
-    y: 123
+    x: 1061
+    y: 84
     width: 150
     height: 43
   graph: {fileID: 1644651699}
@@ -6240,6 +6149,56 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0
   m_SpriteTileMode: 1
   m_WasSpriteAssigned: 1
+--- !u!114 &1387581970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c410d79d6dcad2c49b47308746d246c7, type: 3}
+  m_Name: Side End Wave
+  m_EditorClassIdentifier: 
+  _objectReferences:
+  - {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
+  - {fileID: 114917152140949164, guid: 90a1293e412776e4db23eb9595fcf924, type: 2}
+  _serializedStateKeys:
+  - windowRect
+  - onComplete
+  - what
+  - where
+  _serializedStateValues:
+  - '{"xMin":866.0,"yMin":551.0,"xMax":1016.0,"yMax":615.0}'
+  - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]}'
+  - '{"spawnSequence":[{"unit":0,"quantity":2},{"unit":1,"quantity":1}],"onSpawnMethod":"","progressCallbacks":[]}'
+  - '{"logErrorIfUnableToLaunch":true,"spawnTag":"sides","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0}'
+  windowRect:
+    serializedVersion: 2
+    x: 866
+    y: 551
+    width: 150
+    height: 64
+  graph: {fileID: 1644651699}
+  onComplete:
+    iEvents: []
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+  infiniteRepeat: 1
+  pauseBetweenRepeat: 0
+  where:
+    logErrorIfUnableToLaunch: 1
+    spawnTag: sides
+    filterType: 0
+    min: {x: 0, y: 0}
+    max: {x: 0, y: 0}
+    selectType: 0
+    index: 0
+  spawnInterval: 1
 --- !u!1 &1387905570
 GameObject:
   m_ObjectHideFlags: 0
@@ -6628,7 +6587,7 @@ MonoBehaviour:
   - _topSide
   - onExecute
   _serializedStateValues:
-  - '{"xMin":360.0,"yMin":411.0,"xMax":510.0,"yMax":475.0}'
+  - '{"xMin":345.0,"yMin":372.0,"xMax":495.0,"yMax":436.0}'
   - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[0,1]}'
   - '"TopOfScreen"'
@@ -6642,8 +6601,8 @@ MonoBehaviour:
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
   windowRect:
     serializedVersion: 2
-    x: 360
-    y: 411
+    x: 345
+    y: 372
     width: 150
     height: 64
   graph: {fileID: 1644651699}
@@ -7446,6 +7405,10 @@ MonoBehaviour:
   - {fileID: 1756514758}
   - {fileID: 454335632}
   - {fileID: 1271699848}
+  - {fileID: 1666733043}
+  - {fileID: 1387581970}
+  - {fileID: 1983529059}
+  - {fileID: 1959989876}
 --- !u!114 &1644651700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7459,8 +7422,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowRect:
     serializedVersion: 2
-    x: 218
-    y: 235
+    x: 203
+    y: 196
     width: 150
     height: 64
   graph: {fileID: 1644651699}
@@ -7533,6 +7496,8 @@ MonoBehaviour:
   - {fileID: 586997904}
   - {fileID: 1825551958}
   - {fileID: 454335632}
+  - {fileID: 1387581970}
+  - {fileID: 1959989876}
   _values:
   - _keys: []
     _values: []
@@ -7591,6 +7556,12 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 454335632}
+  - _keys: []
+    _values: []
+    _target: {fileID: 1387581970}
+  - _keys: []
+    _values: []
+    _target: {fileID: 1959989876}
 --- !u!114 &1649213853
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7622,6 +7593,8 @@ MonoBehaviour:
   - {fileID: 586997904}
   - {fileID: 1825551958}
   - {fileID: 454335632}
+  - {fileID: 1387581970}
+  - {fileID: 1959989876}
   _values:
   - _keys: []
     _values: []
@@ -7752,6 +7725,12 @@ MonoBehaviour:
     - _showDropdown: 0
       _serializedIsActive: 1
     _target: {fileID: 454335632}
+  - _keys: []
+    _values: []
+    _target: {fileID: 1387581970}
+  - _keys: []
+    _values: []
+    _target: {fileID: 1959989876}
 --- !u!1 &1653333360
 GameObject:
   m_ObjectHideFlags: 0
@@ -7876,6 +7855,34 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0
   m_SpriteTileMode: 1
   m_WasSpriteAssigned: 1
+--- !u!114 &1666733043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 770cead41c9345b438c5073249a62a88, type: 3}
+  m_Name: Delay
+  m_EditorClassIdentifier: 
+  windowRect:
+    serializedVersion: 2
+    x: 705
+    y: 652
+    width: 150
+    height: 64
+  graph: {fileID: 1644651699}
+  delay: 2.5
+  moment:
+    iEvents:
+    - {fileID: 1775263191}
+    - {fileID: 1233567499}
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
 --- !u!1 &1670631074
 GameObject:
   m_ObjectHideFlags: 0
@@ -8334,15 +8341,15 @@ MonoBehaviour:
   - what
   - where
   _serializedStateValues:
-  - '{"xMin":595.9,"yMin":595.0,"xMax":745.9,"yMax":659.0}'
+  - '{"xMin":670.9,"yMin":792.0,"xMax":820.9,"yMax":856.0}'
   - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]}'
-  - '{"spawnSequence":[{"unit":0,"quantity":10}],"onSpawnMethod":"","progressCallbacks":[]}'
-  - '{"logErrorIfUnableToLaunch":true,"spawnTag":"sides","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0}'
+  - '{"spawnSequence":[{"unit":0,"quantity":3}],"onSpawnMethod":"","progressCallbacks":[]}'
+  - '{"logErrorIfUnableToLaunch":true,"spawnTag":"plus","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0}'
   windowRect:
     serializedVersion: 2
-    x: 595.9
-    y: 595
+    x: 670.9
+    y: 792
     width: 150
     height: 64
   graph: {fileID: 1644651699}
@@ -8357,13 +8364,13 @@ MonoBehaviour:
   pauseBetweenRepeat: 0
   where:
     logErrorIfUnableToLaunch: 1
-    spawnTag: sides
+    spawnTag: plus
     filterType: 0
     min: {x: 0, y: 0}
     max: {x: 0, y: 0}
     selectType: 0
     index: 0
-  spawnInterval: 0.5
+  spawnInterval: 0.25
 --- !u!1 &1742607899
 GameObject:
   m_ObjectHideFlags: 0
@@ -8447,8 +8454,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowRect:
     serializedVersion: 2
-    x: 1402
-    y: 483
+    x: 1387
+    y: 444
     width: 150
     height: 84
   graph: {fileID: 1644651699}
@@ -8552,8 +8559,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowRect:
     serializedVersion: 2
-    x: 832
-    y: 637
+    x: 911
+    y: 661
     width: 150
     height: 43
   graph: {fileID: 1644651699}
@@ -8858,15 +8865,15 @@ MonoBehaviour:
   - what
   - where
   _serializedStateValues:
-  - '{"xMin":1130.0,"yMin":542.0,"xMax":1280.0,"yMax":606.0}'
+  - '{"xMin":1115.0,"yMin":503.0,"xMax":1265.0,"yMax":567.0}'
   - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[0]}'
   - '{"spawnSequence":[{"unit":1,"quantity":2},{"unit":2,"quantity":2},{"unit":3,"quantity":1},{"unit":4,"quantity":1}],"onSpawnMethod":"","progressCallbacks":[]}'
   - '{"logErrorIfUnableToLaunch":true,"spawnTag":"ordered","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0}'
   windowRect:
     serializedVersion: 2
-    x: 1130
-    y: 542
+    x: 1115
+    y: 503
     width: 150
     height: 64
   graph: {fileID: 1644651699}
@@ -9080,11 +9087,6 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1013374008}
   m_Script: {fileID: 11500000, guid: 0f24b29f82e0cd942b9fd9b007149b18, type: 3}
---- !u!61 &1868803952 stripped
-BoxCollider2D:
-  m_PrefabParentObject: {fileID: 61984815459460338, guid: ca5c106f3222c5c44bd6eb30ea5bfe88,
-    type: 2}
-  m_PrefabInternal: {fileID: 1013374008}
 --- !u!1 &1919831228
 GameObject:
   m_ObjectHideFlags: 0
@@ -9208,7 +9210,7 @@ MonoBehaviour:
   - _topSide
   - onExecute
   _serializedStateValues:
-  - '{"xMin":853.0,"yMin":117.0,"xMax":1003.0,"yMax":181.0}'
+  - '{"xMin":838.0,"yMin":78.0,"xMax":988.0,"yMax":142.0}'
   - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[0]}'
   - '"TopOfScreen"'
@@ -9221,8 +9223,8 @@ MonoBehaviour:
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
   windowRect:
     serializedVersion: 2
-    x: 853
-    y: 117
+    x: 838
+    y: 78
     width: 150
     height: 64
   graph: {fileID: 1644651699}
@@ -9505,6 +9507,36 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 1
   m_WasSpriteAssigned: 1
+--- !u!114 &1959989876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e39b27e66e8c534880711f69463fc4f, type: 3}
+  m_Name: Camera Shake
+  m_EditorClassIdentifier: 
+  _objectReferences: []
+  _serializedStateKeys:
+  - windowRect
+  - hitVector
+  _serializedStateValues:
+  - '{"xMin":662.0,"yMin":743.0,"xMax":812.0,"yMax":786.0}'
+  - '{"x":0.0,"y":1.2}'
+  windowRect:
+    serializedVersion: 2
+    x: 662
+    y: 743
+    width: 150
+    height: 43
+  graph: {fileID: 1644651699}
+  cameraHit: 0
+  hitVector: {x: 0, y: 1.2}
+  cameraShake: 1
+  strength: 0.9
+  duration: 0
 --- !u!1 &1961521386
 GameObject:
   m_ObjectHideFlags: 0
@@ -9601,6 +9633,33 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 1
   m_WasSpriteAssigned: 1
+--- !u!114 &1983529059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 770cead41c9345b438c5073249a62a88, type: 3}
+  m_Name: Delay
+  m_EditorClassIdentifier: 
+  windowRect:
+    serializedVersion: 2
+    x: 681
+    y: 582
+    width: 150
+    height: 64
+  graph: {fileID: 1644651699}
+  delay: 1
+  moment:
+    iEvents:
+    - {fileID: 1387581970}
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
 --- !u!1 &1994804321
 GameObject:
   m_ObjectHideFlags: 0
@@ -9684,21 +9743,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowRect:
     serializedVersion: 2
-    x: 619.9
-    y: 697
+    x: 492.90002
+    y: 630
     width: 150
     height: 64
   graph: {fileID: 1644651699}
-  delay: 1.5
+  delay: 1
   moment:
     iEvents:
-    - {fileID: 1775263191}
-    - {fileID: 1233567499}
+    - {fileID: 1719386291}
+    - {fileID: 1666733043}
+    - {fileID: 1983529059}
+    - {fileID: 1959989876}
     unityEvent:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1868803952}
-          m_MethodName: set_enabled
+        - m_Target: {fileID: 244177404}
+          m_MethodName: SetActive
           m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -9708,16 +9769,16 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 1868803950}
-          m_MethodName: Open
-          m_Mode: 1
+        - m_Target: {fileID: 1337147280}
+          m_MethodName: SetActive
+          m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
-            m_BoolArgument: 0
+            m_BoolArgument: 1
           m_CallState: 2
       m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
@@ -10153,8 +10214,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowRect:
     serializedVersion: 2
-    x: 409
-    y: 182
+    x: 394
+    y: 143
     width: 150
     height: 43
   graph: {fileID: 1644651699}

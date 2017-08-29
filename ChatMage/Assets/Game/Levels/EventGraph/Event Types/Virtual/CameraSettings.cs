@@ -58,7 +58,7 @@ namespace GameEvents
 
         public override string NodeLabel()
         {
-            return "Camera Settings";
+            return "Cam Settings";
         }
 
         public override Color GUIColor()

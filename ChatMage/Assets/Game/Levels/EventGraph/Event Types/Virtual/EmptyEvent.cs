@@ -13,10 +13,5 @@ namespace GameEvents
         {
             onTrigger.Launch();
         }
-
-        public override string NodeLabel()
-        {
-            return name;
-        }
     }
 }
