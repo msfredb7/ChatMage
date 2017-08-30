@@ -94,5 +94,7 @@ namespace GameEvents
             moments = null;
             names = null;
         }
+
+        public virtual void OnGameReady() { }
     }
 }

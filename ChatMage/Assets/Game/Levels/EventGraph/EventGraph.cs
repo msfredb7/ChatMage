@@ -13,6 +13,19 @@ namespace GameEvents
 
         public event SimpleEvent onEventsAddedOrRemoved;
 
+        public void Init(Game instance)
+        {
+            instance.onGameReady += Instance_onGameReady;
+        }
+
+        private void Instance_onGameReady()
+        {
+            foreach (Object anEvent in events)
+            {
+                (anEvent as INodedEvent).OnGameReady();
+            }
+        }
+
         public bool CheckForNameDuplicate(string name)
         {
             if (events == null)
