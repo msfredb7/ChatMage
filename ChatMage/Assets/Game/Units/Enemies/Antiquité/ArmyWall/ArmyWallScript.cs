@@ -2,68 +2,68 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArmyWallScript : Unit {
-
-    public float awayFromPlayer = 1f;
-    public float nearPlayer = 1f;
-
+public class ArmyWallScript : MovingUnit
+{
+    public Vector2 moveSpeed = new Vector2(0,1);
+    public float hitPlayerCooldown = 0.5f;
     public float bumpStrength;
     public float bumpDuration = 0f;
+    public new Collider2D collider;
+    public float maxYPos = 40;
 
     public SimpleColliderListener colliderListener;
-    
-    public bool marchinY = true;
-    public bool beginMarching = false;
+    private float hitTimer;
 
-    private bool justHitPlayer;
-    private float cooldown;
-	
     void Start()
     {
         colliderListener.onTriggerEnter += ColliderListener_onTriggerEnter;
-        justHitPlayer = false;
+    }
+
+    void OnEnable()
+    {
+        Speed = moveSpeed;
     }
 
     private void ColliderListener_onTriggerEnter(ColliderInfo other, ColliderListener listener)
     {
         if (other.parentUnit is PlayerVehicle)
         {
-            Game.instance.Player.playerStats.Attacked(other, 1, this);
-            if(!justHitPlayer)
-                (other.parentUnit as PlayerVehicle).Bump(WorldDirection2D() * bumpStrength, bumpDuration, BumpMode.VelocityAdd);
-            justHitPlayer = true;
-            cooldown = 2; // Le ArmyWall recommence a marcher apres 2 secondes
-        }
-        if (other.parentUnit is EnemyVehicle)
-            (other.parentUnit as EnemyVehicle).ForceDie();
-    }
-
-    protected override void Update ()
-    {
-        base.Update();
-        if(beginMarching)
-        {
-            if(Game.instance.Player.vehicle != null)
+            if(hitTimer <= 0)
             {
-                if (marchinY)
-                {
-                    if (Vector2.Distance(Game.instance.Player.vehicle.Position, transform.position) > 10 || justHitPlayer)
-                        transform.position = new Vector2(transform.position.x, transform.position.y + (Game.instance.Player.vehicle.DeltaTime() * awayFromPlayer)); // si hors du screen
-                    else
-                        transform.position = new Vector2(transform.position.x, transform.position.y + (Game.instance.Player.vehicle.DeltaTime() * nearPlayer)); // si inside screen
-                } else
-                {
-                    if (Vector2.Distance(Game.instance.Player.vehicle.Position, transform.position) > 10 || justHitPlayer)
-                        transform.position = new Vector2(transform.position.x + (Game.instance.Player.vehicle.DeltaTime() * awayFromPlayer), transform.position.y); // si hors du screen
-                    else
-                        transform.position = new Vector2(transform.position.x + (Game.instance.Player.vehicle.DeltaTime() * nearPlayer), transform.position.y); // si inside screen
-                }
+                Game.instance.Player.playerStats.Attacked(other, 1, this);
+                (other.parentUnit as PlayerVehicle).Bump(WorldDirection2D() * bumpStrength, bumpDuration, BumpMode.VelocityAdd);
+                hitTimer = hitPlayerCooldown;
             }
         }
-        if (justHitPlayer)
-            if (cooldown < 0)
-                justHitPlayer = false;
-        cooldown -= DeltaTime();
+        else if (other.parentUnit is EnemyVehicle)
+            (other.parentUnit as EnemyVehicle).Attacked(other, 10, this, listener.info);
+    }
+
+    public void BringCloseToPlayer()
+    {
+        tr.position = Vector2.up * Game.instance.gameCamera.Bottom;
+    }
+
+    public void DisableCollision()
+    {
+        collider.enabled = false;
+    }
+
+    public void EnableCollision()
+    {
+        collider.enabled = true;
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+
+        Vector2 pos = tr.position;
+
+        tr.position = new Vector3(pos.x, pos.y.Capped(maxYPos), 0);
+
+        if (hitTimer > 0)
+            hitTimer -= DeltaTime();
     }
 
     protected override void Die()

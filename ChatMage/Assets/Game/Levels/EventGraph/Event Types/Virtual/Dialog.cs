@@ -28,7 +28,7 @@ namespace GameEvents
         public override string NodeLabel()
         {
             if (dialog != null)
-                return "Dialog: " + dialog.name;
+                return dialog.name;
             else
                 return "Dialog";
         }
