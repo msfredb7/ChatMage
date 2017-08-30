@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace GameEvents
 {
@@ -8,11 +9,20 @@ namespace GameEvents
     public class Dialog : VirtualEvent, IEvent
     {
         public Dialoguing.Dialog dialog;
+        public UnityEvent onComplete;
 
         public void Trigger()
         {
             if (dialog != null)
-                Game.instance.ui.dialogDisplay.StartDialog(dialog);
+            {
+                if (onComplete != null)
+                    Game.instance.ui.dialogDisplay.StartDialog(dialog);
+                else
+                    Game.instance.ui.dialogDisplay.StartDialog(dialog, delegate() {
+                        onComplete.Invoke();
+                    });
+            }
+
         }
 
         public override string NodeLabel()
