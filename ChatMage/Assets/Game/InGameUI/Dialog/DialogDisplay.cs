@@ -39,6 +39,9 @@ public class DialogDisplay : MonoBehaviour
 
     public void StartDialog(Dialog dialog, Action onComplete = null)
     {
+        // On s'assure que le joueur est bien visible
+        Game.instance.Player.playerStats.EnableSprite();
+
         if (CurrentDialog != null)
             throw new Exception("Cannot start a dialog while another is ongoing.");
 
