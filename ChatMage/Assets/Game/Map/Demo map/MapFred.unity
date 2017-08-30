@@ -625,7 +625,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!92 &340652788
 Behaviour:
   m_ObjectHideFlags: 0
@@ -1750,7 +1750,7 @@ MonoBehaviour:
     x: 258.09998
     y: 108
     width: 150
-    height: 10
+    height: 64
   graph: {fileID: 1644651698}
   onGameStart:
     iEvents:
@@ -2285,6 +2285,8 @@ MonoBehaviour:
   m_Name: Unit Wave
   m_EditorClassIdentifier: 
   _objectReferences:
+  - {fileID: 114923829034378616, guid: 7ec293da9a2e20c4caaa28d716dc5124, type: 2}
+  - {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
   - {fileID: 114031953647070938, guid: dca25e04556fe204da1a495069e8c437, type: 2}
   _serializedStateKeys:
   - windowRect
@@ -2292,17 +2294,17 @@ MonoBehaviour:
   - what
   - where
   _serializedStateValues:
-  - '{"xMin":675.0,"yMin":155.0,"xMax":825.0,"yMax":165.0}'
+  - '{"xMin":675.0,"yMin":155.0,"xMax":825.0,"yMax":219.0}'
   - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]}'
-  - '{"spawnSequence":[{"unit":0,"quantity":4}],"onSpawnMethod":"MakeSmart","progressCallbacks":[]}'
+  - '{"spawnSequence":[{"unit":0,"quantity":1},{"unit":1,"quantity":1},{"unit":2,"quantity":1}],"onSpawnMethod":"MakeSmart","progressCallbacks":[]}'
   - '{"logErrorIfUnableToLaunch":true,"spawnTag":"ordered","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0}'
   windowRect:
     serializedVersion: 2
     x: 675
     y: 155
     width: 150
-    height: 10
+    height: 64
   graph: {fileID: 1644651698}
   onComplete:
     iEvents: []
