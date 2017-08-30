@@ -175,12 +175,34 @@ namespace GameEvents
         public override void GetAdditionalMoments(out BaseMoment[] moments, out string[] names)
         {
             int count = 0;
-            if (what != null && what.progressCallbacks != null)
-                count = what.progressCallbacks.Length;
-            moments = new Moment[count];
+            if (what != null)
+            {
+                if (what.progressCallbacks != null)
+                    count = what.progressCallbacks.Length;
+
+                //pour le what.OnSpawn
+                if (!what.useLevelScriptMethod)
+                    count++;
+                else
+                {
+                    what.onSpawn.ClearMoments();
+                    what.onSpawn.unityEvent.RemoveAllListeners();
+                }
+            }
+
+            moments = new BaseMoment[count];
             names = new string[count];
 
-            for (int i = 0; i < count; i++)
+            int i = 0;
+
+            if (what != null && !what.useLevelScriptMethod)
+            {
+                moments[i] = what.onSpawn;
+                names[i] = "on Spawn";
+                i++;
+            }
+
+            for (; i < count; i++)
             {
                 _WaveWhat.Callback callback = what.progressCallbacks[i];
                 moments[i] = callback.moment;
@@ -205,7 +227,11 @@ namespace GameEvents
     public class _WaveWhat
     {
         public UnitPack[] spawnSequence;
+        public bool useLevelScriptMethod = false;
+        [InspectorShowIf("useLevelScriptMethod")]
         public string onSpawnMethod = "";
+        [InspectorHideIf("useLevelScriptMethod")]
+        public MomentUnit onSpawn = new MomentUnit();
         public Callback[] progressCallbacks;
 
         [System.Serializable]
@@ -261,23 +287,33 @@ namespace GameEvents
 
         public Action<Unit> GetSpawnAction()
         {
-            if (string.IsNullOrEmpty(onSpawnMethod))
-                return null;
-
-            Type type = Game.instance.levelScript.GetType();
-
-            Type[] rq_parameters = new Type[] { typeof(Unit) };
-
-            MethodInfo method = type.GetMethod(onSpawnMethod, rq_parameters);
-
-            if (method == null)
-                return null;
-
-            return delegate (Unit unit)
+            if (useLevelScriptMethod)
             {
-                object[] param = new object[] { unit };
-                method.Invoke(Game.instance.levelScript, param);
-            };
+                if (string.IsNullOrEmpty(onSpawnMethod))
+                    return null;
+
+                Type type = Game.instance.levelScript.GetType();
+
+                Type[] rq_parameters = new Type[] { typeof(Unit) };
+
+                MethodInfo method = type.GetMethod(onSpawnMethod, rq_parameters);
+
+                if (method == null)
+                    return null;
+
+                return delegate (Unit unit)
+                {
+                    object[] param = new object[] { unit };
+                    method.Invoke(Game.instance.levelScript, param);
+                };
+            }
+            else
+            {
+                if (onSpawn.HasListeners())
+                    return onSpawn.Launch;
+                else
+                    return null;
+            }
         }
 
         public int TotalUnits
