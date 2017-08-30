@@ -141,4 +141,9 @@ public class PlayerStats : PlayerComponent, IAttackable
     {
         armor++;
     }
+
+    public void EnableSprite()
+    {
+        sprite.enabled = true;
+    }
 }
