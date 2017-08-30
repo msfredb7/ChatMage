@@ -33,5 +33,6 @@ namespace GameEvents
         void GetAdditionalMoments(out BaseMoment[] moments, out string[] names);
         bool LinkToGraph();
         void MoveToPos(Vector2 position);
+        void OnGameReady();
     }
 }

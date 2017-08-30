@@ -99,5 +99,6 @@ namespace GameEvents
         {
             windowRect.position = position;
         }
+        public virtual void OnGameReady() { }
     }
 }

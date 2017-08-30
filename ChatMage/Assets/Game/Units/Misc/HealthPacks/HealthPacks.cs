@@ -78,7 +78,7 @@ public class HealthPacks : MovingUnit
 
     public void PickUp(ColliderInfo info, ColliderListener listener)
     {
-        if (info.parentUnit == Game.instance.Player.vehicle)
+        if (!isDead && info.parentUnit == Game.instance.Player.vehicle)
             Game.instance.Player.playerStats.Regen(regenAmount);
         Die();
     }

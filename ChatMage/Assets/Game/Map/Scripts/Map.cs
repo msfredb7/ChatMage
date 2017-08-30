@@ -26,6 +26,7 @@ public class Map : BaseBehavior
     [InspectorMargin(10), InspectorHeader("Optional")]
     public RoadPlayer roadPlayer;
     public List<PositionDisplacer> positionDisplacers;
+    public GameEvents.EventGraph graph;
 
     /// <summary>
     /// Initialise les settings de la map
@@ -48,6 +49,9 @@ public class Map : BaseBehavior
         }
 
         mapping.Init(Game.instance);
+
+        if (graph != null)
+            graph.Init(Game.instance);
     }
 
     public void ResetAIArea()
