@@ -8,6 +8,8 @@ namespace GameEvents
     public class ModifyAutoDeactivate : VirtualEvent, IEvent<Unit>
     {
         public bool enabled = false;
+        public bool checkWhenUnderCamera = true;
+        public bool checkWhenAboveCamera = true;
         public bool overrideDefaultDeactivationRange = false;
         public float newDeactivationRange = 10;
 
@@ -19,6 +21,8 @@ namespace GameEvents
                 autoDeactivation.enabled = enabled;
                 autoDeactivation.overrideDefaultDeactivationRange = overrideDefaultDeactivationRange;
                 autoDeactivation.newDeactivationRange = newDeactivationRange;
+                autoDeactivation.checkWhenAboveCamera = checkWhenAboveCamera;
+                autoDeactivation.checkWhenUnderCamera = checkWhenUnderCamera;
             }
         }
         public override Color GUIColor()

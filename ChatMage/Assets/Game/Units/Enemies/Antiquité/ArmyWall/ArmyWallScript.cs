@@ -16,19 +16,14 @@ public class ArmyWallScript : MovingUnit
 
     void Start()
     {
-        colliderListener.onTriggerEnter += ColliderListener_onTriggerEnter;
+        colliderListener.onCollisionEnter += ColliderListener_onCollisionEnter;
     }
 
-    void OnEnable()
-    {
-        Speed = moveSpeed;
-    }
-
-    private void ColliderListener_onTriggerEnter(ColliderInfo other, ColliderListener listener)
+    private void ColliderListener_onCollisionEnter(ColliderInfo other, Collision2D collision, ColliderListener listener)
     {
         if (other.parentUnit is PlayerVehicle)
         {
-            if(hitTimer <= 0)
+            if (hitTimer <= 0)
             {
                 Game.instance.Player.playerStats.Attacked(other, 1, this);
                 (other.parentUnit as PlayerVehicle).Bump(WorldDirection2D() * bumpStrength, bumpDuration, BumpMode.VelocityAdd);
@@ -37,6 +32,11 @@ public class ArmyWallScript : MovingUnit
         }
         else if (other.parentUnit is EnemyVehicle)
             (other.parentUnit as EnemyVehicle).Attacked(other, 10, this, listener.info);
+    }
+
+    void OnEnable()
+    {
+        Speed = moveSpeed;
     }
 
     public void BringCloseToPlayer()

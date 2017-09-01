@@ -111,6 +111,11 @@ public class LS_ThridLevel : LevelScript
         int plannedWaveCount = wave.Count;   // Les unit�es qui vont arriver d'en bas, par la wave
         int ambushCount = 0;        // Les unit�es qui ont spawn sur les cot� qui sont encore active
 
+
+        float minY = Game.instance.gameCamera.Bottom - 0.75f;
+        float minX = (GameCamera.DEFAULT_SCREEN_WIDTH / -2) + 1;
+        float xLength = minX.Abs() * 2;
+
         //Compter le nombre de units inactive dans le buffer
         for (int i = 0; i < enemyBuffer.Count; i++)
         {
@@ -123,6 +128,14 @@ public class LS_ThridLevel : LevelScript
             {
                 //L'enemie est actif, il est donc proche du joueur.
                 // + On le raproche du joueur
+
+                float delta = minY - enemyBuffer[i].Position.y;
+                if (delta > 0)
+                {
+                    float x = ((7.5f * ambushCount) % xLength) + minX;
+                    float y = enemyBuffer[i].Position.y + delta*0.75f;
+                    enemyBuffer[i].TeleportPosition(new Vector2(x, y));
+                }
                 ambushCount++;
             }
             else
