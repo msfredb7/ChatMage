@@ -47,6 +47,8 @@ namespace GameEvents
                 return;
             }
 
+            stopInfiniteSpawning = false;
+
             //Get units
             Unit[] units = what.GetSpawnSequence();
 
@@ -202,14 +204,15 @@ namespace GameEvents
                 i++;
             }
 
-            for (; i < count; i++)
+            for (int u=0; u < what.progressCallbacks.Length; u++)
             {
-                _WaveWhat.Callback callback = what.progressCallbacks[i];
+                _WaveWhat.Callback callback = what.progressCallbacks[u];
                 moments[i] = callback.moment;
                 if (callback.useProgress)
                     names[i] = "at " + Mathf.RoundToInt(callback.atProgress * 100) + "%";
                 else
                     names[i] = "at " + callback.atKillCount + " kills";
+                i++;
             }
         }
 

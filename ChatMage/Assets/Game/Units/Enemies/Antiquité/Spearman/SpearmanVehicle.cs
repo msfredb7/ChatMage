@@ -38,13 +38,15 @@ public class SpearmanVehicle : EnemyVehicle
 
     protected override void Die()
     {
+        if (!IsDead)
+        {
+            canTurn.Lock("dead");
+            canMove.Lock("dead");
+
+            animator.DeathAnimation(Destroy);
+            GetComponent<AI.SpearmanBrain>().enabled = false;
+        }
         base.Die();
-
-        canTurn.Lock("dead");
-        canMove.Lock("dead");
-
-        animator.DeathAnimation(Destroy);
-        GetComponent<AI.SpearmanBrain>().enabled = false;
     }
 
     private void AttackListener_onTriggerEnter(ColliderInfo other, ColliderListener listener)
