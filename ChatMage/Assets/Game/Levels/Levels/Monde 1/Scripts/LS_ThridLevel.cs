@@ -160,7 +160,7 @@ public class LS_ThridLevel : LevelScript
             Unit unit = preSpawned[i].GetComponent<Unit>();
             if (unit != null)
             {
-                unit.enabled = true;
+                unit.GetComponent<AI.EnemyBrainV2>().enabled = true;
                 progressTracker.RegisterUnit(unit);
             }
         }
