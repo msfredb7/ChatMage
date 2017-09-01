@@ -50,7 +50,10 @@ public abstract class EnemyAnimator : MonoBehaviour
     public virtual void DeathAnimation(Action onComplete)
     {
         deathCallback = onComplete;
-        controller.SetTrigger(deadHash);
+        if (controller.isActiveAndEnabled)
+            controller.SetTrigger(deadHash);
+        else
+            _DeathComplete();
     }
 
     protected virtual void _DeathComplete()
