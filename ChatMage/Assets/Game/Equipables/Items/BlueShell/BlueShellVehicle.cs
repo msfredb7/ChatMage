@@ -60,6 +60,7 @@ public class BlueShellVehicle : Vehicle
         turnSpeed = 0;
         chooseNewTurnAcc = 0;
         isDead = false;
+        canMove.Unlock("exl");
 
         animator.ResetValues();
     }
