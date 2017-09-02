@@ -64,9 +64,6 @@ public class LS_ThridLevel : LevelScript
             case "inter 2":
                 Intersect2();
                 break;
-            case "boss":
-                EnterBossRoom();
-                break;
             default:
                 break;
         }
@@ -249,10 +246,4 @@ public class LS_ThridLevel : LevelScript
     //        }
     //    }
     //}
-
-    private void EnterBossRoom()
-    {
-        SpriteRenderer bossShadow = Game.instance.map.mapping.GetTaggedObject("boss room shadow").GetComponent<SpriteRenderer>();
-        bossShadow.DOFade(0, 1.5f).OnComplete(() => bossShadow.enabled = false);
-    }
 }

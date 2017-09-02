@@ -77,13 +77,12 @@ public class GameCamera : MonoBehaviour
 
     public void SetToHeight(float height)
     {
-        height = Mathf.Clamp(height, minHeight, maxHeight);
-
         if (!canScrollUp)
             height = Mathf.Min(tr.position.y, height);
         if (!canScrollDown)
             height = Mathf.Max(tr.position.y, height);
 
+        height = Mathf.Clamp(height, minHeight, maxHeight);
         tr.position = new Vector3(0, height, distance);
         movedSinceLastFrame = true;
     }

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class JesusV2Vehicle : EnemyVehicle
 {
@@ -30,12 +31,32 @@ public class JesusV2Vehicle : EnemyVehicle
     private float timescaleIncrease;
     private bool damagable = true;
 
-    void Start()
+    protected override void Awake()
     {
+        base.Awake();
         maxHp = hp;
-        hpDisplay = Game.instance.ui.bossHealthBar;
-        hpDisplay.DisplayBoss(displayName);
         timescaleIncrease = 1 + ((finalTimescale - 1) / (maxHp - 1));
+    }
+
+    public void ShowHP()
+    {
+        hpDisplay = Game.instance.ui.bossHealthBar;
+        hpDisplay.Show();
+        hpDisplay.SetBossName(displayName);
+        hpDisplay.SetSliderValue01(hp / (float)maxHp);
+    }
+
+    public void LightenUp()
+    {
+        foreach (SpriteRenderer sprite in spriteRenderers)
+        {
+            sprite.DOColor(Color.white, 1);
+        }
+    }
+
+    private bool IsHPShown()
+    {
+        return Game.instance.ui.bossHealthBar.IsVisible;
     }
 
     public override int Attacked(ColliderInfo on, int amount, Unit unit, ColliderInfo source = null)
@@ -61,8 +82,12 @@ public class JesusV2Vehicle : EnemyVehicle
         if (unit != null && unit is Vehicle)
             (unit as Vehicle).Bump((unit.Position - Position).normalized * bumpForce, -1, BumpMode.VelocityAdd);
 
+
         if (hp > 0)
         {
+            if (!IsHPShown())
+                ShowHP();
+
             //Set boss slider
             hpDisplay.SetSliderValue01(hp / (float)maxHp);
         }
@@ -73,7 +98,7 @@ public class JesusV2Vehicle : EnemyVehicle
                 Die();
 
             //Cache la barre d'hp du boss
-            if (hpDisplay.IsVisible)
+            if (IsHPShown())
                 hpDisplay.Hide();
         }
 

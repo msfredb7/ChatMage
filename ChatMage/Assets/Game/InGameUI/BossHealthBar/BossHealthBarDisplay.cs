@@ -17,14 +17,6 @@ public class BossHealthBarDisplay : MonoBehaviour
             Hide();
     }
 
-    public void DisplayBoss(string bossName)
-    {
-        SetSliderValue01(1);
-        ChangeBossNameText(bossName);
-
-        Show();
-    }
-
     public void SetSliderValue01(float value)
     {
         value = Mathf.Clamp01(value);
@@ -45,7 +37,7 @@ public class BossHealthBarDisplay : MonoBehaviour
         gameObject.SetActive(true);
     }
 
-    public void ChangeBossNameText(string name)
+    public void SetBossName(string name)
     {
         bossName.text = name;
     }
