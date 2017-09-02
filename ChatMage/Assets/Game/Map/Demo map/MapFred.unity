@@ -406,7 +406,8 @@ MonoBehaviour:
   - '{"xMin":465.0,"yMin":328.0,"xMax":615.0,"yMax":338.0}'
   - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]}'
-  - '{"spawnSequence":[],"onSpawnMethod":"","progressCallbacks":[{"moment":{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+  - '{"spawnSequence":[],"useLevelScriptMethod":false,"onSpawnMethod":"","onSpawn":{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"GameEvents.MomentEvent_unit,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]},"progressCallbacks":[{"moment":{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]},"useProgress":false,"atProgress":1.0,"atKillCount":42},{"moment":{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]},"useProgress":true,"atProgress":0.446,"atKillCount":0}]}'
   - '{"logErrorIfUnableToLaunch":true,"spawnTag":null,"filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0}'
@@ -617,29 +618,13 @@ GameObject:
   m_Component:
   - component: {fileID: 340652791}
   - component: {fileID: 340652790}
-  - component: {fileID: 340652789}
-  - component: {fileID: 340652788}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!92 &340652788
-Behaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 340652786}
-  m_Enabled: 1
---- !u!124 &340652789
-Behaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 340652786}
-  m_Enabled: 1
+  m_IsActive: 1
 --- !u!20 &340652790
 Camera:
   m_ObjectHideFlags: 0
@@ -661,7 +646,7 @@ Camera:
   field of view: 54
   orthographic: 1
   orthographic size: 5.4
-  m_Depth: 0
+  m_Depth: -100
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -1695,6 +1680,7 @@ MonoBehaviour:
   positionDisplacers:
   - {fileID: 138933722}
   - {fileID: 189859209}
+  graph: {fileID: 0}
 --- !u!4 &1644651696
 Transform:
   m_ObjectHideFlags: 0
@@ -1750,7 +1736,7 @@ MonoBehaviour:
     x: 258.09998
     y: 108
     width: 150
-    height: 64
+    height: 10
   graph: {fileID: 1644651698}
   onGameStart:
     iEvents:
@@ -2285,8 +2271,6 @@ MonoBehaviour:
   m_Name: Unit Wave
   m_EditorClassIdentifier: 
   _objectReferences:
-  - {fileID: 114923829034378616, guid: 7ec293da9a2e20c4caaa28d716dc5124, type: 2}
-  - {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
   - {fileID: 114031953647070938, guid: dca25e04556fe204da1a495069e8c437, type: 2}
   _serializedStateKeys:
   - windowRect
@@ -2294,17 +2278,18 @@ MonoBehaviour:
   - what
   - where
   _serializedStateValues:
-  - '{"xMin":675.0,"yMin":155.0,"xMax":825.0,"yMax":219.0}'
+  - '{"xMin":675.0,"yMin":155.0,"xMax":825.0,"yMax":165.0}'
   - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]}'
-  - '{"spawnSequence":[{"unit":0,"quantity":1},{"unit":1,"quantity":1},{"unit":2,"quantity":1}],"onSpawnMethod":"MakeSmart","progressCallbacks":[]}'
+  - '{"spawnSequence":[{"unit":0,"quantity":3}],"useLevelScriptMethod":false,"onSpawnMethod":"MakeSmart","onSpawn":{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"GameEvents.MomentEvent_unit,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]},"progressCallbacks":[]}'
   - '{"logErrorIfUnableToLaunch":true,"spawnTag":"ordered","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0}'
   windowRect:
     serializedVersion: 2
     x: 675
     y: 155
     width: 150
-    height: 64
+    height: 10
   graph: {fileID: 1644651698}
   onComplete:
     iEvents: []
