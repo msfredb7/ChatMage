@@ -18,7 +18,7 @@ public class BubbleProjectile : MovingUnit
     public float vfxScaleToUnitWidth;
 
     private Unit doNoHit;
-    private Transform seek;
+    private Unit seek;
 
     void Start()
     {
@@ -53,7 +53,7 @@ public class BubbleProjectile : MovingUnit
         enabled = false;
     }
 
-    public void Init(float dir, Unit doNoHit, Transform seek = null)
+    public void Init(float dir, Unit doNoHit, Unit seek = null)
     {
         transform.rotation = Quaternion.Euler(Vector3.forward * dir);
         Rotation = dir;
@@ -69,9 +69,9 @@ public class BubbleProjectile : MovingUnit
 
         float deltaTime = DeltaTime();
 
-        if(seek != null)
+        if(HasPresence(seek))
         {
-            Vector2 v = (Vector2)seek.position - Position;
+            Vector2 v = seek.Position - Position;
             Rotation = Rotation.MovedTowards(v.ToAngle(), deltaTime * turnSpeed);
 
             UpdateSpeed();
