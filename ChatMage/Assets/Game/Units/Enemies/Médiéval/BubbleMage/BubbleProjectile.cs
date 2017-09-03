@@ -32,7 +32,7 @@ public class BubbleProjectile : MovingUnit
 
         Unit unit = other.parentUnit;
 
-        if (unit != null && unit != doNoHit)
+        if (unit != null && unit != doNoHit && unit is IAttackable)
         {
             if (!unit.HasBuffOfType(typeof(BubbleBuff)))
             {
