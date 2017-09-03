@@ -5,6 +5,7 @@ using UnityEngine;
 using CCC.Manager;
 using FullInspector;
 using FullSerializer;
+using DG.Tweening;
 
 public class SM_Warudo : Smash
 {
@@ -19,9 +20,10 @@ public class SM_Warudo : Smash
     [InspectorHeader("VFX Linking")]
     public Material zaWarudoMat;
     public Shader fishEyeShader;
-    public Shader vignetteShader;
-    public Shader chromAberrationShader;
-    public Shader separableBlurShader;
+    public CanvasGroup vignette;
+    //public Shader vignetteShader;
+    //public Shader chromAberrationShader;
+    //public Shader separableBlurShader;
 
     [fsIgnore, NonSerialized]
     private Coroutine smashCoroutine;
@@ -29,6 +31,8 @@ public class SM_Warudo : Smash
     private Coroutine smashLaunchCoroutine;
     [fsIgnore, NonSerialized]
     private ZaWarudoEffect vfx;
+    [fsIgnore, NonSerialized]
+    private CanvasGroup vignette_instance;
     [fsIgnore, NonSerialized]
     private Action onComplete;
 
@@ -58,9 +62,12 @@ public class SM_Warudo : Smash
         vfx.pauseDurationO = zwv_PauseDurationO;
 
         vfx.fisheye.fishEyeShader = fishEyeShader;
-        vfx.vignette.vignetteShader = vignetteShader;
-        vfx.vignette.chromAberrationShader = chromAberrationShader;
-        vfx.vignette.separableBlurShader = separableBlurShader;
+        //vfx.vignette.vignetteShader = vignetteShader;
+        //vfx.vignette.chromAberrationShader = chromAberrationShader;
+        //vfx.vignette.separableBlurShader = separableBlurShader;
+
+        vignette_instance = Instantiate(vignette.gameObject, Game.instance.ui.stayWithinGameView).GetComponent<CanvasGroup>();
+        vignette_instance.gameObject.SetActive(false);
     }
 
     public override void OnGameReady()
@@ -90,6 +97,12 @@ public class SM_Warudo : Smash
     {
         this.onComplete = onComplete;
 
+        //Vignette
+        vignette_instance.gameObject.SetActive(true);
+        vignette_instance.alpha = 0;
+        vignette_instance.DOFade(1, 1);
+
+        //Shader animation
         vfx.Animate(delegate ()
         {
             if (Game.instance == null)
@@ -126,6 +139,15 @@ public class SM_Warudo : Smash
     {
         if (onComplete != null)
             onComplete();
+
+        //Vignette
+        vignette_instance.DOFade(0, 1).OnComplete(() =>
+        {
+            if (vignette_instance != null)
+                vignette_instance.gameObject.SetActive(false);
+        });
+
+        //Shader animation
         vfx.AnimateBack(delegate ()
         {
             SetTimeScale(1);

@@ -8,6 +8,7 @@ public class BubbleProjectile : MovingUnit
     public float maxTimeAlive = 2;
     public SimpleColliderListener listener;
     public float turnSpeed;
+    public new ParticleSystem particleSystem;
 
     [Header("My VFX")]
     public GameObject core;
@@ -43,7 +44,6 @@ public class BubbleProjectile : MovingUnit
 
     protected override void Die()
     {
-
         if (!isDead)
             Game.instance.events.AddDelayedAction(Destroy, 1.5f);
         base.Die();
@@ -85,6 +85,30 @@ public class BubbleProjectile : MovingUnit
 
     private void UpdateSpeed()
     {
-        Speed = Rotation.ToVector() * speed;
+        Speed = Rotation.ToVector() * speed * TimeScale;
+    }
+
+    public override float TimeScale
+    {
+        get
+        {
+            return base.TimeScale;
+        }
+
+        set
+        {
+            float before = timeScale;
+            base.TimeScale = value;
+
+            float mult = timeScale / before;
+            Speed *= mult;
+
+            var main = particleSystem.main;
+            main.simulationSpeed = timeScale;
+            var rate = particleSystem.emission;
+            rate.rateOverDistanceMultiplier /= mult;
+            var velocity = particleSystem.inheritVelocity;
+            velocity.curveMultiplier /= mult;
+        }
     }
 }

@@ -7,6 +7,7 @@ public class BasicRepeatedAnimator : MonoBehaviour
     public Animator animator;
     int speedHash = Animator.StringToHash("speed");
     int endHash = Animator.StringToHash("end");
+    float timescale = 1;
 
     void Start()
     {
@@ -18,12 +19,20 @@ public class BasicRepeatedAnimator : MonoBehaviour
 
     void UpdateTimescale(float value)
     {
-        animator.SetFloat(speedHash, value);
+        timescale = value;
+        ApplyTimescale();
+    }
+
+    void ApplyTimescale()
+    {
+        if (animator.isActiveAndEnabled)
+            animator.SetFloat(speedHash, timescale);
     }
 
     public void Animate(Vector2 position)
     {
         gameObject.SetActive(true);
+        ApplyTimescale();
         transform.position = position;
     }
 
