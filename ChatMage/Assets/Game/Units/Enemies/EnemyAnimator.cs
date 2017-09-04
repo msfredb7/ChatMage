@@ -20,7 +20,7 @@ public abstract class EnemyAnimator : MonoBehaviour
     protected virtual void Start()
     {
         Vehicle_onTimeScaleChange(Vehicle);
-        Vehicle.onTimeScaleChange += Vehicle_onTimeScaleChange; ;
+        Vehicle.onTimeScaleChange += Vehicle_onTimeScaleChange;
     }
 
     protected void Vehicle_onTimeScaleChange(Unit unit)
@@ -63,5 +63,14 @@ public abstract class EnemyAnimator : MonoBehaviour
             deathCallback();
         }
         deathCallback = null;
+    }
+
+    protected void Flush(ref Action action)
+    {
+        if (action != null)
+        {
+            action();
+        }
+        action = null;
     }
 }

@@ -9,11 +9,11 @@ namespace AI
         public JesusRockV2 myRock;
 
         private Unit target;
+        private bool rockAdded = false;
 
         void Start()
         {
             myRock.PickedUpState(veh);
-            Game.instance.AddExistingUnit(myRock);
 
             AddGoal(new Goal_Wander(veh));
         }
@@ -21,6 +21,8 @@ namespace AI
         protected override void Update()
         {
             base.Update();
+
+            CheckRock();
 
             if(target == null)
             {
@@ -32,6 +34,15 @@ namespace AI
                     attackGoal.onRemoved = (Goal g) => target = null;
                     AddGoal(attackGoal);
                 }
+            }
+        }
+
+        void CheckRock()
+        {
+            if(!rockAdded && Game.instance != null)
+            {
+                Game.instance.AddExistingUnit(myRock, false);
+                rockAdded = true;
             }
         }
     }

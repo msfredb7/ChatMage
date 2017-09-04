@@ -2,10 +2,11 @@ using UnityEngine;
 
 namespace AI
 {
-    public class TrollGoal_RockThrow : BaseGoal_Tween<TrollVehicle>
+    public class TrollGoal_RockThrow : Goal<TrollVehicle>
     {
         private JesusRockV2 myRock;
         private Unit target;
+        private bool lookAtTarget = true;
 
         public TrollGoal_RockThrow(TrollVehicle veh, JesusRockV2 myRock, Unit target) : base(veh)
         {
@@ -15,24 +16,27 @@ namespace AI
 
         public override void Activate()
         {
-            tween = veh.animator.ThrowRockAnimation(ThrowMoment);
+            veh.animator.ThrowRock(ThrowMoment, ForceCompletion);
             veh.Stop();
             base.Activate();
         }
 
         public override Status Process()
         {
+            ActivateIfInactive();
+
             //Look at target
-            if (IsActive() && Unit.HasPresence(target))
+            if (lookAtTarget && IsActive() && Unit.HasPresence(target))
             {
                 veh.TurnToDirection(target.Position - veh.Position, veh.DeltaTime());
             }
 
-            return base.Process();
+            return status;
         }
 
         void ThrowMoment()
         {
+            lookAtTarget = false;
             myRock.flySpeed = veh.throwSpeed * (veh.TimeScale + 1) / 2;
             myRock.ThrownState(veh.WorldDirection2D(), veh);
             myRock.transform.SetParent(Game.instance.unitsContainer, true);

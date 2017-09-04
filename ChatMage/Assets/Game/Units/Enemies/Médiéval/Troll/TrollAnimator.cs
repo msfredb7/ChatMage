@@ -79,9 +79,4 @@ public class TrollAnimator : MonoBehaviour
 
         return sq;
     }
-
-    public Tween ScreamAnimation()
-    {
-        return null;
-    }
 }
