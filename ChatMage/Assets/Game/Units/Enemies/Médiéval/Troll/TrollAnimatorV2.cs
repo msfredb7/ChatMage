@@ -6,6 +6,7 @@ using UnityEngine;
 public class TrollAnimatorV2 : EnemyAnimator
 {
     public TrollVehicle veh;
+    public float stompShake = 0.2f;
 
     private Action pickUpMoment;
     private Action pickUpCallback;
@@ -53,5 +54,9 @@ public class TrollAnimatorV2 : EnemyAnimator
     {
         Flush(ref throwMoment);
         controller.SetBool(hasRockHash, false);
+    }
+    private void _Stomp()
+    {
+        Game.instance.gameCamera.vectorShaker.Shake(stompShake);
     }
 }
