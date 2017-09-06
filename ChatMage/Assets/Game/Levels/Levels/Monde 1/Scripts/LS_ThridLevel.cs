@@ -114,33 +114,34 @@ public class LS_ThridLevel : LevelScript
         float xLength = minX.Abs() * 2;
 
         //Compter le nombre de units inactive dans le buffer
-        for (int i = 0; i < enemyBuffer.Count; i++)
-        {
-            if (enemyBuffer[i] == null || enemyBuffer[i].IsDead)
-                continue;
-
-            enemyBuffer[i].onDeath -= RemoveFromBuffer;
-
-            if (enemyBuffer[i].gameObject.activeSelf)
+        if (enemyBuffer != null)
+            for (int i = 0; i < enemyBuffer.Count; i++)
             {
-                //L'enemie est actif, il est donc proche du joueur.
-                // + On le raproche du joueur
+                if (enemyBuffer[i] == null || enemyBuffer[i].IsDead)
+                    continue;
 
-                float delta = minY - enemyBuffer[i].Position.y;
-                if (delta > 0)
+                enemyBuffer[i].onDeath -= RemoveFromBuffer;
+
+                if (enemyBuffer[i].gameObject.activeSelf)
                 {
-                    float x = ((7.5f * ambushCount) % xLength) + minX;
-                    float y = enemyBuffer[i].Position.y + delta*0.75f;
-                    enemyBuffer[i].TeleportPosition(new Vector2(x, y));
+                    //L'enemie est actif, il est donc proche du joueur.
+                    // + On le raproche du joueur
+
+                    float delta = minY - enemyBuffer[i].Position.y;
+                    if (delta > 0)
+                    {
+                        float x = ((7.5f * ambushCount) % xLength) + minX;
+                        float y = enemyBuffer[i].Position.y + delta * 0.75f;
+                        enemyBuffer[i].TeleportPosition(new Vector2(x, y));
+                    }
+                    ambushCount++;
                 }
-                ambushCount++;
+                else
+                {
+                    //L'ennemie est inactif, on le tue.
+                    enemyBuffer[i].ForceDie();
+                }
             }
-            else
-            {
-                //L'ennemie est inactif, on le tue.
-                enemyBuffer[i].ForceDie();
-            }
-        }
 
         //Le nombre de unit qu'on va spawn dans la wave sous l'�cran
         int actualWaveCount = (plannedWaveCount - ambushCount).Floored(0);
