@@ -20,7 +20,7 @@ public abstract class EnemyAnimator : MonoBehaviour
     protected virtual void Start()
     {
         Vehicle_onTimeScaleChange(Vehicle);
-        Vehicle.onTimeScaleChange += Vehicle_onTimeScaleChange; ;
+        Vehicle.onTimeScaleChange += Vehicle_onTimeScaleChange;
     }
 
     protected void Vehicle_onTimeScaleChange(Unit unit)
@@ -50,7 +50,10 @@ public abstract class EnemyAnimator : MonoBehaviour
     public virtual void DeathAnimation(Action onComplete)
     {
         deathCallback = onComplete;
-        controller.SetTrigger(deadHash);
+        if (controller.isActiveAndEnabled)
+            controller.SetTrigger(deadHash);
+        else
+            _DeathComplete();
     }
 
     protected virtual void _DeathComplete()
@@ -60,5 +63,14 @@ public abstract class EnemyAnimator : MonoBehaviour
             deathCallback();
         }
         deathCallback = null;
+    }
+
+    protected void Flush(ref Action action)
+    {
+        if (action != null)
+        {
+            action();
+        }
+        action = null;
     }
 }

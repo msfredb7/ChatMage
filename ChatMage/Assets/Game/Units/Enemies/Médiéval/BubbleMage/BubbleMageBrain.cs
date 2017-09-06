@@ -70,7 +70,7 @@ namespace AI
         {
             shootCooldownRemains = shootCooldown;
             Game.instance.SpawnUnit(projectilePrefab, shootEmitter.position)
-                .Init(veh.Rotation, veh, friendTarget != null ? friendTarget.transform : null);
+                .Init(veh.Rotation, veh, friendTarget != null ? friendTarget : null);
 
             shootCooldownRemains = shootCooldown;
         }

@@ -23,6 +23,12 @@ public abstract class EnemyVehicle : Vehicle, IAttackable
 
     public bool IsEnginOn { get { return currentMoveSpeed > 0; } }
 
+    protected override void Awake()
+    {
+        base.Awake();
+        EngineOff();
+    }
+
 
     #region Public Move Methods
     public void Stop()

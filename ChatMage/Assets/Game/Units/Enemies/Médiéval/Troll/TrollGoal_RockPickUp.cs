@@ -1,8 +1,9 @@
+using System;
 using UnityEngine;
 
 namespace AI
 {
-    public class TrollGoal_RockPickUp : BaseGoal_Tween<TrollVehicle>
+    public class TrollGoal_RockPickUp : Goal<TrollVehicle>
     {
         private JesusRockV2 myRock;
 
@@ -13,7 +14,7 @@ namespace AI
 
         public override void Activate()
         {
-            tween = veh.animator.PickUpRockAnimation(PickUpMoment);
+            veh.animator.PickUpRock(PickUpMoment, ForceCompletion);
             veh.Stop();
             base.Activate();
         }
@@ -40,6 +41,13 @@ namespace AI
             }
 
             base.ForceFailure();
+        }
+
+        public override Status Process()
+        {
+            ActivateIfInactive();
+
+            return status;
         }
     }
 }

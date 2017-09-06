@@ -6,7 +6,7 @@ using UnityStandardAssets.ImageEffects;
 using DG.Tweening;
 using System;
 
-[ExecuteInEditMode, RequireComponent(typeof(VignetteAndChromaticAberration), typeof(Fisheye))]
+[ExecuteInEditMode, RequireComponent(/*typeof(VignetteAndChromaticAberration),*/ typeof(Fisheye))]
 public class ZaWarudoEffect : MonoBehaviour
 {
     public Material material;
@@ -23,19 +23,19 @@ public class ZaWarudoEffect : MonoBehaviour
     public float pauseDurationO = 1.5f;
 
     public Fisheye fisheye;
-    public VignetteAndChromaticAberration vignette;
+    //public VignetteAndChromaticAberration vignette;
     private Tween tween;
 
     protected void Awake()
     {
         fisheye = GetComponent<Fisheye>();
-        vignette = GetComponent<VignetteAndChromaticAberration>();
+        //vignette = GetComponent<VignetteAndChromaticAberration>();
 
-        vignette.chromaticAberration = 0;
-        vignette.blur = 0;
+        //vignette.chromaticAberration = 0;
+        //vignette.blur = 0;
 
         fisheye.enabled = false;
-        vignette.enabled = false;
+        //vignette.enabled = false;
         enabled = false;
     }
 
@@ -63,8 +63,8 @@ public class ZaWarudoEffect : MonoBehaviour
         fisheye.strengthX = 0;
         fisheye.strengthY = 0;
 
-        vignette.enabled = true;
-        vignette.intensity = 0;
+        //vignette.enabled = true;
+        //vignette.intensity = 0;
 
         float outerRayon = 0.0001f;
         float innerRayon = 0.0001f;
@@ -143,16 +143,16 @@ public class ZaWarudoEffect : MonoBehaviour
 
 
         //Vignette in
-        sq.Insert(appearDurationI,
-            DOTween.To(
-            () => vignette.intensity, //Getter
-            delegate (float x)                    //Setter
-            {
-                vignette.intensity = x;
-            },
-            0.2f, //End Value
-            pauseDurationI) //Duration
-        .SetEase(Ease.Linear));
+        //sq.Insert(appearDurationI,
+        //    DOTween.To(
+        //    () => vignette.intensity, //Getter
+        //    delegate (float x)                    //Setter
+        //    {
+        //        vignette.intensity = x;
+        //    },
+        //    0.2f, //End Value
+        //    pauseDurationI) //Duration
+        //.SetEase(Ease.Linear));
 
     }
 
@@ -240,20 +240,20 @@ public class ZaWarudoEffect : MonoBehaviour
 
 
         //Vignette out
-        sq.Insert(appearDurationO,
-            DOTween.To(
-            () => vignette.intensity, //Getter
-            delegate (float x)                    //Setter
-            {
-                vignette.intensity = x;
-            },
-            0, //End Value
-            pauseDurationO) //Duration
-        .SetEase(Ease.Linear));
+        //sq.Insert(appearDurationO,
+        //    DOTween.To(
+        //    () => vignette.intensity, //Getter
+        //    delegate (float x)                    //Setter
+        //    {
+        //        vignette.intensity = x;
+        //    },
+        //    0, //End Value
+        //    pauseDurationO) //Duration
+        //.SetEase(Ease.Linear));
 
         sq.OnComplete(delegate ()
         {
-            vignette.enabled = false;
+            //vignette.enabled = false;
             fisheye.enabled = false;
             enabled = false;
         });

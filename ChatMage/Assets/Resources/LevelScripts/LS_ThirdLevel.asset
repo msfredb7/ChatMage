@@ -17,37 +17,24 @@ MonoBehaviour:
   - {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
   - {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
   - {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
-  - {fileID: 114917152140949164, guid: 90a1293e412776e4db23eb9595fcf924, type: 2}
   - {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
-  - {fileID: 114917152140949164, guid: 90a1293e412776e4db23eb9595fcf924, type: 2}
-  - {fileID: 114066475894699088, guid: 2919f287fa3748f4789d717934dd68b7, type: 2}
   _serializedStateKeys:
   - winningConditions
   - losingConditions
   - events
   - waves
   - rewards
+  - waveOne_sequence
+  - waveTwo_sequence
   _serializedStateValues:
   - '[]'
   - '[{"$type":"GameCondition.LoseOnPlayerDeath"}]'
   - 
-  - '[{"what":{"spawnSequence":[{"unit":0,"quantity":6}],"onSpawnMethod":"","progressCallbacks":[]},"infiniteRepeat":false,"pauseBetweenRepeat":0.0,"where":{"logErrorIfUnableToLaunch":true,"spawnTag":"ordered
-    road 1","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0},"when":{"type":"OnManualTrigger","time":0.0,"name":"road
-    ambush 1","onlyTriggerOnce":false},"spawnInterval":0.0,"preLaunchDialog":null},{"what":{"spawnSequence":[{"unit":1,"quantity":6}],"onSpawnMethod":"","progressCallbacks":[]},"infiniteRepeat":false,"pauseBetweenRepeat":0.0,"where":{"logErrorIfUnableToLaunch":true,"spawnTag":"ordered
-    road 2","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0},"when":{"type":"OnManualTrigger","time":0.0,"name":"road
-    ambush 2","onlyTriggerOnce":false},"spawnInterval":0.0,"preLaunchDialog":null},{"what":{"spawnSequence":[{"unit":2,"quantity":6}],"onSpawnMethod":"","progressCallbacks":[]},"infiniteRepeat":false,"pauseBetweenRepeat":0.0,"where":{"logErrorIfUnableToLaunch":true,"spawnTag":"ordered
-    road 3","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0},"when":{"type":"OnManualTrigger","time":0.0,"name":"road
-    ambush 3","onlyTriggerOnce":false},"spawnInterval":0.0,"preLaunchDialog":null},{"what":{"spawnSequence":[{"unit":3,"quantity":6}],"onSpawnMethod":"","progressCallbacks":[]},"infiniteRepeat":false,"pauseBetweenRepeat":0.0,"where":{"logErrorIfUnableToLaunch":true,"spawnTag":"ordered
-    road 4","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0},"when":{"type":"OnManualTrigger","time":0.0,"name":"road
-    ambush 4","onlyTriggerOnce":false},"spawnInterval":0.0,"preLaunchDialog":null},{"what":{"spawnSequence":[{"unit":4,"quantity":2},{"unit":5,"quantity":2}],"onSpawnMethod":"","progressCallbacks":[]},"infiniteRepeat":false,"pauseBetweenRepeat":0.0,"where":{"logErrorIfUnableToLaunch":true,"spawnTag":"random
-    around 1","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0},"when":{"type":"OnManualTrigger","time":0.0,"name":"1st
-    wave","onlyTriggerOnce":true},"spawnInterval":1.5,"preLaunchDialog":null},{"what":{"spawnSequence":[{"unit":6,"quantity":2},{"unit":7,"quantity":2}],"onSpawnMethod":"","progressCallbacks":[]},"infiniteRepeat":false,"pauseBetweenRepeat":0.0,"where":{"logErrorIfUnableToLaunch":true,"spawnTag":"random
-    around 2","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0},"when":{"type":"OnManualTrigger","time":0.0,"name":"2nd
-    wave","onlyTriggerOnce":false},"spawnInterval":1.5,"preLaunchDialog":null},{"what":{"spawnSequence":[{"unit":8,"quantity":1}],"onSpawnMethod":"","progressCallbacks":[{"levelEventName":"jesus
-    dead","atProgress":1.0,"atKillCount":0,"useProgress":true}]},"infiniteRepeat":false,"pauseBetweenRepeat":0.0,"where":{"logErrorIfUnableToLaunch":true,"spawnTag":"jesus
-    spawn","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0},"when":{"type":"OnManualTrigger","time":0.0,"name":"jesus","onlyTriggerOnce":true},"spawnInterval":1.0,"preLaunchDialog":null}]'
+  - '[]'
   - '{"overrideGoldAmount":false,"goldReward":null,"giveLootBox":true,"lootboxRefName":"First
     Items","goldified":false}'
+  - '[0,1,2]'
+  - '[3,4,5]'
   sceneName: RomanArena3
   introPrefab: {fileID: 114690852151089258, guid: 56b8379faad364644b69bd2f4acbd4ce,
     type: 2}
@@ -57,8 +44,23 @@ MonoBehaviour:
     type: 2}
   noHealthPacks: 0
   followPlayerOnStart: 1
-  smashEnable: 0
   useCustomGenericEvents: 0
   events: []
   activateTutorial: 0
   tutorialAssetName: 
+  waveOne_armyWallBefore: 1
+  waveOne_prespawnedTag: inter 1
+  waveOne_sequence:
+  - {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
+  - {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
+  - {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
+  waveOne_interval: 0.25
+  waveOne_spawnTag: inter 1
+  waveTwo_armyWallBefore: 2
+  waveTwo_prespawnedTag: inter 2
+  waveTwo_sequence:
+  - {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
+  - {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
+  - {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
+  waveTwo_interval: 0.25
+  waveTwo_spawnTag: inter 2

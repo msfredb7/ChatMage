@@ -14,20 +14,26 @@ public class TrollVehicle : EnemyVehicle
 
     [Header("Linking")]
     public new Collider2D collider;
-    public TrollAnimator animator;
+    public TrollAnimatorV2 animator;
     public Transform rockTransporter;
 
     [Header("Throw")]
     public float throwSpeed;
 
     [Header("Visuals")]
+    public Color flashColor = Color.red;
+    public Color lowHPColor = Color.red;
     public SpriteRenderer[] spriteRenderers;
 
     private bool damagable = true;
     private float timescaleIncrease;
+    private int startHP;
 
-    void Start()
+    protected override void Awake()
     {
+        base.Awake();
+
+        startHP = hp;
         timescaleIncrease = 1 + ((finalTimescale - 1) / (hp - 1));
     }
 
@@ -48,7 +54,8 @@ public class TrollVehicle : EnemyVehicle
 
         //Flashs animation
         damagable = false;
-        FlashAnimation.FlashColor(this, spriteRenderers, invulnurableDuration, Color.red, () => damagable = true);
+        UpdateVisuals();
+        FlashAnimation.FlashColor(this, spriteRenderers, invulnurableDuration, flashColor, () => damagable = true);
 
         //Bump unit
         if (unit is Vehicle)
@@ -63,6 +70,15 @@ public class TrollVehicle : EnemyVehicle
         }
 
         return hp;
+    }
+
+    private void UpdateVisuals()
+    {
+        Color c = Color.Lerp(lowHPColor, Color.white, (hp - 1f) / (startHP - 1f));
+        for (int i = 0; i < spriteRenderers.Length; i++)
+        {
+            spriteRenderers[i].color = c;
+        }
     }
 
     protected override void Die()

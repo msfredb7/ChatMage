@@ -47,6 +47,15 @@ public static class VectorExtensions
         return new Vector2(v.x, -v.y);
     }
 
+    public static Vector2 MovedTowards(this Vector2 v, Vector2 target, float maxDistanceDelta)
+    {
+        return Vector2.MoveTowards(v, target, maxDistanceDelta);
+    }
+    public static Vector3 MovedTowards(this Vector3 v, Vector3 target, float maxDistanceDelta)
+    {
+        return Vector3.MoveTowards(v, target, maxDistanceDelta);
+    }
+
     /// <summary>
     /// Multiplie les parametre par ceux du 'scale'
     /// </summary>

@@ -60,11 +60,12 @@ public class BlueShellVehicle : Vehicle
         turnSpeed = 0;
         chooseNewTurnAcc = 0;
         isDead = false;
+        canMove.Unlock("exl");
 
         animator.ResetValues();
     }
 
-    protected override  void Update()
+    protected override void Update()
     {
         if (wandering && wanderingRemains < 0)
             wandering = false;
@@ -83,17 +84,17 @@ public class BlueShellVehicle : Vehicle
         else
         {
             //If target is null, find new one
-            if (target == null)
+            if (!Unit.HasPresence(target))
+            {
                 target = FindClosestTargetTo(transform.position);
-
-            if (target != null)
+                Wander(FixedDeltaTime());
+            }
+            else
             {
                 Rotation = Mathf.MoveTowardsAngle(Rotation,
                     VectorToAngle(target.Position - Position),
                     maxTurnSpeed * FixedDeltaTime());
             }
-            else
-                Wander(FixedDeltaTime());
         }
     }
 
@@ -164,13 +165,14 @@ public class BlueShellVehicle : Vehicle
                 smallestDistance = distance;
             }
         }
-        
+
         return closestUnit;
     }
 
     private void ColliderListener_onTriggerEnter(ColliderInfo other, ColliderListener listener)
     {
-        Die();
+        if (!isDead)
+            Die();
     }
 
     protected override void Die()

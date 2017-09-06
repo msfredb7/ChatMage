@@ -12,6 +12,7 @@ namespace AI
             veh = GetComponent<T>();
             if (veh == null)
                 throw new System.Exception("Could not find vehicle of type: " + typeof(T).ToString());
+            veh.Stop();
         }
     }
     public class EnemyBrainV2 : MonoBehaviour

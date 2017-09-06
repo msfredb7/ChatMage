@@ -132,11 +132,13 @@ public class Framework : MonoBehaviour
 
     void OnAllModulesLoaded()
     {
+        game.map = map;
+        game.ui = uiSystem;
+
         //Spawn Character
         PlayerController player = playerbuilder.BuildPlayer();
 
         //Game Init
-        game.map = map;
         game.Init(levelScript,this, player);
 
         //Init map
@@ -144,7 +146,6 @@ public class Framework : MonoBehaviour
 
         // UI Init
         uiSystem.Init(player);
-        game.ui = uiSystem;
 
         //Game ready
         game.ReadyGame();

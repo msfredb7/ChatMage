@@ -127,6 +127,14 @@ public class Mapping : BaseBehavior
 
     #region Public
 
+    public List<TaggedObject> GetTaggedObjects_NewList(string tag)
+    {
+        List<TaggedObject> list = GetTaggedObjectsListByTag(tag);
+        if (list != null)
+            return new List<TaggedObject>(GetTaggedObjectsListByTag(tag));
+        else
+            return new List<TaggedObject>();
+    }
     public List<TaggedObject> GetTaggedObjects(string tag)
     {
         List<TaggedObject> list = GetTaggedObjectsListByTag(tag);

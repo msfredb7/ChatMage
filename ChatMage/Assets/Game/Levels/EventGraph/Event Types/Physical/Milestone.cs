@@ -186,7 +186,38 @@ public class Milestone : FIPhysicalEvent, IEvent
 
         if (useCadre)
         {
-
+            float hh = GameCamera.DEFAULT_SCREEN_HEIGHT / 2;
+            float hw = GameCamera.DEFAULT_SCREEN_WIDTH / 2;
+            float yCenter = transform.position.y + (triggerOn == TriggerType.BottomOfScreen ? hh : -hh);
+            Gizmos.color = new Color(0, 0.5f, 1, 1);
+            if (_topSide.enabled)
+            {
+                float xL = -hw + _leftSide.padding;
+                float xR = hw - _rightSide.padding;
+                float y = hh - _topSide.padding + yCenter;
+                Gizmos.DrawLine(new Vector3(xL, y, 0), new Vector3(xR, y, 0));
+            }
+            if (_bottomSide.enabled)
+            {
+                float xL = -hw + _leftSide.padding;
+                float xR = hw - _rightSide.padding;
+                float y = -hh + _bottomSide.padding + yCenter;
+                Gizmos.DrawLine(new Vector3(xL, y, 0), new Vector3(xR, y, 0));
+            }
+            if (_rightSide.enabled)
+            {
+                float x = hw - _rightSide.padding;
+                float yB = -hh + _bottomSide.padding + yCenter;
+                float yT = hh - _topSide.padding + yCenter;
+                Gizmos.DrawLine(new Vector3(x, yT, 0), new Vector3(x, yB, 0));
+            }
+            if (_leftSide.enabled)
+            {
+                float x = -hw + _leftSide.padding;
+                float yB = - hh + _bottomSide.padding + yCenter;
+                float yT = hh - _topSide.padding + yCenter;
+                Gizmos.DrawLine(new Vector3(x, yT, 0), new Vector3(x, yB, 0));
+            }
         }
     }
 

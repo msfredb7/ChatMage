@@ -12,6 +12,8 @@ public class JesusRockV2 : MovingUnit
     public float onHitShakeStrength = 0.7f;
     [Forward]
     public Targets targets;
+    public bool recenterOverTime = false;
+    public float recenterSpeed = 0.25f;
 
     private bool isFlying = false;
     public bool IsFlying { get { return isFlying; } }
@@ -20,10 +22,15 @@ public class JesusRockV2 : MovingUnit
     private Unit cannotHit = null;
     private Unit inTheHandsOf;
 
-    public void PickedUpState(Unit holder = null)
+    protected override void Awake()
+    {
+        base.Awake();
+    }
+
+    public void PickedUpState(Unit holder)
     {
         inTheHandsOf = holder;
-        gameObject.layer = Layers.SOLID_ENEMIES;
+        gameObject.layer = Layers.NO_COLLISION;
         rb.simulated = false;
         isFlying = false;
         Speed = Vector2.zero;
@@ -36,6 +43,7 @@ public class JesusRockV2 : MovingUnit
         gameObject.layer = Layers.PROJECTILE;
         rb.simulated = true;
         Speed = direction.normalized * flySpeed;
+        tr.position += (Vector3)Speed * FixedDeltaTime();
         collider.enabled = true;
         isFlying = true;
         rb.drag = 0;
@@ -72,7 +80,7 @@ public class JesusRockV2 : MovingUnit
             if (other != null)
             {
                 Unit unit = other.parentUnit;
-                
+
                 //Est-ce une autre roche ? Si oui, on fait la bump (on la throw en fait)
                 if (unit is JesusRockV2)
                 {
@@ -92,8 +100,18 @@ public class JesusRockV2 : MovingUnit
 
             StoppedState();
         }
-        
+
 
         cannotHit = null;
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+
+        if (inTheHandsOf != null && recenterOverTime)
+        {
+            tr.localPosition = tr.localPosition.MovedTowards(Vector3.zero, DeltaTime() * recenterSpeed);
+        }
     }
 }

@@ -8,6 +8,7 @@ public class BubbleProjectile : MovingUnit
     public float maxTimeAlive = 2;
     public SimpleColliderListener listener;
     public float turnSpeed;
+    public new ParticleSystem particleSystem;
 
     [Header("My VFX")]
     public GameObject core;
@@ -17,7 +18,7 @@ public class BubbleProjectile : MovingUnit
     public float vfxScaleToUnitWidth;
 
     private Unit doNoHit;
-    private Transform seek;
+    private Unit seek;
 
     void Start()
     {
@@ -31,7 +32,7 @@ public class BubbleProjectile : MovingUnit
 
         Unit unit = other.parentUnit;
 
-        if (unit != null && unit != doNoHit)
+        if (unit != null && unit != doNoHit && unit is IAttackable)
         {
             if (!unit.HasBuffOfType(typeof(BubbleBuff)))
             {
@@ -43,7 +44,6 @@ public class BubbleProjectile : MovingUnit
 
     protected override void Die()
     {
-
         if (!isDead)
             Game.instance.events.AddDelayedAction(Destroy, 1.5f);
         base.Die();
@@ -53,7 +53,7 @@ public class BubbleProjectile : MovingUnit
         enabled = false;
     }
 
-    public void Init(float dir, Unit doNoHit, Transform seek = null)
+    public void Init(float dir, Unit doNoHit, Unit seek = null)
     {
         transform.rotation = Quaternion.Euler(Vector3.forward * dir);
         Rotation = dir;
@@ -69,9 +69,9 @@ public class BubbleProjectile : MovingUnit
 
         float deltaTime = DeltaTime();
 
-        if(seek != null)
+        if(HasPresence(seek))
         {
-            Vector2 v = (Vector2)seek.position - Position;
+            Vector2 v = seek.Position - Position;
             Rotation = Rotation.MovedTowards(v.ToAngle(), deltaTime * turnSpeed);
 
             UpdateSpeed();
@@ -85,6 +85,30 @@ public class BubbleProjectile : MovingUnit
 
     private void UpdateSpeed()
     {
-        Speed = Rotation.ToVector() * speed;
+        Speed = Rotation.ToVector() * speed * TimeScale;
+    }
+
+    public override float TimeScale
+    {
+        get
+        {
+            return base.TimeScale;
+        }
+
+        set
+        {
+            float before = timeScale;
+            base.TimeScale = value;
+
+            float mult = timeScale / before;
+            Speed *= mult;
+
+            var main = particleSystem.main;
+            main.simulationSpeed = timeScale;
+            var rate = particleSystem.emission;
+            rate.rateOverDistanceMultiplier /= mult;
+            var velocity = particleSystem.inheritVelocity;
+            velocity.curveMultiplier /= mult;
+        }
     }
 }

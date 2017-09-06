@@ -204,16 +204,17 @@ namespace GameEvents
                 i++;
             }
 
-            for (int u=0; u < what.progressCallbacks.Length; u++)
-            {
-                _WaveWhat.Callback callback = what.progressCallbacks[u];
-                moments[i] = callback.moment;
-                if (callback.useProgress)
-                    names[i] = "at " + Mathf.RoundToInt(callback.atProgress * 100) + "%";
-                else
-                    names[i] = "at " + callback.atKillCount + " kills";
-                i++;
-            }
+            if (what != null)
+                for (int u = 0; u < what.progressCallbacks.Length; u++)
+                {
+                    _WaveWhat.Callback callback = what.progressCallbacks[u];
+                    moments[i] = callback.moment;
+                    if (callback.useProgress)
+                        names[i] = "at " + Mathf.RoundToInt(callback.atProgress * 100) + "%";
+                    else
+                        names[i] = "at " + callback.atKillCount + " kills";
+                    i++;
+                }
         }
 
         public override string NodeLabel()
