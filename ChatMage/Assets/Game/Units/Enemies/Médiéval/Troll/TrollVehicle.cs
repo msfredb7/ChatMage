@@ -66,7 +66,11 @@ public class TrollVehicle : EnemyVehicle
         {
             //Dead !
             if (!isDead)
+            {
+                if (unit != null)
+                    tr.rotation = Quaternion.Euler(Vector3.forward * ((Position - unit.Position).ToAngle() - 180));
                 Die();
+            }
         }
 
         return hp;
@@ -74,7 +78,7 @@ public class TrollVehicle : EnemyVehicle
 
     private void UpdateVisuals()
     {
-        Color c = Color.Lerp(lowHPColor, Color.white, (hp - 1f) / (startHP - 1f));
+        Color c = Color.Lerp(lowHPColor, Color.white, ((hp - 1f).Floored(0)) / (startHP - 1f));
         for (int i = 0; i < spriteRenderers.Length; i++)
         {
             spriteRenderers[i].color = c;
@@ -83,11 +87,16 @@ public class TrollVehicle : EnemyVehicle
 
     protected override void Die()
     {
+        if (!IsDead)
+        {
+            canMove.Lock("dead");
+            canTurn.Lock("dead");
+            GetComponent<AI.EnemyBrainV2>().enabled = false;
+            animator.DeathAnimation(Destroy);
+        }
+
         base.Die();
 
         collider.enabled = false;
-
-        //Death anim
-        Destroy();
     }
 }
