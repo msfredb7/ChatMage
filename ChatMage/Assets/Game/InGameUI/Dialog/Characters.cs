@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,10 @@ namespace Dialoguing
         public Image leftImage;
         public Image rightImage;
 
+        // Shaking
+        public VectorShaker leftVectorShaker;
+        public VectorShaker rightVectorShaker;
+
         private Vector2 stdLeftOffset;
         private Vector2 stdRightOffset;
         private bool leftOffsetSet = false;
@@ -19,6 +24,10 @@ namespace Dialoguing
         {
             stdLeftOffset = leftImage.rectTransform.anchoredPosition;
             stdRightOffset = rightImage.rectTransform.anchoredPosition;
+
+            // Init Shaking
+            leftVectorShaker = leftImage.GetComponent<VectorShaker>();
+            rightVectorShaker = rightImage.GetComponent<VectorShaker>();
 
             HideBoth();
         }
@@ -98,6 +107,16 @@ namespace Dialoguing
         {
             rightOffsetSet = false;
             rightImage.rectTransform.anchoredPosition = stdRightOffset;
+        }
+
+        public void SetLeftCharacterShake(float strength, float duration)
+        {
+            leftVectorShaker.Shake(strength, duration);
+        }
+
+        public void SetRightCharacterShaker(float strength, float duration)
+        {
+            rightVectorShaker.Shake(strength, duration);
         }
     }
 }

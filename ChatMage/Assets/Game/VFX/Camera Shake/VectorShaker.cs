@@ -6,6 +6,7 @@ using UnityEngine;
 public class VectorShaker : MonoBehaviour
 {
     [Header("Shake")]
+    public bool unscaledTime = false;
     public float max = 1.2f;
     public float speed = 7;
     public float quitDuration = 0.25f;
@@ -36,6 +37,8 @@ public class VectorShaker : MonoBehaviour
 
     void Update()
     {
+        float deltaTime = unscaledTime ? Time.unscaledDeltaTime : Time.deltaTime;
+
         if (hitDelta.sqrMagnitude > 0)
         {
             hitDelta = Vector2.Lerp(hitDelta, Vector2.zero, FixedLerp.Fix(hitQuitSpeed));
@@ -52,7 +55,7 @@ public class VectorShaker : MonoBehaviour
         }
         else
         {
-            float speedMoveSpeed = (speed / quitDuration) * Time.deltaTime;
+            float speedMoveSpeed = (speed / quitDuration) * deltaTime;
 
             float strengthMoveSpeed = float.PositiveInfinity;
             float deltaSpeed = Math.Abs(targetSpeed - currentSpeed);
@@ -76,8 +79,8 @@ public class VectorShaker : MonoBehaviour
             shakeDelta = Vector2.zero;
         }
 
-        time += Time.deltaTime * currentSpeed;
-        UpdateTimedShakers(Time.deltaTime);
+        time += deltaTime * currentSpeed;
+        UpdateTimedShakers(deltaTime);
     }
 
     private void UpdateTimedShakers(float deltaTime)

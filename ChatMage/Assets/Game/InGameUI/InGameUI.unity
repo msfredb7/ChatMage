@@ -239,7 +239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ebb0894d9c341046aa5e3855778e87b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultLevelScript: LS_2_Bonus1
+  defaultLevelScript: LS_fredLevelScript
 --- !u!1 &125870569
 GameObject:
   m_ObjectHideFlags: 0
@@ -1867,6 +1867,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftImage: {fileID: 2076946378}
   rightImage: {fileID: 1996212761}
+  leftVectorShaker: {fileID: 2076946380}
+  rightVectorShaker: {fileID: 1996212763}
 --- !u!1 &1050752951
 GameObject:
   m_ObjectHideFlags: 0
@@ -2988,6 +2990,8 @@ GameObject:
   - component: {fileID: 1996212760}
   - component: {fileID: 1996212762}
   - component: {fileID: 1996212761}
+  - component: {fileID: 1996212763}
+  - component: {fileID: 1996212764}
   m_Layer: 5
   m_Name: Right Image
   m_TagString: Untagged
@@ -3046,6 +3050,35 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1996212759}
+--- !u!114 &1996212763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1996212759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eed73e3c20082994e9913d78ab691dae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unscaledTime: 1
+  max: 100
+  speed: 7
+  quitDuration: 0.25
+  hitQuitSpeed: 0.1
+--- !u!114 &1996212764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1996212759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 088ccd1c93d61e148b4df803f608d6fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shaker: {fileID: 1996212763}
+  anchor: {x: 600, y: 340}
 --- !u!1 &2039295583
 GameObject:
   m_ObjectHideFlags: 0
@@ -3144,6 +3177,8 @@ GameObject:
   - component: {fileID: 2076946377}
   - component: {fileID: 2076946379}
   - component: {fileID: 2076946378}
+  - component: {fileID: 2076946380}
+  - component: {fileID: 2076946381}
   m_Layer: 5
   m_Name: Left Image
   m_TagString: Untagged
@@ -3202,6 +3237,35 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2076946376}
+--- !u!114 &2076946380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2076946376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eed73e3c20082994e9913d78ab691dae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unscaledTime: 1
+  max: 100
+  speed: 7
+  quitDuration: 0.25
+  hitQuitSpeed: 0.1
+--- !u!114 &2076946381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2076946376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 088ccd1c93d61e148b4df803f608d6fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shaker: {fileID: 2076946380}
+  anchor: {x: -600, y: 340}
 --- !u!1 &2079276133
 GameObject:
   m_ObjectHideFlags: 0

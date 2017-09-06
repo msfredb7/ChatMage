@@ -1245,6 +1245,30 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7ec293da9a2e20c4caaa28d716dc5124, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &1006363091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bde49ba600c8a8548a8851471ba9cd42, type: 3}
+  m_Name: Dialog
+  m_EditorClassIdentifier: 
+  windowRect:
+    serializedVersion: 2
+    x: 497
+    y: 306
+    width: 150
+    height: 43
+  graph: {fileID: 1644651698}
+  dialog: {fileID: 11400000, guid: a05d024402e0b3a4aa6fb73bf4935fd6, type: 2}
+  onComplete:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!1 &1052540836
 GameObject:
   m_ObjectHideFlags: 0
@@ -1766,6 +1790,7 @@ MonoBehaviour:
   events:
   - {fileID: 1644651699}
   - {fileID: 1934595440}
+  - {fileID: 1006363091}
 --- !u!114 &1644651699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1782,11 +1807,11 @@ MonoBehaviour:
     x: 258.09998
     y: 108
     width: 150
-    height: 10
+    height: 64
   graph: {fileID: 1644651698}
   onGameStart:
     iEvents:
-    - {fileID: 1934595440}
+    - {fileID: 1006363091}
     unityEvent:
       m_PersistentCalls:
         m_Calls: []
@@ -2324,7 +2349,7 @@ MonoBehaviour:
   - what
   - where
   _serializedStateValues:
-  - '{"xMin":675.0,"yMin":155.0,"xMax":825.0,"yMax":165.0}'
+  - '{"xMin":675.0,"yMin":155.0,"xMax":825.0,"yMax":219.0}'
   - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]}'
   - '{"spawnSequence":[{"unit":0,"quantity":1}],"useLevelScriptMethod":true,"onSpawnMethod":"MakeSmart","onSpawn":{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"GameEvents.MomentEvent_unit,
@@ -2335,7 +2360,7 @@ MonoBehaviour:
     x: 675
     y: 155
     width: 150
-    height: 10
+    height: 64
   graph: {fileID: 1644651698}
   onComplete:
     iEvents: []
