@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,10 +6,15 @@ using UnityEngine.UI;
 
 namespace Dialoguing
 {
-    public class Characters : MonoBehaviour
+    public class Characters : MonoBehaviour, IShaker
     {
         public Image leftImage;
         public Image rightImage;
+
+        // Shaking
+        public VectorShaker leftVectorShaker;
+        public VectorShaker rightVectorShaker;
+        public float currentStrenght;
 
         private Vector2 stdLeftOffset;
         private Vector2 stdRightOffset;
@@ -19,6 +25,12 @@ namespace Dialoguing
         {
             stdLeftOffset = leftImage.rectTransform.anchoredPosition;
             stdRightOffset = rightImage.rectTransform.anchoredPosition;
+
+            // Init Shaking
+            leftVectorShaker = leftImage.GetComponent<VectorShaker>();
+            leftVectorShaker.enabled = false;
+            rightVectorShaker = rightImage.GetComponent<VectorShaker>();
+            rightVectorShaker.enabled = false;
 
             HideBoth();
         }
@@ -98,6 +110,25 @@ namespace Dialoguing
         {
             rightOffsetSet = false;
             rightImage.rectTransform.anchoredPosition = stdRightOffset;
+        }
+
+        public void SetLeftCharacterShake(float strength, float duration)
+        {
+            currentStrenght = strength;
+            leftVectorShaker.enabled = true;
+            leftVectorShaker.Shake(strength, duration);
+        }
+
+        public void SetRightCharacterShaker(float strength, float duration)
+        {
+            currentStrenght = strength;
+            rightVectorShaker.enabled = true;
+            rightVectorShaker.Shake(strength, duration);
+        }
+
+        public float GetShakeStrength()
+        {
+            return currentStrenght;
         }
     }
 }
