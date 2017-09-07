@@ -11,6 +11,10 @@ namespace Dialoguing
         public Image leftImage;
         public Image rightImage;
 
+        // Name
+        public Text leftText;
+        public Text rightText;
+
         // Shaking
         public VectorShaker leftVectorShaker;
         public VectorShaker rightVectorShaker;
@@ -129,6 +133,46 @@ namespace Dialoguing
         public float GetShakeStrength()
         {
             return currentStrenght;
+        }
+
+        public void SetLeftText(string text)
+        {
+            DisableRightName();
+            ActivateLeftName(text);
+        }
+
+        public void SetRightText(string text)
+        {
+            DisableLeftName();
+            ActivateRightName(text);
+        }
+
+        private void DisableRightName()
+        {
+            Image myImage = rightImage.GetComponentInChildren<Button>().GetComponent<Image>();
+            myImage.color = myImage.color.ChangedAlpha(0);
+            rightImage.GetComponentInChildren<NameSetText>().SetText("");
+        }
+
+        private void ActivateRightName(string text)
+        {
+            Image myImage = rightImage.GetComponentInChildren<Button>().GetComponent<Image>();
+            myImage.color = myImage.color.ChangedAlpha(1);
+            rightImage.GetComponentInChildren<NameSetText>().SetText(text);
+        }
+
+        private void DisableLeftName()
+        {
+            Image myImage = leftImage.GetComponentInChildren<Button>().GetComponent<Image>();
+            myImage.color = myImage.color.ChangedAlpha(0);
+            leftImage.GetComponentInChildren<NameSetText>().SetText("");
+        }
+
+        private void ActivateLeftName(string text)
+        {
+            Image myImage = leftImage.GetComponentInChildren<Button>().GetComponent<Image>();
+            myImage.color = myImage.color.ChangedAlpha(1);
+            leftImage.GetComponentInChildren<NameSetText>().SetText(text);
         }
     }
 }
