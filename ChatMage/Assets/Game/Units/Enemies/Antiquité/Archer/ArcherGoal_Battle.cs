@@ -31,7 +31,7 @@ namespace AI
             if (veh.ShootCooldownRemains > 0)
             {
                 Goal_GoTo repositionGoal = new Goal_GoTo(veh, GetRepositionDestination());
-                repositionGoal.CompleteAfter(veh.ShootCooldownRemains.Floored(0.75f));
+                repositionGoal.CompleteAfter(veh.ShootCooldownRemains.Raised(0.75f));
                 AddSubGoal(repositionGoal);
             }
 

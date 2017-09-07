@@ -24,6 +24,11 @@ public static class FloatExtensions
         return Mathf.RoundToInt(value);
     }
 
+    public static float Sign(this float value)
+    {
+        return Mathf.Sign(value);
+    }
+
     /// <summary>
     /// Reduis potentiellement la valeur
     /// </summary>
@@ -31,16 +36,11 @@ public static class FloatExtensions
     {
         return Mathf.Min(value, max);
     }
-    
-    public static float Sign(this float value)
-    {
-        return Mathf.Sign(value);
-    }
 
     /// <summary>
     /// Augmente potentiellement la valeur
     /// </summary>
-    public static float Floored(this float value, float min)
+    public static float Raised(this float value, float min)
     {
         return Mathf.Max(value, min);
     }
@@ -66,9 +66,10 @@ public static class FloatExtensions
             return 0;
 
         if (value < 0)
-            value = 0;
-        else
-            return value % modulo;
-        return value;
+        {
+            value += Mathf.Ceil(value.Abs() / modulo) * modulo;
+        }
+
+        return value % modulo;
     }
 }
