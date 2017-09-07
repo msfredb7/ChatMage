@@ -59,4 +59,8 @@ public class TrollAnimatorV2 : EnemyAnimator
     {
         Game.instance.gameCamera.vectorShaker.Shake(stompShake);
     }
+    private void _BigStomp()
+    {
+        Game.instance.gameCamera.vectorShaker.Shake(stompShake * 2);
+    }
 }

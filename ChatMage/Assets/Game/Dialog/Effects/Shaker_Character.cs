@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,21 +6,16 @@ using UnityEngine;
 namespace Dialoguing.Effect
 {
     [System.Serializable]
-    public class Shaker : Effect
+    public class Shaker_Character : Effect
     {
-        public bool shakeCamera = false;
-        public bool shakeLeftCharacter = true;
-        public bool shakeRightCharacter = false;
-        public float intensity = 1;
+        public float intensity = 50;
         public float duration = 0.25f;
 
         public override void Apply(DialogDisplay display, Reply reply)
         {
-            if(shakeCamera)
-                Game.instance.gameCamera.vectorShaker.Shake(intensity, duration);
-            if (shakeLeftCharacter)
+            if (display.characters.leftImage.enabled)
                 display.characters.SetLeftCharacterShake(intensity, duration);
-            if (shakeRightCharacter)
+            if (display.characters.rightImage.enabled)
                 display.characters.SetRightCharacterShaker(intensity, duration);
         }
     }

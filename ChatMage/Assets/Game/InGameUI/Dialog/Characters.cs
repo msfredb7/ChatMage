@@ -6,19 +6,14 @@ using UnityEngine.UI;
 
 namespace Dialoguing
 {
-    public class Characters : MonoBehaviour, IShaker
+    public class Characters : MonoBehaviour
     {
         public Image leftImage;
         public Image rightImage;
 
-        // Name
-        public Text leftText;
-        public Text rightText;
-
         // Shaking
         public VectorShaker leftVectorShaker;
         public VectorShaker rightVectorShaker;
-        public float currentStrenght;
 
         private Vector2 stdLeftOffset;
         private Vector2 stdRightOffset;
@@ -32,9 +27,7 @@ namespace Dialoguing
 
             // Init Shaking
             leftVectorShaker = leftImage.GetComponent<VectorShaker>();
-            leftVectorShaker.enabled = false;
             rightVectorShaker = rightImage.GetComponent<VectorShaker>();
-            rightVectorShaker.enabled = false;
 
             HideBoth();
         }
@@ -118,61 +111,12 @@ namespace Dialoguing
 
         public void SetLeftCharacterShake(float strength, float duration)
         {
-            currentStrenght = strength;
-            leftVectorShaker.enabled = true;
             leftVectorShaker.Shake(strength, duration);
         }
 
         public void SetRightCharacterShaker(float strength, float duration)
         {
-            currentStrenght = strength;
-            rightVectorShaker.enabled = true;
             rightVectorShaker.Shake(strength, duration);
-        }
-
-        public float GetShakeStrength()
-        {
-            return currentStrenght;
-        }
-
-        public void SetLeftText(string text)
-        {
-            DisableRightName();
-            ActivateLeftName(text);
-        }
-
-        public void SetRightText(string text)
-        {
-            DisableLeftName();
-            ActivateRightName(text);
-        }
-
-        private void DisableRightName()
-        {
-            Image myImage = rightImage.GetComponentInChildren<Button>().GetComponent<Image>();
-            myImage.color = myImage.color.ChangedAlpha(0);
-            rightImage.GetComponentInChildren<NameSetText>().SetText("");
-        }
-
-        private void ActivateRightName(string text)
-        {
-            Image myImage = rightImage.GetComponentInChildren<Button>().GetComponent<Image>();
-            myImage.color = myImage.color.ChangedAlpha(1);
-            rightImage.GetComponentInChildren<NameSetText>().SetText(text);
-        }
-
-        private void DisableLeftName()
-        {
-            Image myImage = leftImage.GetComponentInChildren<Button>().GetComponent<Image>();
-            myImage.color = myImage.color.ChangedAlpha(0);
-            leftImage.GetComponentInChildren<NameSetText>().SetText("");
-        }
-
-        private void ActivateLeftName(string text)
-        {
-            Image myImage = leftImage.GetComponentInChildren<Button>().GetComponent<Image>();
-            myImage.color = myImage.color.ChangedAlpha(1);
-            leftImage.GetComponentInChildren<NameSetText>().SetText(text);
         }
     }
 }
