@@ -61,14 +61,53 @@ public class TrollVehicle : EnemyVehicle
         if (unit is Vehicle)
             (unit as Vehicle).Bump((unit.Position - Position).normalized * bumpForce, -1, BumpMode.VelocityAdd);
 
-
         if (hp <= 0)
         {
             //Dead !
             if (!isDead)
             {
                 if (unit != null)
-                    tr.rotation = Quaternion.Euler(Vector3.forward * ((Position - unit.Position).ToAngle() - 180));
+                {
+                    float arrivalAngle = (Position - unit.Position).ToAngle();
+                    float deltaRot = arrivalAngle - Rotation;
+                    deltaRot = deltaRot.Mod(360);
+
+                    if (deltaRot < 45)
+                    {
+                        //From back
+                        animator.SetDeathDir(3);
+                        Debug.Log("from back: " + deltaRot);
+                    }
+                    else if (deltaRot < 135)
+                    {
+                        //From right
+                        animator.SetDeathDir(2);
+                        Debug.Log("from right: " + deltaRot);
+                    }
+                    else if (deltaRot < 225)
+                    {
+                        //From front
+                        animator.SetDeathDir(0);
+                        Debug.Log("from front: " + deltaRot);
+                    }
+                    else if (deltaRot < 315)
+                    {
+                        //From left
+                        animator.SetDeathDir(1);
+                        Debug.Log("from left: " + deltaRot);
+                    }
+                    else
+                    {
+                        //From back
+                        animator.SetDeathDir(3);
+                        Debug.Log("from back: " + deltaRot);
+                    }
+
+                    deltaRot = (deltaRot / 90).Rounded() * 90;
+
+                    tr.rotation = Quaternion.Euler(Vector3.forward * (arrivalAngle - deltaRot));
+                }
+
                 Die();
             }
         }
@@ -78,7 +117,7 @@ public class TrollVehicle : EnemyVehicle
 
     private void UpdateVisuals()
     {
-        Color c = Color.Lerp(lowHPColor, Color.white, ((hp - 1f).Floored(0)) / (startHP - 1f));
+        Color c = Color.Lerp(lowHPColor, Color.white, ((hp - 1f).Raised(0)) / (startHP - 1f));
         for (int i = 0; i < spriteRenderers.Length; i++)
         {
             spriteRenderers[i].color = c;

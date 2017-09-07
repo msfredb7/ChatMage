@@ -16,6 +16,7 @@ public class TrollAnimatorV2 : EnemyAnimator
     private int pickUpHash = Animator.StringToHash("pickup");
     private int throwHash = Animator.StringToHash("throw");
     private int hasRockHash = Animator.StringToHash("hasRock");
+    private int deathDirHash = Animator.StringToHash("deathDir");
 
     protected override EnemyVehicle Vehicle
     {
@@ -35,6 +36,14 @@ public class TrollAnimatorV2 : EnemyAnimator
         throwCallback = onComplete;
 
         controller.SetTrigger(throwHash);
+    }
+
+    /// <summary>
+    /// 0 = front, 1 = left, 2 = right, 3 = back
+    /// </summary>
+    public void SetDeathDir(int dir)
+    {
+        controller.SetInteger(deathDirHash, dir);
     }
 
     private void _PickUpComplete()
