@@ -61,12 +61,50 @@ public class TrollVehicle : EnemyVehicle
         if (unit is Vehicle)
             (unit as Vehicle).Bump((unit.Position - Position).normalized * bumpForce, -1, BumpMode.VelocityAdd);
 
-
         if (hp <= 0)
         {
             //Dead !
             if (!isDead)
+            {
+                if (unit != null)
+                {
+                    float arrivalAngle = (Position - unit.Position).ToAngle();
+                    float deltaRot = arrivalAngle - Rotation;
+                    deltaRot = deltaRot.Mod(360);
+
+                    if (deltaRot < 45)
+                    {
+                        //From back
+                        animator.SetDeathDir(3);
+                    }
+                    else if (deltaRot < 135)
+                    {
+                        //From right
+                        animator.SetDeathDir(2);
+                    }
+                    else if (deltaRot < 225)
+                    {
+                        //From front
+                        animator.SetDeathDir(0);
+                    }
+                    else if (deltaRot < 315)
+                    {
+                        //From left
+                        animator.SetDeathDir(1);
+                    }
+                    else
+                    {
+                        //From back
+                        animator.SetDeathDir(3);
+                    }
+
+                    deltaRot = (deltaRot / 90).Rounded() * 90;
+
+                    tr.rotation = Quaternion.Euler(Vector3.forward * (arrivalAngle - deltaRot));
+                }
+
                 Die();
+            }
         }
 
         return hp;
@@ -74,7 +112,7 @@ public class TrollVehicle : EnemyVehicle
 
     private void UpdateVisuals()
     {
-        Color c = Color.Lerp(lowHPColor, Color.white, (hp - 1f) / (startHP - 1f));
+        Color c = Color.Lerp(lowHPColor, Color.white, ((hp - 1f).Raised(0)) / (startHP - 1f));
         for (int i = 0; i < spriteRenderers.Length; i++)
         {
             spriteRenderers[i].color = c;
@@ -83,11 +121,16 @@ public class TrollVehicle : EnemyVehicle
 
     protected override void Die()
     {
+        if (!IsDead)
+        {
+            canMove.Lock("dead");
+            canTurn.Lock("dead");
+            GetComponent<AI.EnemyBrainV2>().enabled = false;
+            animator.DeathAnimation(Destroy);
+        }
+
         base.Die();
 
         collider.enabled = false;
-
-        //Death anim
-        Destroy();
     }
 }

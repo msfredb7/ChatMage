@@ -104,6 +104,9 @@ namespace Tutorial
 
         void TutoEnemy(Unit unit)
         {
+            if (!(unit is EnemyVehicle))
+                return;
+
             modules.delayedAction.Do(1.5f, delegate ()
             {
                 modules.shorcuts.TimeFreeze();

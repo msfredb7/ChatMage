@@ -2905,9 +2905,6 @@ GameObject:
   m_Component:
   - component: {fileID: 337751925}
   - component: {fileID: 337751924}
-  - component: {fileID: 337751923}
-  - component: {fileID: 337751922}
-  - component: {fileID: 337751921}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -2915,27 +2912,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &337751921
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 337751920}
-  m_Enabled: 1
---- !u!92 &337751922
-Behaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 337751920}
-  m_Enabled: 1
---- !u!124 &337751923
-Behaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 337751920}
-  m_Enabled: 1
 --- !u!20 &337751924
 Camera:
   m_ObjectHideFlags: 0
@@ -2957,7 +2933,7 @@ Camera:
   field of view: 60
   orthographic: 1
   orthographic size: 5.4
-  m_Depth: 0
+  m_Depth: -100
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -2979,7 +2955,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 337751920}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.2, z: -10}
+  m_LocalPosition: {x: 0, y: -2.32, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -12125,6 +12101,7 @@ MonoBehaviour:
     max: {x: 8.04, y: 31.5}
   roadPlayer: {fileID: 1644651698}
   positionDisplacers: []
+  graph: {fileID: 0}
 --- !u!4 &1644651696
 Transform:
   m_ObjectHideFlags: 0
