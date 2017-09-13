@@ -76,31 +76,26 @@ public class TrollVehicle : EnemyVehicle
                     {
                         //From back
                         animator.SetDeathDir(3);
-                        Debug.Log("from back: " + deltaRot);
                     }
                     else if (deltaRot < 135)
                     {
                         //From right
                         animator.SetDeathDir(2);
-                        Debug.Log("from right: " + deltaRot);
                     }
                     else if (deltaRot < 225)
                     {
                         //From front
                         animator.SetDeathDir(0);
-                        Debug.Log("from front: " + deltaRot);
                     }
                     else if (deltaRot < 315)
                     {
                         //From left
                         animator.SetDeathDir(1);
-                        Debug.Log("from left: " + deltaRot);
                     }
                     else
                     {
                         //From back
                         animator.SetDeathDir(3);
-                        Debug.Log("from back: " + deltaRot);
                     }
 
                     deltaRot = (deltaRot / 90).Rounded() * 90;

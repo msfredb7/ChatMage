@@ -1350,6 +1350,28 @@ Transform:
   m_Father: {fileID: 1237816616}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &590870350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ed01e656ba24b24fb70bbc712e44fdf, type: 3}
+  m_Name: Camera Zoom
+  m_EditorClassIdentifier: 
+  windowRect:
+    serializedVersion: 2
+    x: 593
+    y: 535
+    width: 150
+    height: 43
+  graph: {fileID: 1644651698}
+  independantTimescale: 1
+  targetSize: 1
+  animationDuration: 0.8
+  ease: 4
 --- !u!1 &603044746
 GameObject:
   m_ObjectHideFlags: 0
@@ -1491,6 +1513,10 @@ Prefab:
     - target: {fileID: 4387865360698530, guid: 7ec293da9a2e20c4caaa28d716dc5124, type: 2}
       propertyPath: m_RootOrder
       value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 1214888114290920, guid: 7ec293da9a2e20c4caaa28d716dc5124, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7ec293da9a2e20c4caaa28d716dc5124, type: 2}
@@ -1715,6 +1741,28 @@ PlatformEffector2D:
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
+--- !u!114 &792695152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ed01e656ba24b24fb70bbc712e44fdf, type: 3}
+  m_Name: Camera Zoom
+  m_EditorClassIdentifier: 
+  windowRect:
+    serializedVersion: 2
+    x: 598
+    y: 426
+    width: 150
+    height: 43
+  graph: {fileID: 1644651698}
+  independantTimescale: 1
+  targetSize: 0.5
+  animationDuration: 0.8
+  ease: 4
 --- !u!1001 &793686668
 Prefab:
   m_ObjectHideFlags: 0
@@ -1866,30 +1914,6 @@ Transform:
   m_Father: {fileID: 102664727}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 2.8}
---- !u!114 &1006363091
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bde49ba600c8a8548a8851471ba9cd42, type: 3}
-  m_Name: Dialog
-  m_EditorClassIdentifier: 
-  windowRect:
-    serializedVersion: 2
-    x: 497
-    y: 306
-    width: 150
-    height: 10
-  graph: {fileID: 1644651698}
-  dialog: {fileID: 11400000, guid: a05d024402e0b3a4aa6fb73bf4935fd6, type: 2}
-  onComplete:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
 --- !u!1 &1019532023
 GameObject:
   m_ObjectHideFlags: 0
@@ -2347,6 +2371,33 @@ Transform:
   m_Father: {fileID: 458826280}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1350800739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 770cead41c9345b438c5073249a62a88, type: 3}
+  m_Name: Delay
+  m_EditorClassIdentifier: 
+  windowRect:
+    serializedVersion: 2
+    x: 397
+    y: 284
+    width: 150
+    height: 64
+  graph: {fileID: 1644651698}
+  delay: 1
+  moment:
+    iEvents:
+    - {fileID: 1780204579}
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
 --- !u!1 &1356312454
 GameObject:
   m_ObjectHideFlags: 0
@@ -2659,6 +2710,33 @@ Transform:
   m_Father: {fileID: 155875918}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -15}
+--- !u!114 &1528975064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 770cead41c9345b438c5073249a62a88, type: 3}
+  m_Name: Delay
+  m_EditorClassIdentifier: 
+  windowRect:
+    serializedVersion: 2
+    x: 396
+    y: 490
+    width: 150
+    height: 64
+  graph: {fileID: 1644651698}
+  delay: 3
+  moment:
+    iEvents:
+    - {fileID: 590870350}
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
 --- !u!1 &1629101091
 GameObject:
   m_ObjectHideFlags: 0
@@ -2822,7 +2900,12 @@ MonoBehaviour:
   events:
   - {fileID: 1644651699}
   - {fileID: 1934595440}
-  - {fileID: 1006363091}
+  - {fileID: 1780204579}
+  - {fileID: 1350800739}
+  - {fileID: 1699647807}
+  - {fileID: 792695152}
+  - {fileID: 1528975064}
+  - {fileID: 590870350}
 --- !u!114 &1644651699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2836,14 +2919,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowRect:
     serializedVersion: 2
-    x: 258.09998
-    y: 108
+    x: 204.09998
+    y: 116
     width: 150
-    height: 10
+    height: 64
   graph: {fileID: 1644651698}
   onGameStart:
     iEvents:
     - {fileID: 1934595440}
+    - {fileID: 1350800739}
+    - {fileID: 1699647807}
+    - {fileID: 1528975064}
     unityEvent:
       m_PersistentCalls:
         m_Calls: []
@@ -2971,8 +3057,23 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 153121006}
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.mapping.EditProperty
+    - DefaultBehaviorEditor.cameraSpawn.EditProperty
+    - DefaultBehaviorEditor.listUnits.EditProperty
+    - DefaultBehaviorEditor.setAIArea.EditProperty
+    - DefaultBehaviorEditor.roadPlayer.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
     _target: {fileID: 1644651695}
   - _keys: []
     _values: []
@@ -3066,6 +3167,33 @@ PlatformEffector2D:
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
+--- !u!114 &1699647807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 770cead41c9345b438c5073249a62a88, type: 3}
+  m_Name: Delay
+  m_EditorClassIdentifier: 
+  windowRect:
+    serializedVersion: 2
+    x: 404
+    y: 400
+    width: 150
+    height: 64
+  graph: {fileID: 1644651698}
+  delay: 2
+  moment:
+    iEvents:
+    - {fileID: 792695152}
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
 --- !u!1 &1707838892
 GameObject:
   m_ObjectHideFlags: 0
@@ -3181,6 +3309,28 @@ PlatformEffector2D:
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
+--- !u!114 &1780204579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ed01e656ba24b24fb70bbc712e44fdf, type: 3}
+  m_Name: Camera Zoom
+  m_EditorClassIdentifier: 
+  windowRect:
+    serializedVersion: 2
+    x: 604
+    y: 286
+    width: 150
+    height: 43
+  graph: {fileID: 1644651698}
+  independantTimescale: 1
+  targetSize: 2
+  animationDuration: 0.8
+  ease: 4
 --- !u!1 &1794875319
 GameObject:
   m_ObjectHideFlags: 1
@@ -3453,7 +3603,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1923805952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3604,7 +3754,7 @@ MonoBehaviour:
   - what
   - where
   _serializedStateValues:
-  - '{"xMin":675.0,"yMin":155.0,"xMax":825.0,"yMax":165.0}'
+  - '{"xMin":675.0,"yMin":155.0,"xMax":825.0,"yMax":219.0}'
   - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]}'
   - '{"spawnSequence":[{"unit":0,"quantity":1}],"useLevelScriptMethod":true,"onSpawnMethod":"MakeSmart","onSpawn":{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"GameEvents.MomentEvent_unit,
@@ -3615,7 +3765,7 @@ MonoBehaviour:
     x: 675
     y: 155
     width: 150
-    height: 10
+    height: 64
   graph: {fileID: 1644651698}
   onComplete:
     iEvents: []
