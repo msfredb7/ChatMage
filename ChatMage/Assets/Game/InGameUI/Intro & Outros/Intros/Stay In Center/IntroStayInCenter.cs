@@ -19,19 +19,19 @@ namespace GameIntroOutro
         public override void Play(Action onComplete)
         {
             //Camera
-            Camera cam = Game.instance.gameCamera.cam;
-            float camStdSize = cam.orthographicSize;
-            cam.orthographicSize = cameraOrthographicSize;
+
+            GameCamera gameCamera = Game.instance.gameCamera;
+            gameCamera.OrthoSize = cameraOrthographicSize;
 
             PlayerVehicle veh = Game.instance.Player.vehicle;
 
             veh.TeleportPosition(Game.instance.gameCamera.Center);
             veh.TeleportDirection(90);
-            
+
             veh.canMove.Lock("intro");
             veh.canTurn.Lock("intro");
 
-            cam.DOOrthoSize(camStdSize, unzoomDuration)
+            gameCamera.DOOrthoSize(GameCamera.DEFAULT_SCREEN_HEIGHT / 2, unzoomDuration)
                 .SetDelay(delay)
                 .SetEase(Ease.InOutSine)
                 .OnComplete(delegate ()

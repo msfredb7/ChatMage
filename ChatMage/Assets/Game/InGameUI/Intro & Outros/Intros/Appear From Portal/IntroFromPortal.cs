@@ -31,9 +31,8 @@ namespace GameIntroOutro
         {
 
             //On commence avec la camera zoomed in
-            Camera cam = Game.instance.gameCamera.cam;
-            float camStdSize = cam.orthographicSize;
-            cam.orthographicSize = cameraOrthographicSize;
+            GameCamera gCam = Game.instance.gameCamera;
+            gCam.OrthoSize = cameraOrthographicSize;
 
             //Portail fermer
             portal.localScale = Vector3.zero;
@@ -43,7 +42,7 @@ namespace GameIntroOutro
             Vehicle veh = player.vehicle;
 
             //Position + Direction
-            Vector2 camRightBorder = Game.instance.gameCamera.Center + Vector2.right * cam.orthographicSize * cam.aspect;
+            Vector2 camRightBorder = Game.instance.gameCamera.Center + Vector2.right * gCam.OrthoSize * gCam.cam.aspect;
             veh.TeleportPosition(camRightBorder + Vector2.right * 2);
             veh.TeleportDirection(180);
 
@@ -81,7 +80,7 @@ namespace GameIntroOutro
             sq.Append(portal.DOScale(0, portalClosingDuration).SetEase(Ease.InBack));
 
             //Unzoom
-            sq.Join(cam.DOOrthoSize(camStdSize, unzoomDuration).SetEase(Ease.InOutSine));
+            sq.Join(gCam.DOOrthoSize(GameCamera.DEFAULT_SCREEN_HEIGHT / 2, unzoomDuration).SetEase(Ease.InOutSine));
         }
     }
 

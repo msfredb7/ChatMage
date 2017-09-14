@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,7 @@ public class GameCamera : MonoBehaviour
 
     public Camera cam;
     public VectorShaker vectorShaker;
+    public CameraWiggle wiggler;
 
     [Header("Settings")]
     public float distance = -10;
@@ -37,15 +39,31 @@ public class GameCamera : MonoBehaviour
     //Follow
     private float verticalSpeed = 0;
 
+    //Ortho size anim
+    private Tween orthoAnim = null;
+
     void Awake()
     {
         tr = transform;
 
         //Screen bounds
         float aspect = cam.aspect;
-        float width = aspect * cam.orthographicSize * 2;
-        cam.orthographicSize *= DEFAULT_SCREEN_WIDTH / width;
+        float width = aspect * OrthoSize * 2;
+        OrthoSize *= DEFAULT_SCREEN_WIDTH / width;
         vectorShaker.max = MAX_CAMERA_SHAKE;
+    }
+
+    public float OrthoSize
+    {
+        get { return cam.orthographicSize + wiggler.animationSize; }
+        set { cam.orthographicSize = value - wiggler.animationSize; }
+    }
+
+    public Tween DOOrthoSize(float endValue, float duration)
+    {
+        if (orthoAnim != null && orthoAnim.IsActive())
+            orthoAnim.Kill();
+        return orthoAnim = DOTween.To(() => OrthoSize, (x) => OrthoSize = x, endValue, duration);
     }
 
     public void Init(PlayerVehicle player)
@@ -90,7 +108,7 @@ public class GameCamera : MonoBehaviour
     void Update()
     {
         //Camera Shake
-        cam.transform.localPosition = vectorShaker.CurrentVector;
+        cam.transform.localPosition = vectorShaker.CurrentVector + wiggler.CurrentOffset;
     }
 
     void FixedUpdate()
@@ -100,27 +118,27 @@ public class GameCamera : MonoBehaviour
 
         if (followPlayer && player != null && player.gameObject.activeSelf)
         {
-                float hg = Height;
+            float hg = Height;
 
-                float playerHeight = player.Position.y;
-                float dest = playerHeight + player.WorldDirection2D().y * followForwardDistance;
+            float playerHeight = player.Position.y;
+            float dest = playerHeight + player.WorldDirection2D().y * followForwardDistance;
 
-                float delta = dest - hg;
+            float delta = dest - hg;
 
-                float targetSpeed = delta.Sign() * float.PositiveInfinity;
+            float targetSpeed = delta.Sign() * float.PositiveInfinity;
 
-                verticalSpeed = verticalSpeed.MovedTowards(targetSpeed, acceleration * Time.fixedDeltaTime);
-
-
-                if (delta > 0)
-                    verticalSpeed = verticalSpeed.Capped(delta * decelerationSpeedFactor);
-                else
-                    verticalSpeed = verticalSpeed.Raised(delta * decelerationSpeedFactor);
+            verticalSpeed = verticalSpeed.MovedTowards(targetSpeed, acceleration * Time.fixedDeltaTime);
 
 
-                SetToHeight(hg + (verticalSpeed * Time.fixedDeltaTime));
+            if (delta > 0)
+                verticalSpeed = verticalSpeed.Capped(delta * decelerationSpeedFactor);
+            else
+                verticalSpeed = verticalSpeed.Raised(delta * decelerationSpeedFactor);
 
-                verticalSpeed = (Height - hg) / Time.fixedDeltaTime;
+
+            SetToHeight(hg + (verticalSpeed * Time.fixedDeltaTime));
+
+            verticalSpeed = (Height - hg) / Time.fixedDeltaTime;
         }
         else
         {

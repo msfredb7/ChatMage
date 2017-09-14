@@ -962,6 +962,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 1842310628}
   vectorShaker: {fileID: 1842310629}
+  wiggler: {fileID: 1842310630}
   distance: -10
   minHeight: -Infinity
   maxHeight: Infinity
@@ -1149,6 +1150,7 @@ GameObject:
   - component: {fileID: 1842310626}
   - component: {fileID: 1842310625}
   - component: {fileID: 1842310629}
+  - component: {fileID: 1842310630}
   m_Layer: 0
   m_Name: Actual Camera
   m_TagString: MainCamera
@@ -1242,6 +1244,19 @@ MonoBehaviour:
   speed: 7
   quitDuration: 0.25
   hitQuitSpeed: 0.1
+--- !u!114 &1842310630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1842310623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: befadfd8f7ebbb7448d69fd135c979e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animationSize: 0.2
+  playerSpaceToScreenRatio: 0.7
 --- !u!1 &1968969121
 GameObject:
   m_ObjectHideFlags: 0

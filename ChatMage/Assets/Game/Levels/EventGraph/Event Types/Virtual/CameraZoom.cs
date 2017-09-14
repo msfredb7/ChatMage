@@ -17,10 +17,8 @@ namespace GameEvents
 
         public void Trigger()
         {
-            Camera cam = Game.instance.gameCamera.cam;
+            GameCamera cam = Game.instance.gameCamera;
             float size = (GameCamera.DEFAULT_SCREEN_HEIGHT / 2) * targetSize;
-
-            cam.DOKill();
 
             if(animationDuration > 0)
             {
@@ -28,7 +26,7 @@ namespace GameEvents
             }
             else
             {
-                cam.orthographicSize = size;
+                cam.OrthoSize = size;
             }
         }
 
