@@ -46,7 +46,7 @@ public class WalkOnSpawn : OnSpawnAction
         veh.GotoPosition(veh.Position + destination, delegate ()
         {
             //On reactive le cerveau a la fin
-            if (brain != null)
+            if (!veh.IsDead && brain != null)
                 brain.enabled = true;
         });
     }
