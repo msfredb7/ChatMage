@@ -61,6 +61,8 @@ public class RoadMapPoint : MonoBehaviour {
             Debug.Log("Finito");
             return;
         }
+
+        // allo
             
         DelayManager.LocalCallTo(MakeRoad, 1, this);
     }
