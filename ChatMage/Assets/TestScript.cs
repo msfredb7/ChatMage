@@ -9,23 +9,13 @@ using FullInspector;
 
 public class TestScript : MonoBehaviour
 {
-
-    void Awake()
-    {
-        Debug.LogWarning("Testscript here on " + gameObject.name + ". Don't forget me !");
-    }
-
+    public RoadMapPoint firstPoint;
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            Camera cam = Game.instance.gameCamera.cam;
-            cam.aspect = 16f / 9f;
-        }
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-
+            firstPoint.StartRoad();
         }
     }
 }
