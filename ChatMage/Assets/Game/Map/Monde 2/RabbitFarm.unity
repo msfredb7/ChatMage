@@ -548,6 +548,8 @@ MonoBehaviour:
     max: {x: 7.625, y: 48.25}
   roadPlayer: {fileID: 1670268017}
   positionDisplacers: []
+  graph: {fileID: 0}
+  meteo: {fileID: 0}
 --- !u!114 &109365269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1753,6 +1755,8 @@ MonoBehaviour:
   gizmosAlwaysVisible: 1
   triggerOn: 1
   disapearAfterTrigger: 1
+  triggerOnGoingUp: 1
+  triggerOnGoingDown: 1
   setAiArea: 1
   aiAreaAdjustToSceenRatio: 1
   aiAreaRelativeToMilestone:
@@ -2214,6 +2218,8 @@ MonoBehaviour:
   gizmosAlwaysVisible: 1
   triggerOn: 1
   disapearAfterTrigger: 1
+  triggerOnGoingUp: 1
+  triggerOnGoingDown: 1
   setAiArea: 0
   aiAreaAdjustToSceenRatio: 1
   aiAreaRelativeToMilestone:
@@ -4219,17 +4225,8 @@ MonoBehaviour:
     - _showDropdown: 0
       _serializedIsActive: 1
     _target: {fileID: 109365268}
-  - _keys:
-    - DefaultBehaviorEditor.topHeight.EditProperty
-    - DefaultBehaviorEditor.milestones.EditProperty
-    - DefaultBehaviorEditor.milestoneRelativeHeights.EditProperty
-    _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 1
-      _serializedIsActive: 1
-    - _showDropdown: 1
-      _serializedIsActive: 1
+  - _keys: []
+    _values: []
     _target: {fileID: 1627480294}
   - _keys: []
     _values: []
@@ -5360,18 +5357,12 @@ MonoBehaviour:
   - milestones
   - milestoneRelativeHeights
   _serializedStateValues:
-  - '[0,1,2,3,4]'
+  - '[{"$content":0,"$type":"Milestone"},{"$content":1,"$type":"Milestone"},{"$content":2,"$type":"Milestone"},{"$content":3,"$type":"Milestone"},{"$content":4,"$type":"Milestone"}]'
   - '[6.05,12.06,26.98,48.73,54.4]'
   topHeight: 54.5
   bottomHeight: -5.4
   setCameraMinMax: 1
   showCameraTrails: 1
-  milestones:
-  - {fileID: 1711382712}
-  - {fileID: 2069691219}
-  - {fileID: 468889410}
-  - {fileID: 1955587860}
-  - {fileID: 627885343}
 --- !u!4 &1627480295
 Transform:
   m_ObjectHideFlags: 0
@@ -5909,6 +5900,8 @@ MonoBehaviour:
   gizmosAlwaysVisible: 1
   triggerOn: 1
   disapearAfterTrigger: 1
+  triggerOnGoingUp: 1
+  triggerOnGoingDown: 1
   setAiArea: 0
   aiAreaAdjustToSceenRatio: 1
   aiAreaRelativeToMilestone:
@@ -6831,6 +6824,8 @@ MonoBehaviour:
   gizmosAlwaysVisible: 1
   triggerOn: 1
   disapearAfterTrigger: 1
+  triggerOnGoingUp: 1
+  triggerOnGoingDown: 1
   setAiArea: 1
   aiAreaAdjustToSceenRatio: 1
   aiAreaRelativeToMilestone:
@@ -7015,6 +7010,8 @@ MonoBehaviour:
   gizmosAlwaysVisible: 1
   triggerOn: 1
   disapearAfterTrigger: 1
+  triggerOnGoingUp: 1
+  triggerOnGoingDown: 1
   setAiArea: 1
   aiAreaAdjustToSceenRatio: 1
   aiAreaRelativeToMilestone:

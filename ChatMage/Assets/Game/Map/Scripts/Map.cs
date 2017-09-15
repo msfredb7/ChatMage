@@ -27,6 +27,7 @@ public class Map : BaseBehavior
     public RoadPlayer roadPlayer;
     public List<PositionDisplacer> positionDisplacers;
     public GameEvents.EventGraph graph;
+    public MeteoPlayer meteo;
 
     /// <summary>
     /// Initialise les settings de la map
@@ -52,6 +53,12 @@ public class Map : BaseBehavior
 
         if (graph != null)
             graph.Init(Game.instance);
+
+        if(meteo != null)
+        {
+            meteo.transform.SetParent(Game.instance.gameCamera.transform, true);
+            meteo.transform.localPosition = Vector3.forward * 5;
+        }
     }
 
     public void ResetAIArea()

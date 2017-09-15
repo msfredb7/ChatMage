@@ -5,16 +5,27 @@ using FullInspector;
 using UnityEngine.Events;
 using GameEvents;
 
-public class Milestone : FIPhysicalEvent, IEvent
+public interface IMilestone
+{
+    bool Execute(bool isGoingUp);
+    void Disable();
+    float GetVirtualHeight();
+    MSTriggerType TriggerOn { get; }
+    GameObject GameObj { get; }
+}
+public enum MSTriggerType { BottomOfScreen, TopOfScreen }
+
+public class Milestone : FIPhysicalEvent, IEvent, IMilestone
 {
     public Moment onTigger = new Moment();
 
     public bool gizmosAlwaysVisible = true;
 
-    public enum TriggerType { BottomOfScreen, TopOfScreen }
     [InspectorHeader("Trigger")]
-    public TriggerType triggerOn = TriggerType.TopOfScreen;
+    public MSTriggerType triggerOn = MSTriggerType.TopOfScreen;
     public bool disapearAfterTrigger = true;
+    public bool triggerOnGoingUp = true;
+    public bool triggerOnGoingDown = true;
 
     [InspectorMargin(12), InspectorHeader("AI Area")]
     public bool setAiArea;
@@ -60,12 +71,29 @@ public class Milestone : FIPhysicalEvent, IEvent
     [InspectorMargin(12), InspectorHeader("Dialog")]
     public Dialoguing.Dialog dialog;
 
-    public bool Execute()
+    public MSTriggerType TriggerOn { get { return triggerOn; } }
+    public GameObject GameObj { get { return gameObject; } }
+
+    public bool Execute(bool isGoingUp)
     {
         if (!enabled)
             return false;
-        Trigger();
-        return true;
+
+        if (isGoingUp)
+        {
+            if (triggerOnGoingUp)
+                Trigger();
+            else
+                return false;
+        }
+        else
+        {
+            if (triggerOnGoingDown)
+                Trigger();
+            else
+                return false;
+        }
+        return disapearAfterTrigger;
     }
 
     public void Trigger()
@@ -118,14 +146,19 @@ public class Milestone : FIPhysicalEvent, IEvent
         onExecute.Invoke();
     }
 
+    public void Disable()
+    {
+        enabled = false;
+    }
+
     public float GetVirtualHeight()
     {
-        return transform.position.y + (triggerOn == TriggerType.BottomOfScreen ? GameCamera.DEFAULT_SCREEN_HEIGHT : 0);
+        return transform.position.y + (triggerOn == MSTriggerType.BottomOfScreen ? GameCamera.DEFAULT_SCREEN_HEIGHT : 0);
     }
     public float GetCamerasCenter()
     {
         float halfH = GameCamera.DEFAULT_SCREEN_HEIGHT / 2;
-        return transform.position.y + (triggerOn == TriggerType.BottomOfScreen ? halfH : -halfH);
+        return transform.position.y + (triggerOn == MSTriggerType.BottomOfScreen ? halfH : -halfH);
     }
 
     void OnDrawGizmosSelected()
@@ -142,7 +175,7 @@ public class Milestone : FIPhysicalEvent, IEvent
 
     void DrawGizmos()
     {
-        Gizmos.color = new Color(triggerOn == TriggerType.BottomOfScreen ? 1 : 0, triggerOn == TriggerType.TopOfScreen ? 1 : 0, 0, 1);
+        Gizmos.color = new Color(triggerOn == MSTriggerType.BottomOfScreen ? 1 : 0, triggerOn == MSTriggerType.TopOfScreen ? 1 : 0, 0, 1);
         Gizmos.DrawCube(transform.position, new Vector3(GameCamera.DEFAULT_SCREEN_WIDTH, disapearAfterTrigger ? 0.25f : 0.5f, 1));
 
 
@@ -173,13 +206,13 @@ public class Milestone : FIPhysicalEvent, IEvent
 
         if (setCameraMax)
         {
-            float delta = (triggerOn == TriggerType.BottomOfScreen) ? GameCamera.DEFAULT_SCREEN_HEIGHT : 0;
+            float delta = (triggerOn == MSTriggerType.BottomOfScreen) ? GameCamera.DEFAULT_SCREEN_HEIGHT : 0;
             Vector3 pos = transform.position + Vector3.up * (cameraMaxRelativeToMilestone + delta);
             Gizmos.DrawIcon(pos, "Gizmos CameraTop");
         }
         if (setCameraMin)
         {
-            float delta = (triggerOn == TriggerType.BottomOfScreen) ? 0 : -GameCamera.DEFAULT_SCREEN_HEIGHT;
+            float delta = (triggerOn == MSTriggerType.BottomOfScreen) ? 0 : -GameCamera.DEFAULT_SCREEN_HEIGHT;
             Vector3 pos = transform.position + Vector3.up * (cameraMinRelativeToMilestone + delta);
             Gizmos.DrawIcon(pos, "Gizmos CameraBottom");
         }
@@ -188,7 +221,7 @@ public class Milestone : FIPhysicalEvent, IEvent
         {
             float hh = GameCamera.DEFAULT_SCREEN_HEIGHT / 2;
             float hw = GameCamera.DEFAULT_SCREEN_WIDTH / 2;
-            float yCenter = transform.position.y + (triggerOn == TriggerType.BottomOfScreen ? hh : -hh);
+            float yCenter = transform.position.y + (triggerOn == MSTriggerType.BottomOfScreen ? hh : -hh);
             Gizmos.color = new Color(0, 0.5f, 1, 1);
             if (_topSide.enabled)
             {
@@ -214,7 +247,7 @@ public class Milestone : FIPhysicalEvent, IEvent
             if (_leftSide.enabled)
             {
                 float x = -hw + _leftSide.padding;
-                float yB = - hh + _bottomSide.padding + yCenter;
+                float yB = -hh + _bottomSide.padding + yCenter;
                 float yT = hh - _topSide.padding + yCenter;
                 Gizmos.DrawLine(new Vector3(x, yT, 0), new Vector3(x, yB, 0));
             }

@@ -17,7 +17,11 @@ public class TestScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            sprOffset.DOOffset(Vector2.one, duration).SetLoops(-1);
+
+        }
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+
         }
     }
 }

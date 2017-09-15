@@ -16,7 +16,7 @@ public class Road : BaseBehavior
     public float BottomHeight { get { return bottomHeight; } }
 
     [InspectorHeader("NE PAS MODIFIER INGAME")]
-    public List<Milestone> milestones;
+    public List<IMilestone> milestones;
     [fsProperty, InspectorDisabled()]
     private List<float> milestoneRelativeHeights;
 
@@ -96,6 +96,7 @@ public class Road : BaseBehavior
     {
         float bottom = Mathf.Min(lastRealPos, newRealPos);
         float top = Mathf.Max(lastRealPos, newRealPos);
+        bool isGoingUp = newRealPos > lastRealPos;
 
         for (int i = 0; i < milestones.Count; i++)
         {
@@ -104,9 +105,9 @@ public class Road : BaseBehavior
 
             if (milestoneRelativeHeights[i] >= bottom)
             {
-                if (milestones[i].enabled && milestones[i].Execute() && milestones[i].disapearAfterTrigger)
+                if (milestones[i].Execute(isGoingUp))
                 {
-                    milestones[i].enabled = false;
+                    milestones[i].Disable();
                     milestones.RemoveAt(i);
                     milestoneRelativeHeights.RemoveAt(i);
                     i--;
@@ -170,8 +171,8 @@ public class Road : BaseBehavior
 
         for (int i = 0; i < objs.Length; i++)
         {
-            if (objs[i].GetComponent<Milestone>() != null)
-                milestones.Add(objs[i].GetComponent<Milestone>());
+            if (objs[i].GetComponent<IMilestone>() != null)
+                milestones.Add(objs[i].GetComponent<IMilestone>());
         }
     }
 
@@ -180,7 +181,7 @@ public class Road : BaseBehavior
     {
         int count = milestones.Count;
 
-        Milestone[] newList = new Milestone[count];
+        IMilestone[] newList = new IMilestone[count];
         float[] newHeightList = new float[count];
 
         for (int i = 0; i < count; i++)
@@ -192,12 +193,12 @@ public class Road : BaseBehavior
                 if (milestones[u].GetVirtualHeight() < record)
                 {
                     plusBas = u;
-                    switch (milestones[u].triggerOn)
+                    switch (milestones[u].TriggerOn)
                     {
-                        case Milestone.TriggerType.BottomOfScreen:
+                        case MSTriggerType.BottomOfScreen:
                             record = milestones[u].GetVirtualHeight();
                             break;
-                        case Milestone.TriggerType.TopOfScreen:
+                        case MSTriggerType.TopOfScreen:
                             record = milestones[u].GetVirtualHeight();
                             break;
                     }

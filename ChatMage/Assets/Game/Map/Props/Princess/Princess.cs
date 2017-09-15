@@ -22,10 +22,10 @@ public class Princess : Unit, IAttackable
         {
             // TRIGGER LES EVENNEMENTS DE PRENDRE LA PRINCESSE
             // Animation ?
-            List<Milestone> milestones = Game.instance.map.roadPlayer.CurrentRoad.milestones;
+            List<IMilestone> milestones = Game.instance.map.roadPlayer.CurrentRoad.milestones;
             for (int i = 0; i < milestones.Count; i++)
             {
-                milestones[i].gameObject.SetActive(true);
+                milestones[i].GameObj.SetActive(true);
             }
 
             if (!IsDead)

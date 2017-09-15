@@ -524,6 +524,8 @@ MonoBehaviour:
   gizmosAlwaysVisible: 1
   triggerOn: 1
   disapearAfterTrigger: 1
+  triggerOnGoingUp: 1
+  triggerOnGoingDown: 1
   setAiArea: 1
   aiAreaAdjustToSceenRatio: 1
   aiAreaRelativeToMilestone:
@@ -806,18 +808,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objectReferences:
   - {fileID: 1170913434}
+  - {fileID: 136764806}
+  - {fileID: 471484089}
+  - {fileID: 2124365418}
   _serializedStateKeys:
   - milestones
   - milestoneRelativeHeights
   _serializedStateValues:
-  - '[0]'
-  - '[4.54]'
+  - '[{"$content":0,"$type":"Milestone"},{"$content":1,"$type":"Milestone"},{"$content":2,"$type":"Milestone"},{"$content":3,"$type":"Milestone"}]'
+  - '[17.88,30.45,44.72,54.17]'
   topHeight: 5.5
   bottomHeight: -5.5
   setCameraMinMax: 1
   showCameraTrails: 1
-  milestones:
-  - {fileID: 1170913434}
 --- !u!1 &272089696
 GameObject:
   m_ObjectHideFlags: 0
@@ -1229,6 +1232,8 @@ MonoBehaviour:
   gizmosAlwaysVisible: 1
   triggerOn: 1
   disapearAfterTrigger: 1
+  triggerOnGoingUp: 1
+  triggerOnGoingDown: 1
   setAiArea: 1
   aiAreaAdjustToSceenRatio: 1
   aiAreaRelativeToMilestone:
@@ -1935,6 +1940,8 @@ MonoBehaviour:
   gizmosAlwaysVisible: 1
   triggerOn: 1
   disapearAfterTrigger: 1
+  triggerOnGoingUp: 1
+  triggerOnGoingDown: 1
   setAiArea: 1
   aiAreaAdjustToSceenRatio: 1
   aiAreaRelativeToMilestone:
@@ -2317,6 +2324,7 @@ MonoBehaviour:
   roadPlayer: {fileID: 1644651698}
   positionDisplacers: []
   graph: {fileID: 0}
+  meteo: {fileID: 0}
 --- !u!4 &1644651696
 Transform:
   m_ObjectHideFlags: 0
@@ -2558,17 +2566,8 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 153121006}
-  - _keys:
-    - DefaultBehaviorEditor.topHeight.EditProperty
-    - DefaultBehaviorEditor.milestones.EditProperty
-    - DefaultBehaviorEditor.milestoneRelativeHeights.EditProperty
-    _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 1
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
+  - _keys: []
+    _values: []
     _target: {fileID: 266624493}
   - _keys:
     - DefaultBehaviorEditor.mapping.EditProperty
@@ -3239,6 +3238,8 @@ MonoBehaviour:
   gizmosAlwaysVisible: 1
   triggerOn: 1
   disapearAfterTrigger: 1
+  triggerOnGoingUp: 1
+  triggerOnGoingDown: 1
   setAiArea: 1
   aiAreaAdjustToSceenRatio: 1
   aiAreaRelativeToMilestone:

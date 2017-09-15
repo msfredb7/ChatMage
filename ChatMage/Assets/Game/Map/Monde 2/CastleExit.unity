@@ -1000,32 +1000,19 @@ MonoBehaviour:
   - {fileID: 1170913434}
   - {fileID: 2086493880}
   - {fileID: 1656082252}
-  - {fileID: 1388788522}
   - {fileID: 772335555}
-  - {fileID: 2004739352}
   - {fileID: 1074682856}
-  - {fileID: 1130962115}
   - {fileID: 1708047491}
   _serializedStateKeys:
   - milestones
   - milestoneRelativeHeights
   _serializedStateValues:
-  - '[0,1,2,3,4,5,6,7,8]'
-  - '[-86.51,-85.52,-58.41,-58.41,-28.5,-28.5,1.0,1.0,29.4]'
+  - '[{"$content":0,"$type":"Milestone"},{"$content":1,"$type":"Milestone"},{"$content":2,"$type":"Milestone"},{"$content":3,"$type":"Milestone"},{"$content":4,"$type":"Milestone"},{"$content":5,"$type":"Milestone"}]'
+  - '[-86.51,-85.52,-58.41,-28.5,1.0,29.4]'
   topHeight: 30.3
   bottomHeight: -108
   setCameraMinMax: 1
   showCameraTrails: 1
-  milestones:
-  - {fileID: 1170913434}
-  - {fileID: 2086493880}
-  - {fileID: 1656082252}
-  - {fileID: 1388788522}
-  - {fileID: 772335555}
-  - {fileID: 2004739352}
-  - {fileID: 1074682856}
-  - {fileID: 1130962115}
-  - {fileID: 1708047491}
 --- !u!1 &272089696
 GameObject:
   m_ObjectHideFlags: 0
@@ -2192,6 +2179,8 @@ MonoBehaviour:
   gizmosAlwaysVisible: 1
   triggerOn: 1
   disapearAfterTrigger: 1
+  triggerOnGoingUp: 1
+  triggerOnGoingDown: 1
   setAiArea: 1
   aiAreaAdjustToSceenRatio: 1
   aiAreaRelativeToMilestone:
@@ -2759,6 +2748,8 @@ MonoBehaviour:
   gizmosAlwaysVisible: 1
   triggerOn: 1
   disapearAfterTrigger: 1
+  triggerOnGoingUp: 1
+  triggerOnGoingDown: 1
   setAiArea: 1
   aiAreaAdjustToSceenRatio: 1
   aiAreaRelativeToMilestone:
@@ -3016,6 +3007,8 @@ MonoBehaviour:
   gizmosAlwaysVisible: 1
   triggerOn: 1
   disapearAfterTrigger: 1
+  triggerOnGoingUp: 1
+  triggerOnGoingDown: 1
   setAiArea: 1
   aiAreaAdjustToSceenRatio: 1
   aiAreaRelativeToMilestone:
@@ -3188,6 +3181,8 @@ MonoBehaviour:
   gizmosAlwaysVisible: 1
   triggerOn: 1
   disapearAfterTrigger: 1
+  triggerOnGoingUp: 1
+  triggerOnGoingDown: 1
   setAiArea: 1
   aiAreaAdjustToSceenRatio: 1
   aiAreaRelativeToMilestone:
@@ -3905,6 +3900,8 @@ MonoBehaviour:
   gizmosAlwaysVisible: 1
   triggerOn: 1
   disapearAfterTrigger: 1
+  triggerOnGoingUp: 1
+  triggerOnGoingDown: 1
   setAiArea: 1
   aiAreaAdjustToSceenRatio: 1
   aiAreaRelativeToMilestone:
@@ -4666,6 +4663,7 @@ MonoBehaviour:
   roadPlayer: {fileID: 1644651698}
   positionDisplacers: []
   graph: {fileID: 0}
+  meteo: {fileID: 0}
 --- !u!4 &1644651696
 Transform:
   m_ObjectHideFlags: 0
@@ -5058,17 +5056,8 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 153121006}
-  - _keys:
-    - DefaultBehaviorEditor.topHeight.EditProperty
-    - DefaultBehaviorEditor.milestones.EditProperty
-    - DefaultBehaviorEditor.milestoneRelativeHeights.EditProperty
-    _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 1
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
+  - _keys: []
+    _values: []
     _target: {fileID: 266624493}
   - _keys:
     - DefaultBehaviorEditor.mapping.EditProperty
@@ -5094,8 +5083,32 @@ MonoBehaviour:
     - _showDropdown: 0
       _serializedIsActive: 1
     _target: {fileID: 1170913434}
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.triggerOn.EditProperty
+    - DefaultBehaviorEditor.setAiArea.EditProperty
+    - DefaultBehaviorEditor.modifyFollowPlayer.EditProperty
+    - DefaultBehaviorEditor.setCameraMin.EditProperty
+    - DefaultBehaviorEditor.setCameraMax.EditProperty
+    - DefaultBehaviorEditor.useCadre.EditProperty
+    - DefaultBehaviorEditor.fireEventToLevelScript.EditProperty
+    - DefaultBehaviorEditor.dialog.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
     _target: {fileID: 2086493880}
   - _keys: []
     _values: []
@@ -5127,8 +5140,32 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 772335555}
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.triggerOn.EditProperty
+    - DefaultBehaviorEditor.setAiArea.EditProperty
+    - DefaultBehaviorEditor.modifyFollowPlayer.EditProperty
+    - DefaultBehaviorEditor.setCameraMin.EditProperty
+    - DefaultBehaviorEditor.setCameraMax.EditProperty
+    - DefaultBehaviorEditor.useCadre.EditProperty
+    - DefaultBehaviorEditor.fireEventToLevelScript.EditProperty
+    - DefaultBehaviorEditor.dialog.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
     _target: {fileID: 1074682856}
   - _keys:
     - DefaultBehaviorEditor.triggerOn.EditProperty
@@ -5175,14 +5212,86 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 710852401}
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.triggerOn.EditProperty
+    - DefaultBehaviorEditor.setAiArea.EditProperty
+    - DefaultBehaviorEditor.modifyFollowPlayer.EditProperty
+    - DefaultBehaviorEditor.setCameraMin.EditProperty
+    - DefaultBehaviorEditor.setCameraMax.EditProperty
+    - DefaultBehaviorEditor.useCadre.EditProperty
+    - DefaultBehaviorEditor.fireEventToLevelScript.EditProperty
+    - DefaultBehaviorEditor.dialog.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
     _target: {fileID: 1130962115}
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.triggerOn.EditProperty
+    - DefaultBehaviorEditor.setAiArea.EditProperty
+    - DefaultBehaviorEditor.modifyFollowPlayer.EditProperty
+    - DefaultBehaviorEditor.setCameraMin.EditProperty
+    - DefaultBehaviorEditor.setCameraMax.EditProperty
+    - DefaultBehaviorEditor.useCadre.EditProperty
+    - DefaultBehaviorEditor.fireEventToLevelScript.EditProperty
+    - DefaultBehaviorEditor.dialog.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
     _target: {fileID: 1388788522}
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.triggerOn.EditProperty
+    - DefaultBehaviorEditor.setAiArea.EditProperty
+    - DefaultBehaviorEditor.modifyFollowPlayer.EditProperty
+    - DefaultBehaviorEditor.setCameraMin.EditProperty
+    - DefaultBehaviorEditor.setCameraMax.EditProperty
+    - DefaultBehaviorEditor.useCadre.EditProperty
+    - DefaultBehaviorEditor.fireEventToLevelScript.EditProperty
+    - DefaultBehaviorEditor.dialog.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
     _target: {fileID: 2004739352}
   - _keys: []
     _values: []
@@ -5274,6 +5383,8 @@ MonoBehaviour:
   gizmosAlwaysVisible: 1
   triggerOn: 1
   disapearAfterTrigger: 1
+  triggerOnGoingUp: 1
+  triggerOnGoingDown: 1
   setAiArea: 1
   aiAreaAdjustToSceenRatio: 1
   aiAreaRelativeToMilestone:
@@ -5440,6 +5551,8 @@ MonoBehaviour:
   gizmosAlwaysVisible: 1
   triggerOn: 1
   disapearAfterTrigger: 1
+  triggerOnGoingUp: 1
+  triggerOnGoingDown: 1
   setAiArea: 1
   aiAreaAdjustToSceenRatio: 1
   aiAreaRelativeToMilestone:
@@ -6514,6 +6627,8 @@ MonoBehaviour:
   gizmosAlwaysVisible: 1
   triggerOn: 1
   disapearAfterTrigger: 1
+  triggerOnGoingUp: 1
+  triggerOnGoingDown: 1
   setAiArea: 1
   aiAreaAdjustToSceenRatio: 1
   aiAreaRelativeToMilestone:
@@ -6731,6 +6846,8 @@ MonoBehaviour:
   gizmosAlwaysVisible: 1
   triggerOn: 0
   disapearAfterTrigger: 0
+  triggerOnGoingUp: 1
+  triggerOnGoingDown: 1
   setAiArea: 0
   aiAreaAdjustToSceenRatio: 1
   aiAreaRelativeToMilestone:

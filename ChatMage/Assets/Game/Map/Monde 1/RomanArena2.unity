@@ -1227,16 +1227,12 @@ MonoBehaviour:
   - milestones
   - milestoneRelativeHeights
   _serializedStateValues:
-  - '[0,1,2]'
+  - '[{"$content":0,"$type":"Milestone"},{"$content":1,"$type":"Milestone"},{"$content":2,"$type":"Milestone"}]'
   - '[1.99,6.0,14.85]'
   topHeight: 20.34
   bottomHeight: -25.4
   setCameraMinMax: 1
   showCameraTrails: 1
-  milestones:
-  - {fileID: 454335632}
-  - {fileID: 1425111069}
-  - {fileID: 1935804301}
 --- !u!1 &272089696
 GameObject:
   m_ObjectHideFlags: 0
@@ -1626,6 +1622,11 @@ MonoBehaviour:
     height: 43
   graph: {fileID: 1644651699}
   dialog: {fileID: 11400000, guid: 0f26f2bb04526f841ac7fe9e03eaf2a6, type: 2}
+  onComplete:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!1 &379214784
 GameObject:
   m_ObjectHideFlags: 0
@@ -2140,6 +2141,8 @@ MonoBehaviour:
   gizmosAlwaysVisible: 1
   triggerOn: 1
   disapearAfterTrigger: 1
+  triggerOnGoingUp: 1
+  triggerOnGoingDown: 1
   setAiArea: 0
   aiAreaAdjustToSceenRatio: 1
   aiAreaRelativeToMilestone:
@@ -3158,6 +3161,11 @@ MonoBehaviour:
     height: 43
   graph: {fileID: 1644651699}
   dialog: {fileID: 11400000, guid: b825e28f6e967174db39a343046e1066, type: 2}
+  onComplete:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!1 &625749112
 GameObject:
   m_ObjectHideFlags: 0
@@ -3390,6 +3398,11 @@ MonoBehaviour:
     height: 43
   graph: {fileID: 1644651699}
   dialog: {fileID: 11400000, guid: d21ab8247cabc184db53f0d86b2f2546, type: 2}
+  onComplete:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!1 &670316653
 GameObject:
   m_ObjectHideFlags: 0
@@ -3549,6 +3562,11 @@ MonoBehaviour:
     height: 43
   graph: {fileID: 1644651699}
   dialog: {fileID: 11400000, guid: 493d72e3e92e57a4eb0e7c658b1798e3, type: 2}
+  onComplete:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!1 &773987708
 GameObject:
   m_ObjectHideFlags: 0
@@ -3639,7 +3657,8 @@ MonoBehaviour:
   - '{"xMin":758.0,"yMin":423.0,"xMax":908.0,"yMax":487.0}'
   - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[0]}'
-  - '{"spawnSequence":[{"unit":1,"quantity":3}],"onSpawnMethod":"","progressCallbacks":[]}'
+  - '{"spawnSequence":[{"unit":1,"quantity":3}],"useLevelScriptMethod":false,"onSpawnMethod":"","onSpawn":{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"GameEvents.MomentEvent_unit,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]},"progressCallbacks":[]}'
   - '{"logErrorIfUnableToLaunch":true,"spawnTag":"ordered","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0}'
   windowRect:
     serializedVersion: 2
@@ -3690,7 +3709,8 @@ MonoBehaviour:
   - '{"xMin":518.0,"yMin":397.0,"xMax":668.0,"yMax":461.0}'
   - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[0]}'
-  - '{"spawnSequence":[{"unit":1,"quantity":4}],"onSpawnMethod":"","progressCallbacks":[]}'
+  - '{"spawnSequence":[{"unit":1,"quantity":4}],"useLevelScriptMethod":false,"onSpawnMethod":"","onSpawn":{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"GameEvents.MomentEvent_unit,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]},"progressCallbacks":[]}'
   - '{"logErrorIfUnableToLaunch":true,"spawnTag":"ordered","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0}'
   windowRect:
     serializedVersion: 2
@@ -3961,7 +3981,8 @@ MonoBehaviour:
   - '{"xMin":1100.0,"yMin":452.0,"xMax":1250.0,"yMax":536.0}'
   - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[0]}'
-  - '{"spawnSequence":[{"unit":1,"quantity":2},{"unit":2,"quantity":2},{"unit":3,"quantity":1}],"onSpawnMethod":"","progressCallbacks":[{"moment":{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+  - '{"spawnSequence":[{"unit":1,"quantity":2},{"unit":2,"quantity":2},{"unit":3,"quantity":1}],"useLevelScriptMethod":false,"onSpawnMethod":"","onSpawn":{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"GameEvents.MomentEvent_unit,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]},"progressCallbacks":[{"moment":{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[4]},"useProgress":true,"atProgress":0.75,"atKillCount":0}]}'
   - '{"logErrorIfUnableToLaunch":true,"spawnTag":"ordered","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0}'
   windowRect:
@@ -6172,7 +6193,8 @@ MonoBehaviour:
   - '{"xMin":866.0,"yMin":551.0,"xMax":1016.0,"yMax":615.0}'
   - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]}'
-  - '{"spawnSequence":[{"unit":0,"quantity":2},{"unit":1,"quantity":1}],"onSpawnMethod":"","progressCallbacks":[]}'
+  - '{"spawnSequence":[{"unit":0,"quantity":2},{"unit":1,"quantity":1}],"useLevelScriptMethod":false,"onSpawnMethod":"","onSpawn":{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"GameEvents.MomentEvent_unit,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]},"progressCallbacks":[]}'
   - '{"logErrorIfUnableToLaunch":true,"spawnTag":"sides","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0}'
   windowRect:
     serializedVersion: 2
@@ -6618,6 +6640,8 @@ MonoBehaviour:
   gizmosAlwaysVisible: 1
   triggerOn: 1
   disapearAfterTrigger: 1
+  triggerOnGoingUp: 1
+  triggerOnGoingDown: 1
   setAiArea: 1
   aiAreaAdjustToSceenRatio: 1
   aiAreaRelativeToMilestone:
@@ -7328,6 +7352,8 @@ MonoBehaviour:
   - {fileID: 379214786}
   - {fileID: 586997904}
   - {fileID: 397319554}
+  graph: {fileID: 0}
+  meteo: {fileID: 0}
 --- !u!4 &1644651696
 Transform:
   m_ObjectHideFlags: 0
@@ -7623,17 +7649,8 @@ MonoBehaviour:
     - _showDropdown: 0
       _serializedIsActive: 1
     _target: {fileID: 1425111069}
-  - _keys:
-    - DefaultBehaviorEditor.topHeight.EditProperty
-    - DefaultBehaviorEditor.milestones.EditProperty
-    - DefaultBehaviorEditor.milestoneRelativeHeights.EditProperty
-    _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 1
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
+  - _keys: []
+    _values: []
     _target: {fileID: 266624493}
   - _keys: []
     _values: []
@@ -8344,7 +8361,8 @@ MonoBehaviour:
   - '{"xMin":670.9,"yMin":792.0,"xMax":820.9,"yMax":856.0}'
   - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]}'
-  - '{"spawnSequence":[{"unit":0,"quantity":3}],"onSpawnMethod":"","progressCallbacks":[]}'
+  - '{"spawnSequence":[{"unit":0,"quantity":3}],"useLevelScriptMethod":false,"onSpawnMethod":"","onSpawn":{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"GameEvents.MomentEvent_unit,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]},"progressCallbacks":[]}'
   - '{"logErrorIfUnableToLaunch":true,"spawnTag":"plus","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0}'
   windowRect:
     serializedVersion: 2
@@ -8565,6 +8583,11 @@ MonoBehaviour:
     height: 43
   graph: {fileID: 1644651699}
   dialog: {fileID: 11400000, guid: 181cd0fe97ce3fd459eb97c1ad16cbd9, type: 2}
+  onComplete:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!1 &1776966633
 GameObject:
   m_ObjectHideFlags: 0
@@ -8868,7 +8891,8 @@ MonoBehaviour:
   - '{"xMin":1115.0,"yMin":503.0,"xMax":1265.0,"yMax":567.0}'
   - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[0]}'
-  - '{"spawnSequence":[{"unit":1,"quantity":2},{"unit":2,"quantity":2},{"unit":3,"quantity":1},{"unit":4,"quantity":1}],"onSpawnMethod":"","progressCallbacks":[]}'
+  - '{"spawnSequence":[{"unit":1,"quantity":2},{"unit":2,"quantity":2},{"unit":3,"quantity":1},{"unit":4,"quantity":1}],"useLevelScriptMethod":false,"onSpawnMethod":"","onSpawn":{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"GameEvents.MomentEvent_unit,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]},"progressCallbacks":[]}'
   - '{"logErrorIfUnableToLaunch":true,"spawnTag":"ordered","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0}'
   windowRect:
     serializedVersion: 2
@@ -9239,6 +9263,8 @@ MonoBehaviour:
   gizmosAlwaysVisible: 1
   triggerOn: 1
   disapearAfterTrigger: 1
+  triggerOnGoingUp: 1
+  triggerOnGoingDown: 1
   setAiArea: 0
   aiAreaAdjustToSceenRatio: 1
   aiAreaRelativeToMilestone:
@@ -10220,6 +10246,11 @@ MonoBehaviour:
     height: 43
   graph: {fileID: 1644651699}
   dialog: {fileID: 11400000, guid: 312e4147c47dce344bba46ec0a8486db, type: 2}
+  onComplete:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!1 &2105121553
 GameObject:
   m_ObjectHideFlags: 0

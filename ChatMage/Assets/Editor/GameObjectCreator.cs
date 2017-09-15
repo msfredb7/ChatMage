@@ -53,6 +53,19 @@ public class GameObjectCreator : MonoBehaviour
         obj.transform.localPosition = new Vector3(0, obj.transform.localPosition.y, 0);
     }
 
+    [MenuItem("GameObject/Time Drifter/Two Way Milestone", priority = -1)]
+    private static void CreateTwoWayMilestone(MenuCommand command)
+    {
+        GameObject obj = new GameObject("Two Way Milestone");
+        obj.AddComponent<GameEvents.TwoWayMilestone>();
+        obj.isStatic = true;
+        obj.tag = "Milestone";
+
+        AdjustGameobject(obj, command);
+
+        obj.transform.localPosition = new Vector3(0, obj.transform.localPosition.y, 0);
+    }
+
     private static void AdjustGameobject(GameObject obj, MenuCommand command, Vector3 localScale)
     {
         Selection.activeGameObject = obj;

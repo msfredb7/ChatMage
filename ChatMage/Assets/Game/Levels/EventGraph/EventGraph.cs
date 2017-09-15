@@ -112,52 +112,57 @@ namespace GameEvents
     {
         public static Color FLOW_CONTROL
         {
-            get { return new Color(0.9f, 1, 1, 1); }
+            get { return new Color(0.9f, 1, 1, 1); } // turquois pale
         }
 
         public static Color MAP
         {
-            get { return new Color(0.65f, 0.65f, 1, 1); }
+            get { return new Color(0.65f, 0.65f, 1, 1); } // bleu foncé
         }
 
         public static Color LEVEL_SCRIPT
         {
-            get { return new Color(0.95f, 0.65f, 0, 1); }
+            get { return new Color(0.95f, 0.65f, 0, 1); } // orange
         }
 
         public static Color VARIABLES
         {
-            get { return new Color(0.67f, 0.67f, 0.67f, 1); }
+            get { return new Color(0.67f, 0.67f, 0.67f, 1); } // gris
         }
 
         public static Color WAVES
         {
-            get { return new Color(1, 0.5f, 0.5f, 1); }
+            get { return new Color(1, 0.5f, 0.5f, 1); } //rouge
         }
 
         public static Color DIALOG
         {
-            get { return new Color(1, 1, 0.5f, 1); }
+            get { return new Color(1, 1, 0.5f, 1); } //Jaune
         }
 
         public static Color DELAY
         {
-            get { return new Color(1, 0.7f, 1, 1); }
+            get { return new Color(1, 0.7f, 1, 1); } // Rose
         }
 
         public static Color CAMERA
         {
-            get { return new Color(1f, 0.8f, 0.8f, 1); }
+            get { return new Color(1f, 0.8f, 0.8f, 1); } //rouge pale
         }
 
         public static Color AI
         {
-            get { return new Color(0.75f, 0.8f, 1f, 1); }
+            get { return new Color(0.75f, 0.8f, 1f, 1); } // bleu pale
         }
 
         public static Color MILESTONE
         {
-            get { return new Color(.8f, 10, .8f, 1); }
+            get { return new Color(.8f, 1, .8f, 1); } // Vert pale
+        }
+
+        public static Color METEO
+        {
+            get { return new Color(.7f, 1, .6f, 1); } // Vert foncé
         }
     }
 }
