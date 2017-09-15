@@ -245,7 +245,9 @@ namespace GameEvents
                     else
                     {
                         Debug.LogWarning("Le moment apparenant a: " + NodeLabel + " a un lien vers un IEvent qui n'est pas IEventDisplay."
-                            + "dis is weird.");
+                            + " Destruction du lien.");
+                        moment.RemoveNulls();
+                        break;
                     }
                 }
             }
