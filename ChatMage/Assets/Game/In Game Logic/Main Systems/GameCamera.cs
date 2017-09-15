@@ -109,6 +109,8 @@ public class GameCamera : MonoBehaviour
     {
         //Camera Shake
         cam.transform.localPosition = vectorShaker.CurrentVector + wiggler.CurrentOffset;
+        if (wiggler.IsInTransition)
+            cam.orthographicSize = DEFAULT_SCREEN_HEIGHT / 2 - wiggler.ActualSize;
     }
 
     void FixedUpdate()

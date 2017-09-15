@@ -144,23 +144,25 @@ public class Road : BaseBehavior
         {
             float halfW = GameCamera.DEFAULT_SCREEN_WIDTH / 2;
 
-            Bounds interiorBounds = new Bounds();
-            interiorBounds.max = new Vector3(halfW, topHeight, 0);
-            interiorBounds.min = new Vector3(-halfW, bottomHeight, 0);
+            Bounds bounds = new Bounds();
+            bounds.max = new Vector3(halfW, topHeight, 0);
+            bounds.min = new Vector3(-halfW, bottomHeight, 0);
 
-            DebugExtension.DrawBounds(interiorBounds, new Color(1, 0, 1, 1));
+            DebugExtension.DrawBounds(bounds, new Color(1, 0, 1, 1));
             
 
-            Bounds exteriorBounds = new Bounds();
-            exteriorBounds.max = new Vector3(halfW + GameCamera.MAX_CAMERA_SHAKE, topHeight + GameCamera.MAX_CAMERA_SHAKE, 0);
-            exteriorBounds.min = new Vector3(-halfW - GameCamera.MAX_CAMERA_SHAKE, bottomHeight - GameCamera.MAX_CAMERA_SHAKE, 0);
+            bounds.max = new Vector3(halfW + GameCamera.MAX_CAMERA_SHAKE, topHeight + GameCamera.MAX_CAMERA_SHAKE, 0);
+            bounds.min = new Vector3(-halfW - GameCamera.MAX_CAMERA_SHAKE, bottomHeight - GameCamera.MAX_CAMERA_SHAKE, 0);
 
-            DebugExtension.DrawBounds(exteriorBounds, new Color(1, 0, 1, 0.3f));
+            DebugExtension.DrawBounds(bounds, new Color(1, 0, 1, 0.3f));
+
+
+            const float cameraWiggleStrength = 0.2f;
+            bounds.max = new Vector3(halfW - cameraWiggleStrength, topHeight - cameraWiggleStrength, 0);
+            bounds.min = new Vector3(-halfW + cameraWiggleStrength, bottomHeight + cameraWiggleStrength, 0);
+
+            DebugExtension.DrawBounds(bounds, new Color(1, 0.5f, 1, 0.3f));
         }
-
-        //Gizmos.color = new Color(0, 0, 1, 0.5F);
-        //Gizmos.DrawCube(new Vector3(0, (topHeight + bottomHeight) / 2, 0),
-        //    new Vector3(GameCamera.DEFAULT_SCREEN_WIDTH, topHeight - bottomHeight, 1));
     }
 
     [InspectorButton(), InspectorName("Gather All Milestones")]
