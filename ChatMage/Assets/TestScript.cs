@@ -15,6 +15,10 @@ public class TestScript : MonoBehaviour
 
     void Update()
     {
+        float rotateFloat = (((-5 + 1) * 60) - 30) - transform.rotation.z;
+        Quaternion targetRotation = Quaternion.Euler(new Vector3(0, 0, rotateFloat));
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation,Time.deltaTime);
+
         if (Input.GetKeyDown(KeyCode.T))
         {
 
