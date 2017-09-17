@@ -37,7 +37,7 @@ public class JesusV2AnimatorV2 : EnemyAnimator
         controller.SetTrigger(throwHash);
     }
 
-    private void _PickUpComplete()
+    public void _PickUpComplete()
     {
         Flush(ref pickUpCallback);
     }
@@ -46,7 +46,7 @@ public class JesusV2AnimatorV2 : EnemyAnimator
         Flush(ref pickUpMoment);
         controller.SetBool(hasRockHash, true);
     }
-    private void _ThrowComplete()
+    public void _ThrowComplete()
     {
         Flush(ref throwCallback);
     }
