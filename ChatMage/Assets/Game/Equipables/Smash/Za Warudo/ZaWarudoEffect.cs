@@ -126,7 +126,7 @@ public class ZaWarudoEffect : MonoBehaviour
             },
             0, //End Value
             appearDurationI + pauseDurationI / 2) //Duration
-        .SetEase(Ease.OutElastic));
+        .SetEase(Ease.OutElastic).OnComplete(() => fisheye.enabled = false));
 
         //Disapear circle
         sq.Insert(pauseDurationI + appearDurationI,
@@ -139,26 +139,15 @@ public class ZaWarudoEffect : MonoBehaviour
             },
             1, //End Value
             appearDurationI) //Duration
-        .SetEase(Ease.InQuad));
-
-
-        //Vignette in
-        //sq.Insert(appearDurationI,
-        //    DOTween.To(
-        //    () => vignette.intensity, //Getter
-        //    delegate (float x)                    //Setter
-        //    {
-        //        vignette.intensity = x;
-        //    },
-        //    0.2f, //End Value
-        //    pauseDurationI) //Duration
-        //.SetEase(Ease.Linear));
+        .SetEase(Ease.InQuad).OnComplete(() => enabled = false));
 
     }
 
 
     public void AnimateBack(TweenCallback unapply)
     {
+        enabled = true;
+
         fisheye.enabled = true;
         fisheye.strengthX = 0;
         fisheye.strengthY = 0;
@@ -223,7 +212,7 @@ public class ZaWarudoEffect : MonoBehaviour
             },
             0, //End Value
             appearDurationO + pauseDurationO / 2) //Duration
-        .SetEase(Ease.OutElastic));
+        .SetEase(Ease.OutElastic).OnComplete(() => fisheye.enabled = false));
 
         //Disapear circle
         sq.Insert(pauseDurationO + appearDurationO,
@@ -236,26 +225,6 @@ public class ZaWarudoEffect : MonoBehaviour
             },
             0.0001f, //End Value
             appearDurationO) //Duration
-        .SetEase(Ease.InQuad));
-
-
-        //Vignette out
-        //sq.Insert(appearDurationO,
-        //    DOTween.To(
-        //    () => vignette.intensity, //Getter
-        //    delegate (float x)                    //Setter
-        //    {
-        //        vignette.intensity = x;
-        //    },
-        //    0, //End Value
-        //    pauseDurationO) //Duration
-        //.SetEase(Ease.Linear));
-
-        sq.OnComplete(delegate ()
-        {
-            //vignette.enabled = false;
-            fisheye.enabled = false;
-            enabled = false;
-        });
+        .SetEase(Ease.InQuad).OnComplete(()=>enabled= false));
     }
 }
