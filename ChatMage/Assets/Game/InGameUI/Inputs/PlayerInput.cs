@@ -5,13 +5,13 @@ using UnityEngine;
 public class PlayerInput : MonoBehaviour
 {
     private PlayerController controller;
-    public PointerListener leftButton;
-    public PointerListener middleButton;
-    public PointerListener rightButton;
+
+    private int turning;
+    private bool smashPress;
 
     void Start()
     {
-        middleButton.onClick.AddListener(OnMiddleClick);
+        ClearFlags();
     }
 
     public void Init(PlayerController controller)
@@ -21,23 +21,70 @@ public class PlayerInput : MonoBehaviour
             Debug.LogError("PlayerController is null");
     }
 
-    void OnMiddleClick()
-    {
-        if (!Game.instance.gameStarted)
-            return;
-        controller.playerSmash.SmashClick();
-    }
-
     void Update()
     {
         if (controller == null || !Game.instance.gameStarted)
             return;
 
-        if (rightButton.isIn || Input.GetKey(KeyCode.RightArrow))
+        //Sur mobile ou non ?
+        if (Application.isMobilePlatform)
+        {
+            //On check tout les touchs
+            for (int i = 0; i < Input.touchCount; i++)
+            {
+                OnPlayerTouch(Input.GetTouch(i).position);
+            }
+        }
+        else
+        {
+            if (Input.GetMouseButton(0))
+            {
+                //Click de souris
+                Vector2 pos = Input.mousePosition;
+                OnPlayerTouch(pos);
+            }
+            else
+            {
+                //Touch de clavier
+                if (Input.GetKey(KeyCode.RightArrow))
+                    turning ++;
+                if (Input.GetKey(KeyCode.LeftArrow))
+                    turning--;
+                if (Input.GetKeyDown(KeyCode.Space))
+                    smashPress = true;
+            }
+        }
+
+        ApplyFlags();
+        ClearFlags();
+    }
+
+    void OnPlayerTouch(Vector2 pixelPosition)
+    {
+        float x = pixelPosition.x;
+        float regionWidth = Screen.width / 3f;
+
+        if (x < regionWidth)
+            turning--;
+        else if (x < regionWidth * 2)
+            smashPress = true;
+        else if (x < regionWidth * 3)
+            turning++;
+    }
+
+    void ApplyFlags()
+    {
+        if (turning > 0)
             controller.playerDriver.TurnRight();
-        if (leftButton.isIn || Input.GetKey(KeyCode.LeftArrow))
+        else if (turning < 0)
             controller.playerDriver.TurnLeft();
-        if (Input.GetKeyDown(KeyCode.Space))
-            OnMiddleClick();
+
+        if (smashPress)
+            controller.playerSmash.SmashClick();
+    }
+    void ClearFlags()
+    {
+        turning = 0;
+        smashPress = false;
     }
 }

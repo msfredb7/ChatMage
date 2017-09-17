@@ -23,6 +23,7 @@ public class UiSystem : MonoBehaviour {
     [Header("4:3")]
     public HealthDisplay healthdisplayHorizontal;
     public OptionsButton optionsButtonHigh;
+    public GameObject bandeNoir;
 
     public void Init(PlayerController playerController)
     {
@@ -58,5 +59,6 @@ public class UiSystem : MonoBehaviour {
             optionsButtonLow.gameObject.SetActive(false);
             optionsButtonHigh.gameObject.SetActive(true);
         }
+        bandeNoir.SetActive(aspect < 1.486f);
     }
 }

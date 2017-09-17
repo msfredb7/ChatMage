@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -748,8 +748,17 @@ MonoBehaviour:
   _keys:
   - {fileID: 986166561}
   _values:
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.gameCamera.EditProperty
+    - DefaultBehaviorEditor.units.EditProperty
+    - DefaultBehaviorEditor.attackableUnits.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
     _target: {fileID: 986166561}
 --- !u!1 &1461222805
 GameObject:
@@ -1146,8 +1155,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1842310624}
   - component: {fileID: 1842310628}
-  - component: {fileID: 1842310627}
-  - component: {fileID: 1842310626}
   - component: {fileID: 1842310625}
   - component: {fileID: 1842310629}
   - component: {fileID: 1842310630}
@@ -1178,20 +1185,6 @@ AudioListener:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1842310623}
   m_Enabled: 1
---- !u!92 &1842310626
-Behaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1842310623}
-  m_Enabled: 1
---- !u!124 &1842310627
-Behaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1842310623}
-  m_Enabled: 1
 --- !u!20 &1842310628
 Camera:
   m_ObjectHideFlags: 0
@@ -1201,7 +1194,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.43014705, g: 0.48590687, b: 0.5735294, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -1221,7 +1214,7 @@ Camera:
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
-  m_HDR: 1
+  m_HDR: 0
   m_AllowMSAA: 1
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
