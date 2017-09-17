@@ -31,7 +31,7 @@ namespace GameIntroOutro
             veh.canMove.Lock("intro");
             veh.canTurn.Lock("intro");
 
-            gameCamera.DOOrthoSize(GameCamera.DEFAULT_SCREEN_HEIGHT / 2, unzoomDuration)
+            gameCamera.DOOrthoSize(gameCamera.DefaultOrthoSize / 2, unzoomDuration)
                 .SetDelay(delay)
                 .SetEase(Ease.InOutSine)
                 .OnComplete(delegate ()

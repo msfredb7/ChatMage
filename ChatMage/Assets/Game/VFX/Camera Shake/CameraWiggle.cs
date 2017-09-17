@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,6 +20,8 @@ public class CameraWiggle : MonoBehaviour
     {
         targetSize = animationSize;
         tr = transform;
+
+        //Note: ceci est independant de l'aspect de la camera (4:3 / 16:9)
         playerSpace = new Vector2(GameCamera.DEFAULT_SCREEN_WIDTH / 2 * playerSpaceToScreenRatio,
             GameCamera.DEFAULT_SCREEN_HEIGHT / 2 * playerSpaceToScreenRatio);
     }

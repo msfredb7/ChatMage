@@ -80,7 +80,7 @@ namespace GameIntroOutro
             sq.Append(portal.DOScale(0, portalClosingDuration).SetEase(Ease.InBack));
 
             //Unzoom
-            sq.Join(gCam.DOOrthoSize(GameCamera.DEFAULT_SCREEN_HEIGHT / 2, unzoomDuration).SetEase(Ease.InOutSine));
+            sq.Join(gCam.DOOrthoSize(gCam.DefaultOrthoSize, unzoomDuration).SetEase(Ease.InOutSine));
         }
     }
 

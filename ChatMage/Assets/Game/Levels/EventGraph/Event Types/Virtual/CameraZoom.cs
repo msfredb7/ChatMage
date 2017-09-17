@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
@@ -18,7 +18,7 @@ namespace GameEvents
         public void Trigger()
         {
             GameCamera cam = Game.instance.gameCamera;
-            float size = (GameCamera.DEFAULT_SCREEN_HEIGHT / 2) * targetSize;
+            float size = (cam.DefaultOrthoSize) * targetSize;
 
             if(animationDuration > 0)
             {

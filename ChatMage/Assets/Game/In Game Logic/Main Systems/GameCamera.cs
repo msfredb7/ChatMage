@@ -42,14 +42,18 @@ public class GameCamera : MonoBehaviour
     //Ortho size anim
     private Tween orthoAnim = null;
 
+    private float baseOrthoSize;
+
     void Awake()
     {
         tr = transform;
 
         //Screen bounds
         float aspect = cam.aspect;
-        float width = aspect * OrthoSize * 2;
-        OrthoSize *= DEFAULT_SCREEN_WIDTH / width;
+        float width = aspect * cam.orthographicSize * 2;
+        baseOrthoSize = cam.orthographicSize * DEFAULT_SCREEN_WIDTH / width;
+
+        OrthoSize = baseOrthoSize;
         vectorShaker.max = MAX_CAMERA_SHAKE;
     }
 
@@ -57,6 +61,11 @@ public class GameCamera : MonoBehaviour
     {
         get { return cam.orthographicSize + wiggler.animationSize; }
         set { cam.orthographicSize = value - wiggler.animationSize; }
+    }
+
+    public float DefaultOrthoSize
+    {
+        get { return baseOrthoSize; }
     }
 
     public Tween DOOrthoSize(float endValue, float duration)
@@ -110,7 +119,7 @@ public class GameCamera : MonoBehaviour
         //Camera Shake
         cam.transform.localPosition = vectorShaker.CurrentVector + wiggler.CurrentOffset;
         if (wiggler.IsInTransition)
-            cam.orthographicSize = DEFAULT_SCREEN_HEIGHT / 2 - wiggler.ActualSize;
+            cam.orthographicSize = DefaultOrthoSize - wiggler.ActualSize;
     }
 
     void FixedUpdate()
