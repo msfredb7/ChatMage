@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class JesusRockV2 : MovingUnit
 {
+    public const float PHYSICAL_WIDTH = 1;
+
     [System.NonSerialized]
     public float flySpeed;
 
@@ -35,6 +37,9 @@ public class JesusRockV2 : MovingUnit
         isFlying = false;
         Speed = Vector2.zero;
         collider.enabled = false;
+
+        Vector3 lp = tr.localPosition;
+        tr.localPosition = new Vector3(lp.x, lp.y, 0);
     }
 
     public void ThrownState(Vector2 direction, Unit cannotHit = null)

@@ -13,7 +13,6 @@ namespace AI
 
         void Start()
         {
-            GetAvailableRocks();
             AddGoal(new Goal_Wander(veh));
         }
 
@@ -21,7 +20,10 @@ namespace AI
         {
             base.Update();
 
-            if(target == null)
+            if(availableRocks == null)
+                GetAvailableRocks();
+
+            if (target == null)
             {
                 //On cherche une cible
                 target = veh.targets.TryToFindTarget(veh);
@@ -69,6 +71,9 @@ namespace AI
 
         private void GetAvailableRocks()
         {
+            if (Game.instance == null)
+                return;
+
             availableRocks = new List<JesusRockV2>(3);
 
             LinkedListNode<Unit> node = Game.instance.units.First;

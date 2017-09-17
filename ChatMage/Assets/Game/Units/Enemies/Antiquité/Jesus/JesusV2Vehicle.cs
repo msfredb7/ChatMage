@@ -17,13 +17,15 @@ public class JesusV2Vehicle : EnemyVehicle
 
     [Header("Linking")]
     public new Collider2D collider;
-    public JesusV2Animator animator;
+    public JesusV2AnimatorV2 animator;
     public Transform rockTransporter;
 
     [Header("Throw")]
     public float throwSpeed;
 
     [Header("Visuals")]
+    public Color flashColor = Color.red;
+    public Color lowHPColor = Color.red;
     public SpriteRenderer[] spriteRenderers;
 
     private int maxHp;
@@ -76,7 +78,8 @@ public class JesusV2Vehicle : EnemyVehicle
 
         //Flashs animation
         damagable = false;
-        FlashAnimation.FlashColor(this, spriteRenderers, invulnurableDuration, Color.red, () => damagable = true);
+        UpdateVisuals();
+        FlashAnimation.FlashColor(this, spriteRenderers, invulnurableDuration, flashColor, () => damagable = true);
 
         //Bump unit
         if (unit != null && unit is Vehicle)
@@ -103,6 +106,15 @@ public class JesusV2Vehicle : EnemyVehicle
         }
 
         return hp;
+    }
+
+    private void UpdateVisuals()
+    {
+        Color c = Color.Lerp(lowHPColor, Color.white, ((hp - 1f).Raised(0)) / (maxHp - 1f));
+        for (int i = 0; i < spriteRenderers.Length; i++)
+        {
+            spriteRenderers[i].color = c;
+        }
     }
 
     protected override void Die()

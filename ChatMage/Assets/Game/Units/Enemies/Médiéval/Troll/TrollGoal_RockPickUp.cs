@@ -21,8 +21,11 @@ namespace AI
 
         void PickUpMoment()
         {
-            myRock.transform.SetParent(veh.rockTransporter, true);
-            myRock.PickedUpState(veh);
+            if (status == Status.active)
+            {
+                myRock.transform.SetParent(veh.rockTransporter, true);
+                myRock.PickedUpState(veh);
+            }
         }
 
         public override void Interrupted()

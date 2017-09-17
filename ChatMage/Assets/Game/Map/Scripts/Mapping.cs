@@ -137,11 +137,7 @@ public class Mapping : BaseBehavior
     }
     public List<TaggedObject> GetTaggedObjects(string tag)
     {
-        List<TaggedObject> list = GetTaggedObjectsListByTag(tag);
-        if (list != null)
-            return new List<TaggedObject>(GetTaggedObjectsListByTag(tag));
-        else
-            return new List<TaggedObject>();
+        return GetTaggedObjectsListByTag(tag);
     }
     public TaggedObject GetTaggedObject(string tag)
     {

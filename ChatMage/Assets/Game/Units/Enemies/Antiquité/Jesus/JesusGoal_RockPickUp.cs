@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace AI
 {
-    public class JesusGoal_RockPickUp : BaseGoal_Tween<JesusV2Vehicle>
+    public class JesusGoal_RockPickUp : Goal<JesusV2Vehicle>
     {
         private JesusRockV2 myRock;
 
@@ -13,15 +13,18 @@ namespace AI
 
         public override void Activate()
         {
-            tween = veh.animator.PickUpRockAnimation(PickUpMoment);
+            veh.animator.PickUpRock(PickUpMoment, ForceCompletion);
             veh.Stop();
             base.Activate();
         }
 
         void PickUpMoment()
         {
-            myRock.transform.SetParent(veh.rockTransporter, true);
-            myRock.PickedUpState(veh);
+            if(status == Status.active)
+            {
+                myRock.transform.SetParent(veh.rockTransporter, true);
+                myRock.PickedUpState(veh);
+            }
         }
 
         public override void Interrupted()
@@ -40,6 +43,13 @@ namespace AI
             }
 
             base.ForceFailure();
+        }
+
+        public override Status Process()
+        {
+            ActivateIfInactive();
+
+            return status;
         }
     }
 }

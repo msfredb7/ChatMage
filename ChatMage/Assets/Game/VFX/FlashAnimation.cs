@@ -13,7 +13,8 @@ public class FlashAnimation
         Color flash,
         bool onAndOffMode,
         float duration,
-        TweenCallback onComplete = null)
+        TweenCallback onComplete,
+        bool useUnitTimescale)
     {
         if (unit == null || renders == null || duration <= 0)
             throw new Exception("Invalid flash request. Ya p-e quelque chose de null qui devrais pas.");
@@ -21,26 +22,32 @@ public class FlashAnimation
         Sequence sq = DOTween.Sequence().SetAutoKill(true);
 
         //Timescale
-        sq.timeScale = unit.TimeScale;
+        if (useUnitTimescale)
+            sq.timeScale = unit.TimeScale;
 
         //Delegates
-        Unit.Unit_Event onTimeScaleChange = delegate (Unit u)
-        {
-            sq.timeScale = u.TimeScale;
-        };
+        Unit.Unit_Event onTimeScaleChange = null;
         Unit.Unit_Event onUnitDeath = delegate (Unit u)
         {
             sq.Kill();
         };
 
         // Ajoute les listeners
-        unit.onTimeScaleChange += onTimeScaleChange;
+        if (useUnitTimescale)
+        {
+            onTimeScaleChange = delegate (Unit u)
+            {
+                sq.timeScale = u.TimeScale;
+            };
+            unit.onTimeScaleChange += onTimeScaleChange;
+        }
         unit.onDeath += onUnitDeath;
 
         // Enleve les listeners
         sq.OnKill(delegate ()
         {
-            unit.onTimeScaleChange -= onTimeScaleChange;
+            if (useUnitTimescale)
+                unit.onTimeScaleChange -= onTimeScaleChange;
             unit.onDeath -= onUnitDeath;
         });
 
@@ -95,38 +102,42 @@ public class FlashAnimation
     }
 
 
-    public static void Flash(Unit unit, SpriteRenderer render, float duration, TweenCallback onComplete = null)
+    public static void Flash(Unit unit, SpriteRenderer render, float duration, TweenCallback onComplete = null,
+        bool useUnitTimescale = false)
     {
         SpriteRenderer[] renders = new SpriteRenderer[1];
         renders[0] = render;
 
-        Flash(unit, renders, duration, onComplete);
+        Flash(unit, renders, duration, onComplete, useUnitTimescale);
     }
 
-    public static void Flash(Unit unit, SpriteRenderer[] renders, float duration, TweenCallback onComplete = null)
+    public static void Flash(Unit unit, SpriteRenderer[] renders, float duration, TweenCallback onComplete = null,
+        bool useUnitTimescale = false)
     {
         Color dumbColor = Color.white;
-        InternalFlashV2(unit, renders, dumbColor, true, duration, onComplete);
+        InternalFlashV2(unit, renders, dumbColor, true, duration, onComplete, useUnitTimescale);
     }
 
     public static void FlashColor(Unit unit,
         SpriteRenderer render,
         float duration,
         Color flash,
-        TweenCallback onComplete = null)
+        TweenCallback onComplete = null,
+        bool useUnitTimescale = false)
     {
         SpriteRenderer[] renders = new SpriteRenderer[1];
         renders[0] = render;
 
-        InternalFlashV2(unit, renders, flash, false, duration, onComplete);
+        InternalFlashV2(unit, renders, flash, false, duration, onComplete, useUnitTimescale);
     }
 
     public static void FlashColor(Unit unit,
         SpriteRenderer[] renders,
         float duration,
         Color flash,
-        TweenCallback onComplete = null)
+        TweenCallback onComplete = null,
+        bool useUnitTimescale = false)
     {
-        InternalFlashV2(unit, renders, flash, false, duration, onComplete);
+        InternalFlashV2(unit, renders, flash, false, duration, onComplete, useUnitTimescale);
     }
 }

@@ -23,7 +23,7 @@ namespace AI
             if (myRock.InTheHandsOf != veh)
             {
                 //Doit-on aller la chercher ?  (cannot fail)
-                AddSubGoal(new Goal_Follow(veh, myRock, veh.unitWidth * 0.7f));
+                AddSubGoal(new Goal_Follow(veh, myRock, veh.unitWidth/2 + JesusRockV2.PHYSICAL_WIDTH/2 + 0.2f));
 
                 //Aim at target  (cannot fail)
                 AddSubGoal(new Goal_LookAt(veh, myRock));

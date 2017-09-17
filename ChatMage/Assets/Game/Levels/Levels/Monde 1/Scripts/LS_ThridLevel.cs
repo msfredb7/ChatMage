@@ -157,13 +157,14 @@ public class LS_ThridLevel : LevelScript
         progressTracker.AddCallback(onComplete, 1f);
 
         //Register ambush units
-        for (int i = 0; i < enemyBuffer.Count; i++)
-        {
-            if (enemyBuffer[i] != null && !enemyBuffer[i].IsDead && enemyBuffer[i].gameObject.activeSelf)
+        if (enemyBuffer != null)
+            for (int i = 0; i < enemyBuffer.Count; i++)
             {
-                progressTracker.RegisterUnit(enemyBuffer[i]);
+                if (enemyBuffer[i] != null && !enemyBuffer[i].IsDead && enemyBuffer[i].gameObject.activeSelf)
+                {
+                    progressTracker.RegisterUnit(enemyBuffer[i]);
+                }
             }
-        }
 
         //Register les  unit pre-spawned
         for (int i = 0; i < preSpawned.Count; i++)
