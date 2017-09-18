@@ -54,7 +54,6 @@ public class GameCamera : MonoBehaviour
         float aspect = cam.aspect;
         float width = aspect * cam.orthographicSize * 2;
         screenMult = DEFAULT_SCREEN_WIDTH / width;
-        print(screenMult);
         baseOrthoSize = cam.orthographicSize * screenMult;
 
         OrthoSize = baseOrthoSize;
