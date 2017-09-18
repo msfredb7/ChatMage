@@ -56,7 +56,7 @@ public abstract class EnemyAnimator : MonoBehaviour
             _DeathComplete();
     }
 
-    protected virtual void _DeathComplete()
+    public virtual void _DeathComplete()
     {
         if (deathCallback != null)
         {

@@ -15,6 +15,7 @@ public class CameraWiggle : MonoBehaviour
     private float actualSize;
     private float targetSize;
     private float transitionDuration = 1;
+    private const float xMultiplier = GameCamera.DEFAULT_SCREEN_WIDTH / GameCamera.DEFAULT_SCREEN_HEIGHT;
 
     private void Awake()
     {
@@ -45,7 +46,7 @@ public class CameraWiggle : MonoBehaviour
         if (Player != null)
         {
             Vector2 playerToScreen = Player.position - tr.position;
-            Vector2 displacement = new Vector2((playerToScreen.x / playerSpace.x).Clamped(-1, 1),
+            Vector2 displacement = new Vector2((playerToScreen.x / playerSpace.x).Clamped(-1, 1) * xMultiplier,
                 (playerToScreen.y / playerSpace.y).Clamped(-1, 1));
 
             offset = displacement * actualSize;
