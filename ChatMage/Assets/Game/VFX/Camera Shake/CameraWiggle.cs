@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraWiggle : MonoBehaviour
 {
-    public float animationSize = 0.2f;
+    public const float SIZE = 0.125f;
     public float playerSpaceToScreenRatio = .7f;
 
     private Transform pt;
@@ -19,7 +19,7 @@ public class CameraWiggle : MonoBehaviour
 
     private void Awake()
     {
-        targetSize = animationSize;
+        targetSize = SIZE;
         tr = transform;
 
         //Note: ceci est independant de l'aspect de la camera (4:3 / 16:9)
@@ -38,7 +38,7 @@ public class CameraWiggle : MonoBehaviour
             }
             else
             {
-                float changeSpeed = animationSize / transitionDuration;
+                float changeSpeed = SIZE / transitionDuration;
                 actualSize = actualSize.MovedTowards(targetSize, Time.deltaTime * changeSpeed);
             }
         }
