@@ -69,6 +69,27 @@ public class InGameOptions : WindowAnimation
         }
     }
 
+    public void CHEAT_Invincible()
+    {
+        Game.instance.Player.playerStats.damagable = false;
+    }
+    public void CHEAT_FastSmash()
+    {
+        SmashManager sm = Game.instance.smashManager;
+        if (sm.CurrentSmashBall != null)
+            sm.CurrentSmashBall.ForceDeath();
+        else
+            sm.DecreaseCooldown(sm.RemainingTime);
+    }
+    public void CHEAT_Win()
+    {
+        Game.instance.levelScript.Win();
+    }
+    public void CHEAT_Lose()
+    {
+        Game.instance.levelScript.Lose();
+    }
+
     public static void Open()
     {
         if (Game.instance == null)

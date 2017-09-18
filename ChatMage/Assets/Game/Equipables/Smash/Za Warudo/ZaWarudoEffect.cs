@@ -52,6 +52,12 @@ public class ZaWarudoEffect : MonoBehaviour
 
     }
 
+    private void OnDestroy()
+    {
+        if (tween != null && tween.IsActive())
+            tween.Kill();
+    }
+
     public void Animate(TweenCallback apply)
     {
         ////Protection pour la fin de game
@@ -74,6 +80,7 @@ public class ZaWarudoEffect : MonoBehaviour
         material.SetFloat("_ColShift", colorShift);
 
         Sequence sq = DOTween.Sequence();
+        tween = sq;
 
         //Appear circle
         sq.Append(DOTween.To(
@@ -126,7 +133,11 @@ public class ZaWarudoEffect : MonoBehaviour
             },
             0, //End Value
             appearDurationI + pauseDurationI / 2) //Duration
-        .SetEase(Ease.OutElastic).OnComplete(() => fisheye.enabled = false));
+        .SetEase(Ease.OutElastic).OnComplete(() =>
+        {
+            if (fisheye != null)
+                fisheye.enabled = false;
+        }));
 
         //Disapear circle
         sq.Insert(pauseDurationI + appearDurationI,
@@ -160,6 +171,7 @@ public class ZaWarudoEffect : MonoBehaviour
         material.SetFloat("_ColShift", colorShift);
 
         Sequence sq = DOTween.Sequence();
+        tween = sq;
 
         //Appear circle
         sq.Append(DOTween.To(
@@ -212,7 +224,11 @@ public class ZaWarudoEffect : MonoBehaviour
             },
             0, //End Value
             appearDurationO + pauseDurationO / 2) //Duration
-        .SetEase(Ease.OutElastic).OnComplete(() => fisheye.enabled = false));
+        .SetEase(Ease.OutElastic).OnComplete(() =>
+        {
+            if (fisheye != null)
+                fisheye.enabled = false;
+        }));
 
         //Disapear circle
         sq.Insert(pauseDurationO + appearDurationO,
@@ -225,6 +241,6 @@ public class ZaWarudoEffect : MonoBehaviour
             },
             0.0001f, //End Value
             appearDurationO) //Duration
-        .SetEase(Ease.InQuad).OnComplete(()=>enabled= false));
+        .SetEase(Ease.InQuad).OnComplete(() => enabled = false));
     }
 }
