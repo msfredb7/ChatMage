@@ -13,10 +13,17 @@ namespace Dialoguing.Effect
 
         public override void Apply(DialogDisplay display, Reply reply)
         {
-            if (display.characters.leftImage.enabled)
-                display.characters.SetLeftCharacterShake(intensity, duration);
-            if (display.characters.rightImage.enabled)
-                display.characters.SetRightCharacterShaker(intensity, duration);
+            Characters charac = display.characters;
+            charac.supposeToShakeCharacter = true;
+            charac.currentCharacterShakeDuration = duration;
+            charac.currentCharacterShakeIntensity = intensity;
+            if (!charac.supposeToShakeCharacter)
+            {
+                if (charac.leftImage.enabled)
+                    charac.SetLeftCharacterShake(intensity, duration);
+                if (charac.rightImage.enabled)
+                    charac.SetRightCharacterShaker(intensity, duration);
+            }
         }
     }
 }

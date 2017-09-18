@@ -14,6 +14,8 @@ public class ShakeTransform : MonoBehaviour
     [HideInInspector]
     public Vector2 anchor;
 
+    private Vector2 lastAnchor;
+
     private bool rectt = false;
     private Transform tr;
 
@@ -29,12 +31,15 @@ public class ShakeTransform : MonoBehaviour
         {
             if (rectt)
             {
+                anchor += (tr as RectTransform).anchoredPosition - lastAnchor;
                 (tr as RectTransform).anchoredPosition = anchor + shaker.CurrentVector;
             }
             else
             {
+                anchor += (Vector2)tr.localPosition - lastAnchor;
                 tr.localPosition = anchor + shaker.CurrentVector;
             }
+            lastAnchor = anchor;
         }
 
 
@@ -53,5 +58,6 @@ public class ShakeTransform : MonoBehaviour
         {
             anchor = tr.localPosition;
         }
+        lastAnchor = anchor;
     }
 }

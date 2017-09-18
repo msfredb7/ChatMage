@@ -115,6 +115,8 @@ public class DialogDisplay : MonoBehaviour
 
         hideGroup.DOFade(1, textBox.openDuration).SetUpdate(true);
         characters.HideBoth();
+        characters.DisableLeftName();
+        characters.DisableRightName();
         textBox.Close(OnCloseComplete);
     }
 

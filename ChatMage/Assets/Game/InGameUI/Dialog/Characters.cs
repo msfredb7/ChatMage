@@ -11,13 +11,23 @@ namespace Dialoguing
         public Image leftImage;
         public Image rightImage;
 
+        // Special Entry
+        [HideInInspector]
+        public bool specialEntryMode = false;
+        [HideInInspector]
+        public bool supposeToShakeCharacter = false;
+
         // Name
-        public Text leftText;
-        public Text rightText;
+        public GameObject leftName;
+        public GameObject rightName;
 
         // Shaking
+        [HideInInspector]
         public VectorShaker leftVectorShaker;
+        [HideInInspector]
         public VectorShaker rightVectorShaker;
+        public float currentCharacterShakeIntensity = 50;
+        public float currentCharacterShakeDuration = 0.25f;
 
         private Vector2 stdLeftOffset;
         private Vector2 stdRightOffset;
@@ -28,6 +38,10 @@ namespace Dialoguing
         {
             stdLeftOffset = leftImage.rectTransform.anchoredPosition;
             stdRightOffset = rightImage.rectTransform.anchoredPosition;
+
+            // Init Shake
+            specialEntryMode = false;
+            supposeToShakeCharacter = false;
 
             // Init Shaking
             leftVectorShaker = leftImage.GetComponent<VectorShaker>();
@@ -40,8 +54,11 @@ namespace Dialoguing
         {
             if (leftOffsetSet)
                 ResetLeftOffset();
-            leftImage.enabled = true;
+
+            if (!specialEntryMode)
+                leftImage.enabled = true;
             leftImage.sprite = leftSprite;
+
             rightImage.enabled = false;
         }
         public void SetLeftImage(Sprite leftSprite, Vector2 offset)
@@ -54,8 +71,11 @@ namespace Dialoguing
         {
             if (rightOffsetSet)
                 ResetRightOffset();
-            rightImage.enabled = true;
+
+            if (!specialEntryMode)
+                rightImage.enabled = true;
             rightImage.sprite = rightSprite;
+
             leftImage.enabled = false;
         }
         public void SetRightImage(Sprite rightSprite, Vector2 offset)
@@ -135,32 +155,36 @@ namespace Dialoguing
             ActivateRightName(text);
         }
 
-        private void DisableRightName()
+        public void DisableRightName()
         {
-            Image myImage = rightImage.GetComponentInChildren<Button>().GetComponent<Image>();
+            Image myImage = rightImage.GetComponentInChildren<NameSetText>().GetComponent<Image>();
             myImage.color = myImage.color.ChangedAlpha(0);
             rightImage.GetComponentInChildren<NameSetText>().SetText("");
         }
 
-        private void ActivateRightName(string text)
+        public void ActivateRightName(string text)
         {
-            Image myImage = rightImage.GetComponentInChildren<Button>().GetComponent<Image>();
+            Image myImage = rightImage.GetComponentInChildren<NameSetText>().GetComponent<Image>();
             myImage.color = myImage.color.ChangedAlpha(1);
             rightImage.GetComponentInChildren<NameSetText>().SetText(text);
+            if (specialEntryMode)
+                myImage.gameObject.SetActive(false);
         }
 
-        private void DisableLeftName()
+        public void DisableLeftName()
         {
-            Image myImage = leftImage.GetComponentInChildren<Button>().GetComponent<Image>();
+            Image myImage = leftImage.GetComponentInChildren<NameSetText>().GetComponent<Image>();
             myImage.color = myImage.color.ChangedAlpha(0);
             leftImage.GetComponentInChildren<NameSetText>().SetText("");
         }
 
-        private void ActivateLeftName(string text)
+        public void ActivateLeftName(string text)
         {
-            Image myImage = leftImage.GetComponentInChildren<Button>().GetComponent<Image>();
+            Image myImage = leftImage.GetComponentInChildren<NameSetText>().GetComponent<Image>();
             myImage.color = myImage.color.ChangedAlpha(1);
             leftImage.GetComponentInChildren<NameSetText>().SetText(text);
+            if (specialEntryMode)
+                myImage.gameObject.SetActive(false);
         }
     }
 }
