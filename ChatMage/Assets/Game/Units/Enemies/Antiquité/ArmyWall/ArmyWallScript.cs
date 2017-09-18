@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ArmyWallScript : MovingUnit
 {
-    public Vector2 moveSpeed = new Vector2(0,1);
+    public Vector2 moveSpeed = new Vector2(0, 1);
     public float hitPlayerCooldown = 0.5f;
     public float bumpStrength;
     public float bumpDuration = 0f;
@@ -36,7 +36,10 @@ public class ArmyWallScript : MovingUnit
 
     void OnEnable()
     {
-        Speed = moveSpeed;
+        float mult = 1;
+        if (Game.instance != null)
+            mult = Game.instance.worldTimeScale;
+        Speed = moveSpeed * mult;
     }
 
     public void BringCloseToPlayer()

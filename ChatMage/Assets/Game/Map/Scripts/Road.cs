@@ -149,7 +149,7 @@ public class Road : BaseBehavior
             bounds.min = new Vector3(-halfW, bottomHeight, 0);
 
             DebugExtension.DrawBounds(bounds, new Color(1, 0, 1, 1));
-            
+
 
             bounds.max = new Vector3(halfW + GameCamera.MAX_CAMERA_SHAKE, topHeight + GameCamera.MAX_CAMERA_SHAKE, 0);
             bounds.min = new Vector3(-halfW - GameCamera.MAX_CAMERA_SHAKE, bottomHeight - GameCamera.MAX_CAMERA_SHAKE, 0);
@@ -157,9 +157,10 @@ public class Road : BaseBehavior
             DebugExtension.DrawBounds(bounds, new Color(1, 0, 1, 0.3f));
 
 
-            const float cameraWiggleStrength = 0.2f;
-            bounds.max = new Vector3(halfW - cameraWiggleStrength, topHeight - cameraWiggleStrength, 0);
-            bounds.min = new Vector3(-halfW + cameraWiggleStrength, bottomHeight + cameraWiggleStrength, 0);
+            const float cameraWiggleVStrength = CameraWiggle.SIZE * 2;
+            const float cameraWigglweHStrength = CameraWiggle.SIZE * (GameCamera.DEFAULT_SCREEN_WIDTH / GameCamera.DEFAULT_SCREEN_HEIGHT) * 2f;
+            bounds.max = new Vector3(halfW - cameraWigglweHStrength, topHeight - cameraWiggleVStrength, 0);
+            bounds.min = new Vector3(-halfW + cameraWigglweHStrength, bottomHeight + cameraWiggleVStrength, 0);
 
             DebugExtension.DrawBounds(bounds, new Color(1, 0.5f, 1, 0.3f));
         }

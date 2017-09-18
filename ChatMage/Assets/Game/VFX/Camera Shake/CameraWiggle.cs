@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraWiggle : MonoBehaviour
 {
-    public float animationSize = 0.2f;
+    public const float SIZE = 0.125f;
     public float playerSpaceToScreenRatio = .7f;
 
     private Transform pt;
@@ -15,10 +15,11 @@ public class CameraWiggle : MonoBehaviour
     private float actualSize;
     private float targetSize;
     private float transitionDuration = 1;
+    private const float xMultiplier = GameCamera.DEFAULT_SCREEN_WIDTH / GameCamera.DEFAULT_SCREEN_HEIGHT;
 
     private void Awake()
     {
-        targetSize = animationSize;
+        targetSize = SIZE;
         tr = transform;
 
         //Note: ceci est independant de l'aspect de la camera (4:3 / 16:9)
@@ -37,7 +38,7 @@ public class CameraWiggle : MonoBehaviour
             }
             else
             {
-                float changeSpeed = animationSize / transitionDuration;
+                float changeSpeed = SIZE / transitionDuration;
                 actualSize = actualSize.MovedTowards(targetSize, Time.deltaTime * changeSpeed);
             }
         }
@@ -45,7 +46,7 @@ public class CameraWiggle : MonoBehaviour
         if (Player != null)
         {
             Vector2 playerToScreen = Player.position - tr.position;
-            Vector2 displacement = new Vector2((playerToScreen.x / playerSpace.x).Clamped(-1, 1),
+            Vector2 displacement = new Vector2((playerToScreen.x / playerSpace.x).Clamped(-1, 1) * xMultiplier,
                 (playerToScreen.y / playerSpace.y).Clamped(-1, 1));
 
             offset = displacement * actualSize;

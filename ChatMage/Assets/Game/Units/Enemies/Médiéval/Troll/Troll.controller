@@ -57,6 +57,34 @@ AnimatorController:
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
+--- !u!114 &114453571680973496
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2866d834f4fd9244db6223c15a52f92a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  throwAnim: 1
+  pickupAnim: 0
+  deathAnim: 0
+--- !u!114 &114486379771161460
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2866d834f4fd9244db6223c15a52f92a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  throwAnim: 0
+  pickupAnim: 1
+  deathAnim: 0
 --- !u!1101 &1101024703604113348
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -529,7 +557,8 @@ AnimatorState:
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101643645075410756}
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: 114453571680973496}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -674,7 +703,8 @@ AnimatorState:
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101139671568559790}
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: 114486379771161460}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -734,13 +764,13 @@ AnimatorStateMachine:
       first: {fileID: 0}
       second: []
     data:
-      first: {fileID: 1107455460760978262}
-      second:
-      - {fileID: 1109040021394805218}
-    data:
       first: {fileID: 1107556680891490556}
       second:
       - {fileID: 1109045219881038572}
+    data:
+      first: {fileID: 1107455460760978262}
+      second:
+      - {fileID: 1109040021394805218}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 132, y: 0, z: 0}
   m_EntryPosition: {x: -168, y: 156, z: 0}

@@ -46,7 +46,7 @@ public class TrollAnimatorV2 : EnemyAnimator
         controller.SetInteger(deathDirHash, dir);
     }
 
-    private void _PickUpComplete()
+    public void _PickUpComplete()
     {
         Flush(ref pickUpCallback);
     }
@@ -55,7 +55,7 @@ public class TrollAnimatorV2 : EnemyAnimator
         Flush(ref pickUpMoment);
         controller.SetBool(hasRockHash, true);
     }
-    private void _ThrowComplete()
+    public void _ThrowComplete()
     {
         Flush(ref throwCallback);
     }
