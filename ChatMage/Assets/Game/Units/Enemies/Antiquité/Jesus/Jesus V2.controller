@@ -509,6 +509,29 @@ AnimatorState:
   m_SpeedParameter: 
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
+--- !u!1102 &1102981239718355096
+AnimatorState:
+  serializedVersion: 5
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Jesus Death
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: e4f66feb9d5962e4d88a9061bf8ba558, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
 --- !u!1107 &1107065544491118630
 AnimatorStateMachine:
   serializedVersion: 5
@@ -523,6 +546,9 @@ AnimatorStateMachine:
   - serializedVersion: 1
     m_State: {fileID: 1102016676857984554}
     m_Position: {x: 276, y: 12, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 1102981239718355096}
+    m_Position: {x: 311, y: 77, z: 0}
   m_ChildStateMachines:
   - serializedVersion: 1
     m_StateMachine: {fileID: 1107444755745961212}
@@ -557,13 +583,13 @@ AnimatorStateMachine:
   m_EntryTransitions: []
   m_StateMachineTransitions:
     data:
-      first: {fileID: 1107714308066523824}
-      second:
-      - {fileID: 1109443558708652564}
-    data:
       first: {fileID: 1107805106861577800}
       second:
       - {fileID: 1109489715751784990}
+    data:
+      first: {fileID: 1107714308066523824}
+      second:
+      - {fileID: 1109443558708652564}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 50, y: 20, z: 0}
   m_EntryPosition: {x: 60, y: 180, z: 0}
