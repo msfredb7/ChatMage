@@ -144,7 +144,7 @@ public class LS_ThridLevel : LevelScript
             }
 
         //Le nombre de unit qu'on va spawn dans la wave sous l'�cran
-        int actualWaveCount = (plannedWaveCount - ambushCount).Floored(0);
+        int actualWaveCount = (plannedWaveCount - ambushCount).Raised(0);
 
         //Le vrai nombre d'ennemie qui vont �tre pr�sent
         int totalActiveEnemies = preSpawnedCount + actualWaveCount + ambushCount;

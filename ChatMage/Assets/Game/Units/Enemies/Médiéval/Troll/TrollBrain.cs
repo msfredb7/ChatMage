@@ -11,11 +11,20 @@ namespace AI
         private Unit target;
         private bool rockAdded = false;
 
+        Goal attackGoal;
+
         void Start()
         {
             myRock.PickedUpState(veh);
 
             AddGoal(new Goal_Wander(veh));
+            veh.onDeath += Veh_onDeath;
+        }
+
+        private void Veh_onDeath(Unit unit)
+        {
+            if (attackGoal != null)
+                attackGoal.ForceFailure();
         }
 
         protected override void Update()
@@ -30,8 +39,8 @@ namespace AI
 
                 if(target != null)
                 {
-                    Goal attackGoal = new TrollGoal_Attack(veh, myRock, target);
-                    attackGoal.onRemoved = (Goal g) => target = null;
+                    attackGoal = new TrollGoal_Attack(veh, myRock, target);
+                    attackGoal.onRemoved = (Goal g) => { target = null; attackGoal = null; };
                     AddGoal(attackGoal);
                 }
             }

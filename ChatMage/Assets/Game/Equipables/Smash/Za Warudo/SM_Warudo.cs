@@ -11,7 +11,7 @@ public class SM_Warudo : Smash
 {
     [InspectorHeader("Settings")]
     public float duration;
-    public float targetTimeScale = 0;
+    public float timescaleMultiplier = 0.2f;
     //public float launchDelay = 1.25f;
 
     [InspectorHeader("SFX Linking")]
@@ -108,7 +108,7 @@ public class SM_Warudo : Smash
             if (Game.instance == null)
                 return;
 
-            SetTimeScale(targetTimeScale);
+            MultiplyTimescale(timescaleMultiplier);
 
             smashCoroutine = DelayManager.LocalCallTo(OnSmashEnd, duration, Game.instance);
         });
@@ -116,7 +116,7 @@ public class SM_Warudo : Smash
         SoundManager.PlaySFX(sfx);
     }
 
-    void SetTimeScale(float amount)
+    void MultiplyTimescale(float multiplier)
     {
         LinkedListNode<Unit> node = Game.instance.units.First;
         while (node != null)
@@ -124,15 +124,15 @@ public class SM_Warudo : Smash
             Unit val = node.Value;
 
             if (val != player.vehicle)
-                val.TimeScale = amount;
+                val.TimeScale *= multiplier;
 
             node = node.Next;
         }
 
-        if (amount == 1)
+        if (multiplier < 1)
             Game.instance.worldTimeScale.RemoveBuff("zwrdo");
         else
-            Game.instance.worldTimeScale.AddBuff("zwrdo", amount * 100 - 100, CCC.Utility.BuffType.Percent);
+            Game.instance.worldTimeScale.AddBuff("zwrdo", multiplier * 100 - 100, CCC.Utility.BuffType.Percent);
     }
 
     void OnSmashEnd()
@@ -150,7 +150,7 @@ public class SM_Warudo : Smash
         //Shader animation
         vfx.AnimateBack(delegate ()
         {
-            SetTimeScale(1);
+            MultiplyTimescale(1 / timescaleMultiplier);
         });
         smashCoroutine = null;
     }

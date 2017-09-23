@@ -27,17 +27,20 @@ public class JesusV2Vehicle : EnemyVehicle
     public Color flashColor = Color.red;
     public Color lowHPColor = Color.red;
     public SpriteRenderer[] spriteRenderers;
+    public SpriteRenderer[] deadBodyVisuals;
 
     private int maxHp;
     private BossHealthBarDisplay hpDisplay;
     private float timescaleIncrease;
+    private int timescaleIncreaseCount = 0;
     private bool damagable = true;
 
     protected override void Awake()
     {
         base.Awake();
         maxHp = hp;
-        timescaleIncrease = 1 + ((finalTimescale - 1) / (maxHp - 1));
+        int willBeHit = (maxHp - 1).Raised(1);
+        timescaleIncrease = Mathf.Pow(finalTimescale, 1f/ willBeHit);
     }
 
     public void ShowHP()
@@ -75,6 +78,7 @@ public class JesusV2Vehicle : EnemyVehicle
         hp -= amount;
 
         TimeScale *= timescaleIncrease;
+        timescaleIncreaseCount++;
 
         //Flashs animation
         damagable = false;
@@ -110,7 +114,7 @@ public class JesusV2Vehicle : EnemyVehicle
 
     private void UpdateVisuals()
     {
-        Color c = Color.Lerp(lowHPColor, Color.white, ((hp - 1f).Raised(0)) / (maxHp - 1f));
+        Color c = Color.Lerp(lowHPColor, Color.white, ((hp - 1f).Raised(0)) / (maxHp - 1f).Raised(1));
         for (int i = 0; i < spriteRenderers.Length; i++)
         {
             spriteRenderers[i].color = c;
@@ -119,11 +123,24 @@ public class JesusV2Vehicle : EnemyVehicle
 
     protected override void Die()
     {
-        base.Die();
 
         collider.enabled = false;
 
-        //Death anim
-        Destroy();
+        if (!IsDead)
+        {
+            canTurn.Lock("dead");
+            canMove.Lock("dead");
+
+            TimeScale = TimeScale/ Mathf.Pow(timescaleIncrease, timescaleIncreaseCount);
+            animator.DeathAnimation(null);
+            GetComponent<AI.JesusV2Brain>().enabled = false;
+
+            for (int i = 0; i < deadBodyVisuals.Length; i++)
+            {
+                deadBodyVisuals[i].color = lowHPColor;
+            }
+        }
+
+        base.Die();
     }
 }

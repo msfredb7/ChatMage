@@ -11,9 +11,19 @@ namespace AI
         JesusRockV2 chosenRock;
         Unit target;
 
+        Goal attackGoal;
+
         void Start()
         {
             AddGoal(new Goal_Wander(veh));
+
+            veh.onDeath += Veh_onDeath;
+        }
+
+        private void Veh_onDeath(Unit unit)
+        {
+            if (attackGoal != null)
+                attackGoal.ForceFailure();
         }
 
         protected override void Update()
@@ -40,8 +50,8 @@ namespace AI
                     if (chosenRock != null)
                     {
                         //On lance l'attaque
-                        Goal attackGoal = new JesusGoal_Attack(veh, chosenRock, target);
-                        attackGoal.onRemoved = (Goal g) => { target = null; chosenRock = null; };
+                        attackGoal = new JesusGoal_Attack(veh, chosenRock, target);
+                        attackGoal.onRemoved = (Goal g) => { target = null; chosenRock = null; attackGoal = null; };
                         AddGoal(attackGoal);
                     }
                 }

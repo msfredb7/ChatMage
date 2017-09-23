@@ -31,6 +31,8 @@ namespace AI
         {
             base.Interrupted();
 
+            Debug.Log("interrupted");
+
             ForceFailure();
         }
 

@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JesusV2AnimatorV2 : EnemyAnimator
+public class JesusV2AnimatorV2 : EnemyAnimator, IShaker
 {
     public JesusV2Vehicle veh;
-    public float stompShake = 0.2f;
+    public float walkStomp = 0.2f;
+    public float deathStomp = 0.2f;
+    public float screamShake = 0.2f;
 
     private Action pickUpMoment;
     private Action pickUpCallback;
@@ -55,12 +57,26 @@ public class JesusV2AnimatorV2 : EnemyAnimator
         Flush(ref throwMoment);
         controller.SetBool(hasRockHash, false);
     }
+
+    private void _StartScream()
+    {
+        Game.instance.gameCamera.vectorShaker.AddShaker(this);
+    }
+    private void _EndScream()
+    {
+        Game.instance.gameCamera.vectorShaker.RemoveShaker(this);
+    }
+    public float GetShakeStrength()
+    {
+        return screamShake;
+    }
+
     private void _Stomp()
     {
-        Game.instance.gameCamera.vectorShaker.Shake(stompShake);
+        Game.instance.gameCamera.vectorShaker.Shake(walkStomp);
     }
     private void _BigStomp()
     {
-        Game.instance.gameCamera.vectorShaker.Shake(stompShake * 2);
+        Game.instance.gameCamera.vectorShaker.Shake(walkStomp * 2);
     }
 }
