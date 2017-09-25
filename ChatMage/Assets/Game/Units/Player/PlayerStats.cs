@@ -90,7 +90,7 @@ public class PlayerStats : PlayerComponent, IAttackable
         //Hit Animation
         damagable = false;
         Game.instance.commonVfx.MediumHit(on.transform.position, loseHpHitColor, SortingLayers.PLAYER);
-        FlashAnimation.Flash(Game.instance.Player.vehicle, sprite, unhitableDuration, () => damagable = true);
+        UnitFlashAnimation.Flash(Game.instance.Player.vehicle, sprite, unhitableDuration, () => damagable = true);
 
 
         //Reduce health / armor

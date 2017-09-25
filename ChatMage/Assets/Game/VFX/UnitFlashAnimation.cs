@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FlashAnimation
+public static class UnitFlashAnimation
 {
     private const float FLASH_SPEED = 5f;
 
