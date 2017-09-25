@@ -12,6 +12,11 @@ public class DialogDisplay : MonoBehaviour
     public TextBox textBox;
     public Characters characters;
     public CanvasGroup hideGroup;
+    public GameObject dialogContainer;
+
+    public event SimpleEvent onStartDialog;
+    public event SimpleEvent onEndDialog;
+
 
     public Dialog CurrentDialog { get { return currentDialog != null ? currentDialog.dialog : null; } }
     private RuntimeDialog currentDialog;
@@ -27,7 +32,7 @@ public class DialogDisplay : MonoBehaviour
 
     void Awake()
     {
-        gameObject.SetActive(false);
+        dialogContainer.SetActive(false);
     }
 
     void Update()
@@ -45,13 +50,16 @@ public class DialogDisplay : MonoBehaviour
         if (CurrentDialog != null)
             throw new Exception("Cannot start a dialog while another is ongoing.");
 
-        if(dialog == null)
+        if (dialog == null)
             throw new Exception("Tried to start a null dialog.");
 
         if (dialog.pauseGame)
             Game.instance.gameRunning.Lock("dialog");
 
-        gameObject.SetActive(true);
+        if (onStartDialog != null)
+            onStartDialog();
+
+        dialogContainer.SetActive(true);
 
         currentDialog = new RuntimeDialog(dialog, onComplete);
 
@@ -68,7 +76,7 @@ public class DialogDisplay : MonoBehaviour
 
     private void OnCloseComplete()
     {
-        gameObject.SetActive(false);
+        dialogContainer.SetActive(false);
         hideGroup.blocksRaycasts = true;
 
         if (currentDialog.dialog.pauseGame)
@@ -76,6 +84,9 @@ public class DialogDisplay : MonoBehaviour
 
         if (currentDialog.onComplete != null)
             currentDialog.onComplete();
+
+        if (onEndDialog != null)
+            onEndDialog();
 
         currentDialog = null;
     }

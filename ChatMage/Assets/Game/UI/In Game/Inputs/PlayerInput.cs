@@ -6,6 +6,8 @@ public class PlayerInput : MonoBehaviour
 {
     private PlayerController controller;
 
+    public CCC.Utility.Locker Enabled = new CCC.Utility.Locker();
+
     private int turning;
     private bool smashPress;
 
@@ -23,8 +25,9 @@ public class PlayerInput : MonoBehaviour
 
     void Update()
     {
-        if (controller == null || !Game.instance.gameStarted)
+        if (controller == null || !Game.instance.gameStarted || !Enabled)
             return;
+
 
         //Sur mobile ou non ?
         if (Application.isMobilePlatform)

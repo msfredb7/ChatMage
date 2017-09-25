@@ -29,6 +29,8 @@ public class UiSystem : MonoBehaviour {
     {
         smashDisplay.Init(playerController);
         playerInputs.Init(playerController);
+        dialogDisplay.onStartDialog += () => playerInputs.Enabled.Lock("dialog");
+        dialogDisplay.onEndDialog += () => playerInputs.Enabled.Unlock("dialog");
 
         float aspect = Game.instance.gameCamera.cam.aspect;
 

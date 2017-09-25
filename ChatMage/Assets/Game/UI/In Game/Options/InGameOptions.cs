@@ -57,8 +57,8 @@ public class InGameOptions : WindowAnimation
                 delegate ()
                 {
                     Scenes.UnloadAsync(SCENENAME);
-                    Game.instance.gameRunning.Unlock("optionsMenu");
                     isQuitting = false;
+                    OnQuit();
                 }
             );
         }
@@ -66,6 +66,7 @@ public class InGameOptions : WindowAnimation
         {
             Scenes.UnloadAsync(SCENENAME);
             isQuitting = false;
+            OnQuit();
         }
     }
 
@@ -99,6 +100,18 @@ public class InGameOptions : WindowAnimation
         }
 
         Scenes.LoadAsync(SCENENAME, LoadSceneMode.Additive);
+        OnStartOpen();
+    }
+
+    static void OnStartOpen()
+    {
         Game.instance.gameRunning.Lock("optionsMenu");
+        Game.instance.ui.playerInputs.Enabled.Lock("opt");
+    }
+
+    static void OnQuit()
+    {
+        Game.instance.gameRunning.Unlock("optionsMenu");
+        Game.instance.ui.playerInputs.Enabled.Unlock("opt");
     }
 }
