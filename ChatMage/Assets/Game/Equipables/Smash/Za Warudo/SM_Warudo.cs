@@ -134,7 +134,7 @@ public class SM_Warudo : Smash
             node = node.Next;
         }
 
-        if (multiplier < 1)
+        if (multiplier > 1)
             Game.instance.worldTimeScale.RemoveBuff("zwrdo");
         else
             Game.instance.worldTimeScale.AddBuff("zwrdo", multiplier * 100 - 100, CCC.Utility.BuffType.Percent);

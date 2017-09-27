@@ -10,12 +10,6 @@ using DG.Tweening;
 
 public class LS_FirstLevel : LevelScript
 {
-    protected override void OnGameReady()
-    {
-        Game.instance.smashManager.smashEnabled = false;
-        Game.instance.ui.smashDisplay.canBeShown = false;
-    }
-
     public override void OnReceiveEvent(string message)
     {
         switch (message)
