@@ -10,6 +10,11 @@ using DG.Tweening;
 
 public class LS_FirstLevel : LevelScript
 {
+    protected override void OnGameReady()
+    {
+        
+    }
+
     public override void OnReceiveEvent(string message)
     {
         switch (message)

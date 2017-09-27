@@ -229,6 +229,11 @@ public class Armory : BaseScriptableObject
         GameSaves.instance.SetBool(GameSaves.Type.Armory, SMASH_ACCESS_KEY, true);
         GameSaves.instance.SaveData(GameSaves.Type.Armory);
     }
+    public static void LockAccessToSmash()
+    {
+        GameSaves.instance.SetBool(GameSaves.Type.Armory, SMASH_ACCESS_KEY, false);
+        GameSaves.instance.SaveData(GameSaves.Type.Armory);
+    }
     public static void UnlockAccessToItems()
     {
         GameSaves.instance.SetBool(GameSaves.Type.Armory, ITEM_ACCESS_KEY, true);
