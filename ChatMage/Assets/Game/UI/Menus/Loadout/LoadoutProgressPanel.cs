@@ -27,6 +27,7 @@ namespace LoadoutMenu
         {
             loadout.onCarChange += OnCarChange;
             loadout.onSmashChange += OnSmashChange;
+            loadout.onSlotsChange += OnItemChange;
             loadout.onItemChange += OnItemChange;
 
             this.loadout = loadout;

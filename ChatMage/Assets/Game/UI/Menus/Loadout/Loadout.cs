@@ -21,6 +21,7 @@ namespace LoadoutMenu
         public SimpleEvent onCarChange;
         public SimpleEvent onSmashChange;
         public SimpleEvent onItemChange;
+        public SimpleEvent onSlotsChange;
 
         public Loadout(EquipablePreview[] cars, EquipablePreview[] smashes, EquipablePreview[] items, int itemSlots)
         {
@@ -126,6 +127,13 @@ namespace LoadoutMenu
                     }
                 }
             }
+        }
+
+        public void UpdateItemSlots(int itemSlots)
+        {
+            this.itemSlots = itemSlots;
+            if (onSlotsChange != null)
+                onSlotsChange();
         }
 
         public bool CanEquipMoreItems { get { return chosenItems.Count < itemSlots; } }

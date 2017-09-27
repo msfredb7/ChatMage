@@ -292,11 +292,23 @@ namespace LoadoutMenu
         }
         private void OnInspector_ShopClick(LoadoutEquipable equipable)
         {
-            GoToShop();
+            //Cheat Temporaire
+            equipable.preview.MarkAsUnlocked();
+            GameSaves.instance.SaveData(GameSaves.Type.Armory);
+            FillUI();
+
+            //A remettre
+            //GoToShop();
         }
         private void OnInspector_BuySlotClick(LoadoutEquipable equipable)
         {
-            BuySlots();
+            //Cheat Temporaire
+            armory.AddItemsSlots(1);
+            currentLoadout.UpdateItemSlots(armory.ItemSlots);
+            FillUI();
+
+            //A remettre
+            //BuySlots();
         }
 
         private void VerifiyNextButton()
@@ -326,7 +338,10 @@ namespace LoadoutMenu
         {
             ShopPopUpMenu.ShowShopPopUpMenu("Bill Confirmation", "", slotIcon, StorePrice.CommandType.slotCost.ToString(), 1, delegate ()
             {
-                Account.instance.Command(StorePrice.CommandType.slotCost);
+                if (Account.instance.Command(StorePrice.CommandType.slotCost))
+                {
+                    armory.AddItemsSlots(1);
+                }
             });
         }
 
