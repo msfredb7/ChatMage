@@ -11,7 +11,6 @@ public class DialogDisplay : MonoBehaviour
 {
     public TextBox textBox;
     public Characters characters;
-    public CanvasGroup hideGroup;
     public GameObject dialogContainer;
 
     public event SimpleEvent onStartDialog;
@@ -19,7 +18,10 @@ public class DialogDisplay : MonoBehaviour
 
 
     public Dialog CurrentDialog { get { return currentDialog != null ? currentDialog.dialog : null; } }
+
     private RuntimeDialog currentDialog;
+    private bool hpWasShown;
+    private bool smashWasShown;
 
     private class RuntimeDialog
     {
@@ -63,8 +65,12 @@ public class DialogDisplay : MonoBehaviour
 
         currentDialog = new RuntimeDialog(dialog, onComplete);
 
-        hideGroup.blocksRaycasts = false;
-        hideGroup.DOFade(0, textBox.openDuration).SetUpdate(true);
+        UiSystem ui = Game.instance.ui;
+        hpWasShown = ui.healthDisplay.IsVisible();
+        ui.healthDisplay.Hide();
+        smashWasShown = ui.smashDisplay.IsVisible();
+        ui.smashDisplay.Hide(true);
+
         textBox.Open(OnOpenComplete);
     }
 
@@ -77,7 +83,6 @@ public class DialogDisplay : MonoBehaviour
     private void OnCloseComplete()
     {
         dialogContainer.SetActive(false);
-        hideGroup.blocksRaycasts = true;
 
         if (currentDialog.dialog.pauseGame)
             Game.instance.gameRunning.Unlock("dialog");
@@ -124,7 +129,14 @@ public class DialogDisplay : MonoBehaviour
         //On a fini
         currentDialog.isActive = false;
 
-        hideGroup.DOFade(1, textBox.openDuration).SetUpdate(true);
+
+        UiSystem ui = Game.instance.ui;
+        if (hpWasShown)
+            ui.healthDisplay.Show();
+        if (smashWasShown)
+            ui.smashDisplay.Show(true);
+
+
         characters.HideBoth();
         characters.DisableLeftName();
         characters.DisableRightName();

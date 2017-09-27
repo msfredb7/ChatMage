@@ -17,9 +17,12 @@ public class CanvasGroupBehaviour : MonoBehaviour
     private bool keepTheSameTween = false;
 
     private Tween keepTween;
+    private bool isshown = true;
 
     public virtual void Hide()
     {
+        isshown = false;
+
         if (keepTheSameTween)
         {
             CheckLaunchTween(0);
@@ -34,6 +37,8 @@ public class CanvasGroupBehaviour : MonoBehaviour
 
     public virtual void Show()
     {
+        isshown = true;
+
         if (keepTheSameTween)
         {
             CheckLaunchTween(0);
@@ -48,6 +53,8 @@ public class CanvasGroupBehaviour : MonoBehaviour
 
     public virtual void HideInstant()
     {
+        isshown = false;
+
         if (keepTheSameTween)
         {
             if (keepTween != null && keepTween.IsActive())
@@ -69,6 +76,8 @@ public class CanvasGroupBehaviour : MonoBehaviour
 
     public virtual void ShowInstant()
     {
+        isshown = true;
+
         if (keepTheSameTween)
         {
             if (keepTween != null && keepTween.IsActive())
@@ -86,6 +95,11 @@ public class CanvasGroupBehaviour : MonoBehaviour
             KillIfActive();
             canvasGroup.alpha = 1;
         }
+    }
+
+    public bool IsVisible()
+    {
+        return isshown;
     }
 
     protected virtual void OnDestroy()

@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using DG.Tweening;
 
-public class HealthDisplay : MonoBehaviour
+public class HealthDisplay : CanvasGroupBehaviour
 {
-
+    [Header("Health display")]
     public GameObject hearthCountainer;
     public GameObject hearth;
 
@@ -23,6 +24,10 @@ public class HealthDisplay : MonoBehaviour
 
         // Set initial HP
         UpdateAll(-1);
+
+        HideInstant();
+
+        Game.instance.onGameStarted += Show;
     }
 
     void UpdateAll(int bidon)

@@ -32,6 +32,7 @@ public class SmashDisplay : MonoBehaviour
     public float cintilleFinalScale = 1;
 
     SmashManager smasher;
+    private bool isShown;
 
     void Awake()
     {
@@ -91,13 +92,15 @@ public class SmashDisplay : MonoBehaviour
 
     public void Hide(bool fadeOut = false)
     {
+        isShown = false;
+
         if (fadeOut)
         {
             group.DOKill();
             group.DOFade(0, fadeDuration).OnComplete(delegate ()
             {
                 gameObject.SetActive(false);
-            });
+            }).SetUpdate(true);
         }
         else
         {
@@ -111,12 +114,13 @@ public class SmashDisplay : MonoBehaviour
         if (!canBeShown)
             return;
 
+        isShown = true;
         gameObject.SetActive(true);
 
         if (fadeIn)
         {
             group.DOKill();
-            group.DOFade(1, fadeDuration);
+            group.DOFade(1, fadeDuration).SetUpdate(true);
         }
         else
         {
@@ -124,10 +128,14 @@ public class SmashDisplay : MonoBehaviour
         }
     }
 
+    public bool IsVisible()
+    {
+        return isShown;
+    }
+
     void SetDisplay(float completion)
     {
         topMask.sizeDelta = Vector2.Lerp(topMask_startSizeDelta, topMask_endSizeDelta, completion);
         bottomMask.sizeDelta = Vector2.Lerp(bottomMask_startSizeDelta, bottomMask_endSizeDelta, completion);
-
     }
 }

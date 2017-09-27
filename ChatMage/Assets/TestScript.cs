@@ -10,22 +10,19 @@ using DG.Tweening;
 
 public class TestScript : MonoBehaviour
 {
-    public SpriteOffset sprOffset;
-    public float duration = 2;
+    void Start()
+    {
+        Debug.LogWarning("Test script qui traine ici, ne m'oublier pas.");
+    }
+
+
+
+
 
     void Update()
     {
-        float rotateFloat = (((-5 + 1) * 60) - 30) - transform.rotation.z;
-        Quaternion targetRotation = Quaternion.Euler(new Vector3(0, 0, rotateFloat));
-        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation,Time.deltaTime);
-
         if (Input.GetKeyDown(KeyCode.T))
         {
-
-        }
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-
         }
     }
 }

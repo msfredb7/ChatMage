@@ -12,9 +12,13 @@ public class UiSystem : MonoBehaviour {
     public PlayerInput playerInputs;
     public SmashDisplay smashDisplay;
     public DialogDisplay dialogDisplay;
-    public CanvasGroup gameRelatedGroup;
     public BossHealthBarDisplay bossHealthBar;
     public RectTransform stayWithinGameView;
+
+    [HideInInspector]
+    public HealthDisplay healthDisplay;
+    [HideInInspector]
+    public OptionsButton optionsButton;
 
     [Header("16:9")]
     public HealthDisplay healthdisplayVertical;
@@ -38,12 +42,14 @@ public class UiSystem : MonoBehaviour {
         if (aspect > 1.486f)
         {
             //16:9
+            healthDisplay = healthdisplayVertical;
             healthdisplayVertical.Init();
             healthdisplayHorizontal.gameObject.SetActive(false);
         }
         else
         {
             //4:3
+            healthDisplay = healthdisplayHorizontal;
             healthdisplayHorizontal.Init();
             healthdisplayVertical.gameObject.SetActive(false);
         }
@@ -52,12 +58,14 @@ public class UiSystem : MonoBehaviour {
         if (aspect > 1.361f)
         {
             //16:9
+            optionsButton = optionsButtonLow;
             optionsButtonLow.gameObject.SetActive(true);
             optionsButtonHigh.gameObject.SetActive(false);
         }
         else
         {
             //4:3
+            optionsButton = optionsButtonHigh;
             optionsButtonLow.gameObject.SetActive(false);
             optionsButtonHigh.gameObject.SetActive(true);
         }

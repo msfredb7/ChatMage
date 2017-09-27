@@ -95,6 +95,7 @@ public class Game : PublicSingleton<Game>
         gameReady = true;
         if (onGameReady != null)
             onGameReady();
+        onGameReady = null;
     }
 
     /// <summary>
@@ -105,6 +106,7 @@ public class Game : PublicSingleton<Game>
         gameStarted = true;
         if (onGameStarted != null)
             onGameStarted();
+        onGameStarted = null;
     }
 
     private void Update()
