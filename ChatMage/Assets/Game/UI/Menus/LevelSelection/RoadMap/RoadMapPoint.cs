@@ -23,7 +23,6 @@ public class RoadMapPoint : MonoBehaviour {
 
     // Info Anim
     private int dotCount = 0;
-    private float distanceBetweenDots = 1;
     private Vector3 vectorDeplacement;
     private float pathLenght;
     private Vector3 vectorBetween;
