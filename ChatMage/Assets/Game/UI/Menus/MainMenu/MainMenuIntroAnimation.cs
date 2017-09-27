@@ -10,13 +10,9 @@ public class MainMenuIntroAnimation : MonoBehaviour {
 
     public MainMenu mainMenu;
     public MainMenuCarAnimation carAnimation;
-    public FlashScript flashScriptA;
-    public FlashScript flashScriptB;
 
     void Start()
     {
-        flashScriptA.Init();
-        flashScriptB.Init();
         mainMenu.Init();
         canvasGroup.DOFade(1, fadeDuration).OnComplete(delegate () {
             carAnimation.Init();

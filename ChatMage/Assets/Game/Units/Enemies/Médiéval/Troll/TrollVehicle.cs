@@ -55,7 +55,7 @@ public class TrollVehicle : EnemyVehicle
         //Flashs animation
         damagable = false;
         UpdateVisuals();
-        FlashAnimation.FlashColor(this, spriteRenderers, invulnurableDuration, flashColor, () => damagable = true);
+        UnitFlashAnimation.FlashColor(this, spriteRenderers, invulnurableDuration, flashColor, () => damagable = true);
 
         //Bump unit
         if (unit is Vehicle)

@@ -432,7 +432,6 @@ GameObject:
   - component: {fileID: 282265532}
   - component: {fileID: 282265535}
   - component: {fileID: 282265534}
-  - component: {fileID: 282265533}
   m_Layer: 5
   m_Name: TextContour
   m_TagString: Untagged
@@ -458,18 +457,6 @@ RectTransform:
   m_AnchoredPosition: {x: 4.5, y: -390}
   m_SizeDelta: {x: 9, y: 0.00036621}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &282265533
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 282265531}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81ca1cb4a165dac449916680e29b25c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeDuration: 1
 --- !u!114 &282265534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -483,7 +470,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -552,7 +539,6 @@ GameObject:
   - component: {fileID: 558525210}
   - component: {fileID: 558525212}
   - component: {fileID: 558525211}
-  - component: {fileID: 558525213}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -591,7 +577,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -617,18 +603,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 558525209}
---- !u!114 &558525213
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 558525209}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81ca1cb4a165dac449916680e29b25c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeDuration: 1
 --- !u!1 &732742048
 GameObject:
   m_ObjectHideFlags: 0
@@ -640,6 +614,8 @@ GameObject:
   - component: {fileID: 732742052}
   - component: {fileID: 732742051}
   - component: {fileID: 732742050}
+  - component: {fileID: 732742054}
+  - component: {fileID: 732742053}
   m_Layer: 5
   m_Name: PlayButton
   m_TagString: Untagged
@@ -741,6 +717,34 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 732742048}
+--- !u!114 &732742053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 732742048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40d47e4292e6e9a449006fe1853969c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeDuration: 1
+  timeScaleIndependant: 0
+  transparentAtStart: 1
+  flashOnStart: 1
+  ease: 1
+  currentType: 4
+--- !u!225 &732742054
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 732742048}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &841345075
 GameObject:
   m_ObjectHideFlags: 0
@@ -946,7 +950,6 @@ GameObject:
   - component: {fileID: 1214860306}
   - component: {fileID: 1214860308}
   - component: {fileID: 1214860307}
-  - component: {fileID: 1214860309}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1069,8 +1072,6 @@ MonoBehaviour:
   fadeDuration: 1.5
   mainMenu: {fileID: 1214860306}
   carAnimation: {fileID: 969771406}
-  flashScriptA: {fileID: 282265533}
-  flashScriptB: {fileID: 558525213}
 --- !u!225 &1214860308
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1082,19 +1083,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &1214860309
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1214860301}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce29cb859d78b634c9d7b447327d88d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprOffset: {fileID: 0}
-  duration: 2
 --- !u!1 &1305719923
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,11 +13,12 @@ public class IntroCreditsAnimation : MonoBehaviour {
     public float animationDuration = 3f;
     public float startDelay = 2f;
     public AudioClip introSong;
+    public AudioClip themeSong;
 
 	void Start ()
     {
         MasterManager.Sync(delegate() {
-            SoundManager.PlayMusic(introSong, false, 0.1f, true);
+            SoundManager.PlayMusic(introSong, true, 0.1f, true);
             // Après un délai
             DelayManager.LocalCallTo(delegate ()
             {
@@ -48,6 +49,7 @@ public class IntroCreditsAnimation : MonoBehaviour {
                                                 backgroundSprite.DOFade(0, fadeDuration).OnComplete(delegate ()
                                                 {
                                                     // On load le jeu
+                                                    SoundManager.PlayMusic(themeSong, false, 1f, false);
                                                     Scenes.Load("MainMenu");
                                                 });
                                             });
@@ -72,6 +74,7 @@ public class IntroCreditsAnimation : MonoBehaviour {
                     if (backgroundSprite.color.a == 1)
                         backgroundSprite.DOFade(0, fadeDuration).OnComplete(delegate () {
                             // On load le jeu
+                            SoundManager.PlayMusic(themeSong, false, 1f, false);
                             Scenes.Load("MainMenu");
                         });
                 });
@@ -80,6 +83,7 @@ public class IntroCreditsAnimation : MonoBehaviour {
                     if (backgroundSprite.color.a == 1)
                         backgroundSprite.DOFade(0, fadeDuration).OnComplete(delegate () {
                             // On load le jeu
+                            SoundManager.PlayMusic(themeSong, false, 1f, false);
                             Scenes.Load("MainMenu");
                         });
                 });
