@@ -56,11 +56,9 @@ public class LoadoutElementInspector : MonoBehaviour
         //Basic info trio
         imagePreview.gameObject.SetActive(equipable != null);
         title.gameObject.SetActive(equipable != null);
-        description.gameObject.SetActive(equipable != null);
 
         //Effect text
-        //effectTitle.gameObject.SetActive(equipable != null && equipable.IsUnlocked);
-        effect.gameObject.SetActive(equipable != null && equipable.IsUnlocked);
+        effect.gameObject.SetActive(equipable != null);
 
         if (equipable == null)
         {
@@ -77,7 +75,6 @@ public class LoadoutElementInspector : MonoBehaviour
 
                 //Text
                 title.text = equipable.preview.displayName;
-                //description.text = equipable.preview.description;
                 effect.text = equipable.preview.effects;
 
                 //Sprite
@@ -93,7 +90,7 @@ public class LoadoutElementInspector : MonoBehaviour
             {
                 //Locked !
                 title.text = "??????????";
-                description.text = "???????????????????????????????????????????????";
+                effect.text = "???????????????????????????????????????????????";
 
                 //Sprite
                 imagePreview.color = Color.black;
