@@ -82,7 +82,10 @@ public class SmashDisplay : MonoBehaviour
     {
         if (smasher != null)
         {
-            SetDisplay(Mathf.Pow(1f - (smasher.RemainingTime / smasher.TotalCooldown), progressionPower));
+            if(Game.instance.smashManager.activateV2)
+                SetDisplay(Mathf.Pow(1f - (smasher.smashCounter / smasher.smashCounterMax), progressionPower));
+            else
+                SetDisplay(Mathf.Pow(1f - (smasher.RemainingTime / smasher.TotalCooldown), progressionPower));
         }
     }
 

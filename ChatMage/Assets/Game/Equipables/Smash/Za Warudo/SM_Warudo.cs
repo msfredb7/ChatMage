@@ -10,7 +10,9 @@ using DG.Tweening;
 public class SM_Warudo : Smash
 {
     [InspectorHeader("Settings")]
+    public bool useSmashCounter = false;
     public float duration;
+    public float animDuration;
     public float timescaleMultiplier = 0.2f;
     //public float launchDelay = 1.25f;
 
@@ -110,7 +112,10 @@ public class SM_Warudo : Smash
 
             MultiplyTimescale(timescaleMultiplier);
 
-            smashCoroutine = DelayManager.LocalCallTo(OnSmashEnd, duration, Game.instance);
+            if(useSmashCounter)
+                smashCoroutine = DelayManager.LocalCallTo(OnSmashEnd, Game.instance.smashManager.smashCounter + animDuration, Game.instance);
+            else
+                smashCoroutine = DelayManager.LocalCallTo(OnSmashEnd, duration + animDuration, Game.instance);
         });
 
         SoundManager.PlaySFX(sfx);

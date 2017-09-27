@@ -49,9 +49,16 @@ public class PlayerBuilder : MonoBehaviour
             throw new Exception("CAR ORDER IS NULL");
 
         if (loadoutResult.smashOrder != null)
-            queue.AddEquipable(loadoutResult.smashOrder.equipableName, loadoutResult.smashOrder.type, OnSmashLoaded);
+        {
+            if (!Game.instance.smashManager.activateV2)
+                queue.AddEquipable(loadoutResult.smashOrder.equipableName, loadoutResult.smashOrder.type, OnSmashLoaded);
+        }
         else
-            smash = null;
+        {
+            if (!Game.instance.smashManager.activateV2)
+                smash = null;
+        }
+            
     }
 
     void OnAnyAssetLoaded()

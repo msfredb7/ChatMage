@@ -10,7 +10,8 @@ public class MainMenu : BaseBehavior
 {
     public const string SCENENAME = "MainMenu";
     public Button playButton;
-    public AudioClip title;
+    public bool easyVersion = true; // POUR LE MIGS HARD(Accès direct au level select et loadout)
+                             //              EASY(Jeu normal avec cinématique et saut au niveau 1-1)
 
     [Header("First time playing")]
     public Level firstLevel;
@@ -21,7 +22,6 @@ public class MainMenu : BaseBehavior
         MasterManager.Sync(delegate ()
         {
             playButton.onClick.AddListener(OnClick);
-            SoundManager.PlaySFX(title);
             if (firstLevel != null)
                 firstLevel.LoadData();
         });
@@ -30,7 +30,7 @@ public class MainMenu : BaseBehavior
     void OnClick()
     {
         //Check first level. Si le premier level n'a pas été complété, on fait -> cinematic -> first level
-        if (firstLevel != null && !firstLevel.HasBeenCompleted)
+        if (firstLevel != null && !firstLevel.HasBeenCompleted && easyVersion)
         {
             GoToFirstLevel();
         }

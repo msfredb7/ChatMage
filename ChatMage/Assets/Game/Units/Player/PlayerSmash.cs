@@ -14,6 +14,7 @@ public class PlayerSmash : PlayerComponent
     public Smash Smash { get { return smash; } }
     public bool HasSmash { get { return hasSmash; } }
     private bool hasSmash;
+    private bool smashInProgress;
 
     [System.NonSerialized]
     private Smash smash;
@@ -22,6 +23,7 @@ public class PlayerSmash : PlayerComponent
     {
         if (smash != null)
             smash.OnGameReady();
+        smashInProgress = false;
     }
 
     public override void OnGameStarted()
@@ -48,6 +50,12 @@ public class PlayerSmash : PlayerComponent
     //Utilisation du smash !
     public void SmashClick()
     {
+        if (Game.instance.smashManager.activateV2)
+        {
+            ForceDoSmash();
+            return;
+        }
+
         if (!hasSmash || smash == null || controller.vehicle.IsDead)
             return;
         hasSmash = false;
@@ -60,6 +68,29 @@ public class PlayerSmash : PlayerComponent
             {
                 if (onSmashCompleted != null)
                     onSmashCompleted.Invoke();
+            });
+    }
+
+    public void ForceDoSmash()
+    {
+        if (smashInProgress)
+            return;
+
+        if (Game.instance.smashManager.smashCounter <= 0)
+            return;
+
+        smashInProgress = true;
+
+        if (onSmashStarted != null)
+            onSmashStarted();
+
+        smash.OnSmash(
+            delegate ()
+            {
+                smashInProgress = false;
+                if (onSmashCompleted != null)
+                    onSmashCompleted.Invoke();
+                Game.instance.smashManager.smashCounter = 0;
             });
     }
 }

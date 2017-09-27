@@ -33,6 +33,11 @@ public class SmashManager : MonoBehaviour
     public float RemainingTime { get { return remainingTime; } }
     public event SimpleEvent onSmashSpawned;
 
+    public bool activateV2 = true;
+    public float smashCounter;
+    public float smashCounterMax = 10;
+    public event SimpleEvent onSmashCounterBoosted;
+
     void Start()
     {
         Game.instance.onGameStarted += OnGameStarted;
@@ -56,6 +61,12 @@ public class SmashManager : MonoBehaviour
             followTargetParent.localScale = Game.instance.gameCamera.AdjustVector(Vector3.one);
             followTargetParent.transform.localPosition = Game.instance.gameCamera.AdjustVector(followTargetParent.transform.localPosition);
         }
+
+        if (activateV2)
+        {
+            smashCounter = 0;
+            Game.instance.Player.playerStats.onUnitKilled += BoostSmashCounter;
+        }
     }
 
     void OnGameStarted()
@@ -76,6 +87,15 @@ public class SmashManager : MonoBehaviour
 
     void Update()
     {
+        if (activateV2)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Game.instance.Player.playerSmash.ForceDoSmash();
+            }
+            return;
+        }
+
         if (debug)
         {
             if (Input.GetKeyDown(KeyCode.Space))
@@ -148,5 +168,13 @@ public class SmashManager : MonoBehaviour
     private void OnSmashCompleted()
     {
         ResetCooldown();
+    }
+
+    private void BoostSmashCounter(Unit unit)
+    {
+        smashCounter++;
+
+        if (onSmashCounterBoosted != null)
+            onSmashCounterBoosted();
     }
 }
