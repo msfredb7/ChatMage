@@ -33,6 +33,7 @@ public class SmashManager : MonoBehaviour
     public float RemainingTime { get { return remainingTime; } }
     public event SimpleEvent onSmashSpawned;
 
+    // SMASH V2
     public bool activateV2 = true;
     public float smashCounter;
     public float smashCounterMax = 10;

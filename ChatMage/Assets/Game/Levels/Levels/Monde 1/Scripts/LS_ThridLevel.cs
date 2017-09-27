@@ -54,6 +54,11 @@ public class LS_ThridLevel : LevelScript
         armyWall.EnableCollision();
     }
 
+    public override void OnWin()
+    {
+        Armory.UnlockAccessToSmash();
+    }
+
     public override void OnReceiveEvent(string message)
     {
         switch (message)
