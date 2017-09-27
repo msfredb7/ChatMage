@@ -37,9 +37,11 @@ public class Armory : BaseScriptableObject
         LoadEquipable();
     }
 
-    public void SaveSlot()
+    public void SaveSlot(bool saveToDisk = true)
     {
         GameSaves.instance.SetInt(GameSaves.Type.Armory, SLOTS_KEY, itemSlots);
+        if(saveToDisk)
+            GameSaves.instance.SaveData(GameSaves.Type.Armory);
     }
 
     public List<EquipablePreview> GetAllEquipables()
@@ -174,14 +176,11 @@ public class Armory : BaseScriptableObject
         return result;
     }
 
-    public bool BuyItemSlots(int amount)
+    public void AddItemsSlots(int amount, bool saveAfterwards = true)
     {
-        if (Account.instance.Command(StorePrice.CommandType.slotCost, amount))
-        {
-            itemSlots += amount;
-            return true;
-        }
-        else return false;
+        itemSlots += amount;
+
+        SaveSlot();
     }
 
     public int ItemSlots
@@ -211,14 +210,7 @@ public class Armory : BaseScriptableObject
 
     public static bool HasAccessToSmash()
     {
-        try
-        {
-            return GameSaves.instance.GetBool(GameSaves.Type.Armory, SMASH_ACCESS_KEY);
-        }
-        catch
-        {
-            return false;
-        }
+        return GameSaves.instance.GetBool(GameSaves.Type.Armory, SMASH_ACCESS_KEY, false);
     }
     public static bool HasAccessToItems()
     {
