@@ -36,6 +36,10 @@ public class LS_ThridLevel : LevelScript
 
     protected override void OnGameReady()
     {
+        Game.instance.smashManager.smashEnabled = true;
+        Game.instance.ui.smashDisplay.canBeShown = true;
+
+
         //Get army wall + disable collision
         armyWall = Game.instance.map.mapping.GetTaggedObject("army wall").GetComponent<ArmyWallScript>();
         armyWall.DisableCollision();

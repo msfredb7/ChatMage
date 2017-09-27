@@ -50,15 +50,16 @@ public class PlayerBuilder : MonoBehaviour
 
         if (loadoutResult.smashOrder != null)
         {
-            if (!Game.instance.smashManager.activateV2)
-                queue.AddEquipable(loadoutResult.smashOrder.equipableName, loadoutResult.smashOrder.type, OnSmashLoaded);
+            queue.AddEquipable(loadoutResult.smashOrder.equipableName, loadoutResult.smashOrder.type, OnSmashLoaded);
         }
         else
         {
+            //Si on est dans la v1, on accepte de ne pas avoir de smash
+            //Dans la v2, on force le joueur a avoir un smash (il peut rester d�sactiv�, mais il est l�)
             if (!Game.instance.smashManager.activateV2)
                 smash = null;
         }
-            
+
     }
 
     void OnAnyAssetLoaded()

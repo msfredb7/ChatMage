@@ -61,7 +61,6 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
     [InspectorTooltip("No healthpacks during the entire level")]
     public bool noHealthPacks = false;
     public bool followPlayerOnStart = false;
-    public bool smashTemporaryActivation = false; // Active temporairement le Smash
 
     [InspectorHeader("In Game Events")]
     public bool useCustomGenericEvents = false;
@@ -141,11 +140,6 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
                 inGameEvents.SpawnUnderGame(introPrefab).Play(Game.instance.StartGame);
         }
 
-        if(smashTemporaryActivation)
-            Armory.UnlockAccessToSmash(); 
-
-        OnGameReady();
-
         if (Armory.HasAccessToSmash())
         {
             Game.instance.smashManager.smashEnabled = true;
@@ -155,6 +149,8 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
             Game.instance.smashManager.smashEnabled = false;
             Game.instance.ui.smashDisplay.canBeShown = false;
         }
+
+        OnGameReady();
     }
 
     // Game Started for Level Script
@@ -171,9 +167,6 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
 
         //Les bounds physique qui bloque le joueur
         Game.instance.playerBounds.EnableAll();
-
-        if (smashTemporaryActivation)
-            Armory.LockAccessToSmash();
 
         OnGameStarted();
     }

@@ -366,6 +366,8 @@ namespace LoadoutMenu
         public LoadoutResult SaveLoadout()
         {
             LoadoutResult result = currentLoadout.ProduceResult();
+            if (result.smashOrder == null && armory.defaultSmash != null)
+                result.AddEquipable(armory.defaultSmash.equipableAssetName, EquipableType.Smash);
             result.Save();
 
             return result;

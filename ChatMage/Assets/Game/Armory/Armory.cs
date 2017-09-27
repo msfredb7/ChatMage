@@ -19,6 +19,7 @@ public class Armory : BaseScriptableObject
 
     // Smashs
     public EquipablePreview[] smashes; // catalogue des smash
+    public EquipablePreview defaultSmash;
 
     public int GetLastSavedSlots()
     {
