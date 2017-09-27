@@ -9219,7 +9219,6 @@ GameObject:
   - component: {fileID: 1644651698}
   - component: {fileID: 1644651699}
   - component: {fileID: 1644651700}
-  - component: {fileID: 1644651701}
   m_Layer: 0
   m_Name: Map
   m_TagString: Untagged
@@ -9379,19 +9378,6 @@ MonoBehaviour:
         m_Calls: []
       m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
---- !u!114 &1644651701
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1644651694}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce29cb859d78b634c9d7b447327d88d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprOffset: {fileID: 0}
-  duration: 2
 --- !u!114 &1646483901
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9621,8 +9607,23 @@ MonoBehaviour:
     - _showDropdown: 0
       _serializedIsActive: 1
     _target: {fileID: 267499301}
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.mapping.EditProperty
+    - DefaultBehaviorEditor.cameraSpawn.EditProperty
+    - DefaultBehaviorEditor.listUnits.EditProperty
+    - DefaultBehaviorEditor.setAIArea.EditProperty
+    - DefaultBehaviorEditor.roadPlayer.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
     _target: {fileID: 1644651695}
   - _keys:
     - DefaultBehaviorEditor.modifyCanScrollUp.EditProperty
