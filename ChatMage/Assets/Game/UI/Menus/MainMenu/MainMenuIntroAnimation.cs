@@ -14,6 +14,7 @@ public class MainMenuIntroAnimation : MonoBehaviour {
     void Start()
     {
         mainMenu.Init();
+        canvasGroup.alpha = 0;
         canvasGroup.DOFade(1, fadeDuration).OnComplete(delegate () {
             carAnimation.Init();
         });
