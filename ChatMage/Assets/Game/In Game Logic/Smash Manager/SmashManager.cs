@@ -86,43 +86,43 @@ public class SmashManager : MonoBehaviour
         inCooldown = true;
     }
 
-    void Update()
-    {
-        if (activateV2)
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                Game.instance.Player.playerSmash.ForceDoSmash();
-            }
-            return;
-        }
+    //void Update()
+    //{
+    //    if (activateV2)
+    //    {
+    //        if (Input.GetKeyDown(KeyCode.Space))
+    //        {
+    //            Game.instance.Player.playerSmash.ForceDoSmash();
+    //        }
+    //        return;
+    //    }
 
-        if (debug)
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                if (currentSmashBall != null)
-                    currentSmashBall.ForceDeath();
-                else
-                    remainingTime = 0;
-            }
-        }
+    //    if (debug)
+    //    {
+    //        if (Input.GetKeyDown(KeyCode.Space))
+    //        {
+    //            if (currentSmashBall != null)
+    //                currentSmashBall.ForceDeath();
+    //            else
+    //                remainingTime = 0;
+    //        }
+    //    }
 
-        //On ne diminue pas le cooldown si une smash ball est en vie
-        if (!inCooldown)
-            return;
+    //    //On ne diminue pas le cooldown si une smash ball est en vie
+    //    if (!inCooldown)
+    //        return;
 
-        if (Game.instance.Player.playerStats.smashRefreshRate < 0)
-            return;
+    //    if (Game.instance.Player.playerStats.smashRefreshRate < 0)
+    //        return;
 
-        float multiplier = 1;
-        if (Game.instance.Player != null)
-            multiplier = Game.instance.Player.vehicle.TimeScale * Game.instance.Player.playerStats.smashRefreshRate;
-        remainingTime -= Time.deltaTime * multiplier;
+    //    float multiplier = 1;
+    //    if (Game.instance.Player != null)
+    //        multiplier = Game.instance.Player.vehicle.TimeScale * Game.instance.Player.playerStats.smashRefreshRate;
+    //    remainingTime -= Time.deltaTime * multiplier;
 
-        if (remainingTime <= 0)
-            SpawnSmashBall();
-    }
+    //    if (remainingTime <= 0)
+    //        SpawnSmashBall();
+    //}
 
     private void SpawnSmashBall()
     {
@@ -173,6 +173,9 @@ public class SmashManager : MonoBehaviour
 
     private void BoostSmashCounter(Unit unit)
     {
+        if (!enabled)
+            return;
+
         smashCounter++;
 
         if (onSmashCounterBoosted != null)
