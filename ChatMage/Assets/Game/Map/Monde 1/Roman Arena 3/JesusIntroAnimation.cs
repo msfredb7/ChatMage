@@ -41,12 +41,20 @@ public class JesusIntroAnimation : MonoBehaviour
 
     private void _AnimationEnd()
     {
-        WakeJesus();
-        StopPlayer(false);
+        //jesus.animator.Awaken(() =>
+        //{
+        //    WakeJesus();
+        //    StopPlayer(false);
+        //});
     }
     private void _LightenJesus()
     {
         jesus.LightenUp();
+        jesus.animator.Awaken(() =>
+        {
+            WakeJesus();
+            StopPlayer(false);
+        });
     }
 
     private void StopPlayer(bool stop)

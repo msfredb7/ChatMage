@@ -12,17 +12,18 @@ public class TestScript : MonoBehaviour
 {
     void Start()
     {
-        Debug.LogWarning("Test script qui traine ici, ne m'oublier pas.");
+        Debug.LogWarning("Test script qui traine ici, ne m'oublier pas. (" + gameObject.name + ")");
     }
 
 
-
+    public JesusChains chains;
 
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
+            chains.Break();
         }
     }
 }

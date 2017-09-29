@@ -12,8 +12,8 @@ public class SmashManager : MonoBehaviour
     private Animator followTarget;
     [SerializeField]
     private Transform followTargetParent;
-    [SerializeField]
-    private bool debug = false;
+    //[SerializeField]
+    //private bool debug = false;
 
     [System.NonSerialized]
     private SmashBall currentSmashBall;

@@ -14,10 +14,12 @@ public class JesusV2AnimatorV2 : EnemyAnimator, IShaker
     private Action pickUpCallback;
     private Action throwMoment;
     private Action throwCallback;
+    private Action awakenCallback;
 
     private int pickUpHash = Animator.StringToHash("pickup");
     private int throwHash = Animator.StringToHash("throw");
     private int hasRockHash = Animator.StringToHash("hasRock");
+    private int awakenHash = Animator.StringToHash("awaken");
 
     protected override EnemyVehicle Vehicle
     {
@@ -39,6 +41,12 @@ public class JesusV2AnimatorV2 : EnemyAnimator, IShaker
         controller.SetTrigger(throwHash);
     }
 
+    public void Awaken(Action onComplete)
+    {
+        awakenCallback = onComplete;
+        controller.SetTrigger(awakenHash);
+    }
+
     public void _PickUpComplete()
     {
         Flush(ref pickUpCallback);
@@ -56,6 +64,11 @@ public class JesusV2AnimatorV2 : EnemyAnimator, IShaker
     {
         Flush(ref throwMoment);
         controller.SetBool(hasRockHash, false);
+    }
+
+    public void _AwakenComplete()
+    {
+        Flush(ref awakenCallback);
     }
 
     private void _StartScream()
