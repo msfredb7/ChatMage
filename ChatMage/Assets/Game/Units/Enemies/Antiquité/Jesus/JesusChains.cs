@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using CCC.Math;
+using CCC.Utility;
 
 public class JesusChains : MonoBehaviour
 {
@@ -31,6 +32,7 @@ public class JesusChains : MonoBehaviour
     private Vector2 z = Vector2.zero;
     [System.NonSerialized]
     private float stayEnabledFor = 0.5f;
+    private StatFloat worldTimescale;
 
     private void Update()
     {
@@ -67,9 +69,18 @@ public class JesusChains : MonoBehaviour
         if (flyingChains == null)
             return;
 
-        float dt = Time.deltaTime;
+        float timescale = 1;
+        if (worldTimescale == null)
+        {
+            if (Game.instance != null)
+                worldTimescale = Game.instance.worldTimeScale;
+        }
+        else
+            timescale = worldTimescale;
+
+        float dt = Time.deltaTime * timescale;
         timer += dt;
-        float fixedLerp = FixedLerp.Fix(brakeStrength);
+        float fixedLerp = FixedLerp.Fix(brakeStrength, FPSCounter.GetFPS() / timescale);
         bool goOn = false;
 
         for (int i = 0; i < flyingChains.Length; i++)

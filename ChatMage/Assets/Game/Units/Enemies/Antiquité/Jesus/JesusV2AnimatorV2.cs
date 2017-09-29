@@ -15,6 +15,8 @@ public class JesusV2AnimatorV2 : EnemyAnimator, IShaker
     private Action throwMoment;
     private Action throwCallback;
     private Action awakenCallback;
+    private Action rightWallCallback;
+    private Action leftWallCallback;
 
     private int pickUpHash = Animator.StringToHash("pickup");
     private int throwHash = Animator.StringToHash("throw");
@@ -41,8 +43,11 @@ public class JesusV2AnimatorV2 : EnemyAnimator, IShaker
         controller.SetTrigger(throwHash);
     }
 
-    public void Awaken(Action onComplete)
+    public void Awaken(Action onComplete, Action breakRightWallMoment, Action breakLeftWallMoment)
     {
+        rightWallCallback = breakRightWallMoment;
+        leftWallCallback = breakLeftWallMoment;
+
         awakenCallback = onComplete;
         controller.SetTrigger(awakenHash);
     }
@@ -69,6 +74,16 @@ public class JesusV2AnimatorV2 : EnemyAnimator, IShaker
     public void _AwakenComplete()
     {
         Flush(ref awakenCallback);
+    }
+    private void _BreakRightWall()
+    {
+        Flush(ref rightWallCallback);
+        _BigStomp();
+    }
+    private void _BreakLeftWall()
+    {
+        Flush(ref leftWallCallback);
+        _BigStomp();
     }
 
     private void _StartScream()

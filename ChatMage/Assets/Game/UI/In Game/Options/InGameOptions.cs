@@ -77,10 +77,11 @@ public class InGameOptions : WindowAnimation
     public void CHEAT_FastSmash()
     {
         SmashManager sm = Game.instance.smashManager;
-        if (sm.CurrentSmashBall != null)
-            sm.CurrentSmashBall.ForceDeath();
-        else
-            sm.DecreaseCooldown(sm.RemainingTime);
+        sm.BoostSmashCounter(sm.smashCounterMax);
+        //if (sm.CurrentSmashBall != null)
+        //    sm.CurrentSmashBall.ForceDeath();
+        //else
+        //    sm.DecreaseCooldown(sm.RemainingTime);
     }
     public void CHEAT_Win()
     {

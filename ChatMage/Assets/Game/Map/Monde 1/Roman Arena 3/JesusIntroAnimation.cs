@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using CCC.Manager;
 
-public class JesusIntroAnimation : MonoBehaviour
+public class JesusIntroAnimation : InGameAnimator
 {
     [Header("References")]
-    public Animator animator;
     public JesusV2Vehicle jesus;
 
     [Header("Jesus Awakens")]
@@ -15,17 +14,42 @@ public class JesusIntroAnimation : MonoBehaviour
     public float jesusAwakens_delay = 0;
     public float jesusAwakens_volume = 1;
 
+    [Header("Walls")]
+    public BrickWallDestruction rightBrickWall;
+    public BrickWallDestruction leftBrickWall;
+
+    [Header("Rocks")]
+    public JesusRockV2 rightRock;
+    public SpriteRenderer rightRockRenderer;
+    public Vector2 rightRockDestinationOffset;
+    public JesusRockV2 leftRock;
+    public SpriteRenderer leftRockRenderer;
+    public Vector2 leftRockDestinationOffset;
+    public float rockSpeed;
+    public string temporaryRockLayer;
+
+    [Header("Top Colliser")]
+    public GameObject topCollider;
+
     [Header("Music")]
     public AudioClip bossMusic;
 
 
     private bool jesusWokeAF = false;
 
+    private void Start()
+    {
+        rightRock.gameObject.SetActive(false);
+        leftRock.gameObject.SetActive(false);
+    }
+
     private void WakeJesus()
     {
         if (jesusWokeAF)
             return;
         jesusWokeAF = true;
+
+        topCollider.SetActive(true);
 
         jesus.enabled = true;
         jesus.ShowHP();
@@ -41,19 +65,42 @@ public class JesusIntroAnimation : MonoBehaviour
 
     private void _AnimationEnd()
     {
-        //jesus.animator.Awaken(() =>
-        //{
-        //    WakeJesus();
-        //    StopPlayer(false);
-        //});
+        RemoveTimescaleListener();
     }
     private void _LightenJesus()
     {
         jesus.LightenUp();
+
+        int rockFinalLayer = rightRockRenderer.sortingLayerID;
+
         jesus.animator.Awaken(() =>
         {
             WakeJesus();
             StopPlayer(false);
+        }, 
+        () =>
+        {
+            rightRockRenderer.sortingLayerName = temporaryRockLayer;
+            rightRock.gameObject.SetActive(true);
+            rightRock.flySpeed = rockSpeed * Game.instance.worldTimeScale;
+            rightRock.ThrownState_Destination(rightRockDestinationOffset + rightRock.Position);
+
+            rightBrickWall.Animate(() =>
+            {
+                rightRockRenderer.sortingLayerID = rockFinalLayer;
+            });
+        }, 
+        () =>
+        {
+            leftRockRenderer.sortingLayerName = temporaryRockLayer;
+            leftRock.gameObject.SetActive(true);
+            leftRock.flySpeed = rockSpeed * Game.instance.worldTimeScale;
+            leftRock.ThrownState_Destination(leftRockDestinationOffset + leftRock.Position);
+
+            leftBrickWall.Animate(() =>
+            {
+                leftRockRenderer.sortingLayerID = rockFinalLayer;
+            });
         });
     }
 
@@ -78,11 +125,12 @@ public class JesusIntroAnimation : MonoBehaviour
 
     public void PlayAnimation()
     {
+        AddTimescaleListener();
         SoundManager.StopMusic(true);
-        Game.instance.ui.dialogDisplay.StartDialog(dialog, delegate()
+        Game.instance.ui.dialogDisplay.StartDialog(dialog, delegate ()
         {
             SoundManager.PlaySFX(jesusAwakens_clip, jesusAwakens_delay, jesusAwakens_volume);
-            animator.enabled = true;
+            controller.enabled = true;
             StopPlayer(true);
         });
     }

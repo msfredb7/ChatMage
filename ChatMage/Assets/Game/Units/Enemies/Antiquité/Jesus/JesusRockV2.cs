@@ -23,6 +23,8 @@ public class JesusRockV2 : MovingUnit
 
     private Unit cannotHit = null;
     private Unit inTheHandsOf;
+    private bool hasDestination = false;
+    private Vector2 destination;
 
     protected override void Awake()
     {
@@ -44,6 +46,7 @@ public class JesusRockV2 : MovingUnit
 
     public void ThrownState(Vector2 direction, Unit cannotHit = null)
     {
+        hasDestination = false;
         inTheHandsOf = null;
         gameObject.layer = Layers.PROJECTILE;
         rb.simulated = true;
@@ -55,8 +58,24 @@ public class JesusRockV2 : MovingUnit
         this.cannotHit = cannotHit;
     }
 
+    public void ThrownState_Destination(Vector2 destination, Unit cannotHit = null)
+    {
+        hasDestination = true;
+        this.destination = destination;
+        inTheHandsOf = null;
+        gameObject.layer = Layers.PROJECTILE;
+        rb.simulated = true;
+        Speed = (destination - (Vector2)tr.position).normalized * flySpeed;
+        tr.position += (Vector3)Speed * FixedDeltaTime();
+        collider.enabled = true;
+        isFlying = true;
+        rb.drag = 0;
+        this.cannotHit = cannotHit;
+    }
+
     public void StoppedState()
     {
+        hasDestination = false;
         inTheHandsOf = null;
         gameObject.layer = Layers.SOLID_ENEMIES;
         rb.simulated = true;
@@ -117,6 +136,12 @@ public class JesusRockV2 : MovingUnit
         if (inTheHandsOf != null && recenterOverTime)
         {
             tr.localPosition = tr.localPosition.MovedTowards(Vector3.zero, DeltaTime() * recenterSpeed);
+        }
+
+        if (hasDestination)
+        {
+            if ((destination - Position).sqrMagnitude < 0.2)
+                StoppedState();
         }
     }
 }

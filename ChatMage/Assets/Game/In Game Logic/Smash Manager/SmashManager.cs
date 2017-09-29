@@ -176,7 +176,12 @@ public class SmashManager : MonoBehaviour
         if (!enabled)
             return;
 
-        smashCounter++;
+        BoostSmashCounter(1);
+    }
+
+    public void BoostSmashCounter(float amout)
+    {
+        smashCounter = (smashCounter + amout).Capped(smashCounterMax);
 
         if (onSmashCounterBoosted != null)
             onSmashCounterBoosted();
