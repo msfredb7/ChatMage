@@ -141,14 +141,14 @@ namespace LoadoutMenu
 
             //Update le text du bouton 'Next'
             if (currentTabIndex == availableTabs.Count - 1)
-                nextButton.GetComponentInChildren<Text>().text = "Launch Game";
+                nextButton.GetComponentInChildren<Text>().text = "Play";
             else
                 nextButton.GetComponentInChildren<Text>().text = "Next";
 
 
             //Update le text du bouton 'Back'
             if (currentTabIndex == 0)
-                backButton.GetComponentInChildren<Text>().text = "Back to Map";
+                backButton.GetComponentInChildren<Text>().text = "Back";
             else
                 backButton.GetComponentInChildren<Text>().text = "Back";
 
