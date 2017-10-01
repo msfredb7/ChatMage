@@ -37,7 +37,7 @@ GameObject:
   - component: {fileID: 4000014187265394}
   - component: {fileID: 82000013686115900}
   m_Layer: 0
-  m_Name: Sfx
+  m_Name: Static Sfx
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,6 +75,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1378628245663496
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4977248802021822}
+  - component: {fileID: 82029481670506706}
+  m_Layer: 0
+  m_Name: Sfx
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &4000011147464058
 Transform:
   m_ObjectHideFlags: 1
@@ -85,9 +101,10 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4000014187265394}
+  - {fileID: 4977248802021822}
   - {fileID: 4000013936084192}
   - {fileID: 4000011755287530}
+  - {fileID: 4000014187265394}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -123,6 +140,19 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010918335278}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4000011147464058}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4977248802021822
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1378628245663496}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -154,7 +184,7 @@ AudioSource:
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
-  BypassEffects: 1
+  BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
   rolloffCustomCurve:
@@ -235,7 +265,7 @@ AudioSource:
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
-  BypassEffects: 1
+  BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
   rolloffCustomCurve:
@@ -300,6 +330,87 @@ AudioSource:
   m_GameObject: {fileID: 1000010918335278}
   m_Enabled: 1
   serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 243649949607347112, guid: 548ef68a56858c84b81982d360f26110,
+    type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+--- !u!82 &82029481670506706
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1378628245663496}
+  m_Enabled: 1
+  serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 243000011449597354, guid: 548ef68a56858c84b81982d360f26110,
     type: 2}
   m_audioClip: {fileID: 0}
@@ -316,7 +427,7 @@ AudioSource:
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
-  BypassEffects: 1
+  BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
   rolloffCustomCurve:
@@ -384,22 +495,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa093b00f2d299c43942743a714fdaa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectReferences: []
+  _objectReferences:
+  - {fileID: 24500003, guid: 548ef68a56858c84b81982d360f26110, type: 2}
+  - {fileID: 245080635221518106, guid: 548ef68a56858c84b81982d360f26110, type: 2}
   _serializedStateKeys:
   - onCompleteInit
-  - save
+  - openSavesLocation
+  - settings
+  - snapshots
   _serializedStateValues:
   - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"CCC.Manager.BaseManager+BaseManagerEvent,
     Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
-  - '{"master":0.0,"voice":0.0,"sfx":0.0,"music":0.0,"activeSfx":true,"activeMusic":true}'
+  - '{}'
+  - '{"master":{"dbBoost":0.0,"muted":false},"voice":{"dbBoost":0.0,"muted":false},"sfx":{"dbBoost":0.0,"muted":false},"music":{"dbBoost":0.0,"muted":false}}'
+  - '[0,1]'
   initComplete: 0
-  stdSource: {fileID: 82000013686115900}
+  printLogs: 1
+  SFXSource: {fileID: 82029481670506706}
+  staticSFXSource: {fileID: 82000013686115900}
   musicSource: {fileID: 82000010634974186}
+  voiceSource: {fileID: 82000010106127026}
   mixer: {fileID: 24100000, guid: 548ef68a56858c84b81982d360f26110, type: 2}
-  save:
-    master: 0
-    voice: 0
-    sfx: 0
-    music: 0
-    activeSfx: 1
-    activeMusic: 1
+  settings:
+    master:
+      dbBoost: 0
+      muted: 0
+    voice:
+      dbBoost: 0
+      muted: 0
+    sfx:
+      dbBoost: 0
+      muted: 0
+    music:
+      dbBoost: 0
+      muted: 0
+  snapshots:
+  - {fileID: 24500003, guid: 548ef68a56858c84b81982d360f26110, type: 2}
+  - {fileID: 245080635221518106, guid: 548ef68a56858c84b81982d360f26110, type: 2}

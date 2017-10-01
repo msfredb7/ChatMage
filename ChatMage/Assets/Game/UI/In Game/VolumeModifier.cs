@@ -11,15 +11,15 @@ public class VolumeModifier : MonoBehaviour
 
     void Awake()
     {
-        sfxToggle.isOn = SoundManager.GetActiveSfx();
+        sfxToggle.isOn = SoundManager.GetSFXSetting().muted;
         sfxToggle.onValueChanged.AddListener(delegate (bool newValue)
         {
-            SoundManager.SetActiveSFX(newValue);
+            SoundManager.SetSFX(newValue);
         });
-        musicToggle.isOn = SoundManager.GetActiveMusic();
+        musicToggle.isOn = SoundManager.GetMusicSetting().muted;
         musicToggle.onValueChanged.AddListener(delegate (bool newValue)
         {
-            SoundManager.SetActiveMusic(newValue);
+            SoundManager.SetMusic(newValue);
         });
     }
 }
