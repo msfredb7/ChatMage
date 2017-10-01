@@ -36,7 +36,7 @@ public class GameSaves : BaseManager<GameSaves>
 
     private string GetPath()
     {
-        return Application.persistentDataPath + "/v1_";
+        return Application.persistentDataPath + "/v" + saveVersion + "_";
     }
 
     #region Get Value
@@ -323,15 +323,15 @@ public class GameSaves : BaseManager<GameSaves>
         switch (type)
         {
             case Type.Levels:
-                return saveVersion + LEVELSELECT_FILE;
+                return LEVELSELECT_FILE;
             case Type.Loadout:
-                return saveVersion + LOADOUT_FILE;
+                return LOADOUT_FILE;
             case Type.Account:
-                return saveVersion + ACCOUNT_FILE;
+                return ACCOUNT_FILE;
             case Type.Armory:
-                return saveVersion+ ARMORY_FILE;
+                return ARMORY_FILE;
             case Type.Tutorial:
-                return saveVersion + TUTORIAL_FILE;
+                return TUTORIAL_FILE;
         }
         return "";
     }
