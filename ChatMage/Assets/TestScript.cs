@@ -17,51 +17,18 @@ public class TestScript : MonoBehaviour
         MasterManager.Sync();
     }
 
-
-    public AudioClip clip;
-    public AudioClip clip2;
-    public AudioClip sfx;
+    public PortalVFX portal;
 
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            SoundManager.PlayMusic(clip, true, 1, false);
-        }
         if (Input.GetKeyDown(KeyCode.O))
         {
-            SoundManager.PlayMusic(clip2, true, 0.25f, false);
+            portal.Open();
         }
-        if (Input.GetKeyDown(KeyCode.M))
+        if (Input.GetKeyDown(KeyCode.C))
         {
-            SoundManager.SetMusic(!SoundManager.GetMusicSetting().muted);
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            SoundManager.SlowMotionEffect(true);
-        }
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            SoundManager.SlowMotionEffect(false);
-        }
-
-
-        if (Input.GetKeyDown(KeyCode.Q))    //Master
-        {
-            //SoundManager.play(false);
-        }
-        if (Input.GetKeyDown(KeyCode.W))    //Voice
-        {
-            SoundManager.PlayVoice(sfx, 1);
-        }
-        if (Input.GetKeyDown(KeyCode.E))    //SFX
-        {
-            SoundManager.PlaySFX(sfx, 1);
-        }
-        if (Input.GetKeyDown(KeyCode.R))    //Staic SFX
-        {
-            SoundManager.PlayStaticSFX(sfx, 1);
+            portal.Close();
         }
     }
 }

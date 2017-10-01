@@ -16,7 +16,7 @@ public class InGameAnimator : MonoBehaviour
     {
         if(Game.instance == null)
         {
-            Debug.LogError("Could not add listener to worldTimescale. Game.instance == null");
+            Debug.LogError(name + " tried to a add listener to worldTimescale but Game.instance == null");
             return;
         }
 

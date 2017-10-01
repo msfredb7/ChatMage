@@ -62,6 +62,10 @@ public class CameraWiggle : MonoBehaviour
         targetSize = animationSize;
         this.transitionDuration = transitionDuration;
     }
+    public float GetAnimationSize()
+    {
+        return targetSize;
+    }
 
     private Transform Player
     {
