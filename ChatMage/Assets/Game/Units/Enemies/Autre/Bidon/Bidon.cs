@@ -11,4 +11,9 @@ public class Bidon : Unit, IAttackable
         Destroy(gameObject);
         return 1;
     }
+
+    public int SmashJuice()
+    {
+        return 1;
+    }
 }

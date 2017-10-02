@@ -6,6 +6,7 @@ public class Wood : Unit, IAttackable
 {
     [Header("Linking"), Forward]
     public Targets targets;
+    public int smashJuice = 0;
 
     void Start()
     {
@@ -29,6 +30,11 @@ public class Wood : Unit, IAttackable
         {
             return 1;
         }
+    }
+
+    public int SmashJuice()
+    {
+        return smashJuice;
     }
 
     protected override void Die()

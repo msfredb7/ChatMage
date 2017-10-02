@@ -34,6 +34,15 @@ public class LS_ThridLevel : LevelScript
     [NonSerialized, NotSerialized]
     List<Unit> enemyBuffer = null;
 
+    protected override void ResetData()
+    {
+        base.ResetData();
+        waveTwo_reached = false;
+        waveOne_reached = false;
+        armyWall = null;
+        enemyBuffer = null;
+    }
+
     protected override void OnGameReady()
     {
         Game.instance.smashManager.smashEnabled = true;

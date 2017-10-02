@@ -12,6 +12,11 @@ public class GateScript : Unit, IAttackable
         return 0;
     }
 
+    public int SmashJuice()
+    {
+        return 0;
+    }
+
     protected override void Die()
     {
         Game.instance.gameCamera.followPlayer = true;

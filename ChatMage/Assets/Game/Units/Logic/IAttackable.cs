@@ -5,4 +5,5 @@ using UnityEngine;
 public interface IAttackable
 {
     int Attacked(ColliderInfo on, int amount, Unit otherUnit, ColliderInfo source = null);
+    int SmashJuice();
 }

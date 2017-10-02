@@ -21,6 +21,11 @@ public class DestructibleDoor : Unit, IAttackable
         return hp;
     }
 
+    public int SmashJuice()
+    {
+        return 0;
+    }
+
     protected override void Die()
     {
         if (!isDead)

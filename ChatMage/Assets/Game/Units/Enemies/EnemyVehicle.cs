@@ -11,6 +11,7 @@ public abstract class EnemyVehicle : Vehicle, IAttackable
     public float turnSpeed = 150;
     public bool smartMove = false;
     public bool clampToAIArea = true;
+    public int smashJuice = 1;
     [Forward]
     public Targets targets;
 
@@ -165,4 +166,9 @@ public abstract class EnemyVehicle : Vehicle, IAttackable
     }
 
     public abstract int Attacked(ColliderInfo on, int amount, Unit otherUnit, ColliderInfo source = null);
+
+    public int SmashJuice()
+    {
+        return smashJuice;
+    }
 }

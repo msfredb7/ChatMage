@@ -123,7 +123,7 @@ public class SmashManager : MonoBehaviour
     //    if (remainingTime <= 0)
     //        SpawnSmashBall();
     //}
-
+    /*
     private void SpawnSmashBall()
     {
         inCooldown = false;
@@ -154,6 +154,7 @@ public class SmashManager : MonoBehaviour
         if (onSmashSpawned != null)
             onSmashSpawned();
     }
+    
 
     private void OnSmashTaken(Unit smashUnit)
     {
@@ -165,18 +166,20 @@ public class SmashManager : MonoBehaviour
         Game.instance.Player.playerSmash.GainSmash();
         Game.instance.Player.playerSmash.onSmashCompleted += OnSmashCompleted;
     }
-
+    
     private void OnSmashCompleted()
     {
         ResetCooldown();
     }
+    */
 
     private void BoostSmashCounter(Unit unit)
     {
         if (!enabled)
             return;
 
-        BoostSmashCounter(1);
+        if (unit.GetComponent<IAttackable>() != null)
+            BoostSmashCounter(unit.GetComponent<IAttackable>().SmashJuice());
     }
 
     public void BoostSmashCounter(float amout)

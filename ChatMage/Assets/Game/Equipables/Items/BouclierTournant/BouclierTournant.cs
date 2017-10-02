@@ -74,4 +74,9 @@ public class BouclierTournant : Unit, IAttackable
         rotateTween = transform.DOLocalRotate(new Vector3(0, 0, -90), animationDuration, RotateMode.LocalAxisAdd)
             .SetEase(turnEase, overshoot);
     }
+
+    public int SmashJuice()
+    {
+        return 0;
+    }
 }
