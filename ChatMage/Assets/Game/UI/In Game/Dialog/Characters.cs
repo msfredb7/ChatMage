@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 namespace Dialoguing
 {
@@ -28,6 +29,9 @@ namespace Dialoguing
         public VectorShaker rightVectorShaker;
         public float currentCharacterShakeIntensity = 50;
         public float currentCharacterShakeDuration = 0.25f;
+
+        // Fade Name
+        public float fadeNameAnimDuration = 1;
 
         private Vector2 stdLeftOffset;
         private Vector2 stdRightOffset;
@@ -105,6 +109,8 @@ namespace Dialoguing
 
         public void HideBoth()
         {
+            HideRightName();
+            HideLeftName();
             leftImage.enabled = false;
             rightImage.enabled = false;
         }
@@ -158,14 +164,24 @@ namespace Dialoguing
         public void DisableRightName()
         {
             Image myImage = rightImage.GetComponentInChildren<NameSetText>().GetComponent<Image>();
-            myImage.color = myImage.color.ChangedAlpha(0);
+            myImage.DOFade(0, fadeNameAnimDuration).SetUpdate(true);
+            //myImage.color = myImage.color.ChangedAlpha(0);
             rightImage.GetComponentInChildren<NameSetText>().SetText("");
+        }
+
+        public void HideRightName()
+        {
+            Image myImage = rightImage.GetComponentInChildren<NameSetText>().GetComponent<Image>();
+            myImage.color = myImage.color.ChangedAlpha(0);
+            myImage.enabled = false;
         }
 
         public void ActivateRightName(string text)
         {
             Image myImage = rightImage.GetComponentInChildren<NameSetText>().GetComponent<Image>();
-            myImage.color = myImage.color.ChangedAlpha(1);
+            myImage.enabled = true;
+            myImage.DOFade(1, fadeNameAnimDuration).SetUpdate(true);
+            //myImage.color = myImage.color.ChangedAlpha(1);
             rightImage.GetComponentInChildren<NameSetText>().SetText(text);
             if (specialEntryMode)
                 myImage.gameObject.SetActive(false);
@@ -174,14 +190,24 @@ namespace Dialoguing
         public void DisableLeftName()
         {
             Image myImage = leftImage.GetComponentInChildren<NameSetText>().GetComponent<Image>();
-            myImage.color = myImage.color.ChangedAlpha(0);
+            myImage.DOFade(0, fadeNameAnimDuration).SetUpdate(true);
+            //myImage.color = myImage.color.ChangedAlpha(0);
             leftImage.GetComponentInChildren<NameSetText>().SetText("");
+        }
+
+        public void HideLeftName()
+        {
+            Image myImage = leftImage.GetComponentInChildren<NameSetText>().GetComponent<Image>();
+            myImage.color = myImage.color.ChangedAlpha(0);
+            myImage.enabled = false;
         }
 
         public void ActivateLeftName(string text)
         {
             Image myImage = leftImage.GetComponentInChildren<NameSetText>().GetComponent<Image>();
-            myImage.color = myImage.color.ChangedAlpha(1);
+            myImage.enabled = true;
+            myImage.DOFade(1, fadeNameAnimDuration).SetUpdate(true);
+            //myImage.color = myImage.color.ChangedAlpha(1);
             leftImage.GetComponentInChildren<NameSetText>().SetText(text);
             if (specialEntryMode)
                 myImage.gameObject.SetActive(false);
