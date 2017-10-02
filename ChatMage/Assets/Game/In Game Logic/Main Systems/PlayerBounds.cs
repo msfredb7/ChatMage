@@ -4,6 +4,21 @@ using UnityEngine;
 
 public class PlayerBounds : MonoBehaviour
 {
+    [System.Serializable]
+    public struct FourBoundStates
+    {
+        public bool top;
+        public bool right;
+        public bool left;
+        public bool bottom;
+        public FourBoundStates(bool top, bool right, bool left, bool bottom)
+        {
+            this.top = top;
+            this.bottom = bottom;
+            this.left = left;
+            this.right = right;
+        }
+    }
     [Header("Borders")]
     public bool enabledByDefault = false;
     public BoxCollider2D top;
@@ -39,6 +54,13 @@ public class PlayerBounds : MonoBehaviour
         bottom.enabled = false;
         right.enabled = false;
         left.enabled = false;
+    }
+    public void SetStates(FourBoundStates states)
+    {
+        top.enabled = states.top;
+        bottom.enabled = states.bottom;
+        right.enabled = states.right;
+        left.enabled = states.left;
     }
 
 }

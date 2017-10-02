@@ -29,7 +29,7 @@ public class JesusIntroAnimation : InGameAnimator
     public string temporaryRockLayer;
 
     [Header("Top Colliser")]
-    public GameObject topCollider;
+    public GameObject[] topColliders;
 
     [Header("Music")]
     public AudioClip bossMusic;
@@ -49,7 +49,10 @@ public class JesusIntroAnimation : InGameAnimator
             return;
         jesusWokeAF = true;
 
-        topCollider.SetActive(true);
+        for (int i = 0; i < topColliders.Length; i++)
+        {
+            topColliders[i].SetActive(true);
+        }
 
         jesus.enabled = true;
         jesus.ShowHP();

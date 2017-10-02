@@ -29,13 +29,9 @@ public class PortalVFX : InGameAnimator
         Active(false);
     }
 
-    void Start()
-    {
-        AddTimescaleListener();
-    }
-
     public void Open(TweenCallback onComplete)
     {
+        AddTimescaleListener();
         Kill();
 
         Active(true);
