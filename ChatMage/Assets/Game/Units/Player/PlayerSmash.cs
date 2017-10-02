@@ -32,6 +32,12 @@ public class PlayerSmash : PlayerComponent
             smash.OnGameStarted();
     }
 
+    private void Update()
+    {
+        if(smashInProgress)
+            Smash.OnUpdate();
+    }
+
     public void SetSmash(Smash smash)
     {
         this.smash = smash;

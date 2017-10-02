@@ -104,6 +104,11 @@ public class PlayerVehicle : Vehicle, IAttackable, IVisible
         return controller.playerStats.Attacked(on, amount, otherUnit, source);
     }
 
+    public int SmashJuice()
+    {
+        return 0;
+    }
+
     public bool IsVisible()
     {
         return controller.playerStats.isVisible;

@@ -64,6 +64,11 @@ public class SmashBall : MovingUnit, IAttackable
         return hp;
     }
 
+    public int SmashJuice()
+    {
+        return 0;
+    }
+
     public bool CanHit
     {
         get { return allegiance == Allegiance.SmashBall; }

@@ -52,4 +52,9 @@ public class DarkMoleSword : Unit, IAttackable
     {
         Game.instance.commonVfx.SmallHit(swordCollider.transform.position, Color.red);
     }
+
+    public int SmashJuice()
+    {
+        return 0;
+    }
 }

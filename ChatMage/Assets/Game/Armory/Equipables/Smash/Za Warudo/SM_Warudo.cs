@@ -162,5 +162,9 @@ public class SM_Warudo : Smash
 
     public override void OnUpdate()
     {
+        base.OnUpdate();
+
+        if (Game.instance.smashManager.smashCounter > 0)
+            Game.instance.smashManager.smashCounter -= Time.deltaTime;
     }
 }

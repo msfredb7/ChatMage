@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,7 @@ using UnityEngine;
 public class BubbleBuff : BaseBuff, IAttackable
 {
     private const float BUMP_STR = 3.5f;
+    private const int BUBBLE_SMASH_JUICE = 1;
 
     private bool removeShield = false;
     private GameObject vfxPrefab;
@@ -23,7 +25,7 @@ public class BubbleBuff : BaseBuff, IAttackable
         if (unit is EnemyVehicle && (unit as EnemyVehicle).bodyCenter != null)
             tr = (unit as EnemyVehicle).bodyCenter;
 
-        vfx = Object.Instantiate(vfxPrefab, tr);
+        vfx = UnityEngine.Object.Instantiate(vfxPrefab, tr);
 
         float unitWidth = 1;
         if(unit is EnemyVehicle)
@@ -67,11 +69,16 @@ public class BubbleBuff : BaseBuff, IAttackable
         }
 
         if(!removeShield)
-            Object.Destroy(vfx);
+            UnityEngine.Object.Destroy(vfx);
 
         removeShield = true;
 
         //Block le dégat
         return 0;
+    }
+
+    public int SmashJuice()
+    {
+        return BUBBLE_SMASH_JUICE;
     }
 }
