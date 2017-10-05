@@ -163,54 +163,72 @@ namespace Dialoguing
 
         public void DisableRightName()
         {
-            Image myImage = rightImage.GetComponentInChildren<NameSetText>().GetComponent<Image>();
-            myImage.DOFade(0, fadeNameAnimDuration).SetUpdate(true);
-            //myImage.color = myImage.color.ChangedAlpha(0);
-            rightImage.GetComponentInChildren<NameSetText>().SetText("");
+            if(rightImage.GetComponentInChildren<NameSetText>() != null)
+            {
+                Image myImage = rightImage.GetComponentInChildren<NameSetText>().GetComponent<Image>();
+                myImage.DOFade(0, fadeNameAnimDuration).SetUpdate(true);
+                //myImage.color = myImage.color.ChangedAlpha(0);
+                rightImage.GetComponentInChildren<NameSetText>().SetText("");
+            }
         }
 
         public void HideRightName()
         {
-            Image myImage = rightImage.GetComponentInChildren<NameSetText>().GetComponent<Image>();
-            myImage.color = myImage.color.ChangedAlpha(0);
-            myImage.enabled = false;
+            if (rightImage.GetComponentInChildren<NameSetText>() != null)
+            {
+                Image myImage = rightImage.GetComponentInChildren<NameSetText>().GetComponent<Image>();
+                myImage.color = myImage.color.ChangedAlpha(0);
+                myImage.enabled = false;
+            }
         }
 
         public void ActivateRightName(string text)
         {
-            Image myImage = rightImage.GetComponentInChildren<NameSetText>().GetComponent<Image>();
-            myImage.enabled = true;
-            myImage.DOFade(1, fadeNameAnimDuration).SetUpdate(true);
-            //myImage.color = myImage.color.ChangedAlpha(1);
-            rightImage.GetComponentInChildren<NameSetText>().SetText(text);
-            if (specialEntryMode)
-                myImage.gameObject.SetActive(false);
+            if(rightImage.GetComponentInChildren<NameSetText>() != null)
+            {
+                Image myImage = rightImage.GetComponentInChildren<NameSetText>().GetComponent<Image>();
+                myImage.enabled = true;
+                myImage.DOFade(1, fadeNameAnimDuration).SetUpdate(true);
+                //myImage.color = myImage.color.ChangedAlpha(1);
+                rightImage.GetComponentInChildren<NameSetText>().SetText(text);
+                if (specialEntryMode)
+                    myImage.gameObject.SetActive(false);
+            }
         }
 
         public void DisableLeftName()
         {
-            Image myImage = leftImage.GetComponentInChildren<NameSetText>().GetComponent<Image>();
-            myImage.DOFade(0, fadeNameAnimDuration).SetUpdate(true);
-            //myImage.color = myImage.color.ChangedAlpha(0);
-            leftImage.GetComponentInChildren<NameSetText>().SetText("");
+            if(leftImage.GetComponentInChildren<NameSetText>() != null)
+            {
+                Image myImage = leftImage.GetComponentInChildren<NameSetText>().GetComponent<Image>();
+                myImage.DOFade(0, fadeNameAnimDuration).SetUpdate(true);
+                //myImage.color = myImage.color.ChangedAlpha(0);
+                leftImage.GetComponentInChildren<NameSetText>().SetText("");
+            }
         }
 
         public void HideLeftName()
         {
-            Image myImage = leftImage.GetComponentInChildren<NameSetText>().GetComponent<Image>();
-            myImage.color = myImage.color.ChangedAlpha(0);
-            myImage.enabled = false;
+            if (leftImage.GetComponentInChildren<NameSetText>() != null)
+            {
+                Image myImage = leftImage.GetComponentInChildren<NameSetText>().GetComponent<Image>();
+                myImage.color = myImage.color.ChangedAlpha(0);
+                myImage.enabled = false;
+            }
         }
 
         public void ActivateLeftName(string text)
         {
-            Image myImage = leftImage.GetComponentInChildren<NameSetText>().GetComponent<Image>();
-            myImage.enabled = true;
-            myImage.DOFade(1, fadeNameAnimDuration).SetUpdate(true);
-            //myImage.color = myImage.color.ChangedAlpha(1);
-            leftImage.GetComponentInChildren<NameSetText>().SetText(text);
-            if (specialEntryMode)
-                myImage.gameObject.SetActive(false);
+            if(leftImage.GetComponentInChildren<NameSetText>() != null)
+            {
+                Image myImage = leftImage.GetComponentInChildren<NameSetText>().GetComponent<Image>();
+                myImage.enabled = true;
+                myImage.DOFade(1, fadeNameAnimDuration).SetUpdate(true);
+                //myImage.color = myImage.color.ChangedAlpha(1);
+                leftImage.GetComponentInChildren<NameSetText>().SetText(text);
+                if (specialEntryMode)
+                    myImage.gameObject.SetActive(false);
+            }
         }
     }
 }
