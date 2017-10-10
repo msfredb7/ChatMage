@@ -47,10 +47,13 @@ public class JesusRockV2 : MovingUnit
     public void ThrownState(Vector2 direction, Unit cannotHit = null)
     {
         hasDestination = false;
+
         inTheHandsOf = null;
         gameObject.layer = Layers.PROJECTILE;
         rb.simulated = true;
+
         Speed = direction.normalized * flySpeed;
+
         tr.position += (Vector3)Speed * FixedDeltaTime();
         collider.enabled = true;
         isFlying = true;
@@ -60,17 +63,9 @@ public class JesusRockV2 : MovingUnit
 
     public void ThrownState_Destination(Vector2 destination, Unit cannotHit = null)
     {
-        hasDestination = true;
+        ThrownState(destination - (Vector2)tr.position, cannotHit);
         this.destination = destination;
-        inTheHandsOf = null;
-        gameObject.layer = Layers.PROJECTILE;
-        rb.simulated = true;
-        Speed = (destination - (Vector2)tr.position).normalized * flySpeed;
-        tr.position += (Vector3)Speed * FixedDeltaTime();
-        collider.enabled = true;
-        isFlying = true;
-        rb.drag = 0;
-        this.cannotHit = cannotHit;
+        hasDestination = true;
     }
 
     public void StoppedState()
@@ -83,6 +78,7 @@ public class JesusRockV2 : MovingUnit
         Speed = Vector2.zero;
         collider.enabled = true;
         rb.drag = 20;
+        cannotHit = null;
 
         Game.instance.gameCamera.vectorShaker.Shake(onHitShakeStrength);
     }
@@ -94,7 +90,7 @@ public class JesusRockV2 : MovingUnit
         //On skip, so elle est marquer comme intouchable
         if (other != null && other.parentUnit == cannotHit)
         {
-            cannotHit = null;
+            //cannotHit = null;
             return;
         }
 
