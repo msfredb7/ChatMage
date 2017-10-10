@@ -12,6 +12,7 @@ public class GameCamera : MonoBehaviour
     public Camera cam;
     public VectorShaker vectorShaker;
     public CameraWiggle wiggler;
+    public float shakeIntensity = 1;
 
     [Header("Settings")]
     public float distance = -10;
@@ -129,7 +130,7 @@ public class GameCamera : MonoBehaviour
     void Update()
     {
         //Camera Shake
-        cam.transform.localPosition = vectorShaker.CurrentVector + wiggler.CurrentOffset;
+        cam.transform.localPosition = (vectorShaker.CurrentVector * shakeIntensity) + wiggler.CurrentOffset;
         if (wiggler.IsInTransition)
             UpdateRealOrthoSize();
     }
