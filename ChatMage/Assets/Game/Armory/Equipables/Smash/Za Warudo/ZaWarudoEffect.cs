@@ -58,7 +58,7 @@ public class ZaWarudoEffect : MonoBehaviour
             tween.Kill();
     }
 
-    public void Animate(TweenCallback apply)
+    public void Animate(TweenCallback apply, TweenCallback onComplete = null)
     {
         ////Protection pour la fin de game
         //if (fisheye == null)
@@ -152,6 +152,9 @@ public class ZaWarudoEffect : MonoBehaviour
             appearDurationI) //Duration
         .SetEase(Ease.InQuad).OnComplete(() => enabled = false));
 
+
+        if (onComplete != null)
+            sq.OnComplete(onComplete);
     }
 
 
