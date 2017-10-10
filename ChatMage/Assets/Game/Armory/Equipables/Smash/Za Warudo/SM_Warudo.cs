@@ -40,13 +40,13 @@ public class SM_Warudo : Smash
 
     private const float zwv_ColorShiftStart = 0.2f;
     private const float zwv_ColorShiftEnd = 0.8f;
-    private const float zwv_FishEyeStrength = 0.65f;
+    private const float zwv_FishEyeStrength = 0.5f;
 
-    private const float zwv_AppearDurationI = 0.4f;
-    private const float zwv_PauseDurationI = 0.75f;
+    private const float zwv_AppearDurationI = 0.35f;
+    private const float zwv_PauseDurationI = 0.4f;
 
-    private const float zwv_AppearDurationO = 0.4f;
-    private const float zwv_PauseDurationO = 0.35f;
+    private const float zwv_AppearDurationO = 0.35f;
+    private const float zwv_PauseDurationO = 0.3f;
 
     public override void Init(PlayerController player)
     {

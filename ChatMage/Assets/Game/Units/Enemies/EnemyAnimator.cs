@@ -30,7 +30,7 @@ public abstract class EnemyAnimator : MonoBehaviour
 
     protected void Update()
     {
-        if (Vehicle.Speed.sqrMagnitude < 0.1f)
+        if (Vehicle.Speed.sqrMagnitude / Vehicle.TimeScale < 0.1f)
         {
             if (moving)
             {
