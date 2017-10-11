@@ -14,7 +14,7 @@ public class SM_Warudo : Smash
     public float duration;
     public float animDuration;
     public float timescaleMultiplier = 0.2f;
-    //public float launchDelay = 1.25f;
+    public bool renderCarTrails = true;
 
     [InspectorHeader("SFX Linking")]
     public AudioClip sfx;
@@ -23,9 +23,9 @@ public class SM_Warudo : Smash
     public Material zaWarudoMat;
     public Shader fishEyeShader;
     public CanvasGroup vignette;
-    //public Shader vignetteShader;
-    //public Shader chromAberrationShader;
-    //public Shader separableBlurShader;
+    public TrailRenderer carTrails;
+    public string trailsLayer;
+    public int trailsOrderInLayer;
 
     [fsIgnore, NonSerialized]
     private Coroutine smashCoroutine;
@@ -37,16 +37,19 @@ public class SM_Warudo : Smash
     private CanvasGroup vignette_instance;
     [fsIgnore, NonSerialized]
     private Action onComplete;
+    [fsIgnore, NonSerialized]
+    private GameObject[] activeCarTrails = new GameObject[2];
+
 
     private const float zwv_ColorShiftStart = 0.2f;
     private const float zwv_ColorShiftEnd = 0.8f;
-    private const float zwv_FishEyeStrength = 0.65f;
+    private const float zwv_FishEyeStrength = 0.5f;
 
-    private const float zwv_AppearDurationI = 0.4f;
-    private const float zwv_PauseDurationI = 0.75f;
+    private const float zwv_AppearDurationI = 0.35f;
+    private const float zwv_PauseDurationI = 0.4f;
 
-    private const float zwv_AppearDurationO = 0.4f;
-    private const float zwv_PauseDurationO = 0.35f;
+    private const float zwv_AppearDurationO = 0.35f;
+    private const float zwv_PauseDurationO = 0.3f;
 
     public override void Init(PlayerController player)
     {
@@ -64,12 +67,18 @@ public class SM_Warudo : Smash
         vfx.pauseDurationO = zwv_PauseDurationO;
 
         vfx.fisheye.fishEyeShader = fishEyeShader;
-        //vfx.vignette.vignetteShader = vignetteShader;
-        //vfx.vignette.chromAberrationShader = chromAberrationShader;
-        //vfx.vignette.separableBlurShader = separableBlurShader;
 
         vignette_instance = Instantiate(vignette.gameObject, Game.instance.ui.stayWithinGameView).GetComponent<CanvasGroup>();
         vignette_instance.gameObject.SetActive(false);
+    }
+
+    protected override void ClearReferences()
+    {
+        base.ClearReferences();
+        for (int i = 0; i < activeCarTrails.Length; i++)
+        {
+            activeCarTrails[i] = null;
+        }
     }
 
     public override void OnGameReady()
@@ -112,10 +121,17 @@ public class SM_Warudo : Smash
 
             MultiplyTimescale(timescaleMultiplier);
 
-            if(useSmashCounter)
+
+            if (useSmashCounter)
                 smashCoroutine = DelayManager.LocalCallTo(OnSmashEnd, Game.instance.smashManager.smashCounter + animDuration, Game.instance);
             else
                 smashCoroutine = DelayManager.LocalCallTo(OnSmashEnd, duration + animDuration, Game.instance);
+        }, () =>
+        {
+            //Car trails
+            DetachActiveCarTrails();
+            if (renderCarTrails)
+                AddActiveCarTrails();
         });
 
         SoundManager.PlaySFX(sfx);
@@ -140,6 +156,37 @@ public class SM_Warudo : Smash
             Game.instance.worldTimeScale.AddBuff("zwrdo", multiplier * 100 - 100, CCC.Utility.BuffType.Percent);
     }
 
+    void AddActiveCarTrails()
+    {
+        if (Game.instance == null || Game.instance.Player == null)
+            return;
+
+        carTrails.sortingLayerName = trailsLayer;
+        carTrails.sortingOrder = trailsOrderInLayer;
+
+        PlayerLocations pl = Game.instance.Player.playerLocations;
+        activeCarTrails[0] = Instantiate(carTrails.gameObject, pl.BackLeftWheel);
+        activeCarTrails[0].transform.localPosition = new Vector3(-.1f, -.07f, 0);
+
+        activeCarTrails[1] = Instantiate(carTrails.gameObject, pl.BackRightWheel);
+        activeCarTrails[1].transform.localPosition = new Vector3(-.1f, .07f, 0);
+
+    }
+    void DetachActiveCarTrails()
+    {
+        if (Game.instance == null)
+            return;
+
+        for (int i = 0; i < activeCarTrails.Length; i++)
+        {
+            if (activeCarTrails[i] == null)
+                continue;
+
+            activeCarTrails[i].transform.SetParent(Game.instance.unitsContainer);
+            activeCarTrails[i].GetComponent<TrailRenderer>().autodestruct = true;
+        }
+    }
+
     void OnSmashEnd()
     {
         if (onComplete != null)
@@ -153,6 +200,7 @@ public class SM_Warudo : Smash
         });
 
         //Shader animation
+        DetachActiveCarTrails();
         vfx.AnimateBack(delegate ()
         {
             MultiplyTimescale(1 / timescaleMultiplier);

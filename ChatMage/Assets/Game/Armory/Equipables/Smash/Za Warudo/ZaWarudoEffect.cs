@@ -13,14 +13,14 @@ public class ZaWarudoEffect : MonoBehaviour
     [Header("All")]
     public float colorShiftStart = 0.2f;
     public float colorShiftend = 0.8f;
-    public float fisheyeStrength = 0.35f;
+    public float fisheyeStrength = 0.25f;
     [Header("In")]
-    public float appearDurationI = 0.5f;
-    public float pauseDurationI = 1.5f;
+    public float appearDurationI = 0.4f;
+    public float pauseDurationI = 0.4f;
 
     [Header("Out")]
-    public float appearDurationO = 0.5f;
-    public float pauseDurationO = 1.5f;
+    public float appearDurationO = 0.4f;
+    public float pauseDurationO = 0.4f;
 
     public Fisheye fisheye;
     //public VignetteAndChromaticAberration vignette;
@@ -58,7 +58,7 @@ public class ZaWarudoEffect : MonoBehaviour
             tween.Kill();
     }
 
-    public void Animate(TweenCallback apply)
+    public void Animate(TweenCallback apply, TweenCallback onComplete = null)
     {
         ////Protection pour la fin de game
         //if (fisheye == null)
@@ -152,6 +152,9 @@ public class ZaWarudoEffect : MonoBehaviour
             appearDurationI) //Duration
         .SetEase(Ease.InQuad).OnComplete(() => enabled = false));
 
+
+        if (onComplete != null)
+            sq.OnComplete(onComplete);
     }
 
 
