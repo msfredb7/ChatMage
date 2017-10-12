@@ -17,18 +17,18 @@ public class TestScript : MonoBehaviour
         MasterManager.Sync();
     }
 
-    public PortalVFX portal;
+    public Marker marker;
 
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.O))
+        if (Input.GetKeyDown(KeyCode.S))
         {
-            portal.Open();
+
         }
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.H))
         {
-            portal.Close();
+            marker.Remove();
         }
     }
 }

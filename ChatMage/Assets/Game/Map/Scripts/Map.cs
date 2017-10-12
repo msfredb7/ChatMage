@@ -28,6 +28,7 @@ public class Map : BaseBehavior
     public List<PositionDisplacer> positionDisplacers;
     public GameEvents.EventGraph graph;
     public MeteoPlayer meteo;
+    public MarkerSpawner markerSpawner;
 
     /// <summary>
     /// Initialise les settings de la map

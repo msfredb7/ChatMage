@@ -89,7 +89,8 @@ public class LS_ThridLevel : LevelScript
 
     private void Intersect1()
     {
-        List<TaggedObject> preSpawned = Game.instance.map.mapping.GetTaggedObjects(waveOne_prespawnedTag);
+        Mapping mapping = Game.instance.map.mapping;
+        List<TaggedObject> preSpawned = mapping.GetTaggedObjects(waveOne_prespawnedTag);
         Intersection(preSpawned,
             waveOne_sequence,
             waveOne_spawnTag,
@@ -99,13 +100,15 @@ public class LS_ThridLevel : LevelScript
             {
                 ((GameEvents.EmptyEvent)Game.instance.map.graph.events.Find(
                     (UnityEngine.Object obj) => obj.name == "On Wave 1 Cpl")).Trigger();
-            });
+            },
+            mapping.GetTaggedObject("g1 marker").GetComponent<MarkerReceiver>());
 
         waveOne_reached = true;
     }
     private void Intersect2()
     {
-        List<TaggedObject> preSpawned = Game.instance.map.mapping.GetTaggedObjects(waveTwo_prespawnedTag);
+        Mapping mapping = Game.instance.map.mapping;
+        List<TaggedObject> preSpawned = mapping.GetTaggedObjects(waveTwo_prespawnedTag);
         Intersection(preSpawned,
             waveTwo_sequence,
             waveTwo_spawnTag,
@@ -115,13 +118,15 @@ public class LS_ThridLevel : LevelScript
             {
                 ((GameEvents.EmptyEvent)Game.instance.map.graph.events.Find(
                     (UnityEngine.Object obj) => obj.name == "On Wave 2 Cpl")).Trigger();
-            });
+            },
+            mapping.GetTaggedObject("g2 marker").GetComponent<MarkerReceiver>());
 
         waveTwo_reached = true;
     }
 
-    private void Intersection(List<TaggedObject> preSpawned, List<Unit> wave, string spawnTag, float interval, int armyWallBefore, Action onComplete)
+    private void Intersection(List<TaggedObject> preSpawned, List<Unit> wave, string spawnTag, float interval, int armyWallBefore, Action onComplete, MarkerReceiver markersTarget)
     {
+        MarkerSpawner marker = Game.instance.map.markerSpawner;
         int preSpawnedCount = preSpawned.Count;    // Les unit�es pre-spawned
         int plannedWaveCount = wave.Count;   // Les unit�es qui vont arriver d'en bas, par la wave
         int ambushCount = 0;        // Les unit�es qui ont spawn sur les cot� qui sont encore active
@@ -181,6 +186,7 @@ public class LS_ThridLevel : LevelScript
                 if (enemyBuffer[i] != null && !enemyBuffer[i].IsDead && enemyBuffer[i].gameObject.activeSelf)
                 {
                     progressTracker.RegisterUnit(enemyBuffer[i]);
+                    marker.Mark(enemyBuffer[i], markersTarget);
                 }
             }
 
@@ -192,6 +198,7 @@ public class LS_ThridLevel : LevelScript
             {
                 unit.GetComponent<AI.EnemyBrainV2>().enabled = true;
                 progressTracker.RegisterUnit(unit);
+                marker.Mark(unit, markersTarget);
             }
         }
 
@@ -202,7 +209,11 @@ public class LS_ThridLevel : LevelScript
             List<Unit> newWaveList = new List<Unit>(wave);
             newWaveList.RemoveRange(0, ambushCount.Capped(newWaveList.Count));
             Game.instance.map.mapping.GetSpawn(spawnTag)
-                .SpawnUnits(newWaveList, interval, progressTracker.RegisterUnit);
+                .SpawnUnits(newWaveList, interval, (Unit u) =>
+                {
+                    progressTracker.RegisterUnit(u);
+                    marker.Mark(u, markersTarget);
+                });
         }
 
 
