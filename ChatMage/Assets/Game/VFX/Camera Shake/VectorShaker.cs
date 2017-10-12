@@ -1,3 +1,4 @@
+using CCC.Utility;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -5,16 +6,19 @@ using UnityEngine;
 
 public class VectorShaker : MonoBehaviour
 {
+    [Header("Smoothing"), Range(1, 100)]
+    public float smoothFactor;
+
     [Header("Shake")]
     public bool unscaledTime = false;
+    public float timescale = 1;
     public float max = 1.2f;
     public float speed = 7;
     public float quitDuration = 0.25f;
+
     [Header("Hit")]
     public float hitQuitSpeed = 0.1f;
 
-    //[NonSerialized]
-    //private float strength = 0;
     [NonSerialized]
     private float time = 0;
     [NonSerialized]
@@ -22,13 +26,14 @@ public class VectorShaker : MonoBehaviour
     [NonSerialized]
     private float currentStrength = 0;
 
-    //[NonSerialized]
-    //private bool isShakeOn = false;
     [NonSerialized]
     private Vector2 shakeDelta;
 
     [NonSerialized]
     private Vector2 hitDelta;
+
+    [NonSerialized]
+    private Vector2 realSmoothedDelta;
 
     [NonSerialized]
     private LinkedList<IShaker> shakers = new LinkedList<IShaker>();
@@ -37,11 +42,11 @@ public class VectorShaker : MonoBehaviour
 
     void Update()
     {
-        float deltaTime = unscaledTime ? Time.unscaledDeltaTime : Time.deltaTime;
+        float deltaTime = (unscaledTime ? Time.unscaledDeltaTime : Time.deltaTime) * timescale;
 
         if (hitDelta.sqrMagnitude > 0)
         {
-            hitDelta = Vector2.Lerp(hitDelta, Vector2.zero, FixedLerp.Fix(hitQuitSpeed));
+            hitDelta = Vector2.Lerp(hitDelta, Vector2.zero, FixedLerp.Fix(hitQuitSpeed, FPSCounter.GetFPS() / timescale));
         }
 
         float targetStrength = GetTargetStrength();
@@ -79,6 +84,11 @@ public class VectorShaker : MonoBehaviour
             shakeDelta = Vector2.zero;
         }
 
+        if (smoothFactor > 1)
+            realSmoothedDelta = Vector2.Lerp(realSmoothedDelta, hitDelta + shakeDelta, FixedLerp.Fix(1 / smoothFactor, FPSCounter.GetFPS() / timescale));
+        else
+            realSmoothedDelta = hitDelta + shakeDelta;
+
         time += deltaTime * currentSpeed;
         UpdateTimedShakers(deltaTime);
     }
@@ -113,7 +123,7 @@ public class VectorShaker : MonoBehaviour
         return strength;
     }
 
-    public Vector2 CurrentVector { get { return shakeDelta + hitDelta; } }
+    public Vector2 CurrentVector { get { return realSmoothedDelta; } }
 
     public void AddShaker(IShaker shaker)
     {

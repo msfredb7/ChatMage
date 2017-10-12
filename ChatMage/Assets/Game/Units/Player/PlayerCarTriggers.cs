@@ -12,7 +12,7 @@ public class PlayerCarTriggers : PlayerComponent
     public event UnitDetectionEvent onUnitKilled;
 
     [Header("Hit Animation")]
-    public float camHitStrengthOnHit = 0.05f;
+    public const float camHitStrengthOnHit = 0.45f;
 
 
     [Header("Trigger Listeners")]

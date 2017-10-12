@@ -8,7 +8,7 @@ using System;
 public class PlayerStats : PlayerComponent, IAttackable
 {
     [Header("Camera Shake")]
-    public float onHitShakeStrength = 0.35f;
+    private const float onHitShakeStrength = 0.7f;
 
     [Header("Camera Shake")]
     public Color loseHpHitColor = Color.red;

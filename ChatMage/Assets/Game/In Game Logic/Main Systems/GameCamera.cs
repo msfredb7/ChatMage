@@ -61,6 +61,11 @@ public class GameCamera : MonoBehaviour
         vectorShaker.max = MAX_CAMERA_SHAKE;
     }
 
+    void Start()
+    {
+        Game.instance.worldTimeScale.onSet.AddListener((worldTimescale) => vectorShaker.timescale = worldTimescale);
+    }
+
     public float OrthoSize
     {
         get { return externalOrthoSize; }
