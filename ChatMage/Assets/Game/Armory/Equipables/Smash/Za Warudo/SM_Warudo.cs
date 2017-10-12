@@ -92,7 +92,7 @@ public class SM_Warudo : Smash
             return;
 
         //a-t-on simplement fermer le jeu ?
-        if (Game.instance != null)
+        if (Game.instance != null && Application.isPlaying)
         {
             Game.instance.StopCoroutine(smashCoroutine);
             OnSmashEnd();
