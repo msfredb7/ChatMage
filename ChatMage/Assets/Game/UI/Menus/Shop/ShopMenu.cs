@@ -3,7 +3,9 @@ using CompleteProject;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_ADS
 using UnityEngine.Advertisements;
+#endif
 using UnityEngine.UI;
 
 public class ShopMenu : MonoBehaviour
@@ -116,7 +118,9 @@ public class ShopMenu : MonoBehaviour
 
     public void BuyMoney(int amount)
     {
+#if UNITY_ANDROID
         Account.instance.BuyCoins(amount);
+#endif
     }
 
     public void BackButton()
@@ -127,6 +131,7 @@ public class ShopMenu : MonoBehaviour
             LoadingScreen.TransitionTo(previousScene, null);
     }
 
+#if UNITY_ADS
     public void ShowRewardedAd()
     {
         if (Advertisement.IsReady("rewardedVideo"))
@@ -160,6 +165,7 @@ public class ShopMenu : MonoBehaviour
         }
         deactivateScenePanel.SetActive(false);
     }
+#endif
 
     public void SetPreviousContext(string previousScene, LoadoutMenu.LoadoutTab previousTab = LoadoutMenu.LoadoutTab.Car, string levelScriptName = "")
     {

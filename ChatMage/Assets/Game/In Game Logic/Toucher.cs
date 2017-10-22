@@ -12,6 +12,8 @@ public class Toucher
             return Input.GetMouseButton(0);
 #elif UNITY_ANDROID
             return Input.touchCount >= 1;
+#else
+        return Input.GetMouseButton(0);
 #endif
         }
     }
@@ -22,6 +24,8 @@ public class Toucher
         return Input.mousePosition;
 #elif UNITY_ANDROID
         return Input.GetTouch(0).position;
+#else
+        return Input.mousePosition;
 #endif
     }
 }

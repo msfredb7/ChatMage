@@ -18,8 +18,10 @@ public class Account : BaseManager<Account>
     public override void Init()
     {
         Load();
+#if UNITY_ANDROID
         purchaser = new Purchaser();
         purchaser.Init();
+#endif
         CompleteInit();
     }
 
@@ -72,7 +74,7 @@ public class Account : BaseManager<Account>
     {
         return AddCoins(StorePrice.GetPrice(commandType) * amount, saveAfterwards);
     }
-
+#if UNITY_ANDROID
     public void BuyCoins(int amount)
     {
         purchaser.BuyConsumable(amount);
@@ -82,4 +84,5 @@ public class Account : BaseManager<Account>
     {
         purchaser.BuyTheGame();
     }
+#endif
 }
