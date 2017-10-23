@@ -18,6 +18,7 @@ namespace Dialoguing
         public Text text;
         public float writeSpeed = 2;
         public ScrambleMode scrambling = ScrambleMode.None;
+        public SoundPlayer scramblingSound;
 
         private Tweener textTween;
         private Tweener backgroundTween;
@@ -33,7 +34,10 @@ namespace Dialoguing
             text.text = "";
 
             if (textTween != null)
+            {
                 textTween.Kill();
+                scramblingSound.SetPlayerActive(false);
+            }
 
             targetMessage = message;
 
@@ -41,6 +45,9 @@ namespace Dialoguing
 
             textTween = text.DOText(targetMessage, duration, scrambleMode: scrambling)
                 .SetUpdate(true);
+            scramblingSound.SetPlayerActive(true);
+            scramblingSound.PlaySound();
+            textTween.OnComplete(delegate () { scramblingSound.SetPlayerActive(false); });
         }
 
         public bool IsAnimatingText()
@@ -85,7 +92,10 @@ namespace Dialoguing
         public void SpeedUp()
         {
             if (textTween != null)
+            {
                 textTween.Kill();
+                scramblingSound.SetPlayerActive(false);
+            }
 
             text.text = targetMessage;
         }

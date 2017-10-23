@@ -1605,6 +1605,7 @@ MonoBehaviour:
   rightVectorShaker: {fileID: 0}
   currentCharacterShakeIntensity: 50
   currentCharacterShakeDuration: 0.25
+  fadeNameAnimDuration: 1
 --- !u!1 &1050752951
 GameObject:
   m_ObjectHideFlags: 0
@@ -1933,10 +1934,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _keys:
   - {fileID: 811587430}
+  - {fileID: 2039295586}
   _values:
   - _keys: []
     _values: []
     _target: {fileID: 811587430}
+  - _keys: []
+    _values: []
+    _target: {fileID: 2039295586}
 --- !u!114 &1273228750
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1950,10 +1955,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _keys:
   - {fileID: 811587430}
+  - {fileID: 2039295586}
   _values:
   - _keys: []
     _values: []
     _target: {fileID: 811587430}
+  - _keys:
+    - DefaultBehaviorEditor.useSoundList.EditProperty
+    - DefaultBehaviorEditor.onStart.EditProperty
+    - DefaultBehaviorEditor.useCustomSettings.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    _target: {fileID: 2039295586}
 --- !u!1 &1287960261
 GameObject:
   m_ObjectHideFlags: 0
@@ -2836,7 +2854,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eed73e3c20082994e9913d78ab691dae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  smoothFactor: 0
   unscaledTime: 1
+  timescale: 1
   max: 1.2
   speed: 7
   quitDuration: 0.25
@@ -2863,6 +2883,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2039295584}
   - component: {fileID: 2039295585}
+  - component: {fileID: 2039295586}
   m_Layer: 5
   m_Name: Text Area
   m_TagString: Untagged
@@ -2908,6 +2929,48 @@ MonoBehaviour:
   text: {fileID: 1185821758}
   writeSpeed: 75
   scrambling: 0
+  scramblingSound: {fileID: 2039295586}
+--- !u!114 &2039295586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2039295583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85205e10ad9c52a4db004e69b39bacba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectReferences: []
+  _serializedStateKeys:
+  - soundList
+  - onPlaySound
+  - soundType
+  _serializedStateValues:
+  - 
+  - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  - '"sfx"'
+  tag: 
+  useSoundList: 0
+  sound: {fileID: 8300000, guid: a354cd3a5ba5409429cb5606b6251222, type: 3}
+  soundList: []
+  onStart: 0
+  onEnable: 0
+  useEvent: 0
+  onPlaySound:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  useCustomSettings: 1
+  looping: 1
+  loopDelay: 0
+  volume: 0.05
+  delay: 0
+  activeFromStart: 0
+  startOnReactivation: 0
+  soundType: 1
 --- !u!1 &2075731784
 GameObject:
   m_ObjectHideFlags: 0
@@ -3024,7 +3087,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eed73e3c20082994e9913d78ab691dae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  smoothFactor: 0
   unscaledTime: 1
+  timescale: 1
   max: 1.2
   speed: 7
   quitDuration: 0.25

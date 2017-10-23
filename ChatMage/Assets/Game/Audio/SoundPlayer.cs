@@ -34,6 +34,8 @@ public class SoundPlayer : BaseBehavior {
     [InspectorShowIf("useCustomSettings")]
     public float delay = 0;
     [InspectorShowIf("useCustomSettings")]
+    public bool activeFromStart = true;
+    [InspectorShowIf("useCustomSettings")]
     public bool startOnReactivation = false;
 
     public enum SoundType { music = 0, sfx = 1, voice = 2 }
@@ -46,7 +48,7 @@ public class SoundPlayer : BaseBehavior {
     {
         MasterManager.Sync(delegate ()
         {
-            active = true;
+            active = activeFromStart;
             currentSoundIndex = 0;
             if (onStart)
                 PlaySound();

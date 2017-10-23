@@ -296,6 +296,7 @@ GameObject:
   - component: {fileID: 114471218669075500}
   - component: {fileID: 114048128023779932}
   - component: {fileID: 114599553586871916}
+  - component: {fileID: 114892100390007332}
   - component: {fileID: 114949220745592610}
   m_Layer: 10
   m_Name: Archer
@@ -878,6 +879,58 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 95962821577033910}
   arrowRenderer: {fileID: 212889237377052798}
+--- !u!114 &114892100390007332
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1871222452349014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85205e10ad9c52a4db004e69b39bacba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectReferences:
+  - {fileID: 8300000, guid: 242e9eae3ec431b4a96df2aea7454978, type: 3}
+  - {fileID: 8300000, guid: 9534bfaac27c62642950cdc6aef1c60f, type: 3}
+  - {fileID: 8300000, guid: 580525247f677ed439488c9acc09ec24, type: 3}
+  - {fileID: 8300000, guid: 2c8a3c17122a27c4bbdc8164b6807bf4, type: 3}
+  - {fileID: 8300000, guid: e3ed7d0c024cdef4c99a997155dc4e8e, type: 3}
+  - {fileID: 8300000, guid: 79db12a5b3e54b849a1f805881a81aa5, type: 3}
+  _serializedStateKeys:
+  - soundList
+  - onPlaySound
+  - soundType
+  _serializedStateValues:
+  - '[0,1,2,3,4,5]'
+  - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  - '"sfx"'
+  tag: death
+  useSoundList: 1
+  sound: {fileID: 0}
+  soundList:
+  - {fileID: 8300000, guid: 242e9eae3ec431b4a96df2aea7454978, type: 3}
+  - {fileID: 8300000, guid: 9534bfaac27c62642950cdc6aef1c60f, type: 3}
+  - {fileID: 8300000, guid: 580525247f677ed439488c9acc09ec24, type: 3}
+  - {fileID: 8300000, guid: 2c8a3c17122a27c4bbdc8164b6807bf4, type: 3}
+  - {fileID: 8300000, guid: e3ed7d0c024cdef4c99a997155dc4e8e, type: 3}
+  - {fileID: 8300000, guid: 79db12a5b3e54b849a1f805881a81aa5, type: 3}
+  onStart: 0
+  onEnable: 0
+  useEvent: 0
+  onPlaySound:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  useCustomSettings: 1
+  looping: 0
+  loopDelay: 0
+  volume: 0.01
+  delay: 0
+  startOnReactivation: 0
+  soundType: 1
 --- !u!114 &114917152140949164
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -925,9 +978,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ebff343c5c56e143903d219396fe9c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _objectReferences:
+  - {fileID: 114048128023779932}
+  - {fileID: 114599553586871916}
+  - {fileID: 114892100390007332}
+  _serializedStateKeys:
+  - soundPlayers
+  _serializedStateValues:
+  - '[0,1,2]'
+  setListAutomaticaly: 1
   soundPlayers:
   - {fileID: 114048128023779932}
   - {fileID: 114599553586871916}
+  - {fileID: 114892100390007332}
 --- !u!114 &114973831824587870
 MonoBehaviour:
   m_ObjectHideFlags: 1

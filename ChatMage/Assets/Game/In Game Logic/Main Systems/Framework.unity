@@ -189,6 +189,7 @@ GameObject:
   - component: {fileID: 218698580}
   - component: {fileID: 218698581}
   - component: {fileID: 218698582}
+  - component: {fileID: 218698583}
   m_Layer: 0
   m_Name: Motton de script
   m_TagString: Untagged
@@ -279,6 +280,27 @@ MonoBehaviour:
   mediumHit: {fileID: 114796196922008038, guid: f5ff237a9e9a63c41a795cad2e5355a5,
     type: 2}
   smallHit: {fileID: 114796196922008038, guid: fc36608c1de1222458f3e08d98c83118, type: 2}
+--- !u!114 &218698583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 218698577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b4076928f535d5419f3c557c086e44b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitSounds:
+  - {fileID: 8300000, guid: bc5d10371512b694c87746a47adb8950, type: 3}
+  - {fileID: 8300000, guid: 392532f92e1c12e48acc2a63532efeee, type: 3}
+  - {fileID: 8300000, guid: 7964657198512d547b248431b1b415fd, type: 3}
+  - {fileID: 8300000, guid: 6a974602fb402eb49b71148f9c7fa378, type: 3}
+  - {fileID: 8300000, guid: 1c83cf1605e95914799f1aff5e50cf8d, type: 3}
+  - {fileID: 8300000, guid: 65331af7d23dbf342a48cf416e49b009, type: 3}
+  - {fileID: 8300000, guid: f3df8fdccea60a04d9bdbe15b2a546ac, type: 3}
+  - {fileID: 8300000, guid: 5ab3db2a4058f1c439b9ed8f6777f5d1, type: 3}
+  sfxStandardVolume: 0.05
 --- !u!1 &471814416
 GameObject:
   m_ObjectHideFlags: 0
@@ -624,6 +646,7 @@ MonoBehaviour:
   healthPackManager: {fileID: 218698581}
   events: {fileID: 218698578}
   commonVfx: {fileID: 218698582}
+  commonSfx: {fileID: 218698583}
   cadre: {fileID: 1968969123}
   worldTimeScale:
     value: 1
@@ -674,6 +697,7 @@ MonoBehaviour:
   loopDelay: 0
   volume: 0.01
   delay: 2
+  activeFromStart: 1
   startOnReactivation: 0
   soundType: 0
 --- !u!1 &1101745399
@@ -796,10 +820,13 @@ MonoBehaviour:
   - {fileID: 986166561}
   - {fileID: 986166562}
   _values:
+  - _keys: []
+    _values: []
+    _target: {fileID: 986166561}
   - _keys:
-    - DefaultBehaviorEditor.gameCamera.EditProperty
-    - DefaultBehaviorEditor.units.EditProperty
-    - DefaultBehaviorEditor.attackableUnits.EditProperty
+    - DefaultBehaviorEditor.useSoundList.EditProperty
+    - DefaultBehaviorEditor.onStart.EditProperty
+    - DefaultBehaviorEditor.useCustomSettings.EditProperty
     _values:
     - _showDropdown: 0
       _serializedIsActive: 1
@@ -807,9 +834,6 @@ MonoBehaviour:
       _serializedIsActive: 1
     - _showDropdown: 0
       _serializedIsActive: 1
-    _target: {fileID: 986166561}
-  - _keys: []
-    _values: []
     _target: {fileID: 986166562}
 --- !u!1 &1461222805
 GameObject:
