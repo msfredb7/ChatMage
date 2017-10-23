@@ -17,10 +17,14 @@ public class MainMenu : BaseBehavior
     public Level firstLevel;
     public string carAssetName;
 
+    public AudioClip anthem;
+
     public void Init()
     {
         MasterManager.Sync(delegate ()
         {
+            if(!SoundManager.IsPlayingMusic())
+                SoundManager.PlayMusic(anthem, true);
             playButton.onClick.AddListener(OnClick);
             if (firstLevel != null)
                 firstLevel.LoadData();

@@ -294,6 +294,9 @@ GameObject:
   - component: {fileID: 114632128125985528}
   - component: {fileID: 95962821577033910}
   - component: {fileID: 114471218669075500}
+  - component: {fileID: 114048128023779932}
+  - component: {fileID: 114599553586871916}
+  - component: {fileID: 114949220745592610}
   m_Layer: 10
   m_Name: Archer
   m_TagString: Untagged
@@ -753,6 +756,46 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114048128023779932
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1871222452349014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85205e10ad9c52a4db004e69b39bacba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectReferences: []
+  _serializedStateKeys:
+  - soundList
+  - onPlaySound
+  - soundType
+  _serializedStateValues:
+  - 
+  - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  - '"sfx"'
+  tag: stretch
+  useSoundList: 0
+  sound: {fileID: 8300000, guid: 0cff1a7258d88b4498960cc1316f4920, type: 3}
+  soundList: []
+  onStart: 0
+  onEnable: 0
+  useEvent: 0
+  onPlaySound:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  useCustomSettings: 1
+  looping: 0
+  loopDelay: 0
+  volume: 0.005
+  delay: 0
+  startOnReactivation: 0
+  soundType: 1
 --- !u!114 &114281818282303750
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -782,6 +825,46 @@ MonoBehaviour:
   checkWhenAboveCamera: 1
   overrideDefaultDeactivationRange: 0
   newDeactivationRange: 10
+--- !u!114 &114599553586871916
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1871222452349014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85205e10ad9c52a4db004e69b39bacba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectReferences: []
+  _serializedStateKeys:
+  - soundList
+  - onPlaySound
+  - soundType
+  _serializedStateValues:
+  - 
+  - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  - '"sfx"'
+  tag: shoot
+  useSoundList: 0
+  sound: {fileID: 8300000, guid: 5d0989fb433fb894e9869b0ca00bdb34, type: 3}
+  soundList: []
+  onStart: 0
+  onEnable: 0
+  useEvent: 0
+  onPlaySound:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  useCustomSettings: 1
+  looping: 0
+  loopDelay: 0
+  volume: 0.05
+  delay: 0
+  startOnReactivation: 0
+  soundType: 1
 --- !u!114 &114632128125985528
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -817,6 +900,7 @@ MonoBehaviour:
   turnSpeed: 360
   smartMove: 0
   clampToAIArea: 1
+  smashJuice: 1
   targets:
     targetAllegiances: 00000000
   bodyCenter: {fileID: 4830557375701184}
@@ -830,6 +914,20 @@ MonoBehaviour:
   arrowPrefab: {fileID: 114413036262173960, guid: 3ac9be565addfe74c9c6cac7b7ac3810,
     type: 2}
   arrowLaunchLocation: {fileID: 4017574676980630}
+--- !u!114 &114949220745592610
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1871222452349014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ebff343c5c56e143903d219396fe9c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundPlayers:
+  - {fileID: 114048128023779932}
+  - {fileID: 114599553586871916}
 --- !u!114 &114973831824587870
 MonoBehaviour:
   m_ObjectHideFlags: 1
