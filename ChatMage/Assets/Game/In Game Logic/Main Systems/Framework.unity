@@ -563,6 +563,7 @@ GameObject:
   - component: {fileID: 986166560}
   - component: {fileID: 986166559}
   - component: {fileID: 986166561}
+  - component: {fileID: 986166562}
   m_Layer: 0
   m_Name: Framework & Game
   m_TagString: Untagged
@@ -635,6 +636,46 @@ MonoBehaviour:
     boundMode: 0
   gameReady: 0
   gameStarted: 0
+--- !u!114 &986166562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 986166558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85205e10ad9c52a4db004e69b39bacba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectReferences: []
+  _serializedStateKeys:
+  - soundList
+  - onPlaySound
+  - soundType
+  _serializedStateValues:
+  - 
+  - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  - '"music"'
+  tag: ambientMusic
+  useSoundList: 0
+  sound: {fileID: 8300000, guid: f618f30d0a67ed048980b3798eb8ca58, type: 3}
+  soundList: []
+  onStart: 1
+  onEnable: 0
+  useEvent: 0
+  onPlaySound:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  useCustomSettings: 1
+  looping: 1
+  loopDelay: 0
+  volume: 0.01
+  delay: 2
+  startOnReactivation: 0
+  soundType: 0
 --- !u!1 &1101745399
 GameObject:
   m_ObjectHideFlags: 0
@@ -732,10 +773,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _keys:
   - {fileID: 986166561}
+  - {fileID: 986166562}
   _values:
   - _keys: []
     _values: []
     _target: {fileID: 986166561}
+  - _keys: []
+    _values: []
+    _target: {fileID: 986166562}
 --- !u!114 &1405175281
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -749,6 +794,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _keys:
   - {fileID: 986166561}
+  - {fileID: 986166562}
   _values:
   - _keys:
     - DefaultBehaviorEditor.gameCamera.EditProperty
@@ -757,11 +803,14 @@ MonoBehaviour:
     _values:
     - _showDropdown: 0
       _serializedIsActive: 1
-    - _showDropdown: 1
+    - _showDropdown: 0
       _serializedIsActive: 1
-    - _showDropdown: 1
+    - _showDropdown: 0
       _serializedIsActive: 1
     _target: {fileID: 986166561}
+  - _keys: []
+    _values: []
+    _target: {fileID: 986166562}
 --- !u!1 &1461222805
 GameObject:
   m_ObjectHideFlags: 0
