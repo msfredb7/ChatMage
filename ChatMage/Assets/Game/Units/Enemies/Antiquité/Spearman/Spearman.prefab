@@ -220,6 +220,10 @@ GameObject:
   - component: {fileID: 114750455489567326}
   - component: {fileID: 114924458662569236}
   - component: {fileID: 95674097231339120}
+  - component: {fileID: 114924901566294454}
+  - component: {fileID: 114095362700963050}
+  - component: {fileID: 114564938662220348}
+  - component: {fileID: 114561246389075680}
   m_Layer: 10
   m_Name: Spearman
   m_TagString: Untagged
@@ -573,6 +577,46 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114095362700963050
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1871222452349014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85205e10ad9c52a4db004e69b39bacba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectReferences: []
+  _serializedStateKeys:
+  - soundList
+  - onPlaySound
+  - soundType
+  _serializedStateValues:
+  - '[]'
+  - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  - '"sfx"'
+  tag: equipment
+  useSoundList: 0
+  sound: {fileID: 8300000, guid: cbd233c5960e21e4793926865a31a52d, type: 3}
+  soundList: []
+  onStart: 1
+  onEnable: 0
+  useEvent: 0
+  onPlaySound:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  useCustomSettings: 1
+  looping: 1
+  loopDelay: 0.15
+  volume: 0.01
+  delay: 0
+  startOnReactivation: 1
+  soundType: 1
 --- !u!114 &114117048000841424
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -595,6 +639,7 @@ MonoBehaviour:
   turnSpeed: 200
   smartMove: 0
   clampToAIArea: 1
+  smashJuice: 1
   targets:
     targetAllegiances: 00000000
   bodyCenter: {fileID: 4813121011381342}
@@ -629,6 +674,67 @@ MonoBehaviour:
   info: {fileID: 114795588068814044}
   useTrigger: 1
   useCollision: 0
+--- !u!114 &114561246389075680
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1871222452349014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ebff343c5c56e143903d219396fe9c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundPlayers:
+  - {fileID: 114564938662220348}
+  - {fileID: 114924901566294454}
+  - {fileID: 114095362700963050}
+--- !u!114 &114564938662220348
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1871222452349014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85205e10ad9c52a4db004e69b39bacba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectReferences:
+  - {fileID: 8300000, guid: f3edb610519a790408be8db39bb89ef0, type: 3}
+  - {fileID: 8300000, guid: 3398a4f502eb4954c86420f653b4b2c3, type: 3}
+  - {fileID: 8300000, guid: 5ebfe22f67c4ab64ab782a729a4a2686, type: 3}
+  _serializedStateKeys:
+  - soundList
+  - onPlaySound
+  - soundType
+  _serializedStateValues:
+  - '[0,1,2]'
+  - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  - '"sfx"'
+  tag: attack
+  useSoundList: 1
+  sound: {fileID: 0}
+  soundList:
+  - {fileID: 8300000, guid: f3edb610519a790408be8db39bb89ef0, type: 3}
+  - {fileID: 8300000, guid: 3398a4f502eb4954c86420f653b4b2c3, type: 3}
+  - {fileID: 8300000, guid: 5ebfe22f67c4ab64ab782a729a4a2686, type: 3}
+  onStart: 0
+  onEnable: 0
+  useEvent: 0
+  onPlaySound:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  useCustomSettings: 1
+  looping: 0
+  loopDelay: 0
+  volume: 0.01
+  delay: 0
+  startOnReactivation: 0
+  soundType: 1
 --- !u!114 &114750455489567326
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -686,6 +792,46 @@ MonoBehaviour:
   checkWhenAboveCamera: 1
   overrideDefaultDeactivationRange: 0
   newDeactivationRange: 10
+--- !u!114 &114924901566294454
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1871222452349014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85205e10ad9c52a4db004e69b39bacba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectReferences: []
+  _serializedStateKeys:
+  - soundList
+  - onPlaySound
+  - soundType
+  _serializedStateValues:
+  - '[]'
+  - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  - '"sfx"'
+  tag: footstep
+  useSoundList: 0
+  sound: {fileID: 8300000, guid: 847dabca12c4d284e947e9a5b5340db4, type: 3}
+  soundList: []
+  onStart: 0
+  onEnable: 0
+  useEvent: 0
+  onPlaySound:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  useCustomSettings: 1
+  looping: 0
+  loopDelay: 0
+  volume: 0.01
+  delay: 0
+  startOnReactivation: 0
+  soundType: 1
 --- !u!212 &212033303334370924
 SpriteRenderer:
   m_ObjectHideFlags: 1
