@@ -10,6 +10,7 @@ public class MainMenu : BaseBehavior
 {
     public const string SCENENAME = "MainMenu";
     public Button playButton;
+    public Button quitButton;
     public bool easyVersion = true; // POUR LE MIGS HARD(Accès direct au level select et loadout)
                              //              EASY(Jeu normal avec cinématique et saut au niveau 1-1)
 
@@ -26,6 +27,7 @@ public class MainMenu : BaseBehavior
             if(!SoundManager.IsPlayingMusic())
                 SoundManager.PlayMusic(anthem, true);
             playButton.onClick.AddListener(OnClick);
+            quitButton.onClick.AddListener(OnQuit);
             if (firstLevel != null)
                 firstLevel.LoadData();
         });
@@ -42,6 +44,11 @@ public class MainMenu : BaseBehavior
         {
             GoToLevelSelect();
         }
+    }
+
+    void OnQuit()
+    {
+        Application.Quit();
     }
 
     void GoToFirstLevel()
