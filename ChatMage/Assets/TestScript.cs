@@ -17,18 +17,19 @@ public class TestScript : MonoBehaviour
         MasterManager.Sync();
     }
 
-    public Marker marker;
+    public SmashDisplayV2 smd;
+    [Range(0, 1)]
+    public float juice;
+    [Range(0, 1)]
+    public float marker;
 
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-
-        }
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            marker.Remove();
-        }
+        //if (Input.GetKeyDown(KeyCode.T))
+        //{
+        smd.SetJuiceValue01(juice, true);
+        smd.SetMarkerValue01(marker);
+        //}
     }
 }
