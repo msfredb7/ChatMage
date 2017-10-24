@@ -1,10 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FullInspector;
 
-public class MultipleSoundPlayerManager : MonoBehaviour {
+public class MultipleSoundPlayerManager : BaseBehavior {
 
+    public bool setListAutomaticaly = true;
+
+    [InspectorHideIf("setListAutomaticaly")]
     public List<SoundPlayer> soundPlayers = new List<SoundPlayer>();
+
+    void Start()
+    {
+        if (setListAutomaticaly)
+        {
+            SoundPlayer[] soundPlayerComponents = GetComponents<SoundPlayer>();
+            for (int i = 0; i < soundPlayerComponents.Length; i++)
+            {
+                soundPlayers.Add(soundPlayerComponents[i]);
+            }
+        }
+    }
 
 	public void PlayChoosenSound(string tag)
     {

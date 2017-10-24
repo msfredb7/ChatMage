@@ -110,6 +110,7 @@ public class PlayerCarTriggers : PlayerComponent
             Game.instance.gameCamera.vectorShaker.Hit((transform.position - other.transform.position).normalized * camHitStrengthOnHit);
             //Hit animation
             Game.instance.commonVfx.SmallHit(other.transform.position, Color.white);
+            Game.instance.commonSfx.Hit();
         }
     }
 
