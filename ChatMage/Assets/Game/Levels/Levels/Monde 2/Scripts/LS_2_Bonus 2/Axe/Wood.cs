@@ -32,7 +32,7 @@ public class Wood : Unit, IAttackable
         }
     }
 
-    public int SmashJuice()
+    public float SmashJuice()
     {
         return smashJuice;
     }

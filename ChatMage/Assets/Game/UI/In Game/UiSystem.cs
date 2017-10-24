@@ -10,7 +10,8 @@ public class UiSystem : MonoBehaviour {
     public const string SCENENAME = "InGameUI";
 
     public PlayerInput playerInputs;
-    public SmashDisplay smashDisplay;
+    public SmashDisplayV2 smashDisplay;
+    public SmashDisplayV2_Controller smashDisplayController;
     public DialogDisplay dialogDisplay;
     public BossHealthBarDisplay bossHealthBar;
     public RectTransform stayWithinGameView;
@@ -31,7 +32,7 @@ public class UiSystem : MonoBehaviour {
 
     public void Init(PlayerController playerController)
     {
-        smashDisplay.Init(playerController);
+        smashDisplayController.Init(playerController);
         playerInputs.Init(playerController);
         dialogDisplay.onStartDialog += () => playerInputs.Enabled.Lock("dialog");
         dialogDisplay.onEndDialog += () => playerInputs.Enabled.Unlock("dialog");

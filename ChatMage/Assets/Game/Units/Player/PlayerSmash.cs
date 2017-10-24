@@ -12,15 +12,34 @@ public class PlayerSmash : PlayerComponent
 
     public bool SmashEquipped { get { return smash != null; } }
     public Smash Smash { get { return smash; } }
-    public bool HasSmash { get { return hasSmash; } }
-    private bool hasSmash;
+    //public bool HasSmash { get { return hasSmash; } }
+    //private bool hasSmash;
     private bool smashInProgress;
 
     [System.NonSerialized]
     private Smash smash;
+    [System.NonSerialized]
+    private SmashManager smashManager;
+
+    public override void Init(PlayerController controller)
+    {
+        base.Init(controller);
+        smashManager = Game.instance.smashManager;
+    }
+
+    public void SetSmash(Smash smash)
+    {
+        this.smash = smash;
+        if (smash != null)
+            smash.Init(controller);
+
+        smashManager.MaxJuice = smash.GetMaxJuice();
+        smashManager.MinimumActivatableJuice = smash.GetMinJuice();
+    }
 
     public override void OnGameReady()
     {
+
         if (smash != null)
             smash.OnGameReady();
         smashInProgress = false;
@@ -34,69 +53,64 @@ public class PlayerSmash : PlayerComponent
 
     private void Update()
     {
-        if(smashInProgress)
-            Smash.OnUpdate();
-    }
-
-    public void SetSmash(Smash smash)
-    {
-        this.smash = smash;
-        if (smash != null)
-            smash.Init(controller);
+        if (smashInProgress)
+            smash.OnUpdate();
     }
 
     //Smash gained !
-    public void GainSmash()
-    {
-        hasSmash = true;
-        if (onSmashGained != null)
-            onSmashGained();
-    }
+    //public void GainSmash()
+    //{
+    //    hasSmash = true;
+    //    if (onSmashGained != null)
+    //        onSmashGained();
+    //}
 
     //Utilisation du smash !
     public void SmashClick()
     {
-        if (Game.instance.smashManager.activateV2)
-        {
-            ForceDoSmash();
+        if (smashInProgress || !smashManager.CanSmash())
             return;
-        }
 
-        if (!hasSmash || smash == null || controller.vehicle.IsDead)
-            return;
-        hasSmash = false;
+        OnStartSmash();
+        smash.OnSmash(OnEndSmash);
 
-        if (onSmashStarted != null)
-            onSmashStarted();
+        //if (!hasSmash || smash == null || controller.vehicle.IsDead)
+        //    return;
+        //hasSmash = false;
 
-        smash.OnSmash(
-            delegate ()
-            {
-                if (onSmashCompleted != null)
-                    onSmashCompleted.Invoke();
-            });
+        //if (onSmashStarted != null)
+        //    onSmashStarted();
+
+        //smash.OnSmash(
+        //    delegate ()
+        //    {
+        //        if (onSmashCompleted != null)
+        //            onSmashCompleted.Invoke();
+        //    });
     }
 
-    public void ForceDoSmash()
+    void OnStartSmash()
     {
-        if (smashInProgress)
-            return;
-
-        if (Game.instance.smashManager.smashCounter <= 0)
-            return;
-
         smashInProgress = true;
+
+        if (!smash.canGainJuiceWhileSmashing)
+            smashManager.canGainJuice.Lock(SM_LOCK_KEY);
 
         if (onSmashStarted != null)
             onSmashStarted();
+    }
 
-        smash.OnSmash(
-            delegate ()
-            {
-                smashInProgress = false;
-                if (onSmashCompleted != null)
-                    onSmashCompleted.Invoke();
-                Game.instance.smashManager.smashCounter = 0;
-            });
+    private const string SM_LOCK_KEY = "inSm";
+
+    void OnEndSmash()
+    {
+        smashInProgress = false;
+        smashManager.canGainJuice.UnlockAll(SM_LOCK_KEY);
+
+        if (smash.clearAllJuiceOnCompletion)
+            Game.instance.smashManager.RemoveAllJuice();
+
+        if (onSmashCompleted != null)
+            onSmashCompleted.Invoke();
     }
 }

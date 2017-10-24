@@ -64,7 +64,7 @@ public class SmashBall : MovingUnit, IAttackable
         return hp;
     }
 
-    public int SmashJuice()
+    public float SmashJuice()
     {
         return 0;
     }

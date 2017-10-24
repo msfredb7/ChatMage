@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FullInspector;
@@ -7,7 +7,7 @@ using UnityEngine.Events;
 
 public class SoundPlayer : BaseBehavior {
 
-    public string tag;
+    public new string tag;
 
     [InspectorComment("This component only works with the library CCC.")]
     public bool useSoundList;

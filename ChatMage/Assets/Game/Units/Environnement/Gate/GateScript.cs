@@ -12,7 +12,7 @@ public class GateScript : Unit, IAttackable
         return 0;
     }
 
-    public int SmashJuice()
+    public float SmashJuice()
     {
         return 0;
     }

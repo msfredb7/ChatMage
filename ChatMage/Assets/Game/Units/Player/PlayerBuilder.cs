@@ -56,8 +56,8 @@ public class PlayerBuilder : MonoBehaviour
         {
             //Si on est dans la v1, on accepte de ne pas avoir de smash
             //Dans la v2, on force le joueur a avoir un smash (il peut rester d�sactiv�, mais il est l�)
-            if (!Game.instance.smashManager.activateV2)
-                smash = null;
+            //if (!Game.instance.smashManager.activateV2)
+            //    smash = null;
         }
 
     }

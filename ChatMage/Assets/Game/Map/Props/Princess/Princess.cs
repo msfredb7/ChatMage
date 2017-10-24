@@ -48,7 +48,7 @@ public class Princess : Unit, IAttackable
         Destroy();
     }
 
-    public int SmashJuice()
+    public float SmashJuice()
     {
         return 0;
     }

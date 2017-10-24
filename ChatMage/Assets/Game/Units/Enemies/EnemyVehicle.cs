@@ -167,7 +167,7 @@ public abstract class EnemyVehicle : Vehicle, IAttackable
 
     public abstract int Attacked(ColliderInfo on, int amount, Unit otherUnit, ColliderInfo source = null);
 
-    public int SmashJuice()
+    public float SmashJuice()
     {
         return smashJuice;
     }

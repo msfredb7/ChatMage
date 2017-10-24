@@ -104,7 +104,7 @@ public class PlayerVehicle : Vehicle, IAttackable, IVisible
         return controller.playerStats.Attacked(on, amount, otherUnit, source);
     }
 
-    public int SmashJuice()
+    public float SmashJuice()
     {
         return 0;
     }

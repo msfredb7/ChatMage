@@ -81,7 +81,7 @@ public class LS_demoLevelScript : LevelScript
 
     public void ActivateSmash()
     {
-        Game.instance.smashManager.DecreaseCooldown(Game.instance.smashManager.RemainingTime * 1.1f);
+        //Game.instance.smashManager.DecreaseCooldown(Game.instance.smashManager.RemainingTime * 1.1f);
         Game.instance.Player.playerStats.smashRefreshRate.Set(1);
         Game.instance.Player.playerStats.smashCooldownRate.Set(3);
     }

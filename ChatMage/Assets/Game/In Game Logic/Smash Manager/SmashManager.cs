@@ -1,89 +1,135 @@
+using CCC.Utility;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SmashManager : MonoBehaviour
 {
-    [SerializeField]
-    private SmashBall ballPrefab;
-    [SerializeField]
-    private float totalCooldown;
-    [SerializeField]
-    private Animator followTarget;
-    [SerializeField]
-    private Transform followTargetParent;
+    //[SerializeField]
+    //private SmashBall ballPrefab;
+    //[SerializeField]
+    //private float totalCooldown;
+    //[SerializeField]
+    //private Animator followTarget;
+    //[SerializeField]
+    //private Transform followTargetParent;
     //[SerializeField]
     //private bool debug = false;
 
-    [System.NonSerialized]
-    private SmashBall currentSmashBall;
+    //[System.NonSerialized]
+    //private SmashBall currentSmashBall;
 
-    private float remainingTime = 0;
-    private bool inCooldown = true;
+    //private float remainingTime = 0;
+    //private bool inCooldown = true;
 
-    public void DecreaseCooldown(float amount)
-    {
-        remainingTime -= amount;
-    }
+    //public void DecreaseCooldown(float amount)
+    //{
+    //    remainingTime -= amount;
+    //}
 
     public bool smashEnabled = true;
-    public float TotalCooldown { get { return totalCooldown; } }
-    public SmashBall CurrentSmashBall { get { return currentSmashBall; } }
-    public bool IsInCooldown { get { return inCooldown; } }
-    public float RemainingTime { get { return remainingTime; } }
-    public event SimpleEvent onSmashSpawned;
+    public Locker canGainJuice = new Locker();
+    //public float TotalCooldown { get { return totalCooldown; } }
+    //public SmashBall CurrentSmashBall { get { return currentSmashBall; } }
+    //public bool IsInCooldown { get { return inCooldown; } }
+    //public float RemainingTime { get { return remainingTime; } }
+    //public event SimpleEvent onSmashSpawned;
 
     // SMASH V2
-    public bool activateV2 = true;
-    public float smashCounter;
-    public float smashCounterMax = 10;
-    public event SimpleEvent onSmashCounterBoosted;
+    //public bool activateV2 = true;
+    private float currentJuice;
+    private float minimumActivatableJuice = 3;
+    private float maxJuice = 10;
+
+    public float MinimumActivatableJuice
+    {
+        get { return minimumActivatableJuice; }
+        set
+        {
+            minimumActivatableJuice = value;
+            if (onMinimumJuiceChange != null)
+                onMinimumJuiceChange();
+        }
+    }
+    public float MaxJuice
+    {
+        get { return maxJuice; }
+        set
+        {
+            maxJuice = value;
+            if (onMaxJuiceChange != null)
+                onMaxJuiceChange();
+        }
+    }
+    public float CurrentJuice { get { return currentJuice; } }
+    public bool IsEnabled
+    {
+        get { return enabled; }
+        private set
+        {
+            enabled = value;
+            if (onEnableOrDisable != null)
+                onEnableOrDisable();
+        }
+    }
+
+    public event SimpleEvent onJuiceChange;
+    public event SimpleEvent onMaxJuiceChange;
+    public event SimpleEvent onMinimumJuiceChange;
+    public event SimpleEvent onEnableOrDisable;
 
     void Start()
     {
+        RemoveAllJuice();
+
         Game.instance.onGameStarted += OnGameStarted;
         Game.instance.onGameReady += OnGameReady;
-        Game.instance.worldTimeScale.onSet.AddListener(OnWorldTimeScaleChanged);
+        //Game.instance.worldTimeScale.onSet.AddListener(OnWorldTimeScaleChanged);
         enabled = false;
 
-        if (followTargetParent != null)
-            followTargetParent.gameObject.SetActive(false);
+        //if (followTargetParent != null)
+        //    followTargetParent.gameObject.SetActive(false);
     }
 
-    void OnWorldTimeScaleChanged(float newValue)
-    {
-        followTarget.speed = newValue;
-    }
+    //void OnWorldTimeScaleChanged(float newValue)
+    //{
+    //    followTarget.speed = newValue;
+    //}
 
     void OnGameReady()
     {
-        if (followTarget != null)
-        {
-            followTargetParent.localScale = Game.instance.gameCamera.AdjustVector(Vector3.one);
-            followTargetParent.transform.localPosition = Game.instance.gameCamera.AdjustVector(followTargetParent.transform.localPosition);
-        }
+        //if (followTarget != null)
+        //{
+        //    followTargetParent.localScale = Game.instance.gameCamera.AdjustVector(Vector3.one);
+        //    followTargetParent.transform.localPosition = Game.instance.gameCamera.AdjustVector(followTargetParent.transform.localPosition);
+        //}
 
-        if (activateV2)
-        {
-            smashCounter = 0;
-            Game.instance.Player.playerStats.onUnitKilled += BoostSmashCounter;
-        }
+        //if (activateV2)
+        //{
+        Game.instance.Player.playerStats.onUnitKilled += BoostSmashCounter;
+        //}
     }
 
     void OnGameStarted()
     {
-        enabled = Game.instance.Player.playerSmash.SmashEquipped && smashEnabled;
-        ResetCooldown();
+        IsEnabled = Game.instance.Player.playerSmash.SmashEquipped && smashEnabled;
     }
 
-    void ResetCooldown()
-    {
-        float multiplier = 1;
-        if (Game.instance.Player != null)
-            multiplier = Game.instance.Player.playerStats.smashCooldownRate;
-        remainingTime = totalCooldown * multiplier;
+    //void ResetCooldown()
+    //{
+    //    float multiplier = 1;
+    //    if (Game.instance.Player != null)
+    //        multiplier = Game.instance.Player.playerStats.smashCooldownRate;
+    //    remainingTime = totalCooldown * multiplier;
 
-        inCooldown = true;
+    //    inCooldown = true;
+    //}
+
+    public void RemoveAllJuice()
+    {
+        currentJuice = 0;
+        if (onJuiceChange != null)
+            onJuiceChange();
     }
 
     //void Update()
@@ -175,18 +221,27 @@ public class SmashManager : MonoBehaviour
 
     private void BoostSmashCounter(Unit unit)
     {
+        if (unit.GetComponent<IAttackable>() != null)
+            IncreaseSmashJuice(unit.GetComponent<IAttackable>().SmashJuice());
+    }
+
+    public void IncreaseSmashJuice(float amount)
+    {
         if (!enabled)
             return;
 
-        if (unit.GetComponent<IAttackable>() != null)
-            BoostSmashCounter(unit.GetComponent<IAttackable>().SmashJuice());
+        //On ne gagne pas de juice si on a pas le droit
+        if (amount > 0 && !canGainJuice)
+            return;
+
+        currentJuice = (CurrentJuice + amount).Clamped(0, maxJuice);
+
+        if (onJuiceChange != null)
+            onJuiceChange();
     }
 
-    public void BoostSmashCounter(float amout)
+    public bool CanSmash()
     {
-        smashCounter = (smashCounter + amout).Capped(smashCounterMax);
-
-        if (onSmashCounterBoosted != null)
-            onSmashCounterBoosted();
+        return enabled && CurrentJuice >= minimumActivatableJuice;
     }
 }

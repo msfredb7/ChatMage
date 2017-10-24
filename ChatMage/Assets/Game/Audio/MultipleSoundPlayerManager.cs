@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FullInspector;
@@ -14,6 +14,9 @@ public class MultipleSoundPlayerManager : BaseBehavior {
     {
         if (setListAutomaticaly)
         {
+            if (soundPlayers == null)
+                soundPlayers = new List<SoundPlayer>();
+
             SoundPlayer[] soundPlayerComponents = GetComponents<SoundPlayer>();
             for (int i = 0; i < soundPlayerComponents.Length; i++)
             {

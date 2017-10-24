@@ -87,7 +87,7 @@ public class ITM_SmashShield : Item, IAttackable
             return amount;
     }
 
-    public int SmashJuice()
+    public float SmashJuice()
     {
         return 0;
     }

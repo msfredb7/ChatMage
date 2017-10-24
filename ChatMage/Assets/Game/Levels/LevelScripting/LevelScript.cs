@@ -144,7 +144,8 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
         {
             Game.instance.smashManager.smashEnabled = true;
             Game.instance.ui.smashDisplay.canBeShown = true;
-        } else
+        }
+        else
         {
             Game.instance.smashManager.smashEnabled = false;
             Game.instance.ui.smashDisplay.canBeShown = false;
@@ -160,7 +161,8 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
 
         StartWaves();
 
-        StartTutorial(activateTutorial);
+        if (activateTutorial)
+            StartTutorial();
 
         //Camera follow player ?
         Game.instance.gameCamera.followPlayer = followPlayerOnStart;
@@ -258,7 +260,7 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
         OnLose();
     }
 
-    void StartTutorial(bool force)
+    void StartTutorial()
     {
         if (!string.IsNullOrEmpty(tutorialAssetName))
         {

@@ -14,6 +14,7 @@ public class DialogDisplay : MonoBehaviour
     public GameObject dialogContainer;
 
     public event SimpleEvent onStartDialog;
+    public event SimpleEvent onClosingDialog;
     public event SimpleEvent onEndDialog;
 
 
@@ -21,7 +22,7 @@ public class DialogDisplay : MonoBehaviour
 
     private RuntimeDialog currentDialog;
     private bool hpWasShown;
-    private bool smashWasShown;
+    //private bool smashWasShown;
 
     private class RuntimeDialog
     {
@@ -68,8 +69,8 @@ public class DialogDisplay : MonoBehaviour
         UiSystem ui = Game.instance.ui;
         hpWasShown = ui.healthDisplay.IsVisible();
         ui.healthDisplay.Hide();
-        smashWasShown = ui.smashDisplay.IsVisible();
-        ui.smashDisplay.Hide(true);
+        //smashWasShown = ui.smashDisplay.IsShown();
+        //ui.smashDisplay.Hide(true);
 
         textBox.Open(OnOpenComplete);
     }
@@ -133,8 +134,11 @@ public class DialogDisplay : MonoBehaviour
         UiSystem ui = Game.instance.ui;
         if (hpWasShown)
             ui.healthDisplay.Show();
-        if (smashWasShown)
-            ui.smashDisplay.Show(true);
+        //if (smashWasShown)
+        //    ui.smashDisplay.Show(true);
+
+        if (onClosingDialog != null)
+            onClosingDialog();
 
 
         characters.HideBoth();

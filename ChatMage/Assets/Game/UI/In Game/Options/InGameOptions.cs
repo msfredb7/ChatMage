@@ -77,7 +77,7 @@ public class InGameOptions : WindowAnimation
     public void CHEAT_FastSmash()
     {
         SmashManager sm = Game.instance.smashManager;
-        sm.BoostSmashCounter(sm.smashCounterMax);
+        sm.IncreaseSmashJuice(sm.MaxJuice);
         //if (sm.CurrentSmashBall != null)
         //    sm.CurrentSmashBall.ForceDeath();
         //else

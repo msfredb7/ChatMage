@@ -12,7 +12,7 @@ public class Bidon : Unit, IAttackable
         return 1;
     }
 
-    public int SmashJuice()
+    public float SmashJuice()
     {
         return 1;
     }

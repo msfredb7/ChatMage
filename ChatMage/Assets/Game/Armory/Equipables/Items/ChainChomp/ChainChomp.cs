@@ -103,7 +103,7 @@ public class ChainChomp : MovingUnit, IAttackable
         return 1;
     }
 
-    public int SmashJuice()
+    public float SmashJuice()
     {
         return 0;
     }

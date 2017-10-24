@@ -42,15 +42,61 @@ public class SmashDisplayV2 : MonoBehaviour
     [SerializeField]
     private Vector2 noGlowSize = new Vector2(-62, 0);
 
+    [SerializeField, Header("Canvas Group")]
+    private CanvasGroup canvasGroup;
+    [SerializeField]
+    private float showTransitionDutation = 0.4f;
+
 
     private Tween juiceMoveTween;
     private Tween glowChangeTween;
     private Tween glowSizeTween;
+    private Tween canvasGroupTween;
     private float juice01;
     private float marker01;
-    private float glow01;
     private bool glowing = true;
     private const Ease JUICE_MOVE_EASE = Ease.OutCubic;
+
+    private bool isShown = false;
+    public bool canBeShown = true;
+
+    public bool IsShown()
+    {
+        return isShown;
+    }
+
+    public void Show(bool faded)
+    {
+        if (!canBeShown)
+            return;
+
+        isShown = true;
+        SetCanvasGroupAlpha(1, faded);
+    }
+
+    public void Hide(bool faded)
+    {
+        isShown = false;
+        SetCanvasGroupAlpha(0, faded);
+    }
+
+    private void SetCanvasGroupAlpha(float value, bool faded)
+    {
+        if (canvasGroupTween != null && canvasGroupTween.IsActive())
+        {
+            canvasGroupTween.Kill();
+            canvasGroupTween = null;
+        }
+
+        if (faded)
+        {
+            canvasGroupTween = canvasGroup.DOFade(value, showTransitionDutation);
+        }
+        else
+        {
+            canvasGroup.alpha = value;
+        }
+    }
 
 
     public void SetJuiceValue01(float val, bool animated)
@@ -88,8 +134,6 @@ public class SmashDisplayV2 : MonoBehaviour
 
     private void SetGlowSize01(float val, bool animated)
     {
-        glow01 = val;
-
         //Determine le min/max
         Vector2 min = noGlowSize;
         Vector2 max = fullGlowSize;

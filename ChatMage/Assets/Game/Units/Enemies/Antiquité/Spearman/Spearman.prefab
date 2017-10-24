@@ -656,6 +656,7 @@ MonoBehaviour:
   loopDelay: 0
   volume: 0.01
   delay: 0
+  activeFromStart: 1
   startOnReactivation: 0
   soundType: 1
 --- !u!114 &114207383472651024
@@ -696,9 +697,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ebff343c5c56e143903d219396fe9c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundPlayers:
-  - {fileID: 114564938662220348}
-  - {fileID: 114130165532834950}
+  _objectReferences: []
+  _serializedStateKeys:
+  - soundPlayers
+  _serializedStateValues:
+  - 
+  setListAutomaticaly: 1
+  soundPlayers: []
 --- !u!114 &114564938662220348
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -743,6 +748,7 @@ MonoBehaviour:
   loopDelay: 0
   volume: 0.025
   delay: 0
+  activeFromStart: 1
   startOnReactivation: 0
   soundType: 1
 --- !u!114 &114750455489567326

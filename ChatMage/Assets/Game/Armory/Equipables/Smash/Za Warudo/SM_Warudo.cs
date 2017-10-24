@@ -10,11 +10,10 @@ using DG.Tweening;
 public class SM_Warudo : Smash
 {
     [InspectorHeader("Settings")]
-    public bool useSmashCounter = false;
-    public float duration;
     public float animDuration;
     public float timescaleMultiplier = 0.2f;
     public bool renderCarTrails = true;
+    public float secondsPerJuiceUnits = 0.5f;
 
     [InspectorHeader("SFX Linking")]
     public AudioClip sfx;
@@ -28,10 +27,6 @@ public class SM_Warudo : Smash
     public int trailsOrderInLayer;
 
     [fsIgnore, NonSerialized]
-    private Coroutine smashCoroutine;
-    [fsIgnore, NonSerialized]
-    private Coroutine smashLaunchCoroutine;
-    [fsIgnore, NonSerialized]
     private ZaWarudoEffect vfx;
     [fsIgnore, NonSerialized]
     private CanvasGroup vignette_instance;
@@ -39,6 +34,10 @@ public class SM_Warudo : Smash
     private Action onComplete;
     [fsIgnore, NonSerialized]
     private GameObject[] activeCarTrails = new GameObject[2];
+    [fsIgnore, NonSerialized]
+    private bool isIn = false;
+    [fsIgnore, NonSerialized]
+    private SmashManager smashManager;
 
 
     private const float zwv_ColorShiftStart = 0.2f;
@@ -79,22 +78,21 @@ public class SM_Warudo : Smash
         {
             activeCarTrails[i] = null;
         }
+        isIn = false;
+        smashManager = null;
     }
 
     public override void OnGameReady()
     {
         player.vehicle.onDestroy += OnPlayerDestroy;
+        smashManager = Game.instance.smashManager;
     }
 
     void OnPlayerDestroy(Unit player)
     {
-        if (smashCoroutine == null)
-            return;
-
         //a-t-on simplement fermer le jeu ?
-        if (Game.instance != null && Application.isPlaying)
+        if (Game.instance != null && Application.isPlaying && isIn)
         {
-            Game.instance.StopCoroutine(smashCoroutine);
             OnSmashEnd();
         }
     }
@@ -107,6 +105,7 @@ public class SM_Warudo : Smash
     public override void OnSmash(Action onComplete)
     {
         this.onComplete = onComplete;
+        isIn = false;
 
         //Vignette
         vignette_instance.gameObject.SetActive(true);
@@ -119,14 +118,11 @@ public class SM_Warudo : Smash
             if (Game.instance == null)
                 return;
 
+            isIn = true;
+
             MultiplyTimescale(timescaleMultiplier);
-
-
-            if (useSmashCounter)
-                smashCoroutine = DelayManager.LocalCallTo(OnSmashEnd, Game.instance.smashManager.smashCounter + animDuration, Game.instance);
-            else
-                smashCoroutine = DelayManager.LocalCallTo(OnSmashEnd, duration + animDuration, Game.instance);
-        }, () =>
+        },
+        () =>
         {
             //Car trails
             DetachActiveCarTrails();
@@ -189,8 +185,14 @@ public class SM_Warudo : Smash
 
     void OnSmashEnd()
     {
+        if (!isIn)
+            Debug.LogError("bug ? On sort du ZaWarudo sans y avoir enter d'abord.");
+
         if (onComplete != null)
             onComplete();
+        onComplete = null;
+
+        isIn = false;
 
         //Vignette
         vignette_instance.DOFade(0, 1).OnComplete(() =>
@@ -205,14 +207,18 @@ public class SM_Warudo : Smash
         {
             MultiplyTimescale(1 / timescaleMultiplier);
         });
-        smashCoroutine = null;
     }
 
     public override void OnUpdate()
     {
         base.OnUpdate();
 
-        if (Game.instance.smashManager.smashCounter > 0)
-            Game.instance.smashManager.smashCounter -= Time.deltaTime;
+        if (isIn && smashManager.CurrentJuice > 0)
+        {
+            smashManager.IncreaseSmashJuice(-Time.deltaTime / secondsPerJuiceUnits);
+
+            if (smashManager.CurrentJuice <= 0)
+                OnSmashEnd();
+        }
     }
 }
