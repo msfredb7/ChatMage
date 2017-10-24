@@ -59,7 +59,7 @@ namespace Dialoguing
             if (leftOffsetSet)
                 ResetLeftOffset();
 
-            if (!specialEntryMode)
+            //if (!specialEntryMode)
                 leftImage.enabled = true;
             leftImage.sprite = leftSprite;
 
@@ -76,7 +76,7 @@ namespace Dialoguing
             if (rightOffsetSet)
                 ResetRightOffset();
 
-            if (!specialEntryMode)
+            //if (!specialEntryMode)
                 rightImage.enabled = true;
             rightImage.sprite = rightSprite;
 
