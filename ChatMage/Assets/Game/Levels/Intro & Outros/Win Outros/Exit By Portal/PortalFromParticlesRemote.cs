@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,4 +10,5 @@ public class PortalFromParticlesRemote : TaggedObject
     public JesusV2Vehicle jesus;
     public GameObject topCollider;
     public SimpleColliderListener winCollider;
+    public GameObject topWallVisuals;
 }
