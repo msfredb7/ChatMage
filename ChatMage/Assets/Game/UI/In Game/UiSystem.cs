@@ -40,7 +40,7 @@ public class UiSystem : MonoBehaviour {
         float aspect = Game.instance.gameCamera.cam.aspect;
 
         //Choose hp display
-        if (aspect > 1.486f)
+        if (true) //aspect > 1.486f
         {
             //16:9
             healthDisplay = healthdisplayVertical;
@@ -50,13 +50,13 @@ public class UiSystem : MonoBehaviour {
         else
         {
             //4:3
-            healthDisplay = healthdisplayHorizontal;
-            healthdisplayHorizontal.Init();
-            healthdisplayVertical.gameObject.SetActive(false);
+            //healthDisplay = healthdisplayHorizontal;
+            //healthdisplayHorizontal.Init();
+            //healthdisplayVertical.gameObject.SetActive(false);
         }
 
         //Choose options button
-        if (aspect > 1.361f)
+        if (true) //aspect > 1.361f
         {
             //16:9
             optionsButton = optionsButtonLow;
@@ -66,10 +66,12 @@ public class UiSystem : MonoBehaviour {
         else
         {
             //4:3
-            optionsButton = optionsButtonHigh;
-            optionsButtonLow.gameObject.SetActive(false);
-            optionsButtonHigh.gameObject.SetActive(true);
+            //optionsButton = optionsButtonHigh;
+            //optionsButtonLow.gameObject.SetActive(false);
+            //optionsButtonHigh.gameObject.SetActive(true);
         }
-        bandeNoir.SetActive(aspect < 1.486f);
+
+        //On active les bandes noir, du moment que c'est plus carr� que 16:9
+        bandeNoir.SetActive(aspect < 1.776);
     }
 }
