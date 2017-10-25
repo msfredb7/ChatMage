@@ -19,11 +19,14 @@ namespace LevelSelect
         public Button shopButton;
         public LevelSelect_MapAnimator mapAnimator;
 
+        public AudioClip levelSelectMusic;
+
         void Start()
         {
             MasterManager.Sync(OnSync);
             backButton.onClick.AddListener(OnBackClicked);
             shopButton.onClick.AddListener(OnShopClicked);
+            SoundManager.PlayMusic(levelSelectMusic);
         }
 
         void OnSync()

@@ -1,4 +1,4 @@
-﻿using GameIntroOutro;
+using GameIntroOutro;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,6 +29,7 @@ namespace GameIntroOutro
         private JesusV2Vehicle jesus;
         private GameObject topCollider;
         private bool playerHasExited = false;
+        private GameObject topWallVisuals;
         Sequence sq;
 
         public override void Play()
@@ -36,6 +37,8 @@ namespace GameIntroOutro
             LoadWinScene();
 
             FetchReferences();
+
+            topWallVisuals.gameObject.SetActive(true);
 
             sq = DOTween.Sequence();
 
@@ -80,6 +83,7 @@ namespace GameIntroOutro
             windZone = remote.windZone;
             ps = remote.particleSystem;
             topCollider = remote.topCollider;
+            topWallVisuals = remote.topWallVisuals;
             remote.winCollider.onTriggerEnter += WinCollider_onTriggerEnter;
         }
 

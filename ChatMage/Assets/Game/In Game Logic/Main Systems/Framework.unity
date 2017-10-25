@@ -190,6 +190,7 @@ GameObject:
   - component: {fileID: 218698581}
   - component: {fileID: 218698582}
   - component: {fileID: 218698583}
+  - component: {fileID: 218698584}
   m_Layer: 0
   m_Name: Motton de script
   m_TagString: Untagged
@@ -232,15 +233,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea6d9aea1262743428b1e40ae63d2389, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ballPrefab: {fileID: 114085357807114524, guid: 6bd4a16ab543608429759f50a4be6b88,
-    type: 2}
-  totalCooldown: 45
-  followTarget: {fileID: 471814418}
-  followTargetParent: {fileID: 1647644409}
   smashEnabled: 1
-  activateV2: 1
-  smashCounter: 0
-  smashCounterMax: 10
 --- !u!114 &218698581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -292,15 +285,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitSounds:
-  - {fileID: 8300000, guid: bc5d10371512b694c87746a47adb8950, type: 3}
-  - {fileID: 8300000, guid: 392532f92e1c12e48acc2a63532efeee, type: 3}
-  - {fileID: 8300000, guid: 7964657198512d547b248431b1b415fd, type: 3}
-  - {fileID: 8300000, guid: 6a974602fb402eb49b71148f9c7fa378, type: 3}
-  - {fileID: 8300000, guid: 1c83cf1605e95914799f1aff5e50cf8d, type: 3}
-  - {fileID: 8300000, guid: 65331af7d23dbf342a48cf416e49b009, type: 3}
-  - {fileID: 8300000, guid: f3df8fdccea60a04d9bdbe15b2a546ac, type: 3}
-  - {fileID: 8300000, guid: 5ab3db2a4058f1c439b9ed8f6777f5d1, type: 3}
-  sfxStandardVolume: 0.05
+    list:
+    - {fileID: 8300000, guid: bc5d10371512b694c87746a47adb8950, type: 3}
+    - {fileID: 8300000, guid: 392532f92e1c12e48acc2a63532efeee, type: 3}
+    - {fileID: 8300000, guid: 7964657198512d547b248431b1b415fd, type: 3}
+    - {fileID: 8300000, guid: 6a974602fb402eb49b71148f9c7fa378, type: 3}
+    - {fileID: 8300000, guid: 1c83cf1605e95914799f1aff5e50cf8d, type: 3}
+    - {fileID: 8300000, guid: 65331af7d23dbf342a48cf416e49b009, type: 3}
+    - {fileID: 8300000, guid: f3df8fdccea60a04d9bdbe15b2a546ac, type: 3}
+    - {fileID: 8300000, guid: 5ab3db2a4058f1c439b9ed8f6777f5d1, type: 3}
+  sfxStandardVolume: 1
+--- !u!114 &218698584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 218698577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13c709c08e33f6644ac7b0cbb94e7224, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ambient: {fileID: 8300000, guid: 54540bb59c9b92946a9f065edc61fbb0, type: 3}
+  fight: {fileID: 8300000, guid: cbffc440c0752244da3da7081be883ad, type: 3}
+  bossBattle: {fileID: 8300000, guid: 92770c9aeaa73e8429a6d473fd4683fd, type: 3}
 --- !u!1 &471814416
 GameObject:
   m_ObjectHideFlags: 0
@@ -585,7 +593,6 @@ GameObject:
   - component: {fileID: 986166560}
   - component: {fileID: 986166559}
   - component: {fileID: 986166561}
-  - component: {fileID: 986166562}
   m_Layer: 0
   m_Name: Framework & Game
   m_TagString: Untagged
@@ -647,6 +654,7 @@ MonoBehaviour:
   events: {fileID: 218698578}
   commonVfx: {fileID: 218698582}
   commonSfx: {fileID: 218698583}
+  music: {fileID: 218698584}
   cadre: {fileID: 1968969123}
   worldTimeScale:
     value: 1
@@ -659,47 +667,6 @@ MonoBehaviour:
     boundMode: 0
   gameReady: 0
   gameStarted: 0
---- !u!114 &986166562
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 986166558}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85205e10ad9c52a4db004e69b39bacba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _objectReferences: []
-  _serializedStateKeys:
-  - soundList
-  - onPlaySound
-  - soundType
-  _serializedStateValues:
-  - 
-  - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
-    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
-  - '"music"'
-  tag: ambientMusic
-  useSoundList: 0
-  sound: {fileID: 8300000, guid: f618f30d0a67ed048980b3798eb8ca58, type: 3}
-  soundList: []
-  onStart: 1
-  onEnable: 0
-  useEvent: 0
-  onPlaySound:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  useCustomSettings: 1
-  looping: 1
-  loopDelay: 0
-  volume: 0.01
-  delay: 2
-  activeFromStart: 1
-  startOnReactivation: 0
-  soundType: 0
 --- !u!1 &1101745399
 GameObject:
   m_ObjectHideFlags: 0
@@ -797,14 +764,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _keys:
   - {fileID: 986166561}
-  - {fileID: 986166562}
   _values:
   - _keys: []
     _values: []
     _target: {fileID: 986166561}
-  - _keys: []
-    _values: []
-    _target: {fileID: 986166562}
 --- !u!114 &1405175281
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -818,23 +781,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _keys:
   - {fileID: 986166561}
-  - {fileID: 986166562}
   _values:
   - _keys: []
     _values: []
     _target: {fileID: 986166561}
-  - _keys:
-    - DefaultBehaviorEditor.useSoundList.EditProperty
-    - DefaultBehaviorEditor.onStart.EditProperty
-    - DefaultBehaviorEditor.useCustomSettings.EditProperty
-    _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    _target: {fileID: 986166562}
 --- !u!1 &1461222805
 GameObject:
   m_ObjectHideFlags: 0

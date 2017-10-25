@@ -768,20 +768,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85205e10ad9c52a4db004e69b39bacba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectReferences: []
+  _objectReferences:
+  - {fileID: 8300000, guid: 0cff1a7258d88b4498960cc1316f4920, type: 3}
   _serializedStateKeys:
   - soundList
   - onPlaySound
   - soundType
   _serializedStateValues:
-  - 
+  - '{"list":[0]}'
   - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
   - '"sfx"'
   tag: stretch
-  useSoundList: 0
-  sound: {fileID: 8300000, guid: 0cff1a7258d88b4498960cc1316f4920, type: 3}
-  soundList: []
+  soundList:
+    list:
+    - {fileID: 8300000, guid: 0cff1a7258d88b4498960cc1316f4920, type: 3}
   onStart: 0
   onEnable: 0
   useEvent: 0
@@ -793,10 +794,10 @@ MonoBehaviour:
   useCustomSettings: 1
   looping: 0
   loopDelay: 0
-  volume: 0.005
+  volume: 0.1
   delay: 0
-  activeFromStart: 1
   startOnReactivation: 0
+  sfxLoopSource: {fileID: 0}
   soundType: 1
 --- !u!114 &114281818282303750
 MonoBehaviour:
@@ -838,20 +839,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85205e10ad9c52a4db004e69b39bacba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectReferences: []
+  _objectReferences:
+  - {fileID: 8300000, guid: 5d0989fb433fb894e9869b0ca00bdb34, type: 3}
   _serializedStateKeys:
   - soundList
   - onPlaySound
   - soundType
   _serializedStateValues:
-  - 
+  - '{"list":[0]}'
   - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
   - '"sfx"'
   tag: shoot
-  useSoundList: 0
-  sound: {fileID: 8300000, guid: 5d0989fb433fb894e9869b0ca00bdb34, type: 3}
-  soundList: []
+  soundList:
+    list:
+    - {fileID: 8300000, guid: 5d0989fb433fb894e9869b0ca00bdb34, type: 3}
   onStart: 0
   onEnable: 0
   useEvent: 0
@@ -863,10 +865,10 @@ MonoBehaviour:
   useCustomSettings: 1
   looping: 0
   loopDelay: 0
-  volume: 0.05
+  volume: 1
   delay: 0
-  activeFromStart: 1
   startOnReactivation: 0
+  sfxLoopSource: {fileID: 0}
   soundType: 1
 --- !u!114 &114632128125985528
 MonoBehaviour:
@@ -904,20 +906,19 @@ MonoBehaviour:
   - onPlaySound
   - soundType
   _serializedStateValues:
-  - '[0,1,2,3,4,5]'
+  - '{"list":[0,1,2,3,4,5]}'
   - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
   - '"sfx"'
   tag: death
-  useSoundList: 1
-  sound: {fileID: 0}
   soundList:
-  - {fileID: 8300000, guid: 242e9eae3ec431b4a96df2aea7454978, type: 3}
-  - {fileID: 8300000, guid: 9534bfaac27c62642950cdc6aef1c60f, type: 3}
-  - {fileID: 8300000, guid: 580525247f677ed439488c9acc09ec24, type: 3}
-  - {fileID: 8300000, guid: 2c8a3c17122a27c4bbdc8164b6807bf4, type: 3}
-  - {fileID: 8300000, guid: e3ed7d0c024cdef4c99a997155dc4e8e, type: 3}
-  - {fileID: 8300000, guid: 79db12a5b3e54b849a1f805881a81aa5, type: 3}
+    list:
+    - {fileID: 8300000, guid: 242e9eae3ec431b4a96df2aea7454978, type: 3}
+    - {fileID: 8300000, guid: 9534bfaac27c62642950cdc6aef1c60f, type: 3}
+    - {fileID: 8300000, guid: 580525247f677ed439488c9acc09ec24, type: 3}
+    - {fileID: 8300000, guid: 2c8a3c17122a27c4bbdc8164b6807bf4, type: 3}
+    - {fileID: 8300000, guid: e3ed7d0c024cdef4c99a997155dc4e8e, type: 3}
+    - {fileID: 8300000, guid: 79db12a5b3e54b849a1f805881a81aa5, type: 3}
   onStart: 0
   onEnable: 0
   useEvent: 0
@@ -929,10 +930,10 @@ MonoBehaviour:
   useCustomSettings: 1
   looping: 0
   loopDelay: 0
-  volume: 0.01
+  volume: 1
   delay: 0
-  activeFromStart: 1
   startOnReactivation: 0
+  sfxLoopSource: {fileID: 0}
   soundType: 1
 --- !u!114 &114917152140949164
 MonoBehaviour:

@@ -4,24 +4,20 @@ using UnityEngine;
 using FullInspector;
 using CCC.Manager;
 using UnityEngine.Events;
+using CCC.Utility;
 
-public class SoundPlayer : BaseBehavior {
-
+public class SoundPlayer : BaseBehavior
+{
     public new string tag;
 
-    [InspectorComment("This component only works with the library CCC.")]
-    public bool useSoundList;
-    [InspectorHideIf("useSoundList")]
-    public AudioClip sound;
-    [InspectorShowIf("useSoundList")]
-    public List<AudioClip> soundList;
+    public RandomAudioCliptList soundList;
 
     [InspectorHeader("TIMING")]
     public bool onStart = false;
     public bool onEnable = false;
     public bool useEvent = false;
     [InspectorShowIf("useEvent")]
-    public UnityEvent onPlaySound; 
+    public UnityEvent onPlaySound;
 
     [InspectorHeader("SETTINGS")]
     public bool useCustomSettings = false;
@@ -34,30 +30,23 @@ public class SoundPlayer : BaseBehavior {
     [InspectorShowIf("useCustomSettings")]
     public float delay = 0;
     [InspectorShowIf("useCustomSettings")]
-    public bool activeFromStart = true;
-    [InspectorShowIf("useCustomSettings")]
     public bool startOnReactivation = false;
+    [InspectorShowIf("looping")]
+    public AudioSource sfxLoopSource;
 
     public enum SoundType { music = 0, sfx = 1, voice = 2 }
     public SoundType soundType = SoundType.sfx;
 
-    private int currentSoundIndex = 0;
-    private bool active = true;
-
-	void Start ()
+    void Start()
     {
         MasterManager.Sync(delegate ()
         {
-            active = activeFromStart;
-            currentSoundIndex = 0;
             if (onStart)
                 PlaySound();
             if (useEvent)
                 onPlaySound.AddListener(PlaySound);
-            if (useSoundList)
-                ShuffleList();
         });
-	}
+    }
 
     void OnEnable()
     {
@@ -67,85 +56,32 @@ public class SoundPlayer : BaseBehavior {
 
     public void PlaySound()
     {
-        if (active)
+        switch (soundType)
         {
-            switch (soundType)
-            {
-                case SoundType.music:
-                    if (useSoundList)
-                    {
-                        SoundManager.PlayMusic(soundList[currentSoundIndex], looping, volume);
-
-                        if ((currentSoundIndex + 1) >= soundList.Count)
-                            currentSoundIndex = 0;
-                        else
-                            currentSoundIndex++;
-                    }
-                    else
-                        SoundManager.PlayMusic(sound, looping, volume);
-                    break;
-                case SoundType.sfx:
-                    if (useSoundList)
-                    {
-                        SoundManager.PlaySFX(soundList[currentSoundIndex], delay, volume);
-
-                        if ((currentSoundIndex + 1) >= soundList.Count)
-                            currentSoundIndex = 0;
-                        else
-                            currentSoundIndex++;
-                    }
-                    else
-                        SoundManager.PlaySFX(sound, delay, volume);
-
-                    if (looping)
-                        DelayManager.LocalCallTo(PlaySound, sound.length + loopDelay, this);
-                    break;
-                case SoundType.voice:
-                    if (useSoundList)
-                    {
-                        SoundManager.PlayVoice(soundList[currentSoundIndex], delay, volume);
-
-                        if ((currentSoundIndex + 1) >= soundList.Count)
-                            currentSoundIndex = 0;
-                        else
-                            currentSoundIndex++;
-                    }
-                    else
-                        SoundManager.PlayVoice(sound, delay, volume);
-
-                    if (looping)
-                        DelayManager.LocalCallTo(PlaySound, sound.length + loopDelay, this);
-                    break;
-                default:
-                    break;
-            }
-        } else
-        {
-            DelayManager.instance.StopAllCoroutines();
+            case SoundType.music:
+                SoundManager.PlayMusic(soundList.Pick(), looping, volume);
+                break;
+            case SoundType.sfx:
+                SoundManager.PlaySFX(soundList.Pick(), delay, volume, sfxLoopSource);
+                break;
+            case SoundType.voice:
+                SoundManager.PlayVoice(soundList.Pick(), delay, volume);
+                break;
+            default:
+                break;
         }
     }
 
-    void ShuffleList()
+    public void SetSFXPlayerActive(bool state)
     {
-        for (int i = 0; i < soundList.Count; i++)
-        {
-            AudioClip temp = soundList[i];
-            int randomIndex = Random.Range(i, soundList.Count);
-            soundList[i] = soundList[randomIndex];
-            soundList[randomIndex] = temp;
-        }
-    }
-
-    public void SetPlayerActive(bool state)
-    {
-        bool previousState = active;
-        active = state;
+        bool previousState = sfxLoopSource.enabled;
+        sfxLoopSource.enabled = state;
 
         // Est ce qu'on avait arrêté de jouer le son ?
-        if (previousState == false && active == true)
+        if (previousState == false && state == true)
         {
-            if(startOnReactivation) // Si oui on le refait a son activation si on veut
-                PlaySound(); 
+            if (startOnReactivation) // Si oui on le refait a son activation si on veut
+                PlaySound();
         }
     }
 }

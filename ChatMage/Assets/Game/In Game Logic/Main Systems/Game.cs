@@ -20,6 +20,7 @@ public class Game : PublicSingleton<Game>
     public InGameEvents events;
     public CommonVFX commonVfx;
     public CommonSFX commonSfx;
+    public MusicManager music;
     public AjusteCadre cadre;
 
     //Dynamic references

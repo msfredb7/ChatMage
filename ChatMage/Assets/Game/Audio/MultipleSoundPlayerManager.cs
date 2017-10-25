@@ -42,7 +42,7 @@ public class MultipleSoundPlayerManager : BaseBehavior {
         {
             if (soundPlayers[i].tag == tag)
             {
-                soundPlayers[i].SetPlayerActive(false);
+                soundPlayers[i].SetSFXPlayerActive(false);
             }
         }
     }
@@ -53,7 +53,7 @@ public class MultipleSoundPlayerManager : BaseBehavior {
         {
             if (soundPlayers[i].tag == tag)
             {
-                soundPlayers[i].SetPlayerActive(true);
+                soundPlayers[i].SetSFXPlayerActive(true);
             }
         }
     }

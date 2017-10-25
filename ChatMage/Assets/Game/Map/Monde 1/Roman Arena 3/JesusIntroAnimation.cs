@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CCC.Manager;
+using UnityEngine.Events;
 
 public class JesusIntroAnimation : InGameAnimator
 {

@@ -7,6 +7,10 @@ public class EquipablePreview : BaseScriptableObject
 {
     public const string SAVE_PREFIX = "equip";
 
+    //Temporaire. Lorsqu'on veut l'enlever, simplement delete �a et les lignes:
+    //  LoadoutElementInspector.cs ligne 101, 103 et 104
+    public bool canBeCheatUnlocked = false;
+
     public string displayName;
     public string effects;
     public string equipableAssetName;
@@ -43,7 +47,6 @@ public class EquipablePreview : BaseScriptableObject
     static readonly string[] DEFAULT_UNLOCKS =
         {
             "CarPrv_Vadrouille",
-            "CarPrv_TokyoDrifter",
             "SmPrv_Warudo"
         };
 }

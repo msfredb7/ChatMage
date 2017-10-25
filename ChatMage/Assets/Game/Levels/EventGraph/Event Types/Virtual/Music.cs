@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using CCC.Manager;
+using CCC.Utility;
 
 namespace GameEvents
 {
     [MenuItem("Sound/Music Player"), DefaultNodeName("Music Player")]
     public class Music : VirtualEvent, IEvent
     {
-        public bool useSoundList;
-        public AudioClip sound;
-        public List<AudioClip> soundList;
-        
+        public RandomAudioCliptList soundList;
+
         public bool musicLoop = false;
         public bool musicFadePrevious = true;
         public float volume = 1;
@@ -20,12 +19,7 @@ namespace GameEvents
 
         public void Trigger()
         {
-            if (useSoundList)
-            {
-                ShuffleList();
-                Play(soundList[0]);
-            } else
-                Play(sound);
+            Play(soundList.Pick());
         }
 
         public override Color GUIColor()
@@ -53,17 +47,6 @@ namespace GameEvents
                     break;
                 default:
                     break;
-            }
-        }
-
-        void ShuffleList()
-        {
-            for (int i = 0; i < soundList.Count; i++)
-            {
-                AudioClip temp = soundList[i];
-                int randomIndex = Random.Range(i, soundList.Count);
-                soundList[i] = soundList[randomIndex];
-                soundList[randomIndex] = temp;
             }
         }
     }

@@ -639,20 +639,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85205e10ad9c52a4db004e69b39bacba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectReferences: []
+  _objectReferences:
+  - {fileID: 8300000, guid: c2c1a464fb01c2c4c83be47fe062ef3d, type: 3}
   _serializedStateKeys:
   - soundList
   - onPlaySound
   - soundType
   _serializedStateValues:
-  - 
+  - '{"list":[0]}'
   - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
   - '"sfx"'
   tag: break
-  useSoundList: 0
-  sound: {fileID: 8300000, guid: c2c1a464fb01c2c4c83be47fe062ef3d, type: 3}
-  soundList: []
+  soundList:
+    list:
+    - {fileID: 8300000, guid: c2c1a464fb01c2c4c83be47fe062ef3d, type: 3}
   onStart: 0
   onEnable: 0
   useEvent: 0
@@ -664,10 +665,10 @@ MonoBehaviour:
   useCustomSettings: 1
   looping: 0
   loopDelay: 0
-  volume: 0.01
+  volume: 1
   delay: 0
-  activeFromStart: 1
   startOnReactivation: 0
+  sfxLoopSource: {fileID: 0}
   soundType: 1
 --- !u!114 &114544346636638264
 MonoBehaviour:

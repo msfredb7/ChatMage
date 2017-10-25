@@ -16,6 +16,10 @@ namespace LoadoutMenu
     {
         public const string SCENENAME = "LoadoutMenu";
 
+        [InspectorHeader("Smash Settings")]
+        public bool preventAccessToSmash = true;
+        public EquipablePreview mandatorySmash = null;
+
         [InspectorHeader("Linking")]
         public Armory armory;
         public LoadoutElementInspector inspector;
@@ -25,6 +29,10 @@ namespace LoadoutMenu
         public LoadoutPanelAnimator panelAnimator;
         public LoadoutProgressPanel progressPanel;
         public LoadoutTextChanger[] textChangers;
+
+        public AudioClip loadoutSong;
+        public AudioClip nextSound;
+        public AudioClip completeSound;
 
         [InspectorMargin(10), InspectorHeader("Debug - A enlever")]
         public Level debugLevel;
@@ -76,7 +84,7 @@ namespace LoadoutMenu
             availableTabs.Add(LoadoutTab.Car);
             if (Armory.HasAccessToItems())
                 availableTabs.Add(LoadoutTab.Items);
-            if (Armory.HasAccessToSmash())
+            if (Armory.HasAccessToSmash() && !preventAccessToSmash)
                 availableTabs.Add(LoadoutTab.Smash);
 
             //Détermine quel tab nous devrions être
@@ -90,11 +98,17 @@ namespace LoadoutMenu
                 }
             }
 
+            // Chanson du Loadout
+            SoundManager.PlayMusic(loadoutSong);
+
             //Le dernier loadoutResult. On veut remettre le même build que la dernière fois
             LoadoutResult lastLoadoutResult = LoadoutResult.Load();
 
             //On crée le loadout
             currentLoadout = new Loadout(armory.cars, armory.smashes, armory.items, armory.ItemSlots, lastLoadoutResult);
+
+            if (mandatorySmash != null)
+                currentLoadout.Equip(new LoadoutEquipable(mandatorySmash));
 
             //Top panel qui suis la progression dans le loadout
             progressPanel.Init(currentLoadout);
@@ -204,11 +218,14 @@ namespace LoadoutMenu
             //On est a la derniere tab ?
             if (currentTabIndex == availableTabs.Count - 1)
             {
+                SoundManager.PlaySFX(completeSound);
                 LauchGame();
             }
             else
             {
                 currentTabIndex++;
+
+                SoundManager.PlaySFX(nextSound);
 
                 //Update le progress panel
                 progressPanel.SetTab(CurrentTab, true);

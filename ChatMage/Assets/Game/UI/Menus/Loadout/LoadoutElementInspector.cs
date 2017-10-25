@@ -96,7 +96,12 @@ public class LoadoutElementInspector : MonoBehaviour
                 imagePreview.color = Color.black;
 
                 //Button
-                SetButton(ButtonType.Shop);
+                //Temporaire. Lorsqu'on veut l'enlever, simplement delete les lignes 101, 103 et 104
+                //  ET EquipablePreview.cs ligne 12
+                if (equipable.preview.canBeCheatUnlocked)
+                    SetButton(ButtonType.Shop);
+                else
+                    SetButton(ButtonType.None);
             }
 
             // A remettre

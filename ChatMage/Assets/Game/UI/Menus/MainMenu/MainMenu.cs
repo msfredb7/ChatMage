@@ -24,8 +24,7 @@ public class MainMenu : BaseBehavior
     {
         MasterManager.Sync(delegate ()
         {
-            if(!SoundManager.IsPlayingMusic())
-                SoundManager.PlayMusic(anthem, true);
+            SoundManager.PlayMusic(anthem);
             playButton.onClick.AddListener(OnClick);
             quitButton.onClick.AddListener(OnQuit);
             if (firstLevel != null)
@@ -46,7 +45,7 @@ public class MainMenu : BaseBehavior
         }
     }
 
-    void OnQuit()
+    public void OnQuit()
     {
         Application.Quit();
     }
