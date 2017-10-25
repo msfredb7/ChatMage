@@ -12,8 +12,13 @@ public class PlayerBuilder : MonoBehaviour
 
     //Assets, filled when loaded
     [Header("Debug Loadout")]
+    public DebugLoadout debugLoadout;
+
+    [Header("Current Loadout"), ReadOnly]
     public Car car = null;
+    [ReadOnly]
     public Smash smash = null;
+    [ReadOnly]
     public List<Item> items = new List<Item>();
 
     private bool carLoaded = false;
@@ -23,13 +28,29 @@ public class PlayerBuilder : MonoBehaviour
     [System.NonSerialized]
     Action onAllAssetsLoadedCallback = null;
 
+    void UseDebugLoadout()
+    {
+        car = debugLoadout.car;
+        smash = debugLoadout.smash;
+        items = new List<Item>(debugLoadout.items);
+        onAllAssetsLoadedCallback();
+    }
+
     public void LoadAssets(LoadoutResult loadoutResult, Action callback)
     {
         onAllAssetsLoadedCallback = callback;
+
         if (loadoutResult == null)
         {
-            onAllAssetsLoadedCallback();
-            Debug.LogWarning("Debug loadout");
+            if (!Application.isEditor)
+                Debug.LogError("LOADOUT RESULT IS NULL!");
+            UseDebugLoadout();
+            return;
+        }
+        else if (Application.isEditor && debugLoadout != null && debugLoadout.forceUsage)
+        {
+            Debug.LogWarning("FORCED DEBUG LOADOUT");
+            UseDebugLoadout();
             return;
         }
 
