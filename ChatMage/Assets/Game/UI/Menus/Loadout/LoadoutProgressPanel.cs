@@ -8,6 +8,9 @@ namespace LoadoutMenu
 {
     public class LoadoutProgressPanel : MonoBehaviour
     {
+        [Header("Smash settings")]
+        public bool nevenShowSmash = true;
+
         [Header("Linking")]
         public Image carImage;
         public Image smashImage;
@@ -38,7 +41,7 @@ namespace LoadoutMenu
             OnItemChange();
 
             //Pourrais �tre fait de mani�re plus sexy dans le futur
-            if (!Armory.HasAccessToSmash())
+            if (!Armory.HasAccessToSmash() && !nevenShowSmash)
                 smashImage.rectTransform.parent.gameObject.SetActive(false);
             if (!Armory.HasAccessToItems())
                 itemSlotsCounter.rectTransform.parent.gameObject.SetActive(false);

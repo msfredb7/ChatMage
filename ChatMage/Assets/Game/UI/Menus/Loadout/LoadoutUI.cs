@@ -16,6 +16,10 @@ namespace LoadoutMenu
     {
         public const string SCENENAME = "LoadoutMenu";
 
+        [InspectorHeader("Smash Settings")]
+        public bool preventAccessToSmash = true;
+        public EquipablePreview mandatorySmash = null;
+
         [InspectorHeader("Linking")]
         public Armory armory;
         public LoadoutElementInspector inspector;
@@ -76,7 +80,7 @@ namespace LoadoutMenu
             availableTabs.Add(LoadoutTab.Car);
             if (Armory.HasAccessToItems())
                 availableTabs.Add(LoadoutTab.Items);
-            if (Armory.HasAccessToSmash())
+            if (Armory.HasAccessToSmash() && !preventAccessToSmash)
                 availableTabs.Add(LoadoutTab.Smash);
 
             //Détermine quel tab nous devrions être
@@ -95,6 +99,9 @@ namespace LoadoutMenu
 
             //On crée le loadout
             currentLoadout = new Loadout(armory.cars, armory.smashes, armory.items, armory.ItemSlots, lastLoadoutResult);
+
+            if (mandatorySmash != null)
+                currentLoadout.Equip(new LoadoutEquipable(mandatorySmash));
 
             //Top panel qui suis la progression dans le loadout
             progressPanel.Init(currentLoadout);
