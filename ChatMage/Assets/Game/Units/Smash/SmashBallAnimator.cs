@@ -29,7 +29,7 @@ public class SmashBallAnimator : MonoBehaviour
         ball = GetComponent<SmashBall>();
         ball.onHitPlayer += Ball_onHitPlayer;
         ball.onTimeScaleChange += Ball_onTimeScaleChange;
-        ball.onDeath += Ball_onDeath;
+        ball.OnDeath += Ball_onDeath;
         AnimateRayColor();
     }
 

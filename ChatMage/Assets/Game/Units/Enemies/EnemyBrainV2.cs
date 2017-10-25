@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace AI
 {
-    public class EnemyBrainV2<T> : EnemyBrainV2 where T : EnemyVehicle
+    public abstract  class EnemyBrainV2<T> : EnemyBrainV2 where T : EnemyVehicle
     {
         protected T veh;
         protected virtual void Awake()
@@ -14,8 +15,15 @@ namespace AI
                 throw new System.Exception("Could not find vehicle of type: " + typeof(T).ToString());
             veh.Stop();
         }
+        protected override EnemyVehicle Vehicle
+        {
+            get
+            {
+                return veh;
+            }
+        }
     }
-    public class EnemyBrainV2 : MonoBehaviour
+    public abstract class EnemyBrainV2 : MonoBehaviour
     {
         public bool canGetForcedGoals = true;
 
@@ -75,8 +83,13 @@ namespace AI
             goals.Clear();
         }
 
+        protected abstract EnemyVehicle Vehicle { get; }
+
         protected virtual void Update()
         {
+            if (Vehicle.IsDead)
+                enabled = false;
+
             Goal newGoalInFocus = null;
 
             if (forcedGoals.Count != 0)

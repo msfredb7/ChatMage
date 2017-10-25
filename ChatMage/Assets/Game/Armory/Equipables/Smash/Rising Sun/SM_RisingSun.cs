@@ -35,7 +35,7 @@ public class SM_RisingSun : Smash
         sunCount++;
 
         newSun.SetVFX(screenAddEffect);
-        newSun.onDeath += delegate (Unit unit)
+        newSun.OnDeath += delegate (Unit unit)
         {
             sunCount--;
             if (sunCount <= 0)

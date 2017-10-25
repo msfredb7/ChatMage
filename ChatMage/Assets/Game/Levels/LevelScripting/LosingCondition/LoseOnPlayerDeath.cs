@@ -4,7 +4,7 @@ namespace GameCondition
     {
         public override void Init(PlayerController player, LevelScript levelScript)
         {
-            player.vehicle.onDeath += delegate (Unit unit)
+            player.vehicle.OnDeath += delegate (Unit unit)
             {
                 levelScript.Lose();
             };

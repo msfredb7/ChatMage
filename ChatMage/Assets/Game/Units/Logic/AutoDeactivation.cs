@@ -25,7 +25,7 @@ public class AutoDeactivation : MonoBehaviour
 
         Unit myUnit = GetComponent<Unit>();
         if(myUnit != null)
-            myUnit.onDeath += MyUnit_onDeath;
+            myUnit.OnDeath += MyUnit_onDeath;
     }
 
     private void MyUnit_onDeath(Unit unit)

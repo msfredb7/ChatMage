@@ -41,13 +41,13 @@ public class AC130Effect : MonoBehaviour
 
     void OnEnable()
     {
-        Game.instance.Player.vehicle.onDeath += OnPlayerDeath;
+        Game.instance.Player.vehicle.OnDeath += OnPlayerDeath;
     }
 
     void OnDisable()
     {
         if (Game.instance != null && Game.instance.Player != null)
-            Game.instance.Player.vehicle.onDeath -= OnPlayerDeath;
+            Game.instance.Player.vehicle.OnDeath -= OnPlayerDeath;
     }
 
     void OnPlayerDeath(Unit unit)

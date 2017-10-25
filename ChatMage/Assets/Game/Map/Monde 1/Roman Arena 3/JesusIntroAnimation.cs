@@ -48,6 +48,7 @@ public class JesusIntroAnimation : InGameAnimator
     {
         if (jesusWokeAF)
             return;
+
         jesusWokeAF = true;
 
         for (int i = 0; i < topColliders.Length; i++)
@@ -56,11 +57,12 @@ public class JesusIntroAnimation : InGameAnimator
         }
 
         jesus.enabled = true;
+        jesus.Damagable = true;
         jesus.ShowHP();
         jesus.GetComponent<AI.JesusV2Brain>().enabled = true;
 
         SoundManager.PlayMusic(bossMusic);
-        jesus.onDeath += (Unit u) =>
+        jesus.OnDeath += (Unit u) =>
         {
             Game.instance.levelScript.Win();
             SoundManager.StopMusic(true);

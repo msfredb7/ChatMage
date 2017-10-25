@@ -42,7 +42,7 @@ public class WoodSpawner : MonoBehaviour
     {
         currentWood = Instantiate(woodPrefab, spawnPoint).GetComponent<Wood>();
 
-        currentWood.onDeath += delegate (Unit unit)
+        currentWood.OnDeath += delegate (Unit unit)
         {
             woodCut.Invoke();
             countdown = spawnRate;

@@ -76,7 +76,7 @@ public class Marker : Pool<Marker>.PoolItem
             theTr = unit.transform;
 
         DeployOn(theTr);
-        unit.onDeath += Remove;
+        unit.OnDeath += Remove;
     }
 
     public void DeployOn(Transform tr)
@@ -129,7 +129,7 @@ public class Marker : Pool<Marker>.PoolItem
             Unit u = followTarget.GetComponent<Unit>();
             if (u != null)
             {
-                u.onDeath -= Remove;
+                u.OnDeath -= Remove;
             }
         }
         followTarget = null;

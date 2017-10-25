@@ -18,7 +18,7 @@ namespace AI
             myRock.PickedUpState(veh);
 
             AddGoal(new Goal_Wander(veh));
-            veh.onDeath += Veh_onDeath;
+            veh.OnDeath += Veh_onDeath;
         }
 
         private void Veh_onDeath(Unit unit)

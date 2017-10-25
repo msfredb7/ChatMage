@@ -61,7 +61,7 @@ public class ITM_CarePackage : Item
         spawnPos = Game.instance.map.VerifyPosition(spawnPos, carePackagePrefab.unitWidth);
 
         Game.instance.SpawnUnit(carePackagePrefab, spawnPos)
-            .onDeath += ITM_CarePackage_onDeath;
+            .OnDeath += ITM_CarePackage_onDeath;
     }
 
     //On �coute � la mort du carepackage. Comme �a, les killstreak ne continue pas tant qu'il n'a pas pris son package (sinon c op)

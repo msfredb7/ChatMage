@@ -20,12 +20,24 @@ public abstract class Unit : MonoBehaviour
     public event Unit_Event onTimeScaleChange;
     public event UnitMove_Event onTeleportPosition;
     public event Unit_Event onDestroy;
+    public event Unit_Event OnDeath
+    {
+        add
+        {
+            if (isDead)
+                value(this);
+            else
+                onDeath += value;
+        }
+        remove { onDeath -= value; }
+    }
     public event Unit_Event onDeath;
 
     [System.NonSerialized]
     public List<string> marks = new List<string>();
 
     public bool IsDead { get { return isDead; } }
+    [SerializeField, ReadOnly]
     protected bool isDead = false;
     protected bool isDestroying = false;
 
@@ -201,7 +213,7 @@ public abstract class Unit : MonoBehaviour
 
     public bool HasBuffOfType(System.Type type)
     {
-        if(buffs != null)
+        if (buffs != null)
         {
             for (int i = 0; i < buffs.Count; i++)
             {

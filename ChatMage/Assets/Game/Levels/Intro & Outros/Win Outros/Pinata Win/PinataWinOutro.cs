@@ -32,7 +32,7 @@ namespace GameIntroOutro
         void SpawnPinata()
         {
             canSpawnBall = false;
-            Game.instance.SpawnUnit(pinata, Game.instance.gameCamera.Center).onDeath += OnPinataKilled; ;
+            Game.instance.SpawnUnit(pinata, Game.instance.gameCamera.Center).OnDeath += OnPinataKilled; ;
         }
 
         private void OnPinataKilled(Unit unit)

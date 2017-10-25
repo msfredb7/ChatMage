@@ -41,14 +41,14 @@ public static class UnitFlashAnimation
             };
             unit.onTimeScaleChange += onTimeScaleChange;
         }
-        unit.onDeath += onUnitDeath;
+        unit.OnDeath += onUnitDeath;
 
         // Enleve les listeners
         sq.OnKill(delegate ()
         {
             if (useUnitTimescale)
                 unit.onTimeScaleChange -= onTimeScaleChange;
-            unit.onDeath -= onUnitDeath;
+            unit.OnDeath -= onUnitDeath;
         });
 
 

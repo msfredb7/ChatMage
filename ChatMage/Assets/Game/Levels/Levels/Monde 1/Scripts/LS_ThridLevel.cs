@@ -143,7 +143,7 @@ public class LS_ThridLevel : LevelScript
                 if (enemyBuffer[i] == null || enemyBuffer[i].IsDead)
                     continue;
 
-                enemyBuffer[i].onDeath -= RemoveFromBuffer;
+                enemyBuffer[i].OnDeath -= RemoveFromBuffer;
 
                 if (enemyBuffer[i].gameObject.activeSelf)
                 {
@@ -249,7 +249,7 @@ public class LS_ThridLevel : LevelScript
         if (enemyBuffer == null)
             enemyBuffer = new List<Unit>();
         enemyBuffer.Add(unit);
-        unit.onDeath += RemoveFromBuffer;
+        unit.OnDeath += RemoveFromBuffer;
     }
 
     private void RemoveFromBuffer(Unit unit)

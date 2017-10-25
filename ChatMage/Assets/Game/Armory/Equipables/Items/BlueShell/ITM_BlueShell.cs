@@ -49,7 +49,7 @@ public class ITM_BlueShell : Item
         if (currentBlueShell == null)
         {
             currentBlueShell = Game.instance.SpawnUnit(blueShellPrefab, player.vehicle.Position);
-            currentBlueShell.onDeath += delegate (Unit unit)
+            currentBlueShell.OnDeath += delegate (Unit unit)
             {
                 shellSpawned = false;
                 countdown = Cooldown;

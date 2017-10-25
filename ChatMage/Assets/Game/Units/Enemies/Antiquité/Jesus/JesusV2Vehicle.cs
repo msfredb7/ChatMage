@@ -7,6 +7,7 @@ using DG.Tweening;
 public class JesusV2Vehicle : EnemyVehicle
 {
     [Header("Jesus")]
+    public bool damagableOnStart = false;
     public string displayName = "Jesus";
     public int hp = 10;
     public float finalTimescale = 2;
@@ -38,9 +39,17 @@ public class JesusV2Vehicle : EnemyVehicle
     protected override void Awake()
     {
         base.Awake();
+        Damagable = damagableOnStart;
+
         maxHp = hp;
         int willBeHit = (maxHp - 1).Raised(1);
         timescaleIncrease = Mathf.Pow(finalTimescale, 1f/ willBeHit);
+    }
+
+    public bool Damagable
+    {
+        get { return damagable; }
+        set { damagable = value; }
     }
 
     public void ShowHP()
@@ -66,12 +75,12 @@ public class JesusV2Vehicle : EnemyVehicle
 
     public override int Attacked(ColliderInfo on, int amount, Unit unit, ColliderInfo source = null)
     {
+        if (!damagable)
+            return hp;
+
         amount = CheckBuffs_Attacked(on, amount, unit, source);
 
         if (amount <= 0)
-            return hp;
-
-        if (!damagable)
             return hp;
 
         //Decrease hp

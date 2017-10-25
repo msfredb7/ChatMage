@@ -30,6 +30,7 @@ public class DestructibleDoor : Unit, IAttackable
     {
         if (!isDead)
         {
+            GetComponent<SoundPlayer>().PlaySound();
             onDeathEvent.Invoke();
 
             animator.SetTrigger("dead");

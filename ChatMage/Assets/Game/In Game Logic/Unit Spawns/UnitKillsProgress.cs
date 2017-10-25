@@ -114,7 +114,7 @@ public class UnitKillsProgress
         }
         else
         {
-            unit.onDeath += Unit_onDeath;
+            unit.OnDeath += Unit_onDeath;
             unitsAlive++;
         }
     }
