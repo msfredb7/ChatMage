@@ -21,9 +21,14 @@ public static class IntExtensions
     /// <summary>
     /// Augmente potentiellement la valeur
     /// </summary>
-    public static int Raised(this int value, int min)
+    public static int Floored(this int value, int min)
     {
         return Mathf.Max(value, min);
+    }
+
+    public static float Powed(this int value, float exponent)
+    {
+        return Mathf.Pow(value, exponent);
     }
 
     public static int Sign(this int value)

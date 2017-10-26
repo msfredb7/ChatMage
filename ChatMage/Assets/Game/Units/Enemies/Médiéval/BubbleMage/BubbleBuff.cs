@@ -77,7 +77,7 @@ public class BubbleBuff : BaseBuff, IAttackable
         return 0;
     }
 
-    public float SmashJuice()
+    public float GetSmashJuiceReward()
     {
         return BUBBLE_SMASH_JUICE;
     }

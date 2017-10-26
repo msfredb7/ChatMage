@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
@@ -53,7 +53,7 @@ public class DarkMoleSword : Unit, IAttackable
         Game.instance.commonVfx.SmallHit(swordCollider.transform.position, Color.red);
     }
 
-    public float SmashJuice()
+    public float GetSmashJuiceReward()
     {
         return 0;
     }

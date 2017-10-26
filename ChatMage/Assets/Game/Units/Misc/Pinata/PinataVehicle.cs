@@ -46,7 +46,7 @@ public class PinataVehicle : Unit, IAttackable
         Destroy();
     }
 
-    public float SmashJuice()
+    public float GetSmashJuiceReward()
     {
         return 0;
     }

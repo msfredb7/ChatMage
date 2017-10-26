@@ -75,7 +75,7 @@ public class BouclierTournant : Unit, IAttackable
             .SetEase(turnEase, overshoot);
     }
 
-    public float SmashJuice()
+    public float GetSmashJuiceReward()
     {
         return 0;
     }

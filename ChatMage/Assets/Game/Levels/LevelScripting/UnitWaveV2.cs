@@ -162,7 +162,7 @@ namespace LevelScripting
             }
 
             int i = 0;
-            float realInterval = spawnInterval.Raised(0.1f);
+            float realInterval = spawnInterval.Floored(0.1f);
             spawn.SpawnUnits(sequence, realInterval, insertDelay ? (realInterval + pauseBetweenRepeat) : -1, delegate (Unit unit)
             {
                 i++;

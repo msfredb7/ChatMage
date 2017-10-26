@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     public PlayerStats playerStats;
     public PlayerLocations playerLocations;
     public PlayerCarTriggers playerCarTriggers;
+    public PlayerMotorSounds vehicleSounds;
 
     void Awake()
     {
@@ -45,6 +46,7 @@ public class PlayerController : MonoBehaviour
         playerLocations.Init(this);
         playerCarTriggers.Init(this);
         vehicle.Init(this);
+        vehicleSounds.Init(this);
     }
 
     void OnGameReady()
@@ -55,6 +57,7 @@ public class PlayerController : MonoBehaviour
         playerStats.OnGameReady();
         playerLocations.OnGameReady();
         playerCarTriggers.OnGameReady();
+        vehicleSounds.OnGameReady();
     }
 
     void OnGameStarted()
@@ -65,5 +68,6 @@ public class PlayerController : MonoBehaviour
         playerStats.OnGameStarted();
         playerLocations.OnGameStarted();
         playerCarTriggers.OnGameStarted();
+        vehicleSounds.OnGameStarted();
     }
 }

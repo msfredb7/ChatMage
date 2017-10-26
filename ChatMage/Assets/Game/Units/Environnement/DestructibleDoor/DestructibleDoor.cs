@@ -21,7 +21,7 @@ public class DestructibleDoor : Unit, IAttackable
         return hp;
     }
 
-    public float SmashJuice()
+    public float GetSmashJuiceReward()
     {
         return 0;
     }

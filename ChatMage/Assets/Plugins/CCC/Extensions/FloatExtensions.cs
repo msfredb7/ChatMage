@@ -20,6 +20,11 @@ public static class FloatExtensions
         return Mathf.Round(value);
     }
 
+    public static float Powed(this float value, float exponent)
+    {
+        return Mathf.Pow(value, exponent);
+    }
+
     public static float Rounded(this float value, int numberOfDecimal)
     {
         float mult = Mathf.Pow(10, numberOfDecimal);
@@ -47,7 +52,7 @@ public static class FloatExtensions
     /// <summary>
     /// Augmente potentiellement la valeur
     /// </summary>
-    public static float Raised(this float value, float min)
+    public static float Floored(this float value, float min)
     {
         return Mathf.Max(value, min);
     }

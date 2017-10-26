@@ -16,6 +16,7 @@ public class PlayerDriver : PlayerComponent
             return lastHorizontalInput;
         }
     }
+    public bool IsTurning { get { return LastHorizontalInput != 0; } }
 
     private float lastHorizontalInput;
     private float horizontalInput;

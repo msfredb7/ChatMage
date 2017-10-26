@@ -118,6 +118,8 @@ public class SM_Warudo : Smash
             if (Game.instance == null)
                 return;
 
+            SoundManager.SlowMotionEffect(true);
+
             isIn = true;
 
             MultiplyTimescale(timescaleMultiplier);
@@ -200,6 +202,8 @@ public class SM_Warudo : Smash
             if (vignette_instance != null)
                 vignette_instance.gameObject.SetActive(false);
         });
+
+        SoundManager.SlowMotionEffect(false);
 
         //Shader animation
         DetachActiveCarTrails();

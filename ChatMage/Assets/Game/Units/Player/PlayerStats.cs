@@ -147,7 +147,7 @@ public class PlayerStats : PlayerComponent, IAttackable
         sprite.enabled = true;
     }
 
-    public float SmashJuice()
+    public float GetSmashJuiceReward()
     {
         return 0;
     }

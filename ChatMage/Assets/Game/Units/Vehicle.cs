@@ -34,6 +34,7 @@ public abstract class Vehicle : MovingUnit
 
     protected float bumpTime = 0;
     protected float currentMoveSpeed;
+    protected Vector2 targetSpeed;
 
     //Events
     public class VehicleEvent : UnityEvent<Vehicle> { }
@@ -99,16 +100,16 @@ public abstract class Vehicle : MovingUnit
         if (timeScale <= 0)
             return;
 
-        Vector2 vDir = WorldDirection2D() * ActualMoveSpeed() * timeScale;
+        targetSpeed = WorldDirection2D() * ActualMoveSpeed() * timeScale;
         if (useWeight)
             Speed = Vector2.Lerp(
                 Speed,  //Current
-                vDir,   //target
+                targetSpeed,   //target
                 FixedLerp.Fix(
                     weight / 10, // Ancienne ligne: weight >= 1f ? 1 : weight / 10
                     FPSCounter.GetFixedFPS() / timeScale));
         else
-            Speed = vDir;
+            Speed = targetSpeed;
     }
 
     public void Bump(Vector2 velocity, float duration, BumpMode bumpMode)

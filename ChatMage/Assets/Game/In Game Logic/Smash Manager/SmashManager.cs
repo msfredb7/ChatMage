@@ -222,7 +222,7 @@ public class SmashManager : MonoBehaviour
     private void BoostSmashCounter(Unit unit)
     {
         if (unit.GetComponent<IAttackable>() != null)
-            IncreaseSmashJuice(unit.GetComponent<IAttackable>().SmashJuice());
+            IncreaseSmashJuice(unit.GetComponent<IAttackable>().GetSmashJuiceReward());
     }
 
     public void IncreaseSmashJuice(float amount)
