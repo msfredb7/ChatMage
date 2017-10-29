@@ -17,19 +17,39 @@ public class TestScript : MonoBehaviour
         MasterManager.Sync();
     }
 
-    public SmashDisplayV2 smd;
     [Range(0, 1)]
-    public float juice;
+    public float volume;
+    [Range(0,1)]
+    public float overlap;
     [Range(0, 1)]
-    public float marker;
+    public float startingVolume;
 
 
     void Update()
     {
         //if (Input.GetKeyDown(KeyCode.T))
         //{
-        smd.SetJuiceValue01(juice, true);
-        smd.SetMarkerValue01(marker);
         //}
+    }
+
+    public void StopMusic()
+    {
+        SoundManager.StopMusic();
+    }
+    public void StopMusicFaded()
+    {
+        SoundManager.StopMusicFaded();
+    }
+    public void PlayMusic(AudioClip clip)
+    {
+        SoundManager.PlayMusic(clip, true, volume);
+    }
+    public void TransitionToMusic(AudioClip clip)
+    {
+        SoundManager.TransitionToMusic(clip, true, volume, overlap: overlap, startingVolume: startingVolume);
+    }
+    public void IsPlayingMusic()
+    {
+        print(SoundManager.IsPlayingMusic());
     }
 }
