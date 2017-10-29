@@ -95,6 +95,13 @@ public class SM_Warudo : Smash
         {
             OnSmashEnd();
         }
+
+        //On s'assure d'enlever l'effet
+        if (isIn)
+        {
+            isIn = false;
+            SoundManager.SlowMotionEffect(false);
+        }
     }
 
     public override void OnGameStarted()

@@ -28,7 +28,7 @@ namespace EndGameReward
 
         public void PinataHasBeenDestroyed(Vector2 explosionPosition, Camera currentCamera, Action canUnloadCallback)
         {
-
+            SoundManager.SlowMotionEffect(false);
             backgroundFreezer.FreezeBackground(currentCamera, delegate ()
             {
                 pinataExplosion.Animate(explosionPosition, PinataExplosion.BallColor.Blue);

@@ -65,7 +65,7 @@ public class JesusIntroAnimation : InGameAnimator
         jesus.OnDeath += (Unit u) =>
         {
             Game.instance.levelScript.Win();
-            SoundManager.StopMusic(true);
+            SoundManager.StopMusicFaded();
         };
     }
 
@@ -132,7 +132,7 @@ public class JesusIntroAnimation : InGameAnimator
     public void PlayAnimation()
     {
         AddTimescaleListener();
-        SoundManager.StopMusic(true);
+        SoundManager.StopMusicFaded();
         Game.instance.ui.dialogDisplay.StartDialog(dialog, delegate ()
         {
             SoundManager.PlaySFX(jesusAwakens_clip, jesusAwakens_delay, jesusAwakens_volume);

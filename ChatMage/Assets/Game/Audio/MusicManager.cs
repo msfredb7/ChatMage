@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CCC.Manager;
@@ -38,11 +38,11 @@ public class MusicManager : MonoBehaviour {
                     transitionSource.volume = 1;
                     transitionSource.clip = ambient;
                     transitionSource.Play();
-                    SoundManager.instance.musicSource.volume = 0;
+                    SoundManager.instance.musicSource_0.volume = 0;
                     soundManagerIsCurrent = false;
                 } else
                 {
-                    SoundManager.PlayMusic(ambient, true, 1, false);
+                    SoundManager.PlayMusic(ambient, true, 1);
                     transitionSource.volume = 0;
                     soundManagerIsCurrent = true;
                 }
@@ -53,12 +53,12 @@ public class MusicManager : MonoBehaviour {
                     transitionSource.volume = 1;
                     transitionSource.clip = fight;
                     transitionSource.Play();
-                    SoundManager.instance.musicSource.volume = 0;
+                    SoundManager.instance.musicSource_0.volume = 0;
                     soundManagerIsCurrent = false;
                 }
                 else
                 {
-                    SoundManager.PlayMusic(fight, true, 1, false);
+                    SoundManager.PlayMusic(fight, true, 1);
                     transitionSource.volume = 0;
                     soundManagerIsCurrent = true;
                 }
@@ -69,12 +69,12 @@ public class MusicManager : MonoBehaviour {
                     transitionSource.volume = 1;
                     transitionSource.clip = bossBattle;
                     transitionSource.Play();
-                    SoundManager.instance.musicSource.volume = 0;
+                    SoundManager.instance.musicSource_0.volume = 0;
                     soundManagerIsCurrent = false;
                 }
                 else
                 {
-                    SoundManager.PlayMusic(bossBattle, true, 1, false);
+                    SoundManager.PlayMusic(bossBattle, true, 1);
                     transitionSource.volume = 0;
                     soundManagerIsCurrent = true;
                 }
@@ -85,12 +85,12 @@ public class MusicManager : MonoBehaviour {
                     transitionSource.volume = 1;
                     transitionSource.clip = winAnthem;
                     transitionSource.Play();
-                    SoundManager.instance.musicSource.volume = 0;
+                    SoundManager.instance.musicSource_0.volume = 0;
                     soundManagerIsCurrent = false;
                 }
                 else
                 {
-                    SoundManager.PlayMusic(winAnthem, true, 1, false);
+                    SoundManager.PlayMusic(winAnthem, true, 1);
                     transitionSource.volume = 0;
                     soundManagerIsCurrent = true;
                 }
@@ -110,7 +110,7 @@ public class MusicManager : MonoBehaviour {
         }
         else
         {
-            SoundManager.instance.musicSource.DOFade(seuilTransition, fadeDuration).OnComplete(delegate () {
+            SoundManager.instance.musicSource_0.DOFade(seuilTransition, fadeDuration).OnComplete(delegate () {
                 PlaySong(song);
             });
         }
