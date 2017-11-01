@@ -7,7 +7,7 @@ namespace CCC.Math
     /// <summary>
     /// A curve that will tend towards its target, never reaching it
     /// Similar to Lerp, but alpha can go from 'minX' to positive infinity
-    /// View online: https://www.desmos.com/calculator/dttowxeq51
+    /// View online: https://www.desmos.com/calculator/botoga5bml
     /// </summary>
     public struct NeverReachingCurve
     {
@@ -100,7 +100,7 @@ namespace CCC.Math
 
         public override string ToString()
         {
-            return "NEC: a=" + a + "    b=" + b + "    speed=" + speed + "    minX=" + minX;
+            return "NRC: a=" + a + "    b=" + b + "    speed=" + speed + "    minX=" + minX;
         }
 
         public static bool operator ==(NeverReachingCurve i, NeverReachingCurve j)

@@ -117,8 +117,8 @@ namespace CCC.Manager
             yield return new WaitForSecondsRealtime(delay);
             source.PlayOneShot(clip, volume);
         }
+        
         #region Music
-
         static private void Internal_PlayMusic(AudioClip clip, bool looping = true, float volume = 1)
         {
             if (!CheckResources_Instance() || !CheckResources_MusicSource())
@@ -214,7 +214,7 @@ namespace CCC.Manager
         /// <param name="fadingDuration">La duree de fading par musique. ATTENTION, ceci n'est pas necessairement == duree total de la transition</param>
         /// <param name="overlap">L'overlapping des deux musiques en transition (en %). 0 = la 1ere stoppe, puis la 2e commence.   0.5 = les 2 tansitionne en meme temps   1 = la deuxieme commence, puis la 1ere stoppe</param>
         /// <param name="startingVolume">Volume initiale de la 2e musique</param>
-        static public void TransitionToMusic(AudioClip clip, bool looping = true, float volume = 1, float fadingDuration = 1.5f, float overlap = 0.5f, TweenCallback onComplete = null, float startingVolume = 0)
+        static public void TransitionToMusic(AudioClip clip, bool looping = true, float volume = 1, float fadingDuration = 1.5f, float overlap = 0.5f, float startingVolume = 0)
         {
             if (!CheckResources_Instance() || !CheckResources_MusicSource())
                 return;
