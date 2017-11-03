@@ -1821,6 +1821,7 @@ MonoBehaviour:
   - {fileID: 189859209}
   graph: {fileID: 0}
   meteo: {fileID: 0}
+  markerSpawner: {fileID: 0}
 --- !u!4 &1644651696
 Transform:
   m_ObjectHideFlags: 0
@@ -2426,9 +2427,8 @@ MonoBehaviour:
   m_Name: Unit Wave
   m_EditorClassIdentifier: 
   _objectReferences:
-  - {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
+  - {fileID: 114923829034378616, guid: 7ec293da9a2e20c4caaa28d716dc5124, type: 2}
   - {fileID: 114031953647070938, guid: dca25e04556fe204da1a495069e8c437, type: 2}
-  - {fileID: 114917152140949164, guid: 90a1293e412776e4db23eb9595fcf924, type: 2}
   _serializedStateKeys:
   - windowRect
   - onComplete
@@ -2438,7 +2438,7 @@ MonoBehaviour:
   - '{"xMin":633.0,"yMin":133.0,"xMax":783.0,"yMax":197.0}'
   - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]}'
-  - '{"spawnSequence":[{"unit":0,"quantity":1},{"unit":1,"quantity":1},{"unit":2,"quantity":1}],"useLevelScriptMethod":true,"onSpawnMethod":"MakeSmart","onSpawn":{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"GameEvents.MomentEvent_unit,
+  - '{"spawnSequence":[{"unit":0,"quantity":1},{"unit":1,"quantity":1}],"useLevelScriptMethod":true,"onSpawnMethod":"MakeSmart","onSpawn":{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"GameEvents.MomentEvent_unit,
     Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]},"progressCallbacks":[]}'
   - '{"logErrorIfUnableToLaunch":true,"spawnTag":"ordered","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0}'
   windowRect:
@@ -2765,7 +2765,7 @@ SpriteRenderer:
   m_Size: {x: 11.1, y: 0.32}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
 --- !u!4 &2065474103
 Transform:
   m_ObjectHideFlags: 0
