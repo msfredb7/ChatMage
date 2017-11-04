@@ -112,7 +112,7 @@ public class TrollVehicle : EnemyVehicle
 
     private void UpdateVisuals()
     {
-        Color c = Color.Lerp(lowHPColor, Color.white, ((hp - 1f).Floored(0)) / (startHP - 1f));
+        Color c = Color.Lerp(lowHPColor, Color.white, ((hp - 1f).Raised(0)) / (startHP - 1f));
         for (int i = 0; i < spriteRenderers.Length; i++)
         {
             spriteRenderers[i].color = c;

@@ -162,7 +162,7 @@ public class GameCamera : MonoBehaviour
             if (delta > 0)
                 verticalSpeed = verticalSpeed.Capped(delta * decelerationSpeedFactor);
             else
-                verticalSpeed = verticalSpeed.Floored(delta * decelerationSpeedFactor);
+                verticalSpeed = verticalSpeed.Raised(delta * decelerationSpeedFactor);
 
 
             SetToHeight(hg + (verticalSpeed * Time.fixedDeltaTime));

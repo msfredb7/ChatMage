@@ -6,15 +6,12 @@ using CCC.Utility;
 public class RandomCompositeUnitSpawn : CompositeUnitSpawn
 {
     [System.Serializable]
-    public class SubSpawn : ILotteryItem
+    public class SubSpawn : IWeight
     {
         public UnitSpawn spawn;
         public float weight = 1;
 
-        public float Weight()
-        {
-            return weight;
-        }
+        float IWeight.Weight { get { return weight; } }
     }
 
     public SubSpawn[] subSpawns;
@@ -39,8 +36,8 @@ public class RandomCompositeUnitSpawn : CompositeUnitSpawn
         if (subSpawns == null || subSpawns.Length == 0)
             throw new Exception("Composite unit spawn NEEDS at least a sub spawn");
 
-        Lottery lottery = new Lottery(subSpawns);
-        UnitSpawn spawn = (lottery.Pick() as SubSpawn).spawn;
+        Lottery<SubSpawn> lottery = new Lottery<SubSpawn>(subSpawns);
+        UnitSpawn spawn = lottery.Pick().spawn;
         if (spawn == null)
             throw new Exception("Composite unit spawn has a NULL sub spawn");
         T unit = spawn.SpawnUnit(prefab);

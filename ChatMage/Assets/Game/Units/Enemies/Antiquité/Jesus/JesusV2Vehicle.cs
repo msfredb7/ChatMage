@@ -42,7 +42,7 @@ public class JesusV2Vehicle : EnemyVehicle
         Damagable = damagableOnStart;
 
         maxHp = hp;
-        int willBeHit = (maxHp - 1).Floored(1);
+        int willBeHit = (maxHp - 1).Raised(1);
         timescaleIncrease = Mathf.Pow(finalTimescale, 1f/ willBeHit);
     }
 
@@ -123,7 +123,7 @@ public class JesusV2Vehicle : EnemyVehicle
 
     private void UpdateVisuals()
     {
-        Color c = Color.Lerp(lowHPColor, Color.white, ((hp - 1f).Floored(0)) / (maxHp - 1f).Floored(1));
+        Color c = Color.Lerp(lowHPColor, Color.white, ((hp - 1f).Raised(0)) / (maxHp - 1f).Raised(1));
         for (int i = 0; i < spriteRenderers.Length; i++)
         {
             spriteRenderers[i].color = c;

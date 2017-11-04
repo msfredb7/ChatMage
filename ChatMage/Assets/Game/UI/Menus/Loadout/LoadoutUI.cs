@@ -127,7 +127,7 @@ namespace LoadoutMenu
 
         public LoadoutTab CurrentTab { get { return availableTabs[currentTabIndex]; } }
         public LoadoutTab NextTab { get { return availableTabs[(currentTabIndex + 1).Capped(availableTabs.Count - 1)]; } }
-        public LoadoutTab PreviousTab { get { return availableTabs[(currentTabIndex - 1).Floored(0)]; } }
+        public LoadoutTab PreviousTab { get { return availableTabs[(currentTabIndex - 1).Raised(0)]; } }
 
         void FillUI()
         {

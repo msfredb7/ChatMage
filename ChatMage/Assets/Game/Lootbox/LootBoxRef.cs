@@ -10,7 +10,7 @@ public class LootBoxRef : BaseScriptableObject
 {
     // Permet d'enregistrer le type également
     [System.Serializable]
-    public class LootBoxEquipable : ILotteryItem
+    public class LootBoxEquipable : IWeight
     {
         public string equipablePreviewName;
         public EquipableType type;
@@ -28,9 +28,9 @@ public class LootBoxRef : BaseScriptableObject
             ResourceLoader.LoadEquipablePreviewAsync(equipablePreviewName, type, callback);
         }
 
-        public float Weight()
+        public float Weight
         {
-            return weight;
+            get { return weight; }
         }
     }
 
@@ -76,7 +76,7 @@ public class LootBoxRef : BaseScriptableObject
 
     private List<bool> loadingEventsCompletionList = new List<bool>();
 
-    public class Reward : ILotteryItem
+    public class Reward : IWeight
     {
         public float weight;
         public EquipablePreview equipable;
@@ -87,9 +87,9 @@ public class LootBoxRef : BaseScriptableObject
             this.equipable = equipable;
         }
 
-        public float Weight()
+        public float Weight
         {
-            return weight;
+            get { return weight; }
         }
     }
     public bool IsLoadingCompleted()
@@ -126,7 +126,7 @@ public class LootBoxRef : BaseScriptableObject
     public void PickRewards(bool goldified, Action<PickReport> callback)
     {
         // Contruction de la lottery
-        Lottery lot = new Lottery();
+        Lottery<LootBoxEquipable> lot = new Lottery<LootBoxEquipable>();
         bool accessToSmash = Armory.HasAccessToSmash();
         bool accessToItems = Armory.HasAccessToItems();
         for (int i = 0; i < items.Count; i++)
@@ -156,7 +156,7 @@ public class LootBoxRef : BaseScriptableObject
                 break;
 
             int pickedIndex = -1;
-            pickedItems.Add(lot.Pick(out pickedIndex) as LootBoxEquipable);
+            pickedItems.Add(lot.Pick(out pickedIndex));
             lot.RemoveAt(pickedIndex);
         }
 
@@ -168,7 +168,7 @@ public class LootBoxRef : BaseScriptableObject
                 specialMessage = PickReport.Message.None
             };
 
-            if(pickedItems.Count < itemsAmount)
+            if (pickedItems.Count < itemsAmount)
             {
                 report.specialMessage = goldified ? PickReport.Message.GoalNoMoreItems : PickReport.Message.NoEnoughEqInRef;
             }

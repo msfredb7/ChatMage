@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
 
 public static class FloatExtensions
 {
@@ -52,7 +51,7 @@ public static class FloatExtensions
     /// <summary>
     /// Augmente potentiellement la valeur
     /// </summary>
-    public static float Floored(this float value, float min)
+    public static float Raised(this float value, float min)
     {
         return Mathf.Max(value, min);
     }
