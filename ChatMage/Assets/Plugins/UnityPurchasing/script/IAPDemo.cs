@@ -40,7 +40,7 @@ public class IAPDemo : MonoBehaviour, IStoreListener
     private bool m_IsUnityChannelSelected;
 
     private string m_LastTransationID;
-    //private string m_LastReceipt;
+    private string m_LastReceipt;
     private string m_CloudMoolahUserName;
     private bool m_IsLoggedIn = false;
     private UnityChannelLoginHandler unityChannelLoginHandler; // Helper for interfacing with UnityChannel API
@@ -125,7 +125,7 @@ public class IAPDemo : MonoBehaviour, IStoreListener
         Debug.Log("Receipt: " + e.purchasedProduct.receipt);
 
         m_LastTransationID = e.purchasedProduct.transactionID;
-        //m_LastReceipt = e.purchasedProduct.receipt;
+        m_LastReceipt = e.purchasedProduct.receipt;
         m_PurchaseInProgress = false;
 
         // Decode the UnityChannelPurchaseReceipt, extracting the gameOrderId
