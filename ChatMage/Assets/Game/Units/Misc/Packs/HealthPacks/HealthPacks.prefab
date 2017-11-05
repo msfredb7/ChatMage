@@ -39,6 +39,7 @@ GameObject:
   - component: {fileID: 61979661918742768}
   - component: {fileID: 114980761188360800}
   - component: {fileID: 114360127064111098}
+  - component: {fileID: 114992820261450810}
   m_Layer: 12
   m_Name: HealthPacks
   m_TagString: Untagged
@@ -322,6 +323,44 @@ MonoBehaviour:
   info: {fileID: 114360127064111098}
   useTrigger: 1
   useCollision: 0
+--- !u!114 &114992820261450810
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1223373862505330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bf88c18afafedf4f85892b5121a6716, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectReferences:
+  - {fileID: 8300000, guid: 55dde7d80db693544a10c89b633188d1, type: 3}
+  _serializedStateKeys:
+  - soundList
+  - soundType
+  - CollisionMoment
+  - CollisionType
+  _serializedStateValues:
+  - '{"list":[0]}'
+  - '"sfx"'
+  - '"onEnter"'
+  - '"trigger"'
+  tag: healthpacks
+  soundList:
+    list:
+    - {fileID: 8300000, guid: 55dde7d80db693544a10c89b633188d1, type: 3}
+  soundType: 1
+  useCustomSettings: 0
+  looping: 0
+  volume: 1
+  delay: 0
+  startOnReactivation: 0
+  sfxLoopSource: {fileID: 0}
+  colliderListener: {fileID: 114980761188360800}
+  addDelay: 0
+  CollisionMoment: 0
+  CollisionType: 1
 --- !u!212 &212117022180462836
 SpriteRenderer:
   m_ObjectHideFlags: 1
