@@ -12,7 +12,7 @@ using UnityEngine.SceneManagement;
 public class LS_demoLevelScript : LevelScript
 {
     [InspectorHeader("Units")]
-    public HealthPacks healthPacks;
+    public HealthPack healthPacks;
     public ShielderVehicle shielder;
 
     [InspectorHeader("UI")]

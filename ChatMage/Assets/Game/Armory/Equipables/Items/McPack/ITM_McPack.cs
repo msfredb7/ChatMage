@@ -19,7 +19,7 @@ public class ITM_McPack : Item {
         HealthPackManager hpMan = Game.instance.healthPackManager;
 
         hpMan.luckMultiplier *= appearanceMultiplier;
-        hpMan.healthPackPrefab.regenAmount = regenAmount;
+        hpMan.healthPackValue = regenAmount;
     }
 
     public override void OnUpdate()

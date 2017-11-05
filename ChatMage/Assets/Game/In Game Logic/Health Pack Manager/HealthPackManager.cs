@@ -5,12 +5,16 @@ using UnityEngine;
 public class HealthPackManager : MonoBehaviour
 {
     [Header("Linking")]
-    public HealthPacks healthPackPrefab;
-    public ArmorPacks armorPackPrefab;
+    public HealthPack healthPackPrefab;
+    public ArmorPack armorPackPrefab;
     public bool spawnArmor = false;
 
     [Header("Debug Setting")]
     public bool debugPrints = false;
+
+    [Header("Pack Settings")]
+    public int healthPackValue = 1;
+    public int armorPackValue = 1;
 
     [Header("Luck Settings (in %)")]
     public float lerpUpdateRate = 0.001f;
@@ -84,9 +88,9 @@ public class HealthPackManager : MonoBehaviour
 
             //Spawn
             if(spawnArmor)
-                Game.instance.SpawnUnit(armorPackPrefab, position);
+                Game.instance.SpawnUnit(armorPackPrefab, position).armorValue = armorPackValue;
             else
-                Game.instance.SpawnUnit(healthPackPrefab, position);
+                Game.instance.SpawnUnit(healthPackPrefab, position).healValue = healthPackValue;
 
             //Reset
             spawnChance = 0;

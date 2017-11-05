@@ -119,27 +119,31 @@ public class PlayerStats : PlayerComponent, IAttackable
     {
     }
 
-    public void Regen()
-    {
-        Regen(1);
-    }
-
-    public void Regen(int amount)
-    {
-        health++;
-        if (onRegen != null)
-            onRegen();
-    }
-
     public void RegisterKilledUnit(Unit unit)
     {
         if (onUnitKilled != null)
             onUnitKilled(unit);
     }
 
+    public void GiveHealth()
+    {
+        GiveHealth(1);
+    }
+
+    public void GiveHealth(int amount)
+    {
+        health++;
+        if (onRegen != null)
+            onRegen();
+    }
+
     public void GiveArmor()
     {
-        armor++;
+        GiveArmor(1);
+    }
+    public void GiveArmor(int amount)
+    {
+        armor.Set(armor + amount);
     }
 
     public void EnableSprite()
