@@ -19,7 +19,7 @@ public class SimpleColliderListener : ColliderListener
     public override CollisionEvent OnCollisionEnter { get { return onCollisionEnter; } set { onCollisionEnter = value; } }
     public override CollisionEvent OnCollisionExit { get { return onCollisionExit; } set { onCollisionExit = value; } }
 
-    public void OnTriggerExit2D(Collider2D other)
+    public virtual void OnTriggerExit2D(Collider2D other)
     {
         if (!useTrigger)
             return;
@@ -32,7 +32,7 @@ public class SimpleColliderListener : ColliderListener
             onTriggerExit.Invoke(info, this);
     }
 
-    public void OnTriggerEnter2D(Collider2D other)
+    public virtual void OnTriggerEnter2D(Collider2D other)
     {
         if (!useTrigger)
             return;
@@ -45,7 +45,7 @@ public class SimpleColliderListener : ColliderListener
             onTriggerEnter.Invoke(info, this);
     }
 
-    public void OnCollisionEnter2D(Collision2D collision)
+    public virtual void OnCollisionEnter2D(Collision2D collision)
     {
         //print("collision between: " + collision.collider.gameObject.name + " / " + collision.otherCollider.gameObject.name);
         if (!useCollision)
@@ -59,7 +59,7 @@ public class SimpleColliderListener : ColliderListener
             onCollisionEnter(info, collision, this);
     }
 
-    public void OnCollisionExit2D(Collision2D collision)
+    public virtual void OnCollisionExit2D(Collision2D collision)
     {
         if (!useCollision)
             return;

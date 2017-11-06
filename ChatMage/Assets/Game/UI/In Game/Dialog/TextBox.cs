@@ -36,7 +36,7 @@ namespace Dialoguing
             if (textTween != null)
             {
                 textTween.Kill();
-                scramblingSound.SetSFXPlayerActive(false);
+                scramblingSound.SetLoopingSFXActive(false);
             }
 
             targetMessage = message;
@@ -45,9 +45,9 @@ namespace Dialoguing
 
             textTween = text.DOText(targetMessage, duration, scrambleMode: scrambling)
                 .SetUpdate(true);
-            scramblingSound.SetSFXPlayerActive(true);
+            scramblingSound.SetLoopingSFXActive(true);
             scramblingSound.PlaySound();
-            textTween.OnComplete(delegate () { scramblingSound.SetSFXPlayerActive(false); });
+            textTween.OnComplete(delegate () { scramblingSound.SetLoopingSFXActive(false); });
         }
 
         public bool IsAnimatingText()
@@ -94,7 +94,7 @@ namespace Dialoguing
             if (textTween != null)
             {
                 textTween.Kill();
-                scramblingSound.SetSFXPlayerActive(false);
+                scramblingSound.SetLoopingSFXActive(false);
             }
 
             text.text = targetMessage;

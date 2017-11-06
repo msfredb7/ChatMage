@@ -12,19 +12,13 @@ public class SoundPlayer : BaseBehavior
 
     public RandomAudioCliptList soundList;
 
-    [InspectorHeader("TIMING")]
-    public bool onStart = false;
-    public bool onEnable = false;
-    public bool useEvent = false;
-    [InspectorShowIf("useEvent")]
-    public UnityEvent onPlaySound;
+    public enum SoundType { music = 0, sfx = 1, voice = 2 }
+    public SoundType soundType = SoundType.sfx;
 
     [InspectorHeader("SETTINGS")]
     public bool useCustomSettings = false;
     [InspectorShowIf("useCustomSettings")]
     public bool looping = false;
-    [InspectorShowIf("useCustomSettings")]
-    public float loopDelay = 0;
     [InspectorShowIf("useCustomSettings")]
     public float volume = 1;
     [InspectorShowIf("useCustomSettings")]
@@ -34,24 +28,9 @@ public class SoundPlayer : BaseBehavior
     [InspectorShowIf("looping")]
     public AudioSource sfxLoopSource;
 
-    public enum SoundType { music = 0, sfx = 1, voice = 2 }
-    public SoundType soundType = SoundType.sfx;
-
-    void Start()
+    protected void Start()
     {
-        MasterManager.Sync(delegate ()
-        {
-            if (onStart)
-                PlaySound();
-            if (useEvent)
-                onPlaySound.AddListener(PlaySound);
-        });
-    }
-
-    void OnEnable()
-    {
-        if (onEnable)
-            PlaySound();
+        MasterManager.Sync();
     }
 
     public void PlaySound()
@@ -72,7 +51,7 @@ public class SoundPlayer : BaseBehavior
         }
     }
 
-    public void SetSFXPlayerActive(bool state)
+    public void SetLoopingSFXActive(bool state)
     {
         bool previousState = sfxLoopSource.enabled;
         sfxLoopSource.enabled = state;
