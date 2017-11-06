@@ -9,6 +9,11 @@ public abstract class InGameTimescaleListener : MonoBehaviour
 
     protected abstract void UpdateTimescale(float worldTimescale);
 
+    protected void UpdateTimescale()
+    {
+        UpdateTimescale(Game.instance.worldTimeScale);
+    }
+
     protected void AddTimescaleListener()
     {
 

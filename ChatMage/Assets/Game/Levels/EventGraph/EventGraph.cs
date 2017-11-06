@@ -167,7 +167,7 @@ namespace GameEvents
 
         public static Color SOUND
         {
-            get { return new Color(0.25f, 0, 0.8f, 1); } // Mauve
+            get { return new Color(0.6f, 0.2f, 1f, 1); } // Mauve
         }
     }
 }

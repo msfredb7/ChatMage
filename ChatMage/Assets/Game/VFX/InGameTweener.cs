@@ -6,11 +6,19 @@ using CCC.Utility;
 
 public class InGameTweener : InGameTimescaleListener
 {
-    protected Tween t;
+    protected Tween tween;
 
     protected override void UpdateTimescale(float worldTimescale)
     {
-        if (t != null)
-            t.timeScale = worldTimescale;
+        if (tween != null)
+            tween.timeScale = worldTimescale;
+    }
+
+    protected void KillTween()
+    {
+        if (tween != null && tween.IsActive())
+        {
+            tween.Kill();
+        }
     }
 }

@@ -69,7 +69,7 @@ public class Lvl_1_3_Gate : InGameTweener
         {
             sq = DOTween.Sequence();
             sq.SetUpdate(true);
-            t = sq;
+            tween = sq;
         }
         else
         {
