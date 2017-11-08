@@ -57,4 +57,16 @@ public class MultipleSoundPlayerManager : BaseBehavior {
             }
         }
     }
+
+    public SoundPlayer GetSoundPlayer(string tag)
+    {
+        for (int i = 0; i < soundPlayers.Count; i++)
+        {
+            if (soundPlayers[i].tag == tag)
+            {
+                return soundPlayers[i];
+            }
+        }
+        return null;
+    }
 }
