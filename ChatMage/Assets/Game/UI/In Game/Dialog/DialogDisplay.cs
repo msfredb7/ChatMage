@@ -67,7 +67,7 @@ public class DialogDisplay : MonoBehaviour
         currentDialog = new RuntimeDialog(dialog, onComplete);
 
         UiSystem ui = Game.instance.ui;
-        hpWasShown = ui.healthDisplay.IsVisible();
+        hpWasShown = ui.healthDisplay.IsShown;
         ui.healthDisplay.Hide();
         //smashWasShown = ui.smashDisplay.IsShown();
         //ui.smashDisplay.Hide(true);
