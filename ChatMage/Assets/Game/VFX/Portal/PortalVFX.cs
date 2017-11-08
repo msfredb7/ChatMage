@@ -22,6 +22,9 @@ public class PortalVFX : InGameAnimator
     [Header("Light")]
     public float lightAlpha;
 
+    [Header("SFX")]
+    public MultipleSoundPlayerManager soundPlayer;
+
     private Sequence sq;
 
     void Awake()
@@ -47,8 +50,16 @@ public class PortalVFX : InGameAnimator
         sq.Join(portalScaler.DOScaleY(1, yDuration).SetEase(yEase));
         sq.Join(light.DOFade(lightAlpha, Mathf.Max(yDuration, xDuration)).SetEase(Ease.OutSine));
 
-        if (onComplete != null)
-            sq.OnComplete(onComplete);
+        soundPlayer.PlayChoosenSound("open");
+        soundPlayer.GetSoundPlayer("loop").SetLoopingSFXActive(false);
+
+        sq.OnComplete(delegate ()
+        {
+            soundPlayer.GetSoundPlayer("loop").SetLoopingSFXActive(true);
+            soundPlayer.PlayChoosenSound("loop");
+            if (onComplete != null)
+                onComplete();
+        });
     }
 
     public void Open()
@@ -59,6 +70,9 @@ public class PortalVFX : InGameAnimator
     public void Close(TweenCallback onComplete)
     {
         sq.PlayBackwards();
+        soundPlayer.PlayChoosenSound("close");
+        soundPlayer.GetSoundPlayer("loop").SetLoopingSFXActive(false);
+
         sq.OnComplete(() =>
         {
             Active(false);
