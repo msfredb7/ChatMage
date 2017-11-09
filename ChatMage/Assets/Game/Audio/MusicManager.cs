@@ -35,14 +35,14 @@ public class MusicManager : MonoBehaviour {
             case SongName.Ambient:
                 if (transition)
                 {
-                    transitionSource.volume = 1;
+                    transitionSource.volume = 0.25f;
                     transitionSource.clip = ambient;
                     transitionSource.Play();
                     SoundManager.instance.musicSource_0.volume = 0;
                     soundManagerIsCurrent = false;
                 } else
                 {
-                    SoundManager.PlayMusic(ambient, true, 1);
+                    SoundManager.PlayMusic(ambient, true, 0.25f);
                     transitionSource.volume = 0;
                     soundManagerIsCurrent = true;
                 }
@@ -50,7 +50,7 @@ public class MusicManager : MonoBehaviour {
             case SongName.Fight:
                 if (transition)
                 {
-                    transitionSource.volume = 1;
+                    transitionSource.volume = 0.25f;
                     transitionSource.clip = fight;
                     transitionSource.Play();
                     SoundManager.instance.musicSource_0.volume = 0;
@@ -58,7 +58,7 @@ public class MusicManager : MonoBehaviour {
                 }
                 else
                 {
-                    SoundManager.PlayMusic(fight, true, 1);
+                    SoundManager.PlayMusic(fight, true, 0.25f);
                     transitionSource.volume = 0;
                     soundManagerIsCurrent = true;
                 }
@@ -66,7 +66,7 @@ public class MusicManager : MonoBehaviour {
             case SongName.BossBattle:
                 if (transition)
                 {
-                    transitionSource.volume = 1;
+                    transitionSource.volume = 0.25f;
                     transitionSource.clip = bossBattle;
                     transitionSource.Play();
                     SoundManager.instance.musicSource_0.volume = 0;
@@ -74,7 +74,7 @@ public class MusicManager : MonoBehaviour {
                 }
                 else
                 {
-                    SoundManager.PlayMusic(bossBattle, true, 1);
+                    SoundManager.PlayMusic(bossBattle, true, 0.25f);
                     transitionSource.volume = 0;
                     soundManagerIsCurrent = true;
                 }
@@ -82,7 +82,7 @@ public class MusicManager : MonoBehaviour {
             case SongName.Win:
                 if (transition)
                 {
-                    transitionSource.volume = 1;
+                    transitionSource.volume = 0.25f;
                     transitionSource.clip = winAnthem;
                     transitionSource.Play();
                     SoundManager.instance.musicSource_0.volume = 0;
@@ -90,7 +90,7 @@ public class MusicManager : MonoBehaviour {
                 }
                 else
                 {
-                    SoundManager.PlayMusic(winAnthem, true, 1);
+                    SoundManager.PlayMusic(winAnthem, true, 0.25f);
                     transitionSource.volume = 0;
                     soundManagerIsCurrent = true;
                 }

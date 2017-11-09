@@ -49,9 +49,9 @@ public class PlayerInput : MonoBehaviour
             else
             {
                 //Touch de clavier
-                if (Input.GetKey(KeyCode.RightArrow))
+                if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
                     turning ++;
-                if (Input.GetKey(KeyCode.LeftArrow))
+                if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
                     turning--;
                 if (Input.GetKeyDown(KeyCode.Space))
                     smashPress = true;

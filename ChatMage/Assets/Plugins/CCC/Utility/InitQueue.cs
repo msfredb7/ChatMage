@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,6 +15,11 @@ public class InitQueue
         this.onComplete = onComplete;
     }
     public Action Register()
+    {
+        count++;
+        return OnCompleteAnyInit;
+    }
+    public TweenCallback RegisterTween()
     {
         count++;
         return OnCompleteAnyInit;

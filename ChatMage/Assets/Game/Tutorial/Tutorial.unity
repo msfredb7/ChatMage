@@ -162,6 +162,7 @@ GameObject:
   - component: {fileID: 201091486}
   - component: {fileID: 201091485}
   - component: {fileID: 201091490}
+  - component: {fileID: 201091491}
   m_Layer: 5
   m_Name: Tutorial Canvas
   m_TagString: Untagged
@@ -185,6 +186,7 @@ MonoBehaviour:
   textDisplay: {fileID: 599988723}
   inputDisabler: {fileID: 1152341390}
   delayedAction: {fileID: 201091490}
+  waitForInput: {fileID: 201091491}
 --- !u!114 &201091486
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -274,6 +276,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b4ff851f1449e174bb3d66b20846dccc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &201091491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 201091484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c362d34f0b60854f891015996c7171d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &507356450

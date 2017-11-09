@@ -49,7 +49,7 @@ public class MenuOptions : WindowAnimation
         }
     }
 
-    public static void Open()
+    public static void OpenIfClosed()
     {
         if (Game.instance != null)
         {
@@ -57,7 +57,18 @@ public class MenuOptions : WindowAnimation
             return;
         }
 
+        if (Scenes.Exists(SCENENAME))
+            return;
         Scenes.LoadAsync(SCENENAME, LoadSceneMode.Additive);
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            print("pls");
+            Confirm();
+        }
     }
 
 

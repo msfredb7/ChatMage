@@ -10,16 +10,25 @@ public class OptionsButton : MonoBehaviour
 {
     public enum Type { Menu = 0, InGame = 1 }
     public Type type;
+    public bool canOpenWithEscape = true;
+
+    void Update()
+    {
+        if (canOpenWithEscape && Input.GetKeyDown(KeyCode.Escape))
+        {
+            OpenOptions();
+        }
+    }
 
     public void OpenOptions()
     {
         switch (type)
         {
             case Type.Menu:
-                MenuOptions.Open();
+                MenuOptions.OpenIfClosed();
                 break;
             case Type.InGame:
-                InGameOptions.Open();
+                InGameOptions.OpenIfClosed();
                 break;
         }
     }

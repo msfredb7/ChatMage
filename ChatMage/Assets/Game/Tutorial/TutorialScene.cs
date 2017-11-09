@@ -17,6 +17,7 @@ namespace Tutorial
         public InputDisabler inputDisabler;
         public Shortcuts shorcuts;
         public DelayedAction delayedAction;
+        public WaitForInput waitForInput;
 
         /// <summary>
         /// Retourne faux si le tutoriel a deja ete completer

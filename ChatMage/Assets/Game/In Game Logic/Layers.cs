@@ -17,5 +17,5 @@ public class Layers
     public const int CHAIN_CHOMP = 17;
     public const int TRIGGER_ON_NON_SOLID_ENEMIES = 18;
     public const int NAVIGATION = 19;
-    public const int PROJECTILE = 20;
+    public const int FLYING_SOLID_ENEMY = 20;
 }

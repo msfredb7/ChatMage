@@ -22,6 +22,8 @@ public class DialogDisplay : MonoBehaviour
 
     private RuntimeDialog currentDialog;
     private bool hpWasShown;
+    private float skipTimer;
+    private bool tryingToSkip;
     //private bool smashWasShown;
 
     private class RuntimeDialog
@@ -40,9 +42,43 @@ public class DialogDisplay : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && CurrentDialog != null && currentDialog.isActive)
-            End();
+        if (CurrentDialog != null && currentDialog.isActive)
+        {
+            //Si on appuie sur une touche (sauf ESCAPE), on speedup
+            if (Input.anyKeyDown && !Input.GetKeyDown(KeyCode.Escape))
+            {
+                BeginSkipAttempt();
+                SpeedUpOrNext();    //Pour speedup
+            }
 
+            //Si le joueur ne tiens plus de touche, on cancel le skip
+            if (!Input.anyKey)
+            {
+                EndSkipAttempt();
+            }
+
+            //On essaie de skip
+            if (tryingToSkip && skipTimer > 0)
+            {
+                skipTimer -= Time.unscaledDeltaTime;
+                if (skipTimer <= 0)
+                    End();
+            }
+        }
+    }
+
+    public void BeginSkipAttempt()
+    {
+        if (CurrentDialog != null && currentDialog.isActive)
+        {
+            tryingToSkip = true;
+            skipTimer = 0.8f;
+        }
+    }
+
+    public void EndSkipAttempt()
+    {
+        tryingToSkip = false;
     }
 
     public void StartDialog(Dialog dialog, Action onComplete = null)
@@ -97,7 +133,7 @@ public class DialogDisplay : MonoBehaviour
         currentDialog = null;
     }
 
-    public void OnUIClick()
+    public void SpeedUpOrNext()
     {
         if (currentDialog == null || !currentDialog.isActive)
             return;
@@ -129,6 +165,7 @@ public class DialogDisplay : MonoBehaviour
     {
         //On a fini
         currentDialog.isActive = false;
+        tryingToSkip = false;
 
 
         UiSystem ui = Game.instance.ui;

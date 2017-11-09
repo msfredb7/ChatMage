@@ -26,7 +26,6 @@ public class MainMenu : BaseBehavior
         {
             SoundManager.PlayMusic(anthem);
             playButton.onClick.AddListener(OnClick);
-            quitButton.onClick.AddListener(OnQuit);
             if (firstLevel != null)
                 firstLevel.LoadData();
         });
@@ -43,11 +42,6 @@ public class MainMenu : BaseBehavior
         {
             GoToLevelSelect();
         }
-    }
-
-    public void OnQuit()
-    {
-        Application.Quit();
     }
 
     void GoToFirstLevel()

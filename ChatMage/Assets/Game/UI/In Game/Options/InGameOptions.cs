@@ -92,7 +92,15 @@ public class InGameOptions : WindowAnimation
         Game.instance.levelScript.Lose();
     }
 
-    public static void Open()
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Confirm();
+        }
+    }
+
+    public static void OpenIfClosed()
     {
         if (Game.instance == null)
         {
@@ -100,6 +108,8 @@ public class InGameOptions : WindowAnimation
             return;
         }
 
+        if (Scenes.Exists(SCENENAME))
+            return;
         Scenes.LoadAsync(SCENENAME, LoadSceneMode.Additive);
         OnStartOpen();
     }

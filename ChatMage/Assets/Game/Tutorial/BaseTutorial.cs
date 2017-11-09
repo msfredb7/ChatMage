@@ -155,7 +155,7 @@ namespace Tutorial
         /// <summary>
         /// Fin de la partie
         /// </summary>
-        public void End(bool markAsCompleted = true)
+        public void End(bool markAsCompleted)
         {
             if (markAsCompleted)
             {
@@ -166,6 +166,10 @@ namespace Tutorial
             {
                 Quit();
             }
+        }
+        public void End()
+        {
+            End(true);
         }
 
         protected virtual void Cleanup()

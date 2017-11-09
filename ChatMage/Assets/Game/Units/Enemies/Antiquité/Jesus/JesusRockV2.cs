@@ -26,11 +26,6 @@ public class JesusRockV2 : MovingUnit
     private bool hasDestination = false;
     private Vector2 destination;
 
-    protected override void Awake()
-    {
-        base.Awake();
-    }
-
     public void PickedUpState(Unit holder)
     {
         inTheHandsOf = holder;
@@ -49,7 +44,7 @@ public class JesusRockV2 : MovingUnit
         hasDestination = false;
 
         inTheHandsOf = null;
-        gameObject.layer = Layers.PROJECTILE;
+        gameObject.layer = Layers.FLYING_SOLID_ENEMY;
         rb.simulated = true;
 
         Speed = direction.normalized * flySpeed;
@@ -72,7 +67,7 @@ public class JesusRockV2 : MovingUnit
     {
         hasDestination = false;
         inTheHandsOf = null;
-        gameObject.layer = Layers.SOLID_ENEMIES;
+        gameObject.layer = Layers.FLYING_SOLID_ENEMY;
         rb.simulated = true;
         isFlying = false;
         Speed = Vector2.zero;
