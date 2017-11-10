@@ -22,17 +22,18 @@ public class PlayerDriftSounds : MonoBehaviour
         playerDrift = GetComponent<PlayerDrift>();
         veh = GetComponent<PlayerVehicle>();
 
-        if (Game.instance.gameReady)
-            AddListeners();
-        else
-            Game.instance.onGameReady += AddListeners;
+        Game.instance.gameRunning.onLockStateChange += OnGamePlayPauseToggle;
     }
 
-    void AddListeners()
+    private void OnGamePlayPauseToggle(bool state)
     {
-        DialogDisplay dd = Game.instance.ui.dialogDisplay;
-        dd.onStartDialog += () => preventDriftSounds = true;
-        dd.onClosingDialog += () => preventDriftSounds = false;
+        preventDriftSounds = !state;
+    }
+
+    void OnDestroy()
+    {
+        if(Game.instance != null)
+            Game.instance.gameRunning.onLockStateChange -= OnGamePlayPauseToggle;
     }
 
     void Update()

@@ -6,14 +6,11 @@ using UnityEngine.Events;
 
 public class PlayerSmash : PlayerComponent
 {
-    public event SimpleEvent onSmashGained;
     public event SimpleEvent onSmashStarted;
     public event SimpleEvent onSmashCompleted;
 
     public bool SmashEquipped { get { return smash != null; } }
     public Smash Smash { get { return smash; } }
-    //public bool HasSmash { get { return hasSmash; } }
-    //private bool hasSmash;
     private bool smashInProgress;
 
     [System.NonSerialized]
@@ -57,14 +54,6 @@ public class PlayerSmash : PlayerComponent
             smash.OnUpdate();
     }
 
-    //Smash gained !
-    //public void GainSmash()
-    //{
-    //    hasSmash = true;
-    //    if (onSmashGained != null)
-    //        onSmashGained();
-    //}
-
     //Utilisation du smash !
     public void SmashClick()
     {
@@ -73,20 +62,6 @@ public class PlayerSmash : PlayerComponent
 
         OnStartSmash();
         smash.OnSmash(OnEndSmash);
-
-        //if (!hasSmash || smash == null || controller.vehicle.IsDead)
-        //    return;
-        //hasSmash = false;
-
-        //if (onSmashStarted != null)
-        //    onSmashStarted();
-
-        //smash.OnSmash(
-        //    delegate ()
-        //    {
-        //        if (onSmashCompleted != null)
-        //            onSmashCompleted.Invoke();
-        //    });
     }
 
     void OnStartSmash()

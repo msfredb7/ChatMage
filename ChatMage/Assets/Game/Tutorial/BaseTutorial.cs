@@ -153,7 +153,7 @@ namespace Tutorial
         protected abstract void OnStart();
 
         /// <summary>
-        /// Fin de la partie
+        /// Fin du tutoriel
         /// </summary>
         public void End(bool markAsCompleted)
         {

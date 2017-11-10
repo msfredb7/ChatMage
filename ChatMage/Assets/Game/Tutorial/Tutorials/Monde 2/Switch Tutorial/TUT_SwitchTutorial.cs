@@ -28,7 +28,6 @@ namespace Tutorial
             modules.spotlight.OnWorld(switche.gameObject.transform.position, delegate ()
             {
                 modules.textDisplay.SetBottom();
-                modules.textDisplay.automaticallyAdjustSize = true;
                 modules.textDisplay.DisplayText("This is a Switch. " +
                     "You can hit it in order to activate things. " +
                     "Use them wisely to make your way throught the levels. ", true);

@@ -25,11 +25,19 @@ public class JesusRockV2 : MovingUnit
     private Unit inTheHandsOf;
     private bool hasDestination = false;
     private Vector2 destination;
+    private GameObject go;
+    private Collider2D[] contacts = new Collider2D[1];
+
+    protected override void Awake()
+    {
+        base.Awake();
+        go = gameObject;
+    }
 
     public void PickedUpState(Unit holder)
     {
         inTheHandsOf = holder;
-        gameObject.layer = Layers.NO_COLLISION;
+        go.layer = Layers.NO_COLLISION;
         rb.simulated = false;
         isFlying = false;
         Speed = Vector2.zero;
@@ -44,7 +52,7 @@ public class JesusRockV2 : MovingUnit
         hasDestination = false;
 
         inTheHandsOf = null;
-        gameObject.layer = Layers.FLYING_SOLID_ENEMY;
+        go.layer = Layers.FLYING_SOLID_ENEMY;
         rb.simulated = true;
 
         Speed = direction.normalized * flySpeed;
@@ -67,7 +75,7 @@ public class JesusRockV2 : MovingUnit
     {
         hasDestination = false;
         inTheHandsOf = null;
-        gameObject.layer = Layers.FLYING_SOLID_ENEMY;
+        go.layer = Layers.SOLID_ENEMIES;
         rb.simulated = true;
         isFlying = false;
         Speed = Vector2.zero;
@@ -118,6 +126,20 @@ public class JesusRockV2 : MovingUnit
 
 
         cannotHit = null;
+    }
+
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
+
+        if (isFlying && go.layer == Layers.FLYING_SOLID_ENEMY)
+        {
+            int contactCount = rb.GetContacts(contacts);
+            if (contactCount == 0)
+            {
+                go.layer = Layers.SOLID_ENEMIES;
+            }
+        }
     }
 
     protected override void Update()

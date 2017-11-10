@@ -17,11 +17,6 @@ namespace Tutorial
         public float fadeDuration;
         public Ease fadeEase;
 
-        [Header("Size settings")]
-        public bool automaticallyAdjustSize;
-        public AnimationCurve textLengthToX;
-        public AnimationCurve textLengthToY;
-
         [Header("Height settings")]
         public Vector2 topPosition;
         public Vector2 middlePosition;
@@ -49,22 +44,12 @@ namespace Tutorial
             GetComponent<RectTransform>().anchoredPosition = topPosition;
         }
 
-        public void SetSize(int messageLength)
-        {
-            RectTransform tr = GetComponent<RectTransform>();
-
-            tr.sizeDelta = new Vector2(textLengthToX.Evaluate(messageLength), textLengthToY.Evaluate(messageLength));
-        }
-
         public void InstantDisplay(string message, bool blackBackground)
         {
             fade.gameObject.SetActive(true);
             fade.alpha = 1;
 
             blackFade.enabled = blackBackground;
-
-            if (automaticallyAdjustSize)
-                SetSize(message.Length);
 
             text.text = message;
 
@@ -96,9 +81,6 @@ namespace Tutorial
                 text.text = message;
 
                 blackFade.enabled = blackBackground;
-
-                if (automaticallyAdjustSize)
-                    SetSize(message.Length);
 
                 isOn = true;
 

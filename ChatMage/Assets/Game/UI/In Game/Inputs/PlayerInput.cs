@@ -50,10 +50,11 @@ public class PlayerInput : MonoBehaviour
             {
                 //Touch de clavier
                 if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
-                    turning ++;
+                    turning++;
                 if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
                     turning--;
-                if (Input.GetKeyDown(KeyCode.Space))
+                if (Game.instance.gameRunning && 
+                    (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)))
                     smashPress = true;
             }
         }

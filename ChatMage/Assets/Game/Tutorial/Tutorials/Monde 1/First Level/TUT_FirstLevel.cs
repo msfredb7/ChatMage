@@ -85,6 +85,7 @@ namespace Tutorial
                 handClick = Instantiate(handClickPrefab.gameObject, modules.transform).GetComponent<Image>();
 
                 RectTransform tr = handClick.GetComponent<RectTransform>();
+                tr.localScale = Vector3.one;
                 tr.anchorMin = new Vector2(0, 0);
                 tr.anchorMax = new Vector2(0.333f, 1);
                 tr.anchoredPosition = Vector2.zero;
@@ -107,6 +108,7 @@ namespace Tutorial
                 modules.spotlight.FillCenter(true, true);
                 modules.spotlight.On();
                 turnRightOrLeft = Instantiate(turnRightOrLeftPrefab.gameObject, modules.transform).GetComponent<CanvasGroupBehaviour>();
+                turnRightOrLeft.transform.localScale = Vector3.one;
                 turnRightOrLeft.HideInstant();
                 turnRightOrLeft.Show();
 
@@ -196,8 +198,8 @@ namespace Tutorial
                 else
                     modules.spotlight.OnWorld(Game.instance.Player.vehicle.Position);
 
-                modules.textDisplay.DisplayText("Defeat your enemies striking them."
-                    + " Be careful, they will try to attack you too!", true);
+                modules.textDisplay.DisplayText("Defeat your enemies by striking them."
+                    + " But be careful! They will try to attack you too!", true);
 
                 modules.delayedAction.Do(0.75f,
                     delegate ()

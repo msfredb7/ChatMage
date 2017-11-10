@@ -30,18 +30,8 @@ public class ITM_SmashShield : Item, IAttackable
     public override void OnGameStarted()
     {
         //Set listeners
-        player.playerSmash.onSmashGained += PlayerSmash_onSmashGained;
-        player.playerSmash.onSmashStarted += PlayerSmash_onSmashStarted;
-    }
-
-    private void PlayerSmash_onSmashGained()
-    {
-        ShieldOn();
-    }
-
-    private void PlayerSmash_onSmashStarted()
-    {
-        ShieldOff();
+        player.playerSmash.onSmashStarted += ShieldOn;
+        player.playerSmash.onSmashCompleted += ShieldOff;
     }
 
     public override void OnUpdate()

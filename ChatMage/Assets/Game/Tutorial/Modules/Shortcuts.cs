@@ -36,6 +36,14 @@ namespace Tutorial
             }
         }
 
+        public void WaitForTouchOrKeyDown(Action callback)
+        {
+            if (Application.isMobilePlatform)
+                modules.proxyButton.ProxyScreen(callback);
+            else
+                modules.waitForInput.OnAnyKeyDown(callback);
+        }
+
         /// <summary>
         /// 1.Disable les inputs
         /// <para>2.Deplace le spotlight</para>

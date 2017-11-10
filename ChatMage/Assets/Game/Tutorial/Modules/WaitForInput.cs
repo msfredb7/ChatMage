@@ -24,7 +24,8 @@ public class WaitForInput : MonoBehaviour
 
     void Update()
     {
-        for (int i = 0; i < orders.Count; i++)
+        int count = orders.Count;
+        for (int i = 0; i < count; i++)
         {
             if(orders[i].keyCodes == null)
             {
@@ -33,6 +34,7 @@ public class WaitForInput : MonoBehaviour
                     orders[i].callback();
                     orders.RemoveAt(i);
                     i--;
+                    count--;
                 }
             }
             else
@@ -44,6 +46,7 @@ public class WaitForInput : MonoBehaviour
                         orders[i].callback();
                         orders.RemoveAt(i);
                         i--;
+                        count--;
                         break;
                     }
                 }

@@ -65,6 +65,11 @@ public class SmashDisplayV2 : MonoBehaviour
         return isShown;
     }
 
+    public Vector2 GetAbsolutePosition()
+    {
+        return new Vector2(Screen.width * 0.025f, Screen.height * 0.25f);
+    }
+
     public void Show(bool faded)
     {
         if (!canBeShown)
