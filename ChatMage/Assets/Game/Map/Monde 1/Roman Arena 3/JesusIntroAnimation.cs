@@ -61,7 +61,7 @@ public class JesusIntroAnimation : InGameAnimator
         jesus.ShowHP();
         jesus.GetComponent<AI.JesusV2Brain>().enabled = true;
 
-        SoundManager.TransitionToMusic(bossMusic,true,1,1);
+        SoundManager.TransitionToMusic(bossMusic, true, 0.25f, 1);
         jesus.OnDeath += (Unit u) =>
         {
             Game.instance.levelScript.Win();
@@ -83,7 +83,7 @@ public class JesusIntroAnimation : InGameAnimator
         {
             WakeJesus();
             StopPlayer(false);
-        }, 
+        },
         () =>
         {
             rightRockRenderer.sortingLayerName = temporaryRockLayer;
@@ -95,7 +95,7 @@ public class JesusIntroAnimation : InGameAnimator
             {
                 rightRockRenderer.sortingLayerID = rockFinalLayer;
             });
-        }, 
+        },
         () =>
         {
             leftRockRenderer.sortingLayerName = temporaryRockLayer;

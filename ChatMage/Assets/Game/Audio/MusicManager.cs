@@ -14,7 +14,7 @@ public class MusicManager : MonoBehaviour {
     public enum SongName { Ambient = 0, Fight = 1, BossBattle = 2, Win = 3 }
 
     public float transistionDuration = 1;
-    public float musicVolume = 0.25f;
+    private const float musicVolume = 0.15f;
 
     void Start()
     {
