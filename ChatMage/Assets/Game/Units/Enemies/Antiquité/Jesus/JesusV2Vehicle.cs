@@ -101,6 +101,8 @@ public class JesusV2Vehicle : EnemyVehicle
 
         if (hp > 0)
         {
+            MultipleSoundPlayerManager soundPlayer = GetComponent<MultipleSoundPlayerManager>();
+            soundPlayer.PlayChoosenSound("hit");
             if (!IsHPShown())
                 ShowHP();
 

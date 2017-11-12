@@ -119,6 +119,10 @@ public class JesusChains : MonoBehaviour
             return;
 
         broken = true;
+
+        SoundPlayer soundPlayer = GetComponent<SoundPlayer>();
+        soundPlayer.PlaySound();
+
         flyingChains = new FlyingChain[chains.Length];
 
         for (int i = 0; i < chains.Length; i++)

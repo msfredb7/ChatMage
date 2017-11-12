@@ -541,8 +541,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowRect:
     serializedVersion: 2
-    x: 630
-    y: 423
+    x: 820
+    y: 685
     width: 150
     height: 43
   graph: {fileID: 1644651699}
@@ -1017,8 +1017,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowRect:
     serializedVersion: 2
-    x: 1146
-    y: 210
+    x: 1336
+    y: 472
     width: 150
     height: 84
   graph: {fileID: 1644651699}
@@ -1304,8 +1304,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowRect:
     serializedVersion: 2
-    x: 842
-    y: 751
+    x: 1032
+    y: 1013
     width: 150
     height: 43
   graph: {fileID: 1644651699}
@@ -2583,8 +2583,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowRect:
     serializedVersion: 2
-    x: 1142
-    y: 326
+    x: 1332
+    y: 588
     width: 150
     height: 43
   graph: {fileID: 1644651699}
@@ -2871,8 +2871,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowRect:
     serializedVersion: 2
-    x: 264
-    y: 359
+    x: 454
+    y: 621
     width: 150
     height: 43
   graph: {fileID: 1644651699}
@@ -3037,11 +3037,11 @@ MonoBehaviour:
   _serializedStateKeys:
   - windowRect
   _serializedStateValues:
-  - '{"xMin":406.0,"yMin":120.0,"xMax":556.0,"yMax":163.0}'
+  - '{"xMin":596.0,"yMin":382.0,"xMax":746.0,"yMax":425.0}'
   windowRect:
     serializedVersion: 2
-    x: 406
-    y: 120
+    x: 596
+    y: 382
     width: 150
     height: 43
   graph: {fileID: 1644651699}
@@ -4097,8 +4097,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowRect:
     serializedVersion: 2
-    x: 235
-    y: 201
+    x: 425
+    y: 463
     width: 150
     height: 84
   graph: {fileID: 1644651699}
@@ -4337,8 +4337,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowRect:
     serializedVersion: 2
-    x: 1119
-    y: 439
+    x: 1309
+    y: 701
     width: 150
     height: 43
   graph: {fileID: 1644651699}
@@ -4426,8 +4426,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowRect:
     serializedVersion: 2
-    x: 326
-    y: 788
+    x: 516
+    y: 1050
     width: 150
     height: 43
   graph: {fileID: 1644651699}
@@ -6857,6 +6857,7 @@ GameObject:
   - component: {fileID: 466810697}
   - component: {fileID: 466810698}
   - component: {fileID: 466810699}
+  - component: {fileID: 466810700}
   m_Layer: 0
   m_Name: Wall Destruction
   m_TagString: Untagged
@@ -6916,6 +6917,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 466810698}
+--- !u!114 &466810700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 466810696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85205e10ad9c52a4db004e69b39bacba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectReferences:
+  - {fileID: 8300000, guid: c2c1a464fb01c2c4c83be47fe062ef3d, type: 3}
+  _serializedStateKeys:
+  - soundList
+  - soundType
+  _serializedStateValues:
+  - '{"list":[0]}'
+  - '"sfx"'
+  tag: 
+  soundList:
+    list:
+    - {fileID: 8300000, guid: c2c1a464fb01c2c4c83be47fe062ef3d, type: 3}
+  soundType: 1
+  useCustomSettings: 0
+  looping: 0
+  volume: 1
+  delay: 0
+  startOnReactivation: 0
+  sfxLoopSource: {fileID: 0}
 --- !u!1 &470798606
 GameObject:
   m_ObjectHideFlags: 0
@@ -7973,7 +8004,7 @@ MonoBehaviour:
   - what
   - where
   _serializedStateValues:
-  - '{"xMin":412.0,"yMin":188.0,"xMax":562.0,"yMax":272.0}'
+  - '{"xMin":602.0,"yMin":450.0,"xMax":752.0,"yMax":534.0}'
   - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]}'
   - '{"spawnSequence":[{"unit":0,"quantity":6}],"useLevelScriptMethod":false,"onSpawnMethod":"","onSpawn":{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"GameEvents.MomentEvent_unit,
@@ -7981,8 +8012,8 @@ MonoBehaviour:
   - '{"logErrorIfUnableToLaunch":true,"spawnTag":"ordered road 1","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0}'
   windowRect:
     serializedVersion: 2
-    x: 412
-    y: 188
+    x: 602
+    y: 450
     width: 150
     height: 84
   graph: {fileID: 1644651699}
@@ -8186,6 +8217,7 @@ GameObject:
   m_Component:
   - component: {fileID: 577807754}
   - component: {fileID: 577807755}
+  - component: {fileID: 577807756}
   m_Layer: 0
   m_Name: Left
   m_TagString: Untagged
@@ -8247,6 +8279,36 @@ MonoBehaviour:
   brakeStrength: 0.15
   minBreakAngle: 225
   maxBreakAngle: 330
+--- !u!114 &577807756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 577807753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85205e10ad9c52a4db004e69b39bacba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectReferences:
+  - {fileID: 8300000, guid: 1db3b35884071544aaf76dca7d4efeee, type: 3}
+  _serializedStateKeys:
+  - soundList
+  - soundType
+  _serializedStateValues:
+  - '{"list":[0]}'
+  - '"sfx"'
+  tag: 
+  soundList:
+    list:
+    - {fileID: 8300000, guid: 1db3b35884071544aaf76dca7d4efeee, type: 3}
+  soundType: 1
+  useCustomSettings: 0
+  looping: 0
+  volume: 1
+  delay: 0
+  startOnReactivation: 0
+  sfxLoopSource: {fileID: 0}
 --- !u!114 &580954966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8260,8 +8322,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowRect:
     serializedVersion: 2
-    x: 1495
-    y: 510
+    x: 1685
+    y: 772
     width: 150
     height: 43
   graph: {fileID: 1644651699}
@@ -8319,7 +8381,7 @@ MonoBehaviour:
   - _topSide
   - onExecute
   _serializedStateValues:
-  - '{"xMin":852.0,"yMin":180.0,"xMax":1002.0,"yMax":244.0}'
+  - '{"xMin":1042.0,"yMin":442.0,"xMax":1192.0,"yMax":506.0}'
   - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[0,1]}'
   - '"TopOfScreen"'
@@ -8332,8 +8394,8 @@ MonoBehaviour:
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
   windowRect:
     serializedVersion: 2
-    x: 852
-    y: 180
+    x: 1042
+    y: 442
     width: 150
     height: 64
   graph: {fileID: 1644651699}
@@ -8774,6 +8836,25 @@ MonoBehaviour:
   tags:
   - inter 1
   size: {x: 17.72, y: 0.6}
+--- !u!114 &633465463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35addc8b64fd48f4581688e4043da4a4, type: 3}
+  m_Name: Music Player
+  m_EditorClassIdentifier: 
+  windowRect:
+    serializedVersion: 2
+    x: 441
+    y: 327
+    width: 150
+    height: 43
+  graph: {fileID: 1644651699}
+  music: 1
 --- !u!1 &635638720
 GameObject:
   m_ObjectHideFlags: 0
@@ -9201,6 +9282,9 @@ GameObject:
   - component: {fileID: 680225725}
   - component: {fileID: 680225726}
   - component: {fileID: 680225727}
+  - component: {fileID: 680225730}
+  - component: {fileID: 680225729}
+  - component: {fileID: 680225728}
   m_Layer: 0
   m_Name: Grille
   m_TagString: Untagged
@@ -9259,6 +9343,84 @@ MonoBehaviour:
   leftEnd: {x: -14.15, y: 0}
   rightPart: {fileID: 701420513}
   rightEnd: {x: 14.15, y: 0}
+--- !u!114 &680225728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 680225724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ebff343c5c56e143903d219396fe9c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectReferences: []
+  _serializedStateKeys:
+  - soundPlayers
+  _serializedStateValues:
+  - '[]'
+  setListAutomaticaly: 1
+  soundPlayers: []
+--- !u!114 &680225729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 680225724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85205e10ad9c52a4db004e69b39bacba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectReferences:
+  - {fileID: 8300000, guid: f5aaaa12bf2738246b88bf9f6ee61892, type: 3}
+  _serializedStateKeys:
+  - soundList
+  - soundType
+  _serializedStateValues:
+  - '{"list":[0]}'
+  - '"sfx"'
+  tag: collision
+  soundList:
+    list:
+    - {fileID: 8300000, guid: f5aaaa12bf2738246b88bf9f6ee61892, type: 3}
+  soundType: 1
+  useCustomSettings: 0
+  looping: 0
+  volume: 1
+  delay: 0
+  startOnReactivation: 0
+  sfxLoopSource: {fileID: 0}
+--- !u!114 &680225730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 680225724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85205e10ad9c52a4db004e69b39bacba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectReferences:
+  - {fileID: 8300000, guid: 8b327e7e34c81ab45bc98f216c964b72, type: 3}
+  _serializedStateKeys:
+  - soundList
+  - soundType
+  _serializedStateValues:
+  - '{"list":[0]}'
+  - '"sfx"'
+  tag: moving
+  soundList:
+    list:
+    - {fileID: 8300000, guid: 8b327e7e34c81ab45bc98f216c964b72, type: 3}
+  soundType: 1
+  useCustomSettings: 0
+  looping: 0
+  volume: 1
+  delay: 0
+  startOnReactivation: 0
+  sfxLoopSource: {fileID: 0}
 --- !u!1 &684493125
 GameObject:
   m_ObjectHideFlags: 0
@@ -9857,8 +10019,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowRect:
     serializedVersion: 2
-    x: 583
-    y: 227
+    x: 773
+    y: 489
     width: 150
     height: 43
   graph: {fileID: 1644651699}
@@ -10058,8 +10220,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowRect:
     serializedVersion: 2
-    x: 98
-    y: 775
+    x: 288
+    y: 1037
     width: 150
     height: 84
   graph: {fileID: 1644651699}
@@ -10596,8 +10758,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowRect:
     serializedVersion: 2
-    x: 1483
-    y: 189
+    x: 1673
+    y: 451
     width: 150
     height: 43
   graph: {fileID: 1644651699}
@@ -10619,8 +10781,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowRect:
     serializedVersion: 2
-    x: 968
-    y: 309
+    x: 1158
+    y: 571
     width: 150
     height: 64
   graph: {fileID: 1644651699}
@@ -10812,6 +10974,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 114970958779506222, guid: 2919f287fa3748f4789d717934dd68b7,
+        type: 2}
+      propertyPath: _objectReferences.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 25c9b00071900d74bb5aebb7764a87cf, type: 3}
+    - target: {fileID: 114970958779506222, guid: 2919f287fa3748f4789d717934dd68b7,
+        type: 2}
+      propertyPath: soundList.list.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 25c9b00071900d74bb5aebb7764a87cf, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2919f287fa3748f4789d717934dd68b7, type: 2}
   m_IsPrefabParent: 0
@@ -10826,12 +10998,90 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 813805281}
   m_Script: {fileID: 11500000, guid: d320295b82adad64b9d4179d395a1b2a, type: 3}
+--- !u!114 &813805284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 813805282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85205e10ad9c52a4db004e69b39bacba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectReferences:
+  - {fileID: 8300000, guid: ccd406b542099df4ea76330aace7bcfe, type: 3}
+  _serializedStateKeys:
+  - soundList
+  - soundType
+  _serializedStateValues:
+  - '{"list":[0]}'
+  - '"sfx"'
+  tag: scream
+  soundList:
+    list:
+    - {fileID: 8300000, guid: ccd406b542099df4ea76330aace7bcfe, type: 3}
+  soundType: 1
+  useCustomSettings: 0
+  looping: 0
+  volume: 1
+  delay: 0
+  startOnReactivation: 0
+  sfxLoopSource: {fileID: 0}
 --- !u!114 &813805286 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114066475894699088, guid: 2919f287fa3748f4789d717934dd68b7,
     type: 2}
   m_PrefabInternal: {fileID: 813805281}
   m_Script: {fileID: 11500000, guid: 028c4106b0a8ae242b5972a57c20c8ed, type: 3}
+--- !u!114 &813805291 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114141032224521080, guid: 2919f287fa3748f4789d717934dd68b7,
+    type: 2}
+  m_PrefabInternal: {fileID: 813805281}
+  m_Script: {fileID: 11500000, guid: 8ebff343c5c56e143903d219396fe9c6, type: 3}
+--- !u!114 &813805292 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114970958779506222, guid: 2919f287fa3748f4789d717934dd68b7,
+    type: 2}
+  m_PrefabInternal: {fileID: 813805281}
+  m_Script: {fileID: 11500000, guid: 85205e10ad9c52a4db004e69b39bacba, type: 3}
+--- !u!114 &813805293 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114326972680048928, guid: 2919f287fa3748f4789d717934dd68b7,
+    type: 2}
+  m_PrefabInternal: {fileID: 813805281}
+  m_Script: {fileID: 11500000, guid: 85205e10ad9c52a4db004e69b39bacba, type: 3}
+--- !u!114 &813805294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 813805282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85205e10ad9c52a4db004e69b39bacba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectReferences:
+  - {fileID: 8300000, guid: 258d3034c53c4294a8fb3f0f38e223a2, type: 3}
+  _serializedStateKeys:
+  - soundList
+  - soundType
+  _serializedStateValues:
+  - '{"list":[0]}'
+  - '"sfx"'
+  tag: hit
+  soundList:
+    list:
+    - {fileID: 8300000, guid: 258d3034c53c4294a8fb3f0f38e223a2, type: 3}
+  soundType: 1
+  useCustomSettings: 0
+  looping: 0
+  volume: 1
+  delay: 0
+  startOnReactivation: 0
+  sfxLoopSource: {fileID: 0}
 --- !u!1 &814213425
 GameObject:
   m_ObjectHideFlags: 0
@@ -11360,8 +11610,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowRect:
     serializedVersion: 2
-    x: 254
-    y: 120
+    x: 444
+    y: 382
     width: 150
     height: 43
   graph: {fileID: 1644651699}
@@ -11591,8 +11841,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowRect:
     serializedVersion: 2
-    x: 1484
-    y: 240
+    x: 1674
+    y: 502
     width: 150
     height: 43
   graph: {fileID: 1644651699}
@@ -12609,11 +12859,11 @@ MonoBehaviour:
   _serializedStateKeys:
   - windowRect
   _serializedStateValues:
-  - '{"xMin":630.0,"yMin":380.0,"xMax":780.0,"yMax":423.0}'
+  - '{"xMin":820.0,"yMin":642.0,"xMax":970.0,"yMax":685.0}'
   windowRect:
     serializedVersion: 2
-    x: 630
-    y: 380
+    x: 820
+    y: 642
     width: 150
     height: 43
   graph: {fileID: 1644651699}
@@ -13123,8 +13373,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowRect:
     serializedVersion: 2
-    x: 1330
-    y: 293
+    x: 1520
+    y: 555
     width: 150
     height: 64
   graph: {fileID: 1644651699}
@@ -13643,7 +13893,7 @@ MonoBehaviour:
   - _topSide
   - onExecute
   _serializedStateValues:
-  - '{"xMin":27.0,"yMin":217.0,"xMax":177.0,"yMax":281.0}'
+  - '{"xMin":217.0,"yMin":479.0,"xMax":367.0,"yMax":543.0}'
   - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[0]}'
   - '"TopOfScreen"'
@@ -13656,8 +13906,8 @@ MonoBehaviour:
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
   windowRect:
     serializedVersion: 2
-    x: 27
-    y: 217
+    x: 217
+    y: 479
     width: 150
     height: 64
   graph: {fileID: 1644651699}
@@ -14088,11 +14338,11 @@ MonoBehaviour:
   _serializedStateKeys:
   - windowRect
   _serializedStateValues:
-  - '{"xMin":1497.0,"yMin":420.0,"xMax":1647.0,"yMax":463.0}'
+  - '{"xMin":1687.0,"yMin":682.0,"xMax":1837.0,"yMax":725.0}'
   windowRect:
     serializedVersion: 2
-    x: 1497
-    y: 420
+    x: 1687
+    y: 682
     width: 150
     height: 43
   graph: {fileID: 1644651699}
@@ -14708,8 +14958,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowRect:
     serializedVersion: 2
-    x: 459
-    y: 399
+    x: 649
+    y: 661
     width: 150
     height: 64
   graph: {fileID: 1644651699}
@@ -17152,7 +17402,7 @@ MonoBehaviour:
   - _topSide
   - onExecute
   _serializedStateValues:
-  - '{"xMin":960.0,"yMin":437.0,"xMax":1110.0,"yMax":501.0}'
+  - '{"xMin":1150.0,"yMin":699.0,"xMax":1300.0,"yMax":763.0}'
   - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[{"m_Target":0,"m_MethodName":"Show","m_Mode":"Void","m_Arguments":{"m_ObjectArgument":1,"m_ObjectArgumentAssemblyTypeName":"UnityEngine.Object,
     UnityEngine","m_IntArgument":0,"m_FloatArgument":0.0,"m_StringArgument":"","m_BoolArgument":false},"m_CallState":"RuntimeOnly"}]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[2,3]}'
@@ -17166,8 +17416,8 @@ MonoBehaviour:
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
   windowRect:
     serializedVersion: 2
-    x: 960
-    y: 437
+    x: 1150
+    y: 699
     width: 150
     height: 64
   graph: {fileID: 1644651699}
@@ -17593,7 +17843,7 @@ MonoBehaviour:
   - _topSide
   - onExecute
   _serializedStateValues:
-  - '{"xMin":-22.0,"yMin":415.0,"xMax":128.0,"yMax":479.0}'
+  - '{"xMin":168.0,"yMin":677.0,"xMax":318.0,"yMax":741.0}'
   - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[{"m_Target":0,"m_MethodName":"Close","m_Mode":"Void","m_Arguments":{"m_ObjectArgument":1,"m_ObjectArgumentAssemblyTypeName":"UnityEngine.Object,
     UnityEngine","m_IntArgument":0,"m_FloatArgument":0.0,"m_StringArgument":"","m_BoolArgument":false},"m_CallState":"RuntimeOnly"},{"m_Target":2,"m_MethodName":"Show","m_Mode":"Void","m_Arguments":{"m_ObjectArgument":3,"m_ObjectArgumentAssemblyTypeName":"UnityEngine.Object,
     UnityEngine","m_IntArgument":0,"m_FloatArgument":0.0,"m_StringArgument":"","m_BoolArgument":false},"m_CallState":"RuntimeOnly"}]},"m_TypeName":"UnityEngine.Events.UnityEvent,
@@ -17608,8 +17858,8 @@ MonoBehaviour:
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
   windowRect:
     serializedVersion: 2
-    x: -22
-    y: 415
+    x: 168
+    y: 677
     width: 150
     height: 64
   graph: {fileID: 1644651699}
@@ -18349,8 +18599,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowRect:
     serializedVersion: 2
-    x: 281
-    y: 479
+    x: 471
+    y: 741
     width: 150
     height: 64
   graph: {fileID: 1644651699}
@@ -20804,8 +21054,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowRect:
     serializedVersion: 2
-    x: 584
-    y: 177
+    x: 774
+    y: 439
     width: 150
     height: 43
   graph: {fileID: 1644651699}
@@ -21221,8 +21471,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowRect:
     serializedVersion: 2
-    x: 630
-    y: 468
+    x: 820
+    y: 730
     width: 150
     height: 43
   graph: {fileID: 1644651699}
@@ -21666,6 +21916,9 @@ GameObject:
   - component: {fileID: 1449501250}
   - component: {fileID: 1449501252}
   - component: {fileID: 1449501251}
+  - component: {fileID: 1449501255}
+  - component: {fileID: 1449501254}
+  - component: {fileID: 1449501253}
   m_Layer: 0
   m_Name: Grille (1)
   m_TagString: Untagged
@@ -21724,6 +21977,84 @@ MonoBehaviour:
   _serializedStateValues: []
   tags:
   - grille 2
+--- !u!114 &1449501253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1449501249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ebff343c5c56e143903d219396fe9c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectReferences: []
+  _serializedStateKeys:
+  - soundPlayers
+  _serializedStateValues:
+  - '[]'
+  setListAutomaticaly: 1
+  soundPlayers: []
+--- !u!114 &1449501254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1449501249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85205e10ad9c52a4db004e69b39bacba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectReferences:
+  - {fileID: 8300000, guid: f5aaaa12bf2738246b88bf9f6ee61892, type: 3}
+  _serializedStateKeys:
+  - soundList
+  - soundType
+  _serializedStateValues:
+  - '{"list":[0]}'
+  - '"sfx"'
+  tag: collision
+  soundList:
+    list:
+    - {fileID: 8300000, guid: f5aaaa12bf2738246b88bf9f6ee61892, type: 3}
+  soundType: 1
+  useCustomSettings: 0
+  looping: 0
+  volume: 1
+  delay: 0
+  startOnReactivation: 0
+  sfxLoopSource: {fileID: 0}
+--- !u!114 &1449501255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1449501249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85205e10ad9c52a4db004e69b39bacba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectReferences:
+  - {fileID: 8300000, guid: 8b327e7e34c81ab45bc98f216c964b72, type: 3}
+  _serializedStateKeys:
+  - soundList
+  - soundType
+  _serializedStateValues:
+  - '{"list":[0]}'
+  - '"sfx"'
+  tag: moving
+  soundList:
+    list:
+    - {fileID: 8300000, guid: 8b327e7e34c81ab45bc98f216c964b72, type: 3}
+  soundType: 1
+  useCustomSettings: 0
+  looping: 0
+  volume: 1
+  delay: 0
+  startOnReactivation: 0
+  sfxLoopSource: {fileID: 0}
 --- !u!1 &1454204861
 GameObject:
   m_ObjectHideFlags: 0
@@ -21793,7 +22124,7 @@ MonoBehaviour:
   controller: {fileID: 1454204863}
   jesus: {fileID: 813805286}
   dialog: {fileID: 11400000, guid: 4a25fb01c4d3d2646a34b33e627d1aa3, type: 2}
-  jesusAwakens_clip: {fileID: 8300000, guid: f17fc4006baf5cb47862c567b4ece316, type: 3}
+  jesusAwakens_clip: {fileID: 8300000, guid: 695a08f721406c5449d840e7f5b18176, type: 3}
   jesusAwakens_delay: 0
   jesusAwakens_volume: 0.6
   rightBrickWall: {fileID: 466810699}
@@ -21810,7 +22141,7 @@ MonoBehaviour:
   - {fileID: 455550340}
   - {fileID: 1515341188}
   - {fileID: 1244500216}
-  bossMusic: {fileID: 8300000, guid: 92770c9aeaa73e8429a6d473fd4683fd, type: 3}
+  bossMusic: {fileID: 8300000, guid: 0ebe139f865214d47a49338943a5dedd, type: 3}
 --- !u!1 &1455299359
 GameObject:
   m_ObjectHideFlags: 0
@@ -22949,8 +23280,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowRect:
     serializedVersion: 2
-    x: 415
-    y: 268
+    x: 605
+    y: 530
     width: 150
     height: 64
   graph: {fileID: 1644651699}
@@ -24493,6 +24824,7 @@ MonoBehaviour:
   - {fileID: 1825985805}
   - {fileID: 806449655}
   - {fileID: 2054386303}
+  - {fileID: 633465463}
 --- !u!114 &1644651700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24506,8 +24838,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowRect:
     serializedVersion: 2
-    x: 84
-    y: 123
+    x: 274
+    y: 385
     width: 150
     height: 64
   graph: {fileID: 1644651699}
@@ -24515,6 +24847,7 @@ MonoBehaviour:
     iEvents:
     - {fileID: 838231024}
     - {fileID: 261251132}
+    - {fileID: 633465463}
     unityEvent:
       m_PersistentCalls:
         m_Calls: []
@@ -24624,6 +24957,21 @@ MonoBehaviour:
   - {fileID: 2054386303}
   - {fileID: 1255209606}
   - {fileID: 1676605960}
+  - {fileID: 680225730}
+  - {fileID: 680225729}
+  - {fileID: 680225728}
+  - {fileID: 466810700}
+  - {fileID: 1981379149}
+  - {fileID: 577807756}
+  - {fileID: 1677089179}
+  - {fileID: 813805293}
+  - {fileID: 813805292}
+  - {fileID: 813805291}
+  - {fileID: 1449501255}
+  - {fileID: 1449501254}
+  - {fileID: 1449501253}
+  - {fileID: 813805294}
+  - {fileID: 813805284}
   _values:
   - _keys: []
     _values: []
@@ -24769,6 +25117,51 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 1676605960}
+  - _keys: []
+    _values: []
+    _target: {fileID: 680225730}
+  - _keys: []
+    _values: []
+    _target: {fileID: 680225729}
+  - _keys: []
+    _values: []
+    _target: {fileID: 680225728}
+  - _keys: []
+    _values: []
+    _target: {fileID: 466810700}
+  - _keys: []
+    _values: []
+    _target: {fileID: 1981379149}
+  - _keys: []
+    _values: []
+    _target: {fileID: 577807756}
+  - _keys: []
+    _values: []
+    _target: {fileID: 1677089179}
+  - _keys: []
+    _values: []
+    _target: {fileID: 813805293}
+  - _keys: []
+    _values: []
+    _target: {fileID: 813805292}
+  - _keys: []
+    _values: []
+    _target: {fileID: 813805291}
+  - _keys: []
+    _values: []
+    _target: {fileID: 1449501255}
+  - _keys: []
+    _values: []
+    _target: {fileID: 1449501254}
+  - _keys: []
+    _values: []
+    _target: {fileID: 1449501253}
+  - _keys: []
+    _values: []
+    _target: {fileID: 813805294}
+  - _keys: []
+    _values: []
+    _target: {fileID: 813805284}
 --- !u!114 &1649213853
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -24829,6 +25222,21 @@ MonoBehaviour:
   - {fileID: 2054386303}
   - {fileID: 1255209606}
   - {fileID: 1676605960}
+  - {fileID: 680225730}
+  - {fileID: 680225729}
+  - {fileID: 680225728}
+  - {fileID: 466810700}
+  - {fileID: 1981379149}
+  - {fileID: 577807756}
+  - {fileID: 1677089179}
+  - {fileID: 813805293}
+  - {fileID: 813805292}
+  - {fileID: 813805291}
+  - {fileID: 1449501255}
+  - {fileID: 1449501254}
+  - {fileID: 1449501253}
+  - {fileID: 813805294}
+  - {fileID: 813805284}
   _values:
   - _keys: []
     _values: []
@@ -24836,8 +25244,23 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 266624493}
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.mapping.EditProperty
+    - DefaultBehaviorEditor.cameraSpawn.EditProperty
+    - DefaultBehaviorEditor.listUnits.EditProperty
+    - DefaultBehaviorEditor.setAIArea.EditProperty
+    - DefaultBehaviorEditor.roadPlayer.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 1
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
     _target: {fileID: 1644651695}
   - _keys: []
     _values: []
@@ -25058,6 +25481,75 @@ MonoBehaviour:
     - _showDropdown: 0
       _serializedIsActive: 1
     _target: {fileID: 1676605960}
+  - _keys: []
+    _values: []
+    _target: {fileID: 680225730}
+  - _keys: []
+    _values: []
+    _target: {fileID: 680225729}
+  - _keys: []
+    _values: []
+    _target: {fileID: 680225728}
+  - _keys:
+    - DefaultBehaviorEditor.useCustomSettings.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    _target: {fileID: 466810700}
+  - _keys:
+    - DefaultBehaviorEditor.useCustomSettings.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    _target: {fileID: 1981379149}
+  - _keys:
+    - DefaultBehaviorEditor.useCustomSettings.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    _target: {fileID: 577807756}
+  - _keys:
+    - DefaultBehaviorEditor.useCustomSettings.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    _target: {fileID: 1677089179}
+  - _keys:
+    - DefaultBehaviorEditor.useCustomSettings.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    _target: {fileID: 813805293}
+  - _keys:
+    - DefaultBehaviorEditor.useCustomSettings.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    _target: {fileID: 813805292}
+  - _keys: []
+    _values: []
+    _target: {fileID: 813805291}
+  - _keys: []
+    _values: []
+    _target: {fileID: 1449501255}
+  - _keys: []
+    _values: []
+    _target: {fileID: 1449501254}
+  - _keys: []
+    _values: []
+    _target: {fileID: 1449501253}
+  - _keys:
+    - DefaultBehaviorEditor.useCustomSettings.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    _target: {fileID: 813805294}
+  - _keys:
+    - DefaultBehaviorEditor.useCustomSettings.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    _target: {fileID: 813805284}
 --- !u!1 &1657498504
 GameObject:
   m_ObjectHideFlags: 0
@@ -25403,6 +25895,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1677089177}
   - component: {fileID: 1677089178}
+  - component: {fileID: 1677089179}
   m_Layer: 0
   m_Name: Right
   m_TagString: Untagged
@@ -25464,6 +25957,36 @@ MonoBehaviour:
   brakeStrength: 0.15
   minBreakAngle: 210
   maxBreakAngle: 315
+--- !u!114 &1677089179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1677089176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85205e10ad9c52a4db004e69b39bacba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectReferences:
+  - {fileID: 8300000, guid: 1db3b35884071544aaf76dca7d4efeee, type: 3}
+  _serializedStateKeys:
+  - soundList
+  - soundType
+  _serializedStateValues:
+  - '{"list":[0]}'
+  - '"sfx"'
+  tag: 
+  soundList:
+    list:
+    - {fileID: 8300000, guid: 1db3b35884071544aaf76dca7d4efeee, type: 3}
+  soundType: 1
+  useCustomSettings: 0
+  looping: 0
+  volume: 1
+  delay: 0
+  startOnReactivation: 0
+  sfxLoopSource: {fileID: 0}
 --- !u!1 &1679668986
 GameObject:
   m_ObjectHideFlags: 0
@@ -25886,8 +26409,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowRect:
     serializedVersion: 2
-    x: 1497
-    y: 464
+    x: 1687
+    y: 726
     width: 150
     height: 43
   graph: {fileID: 1644651699}
@@ -26934,8 +27457,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowRect:
     serializedVersion: 2
-    x: 1265
-    y: 512
+    x: 1455
+    y: 774
     width: 150
     height: 43
   graph: {fileID: 1644651699}
@@ -27516,8 +28039,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowRect:
     serializedVersion: 2
-    x: 332
-    y: 738
+    x: 522
+    y: 1000
     width: 150
     height: 43
   graph: {fileID: 1644651699}
@@ -29508,7 +30031,7 @@ MonoBehaviour:
   - _topSide
   - onExecute
   _serializedStateValues:
-  - '{"xMin":93.0,"yMin":615.0,"xMax":243.0,"yMax":679.0}'
+  - '{"xMin":283.0,"yMin":877.0,"xMax":433.0,"yMax":941.0}'
   - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[{"m_Target":0,"m_MethodName":"PlayAnimation","m_Mode":"Void","m_Arguments":{"m_ObjectArgument":1,"m_ObjectArgumentAssemblyTypeName":"UnityEngine.Object,
     UnityEngine","m_IntArgument":0,"m_FloatArgument":0.0,"m_StringArgument":"","m_BoolArgument":false},"m_CallState":"RuntimeOnly"}]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]}'
@@ -29522,8 +30045,8 @@ MonoBehaviour:
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
   windowRect:
     serializedVersion: 2
-    x: 93
-    y: 615
+    x: 283
+    y: 877
     width: 150
     height: 64
   graph: {fileID: 1644651699}
@@ -29971,6 +30494,7 @@ GameObject:
   - component: {fileID: 1981379148}
   - component: {fileID: 1981379147}
   - component: {fileID: 1981379146}
+  - component: {fileID: 1981379149}
   m_Layer: 0
   m_Name: Wall Destruction (1)
   m_TagString: Untagged
@@ -30030,6 +30554,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1981379149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1981379145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85205e10ad9c52a4db004e69b39bacba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectReferences:
+  - {fileID: 8300000, guid: c2c1a464fb01c2c4c83be47fe062ef3d, type: 3}
+  _serializedStateKeys:
+  - soundList
+  - soundType
+  _serializedStateValues:
+  - '{"list":[0]}'
+  - '"sfx"'
+  tag: 
+  soundList:
+    list:
+    - {fileID: 8300000, guid: c2c1a464fb01c2c4c83be47fe062ef3d, type: 3}
+  soundType: 1
+  useCustomSettings: 0
+  looping: 0
+  volume: 1
+  delay: 0
+  startOnReactivation: 0
+  sfxLoopSource: {fileID: 0}
 --- !u!1 &1987763873
 GameObject:
   m_ObjectHideFlags: 0
@@ -30488,8 +31042,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowRect:
     serializedVersion: 2
-    x: 282
-    y: 414
+    x: 472
+    y: 676
     width: 150
     height: 43
   graph: {fileID: 1644651699}
@@ -30507,8 +31061,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowRect:
     serializedVersion: 2
-    x: 1332
-    y: 441
+    x: 1522
+    y: 703
     width: 150
     height: 64
   graph: {fileID: 1644651699}
@@ -30564,7 +31118,7 @@ MonoBehaviour:
   - what
   - where
   _serializedStateValues:
-  - '{"xMin":1322.0,"yMin":195.0,"xMax":1472.0,"yMax":279.0}'
+  - '{"xMin":1512.0,"yMin":457.0,"xMax":1662.0,"yMax":541.0}'
   - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]}'
   - '{"spawnSequence":[{"unit":0,"quantity":6}],"useLevelScriptMethod":false,"onSpawnMethod":"","onSpawn":{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"GameEvents.MomentEvent_unit,
@@ -30572,8 +31126,8 @@ MonoBehaviour:
   - '{"logErrorIfUnableToLaunch":true,"spawnTag":"ordered road 3","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0}'
   windowRect:
     serializedVersion: 2
-    x: 1322
-    y: 195
+    x: 1512
+    y: 457
     width: 150
     height: 84
   graph: {fileID: 1644651699}
@@ -30967,8 +31521,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowRect:
     serializedVersion: 2
-    x: 322
-    y: 845
+    x: 512
+    y: 1107
     width: 150
     height: 43
   graph: {fileID: 1644651699}
@@ -31470,7 +32024,7 @@ MonoBehaviour:
   - _topSide
   - onExecute
   _serializedStateValues:
-  - '{"xMin":859.0,"yMin":564.0,"xMax":1009.0,"yMax":628.0}'
+  - '{"xMin":1049.0,"yMin":826.0,"xMax":1199.0,"yMax":890.0}'
   - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[{"m_Target":0,"m_MethodName":"Close","m_Mode":"Void","m_Arguments":{"m_ObjectArgument":1,"m_ObjectArgumentAssemblyTypeName":"UnityEngine.Object,
     UnityEngine","m_IntArgument":0,"m_FloatArgument":0.0,"m_StringArgument":"","m_BoolArgument":false},"m_CallState":"RuntimeOnly"}]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]}'
@@ -31484,8 +32038,8 @@ MonoBehaviour:
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
   windowRect:
     serializedVersion: 2
-    x: 859
-    y: 564
+    x: 1049
+    y: 826
     width: 150
     height: 64
   graph: {fileID: 1644651699}
@@ -32012,8 +32566,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowRect:
     serializedVersion: 2
-    x: 452
-    y: 511
+    x: 642
+    y: 773
     width: 150
     height: 43
   graph: {fileID: 1644651699}
@@ -32595,8 +33149,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowRect:
     serializedVersion: 2
-    x: 1115
-    y: 489
+    x: 1305
+    y: 751
     width: 150
     height: 64
   graph: {fileID: 1644651699}

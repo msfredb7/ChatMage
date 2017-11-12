@@ -11,13 +11,10 @@ public class MusicManager : MonoBehaviour {
     public AudioClip bossBattle;
     public AudioClip winAnthem;
 
-    public AudioSource transitionSource;
-
     public enum SongName { Ambient = 0, Fight = 1, BossBattle = 2, Win = 3 }
 
-    public float seuilTransition = 0.25f;
-    public float fadeDuration = 1;
-    private bool soundManagerIsCurrent;
+    public float transistionDuration = 1;
+    public float musicVolume = 0.25f;
 
     void Start()
     {
@@ -29,71 +26,31 @@ public class MusicManager : MonoBehaviour {
 
     public void PlaySong(SongName song, bool transition = false)
     {
-        
         switch (song)
         {
             case SongName.Ambient:
                 if (transition)
-                {
-                    transitionSource.volume = 0.25f;
-                    transitionSource.clip = ambient;
-                    transitionSource.Play();
-                    SoundManager.instance.musicSource_0.volume = 0;
-                    soundManagerIsCurrent = false;
-                } else
-                {
-                    SoundManager.PlayMusic(ambient, true, 0.25f);
-                    transitionSource.volume = 0;
-                    soundManagerIsCurrent = true;
-                }
+                    SoundManager.TransitionToMusic(ambient, true, musicVolume, transistionDuration);
+                else
+                    SoundManager.PlayMusic(ambient, true, musicVolume);
                 break;
             case SongName.Fight:
                 if (transition)
-                {
-                    transitionSource.volume = 0.25f;
-                    transitionSource.clip = fight;
-                    transitionSource.Play();
-                    SoundManager.instance.musicSource_0.volume = 0;
-                    soundManagerIsCurrent = false;
-                }
+                    SoundManager.TransitionToMusic(fight, true, musicVolume,transistionDuration);
                 else
-                {
-                    SoundManager.PlayMusic(fight, true, 0.25f);
-                    transitionSource.volume = 0;
-                    soundManagerIsCurrent = true;
-                }
+                    SoundManager.PlayMusic(fight, true, musicVolume);
                 break;
             case SongName.BossBattle:
                 if (transition)
-                {
-                    transitionSource.volume = 0.25f;
-                    transitionSource.clip = bossBattle;
-                    transitionSource.Play();
-                    SoundManager.instance.musicSource_0.volume = 0;
-                    soundManagerIsCurrent = false;
-                }
+                    SoundManager.TransitionToMusic(bossBattle, true, musicVolume,transistionDuration);
                 else
-                {
-                    SoundManager.PlayMusic(bossBattle, true, 0.25f);
-                    transitionSource.volume = 0;
-                    soundManagerIsCurrent = true;
-                }
+                    SoundManager.PlayMusic(bossBattle, true, musicVolume);
                 break;
             case SongName.Win:
                 if (transition)
-                {
-                    transitionSource.volume = 0.25f;
-                    transitionSource.clip = winAnthem;
-                    transitionSource.Play();
-                    SoundManager.instance.musicSource_0.volume = 0;
-                    soundManagerIsCurrent = false;
-                }
+                    SoundManager.TransitionToMusic(winAnthem, true, musicVolume,transistionDuration);
                 else
-                {
-                    SoundManager.PlayMusic(winAnthem, true, 0.25f);
-                    transitionSource.volume = 0;
-                    soundManagerIsCurrent = true;
-                }
+                    SoundManager.PlayMusic(winAnthem, true, musicVolume);
                 break;
             default:
                 break;
@@ -102,17 +59,6 @@ public class MusicManager : MonoBehaviour {
 
     public void TransitionTo(SongName song)
     {
-        if (!soundManagerIsCurrent)
-        {
-            transitionSource.DOFade(seuilTransition, fadeDuration).OnComplete(delegate() {
-                PlaySong(song, true);
-            });
-        }
-        else
-        {
-            SoundManager.instance.musicSource_0.DOFade(seuilTransition, fadeDuration).OnComplete(delegate () {
-                PlaySong(song);
-            });
-        }
+        PlaySong(song, true);
     }
 }

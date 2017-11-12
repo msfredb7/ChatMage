@@ -41,6 +41,8 @@ public class SmashManager : MonoBehaviour
     private float minimumActivatableJuice = 3;
     private float maxJuice = 10;
 
+    private bool needSound = true;
+
     public float MinimumActivatableJuice
     {
         get { return minimumActivatableJuice; }
@@ -235,6 +237,15 @@ public class SmashManager : MonoBehaviour
             return;
 
         currentJuice = (CurrentJuice + amount).Clamped(0, maxJuice);
+
+        if(CanSmash() && needSound)
+        {
+            needSound = false;
+            Game.instance.commonSfx.SmashActive();
+        } else if(!CanSmash() && !needSound)
+        {
+            needSound = true;
+        }
 
         if (onJuiceChange != null)
             onJuiceChange();

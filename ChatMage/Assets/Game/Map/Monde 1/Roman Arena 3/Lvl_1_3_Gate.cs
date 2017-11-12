@@ -34,11 +34,20 @@ public class Lvl_1_3_Gate : InGameTweener
 
     public void Open()
     {
+        MultipleSoundPlayerManager soundPlayer = GetComponent<MultipleSoundPlayerManager>();
         Open(null);
+        if (soundPlayer != null)
+            soundPlayer.PlayChoosenSound("moving");
     }
     public void Close()
     {
-        Close(null);
+        MultipleSoundPlayerManager soundPlayer = GetComponent<MultipleSoundPlayerManager>();
+        Close(delegate () {
+            if (soundPlayer != null)
+                soundPlayer.PlayChoosenSound("collision");
+        });
+        if (soundPlayer != null)
+            soundPlayer.PlayChoosenSound("moving");
     }
 
     public void Open(TweenCallback onComplete)

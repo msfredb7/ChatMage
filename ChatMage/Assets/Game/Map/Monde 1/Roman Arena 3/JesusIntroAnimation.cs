@@ -61,7 +61,7 @@ public class JesusIntroAnimation : InGameAnimator
         jesus.ShowHP();
         jesus.GetComponent<AI.JesusV2Brain>().enabled = true;
 
-        SoundManager.PlayMusic(bossMusic);
+        SoundManager.TransitionToMusic(bossMusic,true,1,1);
         jesus.OnDeath += (Unit u) =>
         {
             Game.instance.levelScript.Win();

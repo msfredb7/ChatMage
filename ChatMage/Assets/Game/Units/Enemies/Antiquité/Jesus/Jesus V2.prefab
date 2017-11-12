@@ -449,6 +449,9 @@ GameObject:
   - component: {fileID: 95731646545078434}
   - component: {fileID: 114668790860457752}
   - component: {fileID: 114963050070903378}
+  - component: {fileID: 114326972680048928}
+  - component: {fileID: 114970958779506222}
+  - component: {fileID: 114141032224521080}
   m_Layer: 11
   m_Name: Jesus V2
   m_TagString: Untagged
@@ -956,6 +959,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allegiance: 2
+  isDead: 0
   moveSpeed: 2
   targetDirection: 0
   rotationSetsTargetDirection: 1
@@ -970,6 +974,7 @@ MonoBehaviour:
   targets:
     targetAllegiances: 00000000
   bodyCenter: {fileID: 4642671997984650}
+  damagableOnStart: 0
   displayName: Brutus
   hp: 8
   finalTimescale: 1.8
@@ -995,6 +1000,54 @@ MonoBehaviour:
   deadBodyVisuals:
   - {fileID: 212066523617686970}
   - {fileID: 212894088309737380}
+--- !u!114 &114141032224521080
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1962559319646076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ebff343c5c56e143903d219396fe9c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectReferences: []
+  _serializedStateKeys:
+  - soundPlayers
+  _serializedStateValues:
+  - '[]'
+  setListAutomaticaly: 1
+  soundPlayers: []
+--- !u!114 &114326972680048928
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1962559319646076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85205e10ad9c52a4db004e69b39bacba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectReferences:
+  - {fileID: 8300000, guid: d863afff7f435734ebf432531749625e, type: 3}
+  _serializedStateKeys:
+  - soundList
+  - soundType
+  _serializedStateValues:
+  - '{"list":[0]}'
+  - '"sfx"'
+  tag: throw
+  soundList:
+    list:
+    - {fileID: 8300000, guid: d863afff7f435734ebf432531749625e, type: 3}
+  soundType: 1
+  useCustomSettings: 0
+  looping: 0
+  volume: 1
+  delay: 0
+  startOnReactivation: 0
+  sfxLoopSource: {fileID: 0}
 --- !u!114 &114390172310932002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1076,6 +1129,36 @@ MonoBehaviour:
   _serializedStateValues: []
   tags:
   - jesus
+--- !u!114 &114970958779506222
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1962559319646076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85205e10ad9c52a4db004e69b39bacba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectReferences:
+  - {fileID: 8300000, guid: 258d3034c53c4294a8fb3f0f38e223a2, type: 3}
+  _serializedStateKeys:
+  - soundList
+  - soundType
+  _serializedStateValues:
+  - '{"list":[0]}'
+  - '"sfx"'
+  tag: die
+  soundList:
+    list:
+    - {fileID: 8300000, guid: 258d3034c53c4294a8fb3f0f38e223a2, type: 3}
+  soundType: 1
+  useCustomSettings: 0
+  looping: 0
+  volume: 1
+  delay: 0
+  startOnReactivation: 0
+  sfxLoopSource: {fileID: 0}
 --- !u!212 &212021833002350948
 SpriteRenderer:
   m_ObjectHideFlags: 1
