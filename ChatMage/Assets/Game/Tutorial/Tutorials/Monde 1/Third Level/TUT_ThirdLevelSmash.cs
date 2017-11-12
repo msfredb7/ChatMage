@@ -79,7 +79,7 @@ namespace Tutorial
                 + "special power to <color=#96EEFFFF>SLOW DOWN TIME!</color>", true);
             modules.spotlight.On(Game.instance.ui.smashDisplay.GetAbsolutePosition());
 
-            modules.shorcuts.WaitForTouchOrKeyDown(P2_YouHaveEnough);
+            modules.delayedAction.Do(1, () => modules.shorcuts.WaitForTouchOrKeyDown(P2_YouHaveEnough));
         }
         void P2_YouHaveEnough()
         {
@@ -93,17 +93,19 @@ namespace Tutorial
             controlsDisplay.HideInstant();
             controlsDisplay.Show();
 
-            modules.shorcuts.WaitForTouchOrKeyDown(() =>
-            {
-                modules.shorcuts.TimeUnFreeze();
-                controlsDisplay.Hide();
+            modules.delayedAction.Do(1, () =>
+                modules.shorcuts.WaitForTouchOrKeyDown(() =>
+                {
+                    modules.shorcuts.TimeUnFreeze();
+                    controlsDisplay.Hide();
 
 
-                InitQueue queue = new InitQueue(End);
-                modules.spotlight.Off(queue.RegisterTween());
-                modules.textDisplay.HideText(queue.RegisterTween());
-                queue.MarkEnd();
-            });
+                    InitQueue queue = new InitQueue(End);
+                    modules.spotlight.Off(queue.RegisterTween());
+                    modules.textDisplay.HideText(queue.RegisterTween());
+                    queue.MarkEnd();
+                })
+            );
         }
     }
 }
