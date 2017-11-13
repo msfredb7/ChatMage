@@ -133,6 +133,12 @@ public class DialogDisplay : MonoBehaviour
         currentDialog = null;
     }
 
+    public void SpeedUpOrNext_Mobile()
+    {
+        if (Application.isMobilePlatform)
+            SpeedUpOrNext();
+    }
+
     public void SpeedUpOrNext()
     {
         if (currentDialog == null || !currentDialog.isActive)
