@@ -34,6 +34,7 @@ public class JesusIntroAnimation : InGameAnimator
 
     [Header("Music")]
     public AudioClip bossMusic;
+    public float musicVolume = 0.25f;
 
 
     private bool jesusWokeAF = false;
@@ -61,7 +62,7 @@ public class JesusIntroAnimation : InGameAnimator
         jesus.ShowHP();
         jesus.GetComponent<AI.JesusV2Brain>().enabled = true;
 
-        SoundManager.TransitionToMusic(bossMusic, true, 0.25f, 1);
+        SoundManager.PlayMusic(bossMusic, true, musicVolume);
         jesus.OnDeath += (Unit u) =>
         {
             Game.instance.levelScript.Win();

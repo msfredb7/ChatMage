@@ -111,6 +111,7 @@ public class JesusV2AnimatorV2 : EnemyAnimator, IShaker
     }
     private void _BigStomp()
     {
+        SoundManager.PlaySFX(walkSounds.Pick(), volume: walkVolume + 0.3f);
         Game.instance.gameCamera.vectorShaker.Shake(walkStomp * 2);
     }
 }
