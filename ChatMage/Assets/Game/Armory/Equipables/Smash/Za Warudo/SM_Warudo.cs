@@ -17,6 +17,7 @@ public class SM_Warudo : Smash
 
     [InspectorHeader("SFX Linking")]
     public AudioClip sfx;
+    public AudioClip exitSfx;
 
     [InspectorHeader("VFX Linking")]
     public Material zaWarudoMat;
@@ -139,7 +140,7 @@ public class SM_Warudo : Smash
                 AddActiveCarTrails();
         });
 
-        SoundManager.PlaySFX(sfx);
+        SoundManager.PlayStaticSFX(sfx);
     }
 
     void MultiplyTimescale(float multiplier)
@@ -210,14 +211,16 @@ public class SM_Warudo : Smash
                 vignette_instance.gameObject.SetActive(false);
         });
 
-        SoundManager.SlowMotionEffect(false);
-
         //Shader animation
         DetachActiveCarTrails();
         vfx.AnimateBack(delegate ()
         {
             MultiplyTimescale(1 / timescaleMultiplier);
         });
+        
+
+        SoundManager.SlowMotionEffect(false);
+        SoundManager.PlayStaticSFX(exitSfx);
     }
 
     public override void OnUpdate()
