@@ -17,6 +17,10 @@ public class JesusRockV2 : MovingUnit
     public bool recenterOverTime = false;
     public float recenterSpeed = 0.25f;
 
+    [Header("SFX")]
+    public CCC.Utility.RandomAudioCliptList hitSounds;
+    public float hitVolume = .9f;
+
     private bool isFlying = false;
     public bool IsFlying { get { return isFlying; } }
     public Unit InTheHandsOf { get { return inTheHandsOf; } }
@@ -82,6 +86,8 @@ public class JesusRockV2 : MovingUnit
         collider.enabled = true;
         rb.drag = 20;
         cannotHit = null;
+
+        CCC.Manager.SoundManager.PlaySFX(hitSounds.Pick(), volume: hitVolume);
 
         Game.instance.gameCamera.vectorShaker.Shake(onHitShakeStrength);
     }
