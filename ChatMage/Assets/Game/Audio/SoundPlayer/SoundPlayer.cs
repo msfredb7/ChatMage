@@ -33,7 +33,7 @@ public class SoundPlayer : BaseBehavior
         MasterManager.Sync();
     }
 
-    public void PlaySound()
+    public virtual void PlaySound()
     {
         switch (soundType)
         {

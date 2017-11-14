@@ -221,7 +221,7 @@ GameObject:
   - component: {fileID: 114924458662569236}
   - component: {fileID: 95674097231339120}
   - component: {fileID: 114564938662220348}
-  - component: {fileID: 114130165532834950}
+  - component: {fileID: 114985049177857650}
   - component: {fileID: 114506413012067704}
   m_Layer: 10
   m_Name: Spearman
@@ -607,46 +607,6 @@ MonoBehaviour:
   deadBody: {fileID: 4565282363220888}
   attackListener: {fileID: 114504018691956866}
   bumpForce: 3.75
---- !u!114 &114130165532834950
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1871222452349014}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85205e10ad9c52a4db004e69b39bacba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _objectReferences:
-  - {fileID: 8300000, guid: 242e9eae3ec431b4a96df2aea7454978, type: 3}
-  - {fileID: 8300000, guid: 9534bfaac27c62642950cdc6aef1c60f, type: 3}
-  - {fileID: 8300000, guid: 580525247f677ed439488c9acc09ec24, type: 3}
-  - {fileID: 8300000, guid: 2c8a3c17122a27c4bbdc8164b6807bf4, type: 3}
-  - {fileID: 8300000, guid: e3ed7d0c024cdef4c99a997155dc4e8e, type: 3}
-  - {fileID: 8300000, guid: 79db12a5b3e54b849a1f805881a81aa5, type: 3}
-  _serializedStateKeys:
-  - soundList
-  - soundType
-  _serializedStateValues:
-  - '{"list":[0,1,2,3,4,5]}'
-  - '"sfx"'
-  tag: death
-  soundList:
-    list:
-    - {fileID: 8300000, guid: 242e9eae3ec431b4a96df2aea7454978, type: 3}
-    - {fileID: 8300000, guid: 9534bfaac27c62642950cdc6aef1c60f, type: 3}
-    - {fileID: 8300000, guid: 580525247f677ed439488c9acc09ec24, type: 3}
-    - {fileID: 8300000, guid: 2c8a3c17122a27c4bbdc8164b6807bf4, type: 3}
-    - {fileID: 8300000, guid: e3ed7d0c024cdef4c99a997155dc4e8e, type: 3}
-    - {fileID: 8300000, guid: 79db12a5b3e54b849a1f805881a81aa5, type: 3}
-  soundType: 1
-  useCustomSettings: 1
-  looping: 0
-  volume: 1
-  delay: 0
-  startOnReactivation: 0
-  sfxLoopSource: {fileID: 0}
 --- !u!114 &114207383472651024
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -787,6 +747,37 @@ MonoBehaviour:
   checkWhenAboveCamera: 1
   overrideDefaultDeactivationRange: 0
   newDeactivationRange: 10
+--- !u!114 &114985049177857650
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1871222452349014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc0be475b9ee7a74d930ab3c674320d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectReferences: []
+  _serializedStateKeys:
+  - soundList
+  - soundType
+  - sfxType
+  _serializedStateValues:
+  - '{"list":[]}'
+  - '"sfx"'
+  - '"death"'
+  tag: death
+  soundList:
+    list: []
+  soundType: 1
+  useCustomSettings: 0
+  looping: 0
+  volume: 1
+  delay: 0
+  startOnReactivation: 0
+  sfxLoopSource: {fileID: 0}
+  sfxType: 1
 --- !u!212 &212033303334370924
 SpriteRenderer:
   m_ObjectHideFlags: 1

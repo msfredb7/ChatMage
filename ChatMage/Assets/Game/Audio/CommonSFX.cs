@@ -8,6 +8,7 @@ public class CommonSFX : MonoBehaviour
 {
     public RandomAudioCliptList hitSounds;
     public RandomAudioCliptList smashActivation;
+    public RandomAudioCliptList deathSounds;
 
     public float sfxStandardVolume = 1;
 
@@ -19,5 +20,10 @@ public class CommonSFX : MonoBehaviour
     public void SmashActive()
     {
         SoundManager.PlaySFX(smashActivation.Pick(), 0, sfxStandardVolume);
+    }
+
+    public void Death()
+    {
+        SoundManager.PlaySFX(deathSounds.Pick(), 0, sfxStandardVolume);
     }
 }
