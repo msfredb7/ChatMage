@@ -24,7 +24,12 @@ namespace EndGameReward
 
         public void Stop(float duration = 3)
         {
-            DOTween.To(() => currentSpeed, (x) => { currentSpeed = x; myAnimator.SetFloat("speed", currentSpeed); }, 0, duration)
+            DOTween.To(() => currentSpeed, (x) =>
+            {
+                currentSpeed = x;
+                if (gameObject.activeInHierarchy)
+                    myAnimator.SetFloat("speed", currentSpeed);
+            }, 0, duration)
                 .SetEase(Ease.InSine)
                 .SetUpdate(false);
         }

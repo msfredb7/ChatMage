@@ -53,7 +53,7 @@ public class PlayerInput : MonoBehaviour
                     turning++;
                 if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
                     turning--;
-                if (Game.instance.gameRunning && 
+                if (Game.instance.gameRunning &&
                     (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)))
                     smashPress = true;
             }
@@ -65,6 +65,9 @@ public class PlayerInput : MonoBehaviour
 
     void OnPlayerTouch(Vector2 pixelPosition)
     {
+        if (!Application.isMobilePlatform)
+            return;
+
         float x = pixelPosition.x;
         float regionWidth = Screen.width / 3f;
 

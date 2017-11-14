@@ -16,6 +16,7 @@ namespace EndGameReward
         //private int currentReward;
 
         public Button continueButton;
+        public Text levelCleanedText;
         public RewardDisplayItem[] items;
 
         public void Init(GameReward rewards)
@@ -63,6 +64,7 @@ namespace EndGameReward
                 }
 
             continueButton.gameObject.SetActive(true);
+            levelCleanedText.gameObject.SetActive(true);
         }
     }
 }

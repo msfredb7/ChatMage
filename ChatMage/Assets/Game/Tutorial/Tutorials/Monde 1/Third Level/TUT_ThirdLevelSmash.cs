@@ -73,6 +73,8 @@ namespace Tutorial
 
         void P1_ShowSmashMeter()
         {
+            Game.instance.ui.playerInputs.Enabled.Lock("tut");
+
             modules.shorcuts.TimeFreeze();
             modules.textDisplay.SetBottom();
             modules.textDisplay.DisplayText("You have earned enough time-energy by defeating enemies. You can now use your "
@@ -84,20 +86,26 @@ namespace Tutorial
         void P2_YouHaveEnough()
         {
             string message = Application.isMobilePlatform ? "Activate your power by touching the center of your screen."
-                : "Activate your power by pressing one of those keys.";
+                : "Activate your power by pressing the space bar.";
             modules.textDisplay.DisplayText(message, true);
 
-            CanvasGroupBehaviour controlsDisplay = Instantiate(useSmashControls.gameObject, modules.transform).GetComponent<CanvasGroupBehaviour>();
-            useSmashControls.transform.localScale = Vector3.one;
+            CanvasGroupBehaviour controlsDisplay = null;
+            if (!Application.isMobilePlatform)
+            {
+                controlsDisplay = Instantiate(useSmashControls.gameObject, modules.transform).GetComponent<CanvasGroupBehaviour>();
+                controlsDisplay.transform.localScale = Vector3.one;
 
-            controlsDisplay.HideInstant();
-            controlsDisplay.Show();
+                controlsDisplay.HideInstant();
+                controlsDisplay.Show();
+            }
 
             modules.delayedAction.Do(1, () =>
                 modules.shorcuts.WaitForTouchOrKeyDown(() =>
                 {
+                    Game.instance.ui.playerInputs.Enabled.Unlock("tut");
                     modules.shorcuts.TimeUnFreeze();
-                    controlsDisplay.Hide();
+                    if (controlsDisplay != null)
+                        controlsDisplay.Hide();
 
 
                     InitQueue queue = new InitQueue(End);
