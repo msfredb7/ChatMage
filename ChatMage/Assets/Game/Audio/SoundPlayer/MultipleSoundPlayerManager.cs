@@ -32,10 +32,10 @@ public class MultipleSoundPlayerManager : BaseBehavior {
                 if(soundPlayers[i].enabled)
                     soundPlayers[i].PlaySound();
             }
-            if(soundPlayers[i].tag == "stretch")
-            {
-                Debug.Log("wtf");
-            }
+            //if(soundPlayers[i].tag == "stretch")
+            //{
+            //    Debug.Log("wtf");
+            //}
         }
     }
 
