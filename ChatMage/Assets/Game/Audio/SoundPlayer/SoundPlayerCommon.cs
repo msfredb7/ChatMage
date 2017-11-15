@@ -1,0 +1,25 @@
+﻿using CCC.Manager;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class SoundPlayerCommon : SoundPlayer
+{
+    public enum SFXType { hit = 0, death = 1 }
+    public SFXType sfxType = SFXType.hit;
+
+    public override void PlaySound()
+    {
+        switch (sfxType)
+        {
+            case SFXType.hit:
+                Game.instance.commonSfx.Hit();
+                break;
+            case SFXType.death:
+                Game.instance.commonSfx.Death();
+                break;
+            default:
+                break;
+        }
+    }
+}
