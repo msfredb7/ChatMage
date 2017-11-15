@@ -14,8 +14,7 @@ public class MultipleSoundPlayerManager : BaseBehavior {
     {
         if (setListAutomaticaly)
         {
-            if (soundPlayers == null)
-                soundPlayers = new List<SoundPlayer>();
+            soundPlayers = new List<SoundPlayer>();
 
             SoundPlayer[] soundPlayerComponents = GetComponents<SoundPlayer>();
             for (int i = 0; i < soundPlayerComponents.Length; i++)
@@ -32,6 +31,10 @@ public class MultipleSoundPlayerManager : BaseBehavior {
             if (soundPlayers[i].tag == tag) {
                 if(soundPlayers[i].enabled)
                     soundPlayers[i].PlaySound();
+            }
+            if(soundPlayers[i].tag == "stretch")
+            {
+                Debug.Log("wtf");
             }
         }
     }
