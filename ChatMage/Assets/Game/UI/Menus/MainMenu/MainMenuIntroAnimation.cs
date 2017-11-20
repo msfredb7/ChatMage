@@ -9,14 +9,11 @@ public class MainMenuIntroAnimation : MonoBehaviour {
     public float fadeDuration = 1f;
 
     public MainMenu mainMenu;
-    public MainMenuCarAnimation carAnimation;
 
     void Start()
     {
         mainMenu.Init();
         canvasGroup.alpha = 0;
-        canvasGroup.DOFade(1, fadeDuration).OnComplete(delegate () {
-            carAnimation.Init();
-        });
+        canvasGroup.DOFade(1, fadeDuration).OnComplete(null);
     }
 }

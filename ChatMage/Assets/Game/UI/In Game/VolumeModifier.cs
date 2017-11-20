@@ -6,20 +6,20 @@ using CCC.Manager;
 
 public class VolumeModifier : MonoBehaviour
 {
-    public Toggle sfxToggle;
-    public Toggle musicToggle;
+    public Slider sfxSlidder;
+    public Slider musicSlidder;
 
     void Awake()
     {
-        sfxToggle.isOn = !SoundManager.GetSFXSetting().muted;
-        sfxToggle.onValueChanged.AddListener(delegate (bool newValue)
+        sfxSlidder.value = SoundManager.GetSFXSetting().dbBoost;
+        sfxSlidder.onValueChanged.AddListener(delegate (float newValue)
         {
-            SoundManager.SetSFX(!newValue);
+            SoundManager.SetSFX(newValue);
         });
-        musicToggle.isOn = !SoundManager.GetMusicSetting().muted;
-        musicToggle.onValueChanged.AddListener(delegate (bool newValue)
+        musicSlidder.value = SoundManager.GetMusicSetting().dbBoost;
+        musicSlidder.onValueChanged.AddListener(delegate (float newValue)
         {
-            SoundManager.SetMusic(!newValue);
+            SoundManager.SetMusic(newValue);
         });
     }
 }
