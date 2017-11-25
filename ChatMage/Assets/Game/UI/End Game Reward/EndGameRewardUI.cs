@@ -15,14 +15,14 @@ namespace EndGameReward
         public BackgroundFreezer backgroundFreezer;
         public RewardDisplay rewardDisplay;
 
-        //private string levelScriptAssetName;
+        private string levelScriptAssetName;
         private GameReward reward;
 
         private Vector2 pinataCenter;
 
         public void Init(GameReward reward, string levelScriptAssetName)
         {
-            //this.levelScriptAssetName = levelScriptAssetName;  //On en a pas de besoin pour l'instant
+            this.levelScriptAssetName = levelScriptAssetName;
             this.reward = reward;
         }
 
@@ -43,7 +43,12 @@ namespace EndGameReward
 
         public void Continue()
         {
-            LoadingScreen.TransitionTo(LevelSelect.LevelSelection.SCENENAME, null);
+            if(levelScriptAssetName == "LS_ThirdLevel")
+            {
+                GameSaves.instance.ClearAllSaves();
+                LoadingScreen.TransitionTo(MainMenu.SCENENAME, null);
+            } else
+                LoadingScreen.TransitionTo(LevelSelect.LevelSelection.SCENENAME, null);
         }
     }
 }
