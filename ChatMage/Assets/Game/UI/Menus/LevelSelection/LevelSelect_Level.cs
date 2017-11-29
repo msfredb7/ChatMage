@@ -17,12 +17,24 @@ namespace LevelSelect
         public delegate void LevelSelectEvent(Level level);
         public event LevelSelectEvent onLevelSelected;
 
+        // First Apparition Animation
+        [HideInInspector]
+        public bool hasBeenSeen;
+        private string hasBeenSeenKey = "seen";
 
         void Awake()
         {
             rectTransform = GetComponent<RectTransform>();
             button.onClick.AddListener(OnClick);
             displayName.text = level.displayName;
+        }
+
+        void Start()
+        {
+            if (GameSaves.instance.ContainsBool(GameSaves.Type.Levels, hasBeenSeenKey))
+                hasBeenSeen = GameSaves.instance.GetBool(GameSaves.Type.Levels, hasBeenSeenKey);
+            else
+                GameSaves.instance.SetBool(GameSaves.Type.Levels, hasBeenSeenKey, false);
         }
 
         void OnClick()
@@ -51,6 +63,12 @@ namespace LevelSelect
         public void Hide()
         {
             gameObject.SetActive(false);
+        }
+
+        public void MarkAsSeen()
+        {
+            GameSaves.instance.SetBool(GameSaves.Type.Levels, hasBeenSeenKey, true);
+            hasBeenSeen = true;
         }
     }
 }

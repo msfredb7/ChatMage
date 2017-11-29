@@ -18,6 +18,7 @@ namespace LevelSelect
         public Button backButton;
         public Button shopButton;
         public LevelSelect_MapAnimator mapAnimator;
+        public GameObject inputBlocker;
 
         public AudioClip levelSelectMusic;
 
@@ -38,6 +39,7 @@ namespace LevelSelect
 
             mapAnimator.SetLastUnlockedRegionIndex(GetLastUnlockedRegion());
 
+            VerifyNewLevelAnimation();
             //NOTE: Quand on va vouloir implémenté des animation forcés (ex: unlock un nouveau niveau / une nouvelle région)
             //      on va devoir mettre une variable sauvegardé dans Level du style: 'bool hasBeenSeen'
             //      si le niveau est unlocked MAIS que hasBeenSeen est faux, on met hasBeenSeen à vrai (+ on sauvegarde)
@@ -91,6 +93,28 @@ namespace LevelSelect
                     return i - 1;
             }
             return regions.Count - 1;
+        }
+
+        public bool VerifyNewLevelAnimation()
+        {
+            for (int i = 0; i < regions.Count; i++)
+            {
+                for (int j = 0; j < regions[i].levelItems.Count; j++)
+                {
+                    if(regions[i].levelItems[j].IsUnlocked() && !regions[i].levelItems[j].hasBeenSeen)
+                    {
+                        inputBlocker.SetActive(true);
+                        regions[i].levelItems[j].GetComponent<RoadMapPoint>().StartRoad(delegate ()
+                        {
+                            regions[i].levelItems[j].MarkAsSeen();
+                            if (!VerifyNewLevelAnimation())
+                                inputBlocker.SetActive(false);
+                        });
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
     }
 }
