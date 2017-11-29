@@ -101,13 +101,14 @@ namespace LevelSelect
             {
                 for (int j = 0; j < regions[i].levelItems.Count; j++)
                 {
-                    if(regions[i].levelItems[j].IsUnlocked() && !regions[i].levelItems[j].hasBeenSeen)
+                    if (regions[i].levelItems[j].IsUnlocked() && !regions[i].levelItems[j].hasBeenSeen)
                     {
-                        inputBlocker.SetActive(true);
+                        if (inputBlocker)
+                            inputBlocker.SetActive(true);
                         regions[i].levelItems[j].GetComponent<RoadMapPoint>().StartRoad(delegate ()
                         {
                             regions[i].levelItems[j].MarkAsSeen();
-                            if (!VerifyNewLevelAnimation())
+                            if (!VerifyNewLevelAnimation() && inputBlocker != null)
                                 inputBlocker.SetActive(false);
                         });
                         return true;
