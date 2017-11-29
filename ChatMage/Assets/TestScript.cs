@@ -7,6 +7,8 @@ using CCC.Utility;
 using UnityEngine.UI;
 using FullInspector;
 using DG.Tweening;
+using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class TestScript : MonoBehaviour
 {
@@ -24,12 +26,8 @@ public class TestScript : MonoBehaviour
     [Range(0, 1)]
     public float startingVolume;
 
-
-    void Update()
+    void Awake()
     {
-        //if (Input.GetKeyDown(KeyCode.T))
-        //{
-        //}
     }
 
     public void StopMusic()
