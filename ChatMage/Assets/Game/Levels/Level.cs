@@ -51,11 +51,12 @@ public class Level : BaseScriptableObject
     [InspectorButton]
     private void ApplyData()
     {
-        GameSaves.instance.SetBool(GameSaves.Type.Levels, GetCompleteSeenKey(), hasBeenSeen);
+		GameSaves.instance.SetBool(GameSaves.Type.Levels, LevelScript.COMPLETED_KEY + levelScriptName, hasBeenCompleted);
+		GameSaves.instance.SetBool(GameSaves.Type.Levels, GetCompleteSeenKey(), hasBeenSeen);
     }
 
     private string GetCompleteSeenKey()
     {
-        return name + SEEN_KEY;
+        return levelScriptName + SEEN_KEY;
     }
 }

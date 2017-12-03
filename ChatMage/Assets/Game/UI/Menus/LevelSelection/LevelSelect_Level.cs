@@ -20,7 +20,7 @@ namespace LevelSelect
         // First Apparition Animation
         [HideInInspector]
         public bool hasBeenSeen;
-        private string hasBeenSeenKey = "seen";
+        private string hasBeenSeenKey = "_seen";
 
         void Awake()
         {
@@ -31,10 +31,10 @@ namespace LevelSelect
 
         void Start()
         {
-            if (GameSaves.instance.ContainsBool(GameSaves.Type.Levels, hasBeenSeenKey))
-                hasBeenSeen = GameSaves.instance.GetBool(GameSaves.Type.Levels, hasBeenSeenKey);
-            else
-                GameSaves.instance.SetBool(GameSaves.Type.Levels, hasBeenSeenKey, false);
+            if (GameSaves.instance.ContainsBool(GameSaves.Type.Levels, level.levelScriptName + hasBeenSeenKey))
+                hasBeenSeen = GameSaves.instance.GetBool(GameSaves.Type.Levels, level.levelScriptName + hasBeenSeenKey);
+            /*else
+                GameSaves.instance.SetBool(GameSaves.Type.Levels, hasBeenSeenKey + level.levelScriptName, false);*/
         }
 
         void OnClick()
@@ -57,7 +57,7 @@ namespace LevelSelect
         {
             level.LoadData();
 
-            gameObject.SetActive(IsUnlocked());
+			gameObject.SetActive(IsUnlocked() && (level.previousLevels.Count > 0 ? level.previousLevels[0].HasBeenSeen : true));
         }
 
         public void Hide()
@@ -67,7 +67,7 @@ namespace LevelSelect
 
         public void MarkAsSeen()
         {
-            GameSaves.instance.SetBool(GameSaves.Type.Levels, hasBeenSeenKey, true);
+            GameSaves.instance.SetBool(GameSaves.Type.Levels, level.levelScriptName + hasBeenSeenKey, true);
             hasBeenSeen = true;
         }
     }
