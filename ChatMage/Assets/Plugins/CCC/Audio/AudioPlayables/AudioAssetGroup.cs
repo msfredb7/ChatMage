@@ -16,12 +16,12 @@ public class AudioAssetGroup : AudioPlayable
         if (clips == null || clips.Length == 0)
             return;
 
-        int index = Pick();
+        int index = PickClip();
         clips[index].PlayOn(audioSource);
         lastPickedIndex = index;
     }
 
-    private int Pick()
+    private int PickClip()
     {
         if (lastPickedIndex >= clips.Length)
             lastPickedIndex = 0;
