@@ -24,6 +24,7 @@ public class SpearmanAnimatorV2 : EnemyAnimator
         attackCallback = onComplete;
         this.attackMoment = attackMoment;
         controller.SetTrigger(attackHash);
+        vehicle.spearAttackConsumed = false;
     }
 
     private void _AttackMoment()
