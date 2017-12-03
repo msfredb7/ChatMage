@@ -101,18 +101,44 @@ namespace LevelSelect
             {
                 for (int j = 0; j < regions[i].levelItems.Count; j++)
                 {
-                    if (regions[i].levelItems[j].IsUnlocked() && !regions[i].levelItems[j].hasBeenSeen)
+					if (regions[i].levelItems[j].IsUnlocked() && regions[i].levelItems[j].level.HasBeenCompleted)
                     {
                         if (inputBlocker)
                             inputBlocker.SetActive(true);
-                        regions[i].levelItems[j].GetComponent<RoadMapPoint>().StartRoad(delegate ()
-                        {
-                            regions[i].levelItems[j].MarkAsSeen();
-                            if (!VerifyNewLevelAnimation() && inputBlocker != null)
-                                inputBlocker.SetActive(false);
-                        });
-                        return true;
-                    }
+
+						//Debug.Log("level completed " + regions[i].levelItems[j].level.HasBeenCompleted);
+						//Debug.Log("level unlocked " + regions[i].levelItems[j].IsUnlocked());
+						//Debug.Log(regions[i].levelItems[j] + "levelselect_level has been seen " + regions[i].levelItems[j].hasBeenSeen);
+						//Debug.Log(regions[i].levelItems[j] + "level has been seen " + regions[i].levelItems[j].level.HasBeenSeen);
+						if(regions[i].levelItems[j].GetComponent<DrawRoad>().nextLevel != null) {
+							if (regions[i].levelItems[j].hasBeenSeen) {
+								regions[i].levelItems[j].GetComponent<DrawRoad>().ShowAllRoad();
+								Debug.Log("here");
+							}
+							else {
+								regions[i].levelItems[j].GetComponent<DrawRoad>().StartRoad();
+								regions[i].levelItems[j].MarkAsSeen();
+								//regions[i].levelItems[j].level.HasBeenSeen = true;
+								GameSaves.instance.SaveData(GameSaves.Type.Levels);
+							}
+						}
+						else {
+							regions[i].levelItems[j].MarkAsSeen();
+						}
+
+						//regions[i].levelItems[j].GetComponent<DrawRoad>().StartRoad();
+
+							/*
+							regions[i].levelItems[j].GetComponent<RoadMapPoint>().StartRoad(delegate ()
+							{
+								regions[i].levelItems[j].MarkAsSeen();
+								if (!VerifyNewLevelAnimation() && inputBlocker != null)
+									inputBlocker.SetActive(false);
+							});
+							*/
+
+							//return true;
+					}
                 }
             }
             return false;
