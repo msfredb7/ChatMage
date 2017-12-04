@@ -29,6 +29,8 @@ public class Framework : MonoBehaviour
     private LoadoutResult loadoutResult;
     private bool canGoToLevelSelect;
 
+    [System.NonSerialized]
+    public bool isARetry = false;
     public bool CanGoToLevelSelect { get { return canGoToLevelSelect; } }
 
     void Start()
@@ -155,6 +157,8 @@ public class Framework : MonoBehaviour
 
     public void RestartLevel()
     {
-        LoadingScreen.TransitionTo(SCENENAME,new ToGameMessage(levelScript.name,loadoutResult),true);
+        ToGameMessage gameMessage = new ToGameMessage(levelScript.name, loadoutResult);
+        gameMessage.SetHasARetry(true);
+        LoadingScreen.TransitionTo(SCENENAME, gameMessage, true);
     }
 }

@@ -10,6 +10,7 @@ public class ToGameMessage : SceneMessage
     private string levelScriptName;
     private LoadoutResult loadoutResult;
     private bool canGoToLevelSelect;
+    private bool isARetry = false;
 
     public ToGameMessage(string levelScriptName, LoadoutResult loadoutResult, bool canGoToLevelSelect = true)
     {
@@ -17,9 +18,16 @@ public class ToGameMessage : SceneMessage
         this.loadoutResult = loadoutResult;
         this.canGoToLevelSelect = canGoToLevelSelect;
     }
+
+    public void SetHasARetry(bool isARetry)
+    {
+        this.isARetry = isARetry;
+    }
+
     public void OnLoaded(Scene scene)
     {
         Framework framework = Scenes.FindRootObject<Framework>(scene);
+        framework.isARetry = isARetry;
         framework.Init(levelScriptName, loadoutResult, canGoToLevelSelect);
     }
 
