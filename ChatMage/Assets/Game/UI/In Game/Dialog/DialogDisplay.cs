@@ -98,8 +98,6 @@ public class DialogDisplay : MonoBehaviour
 
     public void StartDialog(Dialog dialog, Action onComplete = null)
     {
-        // On s'assure que le joueur est bien visible
-        Game.instance.Player.playerStats.EnableSprite();
 
         if (CurrentDialog != null)
             throw new Exception("Cannot start a dialog while another is ongoing.");
@@ -107,36 +105,19 @@ public class DialogDisplay : MonoBehaviour
         if (dialog == null)
             throw new Exception("Tried to start a null dialog.");
 
-        //Est-ce que le dialog a le flag SkipIfLevelCompleted ?
-        if ((dialog.skipFlags & SkipFlags.SkipIfLevelCompleted) != 0)
+        if (CheckSkipFlags(dialog))
         {
-            bool isInList = DialogSkip.IsInPermanentSkip(dialog);
-            if (LevelScript.HasBeenCompleted(Game.instance.levelScript) && isInList)
-            {
-                if (onComplete != null)
-                    onComplete();
-                return;
-            }
-            if (!isInList)
-            {
-                DialogSkip.AddToPermanentSkipList(dialog);
-                savePermSkipListOnWin = true;
-            }
-        }
-
-        //Est-ce que le dialog a le flag SkipIfRetry ?
-        if ((dialog.skipFlags & SkipFlags.SkipIfRetry) != 0)
-        {
-            if (Game.instance.framework.isARetry && DialogSkip.IsInTemporarySkip(dialog))
-            {
-                if (onComplete != null)
-                    onComplete();
-                return;
-            }
-            DialogSkip.AddToTemporarySkipList(dialog);
+            if (onComplete != null)
+                onComplete();
+            return;
         }
 
 
+
+
+
+        // On s'assure que le joueur est bien visible
+        Game.instance.Player.playerStats.EnableSprite();
 
         if (dialog.pauseGame)
             Game.instance.gameRunning.Lock("dialog");
@@ -153,6 +134,42 @@ public class DialogDisplay : MonoBehaviour
         ui.healthDisplay.Hide();
 
         textBox.Open(OnOpenComplete);
+    }
+
+    private bool CheckSkipFlags(Dialog dialog)
+    {
+        //Est-ce que le dialog a le flag SkipIfLevelCompleted ?
+        if ((dialog.skipFlags & SkipFlags.SkipIfLevelCompleted) != 0)
+        {
+            bool isInList = DialogSkip.IsInPermanentSkip(dialog);
+            if (LevelScript.HasBeenCompleted(Game.instance.levelScript) && isInList)
+            {
+                return true;
+            }
+            if (!isInList)
+            {
+                DialogSkip.AddToPermanentSkipList(dialog);
+                savePermSkipListOnWin = true;
+            }
+        }
+
+        //Est-ce que le dialog a le flag SkipIfRetry ?
+        if ((dialog.skipFlags & SkipFlags.SkipIfRetry) != 0)
+        {
+            if (Game.instance.framework.isARetry && DialogSkip.IsInTemporarySkip(dialog))
+            {
+                return true;
+            }
+            DialogSkip.AddToTemporarySkipList(dialog);
+        }
+
+        //Est-ce que le dialog a le flag AlwaysSkip ?
+        if ((dialog.skipFlags & SkipFlags.AlwaysSkip) != 0)
+        {
+            return true;
+        }
+
+        return false;
     }
 
     private void OnOpenComplete()

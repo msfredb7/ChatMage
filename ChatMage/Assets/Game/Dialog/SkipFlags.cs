@@ -9,6 +9,7 @@ namespace Dialoguing
     public enum SkipFlags
     {
         SkipIfRetry = 1 << 0,
-        SkipIfLevelCompleted = 1 << 1
+        SkipIfLevelCompleted = 1 << 1,
+        AlwaysSkip = 1 << 2
     }
 }
