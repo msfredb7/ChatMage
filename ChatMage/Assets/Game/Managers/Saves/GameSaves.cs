@@ -144,6 +144,7 @@ public class GameSaves : BaseManager<GameSaves>
         LoadDataAsync(Type.Account, queue.Register());
         LoadDataAsync(Type.Armory, queue.Register());
         LoadDataAsync(Type.Tutorial, queue.Register());
+        LoadDataAsync(Type.Dialog, queue.Register());
 
         queue.MarkEnd();
     }
@@ -155,6 +156,7 @@ public class GameSaves : BaseManager<GameSaves>
         LoadData(Type.Account);
         LoadData(Type.Armory);
         LoadData(Type.Tutorial);
+        LoadData(Type.Dialog);
     }
 
     public void SaveAllAsync(Action onComplete)
@@ -165,6 +167,7 @@ public class GameSaves : BaseManager<GameSaves>
         SaveDataAsync(Type.Account, queue.Register());
         SaveDataAsync(Type.Armory, queue.Register());
         SaveDataAsync(Type.Tutorial, queue.Register());
+        SaveDataAsync(Type.Dialog, queue.Register());
 
         queue.MarkEnd();
     }
@@ -177,6 +180,7 @@ public class GameSaves : BaseManager<GameSaves>
         SaveData(Type.Account);
         SaveData(Type.Armory);
         SaveData(Type.Tutorial);
+        SaveData(Type.Dialog);
 #if UNITY_EDITOR
         Debug.Log("All Data Saved");
 #endif
@@ -241,11 +245,12 @@ public class GameSaves : BaseManager<GameSaves>
 
     public void ClearAllSaves()
     {
-        ClearSave(Type.Account);
-        ClearSave(Type.Levels);
-        ClearSave(Type.Loadout);
-        ClearSave(Type.Armory);
-        ClearSave(Type.Tutorial);
+        ClearAccount();
+        ClearLevelSelect();
+        ClearLoadout();
+        ClearArmory();
+        ClearTutorial();
+        ClearDialogs();
     }
 
     [InspectorButton()]
@@ -288,11 +293,24 @@ public class GameSaves : BaseManager<GameSaves>
         Debug.Log("Tutorial Cleared");
 #endif
     }
+    [InspectorButton()]
+    public void ClearDialogs()
+    {
+        ClearSave(Type.Dialog);
+#if UNITY_EDITOR
+        Debug.Log("Dialogs Cleared");
+#endif
+    }
 
     public void ClearSave(Type type)
     {
         Saves.Delete(GetPath() + TypeToFileName(type));
         NewOfType(type);
+    }
+
+    private void NewOfType(Type type)
+    {
+        ApplyDataByType(type, new Data());
     }
 
     #endregion
@@ -304,8 +322,9 @@ public class GameSaves : BaseManager<GameSaves>
     private const string ACCOUNT_FILE = "account.dat";
     private const string ARMORY_FILE = "armory.dat";
     private const string TUTORIAL_FILE = "tutorial.dat";
+    private const string DIALOG_FILE = "dialog.dat";
 
-    public enum Type { Levels = 0, Loadout = 1, Account = 2, Armory = 3, Tutorial = 4 }
+    public enum Type { Levels = 0, Loadout = 1, Account = 2, Armory = 3, Tutorial = 4, Dialog = 5}
 
     [ShowInInspector]
     private Data levelSelectData = new Data();
@@ -317,6 +336,8 @@ public class GameSaves : BaseManager<GameSaves>
     private Data armoryData = new Data();
     [ShowInInspector]
     private Data tutorialData = new Data();
+    [ShowInInspector]
+    private Data dialogData = new Data();
 
     private string TypeToFileName(Type type)
     {
@@ -332,6 +353,8 @@ public class GameSaves : BaseManager<GameSaves>
                 return ARMORY_FILE;
             case Type.Tutorial:
                 return TUTORIAL_FILE;
+            case Type.Dialog:
+                return DIALOG_FILE;
         }
         return "";
     }
@@ -350,6 +373,8 @@ public class GameSaves : BaseManager<GameSaves>
                 return armoryData;
             case Type.Tutorial:
                 return tutorialData;
+            case Type.Dialog:
+                return dialogData;
         }
         return null;
     }
@@ -373,27 +398,8 @@ public class GameSaves : BaseManager<GameSaves>
             case Type.Tutorial:
                 tutorialData = newData;
                 break;
-        }
-    }
-
-    private void NewOfType(Type type)
-    {
-        switch (type)
-        {
-            case Type.Levels:
-                levelSelectData = new Data();
-                break;
-            case Type.Loadout:
-                loadoutData = new Data();
-                break;
-            case Type.Account:
-                accountData = new Data();
-                break;
-            case Type.Armory:
-                armoryData = new Data();
-                break;
-            case Type.Tutorial:
-                tutorialData = new Data();
+            case Type.Dialog:
+                dialogData = newData;
                 break;
         }
     }

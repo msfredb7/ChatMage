@@ -24,7 +24,7 @@ public class DialogDisplay : MonoBehaviour
     private bool hpWasShown;
     private float skipTimer;
     private bool tryingToSkip;
-    //private bool smashWasShown;
+    private bool savePermSkipListOnWin = false;
 
     private class RuntimeDialog
     {
@@ -38,6 +38,21 @@ public class DialogDisplay : MonoBehaviour
     void Awake()
     {
         dialogContainer.SetActive(false);
+    }
+
+    public void Init()
+    {
+        if (!Game.instance.framework.isARetry)
+        {
+            DialogSkip.ClearTemporarySkipList();
+        }
+        Game.instance.levelScript.onWin += LevelScript_onWin;
+    }
+
+    private void LevelScript_onWin()
+    {
+        if (savePermSkipListOnWin)
+            DialogSkip.SavePermanentSkipListAsync();
     }
 
     void Update()
@@ -92,6 +107,37 @@ public class DialogDisplay : MonoBehaviour
         if (dialog == null)
             throw new Exception("Tried to start a null dialog.");
 
+        //Est-ce que le dialog a le flag SkipIfLevelCompleted ?
+        if ((dialog.skipFlags & SkipFlags.SkipIfLevelCompleted) != 0)
+        {
+            bool isInList = DialogSkip.IsInPermanentSkip(dialog);
+            if (LevelScript.HasBeenCompleted(Game.instance.levelScript) && isInList)
+            {
+                if (onComplete != null)
+                    onComplete();
+                return;
+            }
+            if (!isInList)
+            {
+                DialogSkip.AddToPermanentSkipList(dialog);
+                savePermSkipListOnWin = true;
+            }
+        }
+
+        //Est-ce que le dialog a le flag SkipIfRetry ?
+        if ((dialog.skipFlags & SkipFlags.SkipIfRetry) != 0)
+        {
+            if (Game.instance.framework.isARetry && DialogSkip.IsInTemporarySkip(dialog))
+            {
+                if (onComplete != null)
+                    onComplete();
+                return;
+            }
+            DialogSkip.AddToTemporarySkipList(dialog);
+        }
+
+
+
         if (dialog.pauseGame)
             Game.instance.gameRunning.Lock("dialog");
 
@@ -105,8 +151,6 @@ public class DialogDisplay : MonoBehaviour
         UiSystem ui = Game.instance.ui;
         hpWasShown = ui.healthDisplay.IsShown;
         ui.healthDisplay.Hide();
-        //smashWasShown = ui.smashDisplay.IsShown();
-        //ui.smashDisplay.Hide(true);
 
         textBox.Open(OnOpenComplete);
     }

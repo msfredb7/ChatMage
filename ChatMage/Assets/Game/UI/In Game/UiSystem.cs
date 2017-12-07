@@ -36,6 +36,7 @@ public class UiSystem : MonoBehaviour {
         playerInputs.Init(playerController);
         dialogDisplay.onStartDialog += () => playerInputs.Enabled.Lock("dialog");
         dialogDisplay.onEndDialog += () => playerInputs.Enabled.Unlock("dialog");
+        dialogDisplay.Init();
 
         float aspect = Game.instance.gameCamera.cam.aspect;
 

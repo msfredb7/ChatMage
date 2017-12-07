@@ -1,4 +1,5 @@
 using FullInspector;
+using System.Collections.Generic;
 
 namespace Dialoguing
 {
@@ -7,8 +8,16 @@ namespace Dialoguing
         [InspectorDisabled]
         public int ID = 0;
 
-        public DialogShowType showType = DialogShowType.AlwaysShown;
+
+        public SkipFlags skipFlags = 0;
         public bool pauseGame = true;
         public Reply[] replies;
-    }    
+
+
+
+        public string IDToString()
+        {
+            return ID.ToString().PadLeft(6, '0');
+        }
+    }
 }
