@@ -75,11 +75,15 @@ public class MenuOptions : WindowAnimation
 
     //------------------------------� enlever------------------------------//
 
+    public List<string> levelToUnlock = new List<string>();
+
     public void ClearSave()
     {
         if (isQuitting)
             return;
         GameSaves.instance.ClearAllSaves();
+        // Permet de ne pas avoir à dire au joueur: "quitte le level select et revient" pour que ca marche
+        LoadingScreen.TransitionTo(MainMenu.SCENENAME, null);
     }
 
     public void GainSmashAccess()
@@ -89,5 +93,17 @@ public class MenuOptions : WindowAnimation
     public void GainItemsAccess()
     {
         Armory.UnlockAccessToItems();
+    }
+
+    public void UnlockAllLevels()
+    {
+        foreach (string levelScriptName in levelToUnlock)
+        {
+            GameSaves.instance.SetBool(GameSaves.Type.Levels, LevelScript.COMPLETED_KEY + levelScriptName, true);
+            GameSaves.instance.SaveData(GameSaves.Type.Levels);
+            // Est-ce qu'il y a autre chose à ajouter ?
+        }
+        // Permet de ne pas avoir à dire au joueur: "quitte le level select et revient" pour que ca marche
+        LoadingScreen.TransitionTo(MainMenu.SCENENAME, null);
     }
 }
