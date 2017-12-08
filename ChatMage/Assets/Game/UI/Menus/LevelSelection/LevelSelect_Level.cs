@@ -26,7 +26,7 @@ namespace LevelSelect
         {
             rectTransform = GetComponent<RectTransform>();
             button.onClick.AddListener(OnClick);
-            displayName.text = level.displayName;
+            displayName.text = level.name.Substring(6,level.name.Length - 7);
         }
 
         void Start()

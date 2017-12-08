@@ -92,4 +92,7 @@ public class RoadMapPoint : MonoBehaviour {
         return ((obj1.x < obj2.x + minDistance && obj1.x > obj2.x - minDistance) &&
             (obj1.y < obj2.y + minDistance && obj1.y > obj2.y - minDistance));
     }
+
+
+	
 }

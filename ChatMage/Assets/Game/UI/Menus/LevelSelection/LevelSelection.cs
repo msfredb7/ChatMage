@@ -22,6 +22,9 @@ namespace LevelSelect
 
         public AudioClip levelSelectMusic;
 
+		[Header("MIGS DEMO")]
+		public LevelSelect_SkipLoadout demoScript;
+
         void Start()
         {
             MasterManager.Sync(OnSync);
@@ -66,16 +69,20 @@ namespace LevelSelect
 
         void OnLevelSelected(Level level)
         {
-            //Go to loadout !
-            print("Level selected: " + level.name);
+			//Go to loadout !
+			/*print("Level selected: " + level.name);
 
-            GameSaves.instance.SetString(GameSaves.Type.Levels, LASTLEVELSELECTED_KEY, level.name);
+			GameSaves.instance.SetString(GameSaves.Type.Levels, LASTLEVELSELECTED_KEY, level.name);
 
-            ToLoadoutMessage message = new ToLoadoutMessage(level.levelScriptName);
-            LoadingScreen.TransitionTo(LoadoutMenu.LoadoutUI.SCENENAME, message);
-        }
+			ToLoadoutMessage message = new ToLoadoutMessage(level.levelScriptName);
+			LoadingScreen.TransitionTo(LoadoutMenu.LoadoutUI.SCENENAME, message);*/
 
-        public void OnBackClicked()
+			Debug.Log("LoadLevel");
+			//LoadingScreen.TransitionTo(Framework.SCENENAME, new ToGameMessage(level.levelScriptName, GetLoadout(), true));
+			demoScript.LoadLevel(level.levelScriptName);
+		}
+
+		public void OnBackClicked()
         {
             LoadingScreen.TransitionTo(MainMenu.SCENENAME, null);
         }
@@ -101,7 +108,7 @@ namespace LevelSelect
             {
                 for (int j = 0; j < regions[i].levelItems.Count; j++)
                 {
-					if (regions[i].levelItems[j].IsUnlocked() && regions[i].levelItems[j].level.HasBeenCompleted)
+					if (regions[i].levelItems[j].IsUnlocked() && regions[i].levelItems[j].level.HasBeenCompleted && regions[i].levelItems[j].gameObject.activeSelf)
                     {
                         if (inputBlocker)
                             inputBlocker.SetActive(true);
@@ -111,16 +118,15 @@ namespace LevelSelect
 						//Debug.Log(regions[i].levelItems[j] + "levelselect_level has been seen " + regions[i].levelItems[j].hasBeenSeen);
 						//Debug.Log(regions[i].levelItems[j] + "level has been seen " + regions[i].levelItems[j].level.HasBeenSeen);
 						if(regions[i].levelItems[j].GetComponent<DrawRoad>().nextLevel != null) {
-							if (regions[i].levelItems[j].hasBeenSeen) {
+							if (regions[i].levelItems[j].hasBeenSeen || regions[i].levelItems[j+1].level.HasBeenCompleted) {
 								regions[i].levelItems[j].GetComponent<DrawRoad>().ShowAllRoad();
-								Debug.Log("here");
 							}
 							else {
 								regions[i].levelItems[j].GetComponent<DrawRoad>().StartRoad();
-								regions[i].levelItems[j].MarkAsSeen();
 								//regions[i].levelItems[j].level.HasBeenSeen = true;
-								GameSaves.instance.SaveData(GameSaves.Type.Levels);
 							}
+							regions[i].levelItems[j].MarkAsSeen();
+							//GameSaves.instance.SaveData(GameSaves.Type.Levels);
 						}
 						else {
 							regions[i].levelItems[j].MarkAsSeen();
