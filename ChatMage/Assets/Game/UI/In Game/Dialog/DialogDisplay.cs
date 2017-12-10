@@ -60,7 +60,7 @@ public class DialogDisplay : MonoBehaviour
         if (CurrentDialog != null && currentDialog.isActive)
         {
             //Si on appuie sur une touche (sauf ESCAPE), on speedup
-            if (Input.anyKeyDown && !Input.GetKeyDown(KeyCode.Escape))
+            if (!Application.isMobilePlatform && Input.anyKeyDown && !Input.GetKeyDown(KeyCode.Escape))
             {
                 BeginSkipAttempt();
                 SpeedUpOrNext();    //Pour speedup
@@ -94,6 +94,23 @@ public class DialogDisplay : MonoBehaviour
     public void EndSkipAttempt()
     {
         tryingToSkip = false;
+    }
+
+    public void SpeedUpOrNext_Mobile()
+    {
+        if (Application.isMobilePlatform)
+            SpeedUpOrNext();
+    }
+
+    public void SpeedUpOrNext()
+    {
+        if (currentDialog == null || !currentDialog.isActive)
+            return;
+
+        if (textBox.IsAnimatingText())
+            textBox.SpeedUp();
+        else
+            DisplayNextReply();
     }
 
     public void StartDialog(Dialog dialog, Action onComplete = null)
@@ -192,23 +209,6 @@ public class DialogDisplay : MonoBehaviour
             onEndDialog();
 
         currentDialog = null;
-    }
-
-    public void SpeedUpOrNext_Mobile()
-    {
-        if (Application.isMobilePlatform)
-            SpeedUpOrNext();
-    }
-
-    public void SpeedUpOrNext()
-    {
-        if (currentDialog == null || !currentDialog.isActive)
-            return;
-
-        if (textBox.IsAnimatingText())
-            textBox.SpeedUp();
-        else
-            DisplayNextReply();
     }
 
     private void DisplayNextReply()

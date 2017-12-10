@@ -19,5 +19,24 @@ public class Fred_TestScript : BaseBehavior
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            //Loadout
+            LoadoutResult loadoutResult = new LoadoutResult();
+
+            //Scene message à donner au framework
+            ToGameMessage gameMessage = new ToGameMessage("", loadoutResult, false);
+
+            //Cinematic Settings
+            CinematicSettings cinematicSettings = new CinematicSettings
+            {
+                skipOnDoubleTap = false,
+                nextSceneName = Framework.SCENENAME,
+                nextSceneMessage = gameMessage
+            };
+
+            //Launch
+            CinematicScene.LaunchCinematic("Cinematic Demo", cinematicSettings);
+        }
     }
 }

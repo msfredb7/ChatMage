@@ -19,12 +19,13 @@ public class MainMenu : BaseBehavior
     public string carAssetName;
 
     public AudioClip anthem;
+    public float musicVolume = 0.65f;
 
     public void Init()
     {
         MasterManager.Sync(delegate ()
         {
-            SoundManager.PlayMusic(anthem);
+            SoundManager.PlayMusic(anthem, volume: musicVolume);
             playButton.onClick.AddListener(OnClick);
             if (firstLevel != null)
                 firstLevel.LoadData();

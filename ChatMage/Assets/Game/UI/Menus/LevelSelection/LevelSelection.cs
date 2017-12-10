@@ -20,21 +20,21 @@ namespace LevelSelect
         public LevelSelect_MapAnimator mapAnimator;
         public GameObject inputBlocker;
 
-        public AudioClip levelSelectMusic;
-
 		[Header("MIGS DEMO")]
 		public LevelSelect_SkipLoadout demoScript;
+        public AudioClip levelSelectMusic;
+        public float musicVolume;
 
         void Start()
         {
             MasterManager.Sync(OnSync);
             backButton.onClick.AddListener(OnBackClicked);
             shopButton.onClick.AddListener(OnShopClicked);
-            SoundManager.PlayMusic(levelSelectMusic);
         }
 
         void OnSync()
         {
+            SoundManager.PlayMusic(levelSelectMusic, volume: musicVolume);
             AddListeners();
 
             //Un peu lourd ? Peut-être qu'on pourrait faire ça AVANT que le loading screen disparaisse (comme Framework)
