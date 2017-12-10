@@ -54,10 +54,12 @@ public class MainMenu : BaseBehavior
         ToGameMessage gameMessage = new ToGameMessage(firstLevel.levelScriptName, loadoutResult, false);
 
         //Cinematic Settings
-        CinematicSettings cinematicSettings = new CinematicSettings();
-        cinematicSettings.skipOnDoubleTap = false;
-        cinematicSettings.nextSceneName = Framework.SCENENAME;
-        cinematicSettings.nextSceneMessage = gameMessage;
+        CinematicSettings cinematicSettings = new CinematicSettings
+        {
+            skipOnDoubleTap = false,
+            nextSceneName = Framework.SCENENAME,
+            nextSceneMessage = gameMessage
+        };
 
         //Launch
         CinematicScene.LaunchCinematic("Cinematic Demo", cinematicSettings);
