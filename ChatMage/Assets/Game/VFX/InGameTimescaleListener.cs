@@ -17,9 +17,8 @@ public abstract class InGameTimescaleListener : MonoBehaviour
     protected void AddTimescaleListener()
     {
 
-        if (Game.instance == null)
+        if (Game.instance == null || this == null)
         {
-            Debug.LogError(name + " tried to a add listener to worldTimescale but Game.instance == null");
             return;
         }
 

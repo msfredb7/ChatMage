@@ -40,7 +40,8 @@ public class LoadingScreen
         if (!isInTransition)
             return;
 
-        animator.Outro(OnOutroComplete);
+        if (animator.GetState() == LoadingScreenAnimation.State.Waiting)
+            animator.Outro(OnOutroComplete);
     }
 
     private static void OnLoadingScreenLoaded(Scene scene)
