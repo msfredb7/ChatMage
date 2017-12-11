@@ -20,16 +20,20 @@ namespace LevelSelect
         // First Apparition Animation
         [HideInInspector]
         public bool hasBeenSeen;
-        private string hasBeenSeenKey = "_seen";
+        private const string hasBeenSeenKey = "_seen";
 
         void Awake()
         {
             rectTransform = GetComponent<RectTransform>();
             button.onClick.AddListener(OnClick);
             displayName.text = level.name.Substring(6,level.name.Length - 7);
+
+            //On doit faire ca pour etre certain que les managers on ete loaded avant.
+            //Sinon, quand on fait GameSaves.instance..., ca peut planter
+            CCC.Manager.MasterManager.Sync(OnManagersLoaded);
         }
 
-        void Start()
+        void OnManagersLoaded()
         {
             if (GameSaves.instance.ContainsBool(GameSaves.Type.Levels, level.levelScriptName + hasBeenSeenKey))
                 hasBeenSeen = GameSaves.instance.GetBool(GameSaves.Type.Levels, level.levelScriptName + hasBeenSeenKey);
