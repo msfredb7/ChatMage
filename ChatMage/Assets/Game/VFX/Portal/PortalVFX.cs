@@ -112,4 +112,10 @@ public class PortalVFX : InGameAnimator
         controller2.speed = worldTimescale;
         controller3.speed = worldTimescale;
     }
+
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+        Kill();
+    }
 }
