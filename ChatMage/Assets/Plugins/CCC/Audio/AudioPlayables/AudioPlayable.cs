@@ -8,8 +8,8 @@ using UnityEditor;
 
 public abstract class AudioPlayable : ScriptableObject
 {
-    public abstract void PlayOn(AudioSource audioSource);
-    public abstract void PlayLoopedOn(AudioSource audioSource, bool multiplyVolume = false);
+    public abstract void PlayOn(AudioSource audioSource, float volumeMultiplier = 1);
+    public abstract void PlayLoopedOn(AudioSource audioSource, float volumeMultiplier = 1);
     public abstract void GetClipAndVolume(out AudioClip clip, out float volume);
 }
 

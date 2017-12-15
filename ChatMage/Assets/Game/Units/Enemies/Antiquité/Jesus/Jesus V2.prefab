@@ -452,6 +452,8 @@ GameObject:
   - component: {fileID: 114326972680048928}
   - component: {fileID: 114970958779506222}
   - component: {fileID: 114141032224521080}
+  - component: {fileID: 114090789045745608}
+  - component: {fileID: 114525809661620106}
   m_Layer: 11
   m_Name: Jesus V2
   m_TagString: Untagged
@@ -1000,6 +1002,36 @@ MonoBehaviour:
   deadBodyVisuals:
   - {fileID: 212066523617686970}
   - {fileID: 212894088309737380}
+--- !u!114 &114090789045745608
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1962559319646076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85205e10ad9c52a4db004e69b39bacba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectReferences:
+  - {fileID: 8300000, guid: ccd406b542099df4ea76330aace7bcfe, type: 3}
+  _serializedStateKeys:
+  - soundList
+  - soundType
+  _serializedStateValues:
+  - '{"list":[0]}'
+  - '"sfx"'
+  tag: scream
+  soundList:
+    list:
+    - {fileID: 8300000, guid: ccd406b542099df4ea76330aace7bcfe, type: 3}
+  soundType: 1
+  useCustomSettings: 0
+  looping: 0
+  volume: 1
+  delay: 0
+  startOnReactivation: 0
+  sfxLoopSource: {fileID: 0}
 --- !u!114 &114141032224521080
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1029,17 +1061,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85205e10ad9c52a4db004e69b39bacba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectReferences: []
+  _objectReferences:
+  - {fileID: 8300000, guid: d863afff7f435734ebf432531749625e, type: 3}
   _serializedStateKeys:
   - soundList
   - soundType
   _serializedStateValues:
-  - '{"list":[null]}'
+  - '{"list":[0]}'
   - '"sfx"'
   tag: throw
   soundList:
     list:
-    - {fileID: 0}
+    - {fileID: 8300000, guid: d863afff7f435734ebf432531749625e, type: 3}
   soundType: 1
   useCustomSettings: 0
   looping: 0
@@ -1071,6 +1104,36 @@ MonoBehaviour:
   throw_armsExtendedXScale: 1.15
   throw_extendDuration: 0.11
   throw_retractDuration: 0.5
+--- !u!114 &114525809661620106
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1962559319646076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85205e10ad9c52a4db004e69b39bacba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _objectReferences:
+  - {fileID: 8300000, guid: 258d3034c53c4294a8fb3f0f38e223a2, type: 3}
+  _serializedStateKeys:
+  - soundList
+  - soundType
+  _serializedStateValues:
+  - '{"list":[0]}'
+  - '"sfx"'
+  tag: hit
+  soundList:
+    list:
+    - {fileID: 8300000, guid: 258d3034c53c4294a8fb3f0f38e223a2, type: 3}
+  soundType: 1
+  useCustomSettings: 0
+  looping: 0
+  volume: 1
+  delay: 0
+  startOnReactivation: 0
+  sfxLoopSource: {fileID: 0}
 --- !u!114 &114658795903442550
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1099,13 +1162,8 @@ MonoBehaviour:
   walkStomp: 0.09
   deathStomp: 0.2
   screamShake: 0.1
-  walkSounds:
-    list:
-    - {fileID: 8300000, guid: 065a882cffcdcbf4d82aa0d8cacde0a8, type: 3}
-    - {fileID: 8300000, guid: d345bb3f0badc9f4fa394012241ec917, type: 3}
-    - {fileID: 8300000, guid: 249433495d467444bb3bda4183877bf7, type: 3}
-    - {fileID: 8300000, guid: 11f78ae2a5355a5468638d3d24213d7b, type: 3}
-  walkVolume: 0.7
+  stompSound: {fileID: 11400000, guid: 450036acfe7d00348986b62cb4319ca0, type: 2}
+  bigStompSound: {fileID: 11400000, guid: 91fcec055eee8b145b01183e27a53059, type: 2}
 --- !u!114 &114678092934962056
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1146,17 +1204,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85205e10ad9c52a4db004e69b39bacba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectReferences: []
+  _objectReferences:
+  - {fileID: 8300000, guid: 25c9b00071900d74bb5aebb7764a87cf, type: 3}
   _serializedStateKeys:
   - soundList
   - soundType
   _serializedStateValues:
-  - '{"list":[null]}'
+  - '{"list":[0]}'
   - '"sfx"'
   tag: die
   soundList:
     list:
-    - {fileID: 0}
+    - {fileID: 8300000, guid: 25c9b00071900d74bb5aebb7764a87cf, type: 3}
   soundType: 1
   useCustomSettings: 0
   looping: 0

@@ -12,8 +12,8 @@ public class JesusV2AnimatorV2 : EnemyAnimator, IShaker
     public float screamShake = 0.2f;
 
     [Header("SFX")]
-    public CCC.Utility.RandomAudioCliptList walkSounds;
-    public float walkVolume = 0.15f;
+    public AudioPlayable stompSound;
+    public AudioPlayable bigStompSound;
 
     private Action pickUpMoment;
     private Action pickUpCallback;
@@ -106,12 +106,12 @@ public class JesusV2AnimatorV2 : EnemyAnimator, IShaker
 
     private void _Stomp()
     {
-        SoundManager.PlaySFX(walkSounds.Pick(), volume: walkVolume);
+        SoundManager.PlaySFX(stompSound);
         Game.instance.gameCamera.vectorShaker.Shake(walkStomp);
     }
     private void _BigStomp()
     {
-        SoundManager.PlaySFX(walkSounds.Pick(), volume: walkVolume + 0.3f);
+        SoundManager.PlaySFX(bigStompSound);
         Game.instance.gameCamera.vectorShaker.Shake(walkStomp * 2);
     }
 }

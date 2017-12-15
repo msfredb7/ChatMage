@@ -10,14 +10,14 @@ public class AudioAsset : AudioPlayable
     public float volume = 1;
 
 
-    public override void PlayOn(AudioSource audioSource)
+    public override void PlayOn(AudioSource audioSource, float volumeMultiplier = 1)
     {
-        audioSource.PlayOneShot(clip, volume);
+        audioSource.PlayOneShot(clip, volume * volumeMultiplier);
     }
 
-    public override void PlayLoopedOn(AudioSource audioSource, bool multiplayVolume = false)
+    public override void PlayLoopedOn(AudioSource audioSource, float volumeMultiplier = 1)
     {
-        audioSource.volume = multiplayVolume ? audioSource.volume * volume : volume;
+        audioSource.volume = volumeMultiplier * volume;
         audioSource.clip = clip;
         audioSource.loop = true;
         audioSource.Play();
