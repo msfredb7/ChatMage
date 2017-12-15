@@ -12,22 +12,32 @@ public class AudioAssetGroup : AudioPlayable
     private int lastPickedIndex = -1;
 
     public override void PlayOn(AudioSource audioSource)
-    {
-        if (clips == null || clips.Length == 0)
+	{
+		if (!CheckRessources())
             return;
 
-        int index = PickClip();
-        clips[index].PlayOn(audioSource);
-        lastPickedIndex = index;
-    }
+        PickAsset().PlayOn(audioSource);
+	}
 
-    private int PickClip()
+	public override void PlayLoopedOn(AudioSource audioSource, bool multiplyVolume = false)
+	{
+		if (!CheckRessources())
+			return;
+
+        PickAsset().PlayLoopedOn(audioSource);
+	}
+
+	private bool CheckRessources(){
+		return clips != null && clips.Length != 0;
+	}
+
+    private AudioAsset PickAsset()
     {
         if (lastPickedIndex >= clips.Length)
             lastPickedIndex = 0;
 
         if (clips.Length == 1)
-            return 1;
+            return clips[0];
 
 
         int from;
@@ -45,6 +55,13 @@ public class AudioAssetGroup : AudioPlayable
             to = lastPickedIndex + clips.Length;
         }
 
-        return UnityEngine.Random.Range(from, to) % clips.Length;
+        int pickedIndex = UnityEngine.Random.Range(from, to) % clips.Length;
+        lastPickedIndex = pickedIndex;
+        return clips[pickedIndex];
+    }
+
+    public override void GetClipAndVolume(out AudioClip clip, out float volume)
+    {
+        PickAsset().GetClipAndVolume(out clip, out volume);
     }
 }

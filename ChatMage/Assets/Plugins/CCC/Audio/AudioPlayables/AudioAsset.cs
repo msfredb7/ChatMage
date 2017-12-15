@@ -6,11 +6,26 @@ using UnityEngine;
 public class AudioAsset : AudioPlayable
 {
     public AudioClip clip;
-    public float volume;
+    [Range(0, 1)]
+    public float volume = 1;
 
 
     public override void PlayOn(AudioSource audioSource)
     {
         audioSource.PlayOneShot(clip, volume);
+    }
+
+    public override void PlayLoopedOn(AudioSource audioSource, bool multiplayVolume = false)
+    {
+        audioSource.volume = multiplayVolume ? audioSource.volume * volume : volume;
+        audioSource.clip = clip;
+        audioSource.loop = true;
+        audioSource.Play();
+    }
+
+    public override void GetClipAndVolume(out AudioClip clip, out float volume)
+    {
+        clip = this.clip;
+        volume = this.volume;
     }
 }
