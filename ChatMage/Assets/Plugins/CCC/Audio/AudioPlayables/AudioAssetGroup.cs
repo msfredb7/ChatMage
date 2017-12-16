@@ -11,25 +11,26 @@ public class AudioAssetGroup : AudioPlayable
     [NonSerialized]
     private int lastPickedIndex = -1;
 
-    public override void PlayOn(AudioSource audioSource, float volumeMultiplier = 1)
-	{
-		if (!CheckRessources())
+    protected override void Internal_PlayOn(AudioSource audioSource, float volumeMultiplier = 1)
+    {
+        if (!CheckRessources())
             return;
 
         PickAsset().PlayOn(audioSource, volumeMultiplier);
-	}
+    }
 
-	public override void PlayLoopedOn(AudioSource audioSource, float volumeMultiplier = 1)
-	{
-		if (!CheckRessources())
-			return;
+    protected override void Interal_PlayLoopedOn(AudioSource audioSource, float volumeMultiplier = 1)
+    {
+        if (!CheckRessources())
+            return;
 
         PickAsset().PlayLoopedOn(audioSource, volumeMultiplier);
-	}
+    }
 
-	private bool CheckRessources(){
-		return clips != null && clips.Length != 0;
-	}
+    private bool CheckRessources()
+    {
+        return clips != null && clips.Length != 0;
+    }
 
     private AudioAsset PickAsset()
     {
