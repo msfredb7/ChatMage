@@ -614,7 +614,7 @@ MonoBehaviour:
     x: 822
     y: 450
     width: 150
-    height: 43
+    height: 10
   graph: {fileID: 1644651699}
 --- !u!1 &73227763
 GameObject:
@@ -1090,7 +1090,7 @@ MonoBehaviour:
     x: 1338
     y: 237
     width: 150
-    height: 84
+    height: 10
   graph: {fileID: 1644651699}
   defaultVariable: {fileID: 1802269520}
   _true:
@@ -1377,7 +1377,7 @@ MonoBehaviour:
     x: 1034
     y: 778
     width: 150
-    height: 43
+    height: 10
   graph: {fileID: 1644651699}
 --- !u!1 &116672172
 GameObject:
@@ -2656,7 +2656,7 @@ MonoBehaviour:
     x: 1334
     y: 353
     width: 150
-    height: 43
+    height: 10
   graph: {fileID: 1644651699}
   dialog: {fileID: 11400000, guid: 21789ce09bae2674eb807a4cf4eee637, type: 2}
   onComplete:
@@ -2944,7 +2944,7 @@ MonoBehaviour:
     x: 456
     y: 386
     width: 150
-    height: 43
+    height: 10
   graph: {fileID: 1644651699}
   dialog: {fileID: 11400000, guid: 250c0999783607249bdee6beda0447b1, type: 2}
   onComplete:
@@ -3177,13 +3177,13 @@ MonoBehaviour:
   _serializedStateKeys:
   - windowRect
   _serializedStateValues:
-  - '{"xMin":598.0,"yMin":147.0,"xMax":748.0,"yMax":190.0}'
+  - '{"xMin":598.0,"yMin":147.0,"xMax":748.0,"yMax":157.0}'
   windowRect:
     serializedVersion: 2
     x: 598
     y: 147
     width: 150
-    height: 43
+    height: 10
   graph: {fileID: 1644651699}
   modifyFollowPlayer: 0
   followPlayerEffect: 0
@@ -4341,7 +4341,7 @@ MonoBehaviour:
     x: 427
     y: 228
     width: 150
-    height: 84
+    height: 10
   graph: {fileID: 1644651699}
   defaultVariable: {fileID: 2084059288}
   _true:
@@ -4581,7 +4581,7 @@ MonoBehaviour:
     x: 1311
     y: 466
     width: 150
-    height: 43
+    height: 10
   graph: {fileID: 1644651699}
   message: inter 2
 --- !u!1 &328184259
@@ -4670,7 +4670,7 @@ MonoBehaviour:
     x: 518
     y: 815
     width: 150
-    height: 43
+    height: 10
   graph: {fileID: 1644651699}
   meteoState: 0
   duration: 1.5
@@ -6059,6 +6059,12 @@ Prefab:
       propertyPath: m_RootOrder
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 114066475894699088, guid: 2919f287fa3748f4789d717934dd68b7,
+        type: 2}
+      propertyPath: loseHPSound
+      value: 
+      objectReference: {fileID: 11400000, guid: 78d82f875c089a646a91efdbb9403203,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2919f287fa3748f4789d717934dd68b7, type: 2}
   m_IsPrefabParent: 0
@@ -8288,7 +8294,7 @@ MonoBehaviour:
   - what
   - where
   _serializedStateValues:
-  - '{"xMin":604.0,"yMin":215.0,"xMax":754.0,"yMax":299.0}'
+  - '{"xMin":604.0,"yMin":215.0,"xMax":754.0,"yMax":225.0}'
   - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]}'
   - '{"spawnSequence":[{"unit":0,"quantity":6}],"useLevelScriptMethod":false,"onSpawnMethod":"","onSpawn":{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"GameEvents.MomentEvent_unit,
@@ -8299,7 +8305,7 @@ MonoBehaviour:
     x: 604
     y: 215
     width: 150
-    height: 84
+    height: 10
   graph: {fileID: 1644651699}
   onComplete:
     iEvents: []
@@ -8501,7 +8507,6 @@ GameObject:
   m_Component:
   - component: {fileID: 577807754}
   - component: {fileID: 577807755}
-  - component: {fileID: 577807756}
   m_Layer: 0
   m_Name: Left
   m_TagString: Untagged
@@ -8563,36 +8568,7 @@ MonoBehaviour:
   brakeStrength: 0.15
   minBreakAngle: 225
   maxBreakAngle: 330
---- !u!114 &577807756
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 577807753}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85205e10ad9c52a4db004e69b39bacba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _objectReferences:
-  - {fileID: 8300000, guid: 1db3b35884071544aaf76dca7d4efeee, type: 3}
-  _serializedStateKeys:
-  - soundList
-  - soundType
-  _serializedStateValues:
-  - '{"list":[0]}'
-  - '"sfx"'
-  tag: 
-  soundList:
-    list:
-    - {fileID: 8300000, guid: 1db3b35884071544aaf76dca7d4efeee, type: 3}
-  soundType: 1
-  useCustomSettings: 0
-  looping: 0
-  volume: 1
-  delay: 0
-  startOnReactivation: 0
-  sfxLoopSource: {fileID: 0}
+  breakSFX: {fileID: 11400000, guid: 072b37334194c094cabf292150734bd0, type: 2}
 --- !u!114 &580954966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8609,7 +8585,7 @@ MonoBehaviour:
     x: 1687
     y: 537
     width: 150
-    height: 43
+    height: 10
   graph: {fileID: 1644651699}
 --- !u!1 &587615834
 GameObject:
@@ -8665,7 +8641,7 @@ MonoBehaviour:
   - _topSide
   - onExecute
   _serializedStateValues:
-  - '{"xMin":1044.0,"yMin":207.0,"xMax":1194.0,"yMax":271.0}'
+  - '{"xMin":1044.0,"yMin":207.0,"xMax":1194.0,"yMax":217.0}'
   - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[0,1]}'
   - '"TopOfScreen"'
@@ -8681,7 +8657,7 @@ MonoBehaviour:
     x: 1044
     y: 207
     width: 150
-    height: 64
+    height: 10
   graph: {fileID: 1644651699}
   onTigger:
     iEvents:
@@ -9136,7 +9112,7 @@ MonoBehaviour:
     x: 443
     y: 92
     width: 150
-    height: 43
+    height: 10
   graph: {fileID: 1644651699}
   music: 1
 --- !u!1 &635638720
@@ -10306,7 +10282,7 @@ MonoBehaviour:
     x: 775
     y: 254
     width: 150
-    height: 43
+    height: 10
   graph: {fileID: 1644651699}
   methodName: AddToEnemyBuffer1
 --- !u!1 &729884159 stripped
@@ -10507,7 +10483,7 @@ MonoBehaviour:
     x: 290
     y: 802
     width: 150
-    height: 84
+    height: 10
   graph: {fileID: 1644651699}
   onGoingUp:
     iEvents:
@@ -11185,7 +11161,7 @@ MonoBehaviour:
     x: 1675
     y: 216
     width: 150
-    height: 43
+    height: 10
   graph: {fileID: 1644651699}
   enabled: 0
   checkWhenUnderCamera: 1
@@ -11208,7 +11184,7 @@ MonoBehaviour:
     x: 1160
     y: 336
     width: 150
-    height: 64
+    height: 10
   graph: {fileID: 1644651699}
   delay: 1.2
   moment:
@@ -11977,7 +11953,7 @@ MonoBehaviour:
     x: 446
     y: 147
     width: 150
-    height: 43
+    height: 10
   graph: {fileID: 1644651699}
   dialog: {fileID: 11400000, guid: 750d7ceee2f45fd448d6c7b70212815b, type: 2}
   onComplete:
@@ -12208,7 +12184,7 @@ MonoBehaviour:
     x: 1676
     y: 267
     width: 150
-    height: 43
+    height: 10
   graph: {fileID: 1644651699}
   methodName: AddToEnemyBuffer2
 --- !u!1 &852397326
@@ -13293,13 +13269,13 @@ MonoBehaviour:
   _serializedStateKeys:
   - windowRect
   _serializedStateValues:
-  - '{"xMin":822.0,"yMin":407.0,"xMax":972.0,"yMax":450.0}'
+  - '{"xMin":822.0,"yMin":407.0,"xMax":972.0,"yMax":417.0}'
   windowRect:
     serializedVersion: 2
     x: 822
     y: 407
     width: 150
-    height: 43
+    height: 10
   graph: {fileID: 1644651699}
   modifyFollowPlayer: 0
   followPlayerEffect: 0
@@ -13810,7 +13786,7 @@ MonoBehaviour:
     x: 1522
     y: 320
     width: 150
-    height: 64
+    height: 10
   graph: {fileID: 1644651699}
   delay: 3
   moment:
@@ -14327,7 +14303,7 @@ MonoBehaviour:
   - _topSide
   - onExecute
   _serializedStateValues:
-  - '{"xMin":219.0,"yMin":244.0,"xMax":369.0,"yMax":308.0}'
+  - '{"xMin":219.0,"yMin":244.0,"xMax":369.0,"yMax":254.0}'
   - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[0]}'
   - '"TopOfScreen"'
@@ -14343,7 +14319,7 @@ MonoBehaviour:
     x: 219
     y: 244
     width: 150
-    height: 64
+    height: 10
   graph: {fileID: 1644651699}
   onTigger:
     iEvents:
@@ -14772,13 +14748,13 @@ MonoBehaviour:
   _serializedStateKeys:
   - windowRect
   _serializedStateValues:
-  - '{"xMin":1689.0,"yMin":447.0,"xMax":1839.0,"yMax":490.0}'
+  - '{"xMin":1689.0,"yMin":447.0,"xMax":1839.0,"yMax":457.0}'
   windowRect:
     serializedVersion: 2
     x: 1689
     y: 447
     width: 150
-    height: 43
+    height: 10
   graph: {fileID: 1644651699}
   modifyFollowPlayer: 0
   followPlayerEffect: 0
@@ -15447,7 +15423,7 @@ MonoBehaviour:
     x: 651
     y: 426
     width: 150
-    height: 64
+    height: 10
   graph: {fileID: 1644651699}
   onTrigger:
     iEvents:
@@ -17888,7 +17864,7 @@ MonoBehaviour:
   - _topSide
   - onExecute
   _serializedStateValues:
-  - '{"xMin":1152.0,"yMin":464.0,"xMax":1302.0,"yMax":528.0}'
+  - '{"xMin":1152.0,"yMin":464.0,"xMax":1302.0,"yMax":474.0}'
   - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[{"m_Target":0,"m_MethodName":"Show","m_Mode":"Void","m_Arguments":{"m_ObjectArgument":1,"m_ObjectArgumentAssemblyTypeName":"UnityEngine.Object,
     UnityEngine","m_IntArgument":0,"m_FloatArgument":0.0,"m_StringArgument":"","m_BoolArgument":false},"m_CallState":"RuntimeOnly"}]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[2,3]}'
@@ -17905,7 +17881,7 @@ MonoBehaviour:
     x: 1152
     y: 464
     width: 150
-    height: 64
+    height: 10
   graph: {fileID: 1644651699}
   onTigger:
     iEvents:
@@ -18327,7 +18303,7 @@ MonoBehaviour:
   - _topSide
   - onExecute
   _serializedStateValues:
-  - '{"xMin":170.0,"yMin":442.0,"xMax":320.0,"yMax":506.0}'
+  - '{"xMin":170.0,"yMin":442.0,"xMax":320.0,"yMax":452.0}'
   - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[{"m_Target":0,"m_MethodName":"Show","m_Mode":"Void","m_Arguments":{"m_ObjectArgument":1,"m_ObjectArgumentAssemblyTypeName":"UnityEngine.Object,
     UnityEngine","m_IntArgument":0,"m_FloatArgument":0.0,"m_StringArgument":"","m_BoolArgument":false},"m_CallState":"RuntimeOnly"}]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[2,3,4]}'
@@ -18344,7 +18320,7 @@ MonoBehaviour:
     x: 170
     y: 442
     width: 150
-    height: 64
+    height: 10
   graph: {fileID: 1644651699}
   onTigger:
     iEvents:
@@ -19074,7 +19050,7 @@ MonoBehaviour:
     x: 473
     y: 506
     width: 150
-    height: 64
+    height: 10
   graph: {fileID: 1644651699}
   value: 0
   boolean:
@@ -21529,7 +21505,7 @@ MonoBehaviour:
     x: 776
     y: 204
     width: 150
-    height: 43
+    height: 10
   graph: {fileID: 1644651699}
   enabled: 1
   checkWhenUnderCamera: 1
@@ -21946,7 +21922,7 @@ MonoBehaviour:
     x: 822
     y: 495
     width: 150
-    height: 43
+    height: 10
   graph: {fileID: 1644651699}
 --- !u!198 &1434429693 stripped
 ParticleSystem:
@@ -22596,9 +22572,7 @@ MonoBehaviour:
   controller: {fileID: 1454204863}
   jesus: {fileID: 813805286}
   dialog: {fileID: 11400000, guid: 4a25fb01c4d3d2646a34b33e627d1aa3, type: 2}
-  jesusAwakens_clip: {fileID: 8300000, guid: 695a08f721406c5449d840e7f5b18176, type: 3}
-  jesusAwakens_delay: 0
-  jesusAwakens_volume: 0.6
+  jesusAwakensSound: {fileID: 11400000, guid: 862efee9616746944abc6a8e6394bf42, type: 2}
   rightBrickWall: {fileID: 466810699}
   leftBrickWall: {fileID: 1981379146}
   rightRock: {fileID: 1492676544}
@@ -23756,7 +23730,7 @@ MonoBehaviour:
     x: 607
     y: 295
     width: 150
-    height: 64
+    height: 10
   graph: {fileID: 1644651699}
   delay: 3
   moment:
@@ -25315,7 +25289,7 @@ MonoBehaviour:
     x: 276
     y: 150
     width: 150
-    height: 64
+    height: 10
   graph: {fileID: 1644651699}
   onGameStart:
     iEvents:
@@ -25436,8 +25410,6 @@ MonoBehaviour:
   - {fileID: 680225728}
   - {fileID: 466810700}
   - {fileID: 1981379149}
-  - {fileID: 577807756}
-  - {fileID: 1677089179}
   - {fileID: 1449501255}
   - {fileID: 1449501254}
   - {fileID: 1449501253}
@@ -25604,12 +25576,6 @@ MonoBehaviour:
     _target: {fileID: 1981379149}
   - _keys: []
     _values: []
-    _target: {fileID: 577807756}
-  - _keys: []
-    _values: []
-    _target: {fileID: 1677089179}
-  - _keys: []
-    _values: []
     _target: {fileID: 1449501255}
   - _keys: []
     _values: []
@@ -25685,8 +25651,6 @@ MonoBehaviour:
   - {fileID: 680225728}
   - {fileID: 466810700}
   - {fileID: 1981379149}
-  - {fileID: 577807756}
-  - {fileID: 1677089179}
   - {fileID: 1449501255}
   - {fileID: 1449501254}
   - {fileID: 1449501253}
@@ -25944,8 +25908,11 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 680225728}
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.useCustomSettings.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
     _target: {fileID: 466810700}
   - _keys:
     - DefaultBehaviorEditor.useCustomSettings.EditProperty
@@ -25953,18 +25920,6 @@ MonoBehaviour:
     - _showDropdown: 0
       _serializedIsActive: 1
     _target: {fileID: 1981379149}
-  - _keys:
-    - DefaultBehaviorEditor.useCustomSettings.EditProperty
-    _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    _target: {fileID: 577807756}
-  - _keys:
-    - DefaultBehaviorEditor.useCustomSettings.EditProperty
-    _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    _target: {fileID: 1677089179}
   - _keys: []
     _values: []
     _target: {fileID: 1449501255}
@@ -26322,7 +26277,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1677089177}
   - component: {fileID: 1677089178}
-  - component: {fileID: 1677089179}
   m_Layer: 0
   m_Name: Right
   m_TagString: Untagged
@@ -26384,36 +26338,7 @@ MonoBehaviour:
   brakeStrength: 0.15
   minBreakAngle: 210
   maxBreakAngle: 315
---- !u!114 &1677089179
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1677089176}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85205e10ad9c52a4db004e69b39bacba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _objectReferences:
-  - {fileID: 8300000, guid: 1db3b35884071544aaf76dca7d4efeee, type: 3}
-  _serializedStateKeys:
-  - soundList
-  - soundType
-  _serializedStateValues:
-  - '{"list":[0]}'
-  - '"sfx"'
-  tag: 
-  soundList:
-    list:
-    - {fileID: 8300000, guid: 1db3b35884071544aaf76dca7d4efeee, type: 3}
-  soundType: 1
-  useCustomSettings: 0
-  looping: 0
-  volume: 1
-  delay: 0
-  startOnReactivation: 0
-  sfxLoopSource: {fileID: 0}
+  breakSFX: {fileID: 11400000, guid: 072b37334194c094cabf292150734bd0, type: 2}
 --- !u!1 &1679668986
 GameObject:
   m_ObjectHideFlags: 0
@@ -26839,7 +26764,7 @@ MonoBehaviour:
     x: 1689
     y: 491
     width: 150
-    height: 43
+    height: 10
   graph: {fileID: 1644651699}
 --- !u!1 &1731181336
 GameObject:
@@ -27887,7 +27812,7 @@ MonoBehaviour:
     x: 1457
     y: 539
     width: 150
-    height: 43
+    height: 10
   graph: {fileID: 1644651699}
   value: 1
 --- !u!1 &1802677555
@@ -28469,7 +28394,7 @@ MonoBehaviour:
     x: 524
     y: 765
     width: 150
-    height: 43
+    height: 10
   graph: {fileID: 1644651699}
   animationSize: 0.1
   transitionDuration: 2
@@ -30510,7 +30435,7 @@ MonoBehaviour:
   - _topSide
   - onExecute
   _serializedStateValues:
-  - '{"xMin":285.0,"yMin":642.0,"xMax":435.0,"yMax":706.0}'
+  - '{"xMin":285.0,"yMin":642.0,"xMax":435.0,"yMax":652.0}'
   - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[{"m_Target":0,"m_MethodName":"PlayAnimation","m_Mode":"Void","m_Arguments":{"m_ObjectArgument":1,"m_ObjectArgumentAssemblyTypeName":"UnityEngine.Object,
     UnityEngine","m_IntArgument":0,"m_FloatArgument":0.0,"m_StringArgument":"","m_BoolArgument":false},"m_CallState":"RuntimeOnly"}]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]}'
@@ -30527,7 +30452,7 @@ MonoBehaviour:
     x: 285
     y: 642
     width: 150
-    height: 64
+    height: 10
   graph: {fileID: 1644651699}
   onTigger:
     iEvents: []
@@ -31531,7 +31456,7 @@ MonoBehaviour:
     x: 474
     y: 441
     width: 150
-    height: 43
+    height: 10
   graph: {fileID: 1644651699}
   message: inter 1
 --- !u!114 &2013523974
@@ -31550,7 +31475,7 @@ MonoBehaviour:
     x: 1524
     y: 468
     width: 150
-    height: 64
+    height: 10
   graph: {fileID: 1644651699}
   onTrigger:
     iEvents:
@@ -31604,7 +31529,7 @@ MonoBehaviour:
   - what
   - where
   _serializedStateValues:
-  - '{"xMin":1514.0,"yMin":222.0,"xMax":1664.0,"yMax":306.0}'
+  - '{"xMin":1514.0,"yMin":222.0,"xMax":1664.0,"yMax":232.0}'
   - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]}'
   - '{"spawnSequence":[{"unit":0,"quantity":6}],"useLevelScriptMethod":false,"onSpawnMethod":"","onSpawn":{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"GameEvents.MomentEvent_unit,
@@ -31615,7 +31540,7 @@ MonoBehaviour:
     x: 1514
     y: 222
     width: 150
-    height: 84
+    height: 10
   graph: {fileID: 1644651699}
   onComplete:
     iEvents: []
@@ -32010,7 +31935,7 @@ MonoBehaviour:
     x: 514
     y: 872
     width: 150
-    height: 43
+    height: 10
   graph: {fileID: 1644651699}
   meteoState: 1
   duration: 1.5
@@ -32510,7 +32435,7 @@ MonoBehaviour:
   - _topSide
   - onExecute
   _serializedStateValues:
-  - '{"xMin":969.0,"yMin":137.0,"xMax":1119.0,"yMax":201.0}'
+  - '{"xMin":969.0,"yMin":137.0,"xMax":1119.0,"yMax":147.0}'
   - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[{"m_Target":0,"m_MethodName":"Close","m_Mode":"Void","m_Arguments":{"m_ObjectArgument":1,"m_ObjectArgumentAssemblyTypeName":"UnityEngine.Object,
     UnityEngine","m_IntArgument":0,"m_FloatArgument":0.0,"m_StringArgument":"","m_BoolArgument":false},"m_CallState":"RuntimeOnly"}]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]}'
@@ -32527,7 +32452,7 @@ MonoBehaviour:
     x: 969
     y: 137
     width: 150
-    height: 64
+    height: 10
   graph: {fileID: 1644651699}
   onTigger:
     iEvents: []
@@ -32834,7 +32759,7 @@ MonoBehaviour:
   - _topSide
   - onExecute
   _serializedStateValues:
-  - '{"xMin":44.0,"yMin":358.0,"xMax":194.0,"yMax":422.0}'
+  - '{"xMin":44.0,"yMin":358.0,"xMax":194.0,"yMax":368.0}'
   - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[{"m_Target":0,"m_MethodName":"Close","m_Mode":"Void","m_Arguments":{"m_ObjectArgument":1,"m_ObjectArgumentAssemblyTypeName":"UnityEngine.Object,
     UnityEngine","m_IntArgument":0,"m_FloatArgument":0.0,"m_StringArgument":"","m_BoolArgument":false},"m_CallState":"RuntimeOnly"}]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]}'
@@ -32851,7 +32776,7 @@ MonoBehaviour:
     x: 44
     y: 358
     width: 150
-    height: 64
+    height: 10
   graph: {fileID: 1644651699}
   onTigger:
     iEvents: []
@@ -33171,7 +33096,7 @@ MonoBehaviour:
     x: 644
     y: 538
     width: 150
-    height: 43
+    height: 10
   graph: {fileID: 1644651699}
   value: 1
 --- !u!1 &2084729955
@@ -33754,7 +33679,7 @@ MonoBehaviour:
     x: 1307
     y: 516
     width: 150
-    height: 64
+    height: 10
   graph: {fileID: 1644651699}
   value: 0
   boolean:

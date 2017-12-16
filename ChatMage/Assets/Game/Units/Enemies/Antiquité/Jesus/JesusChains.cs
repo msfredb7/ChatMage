@@ -21,6 +21,9 @@ public class JesusChains : MonoBehaviour
     public float minBreakAngle;
     public float maxBreakAngle;
 
+    [Header("Other")]
+    public AudioPlayable breakSFX;
+
     [System.NonSerialized]
     private FlyingChain[] flyingChains;
 
@@ -120,8 +123,7 @@ public class JesusChains : MonoBehaviour
 
         broken = true;
 
-        SoundPlayer soundPlayer = GetComponent<SoundPlayer>();
-        soundPlayer.PlaySound();
+        SoundManager.PlaySFX(breakSFX);
 
         flyingChains = new FlyingChain[chains.Length];
 

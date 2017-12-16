@@ -11,9 +11,7 @@ public class JesusIntroAnimation : InGameAnimator
 
     [Header("Jesus Awakens")]
     public Dialoguing.Dialog dialog;
-    public AudioClip jesusAwakens_clip;
-    public float jesusAwakens_delay = 0;
-    public float jesusAwakens_volume = 1;
+    public AudioPlayable jesusAwakensSound;
 
     [Header("Walls")]
     public BrickWallDestruction rightBrickWall;
@@ -136,7 +134,7 @@ public class JesusIntroAnimation : InGameAnimator
         SoundManager.StopMusicFaded();
         Game.instance.ui.dialogDisplay.StartDialog(dialog, delegate ()
         {
-            SoundManager.PlaySFX(jesusAwakens_clip, jesusAwakens_delay, jesusAwakens_volume);
+            SoundManager.PlaySFX(jesusAwakensSound);
             controller.enabled = true;
             StopPlayer(true);
         });
