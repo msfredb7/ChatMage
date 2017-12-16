@@ -7,6 +7,11 @@ public class ITM_MagicMushroom : Item
     public float scaleMultiplier = 2;
     public float hpMultiplier = 2;
 
+    public override void Equip()
+    {
+        throw new System.NotImplementedException();
+    }
+
     public override void Init(PlayerController player)
     {
         base.Init(player);
@@ -32,5 +37,10 @@ public class ITM_MagicMushroom : Item
     public override void OnUpdate()
     {
 
+    }
+
+    public override void Unequip()
+    {
+        throw new System.NotImplementedException();
     }
 }

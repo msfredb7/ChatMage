@@ -4,5 +4,6 @@ using UnityEngine;
 
 public abstract class Item : Equipable
 {
-    
+    public abstract void Equip();
+    public abstract void Unequip();
 }

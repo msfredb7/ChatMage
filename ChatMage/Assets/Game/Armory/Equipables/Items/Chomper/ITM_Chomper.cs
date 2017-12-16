@@ -186,4 +186,14 @@ public class ITM_Chomper : Item, ISpeedOverrider
     {
         return vehicleSpeed;
     }
+
+    public override void Equip()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void Unequip()
+    {
+        throw new NotImplementedException();
+    }
 }

@@ -8,6 +8,11 @@ public class ITM_Axe : Item
 
     private bool alreadyDone = false;
 
+    public override void Equip()
+    {
+        throw new System.NotImplementedException();
+    }
+
     public override void OnGameReady()
     {
         alreadyDone = false;
@@ -28,5 +33,10 @@ public class ITM_Axe : Item
                 Instantiate(axePrefab, Game.instance.Player.vehicle.transform);
             }
         }
+    }
+
+    public override void Unequip()
+    {
+        throw new System.NotImplementedException();
     }
 }

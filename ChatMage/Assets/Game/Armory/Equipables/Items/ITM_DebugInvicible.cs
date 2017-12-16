@@ -5,6 +5,11 @@ using UnityEngine;
 
 public class ITM_DebugInvicible : Item
 {
+    public override void Equip()
+    {
+        throw new NotImplementedException();
+    }
+
     public override void OnGameReady()
     {
         player.playerStats.damagable = false;
@@ -16,5 +21,10 @@ public class ITM_DebugInvicible : Item
 
     public override void OnUpdate()
     {
+    }
+
+    public override void Unequip()
+    {
+        throw new NotImplementedException();
     }
 }

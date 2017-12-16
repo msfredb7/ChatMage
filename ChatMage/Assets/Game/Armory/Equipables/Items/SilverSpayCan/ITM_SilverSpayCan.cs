@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class ITM_SilverSpayCan : Item
 {
+    public override void Equip()
+    {
+        throw new System.NotImplementedException();
+    }
+
     public override void OnGameReady()
     {
     }
@@ -16,5 +21,10 @@ public class ITM_SilverSpayCan : Item
 
     public override void OnUpdate()
     {
+    }
+
+    public override void Unequip()
+    {
+        throw new System.NotImplementedException();
     }
 }

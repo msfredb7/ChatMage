@@ -27,4 +27,14 @@ public class ITM_ChainChomp : Item
     public override void OnUpdate()
     {
     }
+
+    public override void Equip()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void Unequip()
+    {
+        throw new NotImplementedException();
+    }
 }

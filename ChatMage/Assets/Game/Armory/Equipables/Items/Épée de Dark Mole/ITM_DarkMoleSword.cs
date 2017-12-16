@@ -7,6 +7,11 @@ public class ITM_DarkMoleSword : Item
 {
     public GameObject swordPrefab;
 
+    public override void Equip()
+    {
+        throw new NotImplementedException();
+    }
+
     public override void OnGameReady()
     {
         Instantiate(swordPrefab, player.transform);
@@ -18,5 +23,10 @@ public class ITM_DarkMoleSword : Item
 
     public override void OnUpdate()
     {
+    }
+
+    public override void Unequip()
+    {
+        throw new NotImplementedException();
     }
 }

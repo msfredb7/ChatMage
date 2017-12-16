@@ -7,6 +7,11 @@ public class ITM_YaBoyTony : Item
 {
     public TonyVehicle tonyPrefab;
 
+    public override void Equip()
+    {
+        throw new NotImplementedException();
+    }
+
     public override void OnGameReady()
     {
         Game.instance.SpawnUnit(tonyPrefab, Game.instance.gameCamera.Center + Vector2.right * 1.5f);
@@ -20,5 +25,10 @@ public class ITM_YaBoyTony : Item
     public override void OnUpdate()
     {
 
+    }
+
+    public override void Unequip()
+    {
+        throw new NotImplementedException();
     }
 }

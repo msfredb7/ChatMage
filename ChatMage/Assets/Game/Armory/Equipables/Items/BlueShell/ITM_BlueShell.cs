@@ -61,5 +61,15 @@ public class ITM_BlueShell : Item
         shellSpawned = true;
     }
 
+    public override void Equip()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void Unequip()
+    {
+        throw new NotImplementedException();
+    }
+
     private float Cooldown { get { return spawnCooldown * player.playerStats.cooldownMultiplier; } }
 }

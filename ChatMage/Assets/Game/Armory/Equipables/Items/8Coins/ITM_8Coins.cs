@@ -230,4 +230,14 @@ public class ITM_8Coins : Item
         }
         return 7;
     }
+
+    public override void Equip()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void Unequip()
+    {
+        throw new System.NotImplementedException();
+    }
 }

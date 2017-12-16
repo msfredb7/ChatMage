@@ -69,4 +69,14 @@ public class ITM_CarePackage : Item
     {
         canCount = true;
     }
+
+    public override void Equip()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void Unequip()
+    {
+        throw new System.NotImplementedException();
+    }
 }

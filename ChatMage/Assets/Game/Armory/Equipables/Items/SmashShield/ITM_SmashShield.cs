@@ -81,4 +81,14 @@ public class ITM_SmashShield : Item, IAttackable
     {
         return 0;
     }
+
+    public override void Equip()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void Unequip()
+    {
+        throw new NotImplementedException();
+    }
 }

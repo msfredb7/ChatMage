@@ -109,4 +109,14 @@ public class ITM_Rasengan : Item
     {
         Game.instance.SpawnUnit(rasenganPrefab, position);
     }
+
+    public override void Equip()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void Unequip()
+    {
+        throw new NotImplementedException();
+    }
 }
