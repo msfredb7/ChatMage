@@ -187,7 +187,7 @@ public class ITM_Chomper : Item, ISpeedOverrider
         return vehicleSpeed;
     }
 
-    public override void Equip()
+    public override void Equip(int duplicateIndex)
     {
         throw new NotImplementedException();
     }

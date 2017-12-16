@@ -82,7 +82,7 @@ public class ITM_SmashShield : Item, IAttackable
         return 0;
     }
 
-    public override void Equip()
+    public override void Equip(int duplicateIndex)
     {
         throw new NotImplementedException();
     }

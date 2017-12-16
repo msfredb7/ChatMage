@@ -4,6 +4,9 @@ using UnityEngine;
 
 public abstract class Item : Equipable
 {
-    public abstract void Equip();
+    [System.NonSerialized, FullSerializer.fsIgnore]
+    public int originalAssetID;
+
+    public abstract void Equip(int duplicateIndex);
     public abstract void Unequip();
 }

@@ -11,7 +11,7 @@ public class ITM_McPack : Item
     public float appearanceMultiplier = 0.7f;
     public int regenAmount = 2;
 
-    public override void Equip()
+    public override void Equip(int duplicateIndex)
     {
         throw new NotImplementedException();
     }

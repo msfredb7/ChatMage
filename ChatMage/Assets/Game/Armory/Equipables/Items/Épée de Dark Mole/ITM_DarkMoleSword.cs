@@ -5,11 +5,16 @@ using UnityEngine;
 
 public class ITM_DarkMoleSword : Item
 {
-    public GameObject swordPrefab;
+    public DarkMoleSword swordPrefab;
 
-    public override void Equip()
+    [FullSerializer.fsIgnore]
+    private DarkMoleSword sword;
+
+    public override void Equip(int duplicateIndex)
     {
-        throw new NotImplementedException();
+        sword = swordPrefab.DuplicateGO(player.transform);
+        sword.SetController(player);
+        sword.OpenSwordSet(duplicateIndex);
     }
 
     public override void OnGameReady()
@@ -23,10 +28,13 @@ public class ITM_DarkMoleSword : Item
 
     public override void OnUpdate()
     {
+        if (Input.GetKeyDown(KeyCode.U))
+            player.playerItems.Unequip(this);
     }
 
     public override void Unequip()
     {
-        throw new NotImplementedException();
+        sword.CloseSwords(sword.DestroyGO);
+        sword = null;
     }
 }

@@ -28,7 +28,7 @@ public class ITM_ChainChomp : Item
     {
     }
 
-    public override void Equip()
+    public override void Equip(int duplicateIndex)
     {
         throw new NotImplementedException();
     }

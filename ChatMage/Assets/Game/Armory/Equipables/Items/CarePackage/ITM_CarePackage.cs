@@ -70,7 +70,7 @@ public class ITM_CarePackage : Item
         canCount = true;
     }
 
-    public override void Equip()
+    public override void Equip(int duplicateIndex)
     {
         throw new System.NotImplementedException();
     }

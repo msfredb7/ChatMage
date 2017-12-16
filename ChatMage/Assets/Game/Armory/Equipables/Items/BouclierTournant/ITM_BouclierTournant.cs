@@ -8,7 +8,7 @@ public class ITM_BouclierTournant : Item
 
     public GameObject shieldPrefab;
 
-    public override void Equip()
+    public override void Equip(int duplicateIndex)
     {
         throw new NotImplementedException();
     }

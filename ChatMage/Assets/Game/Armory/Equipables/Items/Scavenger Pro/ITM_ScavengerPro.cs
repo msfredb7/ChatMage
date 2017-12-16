@@ -8,7 +8,7 @@ public class ITM_ScavengerPro : Item
     [InspectorHeader("Health packs"), InspectorRange(1, 2)]
     public float appearanceMultiplier = 1.35f;
 
-    public override void Equip()
+    public override void Equip(int duplicateIndex)
     {
         throw new System.NotImplementedException();
     }

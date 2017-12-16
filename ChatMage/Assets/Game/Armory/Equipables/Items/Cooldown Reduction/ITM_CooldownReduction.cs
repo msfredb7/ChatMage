@@ -8,7 +8,7 @@ public class ITM_CooldownReduction : Item
     [InspectorRange(0, 1), InspectorHeader("Formula: cooldownMult = 1 - cooldownReduc")]
     public float cooldownReduction = 0.5f;
 
-    public override void Equip()
+    public override void Equip(int duplicateIndex)
     {
         throw new System.NotImplementedException();
     }

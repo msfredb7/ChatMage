@@ -61,7 +61,7 @@ public class ITM_BlueShell : Item
         shellSpawned = true;
     }
 
-    public override void Equip()
+    public override void Equip(int duplicateIndex)
     {
         throw new NotImplementedException();
     }

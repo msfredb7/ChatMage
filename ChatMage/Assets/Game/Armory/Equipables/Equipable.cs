@@ -21,6 +21,8 @@ public abstract class Equipable : BaseScriptableObject
 
     protected virtual void ClearReferences()
     {
+        if (Game.instance != null)
+            Game.instance.onDestroy -= ClearReferences;
         player = null;
     }
 }

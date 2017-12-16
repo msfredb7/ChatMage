@@ -8,7 +8,7 @@ public class ITM_Axe : Item
 
     private bool alreadyDone = false;
 
-    public override void Equip()
+    public override void Equip(int duplicateIndex)
     {
         throw new System.NotImplementedException();
     }

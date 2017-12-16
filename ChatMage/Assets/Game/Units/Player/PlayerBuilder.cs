@@ -125,7 +125,7 @@ public class PlayerBuilder : MonoBehaviour
 
         playerController.playerDriver.SetCar(car);
         playerController.playerSmash.SetSmash(smash);
-        playerController.playerItems.SetItems(items);
+        playerController.playerItems.Equip(items);
 
         return playerController;
     }

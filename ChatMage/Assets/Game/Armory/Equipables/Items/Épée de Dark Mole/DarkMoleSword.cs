@@ -3,58 +3,73 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class DarkMoleSword : Unit, IAttackable
+public class DarkMoleSword : MonoBehaviour
 {
-    [Header("Linking"), Forward]
-    public Targets targets;
-    public SimpleColliderListener swordCollider;
-
-    [Header("Size")]
-    public float boostedSizeMultiplier = 1.4f;
-
-    void Start()
+    [System.Serializable]
+    public struct SwordSet
     {
-        //On grossie le shield si on a 'boostedAOE'
-        if (Game.instance.Player.playerStats.boostedAOE)
-            swordCollider.transform.localScale *= boostedSizeMultiplier;
-
-        swordCollider.onCollisionEnter += ShieldCollider_onCollisionEnter;
+        public Transform[] positions;
     }
 
-    //Si le shield frappe un ennemi, il l'attaque, puis tourne
-    private void ShieldCollider_onCollisionEnter(ColliderInfo other, Collision2D collision, ColliderListener listener)
+    [Header("Linking")]
+    public LaserSword[] swords;
+    public SwordSet[] swordSets;
+
+    private PlayerController player;
+
+    public void SetController(PlayerController player)
     {
-        Unit unit = other.parentUnit;
-        if (!targets.IsValidTarget(unit))
-            return;
+        this.player = player;
+        player.vehicle.onTimeScaleChange += Vehicle_onTimeScaleChange;
+        UpdateTimescale(player.vehicle.TimeScale);
+    }
 
-        IAttackable attackable = unit.GetComponent<IAttackable>();
-        if (attackable != null)
+    void OnDestroy()
+    {
+        if (player != null)
+            player.vehicle.onTimeScaleChange -= Vehicle_onTimeScaleChange;
+    }
+
+    private void Vehicle_onTimeScaleChange(Unit unit)
+    {
+        UpdateTimescale(unit.TimeScale);
+    }
+    private void UpdateTimescale(float timescale)
+    {
+        for (int i = 0; i < swords.Length; i++)
         {
-            bool wasDead = unit.IsDead;
-            attackable.Attacked(other, 1, null);
-
-            if (unit.IsDead && !wasDead)
-                Game.instance.Player.playerStats.RegisterKilledUnit(unit);
-
-            OnSwordHit();
+            swords[i].UpdateTimescale(timescale);
         }
     }
 
-    //Si le shield se fait frapper, il resiste et tourne
-    public int Attacked(ColliderInfo on, int amount, Unit otherUnit, ColliderInfo source = null)
+    public void OpenSwordSet(int index)
     {
-        OnSwordHit();
-        return 1;
+        index = index.Clamped(0, swordSets.Length);
+
+        SwordSet set = swordSets[index];
+
+        for (int i = 0; i < set.positions.Length; i++)
+        {
+            if (i >= swordSets.Length)
+                break;
+
+            Transform tr = swords[i].transform;
+            tr.SetParent(set.positions[i], false);
+            tr.localScale = Vector3.one;
+            tr.localPosition = Vector3.zero;
+            tr.localRotation = Quaternion.identity;
+            swords[i].OpenSword(null);
+        }
     }
 
-    void OnSwordHit()
+    public void CloseSwords(Action onComplete)
     {
-        Game.instance.commonVfx.SmallHit(swordCollider.transform.position, Color.red);
-    }
+        InitQueue queue = new InitQueue(onComplete);
 
-    public float GetSmashJuiceReward()
-    {
-        return 0;
+        for (int i = 0; i < swords.Length; i++)
+        {
+            swords[i].CloseSword(queue.RegisterTween());
+        }
+        queue.MarkEnd();
     }
 }

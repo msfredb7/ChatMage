@@ -93,4 +93,14 @@ public static class ListExtensions
             }
         }
     }
+    public static int CountOf<T>(this List<T> list, T element)
+    {
+        int amount = 0;
+        for (int i = 0; i < list.Count; i++)
+        {
+            if (list[i].Equals(element))
+                amount++;
+        }
+        return amount;
+    }
 }

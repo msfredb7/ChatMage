@@ -110,7 +110,7 @@ public class ITM_Rasengan : Item
         Game.instance.SpawnUnit(rasenganPrefab, position);
     }
 
-    public override void Equip()
+    public override void Equip(int duplicateIndex)
     {
         throw new NotImplementedException();
     }

@@ -7,7 +7,7 @@ public class ITM_RocketLockon : Item
 {
     public RocketLauncher launcherPrefab;
 
-    public override void Equip()
+    public override void Equip(int duplicateIndex)
     {
         throw new NotImplementedException();
     }

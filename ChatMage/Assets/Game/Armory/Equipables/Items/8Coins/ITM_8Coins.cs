@@ -62,7 +62,7 @@ public class ITM_8Coins : Item
                 waveDuration = Pattern0();
                 break;
             case 1:
-                waveDuration = Pattern1();
+                waveDuration = GetPattern1();
                 break;
         }
 
@@ -210,11 +210,11 @@ public class ITM_8Coins : Item
     }
 
     //Une ligne de coins
-    private float Pattern1()
+    private float GetPattern1()
     {
         float angle = Random.value * 360;
         float startDistance = Random.value * 2 + 2.25f;
-        
+
         Vector2 start = angle.ToVector() * startDistance;
 
         angle = Random.value * 90 + angle + 135;
@@ -231,7 +231,7 @@ public class ITM_8Coins : Item
         return 7;
     }
 
-    public override void Equip()
+    public override void Equip(int duplicateIndex)
     {
         throw new System.NotImplementedException();
     }

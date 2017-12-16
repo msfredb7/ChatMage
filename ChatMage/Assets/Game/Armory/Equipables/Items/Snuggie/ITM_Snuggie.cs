@@ -8,7 +8,7 @@ public class ITM_Snuggie : Item
 
     public int armorBonus = 2;
 
-    public override void Equip()
+    public override void Equip(int duplicateIndex)
     {
         throw new NotImplementedException();
     }

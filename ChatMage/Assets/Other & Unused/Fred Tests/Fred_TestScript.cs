@@ -8,8 +8,7 @@ using CCC.Manager;
 
 public class Fred_TestScript : BaseBehavior
 {
-	public AudioPlayable musicA;
-	public AudioPlayable musicB;
+	public LaserSword sword;
 
     void Start()
     {
@@ -21,12 +20,12 @@ public class Fred_TestScript : BaseBehavior
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-			SoundManager.TransitionToMusic (musicA, true);
-		}
+            sword.OpenSword(null);
+        }
 		if (Input.GetKeyDown(KeyCode.Y))
-		{
-			SoundManager.TransitionToMusic (musicB, false);
-		}
+        {
+            sword.CloseSword(null);
+        }
     }
     public void TestOne()
     {

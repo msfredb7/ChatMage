@@ -7,7 +7,7 @@ public class ITM_YaBoyTony : Item
 {
     public TonyVehicle tonyPrefab;
 
-    public override void Equip()
+    public override void Equip(int duplicateIndex)
     {
         throw new NotImplementedException();
     }

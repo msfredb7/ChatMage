@@ -7,7 +7,7 @@ public class ITM_MagicMushroom : Item
     public float scaleMultiplier = 2;
     public float hpMultiplier = 2;
 
-    public override void Equip()
+    public override void Equip(int duplicateIndex)
     {
         throw new System.NotImplementedException();
     }
