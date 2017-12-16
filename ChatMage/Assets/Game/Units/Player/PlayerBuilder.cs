@@ -55,7 +55,7 @@ public class PlayerBuilder : MonoBehaviour
         }
 
         items = new List<Item>();
-        LoadQueue queue = new LoadQueue(callback);
+        ResourceLoadQueue queue = new ResourceLoadQueue(callback);
 
         loadingItemsCount = 0;
         for (int i = 0; i < loadoutResult.itemOrders.Count; i++)

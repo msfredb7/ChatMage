@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class LoadQueue
+public class ResourceLoadQueue
 {
     public int Count { get { return requestCount; } }
     int requestCount = 0;
     Action onComplete;
-    public LoadQueue(Action onComplete)
+    public ResourceLoadQueue(Action onComplete)
     {
         this.onComplete = onComplete;
     }
