@@ -12,6 +12,7 @@ public class PlayerCarTriggers : PlayerComponent
     public event UnitDetectionEvent onUnitKilled;
 
     [Header("Hit Animation")]
+    public AudioPlayable damageUnitSFX;
     public const float camHitStrengthOnHit = 0.45f;
 
 
@@ -110,7 +111,7 @@ public class PlayerCarTriggers : PlayerComponent
             Game.instance.gameCamera.vectorShaker.Hit((transform.position - other.transform.position).normalized * camHitStrengthOnHit);
             //Hit animation
             Game.instance.commonVfx.SmallHit(other.transform.position, Color.white);
-            Game.instance.commonSfx.Hit();
+            SoundManager.PlaySFX(damageUnitSFX);
         }
     }
 
