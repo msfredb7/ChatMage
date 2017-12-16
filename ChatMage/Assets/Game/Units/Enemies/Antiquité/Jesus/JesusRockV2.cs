@@ -87,7 +87,7 @@ public class JesusRockV2 : MovingUnit
         rb.drag = 20;
         cannotHit = null;
 
-        CCC.Manager.SoundManager.PlaySFX(hitSounds.Pick(), volume: hitVolume);
+        SoundManager.PlaySFX(hitSounds.Pick(), volume: hitVolume);
 
         Game.instance.gameCamera.vectorShaker.Shake(onHitShakeStrength);
     }

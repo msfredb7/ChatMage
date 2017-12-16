@@ -11,7 +11,7 @@ namespace LevelSelect
 
         public void LoadLevel(string levelScriptName)
         {
-            CCC.Manager.SoundManager.StopMusicFaded();
+            SoundManager.StopMusicFaded();
             LoadingScreen.TransitionTo(Framework.SCENENAME, new ToGameMessage(levelScriptName, GetLoadout(), true), true);
         }
 

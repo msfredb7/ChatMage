@@ -8,7 +8,7 @@ public class LevelSelect_PCDEMO : MonoBehaviour
 
     void Start()
     {
-        CCC.Manager.SoundManager.StopMusicFaded();
+        SoundManager.StopMusicFaded();
     }
 
 

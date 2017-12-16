@@ -15,6 +15,7 @@ public class JesusV2Vehicle : EnemyVehicle
     [Header("On Hit")]
     public float invulnurableDuration = 1.5f;
     public float bumpForce = 5;
+    public AudioPlayable loseHPSound;
 
     [Header("Linking")]
     public new Collider2D collider;
@@ -101,8 +102,8 @@ public class JesusV2Vehicle : EnemyVehicle
 
         if (hp > 0)
         {
-            MultipleSoundPlayerManager soundPlayer = GetComponent<MultipleSoundPlayerManager>();
-            soundPlayer.PlayChoosenSound("hit");
+            SoundManager.PlaySFX(loseHPSound);
+
             if (!IsHPShown())
                 ShowHP();
 
