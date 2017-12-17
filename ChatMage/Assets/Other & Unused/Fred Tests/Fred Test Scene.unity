@@ -225,8 +225,8 @@ GameObject:
   - component: {fileID: 1205636211}
   - component: {fileID: 1205636210}
   - component: {fileID: 1205636209}
-  - component: {fileID: 1205636214}
   - component: {fileID: 1205636215}
+  - component: {fileID: 1205636214}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -315,11 +315,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d0bd9990e4d1c1459607cbad3ec8273, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectReferences: []
-  _serializedStateKeys: []
-  _serializedStateValues: []
-  musicA: {fileID: 11400000, guid: 7a57f5f73b2b1d84abb12205801dd3aa, type: 2}
-  musicB: {fileID: 11400000, guid: eba42383490db2c41bb018a62c239873, type: 2}
+  samples: 50
+  tries: 300
+  random:
+    currentChances: 0.36
+    successRate: 0.59
+    hardness: 0.086
 --- !u!82 &1205636215
 AudioSource:
   m_ObjectHideFlags: 0

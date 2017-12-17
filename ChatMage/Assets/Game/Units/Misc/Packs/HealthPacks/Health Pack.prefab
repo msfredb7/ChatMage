@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 114360127064111098}
   - component: {fileID: 114992820261450810}
   m_Layer: 12
-  m_Name: HealthPacks
+  m_Name: Health Pack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -309,6 +309,7 @@ MonoBehaviour:
   spawnDuration: 1
   spawnRotateLoops: 5
   flipMaxSize: 1.6
+  pickupSound: {fileID: 11400000, guid: dd0689df34fbd09438afaeb1506b5e55, type: 2}
 --- !u!114 &114980761188360800
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -358,7 +359,6 @@ MonoBehaviour:
   startOnReactivation: 0
   sfxLoopSource: {fileID: 0}
   colliderListener: {fileID: 114980761188360800}
-  addDelay: 0
   CollisionMoment: 0
   CollisionType: 1
 --- !u!212 &212117022180462836

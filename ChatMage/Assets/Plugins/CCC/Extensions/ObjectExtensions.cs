@@ -75,6 +75,14 @@ public static class ObjectExtensions
     {
         return GameObject.Instantiate(original.gameObject, position, rotation, parent);
     }
+    
+    /// <summary>
+    ///Instantiate une copie du scriptable object
+    /// </summary>
+    public static T Duplicate<T>(this T original) where T : ScriptableObject
+    {
+        return ScriptableObject.Instantiate(original);
+    }
 
     #region Destroy gameobject
     public static void Destroy(this GameObject obj, float delay)

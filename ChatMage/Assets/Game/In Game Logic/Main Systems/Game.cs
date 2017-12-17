@@ -22,6 +22,7 @@ public class Game : PublicSingleton<Game>
     public CommonSFX commonSfx;
     public MusicManager music;
     public AjusteCadre cadre;
+    public ItemSpawner itemSpawner;
 
     //Dynamic references
     [fsIgnore, NonSerialized]

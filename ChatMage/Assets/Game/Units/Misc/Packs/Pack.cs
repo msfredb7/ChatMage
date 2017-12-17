@@ -16,10 +16,13 @@ public abstract class Pack : MovingUnit
     public Transform spriteHolder;
 
     [Header("Animation Settings")]
-    public string sortingLayerAbovePlayer;
-    public float spawnDuration;
-    public int spawnRotateLoops;
+    public string sortingLayerAbovePlayer = "Above Player";
+    public float spawnDuration = 1;
+    public int spawnRotateLoops = 5;
     public float flipMaxSize = 1.6f;
+
+    [Header("Audio")]
+    public AudioPlayable pickupSound;
 
     private Tween animTween;
     private string sortingLayerStd;
@@ -100,6 +103,8 @@ public abstract class Pack : MovingUnit
     {
         if (!isDead && info.parentUnit == Game.instance.Player.vehicle)
         {
+            if (pickupSound != null)
+                SoundManager.PlaySFX(pickupSound);
             OnPickUp();
         }
         Die();

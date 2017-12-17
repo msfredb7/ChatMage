@@ -103,4 +103,13 @@ public static class ListExtensions
         }
         return amount;
     }
+
+    public static T PickRandom<T>(this List<T> list)
+    {
+        if (list.Count == 0)
+            return default(T);
+        if (list.Count == 1)
+            return list[0];
+        return list[UnityEngine.Random.Range(0, list.Count)];
+    }
 }

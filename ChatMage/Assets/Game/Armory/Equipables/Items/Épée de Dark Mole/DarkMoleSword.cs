@@ -44,7 +44,7 @@ public class DarkMoleSword : MonoBehaviour
 
     public void OpenSwordSet(int index)
     {
-        index = index.Clamped(0, swordSets.Length);
+        index = index.Clamped(0, swordSets.Length - 1);
 
         SwordSet set = swordSets[index];
 

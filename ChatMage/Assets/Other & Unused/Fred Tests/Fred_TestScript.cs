@@ -6,9 +6,11 @@ using FullInspector;
 using Dialoguing;
 using CCC.Manager;
 
-public class Fred_TestScript : BaseBehavior
+public class Fred_TestScript : MonoBehaviour
 {
-	public LaserSword sword;
+    public int samples = 50;
+    public int tries = 300;
+    public PseudoRand random = new PseudoRand(0.3f, 1f);
 
     void Start()
     {
@@ -20,31 +22,23 @@ public class Fred_TestScript : BaseBehavior
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            sword.OpenSword(null);
+            int prediction = (tries * random.SuccessRate).RoundedToInt();
+            int ecarts = 0;
+            for (int u = 0; u < samples; u++)
+            {
+                int successes = 0;
+                for (int i = 0; i < tries; i++)
+                {
+                    if (random.PickResult())
+                        successes++;
+                }
+                ecarts += (successes - prediction).Abs();
+            }
+            print("Ecart moyen: " + ((float)ecarts / samples));
         }
-		if (Input.GetKeyDown(KeyCode.Y))
+        if (Input.GetKeyDown(KeyCode.Y))
         {
-            sword.CloseSword(null);
+            print(random.PickResult());
         }
-    }
-    public void TestOne()
-    {
-
-    }
-    public void TestTwo(float a)
-    {
-
-    }
-    public void TestThree(AudioPlayable e)
-    {
-
-    }
-    public void TestFour(GameObject e)
-    {
-
-    }
-    public void TestFive(AudioClip e)
-    {
-
     }
 }
