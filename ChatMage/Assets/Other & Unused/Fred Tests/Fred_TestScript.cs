@@ -8,9 +8,7 @@ using CCC.Manager;
 
 public class Fred_TestScript : MonoBehaviour
 {
-    public int samples = 50;
-    public int tries = 300;
-    public PseudoRand random = new PseudoRand(0.3f, 1f);
+    public LaserSword sword;
 
     void Start()
     {
@@ -22,23 +20,19 @@ public class Fred_TestScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            int prediction = (tries * random.SuccessRate).RoundedToInt();
-            int ecarts = 0;
-            for (int u = 0; u < samples; u++)
-            {
-                int successes = 0;
-                for (int i = 0; i < tries; i++)
-                {
-                    if (random.PickResult())
-                        successes++;
-                }
-                ecarts += (successes - prediction).Abs();
-            }
-            print("Ecart moyen: " + ((float)ecarts / samples));
+            sword.Open(()=>print("top"));
         }
         if (Input.GetKeyDown(KeyCode.Y))
         {
-            print(random.PickResult());
+            sword.Close(() => print("bottom"));
+        }
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            sword.OpenInstant();
+        }
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            sword.CloseInstant();
         }
     }
 }

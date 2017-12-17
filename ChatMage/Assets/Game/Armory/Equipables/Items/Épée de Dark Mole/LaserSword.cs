@@ -10,11 +10,18 @@ public class LaserSword : MonoBehaviour
     public Targets targets;
 
     [Header("Animation")]
-    public Transform laserAnchor;
+    public float swordFinalLength = 0.75f;
     public Ease openEase = Ease.Linear;
     public float openDuration = 0.75f;
     public Ease closeEase = Ease.Linear;
     public float closeDuration = 1f;
+
+    [Header("Collider")]
+    public BoxCollider2D boxCollider;
+
+    [Header("Laser sprite")]
+    public SpriteRenderer laser;
+    public float laserBaseSize = 0.32f;
 
     private Tween tween;
     private float timescale = 1;
@@ -25,34 +32,70 @@ public class LaserSword : MonoBehaviour
         CloseInstant();
     }
 
-    public void OpenSword(TweenCallback onComplete)
+    void SetTweenIfNotSet()
     {
-        Kill();
-        tween = laserAnchor
-            .DOScaleX(1, openDuration)
-            .SetEase(openEase)
-            .OnComplete(onComplete);
+        if (tween != null)
+            return;
+        float val = 0;
+        Vector2 boxSize = boxCollider.size;
+        Vector2 boxOffset = Vector2.zero;
+        Vector2 laserSize = laser.size;
+        Vector3 laserOffset = Vector3.zero;
+        Transform laserTr = laser.transform;
+        tween = DOTween.To(() => val,
+            (x) =>
+            {
+                val = x;
+                laserSize.x = laserBaseSize + val * swordFinalLength;
+                boxSize.x = val * swordFinalLength;
+                boxOffset.x = boxSize.x / 2;
+                laserOffset.x = boxOffset.x;
+
+                boxCollider.size = boxSize;
+                boxCollider.offset = boxOffset;
+
+                laser.size = laserSize;
+                laserTr.localPosition = laserOffset;
+            },
+            1,
+            openDuration).SetEase(openEase);
+        tween.SetAutoKill(false);
         ApplyTimescale();
+    }
+
+    public void Open(TweenCallback onComplete)
+    {
+        SetTweenIfNotSet();
+
+        tween.PlayForward();
+        tween.OnComplete(onComplete);
     }
     public void OpenInstant()
     {
-        Kill();
-        laserAnchor.localScale = Vector3.one;
+        SetTweenIfNotSet();
+
+        tween.PlayForward();
+        tween.Goto(tween.Duration());
     }
 
-    public void CloseSword(TweenCallback onComplete)
+    public void Close(TweenCallback onComplete)
     {
-        Kill();
-        tween = laserAnchor
-            .DOScaleX(0, closeDuration)
-            .SetEase(closeEase)
-            .OnComplete(onComplete);
-        ApplyTimescale();
+        SetTweenIfNotSet();
+        
+        tween.PlayBackwards();
+        tween.OnRewind(onComplete);
     }
     public void CloseInstant()
     {
+        SetTweenIfNotSet();
+
+        tween.PlayBackwards();
+        tween.Goto(0);
+    }
+
+    void OnDestroy()
+    {
         Kill();
-        laserAnchor.localScale = new Vector3(0, 1, 1);
     }
 
     private void Kill()

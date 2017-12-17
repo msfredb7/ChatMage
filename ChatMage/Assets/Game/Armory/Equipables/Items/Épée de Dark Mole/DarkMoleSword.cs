@@ -12,9 +12,10 @@ public class DarkMoleSword : MonoBehaviour
     }
 
     [Header("Linking")]
-    public LaserSword[] swords;
+    public LaserSword sword;
     public SwordSet[] swordSets;
 
+    private LaserSword[] swords;
     private PlayerController player;
 
     public void SetController(PlayerController player)
@@ -36,10 +37,12 @@ public class DarkMoleSword : MonoBehaviour
     }
     private void UpdateTimescale(float timescale)
     {
-        for (int i = 0; i < swords.Length; i++)
-        {
-            swords[i].UpdateTimescale(timescale);
-        }
+        if (swords != null)
+            for (int i = 0; i < swords.Length; i++)
+            {
+                swords[i].UpdateTimescale(timescale);
+            }
+        sword.UpdateTimescale(timescale);
     }
 
     public void OpenSwordSet(int index)
@@ -47,18 +50,23 @@ public class DarkMoleSword : MonoBehaviour
         index = index.Clamped(0, swordSets.Length - 1);
 
         SwordSet set = swordSets[index];
+        swords = new LaserSword[set.positions.Length];
+        if (swords.Length > 0)
+            swords[0] = sword;
 
         for (int i = 0; i < set.positions.Length; i++)
         {
-            if (i >= swordSets.Length)
-                break;
+            if (swords[i] == null)
+            {
+                swords[i] = sword.DuplicateGO(sword.transform.parent);
+            }
 
             Transform tr = swords[i].transform;
             tr.SetParent(set.positions[i], false);
             tr.localScale = Vector3.one;
             tr.localPosition = Vector3.zero;
             tr.localRotation = Quaternion.identity;
-            swords[i].OpenSword(null);
+            swords[i].Open(null);
         }
     }
 
@@ -68,7 +76,7 @@ public class DarkMoleSword : MonoBehaviour
 
         for (int i = 0; i < swords.Length; i++)
         {
-            swords[i].CloseSword(queue.RegisterTween());
+            swords[i].Close(queue.RegisterTween());
         }
         queue.MarkEnd();
     }
