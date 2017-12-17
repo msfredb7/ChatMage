@@ -57,22 +57,26 @@ public class ItemSpawner : MonoBehaviour
         {
             //Il n'y a pas d'item common
             SpawnSpecialItem(at);
+            return;
         }
         else if (specialItemsReferences.Count == 0)
         {
             //Il n'y a pas d'item special
             SpawnCommonItem(at);
+            return;
         }
 
         if (commonItemCounter >= specialEveryXItem)
         {
             //Il est l'heure d'avoir un special item
             SpawnSpecialItem(at);
+            return;
         }
         else
         {
             //Il est l'heure d'avoir un common item
             SpawnCommonItem(at);
+            return;
         }
     }
 
