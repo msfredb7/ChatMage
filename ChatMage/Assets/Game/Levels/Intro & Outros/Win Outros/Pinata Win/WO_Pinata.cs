@@ -9,7 +9,7 @@ using EndGameReward;
 
 namespace GameIntroOutro
 {
-    public class PinataWinOutro : BaseWinOutro
+    public class WO_Pinata : BaseWinOutro
     {
         [Header("Linking")]
         public Unit pinata;

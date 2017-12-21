@@ -206,19 +206,22 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
 
         if (winOutroPrefab != null)
         {
+            BaseWinOutro outro = null;
             switch (winOutroPrefab.parentType)
             {
                 case BaseWinOutro.ParentType.UnderCanvas:
-                    inGameEvents.SpawnUnderUI(winOutroPrefab).Play();
+                    outro = inGameEvents.SpawnUnderUI(winOutroPrefab);
                     break;
                 case BaseWinOutro.ParentType.UnderCanvasWithinGameView:
-                    inGameEvents.SpawnUnderUIWithinGameView(winOutroPrefab).Play();
+                    outro = inGameEvents.SpawnUnderUIWithinGameView(winOutroPrefab);
                     break;
                 default:
                 case BaseWinOutro.ParentType.UnderGame:
-                    inGameEvents.SpawnUnderGame(winOutroPrefab).Play();
+                    outro = inGameEvents.SpawnUnderGame(winOutroPrefab);
                     break;
             }
+            if (outro != null)
+                outro.Play();
         }
 
         OnWin();
@@ -242,19 +245,22 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
 
         if (loseOutroPrefab != null)
         {
+            BaseLoseOutro outro = null;
             switch (loseOutroPrefab.parentType)
             {
                 case BaseLoseOutro.ParentType.UnderCanvas:
-                    inGameEvents.SpawnUnderUI(loseOutroPrefab).Play();
+                    outro = inGameEvents.SpawnUnderUI(loseOutroPrefab);
                     break;
                 case BaseLoseOutro.ParentType.UnderCanvasWithinGameView:
-                    inGameEvents.SpawnUnderUIWithinGameView(loseOutroPrefab).Play();
+                    outro = inGameEvents.SpawnUnderUIWithinGameView(loseOutroPrefab);
                     break;
                 default:
                 case BaseLoseOutro.ParentType.UnderGame:
-                    inGameEvents.SpawnUnderGame(loseOutroPrefab).Play();
+                    outro = inGameEvents.SpawnUnderGame(loseOutroPrefab);
                     break;
             }
+            if (outro != null)
+                outro.Play();
         }
 
         OnLose();

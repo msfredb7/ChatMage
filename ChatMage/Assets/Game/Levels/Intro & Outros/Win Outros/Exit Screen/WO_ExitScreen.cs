@@ -9,7 +9,7 @@ using EndGameReward;
 
 namespace GameIntroOutro
 {
-    public class ExitScreenWin : StdWinOutro
+    public class WO_ExitScreen : StdWinOutro
     {
         public enum Direction { Up, Down, Right, Left }
         public Direction exitDirection = Direction.Up;
