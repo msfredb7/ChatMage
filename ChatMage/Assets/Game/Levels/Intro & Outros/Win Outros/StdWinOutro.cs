@@ -23,7 +23,7 @@ namespace GameIntroOutro
 
             rewardUI.Init(Game.instance.levelScript.rewards, Game.instance.levelScript.name);
 
-            CanEnd();
+            CheckEnd();
         }
 
         protected virtual void CheckEnd()
