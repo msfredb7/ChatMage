@@ -63,7 +63,6 @@ public class JesusIntroAnimation : InGameAnimator
         SoundManager.PlayMusic(bossMusic, true, musicVolume);
         jesus.OnDeath += (Unit u) =>
         {
-            Game.instance.levelScript.Win();
             SoundManager.StopMusicFaded();
         };
     }

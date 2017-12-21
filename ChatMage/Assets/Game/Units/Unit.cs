@@ -15,6 +15,8 @@ public abstract class Unit : MonoBehaviour
 
     protected float timeScale = 1;
 
+    [System.Serializable]
+    public class Unit_UnityEvent : UnityEvent<Unit> { }
     public delegate void Unit_Event(Unit unit);
     public delegate void UnitMove_Event(Unit unit, Vector2 delta);
     public event Unit_Event onTimeScaleChange;
@@ -31,7 +33,7 @@ public abstract class Unit : MonoBehaviour
         }
         remove { onDeath -= value; }
     }
-    public event Unit_Event onDeath;
+    private event Unit_Event onDeath;
 
     [System.NonSerialized]
     public List<string> marks = new List<string>();
