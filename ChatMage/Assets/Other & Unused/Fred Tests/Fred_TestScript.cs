@@ -5,6 +5,7 @@ using DG.Tweening;
 using FullInspector;
 using Dialoguing;
 using CCC.Manager;
+using UnityEngine.Events;
 
 public class Fred_TestScript : MonoBehaviour
 {
