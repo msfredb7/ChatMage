@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using CCC.Manager;
+using DG.Tweening;
 
 namespace LevelSelect {
 	public class DrawRoad : MonoBehaviour {
@@ -25,12 +26,17 @@ namespace LevelSelect {
 		}
 
 		void MakeRoad() {
-			roadContainer.GetChild(currentDot).gameObject.SetActive(true);
+			Transform tempChild = roadContainer.GetChild(currentDot);
+			tempChild.localScale = Vector3.zero;
+			tempChild.gameObject.SetActive(true);
+			tempChild.DOScale(Vector3.one * 0.5f, 0.5f).SetEase(Ease.InOutElastic);
+			//roadContainer.GetChild(currentDot).gameObject.SetActive(true);
+
 			currentDot++;
 			if (currentDot < amountOfDots)
 				DelayManager.LocalCallTo(MakeRoad, timeBetweenDots, this);
 			else 
-				DelayManager.LocalCallTo(delegate () {nextLevel.gameObject.SetActive(true);}, timeBetweenDots, this);
+				DelayManager.LocalCallTo(delegate () {nextLevel.gameObject.SetActive(true); nextLevel.GetChild(0).GetChild(0).GetComponent<Animator>().enabled = true; }, timeBetweenDots, this);
 		}
 
 		public void ShowAllRoad() {
