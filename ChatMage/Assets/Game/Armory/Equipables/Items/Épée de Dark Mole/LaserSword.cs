@@ -11,6 +11,7 @@ public class LaserSword : MonoBehaviour
 
     [Header("Hit")]
     public AudioPlayable onHitSFX;
+    public float hitCameraShake = 0.5f;
 
     [Header("Animation")]
     public float swordFinalLength = 0.75f;
@@ -142,6 +143,8 @@ public class LaserSword : MonoBehaviour
                     }
 
                     SoundManager.PlaySFX(onHitSFX);
+                    Vector2 v = (player.vehicle.Position - unit.Position).normalized;
+                    Game.instance.gameCamera.vectorShaker.Hit(v * hitCameraShake);
                 }
             }
         }

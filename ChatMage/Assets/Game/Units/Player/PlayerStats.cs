@@ -121,14 +121,16 @@ public class PlayerStats : PlayerComponent, IAttackable
         Game.instance.gameCamera.vectorShaker.Hit(camShakeDir.normalized * onHitShakeStrength);
 
 
+        //----------------------VFX + SFX----------------------//
+        Game.instance.commonVfx.MediumHit(on.transform.position, loseHpHitColor, SortingLayers.PLAYER);
+        Game.instance.commonSfx.Hit();
+
+
         if (controller.playerItems.ItemCount > 0)
         {
             //----------------------Flash Animation----------------------//
             damagable = false;
-            Game.instance.commonVfx.MediumHit(on.transform.position, loseHpHitColor, SortingLayers.PLAYER);
-            Game.instance.commonSfx.Hit();
             UnitFlashAnimation.Flash(Game.instance.Player.vehicle, sprite, unhitableDuration, () => damagable = true);
-
 
             //----------------------Remove items----------------------//
             for (int i = 0; i < amount; i++)
