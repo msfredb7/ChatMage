@@ -25,8 +25,8 @@ public class ITM_MagicMushroom : Item
         Transform body = player.body;
         body.localScale = Vector3.Scale(body.localScale, Vector3.one * scaleMultiplier);
 
-        player.playerStats.health.MAX = Mathf.RoundToInt((float)player.playerStats.health * hpMultiplier);
-        player.playerStats.health.Set(player.playerStats.health.MAX);
+        //player.playerStats.health.MAX = Mathf.RoundToInt((float)player.playerStats.health * hpMultiplier);
+        //player.playerStats.health.Set(player.playerStats.health.MAX);
     }
 
     public override void OnGameStarted()

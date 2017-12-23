@@ -109,7 +109,7 @@ public class PlayerStats : PlayerComponent, IAttackable
 
         //----------------------Exit if dmg = 0----------------------//
         if (amount <= 0)
-            return health + armor;
+            return controller.playerItems.ItemCount;
 
 
         //----------------------Camera Shake----------------------//
