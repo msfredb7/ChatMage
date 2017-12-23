@@ -6,7 +6,7 @@ using DG.Tweening;
 public abstract class Pack : MovingUnit
 {
     [Header("Pack"), Header("Pick up settings")]
-    public bool isPreSpawned = false;
+    public bool isPreSpawned = true;
 
     [Header("Linking")]
     public SimpleColliderListener colliderListener;

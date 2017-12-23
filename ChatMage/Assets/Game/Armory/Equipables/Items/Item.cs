@@ -4,6 +4,8 @@ using UnityEngine;
 
 public abstract class Item : Equipable
 {
+    public Sprite ingameIcon;
+
     [System.NonSerialized, FullSerializer.fsIgnore]
     public int originalAssetID;
 

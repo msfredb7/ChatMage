@@ -20,7 +20,7 @@ public class ITM_CarePackage : Item
     {
         ResetCounter();
         canCount = true;
-        player.playerStats.onUnitKilled += PlayerStats_onUnitKilled;
+        player.playerStats.OnUnitKilled += PlayerStats_onUnitKilled;
     }
 
     public override void OnUpdate()

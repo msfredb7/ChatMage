@@ -45,7 +45,7 @@ namespace Tutorial
             PlayerController pc = Game.instance.Player;
             if (pc != null)
             {
-                pc.playerStats.onUnitKilled += CheckLaunchTut;
+                pc.playerStats.OnUnitKilled += CheckLaunchTut;
             }
         }
 
@@ -64,7 +64,7 @@ namespace Tutorial
             PlayerController pc = Game.instance.Player;
             if (pc != null)
             {
-                pc.playerStats.onUnitKilled -= CheckLaunchTut;
+                pc.playerStats.OnUnitKilled -= CheckLaunchTut;
             }
 
             canLaunchTut = false;

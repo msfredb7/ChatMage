@@ -242,7 +242,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 218698577}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1260a6e1d2ddff6448e80b09500fc1c1, type: 3}
   m_Name: 
@@ -413,18 +413,19 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 218698577}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dcc53a41b9590584fbecaf2954108961, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   pickupPrefab: {fileID: 114163676029376476, guid: 8a3b671c04f45a24b81c599f602d69d3,
     type: 2}
-  commonItemsReferences: []
+  commonItemsReferences:
+  - {fileID: 11400000, guid: 7b32e730ab6dce6479a5e0dce7f4d3f1, type: 2}
   specialItemsReferences:
   - {fileID: 11400000, guid: 0b86fb7c5eb3e874497d97449a4cd753, type: 2}
   everyXKills: 5
-  specialEveryXItem: 3
+  specialEveryXItem: 1
 --- !u!1 &471814416
 GameObject:
   m_ObjectHideFlags: 0
@@ -899,8 +900,17 @@ MonoBehaviour:
   _keys:
   - {fileID: 986166561}
   _values:
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.gameCamera.EditProperty
+    - DefaultBehaviorEditor.units.EditProperty
+    - DefaultBehaviorEditor.attackableUnits.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
     _target: {fileID: 986166561}
 --- !u!1 &1461222805
 GameObject:

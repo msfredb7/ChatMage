@@ -8,7 +8,7 @@ public static class UnitFlashAnimation
 {
     private const float FLASH_SPEED = 5f;
 
-    private static void InternalFlashV2(Unit unit,
+    private static Sequence InternalFlashV2(Unit unit,
         SpriteRenderer[] renders,
         Color flash,
         bool onAndOffMode,
@@ -16,7 +16,7 @@ public static class UnitFlashAnimation
         TweenCallback onComplete,
         bool useUnitTimescale)
     {
-        if (unit == null || renders == null || duration <= 0)
+        if (unit == null || renders == null)
             throw new Exception("Invalid flash request. Ya p-e quelque chose de null qui devrais pas.");
 
         Sequence sq = DOTween.Sequence().SetAutoKill(true);
@@ -53,8 +53,8 @@ public static class UnitFlashAnimation
 
 
         // Quelques calculs
-        int loops = Mathf.RoundToInt(duration * FLASH_SPEED);
-        float actualFlashSpeed = loops / duration;
+        int loops = duration > 0 ? Mathf.RoundToInt(duration * FLASH_SPEED) : -1;
+        float actualFlashSpeed = duration > 0 ? loops / duration : FLASH_SPEED;
 
         Color[] stdColors = null;
 
@@ -99,26 +99,42 @@ public static class UnitFlashAnimation
         //On complete
         if (onComplete != null)
             sq.OnComplete(onComplete);
+
+        return sq;
     }
 
 
-    public static void Flash(Unit unit, SpriteRenderer render, float duration, TweenCallback onComplete = null,
+    public static Sequence Flash(Unit unit, SpriteRenderer render, float duration, TweenCallback onComplete = null,
         bool useUnitTimescale = false)
     {
         SpriteRenderer[] renders = new SpriteRenderer[1];
         renders[0] = render;
 
-        Flash(unit, renders, duration, onComplete, useUnitTimescale);
+        return Flash(unit, renders, duration, onComplete, useUnitTimescale);
     }
 
-    public static void Flash(Unit unit, SpriteRenderer[] renders, float duration, TweenCallback onComplete = null,
+    public static Sequence Flash(Unit unit, SpriteRenderer[] renders, float duration, TweenCallback onComplete = null,
         bool useUnitTimescale = false)
     {
         Color dumbColor = Color.white;
-        InternalFlashV2(unit, renders, dumbColor, true, duration, onComplete, useUnitTimescale);
+        return InternalFlashV2(unit, renders, dumbColor, true, duration, onComplete, useUnitTimescale);
     }
 
-    public static void FlashColor(Unit unit,
+    public static Sequence FlashInfinite(Unit unit, SpriteRenderer render, bool useUnitTimescale = false)
+    {
+        SpriteRenderer[] renders = new SpriteRenderer[1];
+        renders[0] = render;
+
+        return FlashInfinite(unit, renders, useUnitTimescale);
+    }
+
+    public static Sequence FlashInfinite(Unit unit, SpriteRenderer[] renders, bool useUnitTimescale = false)
+    {
+        Color dumbColor = Color.white;
+        return InternalFlashV2(unit, renders, dumbColor, true, -1, null, useUnitTimescale);
+    }
+
+    public static Sequence FlashColor(Unit unit,
         SpriteRenderer render,
         float duration,
         Color flash,
@@ -128,16 +144,29 @@ public static class UnitFlashAnimation
         SpriteRenderer[] renders = new SpriteRenderer[1];
         renders[0] = render;
 
-        InternalFlashV2(unit, renders, flash, false, duration, onComplete, useUnitTimescale);
+        return InternalFlashV2(unit, renders, flash, false, duration, onComplete, useUnitTimescale);
     }
 
-    public static void FlashColor(Unit unit,
+    public static Sequence FlashColor(Unit unit,
         SpriteRenderer[] renders,
         float duration,
         Color flash,
         TweenCallback onComplete = null,
         bool useUnitTimescale = false)
     {
-        InternalFlashV2(unit, renders, flash, false, duration, onComplete, useUnitTimescale);
+        return InternalFlashV2(unit, renders, flash, false, duration, onComplete, useUnitTimescale);
+    }
+
+    public static Sequence FlashColorInfinite(Unit unit, SpriteRenderer render, Color flash, bool useUnitTimescale = false)
+    {
+        SpriteRenderer[] renders = new SpriteRenderer[1];
+        renders[0] = render;
+
+        return InternalFlashV2(unit, renders, flash, false, -1, null, useUnitTimescale);
+    }
+
+    public static Sequence FlashColorInfinite(Unit unit, SpriteRenderer[] renders, Color flash, bool useUnitTimescale = false)
+    {
+        return InternalFlashV2(unit, renders, flash, false, -1, null, useUnitTimescale);
     }
 }
