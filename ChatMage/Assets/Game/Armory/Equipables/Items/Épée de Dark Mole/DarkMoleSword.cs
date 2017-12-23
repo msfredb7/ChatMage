@@ -12,6 +12,7 @@ public class DarkMoleSword : MonoBehaviour
     }
 
     [Header("Linking")]
+    public AudioPlayable openSFX;
     public LaserSword sword;
     public SwordSet[] swordSets;
 
@@ -47,6 +48,8 @@ public class DarkMoleSword : MonoBehaviour
 
     public void OpenSwordSet(int index)
     {
+        SoundManager.PlaySFX(openSFX);
+
         index = index.Clamped(0, swordSets.Length - 1);
 
         SwordSet set = swordSets[index];

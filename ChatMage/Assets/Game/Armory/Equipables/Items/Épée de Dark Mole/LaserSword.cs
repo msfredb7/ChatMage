@@ -9,6 +9,9 @@ public class LaserSword : MonoBehaviour
     [Forward]
     public Targets targets;
 
+    [Header("Hit")]
+    public AudioPlayable onHitSFX;
+
     [Header("Animation")]
     public float swordFinalLength = 0.75f;
     public Ease openEase = Ease.Linear;
@@ -137,6 +140,8 @@ public class LaserSword : MonoBehaviour
                         if (player != null)
                             player.playerStats.RegisterKilledUnit(unit);
                     }
+
+                    SoundManager.PlaySFX(onHitSFX);
                 }
             }
         }

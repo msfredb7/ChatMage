@@ -13,8 +13,16 @@ public class ITM_DarkMoleSword : Item
     public override void Equip(int duplicateIndex)
     {
         sword = swordPrefab.DuplicateGO(player.transform);
+        sword.gameObject.SetActive(false);
         sword.SetController(player);
-        sword.OpenSwordSet(duplicateIndex);
+
+        //J'ai mis se delai pour comprenser avec le manque d'animation lorsqu'on gagne un item. 
+        //C'est temporaire et ca devrais etre enlever dans le futur
+        Game.instance.events.AddDelayedAction(() =>
+        {
+            sword.gameObject.SetActive(true);
+            sword.OpenSwordSet(duplicateIndex);
+        }, 0.5f);
     }
 
     public override void OnGameReady()
