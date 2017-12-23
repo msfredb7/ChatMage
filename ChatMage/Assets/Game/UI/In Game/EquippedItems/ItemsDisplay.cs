@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ItemsDisplay : MonoBehaviour
+public class ItemsDisplay : CanvasGroupBehaviour
 {
+    [Header("Items display")]
     public ItemsDisplay_Item displayPrefab;
     public RectTransform container;
 
@@ -12,7 +13,12 @@ public class ItemsDisplay : MonoBehaviour
 
     public void Init(PlayerController player)
     {
+        Game.instance.onGameStarted += Show;
+
         player.playerItems.OnItemListChange += () => UpdateDisplay(player.playerItems);
+        UpdateDisplay(player.playerItems);
+
+        HideInstant();
     }
 
     /// <summary>

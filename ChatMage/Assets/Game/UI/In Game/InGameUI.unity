@@ -1525,6 +1525,7 @@ GameObject:
   m_Component:
   - component: {fileID: 987680938}
   - component: {fileID: 987680939}
+  - component: {fileID: 987680940}
   m_Layer: 5
   m_Name: Items Display
   m_TagString: Untagged
@@ -1562,9 +1563,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c657c25383a1084f8222ab5d45d9a06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvasGroup: {fileID: 987680940}
+  fadeDuration: 0.35
+  ease: 1
+  setInteractable: 0
+  setBlocksRaycast: 0
+  isIndependantUpdate: 0
+  keepTheSameTween: 0
   displayPrefab: {fileID: 114824970521135466, guid: 3128ab06dccf71446b324ef3c20f20de,
     type: 2}
   container: {fileID: 2106408157}
+--- !u!225 &987680940
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 987680937}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &1027404654
 GameObject:
   m_ObjectHideFlags: 1
