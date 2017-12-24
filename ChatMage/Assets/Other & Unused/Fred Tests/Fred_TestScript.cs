@@ -9,7 +9,9 @@ using UnityEngine.Events;
 
 public class Fred_TestScript : MonoBehaviour
 {
-    public DarkMoleSword sword;
+    public GameObject[] clients;
+    public int nextClient = 0;
+    public SharedTables sharedTables;
 
     void Start()
     {
@@ -19,9 +21,18 @@ public class Fred_TestScript : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.B))
+        if (Input.GetKeyDown(KeyCode.A))
         {
-            sword.BreakOff(()=>Debug.Log("sup"));
+            int table;
+            int seat;
+            bool success = sharedTables.TakeSeat(clients[nextClient], out table, out seat);
+            print("Success: " + success + "  Table: " + table + "  Seat: " + seat);
+            nextClient++;
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            print("Release: " + sharedTables.ReleaseSeats(clients[nextClient]));
+            nextClient++;
         }
     }
 }
