@@ -42,7 +42,7 @@ public class ITM_DarkMoleSword : Item
 
     public override void Unequip()
     {
-        sword.CloseSwords(sword.DestroyGO);
+        sword.BreakOff(sword.DestroyGO);
         sword = null;
     }
 }

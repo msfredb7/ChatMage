@@ -27,13 +27,13 @@ public class InitQueue
     public void MarkEnd()
     {
         endSpecified = true;
-        if (count <= 0)
+        if (count <= 0 && onComplete != null)
             onComplete();
     }
     void OnCompleteAnyInit()
     {
         count--;
-        if (count <= 0 && endSpecified)
+        if (count <= 0 && endSpecified && onComplete != null)
             onComplete();
     }
 }

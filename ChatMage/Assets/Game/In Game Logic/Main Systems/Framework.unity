@@ -424,8 +424,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7b32e730ab6dce6479a5e0dce7f4d3f1, type: 2}
   specialItemsReferences:
   - {fileID: 11400000, guid: 0b86fb7c5eb3e874497d97449a4cd753, type: 2}
-  everyXKills: 4
-  specialEveryXItem: 1
+  everyXKills: 1
+  specialEveryXItem: 0
 --- !u!1 &471814416
 GameObject:
   m_ObjectHideFlags: 0
@@ -900,8 +900,17 @@ MonoBehaviour:
   _keys:
   - {fileID: 986166561}
   _values:
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.gameCamera.EditProperty
+    - DefaultBehaviorEditor.units.EditProperty
+    - DefaultBehaviorEditor.attackableUnits.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
     _target: {fileID: 986166561}
 --- !u!1 &1461222805
 GameObject:

@@ -9,7 +9,7 @@ using UnityEngine.Events;
 
 public class Fred_TestScript : MonoBehaviour
 {
-    public LaserSword sword;
+    public DarkMoleSword sword;
 
     void Start()
     {
@@ -19,21 +19,9 @@ public class Fred_TestScript : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
+        if (Input.GetKeyDown(KeyCode.B))
         {
-            sword.Open(()=>print("top"));
-        }
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            sword.Close(() => print("bottom"));
-        }
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            sword.OpenInstant();
-        }
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            sword.CloseInstant();
+            sword.BreakOff(()=>Debug.Log("sup"));
         }
     }
 }

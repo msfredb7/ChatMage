@@ -13,6 +13,7 @@ public class DarkMoleSword : MonoBehaviour
 
     [Header("Linking")]
     public AudioPlayable openSFX;
+    public AudioPlayable closeSFX;
     public LaserSword sword;
     public SwordSet[] swordSets;
 
@@ -73,14 +74,19 @@ public class DarkMoleSword : MonoBehaviour
         }
     }
 
-    public void CloseSwords(Action onComplete)
+    public void BreakOff(Action onComplete)
     {
         InitQueue queue = new InitQueue(onComplete);
 
+        Vector2 velocity = player == null ? Vector2.zero : player.vehicle.Speed;
+        Transform container = Game.instance.unitsContainer;
+
         for (int i = 0; i < swords.Length; i++)
         {
-            swords[i].Close(queue.RegisterTween());
+            swords[i].BreakOffAndClose(velocity, container, queue.RegisterTween());
         }
         queue.MarkEnd();
+
+        SoundManager.PlaySFX(closeSFX);
     }
 }
