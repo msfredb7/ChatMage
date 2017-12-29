@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-[CreateAssetMenu(menuName = "CCC/Shared Slots")]
+[CreateAssetMenu(menuName = "CCC/Shared Tables")]
 public class SharedTables : ScriptableObject
 {
     public class Table
@@ -15,9 +15,25 @@ public class SharedTables : ScriptableObject
         public List<object> seats = new List<object>();
 
         private bool _removeEmptySeats;
+        private int _maxSeats = -1;
 
         public int SeatCount { get { return seats.Count; } }
         public int ClientCount { get; private set; }
+        public int MaxSeats
+        {
+            get { return _maxSeats; }
+            set
+            {
+                _maxSeats = value;
+                if (_maxSeats >= 0 && seats.Count > _maxSeats)
+                {
+                    for (int i = seats.Count - 1; i >= _maxSeats; i--)
+                    {
+                        _RemoveClientFromSeat(i);
+                    }
+                }
+            }
+        }
         public bool RemoveEmptySeats
         {
             get { return _removeEmptySeats; }
@@ -31,14 +47,15 @@ public class SharedTables : ScriptableObject
             }
         }
 
-        public Table(bool removeEmptySeats)
+        public Table(bool removeEmptySeats, int maxSeats)
         {
             _removeEmptySeats = removeEmptySeats;
+            _maxSeats = maxSeats;
         }
 
-        public bool IsAvailable(int maxSeatPerTable)
+        public bool IsAvailable()
         {
-            return ClientCount < maxSeatPerTable || maxSeatPerTable == -1;
+            return ClientCount < _maxSeats || _maxSeats == -1;
         }
 
         public int AddClient(object client)
@@ -64,7 +81,7 @@ public class SharedTables : ScriptableObject
             {
                 if (seats[i] != null && seats[i].Equals(client))
                 {
-                    _RemoveClientFromSeat(i, _removeEmptySeats);
+                    _RemoveClientFromSeat(i);
                     removeCount++;
                 }
             }
@@ -77,21 +94,31 @@ public class SharedTables : ScriptableObject
             {
                 if (seats[i] != null && seats[i].Equals(client))
                 {
-                    _RemoveClientFromSeat(i, _removeEmptySeats);
+                    _RemoveClientFromSeat(i);
                     return true;
                 }
             }
             return false;
         }
 
-        private void _RemoveClientFromSeat(int seat, bool removeEmptySeats)
+        private bool _RemoveClientFromSeat(int seat)
         {
-            if (removeEmptySeats)
-                seats.RemoveAt(seat);
+            bool result;
+            if (seats[seat] == null)
+            {
+                result = false;
+            }
             else
+            {
+                ClientCount--;
                 seats[seat] = null;
+                result = true;
+            }
 
-            ClientCount--;
+            if (_removeEmptySeats)
+                seats.RemoveAt(seat);
+
+            return result;
         }
 
         private void _RemoveEmptySeats()
@@ -105,6 +132,7 @@ public class SharedTables : ScriptableObject
             seats.Clear();
         }
     }
+
     [SerializeField, Header("Seat Assignment Algorithm")]
     bool spreadClients = true;
     public bool SpreadClients { get { return spreadClients; } set { spreadClients = value; } }
@@ -129,17 +157,27 @@ public class SharedTables : ScriptableObject
         }
     }
 
-    [SerializeField, ReadOnlyInPlayMode, Header("-1 == infinite")]
-    int maximumSeatsPerTable = -1;
+    [SerializeField, Header("-1 == infinite")]
+    int maxSeatsPerTable = -1;
+    public int MaxSeatsPerTable
+    {
+        get { return maxSeatsPerTable; }
+        set
+        {
+            maxSeatsPerTable = value;
+            if (tables != null)
+                for (int i = 0; i < tables.Count; i++)
+                {
+                    tables[i].MaxSeats = value;
+                }
+        }
+    }
 
     [SerializeField, ReadOnlyInPlayMode]
     int startingTables = 2;
 
     [System.NonSerialized]
     List<Table> tables;
-
-    [System.NonSerialized]
-    List<int> clientCounts;
 
     public bool TakeSeat(object client, out int table, out int seat)
     {
@@ -163,7 +201,7 @@ public class SharedTables : ScriptableObject
             }
 
             //Tous nos tables sont pleine ?
-            if (maximumSeatsPerTable >= 0 && minClientCount >= maximumSeatsPerTable)
+            if (maxSeatsPerTable >= 0 && minClientCount >= maxSeatsPerTable)
                 return false;
 
             //Assigne-t-on les tables des manière aléatoire ou ordonné ?
@@ -200,7 +238,7 @@ public class SharedTables : ScriptableObject
             if (!prioritizeTablesInOrder)
             {
                 //Avons-nous une qqt infinie de siege par table ?
-                if (maximumSeatsPerTable == -1)
+                if (maxSeatsPerTable == -1)
                 {
                     //On choisie une table au hazard
                     table = Random.Range(0, tables.Count);
@@ -226,7 +264,7 @@ public class SharedTables : ScriptableObject
                         int pickedTable = tableIndexes[random];
 
                         //La table a moins de client que de seige maximum ?
-                        if (tables[pickedTable].ClientCount < maximumSeatsPerTable)
+                        if (tables[pickedTable].ClientCount < maxSeatsPerTable)
                         {
                             //Choisie !
                             table = pickedTable;
@@ -244,7 +282,7 @@ public class SharedTables : ScriptableObject
             else
             {
                 //Avons-nous inifie de siege par table ?
-                if (maximumSeatsPerTable == -1)
+                if (maxSeatsPerTable == -1)
                 {
                     table = 0;
                 }
@@ -252,7 +290,7 @@ public class SharedTables : ScriptableObject
                 {
                     for (int i = 0; i < tables.Count; i++)
                     {
-                        if (tables[i].ClientCount < maximumSeatsPerTable)
+                        if (tables[i].ClientCount < maxSeatsPerTable)
                         {
                             table = i;
                             break;
@@ -336,7 +374,7 @@ public class SharedTables : ScriptableObject
 
         if (IsAValidTable(table))
         {
-            return tables[table].IsAvailable(maximumSeatsPerTable);
+            return tables[table].IsAvailable();
         }
         else
         {
@@ -389,14 +427,60 @@ public class SharedTables : ScriptableObject
         {
             if (tables.Count < amount)
             {
-                tables.Add(new Table(removeEmptySeats));
+                _AddTable();
             }
             else
             {
-                tables.RemoveLast();
+                _RemoveTable();
             }
         }
     }
+
+    /// <summary>
+    /// Set la quantité de table. ATTENTION: Les changements peuvent persisté dans l'éditeur d'une scène à l'autre lorsqu'on reste en Playmode.
+    /// Ce comportement ne sera pas répliqué en Build Standalone. Utiliez Reset() dans l'éditeur au besoin.
+    /// </summary>
+    public void AddTable()
+    {
+        if (tables == null)
+        {
+            tables = new List<Table>(4);
+        }
+        _AddTable();
+    }
+
+    /// <summary>
+    /// Set la quantité de table. ATTENTION: Les changements peuvent persisté dans l'éditeur d'une scène à l'autre lorsqu'on reste en Playmode.
+    /// Ce comportement ne sera pas répliqué en Build Standalone. Utiliez Reset() dans l'éditeur au besoin.
+    /// </summary>
+    public void RemoveTable()
+    {
+        if (tables != null)
+            _RemoveTable();
+    }
+    /// <summary>
+    /// Set la quantité de table. ATTENTION: Les changements peuvent persisté dans l'éditeur d'une scène à l'autre lorsqu'on reste en Playmode.
+    /// Ce comportement ne sera pas répliqué en Build Standalone. Utiliez Reset() dans l'éditeur au besoin.
+    /// </summary>
+    public void RemoveTable(int index)
+    {
+        if (tables != null && index >= 0 && index < tables.Count)
+            _RemoveTable(index);
+    }
+
+    private void _AddTable()
+    {
+        tables.Add(new Table(removeEmptySeats, maxSeatsPerTable));
+    }
+    private void _RemoveTable()
+    {
+        tables.RemoveLast();
+    }
+    private void _RemoveTable(int index)
+    {
+        tables.RemoveAt(index);
+    }
+
 
     /// <summary>
     /// Retourne la liste des tables. NE PAS MODIFIER
@@ -416,7 +500,7 @@ public class SharedTables : ScriptableObject
         for (int i = 0; i < tables.Count; i++)
         {
             if (tables[i] == null)
-                tables[i] = new Table(removeEmptySeats);
+                tables[i] = new Table(removeEmptySeats, maxSeatsPerTable);
             else
                 tables[i].Clear();
         }
@@ -461,6 +545,7 @@ public class SharedTablesEditor : Editor
         SharedTables ss = target as SharedTables;
 
         bool wasRemoveEmptySeats = ss.RemoveEmptySeats;
+        int wasMaxSeats = ss.MaxSeatsPerTable;
 
         base.OnInspectorGUI();
 
@@ -468,6 +553,10 @@ public class SharedTablesEditor : Editor
         if (ss.RemoveEmptySeats != wasRemoveEmptySeats)
         {
             ss.RemoveEmptySeats = ss.RemoveEmptySeats;
+        }
+        if(ss.MaxSeatsPerTable != wasMaxSeats)
+        {
+            ss.MaxSeatsPerTable = ss.MaxSeatsPerTable;
         }
 
         if (!EditorApplication.isPlaying)
