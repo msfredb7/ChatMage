@@ -47,7 +47,7 @@ public class DarkMoleSword : MonoBehaviour
         sword.UpdateTimescale(timescale);
     }
 
-    public void OpenSwordSet(int index)
+    public void OpenSwordSet(int index, float angleDif)
     {
         SoundManager.PlaySFX(openSFX);
 
@@ -69,7 +69,7 @@ public class DarkMoleSword : MonoBehaviour
             tr.SetParent(set.positions[i], false);
             tr.localScale = Vector3.one;
             tr.localPosition = Vector3.zero;
-            tr.localRotation = Quaternion.identity;
+            tr.localRotation = Quaternion.Euler(0, 0, (i.IsEvenNumber() ? 1 : -1) * angleDif);
             swords[i].Open(null);
         }
     }

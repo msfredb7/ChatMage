@@ -9,30 +9,28 @@ using UnityEngine.Events;
 
 public class Fred_TestScript : MonoBehaviour
 {
-    public GameObject[] clients;
     public int nextClient = 0;
-    public SharedTables sharedTables;
 
     void Start()
     {
         MasterManager.Sync();
         Debug.LogWarning("Hello, je suis un Fred_TestScript, ne pas m'oublier ici (" + gameObject.name + ")");
+
+        print(10.GetLeftmostSetBit());
+        print(9.GetLeftmostSetBit());
+        print(8.GetLeftmostSetBit());
+        print(178.GetLeftmostSetBit());
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
-            int table;
-            int seat;
-            bool success = sharedTables.TakeSeat(clients[nextClient], out table, out seat);
-            print("Success: " + success + "  Table: " + table + "  Seat: " + seat);
+            print(ITM_DarkMoleSword.DivideAlgo(nextClient, 90));
             nextClient++;
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
-            print("Release: " + sharedTables.ReleaseSeats(clients[nextClient]));
-            nextClient++;
         }
     }
 }
