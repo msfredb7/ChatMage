@@ -74,8 +74,6 @@ public class ITM_DarkMoleSword : Item
 
     public override void OnUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.U))
-            player.playerItems.Unequip(this);
     }
 
     public override void Unequip()
