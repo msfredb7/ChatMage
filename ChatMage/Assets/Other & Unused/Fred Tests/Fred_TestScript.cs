@@ -21,17 +21,17 @@ public class Fred_TestScript : MonoBehaviour
 
     void Update()
     {
-        if (action.GetDown())
-        {
-            cube.transform.position += Vector3.right *2;
-        }
-        if (action.Get())
-        {
-            cube.transform.position += Vector3.right * Time.deltaTime;
-        }
-        if (action.GetUp())
-        {
-            cube.transform.position += Vector3.left * 2;
-        }
+        //if (action.GetDown())
+        //{
+        //    cube.transform.position += Vector3.right *2;
+        //}
+        //if (action.Get())
+        //{
+        //    cube.transform.position += Vector3.right * Time.deltaTime;
+        //}
+        //if (action.GetUp())
+        //{
+        //    cube.transform.position += Vector3.left * 2;
+        //}
     }
 }
