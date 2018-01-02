@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class UiSystem : MonoBehaviour {
+public class GameUI : MonoBehaviour {
 
     public const string SCENENAME = "InGameUI";
 

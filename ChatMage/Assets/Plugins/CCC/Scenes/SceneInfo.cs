@@ -7,14 +7,15 @@ using CCC.Manager;
 
 #if UNITY_EDITOR
 using UnityEditor;
+using UnityEditor.Callbacks;
+using UnityEditor.SceneManagement;
 #endif
 
-[CreateAssetMenu(fileName = "New Scene Info", menuName = "Scenes/Scene Info")]
+[CreateAssetMenu(fileName = "SI_NewScene", menuName = "Scenes/Scene Info")]
 public class SceneInfo : ScriptableObject
 {
 #if UNITY_EDITOR
-    [SerializeField]
-    private SceneAsset scene;
+    [SerializeField] private SceneAsset scene;
     public SceneAsset Editor_GetScene()
     {
         return scene;
@@ -30,7 +31,7 @@ public class SceneInfo : ScriptableObject
     public string SceneName { get { return sceneName; } }
 
     [SerializeField, Header("Defaults")] private LoadSceneMode loadMode = LoadSceneMode.Single;
-    [SerializeField] private bool allowMultiple;
+    [SerializeField] private bool allowMultiple = false;
 
     public void LoadScene()
     {
@@ -58,6 +59,30 @@ public class SceneInfo : ScriptableObject
     {
         Scenes.LoadAsync(SceneName, loadSceneMode, onLoad, unique);
     }
+
+    public bool IsActive()
+    {
+        return Scenes.IsActive(SceneName);
+    }
+
+#if UNITY_EDITOR
+    [OnOpenAsset(1)]
+    public static bool OnOpenAsset(int instanceID, int line)
+    {
+        UnityEngine.Object obj = EditorUtility.InstanceIDToObject(instanceID);
+        SceneInfo sceneInfo = obj as SceneInfo;
+        if (sceneInfo != null)
+        {
+            if (sceneInfo.Editor_GetScene() != null)
+            {
+                EditorSceneManager.OpenScene(AssetDatabase.GetAssetOrScenePath(sceneInfo.Editor_GetScene()));
+                return true;
+            }
+        }
+
+        return false; // we did not handle the open
+    }
+#endif
 }
 
 

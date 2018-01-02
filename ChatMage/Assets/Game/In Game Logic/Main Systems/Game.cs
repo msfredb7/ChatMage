@@ -28,7 +28,7 @@ public class Game : PublicSingleton<Game>
     [fsIgnore, NonSerialized]
     public Map map;
     [fsIgnore, NonSerialized]
-    public UiSystem ui;
+    public GameUI ui;
     [fsIgnore, NonSerialized]
     public LevelScript levelScript;
     [fsIgnore, NonSerialized]

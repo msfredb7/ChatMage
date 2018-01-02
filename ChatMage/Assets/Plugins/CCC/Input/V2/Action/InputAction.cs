@@ -4,7 +4,7 @@ using UnityEngine;
 using CCC.Input.Action;
 
 
-[CreateAssetMenu(menuName = "Input/Input Action", fileName = "New Input Action")]
+[CreateAssetMenu(menuName = "Input/Input Action", fileName = "IA_NewAction")]
 public class InputAction : ScriptableObject
 {
     [Header("Touch")]

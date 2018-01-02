@@ -8,10 +8,10 @@ public class GameDebugLauncher : MonoBehaviour
 {
     [Header("Debug")]
     public string defaultLevelScript;
-    
+
     void Start()
     {
-        if (Scenes.SceneCount() == 1)
+        if (Scenes.SceneCount() == 1 && Scenes.LoadingSceneCount() <= 0)
         {
             MasterManager.Sync(delegate ()
             {

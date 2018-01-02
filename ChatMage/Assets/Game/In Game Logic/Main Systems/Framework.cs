@@ -8,8 +8,11 @@ using UnityEngine.Events;
 public class Framework : MonoBehaviour
 {
     public const string SCENENAME = "Framework";
-    public bool loadScenesAsync = false;
     public Game game;
+
+    public bool loadScenesAsync = false;
+    public SceneInfo gameUiScene;
+
     [Header("Temporaire")]
     public PlayerBuilder playerbuilder;
 
@@ -20,7 +23,7 @@ public class Framework : MonoBehaviour
     private Vector2 screenBounds;
     private bool hasInit = false;
 
-    private UiSystem uiSystem;
+    private GameUI uiSystem;
     private Map map;
 
     private bool mapLoaded = false;
@@ -70,36 +73,36 @@ public class Framework : MonoBehaviour
         this.canGoToLevelSelect = canGoToLevelSelect;
 
         //La map est déjà loadé, probablement du au mode debug. On ne la reload pas
-        if (Scenes.Exists(level.sceneName))
+        if (level.sceneInfo.IsActive())
         {
-            OnMapLoaded(Scenes.GetActive(level.sceneName));
+            OnMapLoaded(Scenes.GetActive(level.sceneInfo.SceneName));
         }
         else
         {
             if (loadScenesAsync)
             {
-                Scenes.LoadAsync(level.sceneName, LoadSceneMode.Additive, OnMapLoaded);
+                level.sceneInfo.LoadSceneAsync(OnMapLoaded);
             }
             else
             {
-                Scenes.Load(level.sceneName, LoadSceneMode.Additive, OnMapLoaded);
+                level.sceneInfo.LoadScene(OnMapLoaded);
             }
         }
 
         //Le UI est déjà loadé, probablement du au mode debug. On ne la reload pas
-        if (Scenes.Exists(UiSystem.SCENENAME))
+        if (gameUiScene.IsActive())
         {
-            OnUILoaded(Scenes.GetActive(UiSystem.SCENENAME));
+            OnUILoaded(Scenes.GetActive(gameUiScene.SceneName));
         }
         else
         {
             if (loadScenesAsync)
             {
-                Scenes.LoadAsync(UiSystem.SCENENAME, LoadSceneMode.Additive, OnUILoaded);
+                gameUiScene.LoadSceneAsync(OnUILoaded);
             }
             else
             {
-                Scenes.Load(UiSystem.SCENENAME, LoadSceneMode.Additive, OnUILoaded);
+                gameUiScene.LoadScene(OnUILoaded);
             }
         }
     }
@@ -114,7 +117,7 @@ public class Framework : MonoBehaviour
     }
     void OnUILoaded(Scene scene)
     {
-        uiSystem = Scenes.FindRootObject<UiSystem>(scene);
+        uiSystem = Scenes.FindRootObject<GameUI>(scene);
         uiLoaded = true;
 
         if (mapLoaded)

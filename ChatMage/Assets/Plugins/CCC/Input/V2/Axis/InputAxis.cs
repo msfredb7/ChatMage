@@ -7,7 +7,7 @@ using CCC.Input.Axis;
 using UnityEditor;
 #endif
 
-[CreateAssetMenu(menuName = "Input/Input Axis", fileName = "New Input Axis")]
+[CreateAssetMenu(menuName = "Input/Input Axis", fileName = "IA_NewAxis")]
 public class InputAxis : ScriptableObject
 {
     [Header("Keys")]

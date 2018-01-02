@@ -14,11 +14,16 @@ namespace CCC.Manager
             public ScenePromise(string name, Action<Scene> callback)
             {
                 this.name = name;
-                this.callback = callback;
+                Callback += callback;
             }
             public string name;
-            public Action<Scene> callback;
+            public event Action<Scene> Callback;
             public Scene scene;
+            public void InvokeCallback()
+            {
+                if (Callback != null)
+                    Callback(scene);
+            }
         }
 
         static List<ScenePromise> loadingScenes = new List<ScenePromise>();
@@ -42,7 +47,8 @@ namespace CCC.Manager
 
         static public void Load(string name, LoadSceneMode mode = LoadSceneMode.Single, Action<Scene> callback = null, bool unique = true)
         {
-            if (unique && Exists(name)) return;
+            if (unique && _HandleUniqueLoad(name, callback))
+                return;
 
             ScenePromise scenePromise = new ScenePromise(name, callback);
             loadingScenes.Add(scenePromise);
@@ -51,11 +57,28 @@ namespace CCC.Manager
 
         static public void LoadAsync(string name, LoadSceneMode mode = LoadSceneMode.Single, Action<Scene> callback = null, bool unique = true)
         {
-            if (unique && Exists(name)) return;
+            if (unique && _HandleUniqueLoad(name, callback))
+                return;
 
             ScenePromise scenePromise = new ScenePromise(name, callback);
             loadingScenes.Add(scenePromise);
             SceneManager.LoadSceneAsync(name, mode);
+        }
+
+        static private bool _HandleUniqueLoad(string sceneName, Action<Scene> callback)
+        {
+            if (IsBeingLoaded(sceneName))
+            {
+                GetLoadingScene(sceneName).Callback += callback;
+                return true;
+            }
+            else if (IsActive(sceneName))
+            {
+                if (callback != null)
+                    callback(GetActive(sceneName));
+                return true;
+            }
+            return false;
         }
 
         static public void UnloadAsync(string name)
@@ -63,15 +86,25 @@ namespace CCC.Manager
             SceneManager.UnloadSceneAsync(name);
         }
 
-        static public bool Exists(string sceneName)
+        static public bool IsActiveOrBeingLoaded(string sceneName)
+        {
+            if (IsActive(sceneName) || IsBeingLoaded(sceneName))
+                return true;
+            return false;
+        }
+        static public bool IsBeingLoaded(string sceneName)
+        {
+            for (int i = 0; i < loadingScenes.Count; i++)
+            {
+                if (loadingScenes[i].name == sceneName) return true;
+            }
+            return false;
+        }
+        static public bool IsActive(string sceneName)
         {
             for (int i = 0; i < SceneManager.sceneCount; i++)
             {
                 if (SceneManager.GetSceneAt(i).name == sceneName) return true;
-            }
-            for (int i = 0; i < loadingScenes.Count; i++)
-            {
-                if (loadingScenes[i].name == sceneName) return true;
             }
             return false;
         }
@@ -88,6 +121,11 @@ namespace CCC.Manager
         static public int SceneCount()
         {
             return SceneManager.sceneCount;
+        }
+
+        static public int LoadingSceneCount()
+        {
+            return loadingScenes.Count;
         }
 
         #endregion
@@ -114,8 +152,7 @@ namespace CCC.Manager
 
         static void Execute(ScenePromise promise)
         {
-            if (promise.callback != null)
-                promise.callback(promise.scene);
+            promise.InvokeCallback();
 
             loadingScenes.Remove(promise);
         }

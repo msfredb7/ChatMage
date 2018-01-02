@@ -20,6 +20,20 @@ public class InGameOptions : WindowAnimation
         base.Awake();
 
         levelSelectButton.gameObject.SetActive(Game.instance.framework.CanGoToLevelSelect);
+
+        //Lock game state
+        Game.instance.gameRunning.Lock("optionsMenu");
+        Game.instance.ui.playerInputs.Enabled.Lock("opt");
+    }
+
+    private void OnDestroy()
+    {
+        if (Application.isPlaying && isQuitting && Game.instance != null)
+        {
+            //Unlock game state
+            Game.instance.gameRunning.Unlock("optionsMenu");
+            Game.instance.ui.playerInputs.Enabled.Unlock("opt");
+        }
     }
 
     public void Confirm()
@@ -57,16 +71,12 @@ public class InGameOptions : WindowAnimation
                 delegate ()
                 {
                     Scenes.UnloadAsync(SCENENAME);
-                    isQuitting = false;
-                    OnQuit();
                 }
             );
         }
         else
         {
             Scenes.UnloadAsync(SCENENAME);
-            isQuitting = false;
-            OnQuit();
         }
     }
 
@@ -108,21 +118,8 @@ public class InGameOptions : WindowAnimation
             return;
         }
 
-        if (Scenes.Exists(SCENENAME))
+        if (Scenes.IsActive(SCENENAME))
             return;
         Scenes.LoadAsync(SCENENAME, LoadSceneMode.Additive);
-        OnStartOpen();
-    }
-
-    static void OnStartOpen()
-    {
-        Game.instance.gameRunning.Lock("optionsMenu");
-        Game.instance.ui.playerInputs.Enabled.Lock("opt");
-    }
-
-    static void OnQuit()
-    {
-        Game.instance.gameRunning.Unlock("optionsMenu");
-        Game.instance.ui.playerInputs.Enabled.Unlock("opt");
     }
 }
