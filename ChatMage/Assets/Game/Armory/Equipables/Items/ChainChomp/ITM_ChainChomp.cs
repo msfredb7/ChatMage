@@ -8,14 +8,8 @@ public class ITM_ChainChomp : Item
     public ChainChomp prefab;
 
     [FullSerializer.fsIgnore]
-    private ChainChomp chainChomp;
+    private ChainChomp chainChompInstance;
 
-    public override void Init(PlayerController player)
-    {
-        base.Init(player);
-        chainChomp = Game.instance.SpawnUnit(prefab, player.vehicle.Position);
-        chainChomp.Init(player.playerLocations.boule, player);
-    }
     public override void OnGameReady()
     {
     }
@@ -30,11 +24,13 @@ public class ITM_ChainChomp : Item
 
     public override void Equip(int duplicateIndex)
     {
-        throw new NotImplementedException();
+        chainChompInstance = Game.instance.SpawnUnit(prefab, player.vehicle.Position);
+        chainChompInstance.Init(player.playerLocations.boule, player);
+        chainChompInstance.Spawn();
     }
 
     public override void Unequip()
     {
-        throw new NotImplementedException();
+        chainChompInstance.DetachAndDisapear();
     }
 }
