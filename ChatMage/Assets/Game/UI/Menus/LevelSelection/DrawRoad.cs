@@ -29,7 +29,7 @@ namespace LevelSelect {
 			Transform tempChild = roadContainer.GetChild(currentDot);
 			tempChild.localScale = Vector3.zero;
 			tempChild.gameObject.SetActive(true);
-			tempChild.DOScale(Vector3.one * 0.5f, 0.5f).SetEase(Ease.InOutElastic);
+			tempChild.DOScale(Vector3.one * 0.5f, 0.5f).SetEase(Ease.OutElastic);
 			//roadContainer.GetChild(currentDot).gameObject.SetActive(true);
 
 			currentDot++;

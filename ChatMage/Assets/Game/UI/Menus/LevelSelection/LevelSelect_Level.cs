@@ -7,7 +7,7 @@ namespace LevelSelect
 {
     public class LevelSelect_Level : MonoBehaviour
     {
-        public Text displayName;
+        //public Text displayName;
         public Level level;
         public Button button;
 
@@ -26,7 +26,7 @@ namespace LevelSelect
         {
             rectTransform = GetComponent<RectTransform>();
             button.onClick.AddListener(OnClick);
-            displayName.text = level.name.Substring(6,level.name.Length - 7);
+            //displayName.text = level.name.Substring(6,level.name.Length - 7);
 
             //On doit faire ca pour etre certain que les managers on ete loaded avant.
             //Sinon, quand on fait GameSaves.instance..., ca peut planter
