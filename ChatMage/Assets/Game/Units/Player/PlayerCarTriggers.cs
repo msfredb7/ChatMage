@@ -97,7 +97,8 @@ public class PlayerCarTriggers : PlayerComponent
         damage *= controller.playerStats.damageMultiplier;
         if (damage > 0)
         {
-            if (attackable.Attacked(other, damage, controller.vehicle, listener.info) <= 0)
+            bool wasDead = unit.IsDead;
+            if (attackable.Attacked(other, damage, controller.vehicle, listener.info) <= 0 && !wasDead)
             {
                 //Unit killed !
                 controller.playerStats.RegisterKilledUnit(unit);

@@ -108,7 +108,7 @@ public class SmashManager : MonoBehaviour
 
         //if (activateV2)
         //{
-        Game.instance.Player.playerStats.onUnitKilled += BoostSmashCounter;
+        Game.instance.Player.playerStats.OnUnitKilled += BoostSmashCounter;
         //}
     }
 

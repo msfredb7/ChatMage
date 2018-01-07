@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using System;
+using DG.Tweening;
 
 public class PlayerStats : PlayerComponent, IAttackable
 {
@@ -42,25 +43,58 @@ public class PlayerStats : PlayerComponent, IAttackable
     [NonSerialized]
     public StatFloat cooldownMultiplier = new StatFloat(1, 0, 1, BoundMode.Cap);
 
-    [Header("Flash Animation")]
+    [Header("OnHit Flash Animation")]
     public SpriteRenderer sprite;
     public float unhitableDuration;
+
+    [Header("Low HP Animation")]
+    public Color lowHPFlash_Color = Color.white;
+    public float lowHPFlash_Speed = 1;
+    public Ease lowHPFlash_Ease = Ease.InSine;
 
     [Header("Variables")]
     public bool damagable = true;
     public bool isVisible = true; // TODO
     public bool boostedAOE = false;
 
-    public event SimpleEvent onReceiveDamage;
-    public event SimpleEvent onRegen;
-    public event Unit.Unit_Event onUnitKilled;
+    public event SimpleEvent OnReceiveDamage;
+    public event SimpleEvent OnRegen;
+    public event Unit.Unit_Event OnUnitKilled;
+
+    private bool lowHPAnimating = false;
+    private Tween lowHPTween = null;
+    public bool LowHPAnimating
+    {
+        get { return lowHPAnimating; }
+        private set
+        {
+            if (lowHPAnimating != value)
+            {
+                lowHPAnimating = value;
+                if (value)
+                {
+                    sprite.color = Color.white;
+                    lowHPTween = sprite.DOColor(lowHPFlash_Color, 1 / lowHPFlash_Speed).SetEase(lowHPFlash_Ease);
+                    lowHPTween.SetLoops(-1, LoopType.Yoyo);
+                }
+                else
+                {
+                    lowHPTween.Kill();
+                    lowHPTween = null;
+                    sprite.color = Color.white;
+                }
+            }
+        }
+    }
 
     public int Attacked(ColliderInfo on, int amount, Unit otherUnit, ColliderInfo source = null)
     {
+        //----------------------Damagable ----------------------//
         if (!damagable)
-            return health + armor;
+            return controller.playerItems.ItemCount;
 
-        //Calculate damage taken. Passe a travers tous les equipables.
+        //----------------------Calcul le damage finale----------------------//
+        //Passe a travers tous les equipables
         if (controller.playerDriver.Car is IAttackable)
             amount = (controller.playerDriver.Car as IAttackable).Attacked(on, amount, otherUnit, source);
         if (controller.playerSmash.Smash is IAttackable)
@@ -73,12 +107,12 @@ public class PlayerStats : PlayerComponent, IAttackable
                 amount = (item as IAttackable).Attacked(on, amount, otherUnit, source);
         }
 
-        //Do nothing if damage <= 0
+        //----------------------Exit if dmg = 0----------------------//
         if (amount <= 0)
-            return health + armor;
+            return controller.playerItems.ItemCount;
 
 
-        //Shake camera !
+        //----------------------Camera Shake----------------------//
         Vector2 camShakeDir;
         if (source != null)
             camShakeDir = source.transform.position - transform.position;
@@ -87,33 +121,50 @@ public class PlayerStats : PlayerComponent, IAttackable
         Game.instance.gameCamera.vectorShaker.Hit(camShakeDir.normalized * onHitShakeStrength);
 
 
-        //Hit Animation
-        damagable = false;
+        //----------------------VFX + SFX----------------------//
         Game.instance.commonVfx.MediumHit(on.transform.position, loseHpHitColor, SortingLayers.PLAYER);
         Game.instance.commonSfx.Hit();
-        UnitFlashAnimation.Flash(Game.instance.Player.vehicle, sprite, unhitableDuration, () => damagable = true);
 
 
-        //Reduce health / armor
-        int damageToArmor = amount;
-        amount -= armor;
-        armor.Set(armor - damageToArmor);
+        if (controller.playerItems.ItemCount > 0)
+        {
+            //----------------------Flash Animation----------------------//
+            damagable = false;
+            UnitFlashAnimation.Flash(Game.instance.Player.vehicle, sprite, unhitableDuration, () => damagable = true);
 
-        if (amount > 0)
-            health.Set(health - amount);
-
-        if (onReceiveDamage != null)
-            onReceiveDamage();
-
-        if (health <= 0)
+            //----------------------Remove items----------------------//
+            for (int i = 0; i < amount; i++)
+            {
+                controller.playerItems.UnequipFirst();
+            }
+        }
+        else
+        {
             controller.vehicle.Kill();
+        }
 
+        if (OnReceiveDamage != null)
+            OnReceiveDamage();
 
-        return health + armor;
+        UpdateLowHpAnimation();
+
+        return controller.playerItems.ItemCount;
+    }
+
+    void OnDestroy()
+    {
+        LowHPAnimating = false;
     }
 
     public override void OnGameReady()
     {
+        controller.playerItems.OnItemListChange += UpdateLowHpAnimation;
+        UpdateLowHpAnimation();
+    }
+
+    void UpdateLowHpAnimation()
+    {
+        LowHPAnimating = !controller.vehicle.IsDead && controller.playerItems.ItemCount == 0;
     }
 
     public override void OnGameStarted()
@@ -122,20 +173,15 @@ public class PlayerStats : PlayerComponent, IAttackable
 
     public void RegisterKilledUnit(Unit unit)
     {
-        if (onUnitKilled != null)
-            onUnitKilled(unit);
-    }
-
-    public void GiveHealth()
-    {
-        GiveHealth(1);
+        if (OnUnitKilled != null)
+            OnUnitKilled(unit);
     }
 
     public void GiveHealth(int amount)
     {
         health++;
-        if (onRegen != null)
-            onRegen();
+        if (OnRegen != null)
+            OnRegen();
     }
 
     public void GiveArmor()

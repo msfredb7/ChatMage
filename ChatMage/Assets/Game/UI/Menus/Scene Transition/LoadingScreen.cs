@@ -58,7 +58,7 @@ public class LoadingScreen
             if (SceneManager.GetSceneAt(i).name != SCENENAME)
                 Scenes.UnloadAsync(SceneManager.GetSceneAt(i).name);
         }
-        DelayManager.LocalCallTo(LateLoad, 0, animator, true);
+        DelayManager.CallNextFrame(LateLoad);
     }
 
     private static void LateLoad()

@@ -17,7 +17,7 @@ public abstract class AudioPlayable : ScriptableObject
     {
         get
         {
-            return cooldown > 0 && Time.time < lastPlayedTime + cooldown;
+            return cooldown > 0 && Time.time < lastPlayedTime + cooldown && Application.isPlaying;
         }
     }
 

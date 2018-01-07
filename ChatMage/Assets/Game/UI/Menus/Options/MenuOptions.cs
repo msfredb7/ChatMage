@@ -57,7 +57,7 @@ public class MenuOptions : WindowAnimation
             return;
         }
 
-        if (Scenes.Exists(SCENENAME))
+        if (Scenes.IsActive(SCENENAME))
             return;
         Scenes.LoadAsync(SCENENAME, LoadSceneMode.Additive);
     }

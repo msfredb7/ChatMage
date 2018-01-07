@@ -57,7 +57,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1294711376525360
 GameObject:
   m_ObjectHideFlags: 0
@@ -229,7 +229,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1256443482293844}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.116, y: 0, z: 0}
+  m_LocalPosition: {x: -0.116, y: 0, z: -1}
   m_LocalScale: {x: 0.23106389, y: 0.05, z: 1}
   m_Children: []
   m_Father: {fileID: 4458036200966656}
@@ -241,7 +241,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1751309020594812}
-  m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.378, y: 1.001, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -399,6 +399,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f37e622c54d04944822eb24a7efa6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  openSFX: {fileID: 11400000, guid: e4d5bcf63d5d0b74286406fab1eebf6a, type: 2}
+  closeSFX: {fileID: 11400000, guid: a5d9318bbc55f5648ac29ca0a1980397, type: 2}
   sword: {fileID: 114945251958868066}
   swordSets:
   - positions:
@@ -424,14 +426,24 @@ MonoBehaviour:
   colliderListener: {fileID: 114096914855898016}
   targets:
     targetAllegiances: 02000000
+  onHitSFX: {fileID: 11400000, guid: 249cb27aaaa69794faa28bb4be3dccc7, type: 2}
+  hitCameraShake: 0.2
+  break_inheritedVelocity: 0.5
+  break_minDistance: 0.4
+  break_maxDistance: 0.6
+  break_minTwist: 50
+  break_maxTwist: 120
+  break_minDuration: 0.15
+  break_maxDuration: 0.25
+  break_moveEase: 1
+  break_twistEase: 3
   swordFinalLength: 0.7
   openEase: 1
-  openDuration: 0.75
-  closeEase: 1
-  closeDuration: 1
+  openDuration: 0.375
+  laserBaseSize: 0.26
   boxCollider: {fileID: 61160940403782614}
   laser: {fileID: 212732770378128676}
-  laserBaseSize: 0.26
+  handleSprite: {fileID: 212752642384533322}
 --- !u!212 &212732770378128676
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -463,7 +475,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -852012283
   m_SortingLayer: 1
-  m_SortingOrder: -100
+  m_SortingOrder: -1800
   m_Sprite: {fileID: 21300000, guid: ee955cc5c946b554688fc4feaecc9ecd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -502,11 +514,11 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1417543483
-  m_SortingLayer: 3
-  m_SortingOrder: 0
+  m_SortingLayerID: -852012283
+  m_SortingLayer: 1
+  m_SortingOrder: -1800
   m_Sprite: {fileID: 21300000, guid: 12f979e99aea4cd4e8e7d6ac15beab1d, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.30147058, g: 0.30147058, b: 0.30147058, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Audio/Audio Asset")]
+[CreateAssetMenu(menuName = "Audio/Audio Asset", fileName = "AA_Something")]
 public class AudioAsset : AudioPlayable
 {
     public AudioClip clip;

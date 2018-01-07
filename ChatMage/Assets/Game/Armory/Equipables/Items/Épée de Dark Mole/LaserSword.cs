@@ -9,19 +9,34 @@ public class LaserSword : MonoBehaviour
     [Forward]
     public Targets targets;
 
-    [Header("Animation")]
+    [Header("Hit")]
+    public AudioPlayable onHitSFX;
+    public float hitCameraShake = 0.5f;
+
+    [Header("Break Animation")]
+    public float break_inheritedVelocity = 0.5f;
+    public float break_minDistance = 0.5f;
+    public float break_maxDistance = 1.25f;
+    public float break_minTwist = 10;
+    public float break_maxTwist = 35;
+    public float break_minDuration = 0.3f;
+    public float break_maxDuration = 0.4f;
+    public Ease break_moveEase = Ease.Linear;
+    public Ease break_twistEase = Ease.OutSine;
+
+    [Header("Open/Close Animation")]
     public float swordFinalLength = 0.75f;
     public Ease openEase = Ease.Linear;
     public float openDuration = 0.75f;
-    public Ease closeEase = Ease.Linear;
-    public float closeDuration = 1f;
+    public float laserBaseSize = 0.32f;
 
     [Header("Collider")]
     public BoxCollider2D boxCollider;
 
-    [Header("Laser sprite")]
+    [Header("Sprites")]
     public SpriteRenderer laser;
-    public float laserBaseSize = 0.32f;
+    public SpriteRenderer handleSprite;
+
 
     private Tween tween;
     private float timescale = 1;
@@ -78,10 +93,14 @@ public class LaserSword : MonoBehaviour
         tween.Goto(tween.Duration());
     }
 
+    public void Close()
+    {
+        Close(null);
+    }
     public void Close(TweenCallback onComplete)
     {
         SetTweenIfNotSet();
-        
+
         tween.PlayBackwards();
         tween.OnRewind(onComplete);
     }
@@ -91,6 +110,42 @@ public class LaserSword : MonoBehaviour
 
         tween.PlayBackwards();
         tween.Goto(0);
+    }
+
+    public void BreakOffAndClose(Vector2 inherentVelocity, Transform newParent, TweenCallback onComplete)
+    {
+        Transform tr = transform;
+        tr.SetParent(newParent);
+
+        float animDuration = Random.Range(break_minDuration, break_maxDuration);
+        float moveDistance = Random.Range(break_minDistance, break_maxDistance);
+        float twist = Random.Range(break_minTwist, break_maxTwist) * (Random.value > 0.5f ? -1 : 1);
+
+        Sequence sequence = DOTween.Sequence();
+
+        Vector2 distByInherentVelocity = inherentVelocity * break_inheritedVelocity * animDuration;
+        Vector2 distByBreak = tr.right * moveDistance;
+
+        sequence.Join(tr.DOLocalMove((Vector2)tr.position + distByInherentVelocity + distByBreak, animDuration).SetEase(break_moveEase));
+        sequence.Join(tr.DORotate(new Vector3(0, 0, twist), animDuration, RotateMode.LocalAxisAdd)
+            .SetEase(break_twistEase));
+        sequence.AppendInterval(0.25f);
+        sequence.AppendCallback(Close);
+        sequence.AppendInterval(openDuration);
+        sequence.AppendCallback(LightOff);
+        sequence.Append(handleSprite.DOFade(0, 0.5f));
+        sequence.OnComplete(onComplete);
+    }
+
+    private void LightOn()
+    {
+        laser.enabled = true;
+        boxCollider.enabled = true;
+    }
+    private void LightOff()
+    {
+        laser.enabled = false;
+        boxCollider.enabled = false;
     }
 
     void OnDestroy()
@@ -137,6 +192,10 @@ public class LaserSword : MonoBehaviour
                         if (player != null)
                             player.playerStats.RegisterKilledUnit(unit);
                     }
+
+                    SoundManager.PlaySFX(onHitSFX);
+                    Vector2 v = (player.vehicle.Position - unit.Position).normalized;
+                    Game.instance.gameCamera.vectorShaker.Hit(v * hitCameraShake);
                 }
             }
         }

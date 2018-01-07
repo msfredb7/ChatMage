@@ -12,6 +12,8 @@ public class DarkMoleSword : MonoBehaviour
     }
 
     [Header("Linking")]
+    public AudioPlayable openSFX;
+    public AudioPlayable closeSFX;
     public LaserSword sword;
     public SwordSet[] swordSets;
 
@@ -45,8 +47,10 @@ public class DarkMoleSword : MonoBehaviour
         sword.UpdateTimescale(timescale);
     }
 
-    public void OpenSwordSet(int index)
+    public void OpenSwordSet(int index, float angleDif)
     {
+        SoundManager.PlaySFX(openSFX);
+
         index = index.Clamped(0, swordSets.Length - 1);
 
         SwordSet set = swordSets[index];
@@ -65,19 +69,24 @@ public class DarkMoleSword : MonoBehaviour
             tr.SetParent(set.positions[i], false);
             tr.localScale = Vector3.one;
             tr.localPosition = Vector3.zero;
-            tr.localRotation = Quaternion.identity;
+            tr.localRotation = Quaternion.Euler(0, 0, (i.IsEvenNumber() ? 1 : -1) * angleDif);
             swords[i].Open(null);
         }
     }
 
-    public void CloseSwords(Action onComplete)
+    public void BreakOff(Action onComplete)
     {
         InitQueue queue = new InitQueue(onComplete);
 
+        Vector2 velocity = player == null ? Vector2.zero : player.vehicle.Speed;
+        Transform container = Game.instance.unitsContainer;
+
         for (int i = 0; i < swords.Length; i++)
         {
-            swords[i].Close(queue.RegisterTween());
+            swords[i].BreakOffAndClose(velocity, container, queue.RegisterTween());
         }
         queue.MarkEnd();
+
+        SoundManager.PlaySFX(closeSFX);
     }
 }

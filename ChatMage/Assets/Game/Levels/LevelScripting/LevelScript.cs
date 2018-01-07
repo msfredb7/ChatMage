@@ -45,7 +45,7 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
 
 
     [InspectorHeader("General Info")]
-    public string sceneName;
+    public SceneInfo sceneInfo;
 
     [InspectorHeader("Conditions")]
     public GameCondition.BaseWinningCondition[] winningConditions;

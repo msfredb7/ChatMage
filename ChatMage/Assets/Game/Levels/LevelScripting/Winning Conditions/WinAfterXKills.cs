@@ -9,7 +9,7 @@ namespace GameCondition
 
         public override void Init(PlayerController player, LevelScript levelScript)
         {
-            player.playerStats.onUnitKilled += PlayerStats_onUnitKilled;
+            player.playerStats.OnUnitKilled += PlayerStats_onUnitKilled;
         }
 
         private void PlayerStats_onUnitKilled(Unit unit)

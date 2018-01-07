@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311926, g: 0.38074008, b: 0.35872707, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -242,7 +242,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 218698577}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1260a6e1d2ddff6448e80b09500fc1c1, type: 3}
   m_Name: 
@@ -413,18 +413,19 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 218698577}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dcc53a41b9590584fbecaf2954108961, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   pickupPrefab: {fileID: 114163676029376476, guid: 8a3b671c04f45a24b81c599f602d69d3,
     type: 2}
-  commonItemsReferences: []
+  commonItemsReferences:
+  - {fileID: 11400000, guid: 7b32e730ab6dce6479a5e0dce7f4d3f1, type: 2}
   specialItemsReferences:
   - {fileID: 11400000, guid: 0b86fb7c5eb3e874497d97449a4cd753, type: 2}
-  everyXKills: 5
-  specialEveryXItem: 3
+  everyXKills: 1
+  specialEveryXItem: 0
 --- !u!1 &471814416
 GameObject:
   m_ObjectHideFlags: 0
@@ -727,10 +728,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae637b4dd8271d84c96d158843c14d42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loadScenesAsync: 0
   game: {fileID: 986166561}
+  loadScenesAsync: 0
+  gameUiScene: {fileID: 11400000, guid: c67d31eb891a2c141b984c03f24c42b3, type: 2}
   playerbuilder: {fileID: 1461222806}
-  defaultLevel: {fileID: 11400000, guid: 69ee3fcb35902f9458ee36f971392e8f, type: 2}
+  defaultLevel: {fileID: 11400000, guid: 0b7954abdee1f1a4e8103f76585d123d, type: 2}
 --- !u!4 &986166560
 Transform:
   m_ObjectHideFlags: 0
@@ -899,8 +901,17 @@ MonoBehaviour:
   _keys:
   - {fileID: 986166561}
   _values:
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.gameCamera.EditProperty
+    - DefaultBehaviorEditor.units.EditProperty
+    - DefaultBehaviorEditor.attackableUnits.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
     _target: {fileID: 986166561}
 --- !u!1 &1461222805
 GameObject:

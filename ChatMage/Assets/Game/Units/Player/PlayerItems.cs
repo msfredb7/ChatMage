@@ -8,6 +8,8 @@ public class PlayerItems : PlayerComponent
     public List<Item> items = new List<Item>();
     public event SimpleEvent OnItemListChange;
 
+    public int ItemCount { get { return items.Count; } }
+
     public override void Init(PlayerController controller)
     {
         base.Init(controller);

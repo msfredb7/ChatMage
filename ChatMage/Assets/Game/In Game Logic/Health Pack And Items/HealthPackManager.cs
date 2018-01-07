@@ -33,7 +33,7 @@ public class HealthPackManager : MonoBehaviour
 
     public void Init(PlayerController controller)
     {
-        controller.playerStats.onUnitKilled += PlayerStats_onUnitKilled;
+        controller.playerStats.OnUnitKilled += PlayerStats_onUnitKilled;
         player = controller;
         spawnArmor = false;
     }
@@ -87,10 +87,18 @@ public class HealthPackManager : MonoBehaviour
             //Success !
 
             //Spawn
-            if(spawnArmor)
-                Game.instance.SpawnUnit(armorPackPrefab, position).armorValue = armorPackValue;
+            if (spawnArmor)
+            {
+                ArmorPack armorPack = Game.instance.SpawnUnit(armorPackPrefab, position);
+                armorPack.armorValue = armorPackValue;
+                armorPack.isPreSpawned = false;
+            }
             else
-                Game.instance.SpawnUnit(healthPackPrefab, position).healValue = healthPackValue;
+            {
+                HealthPack healthPack = Game.instance.SpawnUnit(healthPackPrefab, position);
+                healthPack.healValue = healthPackValue;
+                healthPack.isPreSpawned = false;
+            }
 
             //Reset
             spawnChance = 0;

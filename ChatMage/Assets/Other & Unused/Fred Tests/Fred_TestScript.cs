@@ -5,34 +5,33 @@ using DG.Tweening;
 using FullInspector;
 using Dialoguing;
 using CCC.Manager;
+using UnityEngine.Events;
 
 public class Fred_TestScript : MonoBehaviour
 {
-    public LaserSword sword;
+    public Transform cube;
+    public InputAction action;
 
     void Start()
     {
         MasterManager.Sync();
         Debug.LogWarning("Hello, je suis un Fred_TestScript, ne pas m'oublier ici (" + gameObject.name + ")");
+
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            sword.Open(()=>print("top"));
-        }
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            sword.Close(() => print("bottom"));
-        }
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            sword.OpenInstant();
-        }
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            sword.CloseInstant();
-        }
+        //if (action.GetDown())
+        //{
+        //    cube.transform.position += Vector3.right *2;
+        //}
+        //if (action.Get())
+        //{
+        //    cube.transform.position += Vector3.right * Time.deltaTime;
+        //}
+        //if (action.GetUp())
+        //{
+        //    cube.transform.position += Vector3.left * 2;
+        //}
     }
 }
