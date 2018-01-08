@@ -7,7 +7,7 @@ namespace LevelSelect
 {
     public class LevelSelect_Level : MonoBehaviour
     {
-        public Text displayName;
+        //public Text displayName;
         public Level level;
         public Button button;
 

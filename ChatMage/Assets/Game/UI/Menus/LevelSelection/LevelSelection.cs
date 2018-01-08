@@ -39,7 +39,7 @@ namespace LevelSelect
 
             //Un peu lourd ? Peut-être qu'on pourrait faire ça AVANT que le loading screen disparaisse (comme Framework)
             LoadAllData();
-
+			
             mapAnimator.SetLastUnlockedRegionIndex(GetLastUnlockedRegion());
 
             VerifyNewLevelAnimation();
