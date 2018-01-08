@@ -85,8 +85,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 30
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_LinearDrag: 1
+  m_AngularDrag: 0.1
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -115,6 +115,7 @@ MonoBehaviour:
   breakOff_maxVel: 12
   breakOff_minAngVel: 720
   breakOff_maxAngVel: 1440
+  breakOff_inherentVelocity: 0.5
 --- !u!212 &212932912222253932
 SpriteRenderer:
   m_ObjectHideFlags: 1

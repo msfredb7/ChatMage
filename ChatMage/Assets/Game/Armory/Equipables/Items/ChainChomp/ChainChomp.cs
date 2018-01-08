@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using CCC._2D;
 
 public class ChainChomp : MovingUnit, IAttackable
 {
@@ -23,9 +24,15 @@ public class ChainChomp : MovingUnit, IAttackable
     public float spawnAnim_duration = 0.5f;
     public Ease spawnAnim_Ease = Ease.OutSine;
 
+    [Header("Fade Out Animation")]
+    public SpriteGroup spriteGroup;
+    public float fadeOut_delay = 0.5f;
+    public float fadeOut_duration = 0.35f;
+
     private bool teleported = false;
     private Transform chainAnchor;
     private PlayerController player;
+    private bool isDisapearing = false;
 
     protected override void Awake()
     {
@@ -114,15 +121,33 @@ public class ChainChomp : MovingUnit, IAttackable
         realBall.GetComponent<DistanceJoint2D>().distance = distancePerChain * chainSpawner.ChainCount;
     }
 
-    public void DetachAndDisapear()
+    public void DetachAndDisapear() { DetachAndDisapear(null); }
+    public void DetachAndDisapear(TweenCallback onComplete)
     {
-        //Temporaire
-        Destroy();
+        if (isDisapearing)
+            return;
+
+        chainAnchor = null;
+
+        var breakCount = (chainSpawner.ChainCount * 0.3f).RoundedToInt().Raised(2);
+        chainSpawner.BreakOffChains(breakCount, realBall.velocity);
+        anchor.isKinematic = false;
+        realBall.drag = 4;
+        realBall.GetComponent<DistanceJoint2D>().enabled = false;
+
+        spriteGroup.GatherChildData();
+        spriteGroup.DOFade(0, fadeOut_duration).SetDelay(fadeOut_delay).OnComplete(
+            () =>
+            {
+                Destroy();
+                if (onComplete != null)
+                    onComplete();
+            });
     }
 
     void OnPlayerDestroyed(Unit unit)
     {
-        DetachAndDisapear();
+        DetachAndDisapear(null);
     }
 
 
@@ -177,7 +202,7 @@ public class ChainChomp : MovingUnit, IAttackable
         //float angle = 0;
         float strength = 0.05f * realBall.velocity.sqrMagnitude.Clamped(0, 2);
         var firstChain = chainSpawner.GetChain(0);
-        if (firstChain != null)
+        if (firstChain != null && chainAnchor != null)
             realBall.rotation = Mathf.LerpAngle(realBall.rotation, firstChain.rb.rotation + 180, FixedLerp.FixedFix(strength));
 
         //On fait pivoter l'anchor

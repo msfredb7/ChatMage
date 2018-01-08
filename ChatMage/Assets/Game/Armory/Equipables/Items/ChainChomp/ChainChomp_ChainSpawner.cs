@@ -66,7 +66,7 @@ public class ChainChomp_ChainSpawner : MonoBehaviour
             ball.SetNextJoint(anchor, null);
         }
     }
-    public void BreakOffChain(int amount)
+    public void BreakOffChains(int amount, Vector2 inherentVelocity)
     {
         amount = amount.Capped(chains.Count);
         if (amount == 0)
@@ -75,7 +75,7 @@ public class ChainChomp_ChainSpawner : MonoBehaviour
 
         for (int i = chains.Count - amount; i < chains.Count; i++)
         {
-            chains[i].BreakOff();
+            chains[i].BreakOff(inherentVelocity);
         }
         chains.RemoveRange(chains.Count - amount, amount);
 

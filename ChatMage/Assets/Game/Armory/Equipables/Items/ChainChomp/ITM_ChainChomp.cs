@@ -65,7 +65,8 @@ public class ITM_ChainChomp : Item
 
     public override void Unequip()
     {
-        chainChompInstance.DetachAndDisapear();
+        if (chainChompInstance != null)
+            chainChompInstance.DetachAndDisapear(null);
         sharedTables.ReleaseSeat(this);
     }
 

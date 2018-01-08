@@ -17,6 +17,7 @@ public class ChainChomp_Link : MonoBehaviour
     public float breakOff_maxVel = 3;
     public float breakOff_minAngVel = 360;
     public float breakOff_maxAngVel = 720;
+    public float breakOff_inherentVelocity = 0.5f;
 
     [System.NonSerialized] public Rigidbody2D rb;
     [System.NonSerialized] public Transform tr;
@@ -97,7 +98,7 @@ public class ChainChomp_Link : MonoBehaviour
         return tr.TransformPoint(nextHingeJoint.anchor);
     }
 
-    public void BreakOff()
+    public void BreakOff(Vector2 inherentVelocity)
     {
         if (previousHingeJoint != null)
             previousHingeJoint.enabled = false;
@@ -106,7 +107,7 @@ public class ChainChomp_Link : MonoBehaviour
 
         float randomAngle = Random.Range(0, 360);
         float randomSpeed = Random.Range(breakOff_minVel, breakOff_maxVel);
-        rb.velocity = randomAngle.ToVector() * randomSpeed;
+        rb.velocity = (randomAngle.ToVector() * randomSpeed) + (inherentVelocity * breakOff_inherentVelocity);
 
         bool positiveRotate = randomAngle.RoundedToInt().IsEvenNumber();
         rb.angularVelocity = (positiveRotate ? 1 : -1) * Random.Range(breakOff_minAngVel, breakOff_maxAngVel);

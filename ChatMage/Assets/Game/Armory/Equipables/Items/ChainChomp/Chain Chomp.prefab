@@ -123,6 +123,8 @@ GameObject:
   - component: {fileID: 114782870579545418}
   - component: {fileID: 50554756144680236}
   - component: {fileID: 114157184305609490}
+  - component: {fileID: 114458375847710646}
+  - component: {fileID: 114107823084160292}
   m_Layer: 15
   m_Name: Chain Chomp
   m_TagString: Untagged
@@ -335,6 +337,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parentUnit: {fileID: 114782870579545418}
   groupParent: {fileID: 0}
+--- !u!114 &114107823084160292
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1951877323073520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b95ee99d1d8b47843948c0823a14b68a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  childRenderers:
+  - {fileID: 212366784734798056}
+  - {fileID: 212352412641343346}
+  defaultAlphas:
+  - 1
+  - 1
+  alpha: 1
 --- !u!114 &114157184305609490
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -367,6 +387,47 @@ MonoBehaviour:
   info: {fileID: 114018094730779568}
   useTrigger: 0
   useCollision: 1
+--- !u!114 &114458375847710646
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1951877323073520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a694854f63fe49e4b935f71d339845c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  action: {fileID: 11400000, guid: 177f4745f0650a243a3e693b1c8138a7, type: 2}
+  onPressEvents: 1
+  onPress:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114782870579545418}
+        m_MethodName: DetachAndDisapear
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  onHoldEvents: 0
+  onHold:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  onReleaseEvents: 0
+  onRelease:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!114 &114624438617998134
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -389,6 +450,7 @@ MonoBehaviour:
   breakOff_maxVel: 3
   breakOff_minAngVel: 360
   breakOff_maxAngVel: 720
+  breakOff_inherentVelocity: 0.5
 --- !u!114 &114782870579545418
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -415,6 +477,9 @@ MonoBehaviour:
   spawnAnim_distanceMargin: 0
   spawnAnim_duration: 0.5
   spawnAnim_Ease: 3
+  spriteGroup: {fileID: 114107823084160292}
+  fadeOut_delay: 1.25
+  fadeOut_duration: 1
 --- !u!212 &212352412641343346
 SpriteRenderer:
   m_ObjectHideFlags: 1
