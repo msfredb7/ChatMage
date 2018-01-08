@@ -1,10 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 
-[CustomPropertyDrawer(typeof(FloatReference))]
-public class FloatReferenceDrawer : PropertyDrawer
+public class VarReferenceDrawer : PropertyDrawer
 {
     /// <summary>
     /// Options to display in the popup to select constant or variable.
@@ -13,7 +10,7 @@ public class FloatReferenceDrawer : PropertyDrawer
         { "Use Constant", "Use Variable" };
 
     /// <summary> Cached style to use to draw the popup button. </summary>
-    private GUIStyle popupStyle;
+    private static GUIStyle popupStyle;
 
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
@@ -26,7 +23,6 @@ public class FloatReferenceDrawer : PropertyDrawer
         }
 
         label = EditorGUI.BeginProperty(position, label, property);
-        position = EditorGUI.PrefixLabel(position, label);
 
         EditorGUI.BeginChangeCheck();
 
@@ -51,7 +47,7 @@ public class FloatReferenceDrawer : PropertyDrawer
 
         EditorGUI.PropertyField(position,
             useConstant.boolValue ? constantValue : variable,
-            GUIContent.none);
+            label);
 
         if (EditorGUI.EndChangeCheck())
             property.serializedObject.ApplyModifiedProperties();

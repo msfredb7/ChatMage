@@ -3,27 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class FloatReference
+public abstract class VarReference<A, V> where A : VarVariable<V>
 {
     public bool UseConstant = true;
-    public float ConstantValue;
-    public FloatVariable Variable;
+    public V ConstantValue;
+    public A Variable;
 
-    public FloatReference()
+    public VarReference()
     { }
 
-    public FloatReference(float value)
+    public VarReference(V value)
     {
         UseConstant = true;
         ConstantValue = value;
     }
 
-    public float Value
+    public V Value
     {
         get { return UseConstant ? ConstantValue : Variable.Value; }
     }
 
-    public static implicit operator float(FloatReference reference)
+    public static implicit operator V(VarReference<A, V> reference)
     {
         return reference.Value;
     }

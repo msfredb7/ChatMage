@@ -11,8 +11,11 @@ public class Fred_TestScript : MonoBehaviour
 {
     public Transform cube;
     public InputAction action;
-    public FloatVariable v1;
-    public FloatVariable v2;
+    public FloatReference v1;
+    public FloatReference v2;
+    public StringReference s1;
+    public IntReference i1;
+    public BoolReference b1;
 
     void Start()
     {

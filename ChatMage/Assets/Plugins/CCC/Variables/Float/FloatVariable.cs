@@ -2,20 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "FV_NewFloat")]
-public class FloatVariable : ScriptableObject
+[CreateAssetMenu(fileName = "Var_NewFloat", menuName = "Variable/Float")]
+public class FloatVariable : VarVariable<float>
 {
-    public float Value;
-
 #if UNITY_EDITOR
     [Multiline]
     public string DeveloperDescription = "";
 #endif
-
-    public static implicit operator float(FloatVariable reference)
-    {
-        return reference.Value;
-    }
 
     public void SetValue(float value)
     {

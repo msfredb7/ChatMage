@@ -59,7 +59,7 @@ public class SpriteColors : MonoBehaviour
                 AssetDatabase.CreateFolder("Assets/Resources", FOLDERNAME);
             }
             Material newMat = new Material(shader);
-            AssetDatabase.CreateAsset(new Material(shader), "Assets/Resources/" + FOLDERNAME + "/" + MATERIALNAME + ".mat");
+            AssetDatabase.CreateAsset(newMat, "Assets/Resources/" + FOLDERNAME + "/" + MATERIALNAME + ".mat");
             material = Resources.Load(FOLDERNAME + "/" + MATERIALNAME) as Material;
         }
 #endif
