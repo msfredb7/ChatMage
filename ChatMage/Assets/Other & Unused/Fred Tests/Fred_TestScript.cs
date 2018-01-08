@@ -11,12 +11,16 @@ public class Fred_TestScript : MonoBehaviour
 {
     public Transform cube;
     public InputAction action;
+    public FloatVariable v1;
+    public FloatVariable v2;
 
     void Start()
     {
         MasterManager.Sync();
         Debug.LogWarning("Hello, je suis un Fred_TestScript, ne pas m'oublier ici (" + gameObject.name + ")");
 
+
+        float test = v1 - v2;
     }
 
     void Update()
