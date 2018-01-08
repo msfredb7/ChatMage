@@ -24,7 +24,9 @@ public class InputAxis : ScriptableObject
     public const string AN_MOUSE_HORIZONTAL = "mh";
     public const string AN_MOUSE_WHEEL = "mw";
 
-
+    /// <summary>
+    /// Retourne la valeur de l'axe, entre -1 et 1.
+    /// </summary>
     public float GetValue()
     {
         float value = 0;
@@ -100,6 +102,7 @@ namespace CCC.Input.Axis
         {
             EditorUtility.SetDirty(_axis);
             serializedObject.UpdateIfRequiredOrScript();
+            FetchProperties();
         }
 
         public override void OnInspectorGUI()

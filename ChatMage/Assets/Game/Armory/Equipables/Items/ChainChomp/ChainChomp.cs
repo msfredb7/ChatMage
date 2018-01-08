@@ -10,11 +10,12 @@ public class ChainChomp : MovingUnit, IAttackable
     public Rigidbody2D anchor;
     public Rigidbody2D followingBall;
     public Rigidbody2D realBall;
-    public Rigidbody2D fistBallLink;
-    public Rigidbody2D lastBallLink;
+    public ChainChomp_ChainSpawner chainSpawner;
     public SimpleColliderListener colliderListener;
     public int hitDamage = 1;
     public GameObject container;
+    public float distancePerChain = 0.7f;
+    public int chainsOnStart = 8;
 
     [Header("Spawn Animation")]
     public float spawnAnim_sizeMultiplier = 0.25f;
@@ -32,12 +33,17 @@ public class ChainChomp : MovingUnit, IAttackable
         rb = realBall;
     }
 
+    void Start()
+    {
+        Rotation = 0;
+    }
+
     protected override void OnDestroy()
     {
         base.OnDestroy();
 
         //Remove les listeners
-        if(player != null)
+        if (player != null)
         {
             player.vehicle.onTeleportPosition -= OnPlayerTeleport;
             player.vehicle.onDestroy -= OnPlayerDestroyed;
@@ -54,17 +60,29 @@ public class ChainChomp : MovingUnit, IAttackable
         this.chainAnchor = chainAnchor;
     }
 
+    public void IncreaseLength(float approximateDistance)
+    {
+        var chainsToAdd = (approximateDistance / distancePerChain).RoundedToInt().Raised(1);
+        chainSpawner.SpawnChains(chainsToAdd);
+        UpdateBallDistanceJoint();
+    }
+
+    public float GetLength()
+    {
+        return chainSpawner.ChainCount * distancePerChain;
+    }
+
     public void Spawn()
     {
         //On deplace la balle pres du char
         //On rapetisse la balle
         //On la fait grossir, comme si elle faisait un 'spawn into the world'
 
-        Transform ballTransform = realBall.transform;
+        Transform realBallTr = realBall.transform;
         CircleCollider2D ballCollider = realBall.GetComponent<CircleCollider2D>();
 
-        float originalBallRadius = ballCollider.radius * ballTransform.lossyScale.x;
-        float originalBallSize = ballTransform.localScale.x;
+        float originalBallRadius = ballCollider.radius * realBallTr.lossyScale.x;
+        float originalBallSize = realBallTr.localScale.x;
         float newBallSize = originalBallSize * spawnAnim_sizeMultiplier;
         float newBallRadius = originalBallRadius * spawnAnim_sizeMultiplier;
 
@@ -74,13 +92,26 @@ public class ChainChomp : MovingUnit, IAttackable
 
         //Set ball position
         Vector2 ballInitialPosition = (Vector2)chainAnchor.position - (player.vehicle.WorldDirection2D() * (newBallRadius + spawnAnim_distanceMargin));
-        ballTransform.position = ballInitialPosition;
+        realBallTr.position = ballInitialPosition;
 
         //Set ball scale
-        ballTransform.localScale = newBallSize * Vector3.one;
+        realBallTr.localScale = newBallSize * Vector3.one;
 
         //Animate ball back to normalSize
-        ballTransform.DOScale(originalBallSize, spawnAnim_duration).SetEase(spawnAnim_Ease);
+        realBallTr.DOScale(originalBallSize, spawnAnim_duration).SetEase(spawnAnim_Ease);
+
+        //Ajuste la longueur de la realBall
+        chainSpawner.SpawnChains(chainsOnStart);
+        UpdateBallDistanceJoint();
+
+        //Place anchor and ball
+        anchor.transform.position = chainAnchor.position;
+        followingBall.transform.position = realBallTr.position;
+    }
+
+    public void UpdateBallDistanceJoint()
+    {
+        realBall.GetComponent<DistanceJoint2D>().distance = distancePerChain * chainSpawner.ChainCount;
     }
 
     public void DetachAndDisapear()
@@ -143,11 +174,15 @@ public class ChainChomp : MovingUnit, IAttackable
 
 
         //On fait pivoter la balle
-        float angle = 0;
-        float strength = 0.05f * Math.Min(realBall.velocity.sqrMagnitude, 2);
-        angle = Vehicle.VectorToAngle(realBall.position - fistBallLink.position) + 90;
-        realBall.MoveRotation(Mathf.LerpAngle(realBall.rotation, fistBallLink.rotation, FixedLerp.FixedFix(strength)));
+        //float angle = 0;
+        float strength = 0.05f * realBall.velocity.sqrMagnitude.Clamped(0, 2);
+        var firstChain = chainSpawner.GetChain(0);
+        if (firstChain != null)
+            realBall.rotation = Mathf.LerpAngle(realBall.rotation, firstChain.rb.rotation + 180, FixedLerp.FixedFix(strength));
 
+        //On fait pivoter l'anchor
+        if (player != null)
+            anchor.rotation = player.vehicle.Rotation;
 
         followingBall.MovePosition(realBall.position);
     }

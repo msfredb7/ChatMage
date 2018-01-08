@@ -6,6 +6,8 @@ using UnityEngine;
 public class ITM_ChainChomp : Item
 {
     public ChainChomp prefab;
+    public float lengthIncreaseByDuplicate = 4;
+    public SharedTables sharedTables;
 
     [FullSerializer.fsIgnore]
     private ChainChomp chainChompInstance;
@@ -27,10 +29,49 @@ public class ITM_ChainChomp : Item
         chainChompInstance = Game.instance.SpawnUnit(prefab, player.vehicle.Position);
         chainChompInstance.Init(player.playerLocations.boule, player);
         chainChompInstance.Spawn();
+
+        int myLengthIncrement = 0;
+        int mySeat;
+        int tableIndex;
+        sharedTables.TakeSeat(this, out tableIndex, out mySeat);
+        SharedTables.Table table = sharedTables.GetClientsAtTable(tableIndex);
+
+        for (int i = 0; i < table.seats.Count; i++)
+        {
+            if (table.seats[i] != null && i != mySeat)
+            {
+                if (i > mySeat)
+                {
+                    myLengthIncrement++;
+                }
+                else
+                {
+                    ((ITM_ChainChomp)table.seats[i]).IncrementLength();
+                }
+            }
+        }
+
+        for (int i = 0; i < myLengthIncrement; i++)
+        {
+            IncrementLength();
+        }
+    }
+
+    public void IncrementLength()
+    {
+        if (chainChompInstance != null)
+            chainChompInstance.IncreaseLength(lengthIncreaseByDuplicate);
     }
 
     public override void Unequip()
     {
         chainChompInstance.DetachAndDisapear();
+        sharedTables.ReleaseSeat(this);
+    }
+
+    protected override void ClearReferences()
+    {
+        base.ClearReferences();
+        sharedTables.ReleaseSeat(this);
     }
 }
