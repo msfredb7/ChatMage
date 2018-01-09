@@ -5,11 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Var_NewFloat", menuName = "Variable/Float")]
 public class FloatVariable : VarVariable<float>
 {
-#if UNITY_EDITOR
-    [Multiline]
-    public string DeveloperDescription = "";
-#endif
-
     public void SetValue(float value)
     {
         Value = value;

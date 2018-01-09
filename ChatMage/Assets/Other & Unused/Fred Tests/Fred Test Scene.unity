@@ -227,6 +227,7 @@ GameObject:
   - component: {fileID: 1205636209}
   - component: {fileID: 1205636215}
   - component: {fileID: 1205636214}
+  - component: {fileID: 1205636216}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -316,27 +317,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cube: {fileID: 0}
-  action: {fileID: 0}
-  v1:
-    UseConstant: 0
-    ConstantValue: 94.2
-    Variable: {fileID: 0}
-  v2:
-    UseConstant: 0
-    ConstantValue: 35.6
-    Variable: {fileID: 0}
-  s1:
-    UseConstant: 0
-    ConstantValue: 
-    Variable: {fileID: 0}
-  i1:
-    UseConstant: 1
-    ConstantValue: 33
-    Variable: {fileID: 0}
-  b1:
-    UseConstant: 1
-    ConstantValue: 0
-    Variable: {fileID: 0}
+  action: {fileID: 11400000, guid: 177f4745f0650a243a3e693b1c8138a7, type: 2}
+  v1: {fileID: 11400000, guid: 90bf03708c042b7488bcab782cce31da, type: 2}
 --- !u!82 &1205636215
 AudioSource:
   m_ObjectHideFlags: 0
@@ -417,3 +399,44 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &1205636216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1205636208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a694854f63fe49e4b935f71d339845c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  action: {fileID: 11400000, guid: 03d95e22d8f2d0b4da4352bcd19c5a86, type: 2}
+  onPressEvents: 1
+  onPress:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: a6e2bb2e4175f1d448b88a1cf3414b5b, type: 2}
+        m_MethodName: LoadScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  onHoldEvents: 0
+  onHold:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  onReleaseEvents: 0
+  onRelease:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null

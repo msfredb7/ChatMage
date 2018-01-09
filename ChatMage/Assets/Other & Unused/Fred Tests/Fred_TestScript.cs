@@ -11,27 +11,21 @@ public class Fred_TestScript : MonoBehaviour
 {
     public Transform cube;
     public InputAction action;
-    public FloatReference v1;
-    public FloatReference v2;
-    public StringReference s1;
-    public IntReference i1;
-    public BoolReference b1;
+    public StringVariable v1;
 
     void Start()
     {
         MasterManager.Sync();
         Debug.LogWarning("Hello, je suis un Fred_TestScript, ne pas m'oublier ici (" + gameObject.name + ")");
 
-        SceneInfo s;
-        float test = v1 - v2;
     }
 
     void Update()
     {
-        //if (action.GetDown())
-        //{
-        //    cube.transform.position += Vector3.right *2;
-        //}
+        if (action.GetDown())
+        {
+            v1.Value += 10;
+        }
         //if (action.Get())
         //{
         //    cube.transform.position += Vector3.right * Time.deltaTime;
