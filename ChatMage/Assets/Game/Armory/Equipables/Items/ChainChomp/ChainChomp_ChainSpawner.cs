@@ -6,8 +6,7 @@ public class ChainChomp_ChainSpawner : MonoBehaviour
 {
     [Header("Chains")]
     public Transform chainContainer;
-    public ChainChomp_Link chainA_Prefab;
-    public ChainChomp_Link chainB_Prefab;
+    public ChainChomp_Link chain_Prefab;
 
     [Header("Other")]
     public Rigidbody2D anchor;
@@ -36,9 +35,9 @@ public class ChainChomp_ChainSpawner : MonoBehaviour
         }
     }
     public void SpawnChain()
-    {
-        var selectedPrefab = chains.Count.IsEvenNumber() ? chainA_Prefab : chainB_Prefab;
-        ChainChomp_Link newLink = selectedPrefab.DuplicateGO(chainContainer);
+    {        
+        ChainChomp_Link newLink = chain_Prefab.DuplicateGO(chainContainer);
+        newLink.SetVisuals(chains.Count.IsEvenNumber() ? 0 : 1);
         chains.Add(newLink);
         ConfigureChain(chains.Count - 1);
     }

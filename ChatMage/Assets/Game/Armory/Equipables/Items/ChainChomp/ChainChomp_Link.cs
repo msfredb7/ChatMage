@@ -19,6 +19,11 @@ public class ChainChomp_Link : MonoBehaviour
     public float breakOff_maxAngVel = 720;
     public float breakOff_inherentVelocity = 0.5f;
 
+    [Header("Sprites")]
+    public SpriteRenderer chainRenderer;
+    public Sprite chainA;
+    public Sprite chainB;
+
     [System.NonSerialized] public Rigidbody2D rb;
     [System.NonSerialized] public Transform tr;
 
@@ -29,6 +34,9 @@ public class ChainChomp_Link : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         tr = transform;
+
+        //Default visual
+        SetVisuals(0);
     }
 
     void Start()
@@ -49,6 +57,13 @@ public class ChainChomp_Link : MonoBehaviour
         nextHingeJoint.connectedBody = rb;
         nextLink = link;
         UpdateNextJoint();
+    }
+    public void SetVisuals(int chainVisual)
+    {
+        if (chainRenderer == null)
+            return;
+        chainVisual = chainVisual.Clamped(0, 1);
+        chainRenderer.sprite = chainVisual == 0 ? chainA : chainB;
     }
 
     public void UpdateJoints()
