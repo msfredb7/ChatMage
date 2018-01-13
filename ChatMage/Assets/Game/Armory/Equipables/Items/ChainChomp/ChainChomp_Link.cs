@@ -26,6 +26,7 @@ public class ChainChomp_Link : MonoBehaviour
 
     [System.NonSerialized] public Rigidbody2D rb;
     [System.NonSerialized] public Transform tr;
+    [System.NonSerialized] private float timeScale = 1;
 
     private const float AX = 0;
     private const float AY = 0.15f;
@@ -47,6 +48,7 @@ public class ChainChomp_Link : MonoBehaviour
 
     public void SetPreviousJoint(Rigidbody2D rb, ChainChomp_Link link = null)
     {
+        previousHingeJoint.enabled = rb != null;
         previousHingeJoint.connectedBody = rb;
         previousLink = link;
         UpdatePreviousJoint();
@@ -54,6 +56,7 @@ public class ChainChomp_Link : MonoBehaviour
 
     public void SetNextJoint(Rigidbody2D rb, ChainChomp_Link link = null)
     {
+        nextHingeJoint.enabled = rb != null;
         nextHingeJoint.connectedBody = rb;
         nextLink = link;
         UpdateNextJoint();
@@ -62,8 +65,17 @@ public class ChainChomp_Link : MonoBehaviour
     {
         if (chainRenderer == null)
             return;
+        //Clamp
         chainVisual = chainVisual.Clamped(0, 1);
+
+        //Sprite
         chainRenderer.sprite = chainVisual == 0 ? chainA : chainB;
+
+        //Image depth
+        var spriteTr = chainRenderer.transform;
+        var currentPos = spriteTr.localPosition;
+        currentPos.z = chainVisual;
+        spriteTr.localPosition = currentPos;
     }
 
     public void UpdateJoints()
@@ -115,10 +127,7 @@ public class ChainChomp_Link : MonoBehaviour
 
     public void BreakOff(Vector2 inherentVelocity)
     {
-        if (previousHingeJoint != null)
-            previousHingeJoint.enabled = false;
-        if (nextHingeJoint != null)
-            nextHingeJoint.enabled = false;
+        BreakOff();
 
         float randomAngle = Random.Range(0, 360);
         float randomSpeed = Random.Range(breakOff_minVel, breakOff_maxVel);
@@ -126,6 +135,13 @@ public class ChainChomp_Link : MonoBehaviour
 
         bool positiveRotate = randomAngle.RoundedToInt().IsEvenNumber();
         rb.angularVelocity = (positiveRotate ? 1 : -1) * Random.Range(breakOff_minAngVel, breakOff_maxAngVel);
+    }
+    public void BreakOff()
+    {
+        if (previousHingeJoint != null)
+            previousHingeJoint.enabled = false;
+        if (nextHingeJoint != null)
+            nextHingeJoint.enabled = false;
 
         rb.drag = breakOff_linDrag;
         rb.angularDrag = breakOff_angDrag;
@@ -133,8 +149,6 @@ public class ChainChomp_Link : MonoBehaviour
 
     private static Vector2 PositiveAnchor { get { return new Vector2(AX, AY); } }
     private static Vector2 NegativeAnchor { get { return new Vector2(-AX, -AY); } }
-
-    public bool IsBall { get { return previousHingeJoint == null; } }
 
     public void RemoveStrain()
     {
@@ -179,6 +193,31 @@ public class ChainChomp_Link : MonoBehaviour
         {
             rb.velocity = Vector2.zero;
             rb.angularVelocity = 0;
+        }
+    }
+
+
+    public float TimeScale
+    {
+        get { return timeScale; }
+        set
+        {
+            float oldTimescale = timeScale;
+
+            if (value == timeScale)
+                return;
+
+            if (value < Unit.MIN_TIMESCALE)
+                value = Unit.MIN_TIMESCALE;
+
+            timeScale = value;
+
+
+            var mult = value / oldTimescale;
+            if (rb.bodyType != RigidbodyType2D.Static)
+                rb.velocity *= mult;
+            rb.angularDrag *= mult;
+            rb.drag *= mult;
         }
     }
 }

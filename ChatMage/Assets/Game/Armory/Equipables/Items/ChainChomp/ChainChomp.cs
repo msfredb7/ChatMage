@@ -7,22 +7,38 @@ using CCC._2D;
 
 public class ChainChomp : MovingUnit, IAttackable
 {
-    [Header("Chain Chomp")]
+    [Header("Links")]
     public Rigidbody2D anchor;
     public Rigidbody2D followingBall;
     public Rigidbody2D realBall;
     public ChainChomp_ChainSpawner chainSpawner;
     public SimpleColliderListener colliderListener;
-    public int hitDamage = 1;
     public GameObject container;
+    public SpriteRenderer anchorRenderer;
+
+    [Header("Ball")]
+    public int hp = 1;
+    public bool isVulnerable = true;
+    public SpriteRenderer ballRenderer;
+
+    [Header("Chains")]
     public float distancePerChain = 0.7f;
     public int chainsOnStart = 8;
+
+    [Header("Attack"), Forward]
+    public int hitDamage = 1;
+    public Targets targets;
+    public AudioPlayable hitSFX;
+    public float hitScreenShake;
 
     [Header("Spawn Animation")]
     public float spawnAnim_sizeMultiplier = 0.25f;
     public float spawnAnim_distanceMargin = 0f;
     public float spawnAnim_duration = 0.5f;
     public Ease spawnAnim_Ease = Ease.OutSine;
+
+    [Header("Break Animation")]
+    public AudioPlayable breakSFX;
 
     [Header("Fade Out Animation")]
     public SpriteGroup spriteGroup;
@@ -33,6 +49,7 @@ public class ChainChomp : MovingUnit, IAttackable
     private Transform chainAnchor;
     private PlayerController player;
     private bool isDisapearing = false;
+    private Tween fadeAnim;
 
     protected override void Awake()
     {
@@ -53,7 +70,7 @@ public class ChainChomp : MovingUnit, IAttackable
         if (player != null)
         {
             player.vehicle.onTeleportPosition -= OnPlayerTeleport;
-            player.vehicle.onDestroy -= OnPlayerDestroyed;
+            player.vehicle.onDestroy -= OnPlayerDeath;
         }
     }
 
@@ -62,13 +79,15 @@ public class ChainChomp : MovingUnit, IAttackable
         this.player = player;
         colliderListener.onCollisionEnter += ColliderListener_onCollisionEnter;
         player.vehicle.onTeleportPosition += OnPlayerTeleport;
-        player.vehicle.onDestroy += OnPlayerDestroyed;
+        player.vehicle.OnDeath += OnPlayerDeath;
 
         this.chainAnchor = chainAnchor;
     }
 
     public void IncreaseLength(float approximateDistance)
     {
+        if (IsDead)
+            return;
         var chainsToAdd = (approximateDistance / distancePerChain).RoundedToInt().Raised(1);
         chainSpawner.SpawnChains(chainsToAdd);
         UpdateBallDistanceJoint();
@@ -121,62 +140,176 @@ public class ChainChomp : MovingUnit, IAttackable
         realBall.GetComponent<DistanceJoint2D>().distance = distancePerChain * chainSpawner.ChainCount;
     }
 
-    public void DetachAndDisapear() { DetachAndDisapear(null); }
-    public void DetachAndDisapear(TweenCallback onComplete)
+    public void BreakFromPlayerAndDisappear() { BreakFromPlayerAndDisappear(null); }
+    public void BreakFromPlayerAndDisappear(TweenCallback onComplete)
     {
         if (isDisapearing)
             return;
 
-        chainAnchor = null;
+        //SFX
+        SoundManager.PlaySFX(breakSFX);
 
+        DetachAnchor();
+
+        DetachRealBall();
+
+        //Brise les chaines
         var breakCount = (chainSpawner.ChainCount * 0.3f).RoundedToInt().Raised(2);
-        chainSpawner.BreakOffChains(breakCount, realBall.velocity);
-        anchor.isKinematic = false;
+        var velocity = player != null ? player.vehicle.Speed : (realBall != null ? realBall.velocity : Vector2.zero);
+        chainSpawner.BreakOffChains(breakCount, velocity);
+
+        Disappear(onComplete, true);
+    }
+
+    public void DetachBallAndDisappear() { DetachBallAndDisappear(null); }
+    public void DetachBallAndDisappear(TweenCallback onComplete)
+    {
+        if (isDisapearing)
+            return;
+
+        //SFX
+        SoundManager.PlaySFX(breakSFX);
+
+        DetachRealBall();
+
+        //Brise les chaines
+        var chainIndex = 2.Capped(chainSpawner.ChainCount - 1);
+        chainSpawner.CutChainsAt(chainIndex);
+
+        DisappearBelow(chainIndex + 2, onComplete, true);
+    }
+
+    public void DetachRealBall()
+    {
+        if (realBall == null)
+            return;
         realBall.drag = 4;
         realBall.GetComponent<DistanceJoint2D>().enabled = false;
+    }
 
+    public void DetachAnchor()
+    {
+        chainAnchor = null;
+        anchor.isKinematic = false;
+        anchorRenderer.enabled = false;
+    }
+
+    public void Disappear() { Disappear(null, true); }
+    public void Disappear(TweenCallback onComplete, bool destroy)
+    {
         spriteGroup.GatherChildData();
-        spriteGroup.DOFade(0, fadeOut_duration).SetDelay(fadeOut_delay).OnComplete(
+
+        KillFadeAnim();
+        fadeAnim =spriteGroup.DOFade(0, fadeOut_duration).SetDelay(fadeOut_delay).OnComplete(
             () =>
             {
-                Destroy();
+                if (destroy)
+                    Destroy();
                 if (onComplete != null)
                     onComplete();
             });
+
+        isDisapearing = true;
+    }
+    public void DisappearBelow() { DisappearBelow(0, null, false); }
+    public void DisappearBelow(int chainIndex, TweenCallback onComplete, bool deactivate)
+    {
+        if (chainIndex < 0 || isDisapearing)
+            return;
+        chainIndex = chainIndex.Capped(chainSpawner.ChainCount);
+
+        SpriteRenderer[] renderers = new SpriteRenderer[chainIndex];
+        renderers[0] = ballRenderer;
+
+        for (int i = 0; i < chainIndex - 1; i++)
+        {
+            renderers[i + 1] = chainSpawner.GetChain(i).chainRenderer;
+        }
+
+        float alpha = 1;
+
+        KillFadeAnim();
+        fadeAnim =  DOTween.To(() => alpha, (x) =>
+        {
+            alpha = x;
+
+            for (int i = 0; i < renderers.Length; i++)
+            {
+                renderers[i].SetAlpha(alpha);
+            }
+        }, 0, fadeOut_duration).SetDelay(fadeOut_delay).OnComplete(() =>
+        {
+            if (deactivate)
+                for (int i = 0; i < renderers.Length; i++)
+                {
+                    if (i == 0)
+                    {
+                        realBall.gameObject.SetActive(false);
+                    }
+                    else
+                    {
+                        chainSpawner.GetChain(i - 1).gameObject.SetActive(false);
+                    }
+                }
+            if (onComplete != null)
+                onComplete();
+        });
     }
 
-    void OnPlayerDestroyed(Unit unit)
+    private void KillFadeAnim()
     {
-        DetachAndDisapear(null);
+        if (fadeAnim != null)
+            fadeAnim.Kill();
+        fadeAnim = null;
+    }
+
+    void OnPlayerDeath(Unit unit)
+    {
+        BreakFromPlayerAndDisappear(null);
     }
 
 
     // Damage handling
     private void ColliderListener_onCollisionEnter(ColliderInfo other, Collision2D collision, ColliderListener listener)
     {
-        if (other.parentUnit.allegiance == Allegiance.Enemy || other.parentUnit.allegiance == Allegiance.SmashBall)
+        var unit = other.parentUnit;
+        if (targets.IsValidTarget(unit))
         {
             //Bump !
-            if (other.parentUnit is Vehicle)
+            if (unit is Vehicle)
             {
-                Vehicle otherVeh = other.parentUnit as Vehicle;
+                Vehicle otherVeh = unit as Vehicle;
                 if (otherVeh.rb.bodyType == RigidbodyType2D.Dynamic)
-                    (other.parentUnit as Vehicle).Bump(
+                    (unit as Vehicle).Bump(
                         (otherVeh.Position - realBall.position).normalized * realBall.velocity.magnitude * 1.5f,
                         0,
                         BumpMode.VelocityAdd);
                 else
-                    (other.parentUnit as Vehicle).Bump(
+                    (unit as Vehicle).Bump(
                         (otherVeh.Position - realBall.position).normalized * realBall.velocity.magnitude * 1.5f,
                         0.25f,
                         BumpMode.VelocityAdd);
             }
 
-            IAttackable attackable = other.parentUnit.GetComponent<IAttackable>();
+            //Attack
+            IAttackable attackable = unit.GetComponent<IAttackable>();
             if (attackable != null)
             {
+                //SFX
+                SoundManager.PlaySFX(hitSFX);
+
+                //Screen Shake
+                Game.instance.gameCamera.vectorShaker.Hit(hitScreenShake * (unit.Position - realBall.position).normalized);
+
+                bool wasDead = unit.IsDead;
                 Game.instance.commonVfx.SmallHit(collision.contacts[0].point, Color.white);
                 attackable.Attacked(other, hitDamage * Game.instance.Player.playerStats.damageMultiplier, this, listener.info);
+
+                if (unit.IsDead && !wasDead)
+                {
+                    if (Game.instance.Player != null)
+                        Game.instance.Player.playerStats.RegisterKilledUnit(unit);
+                }
             }
         }
     }
@@ -194,22 +327,29 @@ public class ChainChomp : MovingUnit, IAttackable
 
         // Bouge l'anchor vers la cible (genre la boule du vehicule)
         if (chainAnchor != null)
+        {
             anchor.MovePosition(chainAnchor.position);
+            
+            //On fait pivoter l'anchor
+            if (player != null)
+                anchor.rotation = player.vehicle.Rotation;
+        }
 
 
 
         //On fait pivoter la balle
         //float angle = 0;
-        float strength = 0.05f * realBall.velocity.sqrMagnitude.Clamped(0, 2);
-        var firstChain = chainSpawner.GetChain(0);
-        if (firstChain != null && chainAnchor != null)
-            realBall.rotation = Mathf.LerpAngle(realBall.rotation, firstChain.rb.rotation + 180, FixedLerp.FixedFix(strength));
+        if (realBall != null)
+        {
+            float strength = 0.05f * realBall.velocity.sqrMagnitude.Clamped(0, 2);
+            var firstChain = chainSpawner.GetChain(0);
+            if (firstChain != null && chainAnchor != null)
+                realBall.rotation = Mathf.LerpAngle(realBall.rotation, firstChain.rb.rotation + 180, FixedLerp.FixedFix(strength));
+        }
 
-        //On fait pivoter l'anchor
-        if (player != null)
-            anchor.rotation = player.vehicle.Rotation;
 
-        followingBall.MovePosition(realBall.position);
+        if (realBall != null && followingBall != null)
+            followingBall.MovePosition(realBall.position);
     }
 
     void OnPlayerTeleport(Unit player, Vector2 delta)
@@ -222,11 +362,51 @@ public class ChainChomp : MovingUnit, IAttackable
 
     public int Attacked(ColliderInfo on, int amount, Unit otherUnit, ColliderInfo source = null)
     {
-        return 1; //La boule est invulnerable
+        if (IsDead)
+            return 0;
+
+        if (isVulnerable)
+        {
+            hp--;
+            if (hp == 0)
+                Die();
+            return hp;
+        }
+        else
+        {
+            return 1; //La boule est invulnerable
+        }
+    }
+
+    protected override void Die()
+    {
+        if (!IsDead && !isDisapearing)
+            DetachBallAndDisappear();
+
+        base.Die();
     }
 
     public float GetSmashJuiceReward()
     {
         return 0;
+    }
+
+    public override float TimeScale
+    {
+        get
+        {
+            return base.TimeScale;
+        }
+
+        set
+        {
+            base.TimeScale = value;
+
+            var count = chainSpawner.ChainCount;
+            for (int i = 0; i < count; i++)
+            {
+                chainSpawner.GetChain(i).TimeScale = value;
+            }
+        }
     }
 }

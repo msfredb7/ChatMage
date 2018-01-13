@@ -150,7 +150,7 @@ public class SM_Warudo : Smash
         {
             Unit val = node.Value;
 
-            if (val != player.vehicle)
+            if(val.allegiance != Allegiance.Ally)
                 val.TimeScale *= multiplier;
 
             node = node.Next;

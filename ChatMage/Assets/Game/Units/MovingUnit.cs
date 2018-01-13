@@ -109,8 +109,11 @@ public abstract class MovingUnit : Unit
 
             base.TimeScale = value;
 
+            var mult = value / oldTimescale;
             if (rb.bodyType != RigidbodyType2D.Static)
-                rb.velocity *= value / oldTimescale;
+                rb.velocity *= mult;
+            rb.angularDrag *= mult;
+            rb.drag *= mult;
         }
     }
 }

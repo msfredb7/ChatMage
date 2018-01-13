@@ -8,7 +8,7 @@ public enum Allegiance { Ally = 0, Neutral = 1, Enemy = 2, SmashBall = 3 }
 
 public abstract class Unit : MonoBehaviour
 {
-    private const float MIN_TIMESCALE = .02f;
+    public const float MIN_TIMESCALE = .02f;
 
     [Header("Unit")]
     public Allegiance allegiance = Allegiance.Enemy;

@@ -29,6 +29,7 @@ public class ITM_ChainChomp : Item
         chainChompInstance = Game.instance.SpawnUnit(prefab, player.vehicle.Position);
         chainChompInstance.Init(player.playerLocations.boule, player);
         chainChompInstance.Spawn();
+        chainChompInstance.OnDeath += (u) => ReleaseSeat();
 
         int myLengthIncrement = 0;
         int mySeat;
@@ -63,11 +64,16 @@ public class ITM_ChainChomp : Item
             chainChompInstance.IncreaseLength(lengthIncreaseByDuplicate);
     }
 
+    private void ReleaseSeat()
+    {
+        sharedTables.ReleaseSeat(this);
+    }
+
     public override void Unequip()
     {
         if (chainChompInstance != null)
-            chainChompInstance.DetachAndDisapear(null);
-        sharedTables.ReleaseSeat(this);
+            chainChompInstance.BreakFromPlayerAndDisappear(null);
+        ReleaseSeat();
     }
 
     protected override void ClearReferences()

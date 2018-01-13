@@ -106,8 +106,8 @@ public abstract class Pack : MovingUnit
             if (pickupSound != null)
                 SoundManager.PlaySFX(pickupSound);
             OnPickUp();
+            Die();
         }
-        Die();
     }
 
     protected override void Die()

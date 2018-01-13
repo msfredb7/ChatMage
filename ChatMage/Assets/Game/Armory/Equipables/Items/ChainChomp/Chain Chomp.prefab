@@ -428,14 +428,23 @@ MonoBehaviour:
   realBall: {fileID: 50454320495922094}
   chainSpawner: {fileID: 114157184305609490}
   colliderListener: {fileID: 114456319509580576}
-  hitDamage: 1
   container: {fileID: 1361839965273874}
+  anchorRenderer: {fileID: 212366784734798056}
+  hp: 1
+  isVulnerable: 0
+  ballRenderer: {fileID: 212352412641343346}
   distancePerChain: 0.3
   chainsOnStart: 5
+  hitDamage: 1
+  targets:
+    targetAllegiances: 02000000
+  hitSFX: {fileID: 11400000, guid: 88634cf06dd59ed4eb0c0b8c1a06acd8, type: 2}
+  hitScreenShake: 0.4
   spawnAnim_sizeMultiplier: 0.25
   spawnAnim_distanceMargin: 0
   spawnAnim_duration: 0.5
   spawnAnim_Ease: 3
+  breakSFX: {fileID: 0}
   spriteGroup: {fileID: 114107823084160292}
   fadeOut_delay: 1.25
   fadeOut_duration: 1

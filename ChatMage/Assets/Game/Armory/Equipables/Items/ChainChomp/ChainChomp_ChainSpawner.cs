@@ -35,7 +35,7 @@ public class ChainChomp_ChainSpawner : MonoBehaviour
         }
     }
     public void SpawnChain()
-    {        
+    {
         ChainChomp_Link newLink = chain_Prefab.DuplicateGO(chainContainer);
         newLink.SetVisuals(chains.Count.IsEvenNumber() ? 0 : 1);
         chains.Add(newLink);
@@ -78,7 +78,7 @@ public class ChainChomp_ChainSpawner : MonoBehaviour
         }
         chains.RemoveRange(chains.Count - amount, amount);
 
-        if(chains.Count > 0)
+        if (chains.Count > 0)
         {
             anchor.transform.position = chains.Last().TransformedNextAnchor();
             ConfigureChain(chains.Count - 1);
@@ -88,6 +88,20 @@ public class ChainChomp_ChainSpawner : MonoBehaviour
             anchor.transform.position = ball.TransformedNextAnchor();
             ball.SetNextJoint(anchor, null);
         }
+    }
+    public void CutChainsAt(int index)
+    {
+        index = index.Capped(chains.Count - 2);
+
+        var chainA = GetChain(index);
+        var chainB = GetChain(index + 1);
+        chainA.SetNextJoint(null);
+        chainB.SetPreviousJoint(null);
+
+        //Add twist force
+        var force = (chainA.rb.position - chainB.rb.position).Rotate(90).normalized * chainA.rb.mass;
+        chainA.rb.AddForce(force * 4, ForceMode2D.Impulse);
+        chainB.rb.AddForce(force * -4, ForceMode2D.Impulse);
     }
 
     private void ConfigureChain(int at)
