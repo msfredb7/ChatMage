@@ -124,6 +124,8 @@ GameObject:
   - component: {fileID: 50554756144680236}
   - component: {fileID: 114157184305609490}
   - component: {fileID: 114107823084160292}
+  - component: {fileID: 114582350132726526}
+  - component: {fileID: 82174898963303778}
   m_Layer: 15
   m_Name: Chain Chomp
   m_TagString: Untagged
@@ -323,6 +325,87 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!82 &82174898963303778
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1951877323073520}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 243000011449597354, guid: 548ef68a56858c84b81982d360f26110,
+    type: 2}
+  m_audioClip: {fileID: 8300000, guid: 6732860136b300948b8f4236843054bd, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &114018094730779568
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -384,6 +467,25 @@ MonoBehaviour:
   info: {fileID: 114018094730779568}
   useTrigger: 0
   useCollision: 1
+--- !u!114 &114582350132726526
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1951877323073520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b060a2465c29a6b488b9a14fe9b7f430, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ball: {fileID: 50454320495922094}
+  RattleSound: 1
+  chainRattle_source: {fileID: 82174898963303778}
+  chainRattle_maxVolume: 0.35
+  chainRattle_minAcceleration: 1
+  chainRattle_maxAcceleration: 3.5
+  chainRattle_enterVolumeSpeed: 4
+  chainRattle_exitVolumeSpeed: 2
 --- !u!114 &114624438617998134
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -430,6 +532,7 @@ MonoBehaviour:
   colliderListener: {fileID: 114456319509580576}
   container: {fileID: 1361839965273874}
   anchorRenderer: {fileID: 212366784734798056}
+  sounds: {fileID: 114582350132726526}
   hp: 1
   isVulnerable: 0
   ballRenderer: {fileID: 212352412641343346}

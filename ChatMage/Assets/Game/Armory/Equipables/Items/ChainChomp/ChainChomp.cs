@@ -15,6 +15,7 @@ public class ChainChomp : MovingUnit, IAttackable
     public SimpleColliderListener colliderListener;
     public GameObject container;
     public SpriteRenderer anchorRenderer;
+    public ChainChomp_Sounds sounds;
 
     [Header("Ball")]
     public int hp = 1;
@@ -80,6 +81,7 @@ public class ChainChomp : MovingUnit, IAttackable
         colliderListener.onCollisionEnter += ColliderListener_onCollisionEnter;
         player.vehicle.onTeleportPosition += OnPlayerTeleport;
         player.vehicle.OnDeath += OnPlayerDeath;
+        sounds.SetAnchoredTransform(chainAnchor);
 
         this.chainAnchor = chainAnchor;
     }
