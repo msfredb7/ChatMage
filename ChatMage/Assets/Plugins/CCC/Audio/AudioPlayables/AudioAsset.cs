@@ -22,10 +22,4 @@ public class AudioAsset : AudioPlayable
         audioSource.loop = true;
         audioSource.Play();
     }
-
-    public override void GetClipAndVolume(out AudioClip clip, out float volume)
-    {
-        clip = this.clip;
-        volume = this.volume;
-    }
 }

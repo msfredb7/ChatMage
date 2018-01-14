@@ -37,5 +37,4 @@ public abstract class AudioPlayable : ScriptableObject
 
     protected abstract void Internal_PlayOn(AudioSource audioSource, float volumeMultiplier = 1);
     protected abstract void Interal_PlayLoopedOn(AudioSource audioSource, float volumeMultiplier = 1);
-    public abstract void GetClipAndVolume(out AudioClip clip, out float volume);
 }
