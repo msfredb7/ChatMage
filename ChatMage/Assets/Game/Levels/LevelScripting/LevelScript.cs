@@ -339,6 +339,14 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
         }
     }
 
+    public void ManuallyAddWave(UnitWaveV2 wave)
+    {
+        if (manuallyTriggeredWaves == null)
+            manuallyTriggeredWaves = new List<UnitWaveV2>();
+
+        manuallyTriggeredWaves.Add(wave);
+    }
+
     public virtual void OnInit() { }
     protected virtual void OnGameReady() { }
     protected virtual void OnGameStarted() { }
