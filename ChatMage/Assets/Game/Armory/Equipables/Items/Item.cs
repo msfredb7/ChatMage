@@ -11,4 +11,7 @@ public abstract class Item : Equipable
 
     public abstract void Equip(int duplicateIndex);
     public abstract void Unequip();
+    public override void OnGameReady() { }
+    public override void OnGameStarted() { }
+    public override void OnUpdate() { }
 }
