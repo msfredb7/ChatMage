@@ -16,7 +16,6 @@ public class ChainChomp_Sounds : MonoBehaviour
     public float chainRattle_enterVolumeSpeed = 2;
     public float chainRattle_exitVolumeSpeed = 1;
 
-    private Vector3 ballRelativePos;
     private float ballDistance;
     private float ballRelativeAcceleration;
     private Transform anchoredTransform;
@@ -80,9 +79,6 @@ public class ChainChomp_Sounds : MonoBehaviour
     {
         if (anchoredTransform != null)
         {
-            var wasPos = ballRelativePos;
-            ballRelativePos = anchoredTransform.InverseTransformPoint(ball.position);
-
             var wasDistance = ballDistance;
             ballDistance = ((Vector2)anchoredTransform.position - ball.position).magnitude;
 

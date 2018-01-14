@@ -10,7 +10,11 @@ public class BlueShellAnimator : MonoBehaviour
     public SpriteRenderer shell;
     public BlueShellVehicle shellUnit;
 
+    [Header("Camera Shake")]
+    public float cameraShake_strength = 0.75f;
+
     [Header("Explosion")]
+    public AudioPlayable explosion_SFX;
     public LayerMask explosionLayerMask;
     public float explosionNormalRadius = 2;
     public float explosionBoostedRadius = 3;
@@ -52,6 +56,9 @@ public class BlueShellAnimator : MonoBehaviour
 
     public void Explode(TweenCallback onComplete)
     {
+        //SFX
+        SoundManager.PlaySFX(explosion_SFX);
+
         //Enables
         shell.enabled = false;
         lightFade.enabled = true;
@@ -88,7 +95,7 @@ public class BlueShellAnimator : MonoBehaviour
         ShellUnit_onTimeScaleChange(shellUnit);
 
         //Camera shake
-        Game.instance.gameCamera.vectorShaker.Shake();
+        Game.instance.gameCamera.vectorShaker.Shake(cameraShake_strength);
 
         //Explosion !
         List<ColliderInfo> infos = UnitDetection.OverlapCircleAll(shellUnit.Position, radius, explosionLayerMask);

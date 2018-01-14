@@ -10,7 +10,8 @@ public class ITM_BlueShell : Item
     public BlueShellVehicle blueShellPrefab;
 
     [InspectorHeader("Settings")]
-    public float spawnCooldown;
+    public float cooldown = 20;
+    public float startDelay = 0.75f;
 
     [NonSerialized, FullSerializer.fsIgnore]
     private bool shellSpawned = false;
@@ -19,33 +20,24 @@ public class ITM_BlueShell : Item
     [NonSerialized, FullSerializer.fsIgnore]
     private BlueShellVehicle currentBlueShell;
 
-    public override void OnGameReady()
-    {
-    }
-
-    public override void OnGameStarted()
-    {
-        countdown = 2;
-        shellSpawned = false;
-    }
-
     public override void OnUpdate()
     {
         if (!Game.instance.gameStarted || shellSpawned)
             return;
 
-        if (countdown < 0)
+        if (CanLaunchShell())
             LaunchShell();
         else
             countdown -= player.vehicle.DeltaTime();
     }
 
+    private bool CanLaunchShell()
+    {
+        return countdown < 0 && (currentBlueShell == null || !currentBlueShell.gameObject.activeSelf);
+    }
+
     void LaunchShell()
     {
-        //On attend que la shell precedente sois desactiver
-        if (currentBlueShell != null && currentBlueShell.gameObject.activeSelf)
-            return;
-
         if (currentBlueShell == null)
         {
             currentBlueShell = Game.instance.SpawnUnit(blueShellPrefab, player.vehicle.Position);
@@ -63,13 +55,13 @@ public class ITM_BlueShell : Item
 
     public override void Equip(int duplicateIndex)
     {
-        throw new NotImplementedException();
+        countdown = startDelay;
+        shellSpawned = false;
     }
 
     public override void Unequip()
     {
-        throw new NotImplementedException();
     }
 
-    private float Cooldown { get { return spawnCooldown * player.playerStats.cooldownMultiplier; } }
+    private float Cooldown { get { return cooldown * player.playerStats.cooldownMultiplier; } }
 }
