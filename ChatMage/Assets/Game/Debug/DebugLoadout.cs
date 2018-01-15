@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "The Time Difter/Debug Loadout")]
+[CreateAssetMenu(menuName = "Time Drifter/Debug Loadout")]
 public class DebugLoadout : ScriptableObject
 {
     public Car car;
