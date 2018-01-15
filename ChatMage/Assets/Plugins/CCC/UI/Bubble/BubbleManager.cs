@@ -47,10 +47,10 @@ public class BulleManager : MonoBehaviour
     {
         if (delay > 0)
         {
-            DelayManager.LocalCallTo(delegate ()
+            this.DelayedCall(delegate ()
             {
                 Say(text, target, time, 0);
-            }, delay, this);
+            }, delay);
             return;
         }
 

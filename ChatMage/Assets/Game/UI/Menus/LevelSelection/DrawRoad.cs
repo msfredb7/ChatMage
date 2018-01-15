@@ -22,7 +22,7 @@ namespace LevelSelect {
 			currentDot = 0;
 			amountOfDots = roadContainer.childCount;
 
-			DelayManager.LocalCallTo(MakeRoad, timeBetweenDots, this);
+			this.DelayedCall(MakeRoad, timeBetweenDots);
 		}
 
 		void MakeRoad() {
@@ -34,9 +34,9 @@ namespace LevelSelect {
 
 			currentDot++;
 			if (currentDot < amountOfDots)
-				DelayManager.LocalCallTo(MakeRoad, timeBetweenDots, this);
+				this.DelayedCall(MakeRoad, timeBetweenDots);
 			else 
-				DelayManager.LocalCallTo(delegate () {nextLevel.gameObject.SetActive(true); nextLevel.GetChild(0).GetChild(0).GetComponent<Animator>().enabled = true; }, timeBetweenDots, this);
+				this.DelayedCall(delegate () {nextLevel.gameObject.SetActive(true); nextLevel.GetChild(0).GetChild(0).GetComponent<Animator>().enabled = true; }, timeBetweenDots);
 		}
 
 		public void ShowAllRoad() {

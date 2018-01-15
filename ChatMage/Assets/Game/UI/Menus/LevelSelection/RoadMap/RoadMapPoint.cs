@@ -61,7 +61,7 @@ public class RoadMapPoint : MonoBehaviour {
         // Add first dot
         dotList.Add(Instantiate(dotSpritePrefab, transform.position, Quaternion.identity, closestParent.transform));
         dotCount++;
-        DelayManager.LocalCallTo(MakeRoad, timeBetweenDots, this);
+        this.DelayedCall(MakeRoad, timeBetweenDots);
     }
 	
 	void MakeRoad()
@@ -75,7 +75,7 @@ public class RoadMapPoint : MonoBehaviour {
             onComplete.Invoke();
             return;
         } 
-        DelayManager.LocalCallTo(MakeRoad, timeBetweenDots, this);
+        this.DelayedCall(MakeRoad, timeBetweenDots);
     }
 
     Vector3 ApplyCurveOnVecPos(Vector2 currentPos)

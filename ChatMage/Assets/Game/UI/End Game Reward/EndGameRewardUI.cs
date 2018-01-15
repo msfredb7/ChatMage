@@ -37,10 +37,10 @@ namespace EndGameReward
                 canUnloadCallback();
             });
 
-            DelayManager.LocalCallTo(delegate ()
+            this.DelayedCall(delegate ()
             {
                 rewardDisplay.Init(reward);
-            }, 1, this);
+            }, 1);
         }
 
         public void Continue()

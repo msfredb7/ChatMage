@@ -40,7 +40,7 @@ public class SceneAnimation : MonoBehaviour {
 			sceneText.text += text[currentLetter];
 			currentLetter++;
 			if (currentLetter < text.Length)
-				DelayManager.LocalCallTo(AddLetter, timeBetweenLetters, this);
+				this.DelayedCall(AddLetter, timeBetweenLetters);
 		}
 		
 	}

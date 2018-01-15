@@ -1,9 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public static class ObjectExtensions
 {
+    #region Duplicate
     /// <summary>
     ///Instantiate une copie du gameobject
     /// </summary>
@@ -75,7 +77,7 @@ public static class ObjectExtensions
     {
         return GameObject.Instantiate(original.gameObject, position, rotation, parent);
     }
-    
+
     /// <summary>
     ///Instantiate une copie du scriptable object
     /// </summary>
@@ -83,6 +85,7 @@ public static class ObjectExtensions
     {
         return ScriptableObject.Instantiate(original);
     }
+    #endregion
 
     #region Destroy gameobject
     public static void Destroy(this GameObject obj, float delay)
@@ -129,7 +132,6 @@ public static class ObjectExtensions
         monoBehaviour.StartCoroutine(component.gameObject.LateDestroyImmediateCoroutine());
     }
     #endregion
-
 
     private static IEnumerator LateDestroyCoroutine(this GameObject go)
     {

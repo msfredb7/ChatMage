@@ -8,6 +8,6 @@ public class SoundPlayerDelay : SoundPlayer
 
     public void Play()
     {
-        DelayManager.LocalCallTo(PlaySound, addDelay, this);
+        this.DelayedCall(PlaySound, addDelay);
     }
 }

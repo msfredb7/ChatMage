@@ -197,7 +197,7 @@ public class DefaultAudioSources : MonoPersistent
 
     static private Coroutine DelayedCall(float delay, Action to)
     {
-        return DelayManager.LocalCallTo(to, delay, instance, true);
+        return instance.DelayedCall(to, delay, true);
     }
     static private void CancelRoutine(Coroutine routine)
     {

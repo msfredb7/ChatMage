@@ -9,6 +9,6 @@ public class SoundPlayerOnStart : SoundPlayer {
     new void Start()
     {
         base.Start();
-        DelayManager.LocalCallTo(PlaySound, addDelay, this);
+        this.DelayedCall(PlaySound, addDelay);
     }
 }

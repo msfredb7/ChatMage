@@ -8,7 +8,7 @@ public class PersistentLoader : MonoBehaviour
     [Header("Persistent Objects")]
     public List<Object> persistentObjects;
 
-    private static PersistentLoader instance;
+    public static PersistentLoader instance;
     private const string AssetName = "Persistent Loader";
     static List<System.Action> callbacks = new List<System.Action>();
 

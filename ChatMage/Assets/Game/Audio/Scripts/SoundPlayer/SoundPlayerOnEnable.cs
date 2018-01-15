@@ -8,6 +8,6 @@ public class SoundPlayerOnEnable : SoundPlayer
 
     void OnEnable()
     {
-        DelayManager.LocalCallTo(PlaySound, addDelay, this);
+        this.DelayedCall(PlaySound, addDelay);
     }
 }

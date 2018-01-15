@@ -52,13 +52,13 @@ public class LootboxAnimation : WindowAnimation {
             lootboxOpeningEvent.Invoke();
             rewardCountainer.SetActive(true); // TODO: faire une meilleur animation
             goldifyButton.GetComponent<Button>().interactable = false;
-            DelayManager.LocalCallTo(delegate () {
+            this.DelayedCall(delegate () {
                 Close(
                     delegate() {
                         Destroy(gameObject);
                     });
             },
-            2.5f, this);
+            2.5f);
             lootboxOpened = true;
         }
     }

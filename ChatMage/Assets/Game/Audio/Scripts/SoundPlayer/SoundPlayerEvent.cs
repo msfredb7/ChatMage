@@ -13,7 +13,7 @@ public class SoundPlayerEvent : SoundPlayer
         base.Start();
         onBegin.AddListener(delegate ()
         {
-            DelayManager.LocalCallTo(PlaySound, addDelay, this);
+            this.DelayedCall(PlaySound, addDelay);
         });
     }
 }
