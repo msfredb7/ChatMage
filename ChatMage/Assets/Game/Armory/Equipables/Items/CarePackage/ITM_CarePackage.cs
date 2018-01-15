@@ -48,7 +48,7 @@ public class ITM_CarePackage : Item
 
     void SendPackage()
     {
-        GameCamera cam = Game.instance.gameCamera;
+        GameCamera cam = Game.Instance.gameCamera;
 
         canCount = false;
 
@@ -58,9 +58,9 @@ public class ITM_CarePackage : Item
         spawnDelta = cam.AdjustVector(spawnDelta);
 
         Vector2 spawnPos = cam.Center + spawnDelta;
-        spawnPos = Game.instance.map.VerifyPosition(spawnPos, carePackagePrefab.unitWidth);
+        spawnPos = Game.Instance.map.VerifyPosition(spawnPos, carePackagePrefab.unitWidth);
 
-        Game.instance.SpawnUnit(carePackagePrefab, spawnPos)
+        Game.Instance.SpawnUnit(carePackagePrefab, spawnPos)
             .OnDeath += ITM_CarePackage_onDeath;
     }
 

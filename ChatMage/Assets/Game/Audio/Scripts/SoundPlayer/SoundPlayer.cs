@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FullInspector;
-using CCC.Manager;
 using UnityEngine.Events;
 using CCC.Utility;
 
@@ -30,7 +29,7 @@ public class SoundPlayer : BaseBehavior
 
     protected void Start()
     {
-        MasterManager.Sync();
+        PersistentLoader.LoadIfNotLoaded();
     }
 
     public virtual void PlaySound()

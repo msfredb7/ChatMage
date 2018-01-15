@@ -79,7 +79,7 @@ public class DarkMoleSword : MonoBehaviour
         InitQueue queue = new InitQueue(onComplete);
 
         Vector2 velocity = player == null ? Vector2.zero : player.vehicle.Speed;
-        Transform container = Game.instance.unitsContainer;
+        Transform container = Game.Instance.unitsContainer;
 
         for (int i = 0; i < swords.Length; i++)
         {

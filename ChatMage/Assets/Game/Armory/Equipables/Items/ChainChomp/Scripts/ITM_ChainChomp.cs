@@ -26,7 +26,7 @@ public class ITM_ChainChomp : Item
 
     public override void Equip(int duplicateIndex)
     {
-        chainChompInstance = Game.instance.SpawnUnit(prefab, player.vehicle.Position);
+        chainChompInstance = Game.Instance.SpawnUnit(prefab, player.vehicle.Position);
         chainChompInstance.Init(player.playerLocations.boule, player);
         chainChompInstance.Spawn();
         chainChompInstance.OnDeath += (u) => ReleaseSeat();

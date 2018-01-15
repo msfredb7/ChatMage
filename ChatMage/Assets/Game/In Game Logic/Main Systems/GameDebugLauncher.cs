@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using CCC.Manager;
 using UnityEngine.SceneManagement;
 
 public class GameDebugLauncher : MonoBehaviour
@@ -13,7 +12,7 @@ public class GameDebugLauncher : MonoBehaviour
     {
         if (Scenes.SceneCount() == 1 && Scenes.LoadingSceneCount() <= 0)
         {
-            MasterManager.Sync(delegate ()
+            PersistentLoader.LoadIfNotLoaded(delegate ()
             {
                 Scenes.Load(Framework.SCENENAME, LoadSceneMode.Additive, DebugInit);
             });

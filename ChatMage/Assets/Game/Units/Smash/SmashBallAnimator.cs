@@ -45,17 +45,17 @@ public class SmashBallAnimator : MonoBehaviour
         coreSprite.enabled = false;
 
         //On active la death anim
-        Instantiate(deathAnimPrefab.gameObject, ball.Position, Quaternion.identity, Game.instance.unitsContainer);
+        Instantiate(deathAnimPrefab.gameObject, ball.Position, Quaternion.identity, Game.Instance.unitsContainer);
 
         //On s'attache au joueur
-        if (Game.instance.Player != null)
+        if (Game.Instance.Player != null)
         {
             transform.localScale = Vector3.zero;
-            transform.SetParent(Game.instance.Player.body);
+            transform.SetParent(Game.Instance.Player.body);
             transform.DOScale(attachedToPlayerSize, 0.5f);
             transform.localRotation = Quaternion.identity;
             transform.localPosition = Vector3.zero;
-            Game.instance.Player.playerSmash.onSmashStarted += Disappear;
+            Game.Instance.Player.playerSmash.onSmashStarted += Disappear;
         }
         else
             Disappear();
@@ -73,9 +73,9 @@ public class SmashBallAnimator : MonoBehaviour
     void OnDestroy()
     {
         //Remove listeners
-        if(Game.instance != null && Game.instance.Player != null)
+        if(Game.Instance != null && Game.Instance.Player != null)
         {
-            Game.instance.Player.playerSmash.onSmashStarted -= Disappear;
+            Game.Instance.Player.playerSmash.onSmashStarted -= Disappear;
         }
 
         if (unhitableSequence != null)

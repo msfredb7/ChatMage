@@ -17,7 +17,7 @@ public class SM_RisingSun : Smash
 
     public override void OnGameReady()
     {
-        screenAddEffect = Game.instance.gameCamera.cam.gameObject.AddComponent<ScreenAdd>();
+        screenAddEffect = Game.Instance.gameCamera.cam.gameObject.AddComponent<ScreenAdd>();
         screenAddEffect.enabled = false;
         screenAddEffect.color = Color.black;
     }
@@ -30,7 +30,7 @@ public class SM_RisingSun : Smash
     public override void OnSmash(Action onComplete)
     {
         screenAddEffect.enabled = true;
-        Sun newSun = Game.instance.SpawnUnit(sunPrefab, Game.instance.gameCamera.Center);
+        Sun newSun = Game.Instance.SpawnUnit(sunPrefab, Game.Instance.gameCamera.Center);
 
         sunCount++;
 

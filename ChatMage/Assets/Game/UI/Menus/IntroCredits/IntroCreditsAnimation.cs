@@ -1,4 +1,4 @@
-﻿using CCC.Manager;
+﻿
 using DG.Tweening;
 using System.Collections;
 using UnityEngine;
@@ -16,7 +16,7 @@ public class IntroCreditsAnimation : MonoBehaviour
 
     void Start()
     {
-        MasterManager.Sync(delegate ()
+        PersistentLoader.LoadIfNotLoaded(delegate ()
         {
             SoundManager.PlayMusic(logoSound, false, 0.1f); // Son de l'apparition du logo
             // Après un délai initial

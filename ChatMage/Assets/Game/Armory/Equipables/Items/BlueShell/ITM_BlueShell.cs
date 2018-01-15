@@ -22,7 +22,7 @@ public class ITM_BlueShell : Item
 
     public override void OnUpdate()
     {
-        if (!Game.instance.gameStarted || shellSpawned)
+        if (!Game.Instance.gameStarted || shellSpawned)
             return;
 
         if (CanLaunchShell())
@@ -40,7 +40,7 @@ public class ITM_BlueShell : Item
     {
         if (currentBlueShell == null)
         {
-            currentBlueShell = Game.instance.SpawnUnit(blueShellPrefab, player.vehicle.Position);
+            currentBlueShell = Game.Instance.SpawnUnit(blueShellPrefab, player.vehicle.Position);
             currentBlueShell.OnDeath += delegate (Unit unit)
             {
                 shellSpawned = false;

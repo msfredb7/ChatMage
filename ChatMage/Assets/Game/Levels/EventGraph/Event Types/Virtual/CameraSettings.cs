@@ -28,7 +28,7 @@ namespace GameEvents
 
         public void Trigger()
         {
-            GameCamera cam = Game.instance.gameCamera;
+            GameCamera cam = Game.Instance.gameCamera;
 
             if (modifyFollowPlayer)
             {
@@ -47,12 +47,12 @@ namespace GameEvents
 
             if (resetCameraMax)
             {
-                Game.instance.map.roadPlayer.CurrentRoad.ApplyMaxToCamera();
+                Game.Instance.map.roadPlayer.CurrentRoad.ApplyMaxToCamera();
             }
 
             if (resetCameraMin)
             {
-                Game.instance.map.roadPlayer.CurrentRoad.ApplyMinToCamera();
+                Game.Instance.map.roadPlayer.CurrentRoad.ApplyMinToCamera();
             }
         }
 

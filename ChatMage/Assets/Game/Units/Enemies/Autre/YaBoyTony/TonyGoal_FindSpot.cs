@@ -34,8 +34,8 @@ namespace AI
                 if (status != Status.completed)
                 {
                     Vector2 dest = GetNewDestination();
-                    dest = Game.instance.aiArea.ClampToArea(dest, (veh as TonyVehicle).animator.UnitWidthWithZone);
-                    Vector2 clampedDest = Game.instance.map.VerifyPosition(dest, (veh as TonyVehicle).animator.UnitWidthWithZone);
+                    dest = Game.Instance.aiArea.ClampToArea(dest, (veh as TonyVehicle).animator.UnitWidthWithZone);
+                    Vector2 clampedDest = Game.Instance.map.VerifyPosition(dest, (veh as TonyVehicle).animator.UnitWidthWithZone);
 
                     zoneSetter(clampedDest);
 

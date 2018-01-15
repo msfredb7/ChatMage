@@ -120,7 +120,7 @@ public class ITM_Chomper : Item, ISpeedOverrider
 
         if (isDashing)
         {
-            Game.instance.StopCoroutine(dashCoroutine);
+            Game.Instance.StopCoroutine(dashCoroutine);
             OnDashEnd();
         }
 
@@ -137,7 +137,7 @@ public class ITM_Chomper : Item, ISpeedOverrider
 
         //On lance la coroutine
         isDashing = true;
-        dashCoroutine = Game.instance.StartCoroutine(DashRoutine(targetAngle, dashDuration));
+        dashCoroutine = Game.Instance.StartCoroutine(DashRoutine(targetAngle, dashDuration));
     }
 
     IEnumerator DashRoutine(float targetAngle, float duration)

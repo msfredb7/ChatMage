@@ -28,7 +28,7 @@ public class CuttingAxe : Unit
             attackable.Attacked(other, 1, this);
 
             if (unit.IsDead && !wasDead)
-                Game.instance.Player.playerStats.RegisterKilledUnit(unit);
+                Game.Instance.Player.playerStats.RegisterKilledUnit(unit);
         }
     }
 }

@@ -1,4 +1,4 @@
-using CCC.Manager;
+
 using UnityEngine.SceneManagement;
 
 public class ToShopMessage : SceneMessage

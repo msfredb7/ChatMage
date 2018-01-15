@@ -64,7 +64,7 @@ namespace GameEvents
             }
 
             //Get Spawn
-            List<UnitSpawn> spawns = Game.instance.map.mapping.GetSpawns_NewList(where.spawnTag);
+            List<UnitSpawn> spawns = Game.Instance.map.mapping.GetSpawns_NewList(where.spawnTag);
             if (spawns == null || spawns.Count == 0)
             {
                 if (where.logErrorIfUnableToLaunch)
@@ -296,7 +296,7 @@ namespace GameEvents
                 if (string.IsNullOrEmpty(onSpawnMethod))
                     return null;
 
-                Type type = Game.instance.levelScript.GetType();
+                Type type = Game.Instance.levelScript.GetType();
 
                 Type[] rq_parameters = new Type[] { typeof(Unit) };
 
@@ -308,7 +308,7 @@ namespace GameEvents
                 return delegate (Unit unit)
                 {
                     object[] param = new object[] { unit };
-                    method.Invoke(Game.instance.levelScript, param);
+                    method.Invoke(Game.Instance.levelScript, param);
                 };
             }
             else

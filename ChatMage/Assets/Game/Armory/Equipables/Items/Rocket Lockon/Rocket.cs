@@ -23,8 +23,8 @@ public class Rocket : MovingUnit
 
             bool wasDead = unit.IsDead;
             attackable.Attacked(other, 1, this, listener.info);
-            if (unit.IsDead && !wasDead && Game.instance.Player != null)
-                Game.instance.Player.playerStats.RegisterKilledUnit(unit);
+            if (unit.IsDead && !wasDead && Game.Instance.Player != null)
+                Game.Instance.Player.playerStats.RegisterKilledUnit(unit);
 
         }
 

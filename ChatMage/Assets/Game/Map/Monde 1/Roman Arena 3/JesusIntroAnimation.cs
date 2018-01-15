@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using CCC.Manager;
+
 using UnityEngine.Events;
 
 public class JesusIntroAnimation : InGameAnimator
@@ -86,7 +86,7 @@ public class JesusIntroAnimation : InGameAnimator
         {
             rightRockRenderer.sortingLayerName = temporaryRockLayer;
             rightRock.gameObject.SetActive(true);
-            rightRock.flySpeed = rockSpeed * Game.instance.worldTimeScale;
+            rightRock.flySpeed = rockSpeed * Game.Instance.worldTimeScale;
             rightRock.ThrownState_Destination(rightRockDestinationOffset + rightRock.Position);
 
             rightBrickWall.Animate(() =>
@@ -98,7 +98,7 @@ public class JesusIntroAnimation : InGameAnimator
         {
             leftRockRenderer.sortingLayerName = temporaryRockLayer;
             leftRock.gameObject.SetActive(true);
-            leftRock.flySpeed = rockSpeed * Game.instance.worldTimeScale;
+            leftRock.flySpeed = rockSpeed * Game.Instance.worldTimeScale;
             leftRock.ThrownState_Destination(leftRockDestinationOffset + leftRock.Position);
 
             leftBrickWall.Animate(() =>
@@ -110,7 +110,7 @@ public class JesusIntroAnimation : InGameAnimator
 
     private void StopPlayer(bool stop)
     {
-        PlayerController player = Game.instance.Player;
+        PlayerController player = Game.Instance.Player;
         if (player != null)
         {
             const string key = "Jesus";
@@ -131,7 +131,7 @@ public class JesusIntroAnimation : InGameAnimator
     {
         AddTimescaleListener();
         SoundManager.StopMusicFaded();
-        Game.instance.ui.dialogDisplay.StartDialog(dialog, delegate ()
+        Game.Instance.ui.dialogDisplay.StartDialog(dialog, delegate ()
         {
             SoundManager.PlaySFX(jesusAwakensSound);
             controller.enabled = true;

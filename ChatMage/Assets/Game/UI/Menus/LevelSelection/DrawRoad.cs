@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using CCC.Manager;
+
 using DG.Tweening;
 
 namespace LevelSelect {

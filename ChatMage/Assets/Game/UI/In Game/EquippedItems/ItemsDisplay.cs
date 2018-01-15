@@ -13,7 +13,7 @@ public class ItemsDisplay : CanvasGroupBehaviour
 
     public void Init(PlayerController player)
     {
-        Game.instance.onGameStarted += Show;
+        Game.Instance.onGameStarted += Show;
 
         player.playerItems.OnItemListChange += () => UpdateDisplay(player.playerItems);
         UpdateDisplay(player.playerItems);

@@ -69,7 +69,7 @@ namespace LevelScripting
         {
             Type thisType = Type.GetType(eventWhat.scriptName);
             MethodInfo theMethod = thisType.GetMethod(eventWhat.functionName);
-            theMethod.Invoke(Game.instance.levelScript, null);
+            theMethod.Invoke(Game.Instance.levelScript, null);
             onComplete.Invoke(this);
             done = true;
         }

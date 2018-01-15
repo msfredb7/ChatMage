@@ -11,7 +11,7 @@ namespace GameEvents
 
         public void Trigger()
         {
-            Game.instance.levelScript.ReceiveEvent(message);
+            Game.Instance.levelScript.ReceiveEvent(message);
         }
 
         public override string NodeLabel()

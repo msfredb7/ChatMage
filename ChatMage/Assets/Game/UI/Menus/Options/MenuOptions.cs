@@ -1,4 +1,4 @@
-using CCC.Manager;
+
 using CCC.UI;
 using System.Collections;
 using System.Collections.Generic;
@@ -51,7 +51,7 @@ public class MenuOptions : WindowAnimation
 
     public static void OpenIfClosed()
     {
-        if (Game.instance != null)
+        if (Game.Instance != null)
         {
             Debug.LogWarning("Cannot open MenuOptions if the game is running.");
             return;

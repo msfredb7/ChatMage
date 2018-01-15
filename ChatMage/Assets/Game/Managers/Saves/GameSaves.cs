@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using CCC.Manager;
+
 using System;
 using CCC.Utility;
 using FullSerializer;
 using FullInspector;
+using CCC.Persistence;
 
-public class GameSaves : BaseManager<GameSaves>
+public class GameSaves : MonoPersistent
 {
     [fiInspectorOnly]
     public OpenSavesButton locationButton;
@@ -22,16 +23,17 @@ public class GameSaves : BaseManager<GameSaves>
         public Dictionary<string, bool> bools = new Dictionary<string, bool>();
     }
 
-    public override void Init()
+    public static GameSaves instance;
+
+    private void Awake()
     {
-        //Debug.LogWarning("GameSaves: load started");
-        //LoadAllAsync(delegate()
-        //{
-        //    Debug.LogWarning("GameSaves: load complete");
-        //});
+        instance = this;
+    }
+
+    public override void Init(Action onComplete)
+    {
         LoadAll();
-        CompleteInit();
-        //Debug.LogWarning("GameSaves: load complete");
+        onComplete();
     }
 
     private string GetPath()

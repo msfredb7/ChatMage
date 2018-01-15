@@ -4,7 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
 using CCC.UI;
-using CCC.Manager;
+
 
 public class LootboxAnimation : WindowAnimation {
 

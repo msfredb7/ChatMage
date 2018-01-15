@@ -11,18 +11,18 @@ public abstract class InGameTimescaleListener : MonoBehaviour
 
     protected void UpdateTimescale()
     {
-        UpdateTimescale(Game.instance.worldTimeScale);
+        UpdateTimescale(Game.Instance.worldTimeScale);
     }
 
     protected void AddTimescaleListener()
     {
 
-        if (Game.instance == null || this == null)
+        if (Game.Instance == null || this == null)
         {
             return;
         }
 
-        StatFloat worldTimescale = Game.instance.worldTimeScale;
+        StatFloat worldTimescale = Game.Instance.worldTimeScale;
 
         if (!listenersOn)
         {
@@ -36,13 +36,13 @@ public abstract class InGameTimescaleListener : MonoBehaviour
     protected void RemoveTimescaleListener()
     {
 
-        if (Game.instance == null)
+        if (Game.Instance == null)
         {
             Debug.LogError(name + " tried to a remove listener to worldTimescale but Game.instance == null");
             return;
         }
 
-        StatFloat worldTimescale = Game.instance.worldTimeScale;
+        StatFloat worldTimescale = Game.Instance.worldTimeScale;
 
         if (listenersOn)
         {
@@ -53,7 +53,7 @@ public abstract class InGameTimescaleListener : MonoBehaviour
 
     protected virtual void OnDestroy()
     {
-        if (Game.instance != null)
+        if (Game.Instance != null)
             RemoveTimescaleListener();
     }
 }

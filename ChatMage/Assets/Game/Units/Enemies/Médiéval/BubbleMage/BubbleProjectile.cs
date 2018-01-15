@@ -45,7 +45,7 @@ public class BubbleProjectile : MovingUnit
     protected override void Die()
     {
         if (!isDead)
-            Game.instance.events.AddDelayedAction(Destroy, 1.5f);
+            Game.Instance.events.AddDelayedAction(Destroy, 1.5f);
         base.Die();
 
         Speed = Vector2.zero;

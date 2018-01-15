@@ -1,4 +1,4 @@
-using CCC.Manager;
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,7 +17,7 @@ public class HealthDisplay : CanvasGroupBehaviour
 
     public void Init()
     {
-        playerStats = Game.instance.Player.playerStats;
+        playerStats = Game.Instance.Player.playerStats;
         playerStats.health.onSet.AddListener(UpdateHearts);
         playerStats.armor.onSet.AddListener(UpdateArmor);
         playerStats.health.onMaxSet.AddListener(UpdateAll);
@@ -27,7 +27,7 @@ public class HealthDisplay : CanvasGroupBehaviour
 
         HideInstant();
 
-        Game.instance.onGameStarted += Show;
+        Game.Instance.onGameStarted += Show;
     }
 
     void UpdateAll(int bidon)

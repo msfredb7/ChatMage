@@ -13,7 +13,7 @@ namespace GameEvents
 
         public void Trigger()
         {
-            Game.instance.aiArea.SetArea(area);
+            Game.Instance.aiArea.SetArea(area);
         }
 
         public override Color GUIColor()

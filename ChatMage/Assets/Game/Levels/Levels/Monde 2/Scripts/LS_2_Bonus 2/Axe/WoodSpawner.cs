@@ -23,8 +23,8 @@ public class WoodSpawner : MonoBehaviour
     {
         if (worldTimeScale == null)
         {
-            if (Game.instance != null)
-                worldTimeScale = Game.instance.worldTimeScale;
+            if (Game.Instance != null)
+                worldTimeScale = Game.Instance.worldTimeScale;
         }
         else
         {

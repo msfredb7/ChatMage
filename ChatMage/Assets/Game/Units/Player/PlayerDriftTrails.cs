@@ -53,7 +53,7 @@ public class PlayerDriftTrails : MonoBehaviour
             //Detache l'ancienne trail
             if (trails[i] != null)
             {
-                trails[i].SetParent(Game.instance.unitsContainer);
+                trails[i].SetParent(Game.Instance.unitsContainer);
                 trails[i] = null;
             }
         }

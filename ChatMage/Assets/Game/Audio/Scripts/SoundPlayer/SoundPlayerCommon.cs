@@ -1,5 +1,4 @@
-﻿using CCC.Manager;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,10 +12,10 @@ public class SoundPlayerCommon : SoundPlayer
         switch (sfxType)
         {
             case SFXType.hit:
-                Game.instance.commonSfx.Hit();
+                Game.Instance.commonSfx.Hit();
                 break;
             case SFXType.death:
-                Game.instance.commonSfx.Death();
+                Game.Instance.commonSfx.Death();
                 break;
             default:
                 break;

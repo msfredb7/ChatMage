@@ -101,7 +101,7 @@ public abstract class Pack : MovingUnit
 
     public void PickUp(ColliderInfo info, ColliderListener listener)
     {
-        if (!isDead && info.parentUnit == Game.instance.Player.vehicle)
+        if (!isDead && info.parentUnit == Game.Instance.Player.vehicle)
         {
             if (pickupSound != null)
                 SoundManager.PlaySFX(pickupSound);

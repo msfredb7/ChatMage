@@ -44,7 +44,7 @@ public class CommonVFX : MonoBehaviour
 
         //Spawn new animator
         BasicRepeatedAnimator newAnimator = Instantiate(prefabReference.gameObject,
-            Game.instance.unitsContainer)
+            Game.Instance.unitsContainer)
             .GetComponent<BasicRepeatedAnimator>();
 
         list.Add(newAnimator);

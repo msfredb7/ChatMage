@@ -185,7 +185,7 @@ public class LaserSword : MonoBehaviour
                     //Attack !
                     bool wasDead = unit.IsDead;
 
-                    PlayerController player = Game.instance != null ? Game.instance.Player : null;
+                    PlayerController player = Game.Instance != null ? Game.Instance.Player : null;
                     attackable.Attacked(other, 1, player != null ? player.vehicle : null, listener.info);
                     if (!wasDead && unit.IsDead)
                     {
@@ -195,7 +195,7 @@ public class LaserSword : MonoBehaviour
 
                     SoundManager.PlaySFX(onHitSFX);
                     Vector2 v = (player.vehicle.Position - unit.Position).normalized;
-                    Game.instance.gameCamera.vectorShaker.Hit(v * hitCameraShake);
+                    Game.Instance.gameCamera.vectorShaker.Hit(v * hitCameraShake);
                 }
             }
         }

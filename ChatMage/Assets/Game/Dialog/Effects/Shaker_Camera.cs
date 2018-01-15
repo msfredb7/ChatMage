@@ -13,7 +13,7 @@ namespace Dialoguing.Effect
 
         public override void Apply(DialogDisplay display, Reply reply)
         {
-            Game.instance.gameCamera.vectorShaker.Shake(intensity, duration);
+            Game.Instance.gameCamera.vectorShaker.Shake(intensity, duration);
         }
     }
 }

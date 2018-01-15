@@ -1,4 +1,4 @@
-using CCC.Manager;
+
 using CCC.UI;
 using System.Collections;
 using System.Collections.Generic;
@@ -19,20 +19,20 @@ public class InGameOptions : WindowAnimation
     {
         base.Awake();
 
-        levelSelectButton.gameObject.SetActive(Game.instance.framework.CanGoToLevelSelect);
+        levelSelectButton.gameObject.SetActive(Game.Instance.framework.CanGoToLevelSelect);
 
         //Lock game state
-        Game.instance.gameRunning.Lock("optionsMenu");
-        Game.instance.ui.playerInputs.Enabled.Lock("opt");
+        Game.Instance.gameRunning.Lock("optionsMenu");
+        Game.Instance.ui.playerInputs.Enabled.Lock("opt");
     }
 
     private void OnDestroy()
     {
-        if (Application.isPlaying && isQuitting && Game.instance != null)
+        if (Application.isPlaying && isQuitting && Game.Instance != null)
         {
             //Unlock game state
-            Game.instance.gameRunning.Unlock("optionsMenu");
-            Game.instance.ui.playerInputs.Enabled.Unlock("opt");
+            Game.Instance.gameRunning.Unlock("optionsMenu");
+            Game.Instance.ui.playerInputs.Enabled.Unlock("opt");
         }
     }
 
@@ -50,8 +50,8 @@ public class InGameOptions : WindowAnimation
 
     public void RestartGame()
     {
-        if (Game.instance != null)
-            Game.instance.framework.RestartLevel();
+        if (Game.Instance != null)
+            Game.Instance.framework.RestartLevel();
     }
 
     public void BackToLevelSelect()
@@ -82,11 +82,11 @@ public class InGameOptions : WindowAnimation
 
     public void CHEAT_Invincible()
     {
-        Game.instance.Player.playerStats.damagable = false;
+        Game.Instance.Player.playerStats.damagable = false;
     }
     public void CHEAT_FastSmash()
     {
-        SmashManager sm = Game.instance.smashManager;
+        SmashManager sm = Game.Instance.smashManager;
         sm.IncreaseSmashJuice(sm.MaxJuice);
         //if (sm.CurrentSmashBall != null)
         //    sm.CurrentSmashBall.ForceDeath();
@@ -95,11 +95,11 @@ public class InGameOptions : WindowAnimation
     }
     public void CHEAT_Win()
     {
-        Game.instance.levelScript.Win();
+        Game.Instance.levelScript.Win();
     }
     public void CHEAT_Lose()
     {
-        Game.instance.levelScript.Lose();
+        Game.Instance.levelScript.Lose();
     }
 
     void Update()
@@ -112,7 +112,7 @@ public class InGameOptions : WindowAnimation
 
     public static void OpenIfClosed()
     {
-        if (Game.instance == null)
+        if (Game.Instance == null)
         {
             Debug.LogWarning("Cannot open InGameOptions if the game is not running.");
             return;

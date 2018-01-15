@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-using CCC.Manager;
 
 namespace CCC.UI
 {
@@ -11,7 +10,7 @@ namespace CCC.UI
         public AudioClip clip;
         void Start()
         {
-            MasterManager.Sync();
+            PersistentLoader.LoadIfNotLoaded();
             GetComponent<Button>().onClick.AddListener(OnClick);
         }
         void OnClick()

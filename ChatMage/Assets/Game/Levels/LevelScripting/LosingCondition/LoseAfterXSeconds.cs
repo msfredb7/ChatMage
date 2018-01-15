@@ -6,7 +6,7 @@ namespace GameCondition
 
         public override void Init(PlayerController player, LevelScript levelScript)
         {
-            Game.instance.events.AddDelayedAction(levelScript.Lose, delay);
+            Game.Instance.events.AddDelayedAction(levelScript.Lose, delay);
         }
     }
 }

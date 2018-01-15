@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using CCC.Manager;
 using DG.Tweening;
 
 public class MusicManager : MonoBehaviour {
@@ -18,7 +17,7 @@ public class MusicManager : MonoBehaviour {
 
     void Start()
     {
-        Game.instance.onGameReady += delegate ()
+        Game.Instance.onGameReady += delegate ()
         {
             PlaySong(SongName.Ambient);
         };

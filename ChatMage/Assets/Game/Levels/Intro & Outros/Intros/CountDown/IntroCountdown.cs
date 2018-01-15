@@ -1,4 +1,3 @@
-using CCC.Manager;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,18 +19,18 @@ namespace GameIntroOutro
         {
             Sequence sq = DOTween.Sequence();
 
-            PlayerController player = Game.instance.Player;
+            PlayerController player = Game.Instance.Player;
             player.playerDriver.enableInput = false;
 
             Vehicle playerVehicle = player.vehicle;
 
-            playerVehicle.TeleportPosition(new Vector2(0, Game.instance.gameCamera.Bottom - 2));
+            playerVehicle.TeleportPosition(new Vector2(0, Game.Instance.gameCamera.Bottom - 2));
             playerVehicle.TeleportDirection(90);
             
             playerVehicle.wheelsOnTheGround.Lock(LOCK_KEY);
             playerVehicle.canTurn.Lock(LOCK_KEY);
 
-            sq.Insert(playerEnterDelay, playerVehicle.transform.DOMoveY(Game.instance.gameCamera.Height, 3 - playerEnterDelay)
+            sq.Insert(playerEnterDelay, playerVehicle.transform.DOMoveY(Game.Instance.gameCamera.Height, 3 - playerEnterDelay)
                 .SetEase(Ease.OutSine)
                 .OnComplete(delegate ()
                 {

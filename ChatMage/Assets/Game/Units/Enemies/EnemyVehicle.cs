@@ -47,8 +47,8 @@ public abstract class EnemyVehicle : Vehicle, IAttackable
     private void QuickGotoPos(Vector2 position, Action onReach = null)
     {
         //Clamp to AI Area
-        if (clampToAIArea && Game.instance != null)
-            position = Game.instance.aiArea.ClampToArea(position, unitWidth / 2);
+        if (clampToAIArea && Game.Instance != null)
+            position = Game.Instance.aiArea.ClampToArea(position, unitWidth / 2);
 
         if (smartMove)
             position = NAV_SmartMover.SmartifyMove(Position, position, unitWidth);
@@ -146,7 +146,7 @@ public abstract class EnemyVehicle : Vehicle, IAttackable
 
     public Vector2 GetPositionAwayFromPlayer(float length)
     {
-        Vector2 v = rb.position - Game.instance.Player.vehicle.Position;
+        Vector2 v = rb.position - Game.Instance.Player.vehicle.Position;
         if (v.magnitude > 0.01f)
             return v.normalized * length;
         else

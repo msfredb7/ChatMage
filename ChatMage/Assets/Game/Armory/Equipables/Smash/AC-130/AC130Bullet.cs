@@ -30,7 +30,7 @@ public class AC130Bullet : Unit
     {
         listener.onTriggerEnter += Listener_onTriggerEnter;
 
-        Game.instance.events.AddDelayedAction(Detonate, arriveDelay);
+        Game.Instance.events.AddDelayedAction(Detonate, arriveDelay);
     }
 
     public void Init(Image blackFade)
@@ -79,7 +79,7 @@ public class AC130Bullet : Unit
 
         tween = sq;
         
-        Game.instance.gameCamera.vectorShaker.Shake();
+        Game.Instance.gameCamera.vectorShaker.Shake();
     }
 
     protected override void FixedUpdate()

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using System;
+using CCC.DesignPattern;
 
 public class Marker : Pool<Marker>.PoolItem
 {

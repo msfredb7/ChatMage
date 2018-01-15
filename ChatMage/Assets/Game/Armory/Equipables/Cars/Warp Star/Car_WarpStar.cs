@@ -22,7 +22,7 @@ public class Car_WarpStar : StdCar
         base.Init(player);
 
         trail = Instantiate(trailofCollidersPrefab.gameObject).GetComponent<TrailOfColliders>();
-        trail.transform.SetParent(Game.instance.transform);
+        trail.transform.SetParent(Game.Instance.transform);
 
         trail.enabled = false;
 

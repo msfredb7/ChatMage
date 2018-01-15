@@ -66,10 +66,10 @@ public class TrollAnimatorV2 : EnemyAnimator
     }
     private void _Stomp()
     {
-        Game.instance.gameCamera.vectorShaker.Shake(stompShake);
+        Game.Instance.gameCamera.vectorShaker.Shake(stompShake);
     }
     private void _BigStomp()
     {
-        Game.instance.gameCamera.vectorShaker.Shake(stompShake * 2);
+        Game.Instance.gameCamera.vectorShaker.Shake(stompShake * 2);
     }
 }

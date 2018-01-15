@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using CCC.Manager;
+
 
 public class VolumeModifier : MonoBehaviour
 {

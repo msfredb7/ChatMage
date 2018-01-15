@@ -22,10 +22,10 @@ public class BatteringRam : MonoBehaviour {
     private void FollowPlayer()
     {
         // Position du Ram
-        transform.position = Game.instance.Player.vehicle.transform.position;
+        transform.position = Game.Instance.Player.vehicle.transform.position;
 
         // Rotation du Ram
-        Vector3 rot = Game.instance.Player.vehicle.transform.rotation.eulerAngles;
+        Vector3 rot = Game.Instance.Player.vehicle.transform.rotation.eulerAngles;
         rot = new Vector3(rot.x, rot.y, rot.z + 180);
         transform.rotation = Quaternion.Euler(rot);
     }

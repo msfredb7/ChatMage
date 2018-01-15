@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using CCC.Manager;
+
 using UnityEngine.SceneManagement;
 using FullInspector;
 using FullSerializer;
@@ -42,7 +42,7 @@ public class Map : BaseBehavior
         {
             Unit unit = listUnits[i].GetComponent<Unit>();
             if (unit != null)
-                Game.instance.AddExistingUnit(unit);
+                Game.Instance.AddExistingUnit(unit);
         }
 
         if (setAIArea)
@@ -50,24 +50,24 @@ public class Map : BaseBehavior
             ResetAIArea();
         }
 
-        mapping.Init(Game.instance);
+        mapping.Init(Game.Instance);
 
         if (graph != null)
-            graph.Init(Game.instance);
+            graph.Init(Game.Instance);
 
         if(meteo != null)
         {
-            meteo.transform.SetParent(Game.instance.gameCamera.transform, true);
+            meteo.transform.SetParent(Game.Instance.gameCamera.transform, true);
             meteo.transform.localPosition = Vector3.forward * 5;
         }
     }
 
     public void ResetAIArea()
     {
-        GameCamera gameCamera = Game.instance.gameCamera;
+        GameCamera gameCamera = Game.Instance.gameCamera;
         startAIArea.min = gameCamera.AdjustVector(startAIArea.min);
         startAIArea.max = gameCamera.AdjustVector(startAIArea.max);
-        Game.instance.aiArea.SetArea(startAIArea);
+        Game.Instance.aiArea.SetArea(startAIArea);
     }
 
     public void OnDrawGizmosSelected()

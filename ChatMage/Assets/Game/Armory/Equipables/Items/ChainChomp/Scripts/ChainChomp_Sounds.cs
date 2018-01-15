@@ -23,7 +23,7 @@ public class ChainChomp_Sounds : MonoBehaviour
 
     private void Start()
     {
-        var dialogDisplay = Game.instance != null ? Game.instance.ui.dialogDisplay : null;
+        var dialogDisplay = Game.Instance != null ? Game.Instance.ui.dialogDisplay : null;
         dialogDisplay.onStartDialog += OnEnterDialog;
         dialogDisplay.onEndDialog += OnExitDialog;
     }
@@ -41,7 +41,7 @@ public class ChainChomp_Sounds : MonoBehaviour
     {
         if (Application.isPlaying)
         {
-            var dialogDisplay = Game.instance != null ? Game.instance.ui.dialogDisplay : null;
+            var dialogDisplay = Game.Instance != null ? Game.Instance.ui.dialogDisplay : null;
             if (dialogDisplay != null)
             {
                 dialogDisplay.onStartDialog -= OnEnterDialog;

@@ -84,8 +84,8 @@ public class SmashManager : MonoBehaviour
     {
         RemoveAllJuice();
 
-        Game.instance.onGameStarted += OnGameStarted;
-        Game.instance.onGameReady += OnGameReady;
+        Game.Instance.onGameStarted += OnGameStarted;
+        Game.Instance.onGameReady += OnGameReady;
         //Game.instance.worldTimeScale.onSet.AddListener(OnWorldTimeScaleChanged);
         enabled = false;
 
@@ -108,13 +108,13 @@ public class SmashManager : MonoBehaviour
 
         //if (activateV2)
         //{
-        Game.instance.Player.playerStats.OnUnitKilled += BoostSmashCounter;
+        Game.Instance.Player.playerStats.OnUnitKilled += BoostSmashCounter;
         //}
     }
 
     void OnGameStarted()
     {
-        IsEnabled = Game.instance.Player.playerSmash.SmashEquipped && smashEnabled;
+        IsEnabled = Game.Instance.Player.playerSmash.SmashEquipped && smashEnabled;
     }
 
     //void ResetCooldown()
@@ -241,7 +241,7 @@ public class SmashManager : MonoBehaviour
         if(CanSmash() && needSound)
         {
             needSound = false;
-            Game.instance.commonSfx.SmashActive();
+            Game.Instance.commonSfx.SmashActive();
         } else if(!CanSmash() && !needSound)
         {
             needSound = true;

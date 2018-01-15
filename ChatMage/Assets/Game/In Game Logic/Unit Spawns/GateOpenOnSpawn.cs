@@ -30,7 +30,7 @@ public class GateOpenOnSpawn : OnSpawnAction
         {
             if(worldTimeScale == null)
             {
-                worldTimeScale = Game.instance != null ? Game.instance.worldTimeScale : null;
+                worldTimeScale = Game.Instance != null ? Game.Instance.worldTimeScale : null;
             }
             else
             {

@@ -23,14 +23,14 @@ namespace GameEvents
             if (cameraShake)
             {
                 if (duration > 0)
-                    Game.instance.gameCamera.vectorShaker.Shake(strength, duration);
+                    Game.Instance.gameCamera.vectorShaker.Shake(strength, duration);
                 else
-                    Game.instance.gameCamera.vectorShaker.Shake(strength);
+                    Game.Instance.gameCamera.vectorShaker.Shake(strength);
             }
 
             if (cameraHit)
             {
-                Game.instance.gameCamera.vectorShaker.Hit(hitVector);
+                Game.Instance.gameCamera.vectorShaker.Hit(hitVector);
             }
         }
 

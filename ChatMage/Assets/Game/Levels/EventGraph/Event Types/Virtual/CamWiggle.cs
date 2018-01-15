@@ -13,7 +13,7 @@ namespace GameEvents
 
         public void Trigger()
         {
-            Game.instance.gameCamera.wiggler.SetAnimationSize(animationSize, transitionDuration);
+            Game.Instance.gameCamera.wiggler.SetAnimationSize(animationSize, transitionDuration);
         }
 
         public override Color GUIColor()

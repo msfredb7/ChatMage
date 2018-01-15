@@ -2,8 +2,8 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using System.Threading;
 using UnityEngine.Events;
-using CCC.Manager;
 using System;
+using CCC.Threading;
 
 namespace CCC.Utility
 {
@@ -21,18 +21,14 @@ namespace CCC.Utility
             FileStream file = File.Open(path, FileMode.OpenOrCreate);
             bf.Serialize(file, graph);
             file.Close();
-            
-            if (MainThread.instance == null)
-                UnityEngine.Debug.Log("MainThread.cs not in the scene.");
-            lock (MainThread.instance)
-            {
-                MainThread.AddAction(onComplete);
-            }
+
+            MainThread.AddActionFromThread(onComplete);
+
         }
 
         static public void ThreadLoad(string path, Action<object> onComplete)
         {
-            Thread t = new Thread(new ThreadStart(delegate () { ThreadLoadMethod(path, onComplete);}));
+            Thread t = new Thread(new ThreadStart(delegate () { ThreadLoadMethod(path, onComplete); }));
             t.Start();
         }
 
@@ -53,14 +49,11 @@ namespace CCC.Utility
             file.Close();
 
 
-            lock (MainThread.instance)
-            {
-                if (onComplete != null)
-                    MainThread.AddAction(delegate ()
-                    {
-                        onComplete(obj);
-                    });
-            }
+            if (onComplete != null)
+                MainThread.AddActionFromThread(delegate ()
+                {
+                    onComplete(obj);
+                });
         }
 
         static public void InstantSave(string path, object graph)

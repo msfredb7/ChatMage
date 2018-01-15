@@ -94,7 +94,7 @@ public class PlayerItems : PlayerComponent
 
     void Update()
     {
-        if (Game.instance.gameReady)
+        if (Game.Instance.gameReady)
             for (int i = 0; i < items.Count; i++)
             {
                 items[i].OnUpdate();

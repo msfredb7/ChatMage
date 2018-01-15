@@ -1,4 +1,4 @@
-using CCC.Manager;
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,7 +23,7 @@ public class MainMenu : BaseBehavior
 
     public void Init()
     {
-        MasterManager.Sync(delegate ()
+        PersistentLoader.LoadIfNotLoaded(delegate ()
         {
             SoundManager.PlayMusic(anthem, volume: musicVolume);
             playButton.onClick.AddListener(OnClick);

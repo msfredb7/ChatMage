@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using CCC.Manager;
+
 using DG.Tweening;
 
 public class SceneAnimation : MonoBehaviour {

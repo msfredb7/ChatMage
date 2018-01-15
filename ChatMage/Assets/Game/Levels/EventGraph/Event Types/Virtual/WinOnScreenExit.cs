@@ -34,14 +34,14 @@ namespace GameEvents
             }
 
             //Stop camera
-            GameCamera cam = Game.instance.gameCamera;
+            GameCamera cam = Game.Instance.gameCamera;
             if (setCameraMax)
                 cam.maxHeight = cam.Height;
             if (setCameraMin)
                 cam.minHeight = cam.Height;
 
             //Get player
-            player = Game.instance.Player != null ? Game.instance.Player.vehicle : null;
+            player = Game.Instance.Player != null ? Game.Instance.Player.vehicle : null;
 
             //Set action
             switch (exitDirection)
@@ -49,28 +49,28 @@ namespace GameEvents
                 default:
                 case Direction.Up:
                     {
-                        Game.instance.playerBounds.top.enabled = false;
+                        Game.Instance.playerBounds.top.enabled = false;
                         float up = cam.Top + CAR_HALF_LENGTH;
                         testPlayerExit = (Vector2 playerPos) => playerPos.y >= up;
                     }
                     break;
                 case Direction.Down:
                     {
-                        Game.instance.playerBounds.bottom.enabled = false;
+                        Game.Instance.playerBounds.bottom.enabled = false;
                         float down = cam.Bottom - CAR_HALF_LENGTH;
                         testPlayerExit = (Vector2 playerPos) => playerPos.y <= down;
                     }
                     break;
                 case Direction.Right:
                     {
-                        Game.instance.playerBounds.right.enabled = false;
+                        Game.Instance.playerBounds.right.enabled = false;
                         float right = cam.Right + CAR_HALF_LENGTH;
                         testPlayerExit = (Vector2 playerPos) => playerPos.x >= right;
                     }
                     break;
                 case Direction.Left:
                     {
-                        Game.instance.playerBounds.left.enabled = false;
+                        Game.Instance.playerBounds.left.enabled = false;
                         float left = cam.Left - CAR_HALF_LENGTH;
                         testPlayerExit = (Vector2 playerPos) => playerPos.x <= left;
                     }
@@ -86,7 +86,7 @@ namespace GameEvents
                 if (testPlayerExit(player.Position))
                 {
                     playerHasExited = true;
-                    Game.instance.levelScript.Win();
+                    Game.Instance.levelScript.Win();
                 }
             }
         }

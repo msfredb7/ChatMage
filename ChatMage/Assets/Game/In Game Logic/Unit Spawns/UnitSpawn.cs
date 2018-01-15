@@ -66,7 +66,7 @@ public abstract class UnitSpawn : BaseBehavior
         if (!canSpawn)
             return null;
 
-        T unit = Game.instance.SpawnUnit(prefab, position);
+        T unit = Game.Instance.SpawnUnit(prefab, position);
         unit.Rotation = rotation;
 
         OnUnitSpawned(unit);

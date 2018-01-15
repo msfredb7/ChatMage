@@ -35,7 +35,7 @@ public class LS_2_2 : LevelScript
 
     protected override void OnGameStarted()
     {
-        Game.instance.ui.dialogDisplay.StartDialog(defendTheWall);
+        Game.Instance.ui.dialogDisplay.StartDialog(defendTheWall);
         ResetRoad();
     }
 
@@ -214,16 +214,16 @@ public class LS_2_2 : LevelScript
 
     private void ResetRoad()
     {
-        Game.instance.gameCamera.followPlayer = true;
-        Game.instance.gameCamera.canScrollUp = true;
-        Game.instance.map.roadPlayer.CurrentRoad.ApplyMinMaxToCamera();
-        Game.instance.cadre.Disappear();
+        Game.Instance.gameCamera.followPlayer = true;
+        Game.Instance.gameCamera.canScrollUp = true;
+        Game.Instance.map.roadPlayer.CurrentRoad.ApplyMinMaxToCamera();
+        Game.Instance.cadre.Disappear();
     }
 
     private void StopRoad()
     {
-        Game.instance.gameCamera.followPlayer = false;
-        Game.instance.gameCamera.canScrollUp = false;
+        Game.Instance.gameCamera.followPlayer = false;
+        Game.Instance.gameCamera.canScrollUp = false;
     }
 
     protected override void OnUpdate()

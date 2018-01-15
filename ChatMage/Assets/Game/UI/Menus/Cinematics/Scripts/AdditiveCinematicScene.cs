@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
-using CCC.Manager;
+
 using UnityEngine.SceneManagement;
 
 public class AdditiveCinematicScene : BaseCinematicScene

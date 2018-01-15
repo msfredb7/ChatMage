@@ -18,7 +18,7 @@ namespace GameCondition
 
             if(currentKillCount == amount)
             {
-                Game.instance.levelScript.Win();
+                Game.Instance.levelScript.Win();
             }
         }
     }

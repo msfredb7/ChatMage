@@ -39,7 +39,7 @@ namespace AI
         {
             if (myRock.InTheHandsOf == veh)
             {
-                myRock.transform.SetParent(Game.instance.unitsContainer, true);
+                myRock.transform.SetParent(Game.Instance.unitsContainer, true);
                 myRock.StoppedState();
             }
 

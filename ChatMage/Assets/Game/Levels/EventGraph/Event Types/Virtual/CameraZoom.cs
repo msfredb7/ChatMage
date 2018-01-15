@@ -17,7 +17,7 @@ namespace GameEvents
 
         public void Trigger()
         {
-            GameCamera cam = Game.instance.gameCamera;
+            GameCamera cam = Game.Instance.gameCamera;
             float size = (cam.DefaultOrthoSize) * targetSize;
 
             if(animationDuration > 0)

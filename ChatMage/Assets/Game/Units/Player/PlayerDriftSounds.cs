@@ -22,7 +22,7 @@ public class PlayerDriftSounds : MonoBehaviour
         playerDrift = GetComponent<PlayerDrift>();
         veh = GetComponent<PlayerVehicle>();
 
-        Game.instance.gameRunning.onLockStateChange += OnGamePlayPauseToggle;
+        Game.Instance.gameRunning.onLockStateChange += OnGamePlayPauseToggle;
     }
 
     private void OnGamePlayPauseToggle(bool state)
@@ -32,8 +32,8 @@ public class PlayerDriftSounds : MonoBehaviour
 
     void OnDestroy()
     {
-        if(Game.instance != null)
-            Game.instance.gameRunning.onLockStateChange -= OnGamePlayPauseToggle;
+        if(Game.Instance != null)
+            Game.Instance.gameRunning.onLockStateChange -= OnGamePlayPauseToggle;
     }
 
     void Update()

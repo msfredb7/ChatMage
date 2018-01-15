@@ -13,7 +13,7 @@ namespace GameCondition
         private void LevelScript_onEventReceived(string text)
         {
             if (text == eventName)
-                Game.instance.levelScript.Win();
+                Game.Instance.levelScript.Win();
         }
     }
 }

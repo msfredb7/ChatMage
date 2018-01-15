@@ -118,19 +118,19 @@ public class PlayerStats : PlayerComponent, IAttackable
             camShakeDir = source.transform.position - transform.position;
         else
             camShakeDir = -controller.vehicle.WorldDirection2D();
-        Game.instance.gameCamera.vectorShaker.Hit(camShakeDir.normalized * onHitShakeStrength);
+        Game.Instance.gameCamera.vectorShaker.Hit(camShakeDir.normalized * onHitShakeStrength);
 
 
         //----------------------VFX + SFX----------------------//
-        Game.instance.commonVfx.MediumHit(on.transform.position, loseHpHitColor, SortingLayers.PLAYER);
-        Game.instance.commonSfx.Hit();
+        Game.Instance.commonVfx.MediumHit(on.transform.position, loseHpHitColor, SortingLayers.PLAYER);
+        Game.Instance.commonSfx.Hit();
 
 
         if (controller.playerItems.ItemCount > 0)
         {
             //----------------------Flash Animation----------------------//
             damagable = false;
-            UnitFlashAnimation.Flash(Game.instance.Player.vehicle, sprite, unhitableDuration, () => damagable = true);
+            UnitFlashAnimation.Flash(Game.Instance.Player.vehicle, sprite, unhitableDuration, () => damagable = true);
 
             //----------------------Remove items----------------------//
             for (int i = 0; i < amount; i++)

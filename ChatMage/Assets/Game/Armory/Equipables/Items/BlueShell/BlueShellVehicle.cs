@@ -47,8 +47,8 @@ public class BlueShellVehicle : Vehicle
 
     public void ResetValues(Vector2 position)
     {
-        if (Game.instance.Player != null)
-            Rotation = Game.instance.Player.vehicle.Rotation;
+        if (Game.Instance.Player != null)
+            Rotation = Game.Instance.Player.vehicle.Rotation;
 
         gameObject.SetActive(true);
         enabled = true;
@@ -104,7 +104,7 @@ public class BlueShellVehicle : Vehicle
         if (IsOutOfBounds(Position))
         {
             // Shell.pos - Center.pos
-            Vector2 deltaToCenter = Game.instance.gameCamera.Center - Position;
+            Vector2 deltaToCenter = Game.Instance.gameCamera.Center - Position;
 
             //On set la turnAcc vers le centre de la map
             turnAcc = Vector2.Angle(WorldDirection2D(), deltaToCenter) > 0 ? -maxTurnSpeed : maxTurnSpeed;
@@ -133,13 +133,13 @@ public class BlueShellVehicle : Vehicle
 
     bool IsOutOfBounds(Vector2 pos)
     {
-        float rightBorder = Game.instance.gameCamera.ScreenSize.x / 2 - screenBorderWidth;
-        float halfHeight = Game.instance.gameCamera.ScreenSize.y / 2 - screenBorderWidth;
+        float rightBorder = Game.Instance.gameCamera.ScreenSize.x / 2 - screenBorderWidth;
+        float halfHeight = Game.Instance.gameCamera.ScreenSize.y / 2 - screenBorderWidth;
 
         if (pos.x > rightBorder || pos.x < -rightBorder)
             return true;
 
-        if (pos.y > Game.instance.gameCamera.Height + halfHeight || pos.y < Game.instance.gameCamera.Height - halfHeight)
+        if (pos.y > Game.Instance.gameCamera.Height + halfHeight || pos.y < Game.Instance.gameCamera.Height - halfHeight)
             return true;
 
         return false;
@@ -150,8 +150,8 @@ public class BlueShellVehicle : Vehicle
         Unit closestUnit = null;
         float smallestDistance = float.PositiveInfinity;
 
-        LinkedListNode<Unit> node = Game.instance.attackableUnits.First;
-        foreach (Unit unit in Game.instance.attackableUnits)
+        LinkedListNode<Unit> node = Game.Instance.attackableUnits.First;
+        foreach (Unit unit in Game.Instance.attackableUnits)
         {
             //Ignore allies
             if (!targets.IsValidTarget(unit))

@@ -1,5 +1,4 @@
-﻿using CCC.Manager;
-using CCC.Utility;
+﻿using CCC.Utility;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

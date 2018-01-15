@@ -24,13 +24,13 @@ public class BoxUnitSpawn : UnitSpawn
             case PositionType.World:
                 return new Vector2(x, y);
             case PositionType.RelativeToPlayer:
-                PlayerController player = Game.instance.Player;
+                PlayerController player = Game.Instance.Player;
                 if (player != null)
                     return new Vector2(x, y) + player.vehicle.Position;
                 else
                     return new Vector2(x, y);
             case PositionType.RelativeToCamera:
-                return new Vector2(x, y) + Game.instance.gameCamera.Center;
+                return new Vector2(x, y) + Game.Instance.gameCamera.Center;
         }
     }
 

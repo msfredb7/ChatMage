@@ -16,7 +16,7 @@ public class ITM_ScavengerPro : Item
     public override void Init(PlayerController player)
     {
         base.Init(player);
-        Game.instance.healthPackManager.luckMultiplier *= appearanceMultiplier;
+        Game.Instance.healthPackManager.luckMultiplier *= appearanceMultiplier;
     }
     public override void OnGameReady()
     {

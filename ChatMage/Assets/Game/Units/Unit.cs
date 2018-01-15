@@ -81,7 +81,7 @@ public abstract class Unit : MonoBehaviour
 
     protected virtual void FixedUpdate()
     {
-        if (Game.instance == null)
+        if (Game.Instance == null)
             return;
     }
 
@@ -89,7 +89,7 @@ public abstract class Unit : MonoBehaviour
     {
         if (buffs != null && buffs.Count > 0)
         {
-            float worldDeltaTime = Game.instance.worldTimeScale * Time.deltaTime;
+            float worldDeltaTime = Game.Instance.worldTimeScale * Time.deltaTime;
             float localDeltaTime = DeltaTime();
             for (int i = 0; i < buffs.Count; i++)
             {
@@ -157,8 +157,8 @@ public abstract class Unit : MonoBehaviour
 
         gameObject.SetActive(false);
 
-        if (Game.instance != null)
-            Game.instance.StartCoroutine(LateDestroy());
+        if (Game.Instance != null)
+            Game.Instance.StartCoroutine(LateDestroy());
     }
 
     private IEnumerator LateDestroy()

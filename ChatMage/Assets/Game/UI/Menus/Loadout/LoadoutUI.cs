@@ -1,4 +1,4 @@
-using CCC.Manager;
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -51,7 +51,7 @@ namespace LoadoutMenu
         [InspectorButton]
         private void DebugLaunch()
         {
-            MasterManager.Sync(delegate ()
+            PersistentLoader.LoadIfNotLoaded(delegate ()
             {
                 Init(debugLevel.levelScriptName, debugStartTab);
             });

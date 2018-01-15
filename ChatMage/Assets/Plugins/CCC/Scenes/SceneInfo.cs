@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.SceneManagement;
-using CCC.Manager;
 
 #if UNITY_EDITOR
 using UnityEditor;

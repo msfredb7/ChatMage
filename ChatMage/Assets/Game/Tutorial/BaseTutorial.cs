@@ -1,4 +1,4 @@
-using CCC.Manager;
+
 using DG.Tweening;
 using FullInspector;
 using System;
@@ -69,8 +69,8 @@ namespace Tutorial
         {
             this.modules = modules;
 
-            if(Game.instance != null)
-                currentLevel = Game.instance.levelScript;
+            if(Game.Instance != null)
+                currentLevel = Game.Instance.levelScript;
 
             if (startTutorialOnInit)
                 Start();

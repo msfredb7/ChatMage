@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using CCC.Manager;
+
 using System;
 
 public class RoadMapPoint : MonoBehaviour {
@@ -34,7 +34,7 @@ public class RoadMapPoint : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-        MasterManager.Sync();
+        PersistentLoader.LoadIfNotLoaded();
 
         roadIntensity = (roadIntensity * Screen.width) / 1920;
     }

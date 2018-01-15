@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using CCC.Manager;
+
 
 public class MoneyDisplayScript : MonoBehaviour
 {
@@ -11,7 +11,7 @@ public class MoneyDisplayScript : MonoBehaviour
 
     void Start()
     {
-        MasterManager.Sync(OnSync);
+        PersistentLoader.LoadIfNotLoaded(OnSync);
     }
 
     void OnSync()

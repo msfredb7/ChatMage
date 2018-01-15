@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using CCC.Manager;
 
 /// <summary>
 /// Structure de données pour la bulle au dessu d'un objet (Utile pour les discussions textuels)

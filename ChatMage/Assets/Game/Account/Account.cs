@@ -1,11 +1,11 @@
-using CCC.Manager;
 using CompleteProject;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
+using CCC.Persistence;
+using System;
 
-public class Account : BaseManager<Account>
+public class Account : MonoPersistent
 {
     private const string COINS_KEY = "coins";
 
@@ -14,15 +14,22 @@ public class Account : BaseManager<Account>
     public event SimpleEvent onCoinsChange;
 
     private Purchaser purchaser;
+    public static Account instance;
 
-    public override void Init()
+    void Awake()
+    {
+        instance = this;
+    }
+
+
+    public override void Init(Action onComplete)
     {
         Load();
 #if UNITY_ANDROID
         purchaser = new Purchaser();
         purchaser.Init();
 #endif
-        CompleteInit();
+        onComplete();
     }
 
     public void Load()

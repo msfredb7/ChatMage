@@ -18,11 +18,11 @@ public class ITM_MagicMushroom : Item
     public override void Equip(int duplicateIndex)
     {
         //On utilise Delay manager et non InGameEvents parce qu'on veut pas que le delai scale avec le ZaWarudo
-        CCC.Manager.DelayManager.LocalCallTo(() =>
+        DelayManager.LocalCallTo(() =>
         {
             SoundManager.PlaySFX(growSFX);
             player.body.DOBlendableScaleBy(Vector3.one * scaleIncrease, animDuration).SetEase(Ease.OutElastic);
-        }, growDelay, Game.instance);
+        }, growDelay, Game.Instance);
     }
 
     public override void Unequip()

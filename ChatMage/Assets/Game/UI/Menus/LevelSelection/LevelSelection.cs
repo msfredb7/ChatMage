@@ -1,4 +1,4 @@
-using CCC.Manager;
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,7 +27,7 @@ namespace LevelSelect
 
         void Start()
         {
-            MasterManager.Sync(OnSync);
+            PersistentLoader.LoadIfNotLoaded(OnSync);
             backButton.onClick.AddListener(OnBackClicked);
             shopButton.onClick.AddListener(OnShopClicked);
         }

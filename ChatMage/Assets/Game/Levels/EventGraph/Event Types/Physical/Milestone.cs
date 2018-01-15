@@ -104,38 +104,38 @@ public class Milestone : FIPhysicalEvent, IEvent, IMilestone
             Vector2 max = aiAreaRelativeToMilestone.max + (Vector2)transform.position;
             if (aiAreaAdjustToSceenRatio)
             {
-                GameCamera cam = Game.instance.gameCamera;
+                GameCamera cam = Game.Instance.gameCamera;
                 min = cam.AdjustVector(min);
                 max = cam.AdjustVector(max);
             }
-            Game.instance.aiArea.SetArea(min, max);
+            Game.Instance.aiArea.SetArea(min, max);
         }
 
         if (setCameraMax)
         {
-            Game.instance.gameCamera.maxHeight = cameraMaxRelativeToMilestone + GetCamerasCenter();
+            Game.Instance.gameCamera.maxHeight = cameraMaxRelativeToMilestone + GetCamerasCenter();
         }
         if (setCameraMin)
         {
-            Game.instance.gameCamera.minHeight = cameraMinRelativeToMilestone + GetCamerasCenter();
+            Game.Instance.gameCamera.minHeight = cameraMinRelativeToMilestone + GetCamerasCenter();
         }
 
         if (dialog != null)
-            Game.instance.ui.dialogDisplay.StartDialog(dialog);
+            Game.Instance.ui.dialogDisplay.StartDialog(dialog);
 
         if (modifyFollowPlayer)
         {
-            Game.instance.gameCamera.followPlayer = followPlayerEffect;
+            Game.Instance.gameCamera.followPlayer = followPlayerEffect;
         }
 
         if (fireEventToLevelScript)
         {
-            Game.instance.levelScript.ReceiveEvent(eventMessage);
+            Game.Instance.levelScript.ReceiveEvent(eventMessage);
         }
 
         if (useCadre)
         {
-            AjusteCadre cadre = Game.instance.cadre;
+            AjusteCadre cadre = Game.Instance.cadre;
             cadre.CenterTo(GetCamerasCenter());
             cadre.EnableSides(_leftSide.enabled, _rightSide.enabled, _bottomSide.enabled, _topSide.enabled);
             cadre.SetPaddings(_leftSide.padding, _rightSide.padding, _bottomSide.padding, _topSide.padding);

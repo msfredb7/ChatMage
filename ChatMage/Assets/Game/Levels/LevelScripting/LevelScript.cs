@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FullInspector;
 using UnityEngine.Events;
-using CCC.Manager;
+
 using FullSerializer;
 using LevelScripting;
 using DG.Tweening;
@@ -109,10 +109,10 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
     public void Init(System.Action onComplete)
     {
         ResetData();
-        Game.instance.onGameReady += GameReady;
-        Game.instance.onGameStarted += GameStarted;
+        Game.Instance.onGameReady += GameReady;
+        Game.Instance.onGameStarted += GameStarted;
 
-        this.inGameEvents = Game.instance.events;
+        this.inGameEvents = Game.Instance.events;
 
         if (useCustomGenericEvents)
             foreach (EventScripting ev in events)
@@ -135,20 +135,20 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
         if (introPrefab != null)
         {
             if (introPrefab.parentType == BaseIntro.ParentType.UnderCanvas)
-                inGameEvents.SpawnUnderUI(introPrefab).Play(Game.instance.StartGame);
+                inGameEvents.SpawnUnderUI(introPrefab).Play(Game.Instance.StartGame);
             else
-                inGameEvents.SpawnUnderGame(introPrefab).Play(Game.instance.StartGame);
+                inGameEvents.SpawnUnderGame(introPrefab).Play(Game.Instance.StartGame);
         }
 
         if (Armory.HasAccessToSmash())
         {
-            Game.instance.smashManager.smashEnabled = true;
-            Game.instance.ui.smashDisplay.canBeShown = true;
+            Game.Instance.smashManager.smashEnabled = true;
+            Game.Instance.ui.smashDisplay.canBeShown = true;
         }
         else
         {
-            Game.instance.smashManager.smashEnabled = false;
-            Game.instance.ui.smashDisplay.canBeShown = false;
+            Game.Instance.smashManager.smashEnabled = false;
+            Game.Instance.ui.smashDisplay.canBeShown = false;
         }
 
         OnGameReady();
@@ -165,10 +165,10 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
             StartTutorial();
 
         //Camera follow player ?
-        Game.instance.gameCamera.followPlayer = followPlayerOnStart;
+        Game.Instance.gameCamera.followPlayer = followPlayerOnStart;
 
         //Les bounds physique qui bloque le joueur
-        Game.instance.playerBounds.EnableAll();
+        Game.Instance.playerBounds.EnableAll();
 
         OnGameStarted();
     }
@@ -235,9 +235,9 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
         isOver = true;
 
         //Disable player input
-        if (Game.instance.Player != null)
+        if (Game.Instance.Player != null)
         {
-            Game.instance.Player.playerDriver.enableInput = false;
+            Game.Instance.Player.playerDriver.enableInput = false;
         }
 
         if (onLose != null)
@@ -353,10 +353,10 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
     void ApplySettings()
     {
         //Game.instance.SetUnitSnapBorders(horizontalUnitSnap, 0, verticalUnitSnap, 0);
-        Game.instance.healthPackManager.enableHealthPackSpawn = !noHealthPacks;
+        Game.Instance.healthPackManager.enableHealthPackSpawn = !noHealthPacks;
         bool smashAccess = Armory.HasAccessToSmash();
-        Game.instance.smashManager.smashEnabled = smashAccess;
-        Game.instance.ui.smashDisplay.canBeShown = smashAccess;
+        Game.Instance.smashManager.smashEnabled = smashAccess;
+        Game.Instance.ui.smashDisplay.canBeShown = smashAccess;
     }
 
     ///////////////////////////////////////////////////// Loosing/Winning Conditions
@@ -371,7 +371,7 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
             for (int i = 0; i < losingConditions.Length; i++)
             {
                 if (losingConditions[i] != null)
-                    losingConditions[i].Init(Game.instance.Player, this);
+                    losingConditions[i].Init(Game.Instance.Player, this);
             }
 
         // Init les winning conditions
@@ -379,7 +379,7 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
             for (int i = 0; i < winningConditions.Length; i++)
             {
                 if (winningConditions[i] != null)
-                    winningConditions[i].Init(Game.instance.Player, this);
+                    winningConditions[i].Init(Game.Instance.Player, this);
             }
     }
 
@@ -495,7 +495,7 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
     {
         if (wave.preLaunchDialog != null)
         {
-            Game.instance.ui.dialogDisplay.StartDialog(wave.preLaunchDialog, delegate ()
+            Game.Instance.ui.dialogDisplay.StartDialog(wave.preLaunchDialog, delegate ()
             {
                 wave.LaunchNow(this);
                 OnWaveLaunch();

@@ -1,4 +1,4 @@
-using CCC.Manager;
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -40,7 +40,7 @@ public class GameUI : MonoBehaviour {
         dialogDisplay.Init();
         itemsDisplay.Init(playerController);
 
-        float aspect = Game.instance.gameCamera.cam.aspect;
+        float aspect = Game.Instance.gameCamera.cam.aspect;
 
         //Choose hp display
         if (true) //aspect > 1.486f

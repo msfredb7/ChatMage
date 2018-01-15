@@ -30,7 +30,7 @@ public class Rasengan : Unit
 
     void Start()
     {
-        sizeMul = Game.instance.Player.playerStats.boostedAOE ? boostedAOESizeMultiplier : 1;
+        sizeMul = Game.Instance.Player.playerStats.boostedAOE ? boostedAOESizeMultiplier : 1;
         trigger.onTriggerEnter += Trigger_onTriggerEnter;
 
         //---------ANIMATION---------//
@@ -78,8 +78,8 @@ public class Rasengan : Unit
             bool wasDead = unit.IsDead;
             attackable.Attacked(other, 1, this, listener.info);
 
-            if (unit.IsDead && !wasDead && Game.instance.Player != null)
-                Game.instance.Player.playerStats.RegisterKilledUnit(unit);
+            if (unit.IsDead && !wasDead && Game.Instance.Player != null)
+                Game.Instance.Player.playerStats.RegisterKilledUnit(unit);
         }
     }
 

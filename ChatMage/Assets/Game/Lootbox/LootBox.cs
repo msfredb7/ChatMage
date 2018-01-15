@@ -69,7 +69,7 @@ public class LootBox
                 Debug.LogWarning(txtMessage);
 
 
-            CCC.Manager.DelayManager.CallNextFrame(onComplete);
+            DelayManager.CallNextFrame(onComplete);
         });
     }
 }

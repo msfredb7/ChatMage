@@ -57,14 +57,14 @@ namespace GameEvents
             if (string.IsNullOrEmpty(methodName))
                 return;
 
-            Type type = Game.instance.levelScript.GetType();
+            Type type = Game.Instance.levelScript.GetType();
 
             MethodInfo method = type.GetMethod(methodName, rq_parameters);
 
             if (method == null)
                 return;
 
-            method.Invoke(Game.instance.levelScript, param);
+            method.Invoke(Game.Instance.levelScript, param);
         }
     }
 }

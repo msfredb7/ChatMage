@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using CCC.Manager;
 using UnityEngine.Events;
 
 public class Framework : MonoBehaviour
@@ -42,7 +41,7 @@ public class Framework : MonoBehaviour
         //Note: c'est important de sync avec le mastermanager.
         //Sinon, partir de la scène 'Framework' ne marcherait pas
         if (Scenes.SceneCount() == 1 && !hasInit)
-            MasterManager.Sync(Init);
+            PersistentLoader.LoadIfNotLoaded(Init);
     }
 
     //LE init utilisé pour start tout

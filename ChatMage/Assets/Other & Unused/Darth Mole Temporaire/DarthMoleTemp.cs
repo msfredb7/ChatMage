@@ -20,8 +20,8 @@ public class DarthMoleTemp : MonoBehaviour
 
     void Awake()
     {
-        colliderListenerRIGHT.info.parentUnit = Game.instance.Player.vehicle;
-        colliderListenerLEFT.info.parentUnit = Game.instance.Player.vehicle;
+        colliderListenerRIGHT.info.parentUnit = Game.Instance.Player.vehicle;
+        colliderListenerLEFT.info.parentUnit = Game.Instance.Player.vehicle;
 
         colliderListenerRIGHT.onTriggerEnter += ColliderListener_onTriggerEnter;
         colliderListenerLEFT.onTriggerEnter += ColliderListener_onTriggerEnter;
@@ -43,7 +43,7 @@ public class DarthMoleTemp : MonoBehaviour
         Unit u = other.parentUnit;
         if(u != null && u is IAttackable && targets.IsValidTarget(u))
         {
-            (u as IAttackable).Attacked(other, 1, Game.instance.Player.vehicle, listener.info);
+            (u as IAttackable).Attacked(other, 1, Game.Instance.Player.vehicle, listener.info);
         }
     }
 

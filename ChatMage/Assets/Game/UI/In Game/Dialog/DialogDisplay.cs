@@ -42,11 +42,11 @@ public class DialogDisplay : MonoBehaviour
 
     public void Init()
     {
-        if (!Game.instance.framework.isARetry)
+        if (!Game.Instance.framework.isARetry)
         {
             DialogSkip.ClearTemporarySkipList();
         }
-        Game.instance.levelScript.onWin += LevelScript_onWin;
+        Game.Instance.levelScript.onWin += LevelScript_onWin;
     }
 
     private void LevelScript_onWin()
@@ -134,10 +134,10 @@ public class DialogDisplay : MonoBehaviour
 
 
         // On s'assure que le joueur est bien visible
-        Game.instance.Player.playerStats.EnableSprite();
+        Game.Instance.Player.playerStats.EnableSprite();
 
         if (dialog.pauseGame)
-            Game.instance.gameRunning.Lock("dialog");
+            Game.Instance.gameRunning.Lock("dialog");
 
         if (onStartDialog != null)
             onStartDialog();
@@ -146,7 +146,7 @@ public class DialogDisplay : MonoBehaviour
 
         currentDialog = new RuntimeDialog(dialog, onComplete);
 
-        GameUI ui = Game.instance.ui;
+        GameUI ui = Game.Instance.ui;
         hpWasShown = ui.healthDisplay.IsShown;
         ui.healthDisplay.Hide();
 
@@ -159,7 +159,7 @@ public class DialogDisplay : MonoBehaviour
         if ((dialog.skipFlags & SkipFlags.SkipIfLevelCompleted) != 0)
         {
             bool isInList = DialogSkip.IsInPermanentSkip(dialog);
-            if (LevelScript.HasBeenCompleted(Game.instance.levelScript) && isInList)
+            if (LevelScript.HasBeenCompleted(Game.Instance.levelScript) && isInList)
             {
                 return true;
             }
@@ -173,7 +173,7 @@ public class DialogDisplay : MonoBehaviour
         //Est-ce que le dialog a le flag SkipIfRetry ?
         if ((dialog.skipFlags & SkipFlags.SkipIfRetry) != 0)
         {
-            if (Game.instance.framework.isARetry && DialogSkip.IsInTemporarySkip(dialog))
+            if (Game.Instance.framework.isARetry && DialogSkip.IsInTemporarySkip(dialog))
             {
                 return true;
             }
@@ -200,7 +200,7 @@ public class DialogDisplay : MonoBehaviour
         dialogContainer.SetActive(false);
 
         if (currentDialog.dialog.pauseGame)
-            Game.instance.gameRunning.Unlock("dialog");
+            Game.Instance.gameRunning.Unlock("dialog");
 
         if (currentDialog.onComplete != null)
             currentDialog.onComplete();
@@ -235,7 +235,7 @@ public class DialogDisplay : MonoBehaviour
         tryingToSkip = false;
 
 
-        GameUI ui = Game.instance.ui;
+        GameUI ui = Game.Instance.ui;
         if (hpWasShown)
             ui.healthDisplay.Show();
         //if (smashWasShown)

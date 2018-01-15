@@ -71,8 +71,8 @@ public class CameraWiggle : MonoBehaviour
     {
         get
         {
-            if (pt == null && Game.instance != null && Game.instance.Player != null)
-                pt = Game.instance.Player.transform;
+            if (pt == null && Game.Instance != null && Game.Instance.Player != null)
+                pt = Game.Instance.Player.transform;
             return pt;
         }
     }

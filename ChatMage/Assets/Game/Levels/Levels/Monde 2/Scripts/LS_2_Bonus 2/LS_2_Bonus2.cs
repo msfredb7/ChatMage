@@ -26,10 +26,10 @@ public class LS_2_Bonus2 : LevelScript
 
     protected override void OnGameReady()
     {
-        map = Game.instance.map;
+        map = Game.Instance.map;
         currentScoreUI = inGameEvents.SpawnUnderUI<BonusScoreScript>(scoreUI);
         currentScoreUI.SetScore(woodToCut);
-        Instantiate(axe, Game.instance.Player.vehicle.transform);
+        Instantiate(axe, Game.Instance.Player.vehicle.transform);
     }
 
     protected override void OnGameStarted()

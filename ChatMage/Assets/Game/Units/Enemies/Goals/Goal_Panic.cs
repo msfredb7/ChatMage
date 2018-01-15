@@ -20,7 +20,7 @@ namespace AI
         {
             base.Activate();
 
-            events = Game.instance.events;
+            events = Game.Instance.events;
 
             NewDestination();
         }

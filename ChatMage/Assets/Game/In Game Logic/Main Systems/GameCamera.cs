@@ -63,7 +63,7 @@ public class GameCamera : MonoBehaviour
 
     void Start()
     {
-        Game.instance.worldTimeScale.onSet.AddListener((worldTimescale) => vectorShaker.timescale = worldTimescale);
+        Game.Instance.worldTimeScale.onSet.AddListener((worldTimescale) => vectorShaker.timescale = worldTimescale);
     }
 
     public float OrthoSize
@@ -93,7 +93,7 @@ public class GameCamera : MonoBehaviour
         this.player = player;
 
         //Spawn a la bonne hauteur
-        SetToHeight(Game.instance.map.cameraSpawn.Height);
+        SetToHeight(Game.Instance.map.cameraSpawn.Height);
     }
 
     public void OnCompleteTeleport()

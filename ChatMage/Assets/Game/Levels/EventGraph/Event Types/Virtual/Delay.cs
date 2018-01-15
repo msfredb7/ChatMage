@@ -16,7 +16,7 @@ namespace GameEvents
         {
             if (delay > 0)
             {
-                Game.instance.events.AddDelayedAction(moment.Launch, delay);
+                Game.Instance.events.AddDelayedAction(moment.Launch, delay);
             }
             else
             {

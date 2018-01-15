@@ -11,16 +11,16 @@ public class BasicRepeatedAnimator : MonoBehaviour
 
     void Start()
     {
-        if (Game.instance.worldTimeScale != 1)
-            UpdateTimescale(Game.instance.worldTimeScale);
+        if (Game.Instance.worldTimeScale != 1)
+            UpdateTimescale(Game.Instance.worldTimeScale);
 
-        Game.instance.worldTimeScale.onSet.AddListener(UpdateTimescale);
+        Game.Instance.worldTimeScale.onSet.AddListener(UpdateTimescale);
     }
 
     void OnDestroy()
     {
-        if (Game.instance != null)
-            Game.instance.worldTimeScale.onSet.RemoveListener(UpdateTimescale);
+        if (Game.Instance != null)
+            Game.Instance.worldTimeScale.onSet.RemoveListener(UpdateTimescale);
     }
 
     void UpdateTimescale(float value)

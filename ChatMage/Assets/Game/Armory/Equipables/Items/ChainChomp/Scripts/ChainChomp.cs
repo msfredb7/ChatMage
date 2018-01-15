@@ -307,16 +307,16 @@ public class ChainChomp : MovingUnit, IAttackable
                 SoundManager.PlaySFX(hitSFX);
 
                 //Screen Shake
-                Game.instance.gameCamera.vectorShaker.Hit(hitScreenShake * (unit.Position - realBall.position).normalized);
+                Game.Instance.gameCamera.vectorShaker.Hit(hitScreenShake * (unit.Position - realBall.position).normalized);
 
                 bool wasDead = unit.IsDead;
-                Game.instance.commonVfx.SmallHit(collision.contacts[0].point, Color.white);
-                attackable.Attacked(other, hitDamage * Game.instance.Player.playerStats.damageMultiplier, this, listener.info);
+                Game.Instance.commonVfx.SmallHit(collision.contacts[0].point, Color.white);
+                attackable.Attacked(other, hitDamage * Game.Instance.Player.playerStats.damageMultiplier, this, listener.info);
 
                 if (unit.IsDead && !wasDead)
                 {
-                    if (Game.instance.Player != null)
-                        Game.instance.Player.playerStats.RegisterKilledUnit(unit);
+                    if (Game.Instance.Player != null)
+                        Game.Instance.Player.playerStats.RegisterKilledUnit(unit);
                 }
             }
         }

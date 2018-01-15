@@ -49,7 +49,7 @@ public class MedievalSeigeSpawnTower : MonoBehaviour
         if (selfQuit && hasArrived)
         {
             if (worldTimeScale == null)
-                worldTimeScale = Game.instance.worldTimeScale;
+                worldTimeScale = Game.Instance.worldTimeScale;
             else
             {
                 bool wasAlive = timeToLive > 0;
@@ -98,7 +98,7 @@ public class MedievalSeigeSpawnTower : MonoBehaviour
 
         sq.AppendCallback(() =>
         {
-            Game.instance.gameCamera.vectorShaker.Shake(screenShake);
+            Game.Instance.gameCamera.vectorShaker.Shake(screenShake);
         });
 
         sq.AppendInterval(pauseBeforeGate);

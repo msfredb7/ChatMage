@@ -20,13 +20,13 @@ public class PointUnitSpawn : UnitSpawn
             case PositionType.World:
                 return position;
             case PositionType.RelativeToPlayer:
-                PlayerController player = Game.instance.Player;
+                PlayerController player = Game.Instance.Player;
                 if (player != null)
                     return position + player.vehicle.Position;
                 else
                     return position;
             case PositionType.RelativeToCamera:
-                return position + Game.instance.gameCamera.Center;
+                return position + Game.Instance.gameCamera.Center;
         }
     }
 

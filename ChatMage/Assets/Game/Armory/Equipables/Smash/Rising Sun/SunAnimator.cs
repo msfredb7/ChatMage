@@ -31,7 +31,7 @@ public class SunAnimator : MonoBehaviour, IShaker
 
     void Start()
     {
-        camShake = Game.instance.gameCamera.vectorShaker;
+        camShake = Game.Instance.gameCamera.vectorShaker;
         camShake.AddShaker(this);
         tr = transform;
     }

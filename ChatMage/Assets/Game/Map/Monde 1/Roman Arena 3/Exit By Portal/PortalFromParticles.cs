@@ -70,7 +70,7 @@ public class PortalFromParticles : MonoBehaviour
         //Top Wall disable
         sq.AppendCallback(() =>
         {
-            Game.instance.playerBounds.SetStates(boundStates);
+            Game.Instance.playerBounds.SetStates(boundStates);
             topCollider.SetActive(false);
         });
 
@@ -80,7 +80,7 @@ public class PortalFromParticles : MonoBehaviour
 
     private void FetchReferences()
     {
-        Mapping mp = Game.instance.map.mapping;
+        Mapping mp = Game.Instance.map.mapping;
 
         PortalFromParticlesRemote remote = mp.GetTaggedObject(remoteTag).GetComponent<PortalFromParticlesRemote>();
         jesus = remote.jesus;
@@ -94,9 +94,9 @@ public class PortalFromParticles : MonoBehaviour
 
     private void WinCollider_onTriggerEnter(ColliderInfo other, ColliderListener listener)
     {
-        if (other.parentUnit == Game.instance.Player.vehicle)
+        if (other.parentUnit == Game.Instance.Player.vehicle)
         {
-            Game.instance.levelScript.Win();
+            Game.Instance.levelScript.Win();
         }
     }
 
@@ -110,20 +110,20 @@ public class PortalFromParticles : MonoBehaviour
 
     protected void AddTimescaleListener()
     {
-        if (Game.instance == null)
+        if (Game.Instance == null)
         {
             Debug.LogError(name + " tried to a add listener to worldTimescale but Game.instance == null");
             return;
         }
 
-        StatFloat worldTimescale = Game.instance.worldTimeScale;
+        StatFloat worldTimescale = Game.Instance.worldTimeScale;
         worldTimescale.onSet.AddListener(UpdateTimescale);
         UpdateTimescale(worldTimescale);
     }
 
     protected void RemoveTimescaleListener()
     {
-        StatFloat worldTimescale = Game.instance.worldTimeScale;
+        StatFloat worldTimescale = Game.Instance.worldTimeScale;
         worldTimescale.onSet.RemoveListener(UpdateTimescale);
     }
 

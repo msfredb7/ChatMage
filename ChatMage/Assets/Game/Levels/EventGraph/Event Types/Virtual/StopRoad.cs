@@ -9,8 +9,8 @@ namespace GameEvents
     {
         public void Trigger()
         {
-            Game.instance.gameCamera.followPlayer = false;
-            Game.instance.gameCamera.canScrollUp = false;
+            Game.Instance.gameCamera.followPlayer = false;
+            Game.Instance.gameCamera.canScrollUp = false;
         }
 
         public override Color GUIColor()

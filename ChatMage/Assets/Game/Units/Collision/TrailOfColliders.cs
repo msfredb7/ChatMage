@@ -43,7 +43,7 @@ public class TrailOfColliders : MonoBehaviour
 
     void Start()
     {
-        ingameEvents = Game.instance.events;
+        ingameEvents = Game.Instance.events;
         segments = new List<Segment>(5);
     }
 

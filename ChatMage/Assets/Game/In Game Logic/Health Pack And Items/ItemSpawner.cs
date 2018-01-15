@@ -20,20 +20,20 @@ public class ItemSpawner : MonoBehaviour
 
     void Start()
     {
-        if (Game.instance == null)
+        if (Game.Instance == null)
         {
             gameObject.SetActive(false);
             Debug.LogError("Pas d'instance de Game.");
         }
         else
         {
-            Game.instance.onGameReady += OnGameReady;
+            Game.Instance.onGameReady += OnGameReady;
         }
     }
 
     private void OnGameReady()
     {
-        Game.instance.Player.playerStats.OnUnitKilled += OnUnitKilled;
+        Game.Instance.Player.playerStats.OnUnitKilled += OnUnitKilled;
     }
 
     private void OnUnitKilled(Unit unit)
@@ -94,7 +94,7 @@ public class ItemSpawner : MonoBehaviour
 
     public void SpawnItem(Item item, Vector2 at)
     {
-        ItemPack itemPack = Game.instance.SpawnUnit(pickupPrefab, at);
+        ItemPack itemPack = Game.Instance.SpawnUnit(pickupPrefab, at);
         itemPack.SetItem(item);
         itemPack.isPreSpawned = false;
     }

@@ -12,7 +12,7 @@ public abstract class Equipable : BaseScriptableObject
     public virtual void Init(PlayerController player)
     {
         this.player = player;
-        Game.instance.onDestroy += ClearReferences;
+        Game.Instance.onDestroy += ClearReferences;
     }
 
     public abstract void OnGameReady();
@@ -21,8 +21,8 @@ public abstract class Equipable : BaseScriptableObject
 
     protected virtual void ClearReferences()
     {
-        if (Game.instance != null)
-            Game.instance.onDestroy -= ClearReferences;
+        if (Game.Instance != null)
+            Game.Instance.onDestroy -= ClearReferences;
         player = null;
     }
 }

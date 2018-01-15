@@ -7,13 +7,9 @@ using UnityEngine.Audio;
 using FullInspector;
 using System;
 using System.Collections.Generic;
-using CCC.Manager;
+using CCC.Persistence;
 
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
-
-public class SoundManager : BaseManager<SoundManager>
+public class SoundManager : MonoPersistent
 {
     [System.Serializable]
     public struct SoundSettings
@@ -35,10 +31,10 @@ public class SoundManager : BaseManager<SoundManager>
     {
         public float dbBoost;
         public bool muted;
-        public Setting(float dbBoost, bool enabled)
+        public Setting(float dbBoost, bool muted)
         {
             this.dbBoost = dbBoost;
-            this.muted = enabled;
+            this.muted = muted;
         }
     }
 
@@ -59,10 +55,13 @@ public class SoundManager : BaseManager<SoundManager>
 
     public AudioMixerSnapshot[] snapshots;
 
-    public override void Init()
+    private static SoundManager instance;
+
+    public override void Init(Action onComplete)
     {
+        instance = this;
         Load();
-        CompleteInit();
+        onComplete();
     }
 
     /// <summary>

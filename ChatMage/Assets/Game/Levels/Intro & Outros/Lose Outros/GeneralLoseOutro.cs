@@ -12,12 +12,12 @@ namespace GameIntroOutro
         public override void Play()
         {
             if (freezeTimescale)
-                Game.instance.gameRunning.Lock("ending");
+                Game.Instance.gameRunning.Lock("ending");
         }
 
         public void Restart()
         {
-            Game.instance.framework.RestartLevel();
+            Game.Instance.framework.RestartLevel();
         }
 
         public void ToLevelSelect()

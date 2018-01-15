@@ -31,13 +31,13 @@ public class CircleUnitSpawn : UnitSpawn
             case PositionType.World:
                 return (Vector2)transform.position + deltaPos;
             case PositionType.RelativeToPlayer:
-                PlayerController player = Game.instance.Player;
+                PlayerController player = Game.Instance.Player;
                 if (player != null)
                     return player.vehicle.Position + deltaPos;
                 else
-                    return Game.instance.gameCamera.Center;
+                    return Game.Instance.gameCamera.Center;
             case PositionType.RelativeToCamera:
-                return Game.instance.gameCamera.Center + deltaPos;
+                return Game.Instance.gameCamera.Center + deltaPos;
         }
     }
 

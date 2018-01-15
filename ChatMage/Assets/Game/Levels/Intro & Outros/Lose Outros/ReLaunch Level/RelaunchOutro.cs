@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using CCC.Manager;
+
 
 namespace GameIntroOutro
 {
@@ -18,7 +18,7 @@ namespace GameIntroOutro
 
         public void Restart()
         {
-            Game.instance.framework.RestartLevel();
+            Game.Instance.framework.RestartLevel();
         }
     }
 }

@@ -30,7 +30,7 @@ namespace LevelSelect
 
             //On doit faire ca pour etre certain que les managers on ete loaded avant.
             //Sinon, quand on fait GameSaves.instance..., ca peut planter
-            CCC.Manager.MasterManager.Sync(OnManagersLoaded);
+            PersistentLoader.LoadIfNotLoaded(OnManagersLoaded);
         }
 
         void OnManagersLoaded()

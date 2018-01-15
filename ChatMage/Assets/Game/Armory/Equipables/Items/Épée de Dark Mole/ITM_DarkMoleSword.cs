@@ -19,7 +19,7 @@ public class ITM_DarkMoleSword : Item
 
         //J'ai mis se delai pour comprenser avec le manque d'animation lorsqu'on gagne un item. 
         //C'est temporaire et ca devrais etre enlever dans le futur
-        Game.instance.events.AddDelayedAction(() =>
+        Game.Instance.events.AddDelayedAction(() =>
         {
             sword.gameObject.SetActive(true);
             int table;

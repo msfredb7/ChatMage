@@ -1,4 +1,4 @@
-using CCC.Manager;
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,14 +22,14 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         //Game ready event
-        if (!Game.instance.gameReady)
-            Game.instance.onGameReady += OnGameReady;
+        if (!Game.Instance.gameReady)
+            Game.Instance.onGameReady += OnGameReady;
         else
             OnGameReady();
 
         //Game started event
-        if (!Game.instance.gameStarted)
-            Game.instance.onGameStarted += OnGameStarted;
+        if (!Game.Instance.gameStarted)
+            Game.Instance.onGameStarted += OnGameStarted;
         else
             OnGameStarted();
     }

@@ -48,7 +48,7 @@ public class BlueShellAnimator : MonoBehaviour
         lightFade.enabled = false;
         shockWave.enabled = false;
 
-        if (Game.instance.Player != null && Game.instance.Player.playerStats.boostedAOE)
+        if (Game.Instance.Player != null && Game.Instance.Player.playerStats.boostedAOE)
             radius = explosionBoostedRadius;
         else
             radius = explosionNormalRadius;
@@ -95,7 +95,7 @@ public class BlueShellAnimator : MonoBehaviour
         ShellUnit_onTimeScaleChange(shellUnit);
 
         //Camera shake
-        Game.instance.gameCamera.vectorShaker.Shake(cameraShake_strength);
+        Game.Instance.gameCamera.vectorShaker.Shake(cameraShake_strength);
 
         //Explosion !
         List<ColliderInfo> infos = UnitDetection.OverlapCircleAll(shellUnit.Position, radius, explosionLayerMask);
@@ -117,8 +117,8 @@ public class BlueShellAnimator : MonoBehaviour
                 attackable.Attacked(other, 1, shellUnit);
 
                 //Register kill
-                if (unit.IsDead && !wasDead && Game.instance.Player != null)
-                    Game.instance.Player.playerStats.RegisterKilledUnit(unit);
+                if (unit.IsDead && !wasDead && Game.Instance.Player != null)
+                    Game.Instance.Player.playerStats.RegisterKilledUnit(unit);
                     
             }
         }

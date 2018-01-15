@@ -37,7 +37,7 @@ public class ITM_Rasengan : Item
 
     public override void OnUpdate()
     {
-        if (!Game.instance.gameStarted)
+        if (!Game.Instance.gameStarted)
             return;
 
         trail.Update();
@@ -107,7 +107,7 @@ public class ITM_Rasengan : Item
 
     void SpawnRasengan(Vector2 position)
     {
-        Game.instance.SpawnUnit(rasenganPrefab, position);
+        Game.Instance.SpawnUnit(rasenganPrefab, position);
     }
 
     public override void Equip(int duplicateIndex)

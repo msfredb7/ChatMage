@@ -1,13 +1,14 @@
-﻿using CCC.Manager;
+﻿
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using CCC.Persistence;
 
-public class FPSDisplay : BaseManager<FPSDisplay> {
-
-    public override void Init()
+public class FPSDisplay : MonoPersistent
+{
+    public override void Init(Action onComplete)
     {
-        CompleteInit();
+        onComplete();
     }
 }
