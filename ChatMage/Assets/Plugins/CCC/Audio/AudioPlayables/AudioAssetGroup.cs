@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-[CreateAssetMenu(menuName = "Audio/Audio Asset Group", fileName = "AAG_Something")]
+[CreateAssetMenu(menuName = "CCC/Audio/Audio Asset Group", fileName = "AAG_Something")]
 public class AudioAssetGroup : AudioPlayable
 {
     public AudioPlayable[] clips;

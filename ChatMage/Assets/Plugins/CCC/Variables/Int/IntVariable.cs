@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Var_NewInt", menuName = "Variable/Int")]
+[CreateAssetMenu(fileName = "Var_NewInt", menuName = "CCC/Variable/Int")]
 public class IntVariable : VarVariable<int>
 {
     public void SetValue(int value)

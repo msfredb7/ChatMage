@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Var_NewBool", menuName = "Variable/Bool")]
+[CreateAssetMenu(fileName = "Var_NewBool", menuName = "CCC/Variable/Bool")]
 public class BoolVariable : VarVariable<bool>
 {
     public void SetValue(bool value)

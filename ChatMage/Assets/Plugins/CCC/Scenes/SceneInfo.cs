@@ -10,7 +10,7 @@ using UnityEditor.Callbacks;
 using UnityEditor.SceneManagement;
 #endif
 
-[CreateAssetMenu(fileName = "SI_NewScene", menuName = "Scenes/Scene Info")]
+[CreateAssetMenu(fileName = "SI_NewScene", menuName = "CCC/Scenes/Scene Info")]
 public class SceneInfo : ScriptableObject
 {
 #if UNITY_EDITOR
