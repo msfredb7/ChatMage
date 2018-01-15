@@ -9,58 +9,24 @@ using System;
 using System.Collections.Generic;
 using CCC.Persistence;
 
-public class SoundManager : MonoPersistent
+public class DefaultAudioSources : MonoPersistent
 {
-    [System.Serializable]
-    public struct SoundSettings
-    {
-        public Setting master;
-        public Setting voice;
-        public Setting sfx;
-        public Setting music;
-        public SoundSettings(Setting master, Setting voice, Setting sfx, Setting music)
-        {
-            this.master = master;
-            this.voice = voice;
-            this.sfx = sfx;
-            this.music = music;
-        }
-    }
-    [System.Serializable]
-    public struct Setting
-    {
-        public float dbBoost;
-        public bool muted;
-        public Setting(float dbBoost, bool muted)
-        {
-            this.dbBoost = dbBoost;
-            this.muted = muted;
-        }
-    }
-
-    public OpenSavesButton openSavesLocation;
-    public bool printLogs = false;
     public AudioSource SFXSource;
     public AudioSource staticSFXSource;
     public AudioSource musicSource_1;
     public AudioSource musicSource_0;
     public int currentMusicSource = 1;
     public AudioSource voiceSource;
-    public AudioMixer mixer;
-    public SoundSettings settings;
     private List<Coroutine> musicTransitionCalls = new List<Coroutine>();
     private List<Tween> musicTransitionTweens = new List<Tween>();
 
     private const Ease AUDIOFADE_EASE = Ease.OutSine;
 
-    public AudioMixerSnapshot[] snapshots;
-
-    private static SoundManager instance;
+    private static DefaultAudioSources instance;
 
     public override void Init(Action onComplete)
     {
         instance = this;
-        Load();
         onComplete();
     }
 
@@ -378,273 +344,7 @@ public class SoundManager : MonoPersistent
     }
     #endregion
 
-    static public void SlowMotionEffect(bool state, float timeToReach = 0.75f)
-    {
-        if (CheckResources_Instance() && CheckResources_Mixer())
-            instance.mixer.TransitionToSnapshots(
-                instance.snapshots,
-                state ? new float[] { 0, 1 } : new float[] { 1, 0 },
-                timeToReach);
-    }
-
-    #region Settings Get/Set
-
-    public static void SetMaster(float dbBoost)
-    {
-        if (!CheckResources_Instance())
-            return;
-
-        instance.settings.master.dbBoost = dbBoost;
-        instance.ApplyMaster();
-    }
-    public static void SetMaster(bool muted)
-    {
-        if (!CheckResources_Instance())
-            return;
-
-        instance.settings.master.muted = muted;
-        instance.ApplyMaster();
-    }
-    public static void SetSFX(float dbBoost)
-    {
-        if (!CheckResources_Instance())
-            return;
-
-        instance.settings.sfx.dbBoost = dbBoost;
-        instance.ApplySFX();
-    }
-    public static void SetSFX(bool muted)
-    {
-        if (!CheckResources_Instance())
-            return;
-
-        instance.settings.sfx.muted = muted;
-        instance.ApplySFX();
-    }
-    public static void SetVoice(float dbBoost)
-    {
-        if (!CheckResources_Instance())
-            return;
-
-        instance.settings.voice.dbBoost = dbBoost;
-        instance.ApplyVoice();
-    }
-    public static void SetVoice(bool muted)
-    {
-        if (!CheckResources_Instance())
-            return;
-
-        instance.settings.voice.muted = muted;
-        instance.ApplyVoice();
-    }
-    public static void SetMusic(float dbBoost)
-    {
-        if (!CheckResources_Instance())
-            return;
-
-        instance.settings.music.dbBoost = dbBoost;
-        instance.ApplyMusic();
-    }
-    public static void SetMusic(bool muted)
-    {
-        if (!CheckResources_Instance())
-            return;
-
-        instance.settings.music.muted = muted;
-        instance.ApplyMusic();
-    }
-
-    public static Setting GetSFXSetting()
-    {
-        if (CheckResources_Instance())
-            return instance.settings.sfx;
-        else
-            return new Setting();
-    }
-    public static Setting GetMusicSetting()
-    {
-        if (CheckResources_Instance())
-            return instance.settings.music;
-        else
-            return new Setting();
-    }
-    public static Setting GetMasterSetting()
-    {
-        if (CheckResources_Instance())
-            return instance.settings.master;
-        else
-            return new Setting();
-    }
-    public static Setting GetVoiceSetting()
-    {
-        if (CheckResources_Instance())
-            return instance.settings.voice;
-        else
-            return new Setting();
-    }
-
-    private bool MusicMuted()
-    {
-        return settings.music.muted || MasterMuted();
-    }
-    private bool SFXMuted()
-    {
-        return settings.sfx.muted || MasterMuted();
-    }
-    private bool VoiceMuted()
-    {
-        return settings.voice.muted || MasterMuted();
-    }
-    private bool MasterMuted()
-    {
-        return settings.master.muted;
-    }
-
-    #endregion
-
-    #region Apply
-    [InspectorButton]
-    private void ApplyAll()
-    {
-        ApplyMaster();
-        ApplyMusic();
-        ApplySFX();
-        ApplyVoice();
-    }
-    private void ApplyMaster()
-    {
-        if (CheckResources_Mixer())
-        {
-            float val = MasterMuted() ? -80 : settings.master.dbBoost;
-            mixer.SetFloat("master", val);
-        }
-        //if (CheckResources_MusicSource())
-        //    musicSource.mute = MusicMuted();
-        //if (CheckResources_SFXSource())
-        //    sfxStdSource.mute = SFXMuted();
-        //if (CheckResources_VoiceSource())
-        //    voiceSource.mute = VoiceMuted();
-    }
-    private void ApplySFX()
-    {
-        if (CheckResources_Mixer())
-        {
-            float val = SFXMuted() ? -80 : settings.sfx.dbBoost;
-            mixer.SetFloat("sfx", val);
-            mixer.SetFloat("static sfx", val);
-        }
-        //if (CheckResources_SFXSource())
-        //    sfxStdSource.mute = MusicMuted();
-    }
-    private void ApplyVoice()
-    {
-        if (CheckResources_Mixer())
-        {
-            float val = VoiceMuted() ? -80 : settings.voice.dbBoost;
-            mixer.SetFloat("voice", val);
-        }
-        //if (CheckResources_VoiceSource())
-        //    voiceSource.mute = VoiceMuted();
-    }
-    private void ApplyMusic()
-    {
-        if (CheckResources_Mixer())
-        {
-            float val = MusicMuted() ? -80 : settings.music.dbBoost;
-            mixer.SetFloat("music", val);
-        }
-        //if (CheckResources_MusicSource())
-        //    musicSource.mute = MusicMuted();
-    }
-    #endregion
-
-    #region Load/Save
-    private const string SaveExtension = "/Sound_v3.dat";
-
-    public static void Load()
-    {
-        if (!CheckResources_Instance())
-            return;
-        instance.Load_Instance();
-    }
-    [InspectorButton, InspectorName("Load")]
-    private void Load_Instance()
-    {
-        string savePath = Application.persistentDataPath + SaveExtension;
-        if (File.Exists(savePath))
-        {
-            BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.Open(savePath, FileMode.Open);
-            SoundSettings saveCopy = (SoundSettings)bf.Deserialize(file);
-
-            settings = saveCopy;
-
-            file.Close();
-
-            ApplyAll();
-            Log("Sound settings loaded.");
-        }
-        else
-        {
-            SetDefaults_Instance();
-            Save_Instance();
-        }
-    }
-
-    public static void Save()
-    {
-        if (!CheckResources_Instance())
-            return;
-        instance.Save_Instance();
-    }
-    [InspectorButton, InspectorName("Save")]
-    private void Save_Instance()
-    {
-        string savePath = Application.persistentDataPath + SaveExtension;
-        BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Open(savePath, FileMode.OpenOrCreate);
-        bf.Serialize(file, settings);
-        file.Close();
-        Log("Sound settings saved.");
-    }
-
-    public static void SetDefaults()
-    {
-        if (!CheckResources_Instance())
-            return;
-        instance.SetDefaults_Instance();
-    }
-    [InspectorButton, InspectorName("Set Defaults")]
-    private void SetDefaults_Instance()
-    {
-        settings = GetDefaultSettings();
-        Log("Default sound settings.");
-
-        ApplyAll();
-    }
-
-
-    private static SoundSettings GetDefaultSettings()
-    {
-        return new SoundSettings(
-            new Setting(0, false),       //Master
-            new Setting(0, false),       //Voice
-            new Setting(0, false),       //SFX
-            new Setting(0, false));      //Music
-    }
-    #endregion
-
     #region Check Resources
-    private static bool CheckResources_Mixer()
-    {
-        if (instance.mixer == null)
-        {
-            Debug.LogError("Aucun AudioMixer sur l'instance de SoundManager");
-            return false;
-        }
-
-        return true;
-    }
     private static bool CheckResources_MusicSource()
     {
         if (instance.musicSource_0 == null || instance.musicSource_1 == null)
@@ -684,24 +384,6 @@ public class SoundManager : MonoPersistent
         }
 
         return true;
-    }
-    #endregion
-
-    #region Log
-    private void Log(string message)
-    {
-        if (printLogs)
-            Debug.Log(message);
-    }
-    private void LogWarning(string message)
-    {
-        if (printLogs)
-            Debug.LogWarning(message);
-    }
-    private void LogError(string message)
-    {
-        if (printLogs)
-            Debug.LogError(message);
     }
     #endregion
 }

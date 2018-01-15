@@ -18,7 +18,7 @@ public class IntroCreditsAnimation : MonoBehaviour
     {
         PersistentLoader.LoadIfNotLoaded(delegate ()
         {
-            SoundManager.PlayMusic(logoSound, false, 0.1f); // Son de l'apparition du logo
+            DefaultAudioSources.PlayMusic(logoSound, false, 0.1f); // Son de l'apparition du logo
             // Après un délai initial
             DelayManager.LocalCallTo(delegate ()
             {

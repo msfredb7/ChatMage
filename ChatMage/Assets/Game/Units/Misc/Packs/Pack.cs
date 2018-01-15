@@ -104,7 +104,7 @@ public abstract class Pack : MovingUnit
         if (!isDead && info.parentUnit == Game.Instance.Player.vehicle)
         {
             if (pickupSound != null)
-                SoundManager.PlaySFX(pickupSound);
+                DefaultAudioSources.PlaySFX(pickupSound);
             OnPickUp();
             Die();
         }

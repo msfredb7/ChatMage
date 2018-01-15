@@ -193,7 +193,7 @@ public class LaserSword : MonoBehaviour
                             player.playerStats.RegisterKilledUnit(unit);
                     }
 
-                    SoundManager.PlaySFX(onHitSFX);
+                    DefaultAudioSources.PlaySFX(onHitSFX);
                     Vector2 v = (player.vehicle.Position - unit.Position).normalized;
                     Game.Instance.gameCamera.vectorShaker.Hit(v * hitCameraShake);
                 }

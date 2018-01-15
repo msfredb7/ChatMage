@@ -38,13 +38,13 @@ public class InGameOptions : WindowAnimation
 
     public void Confirm()
     {
-        SoundManager.Save();
+        AudioMixerSaves.Instance.Save();
         Exit();
     }
 
     public void Cancel()
     {
-        SoundManager.Load();
+        AudioMixerSaves.Instance.Load();
         Exit();
     }
 

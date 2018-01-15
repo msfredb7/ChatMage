@@ -34,7 +34,7 @@ namespace LevelSelect
 
         void OnSync()
         {
-            SoundManager.PlayMusic(levelSelectMusic, volume: musicVolume);
+            DefaultAudioSources.PlayMusic(levelSelectMusic, volume: musicVolume);
             AddListeners();
 
             //Un peu lourd ? Peut-être qu'on pourrait faire ça AVANT que le loading screen disparaisse (comme Framework)

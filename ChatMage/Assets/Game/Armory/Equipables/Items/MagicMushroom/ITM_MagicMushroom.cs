@@ -20,14 +20,14 @@ public class ITM_MagicMushroom : Item
         //On utilise Delay manager et non InGameEvents parce qu'on veut pas que le delai scale avec le ZaWarudo
         DelayManager.LocalCallTo(() =>
         {
-            SoundManager.PlaySFX(growSFX);
+            DefaultAudioSources.PlaySFX(growSFX);
             player.body.DOBlendableScaleBy(Vector3.one * scaleIncrease, animDuration).SetEase(Ease.OutElastic);
         }, growDelay, Game.Instance);
     }
 
     public override void Unequip()
     {
-        SoundManager.PlaySFX(shrinkSFX);
+        DefaultAudioSources.PlaySFX(shrinkSFX);
         player.body.DOBlendableScaleBy(Vector3.one * -scaleIncrease, animDuration).SetEase(Ease.OutElastic);
     }
 }

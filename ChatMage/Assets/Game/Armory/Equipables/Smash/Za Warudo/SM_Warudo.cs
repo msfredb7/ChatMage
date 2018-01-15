@@ -5,6 +5,7 @@ using UnityEngine;
 using FullInspector;
 using FullSerializer;
 using DG.Tweening;
+using UnityEngine.Audio;
 
 public class SM_Warudo : Smash
 {
@@ -17,6 +18,8 @@ public class SM_Warudo : Smash
     [InspectorHeader("SFX Linking")]
     public AudioClip sfx;
     public AudioClip exitSfx;
+    public AudioMixerSnapshot slowMotionSnapshot;
+    public AudioMixerSnapshot normalSnapshot;
 
     [InspectorHeader("VFX Linking")]
     public Material zaWarudoMat;
@@ -100,7 +103,8 @@ public class SM_Warudo : Smash
         if (isIn)
         {
             isIn = false;
-            SoundManager.SlowMotionEffect(false);
+            normalSnapshot.TransitionTo(0.75f);
+            //SoundManager.SlowMotionEffect(false);
         }
     }
 
@@ -125,7 +129,8 @@ public class SM_Warudo : Smash
             if (Game.Instance == null)
                 return;
 
-            SoundManager.SlowMotionEffect(true);
+            slowMotionSnapshot.TransitionTo(0.75f);
+            //SoundManager.SlowMotionEffect(true);
 
             isIn = true;
 
@@ -139,7 +144,7 @@ public class SM_Warudo : Smash
                 AddActiveCarTrails();
         });
 
-        SoundManager.PlayStaticSFX(sfx);
+        DefaultAudioSources.PlayStaticSFX(sfx);
     }
 
     void MultiplyTimescale(float multiplier)
@@ -216,10 +221,11 @@ public class SM_Warudo : Smash
         {
             MultiplyTimescale(1 / timescaleMultiplier);
         });
-        
 
-        SoundManager.SlowMotionEffect(false);
-        SoundManager.PlayStaticSFX(exitSfx);
+
+        normalSnapshot.TransitionTo(0.75f);
+        //SoundManager.SlowMotionEffect(false);
+        DefaultAudioSources.PlayStaticSFX(exitSfx);
     }
 
     public override void OnUpdate()

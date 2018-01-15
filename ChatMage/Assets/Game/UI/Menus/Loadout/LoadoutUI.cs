@@ -99,7 +99,7 @@ namespace LoadoutMenu
             }
 
             // Chanson du Loadout
-            SoundManager.PlayMusic(loadoutSong);
+            DefaultAudioSources.PlayMusic(loadoutSong);
 
             //Le dernier loadoutResult. On veut remettre le même build que la dernière fois
             LoadoutResult lastLoadoutResult = LoadoutResult.Load();
@@ -218,14 +218,14 @@ namespace LoadoutMenu
             //On est a la derniere tab ?
             if (currentTabIndex == availableTabs.Count - 1)
             {
-                SoundManager.PlaySFX(completeSound);
+                DefaultAudioSources.PlaySFX(completeSound);
                 LauchGame();
             }
             else
             {
                 currentTabIndex++;
 
-                SoundManager.PlaySFX(nextSound);
+                DefaultAudioSources.PlaySFX(nextSound);
 
                 //Update le progress panel
                 progressPanel.SetTab(CurrentTab, true);

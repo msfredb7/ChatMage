@@ -11,15 +11,16 @@ public class VolumeModifier : MonoBehaviour
 
     void Awake()
     {
-        sfxSlidder.value = SoundManager.GetSFXSetting().dbBoost;
+        sfxSlidder.value = AudioMixerSaves.Instance.SFX_dB;
         sfxSlidder.onValueChanged.AddListener(delegate (float newValue)
         {
-            SoundManager.SetSFX(newValue);
+            AudioMixerSaves.Instance.SFX_dB = newValue;
         });
-        musicSlidder.value = SoundManager.GetMusicSetting().dbBoost;
+
+        musicSlidder.value = AudioMixerSaves.Instance.Music_dB;
         musicSlidder.onValueChanged.AddListener(delegate (float newValue)
         {
-            SoundManager.SetMusic(newValue);
+            AudioMixerSaves.Instance.Music_dB = newValue;
         });
     }
 }

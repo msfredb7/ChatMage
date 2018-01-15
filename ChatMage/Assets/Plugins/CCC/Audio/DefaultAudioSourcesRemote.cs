@@ -2,38 +2,38 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoundManagerRelay : MonoBehaviour
+public class DefaultAudioSourcesRemote : MonoBehaviour
 {
     public void PlaySFX_AudioClip(AudioClip clip)
     {
-        SoundManager.PlaySFX(clip);
+        DefaultAudioSources.PlaySFX(clip);
     }
     public void PlaySFX_AudioPlayable(AudioPlayable playable)
     {
-        SoundManager.PlaySFX(playable);
+        DefaultAudioSources.PlaySFX(playable);
     }
     public void PlayVoice_AudioClip(AudioClip clip)
     {
-        SoundManager.PlayVoice(clip);
+        DefaultAudioSources.PlayVoice(clip);
     }
     public void PlayVoice_AudioPlayable(AudioPlayable playable)
     {
-        SoundManager.PlayVoice(playable);
+        DefaultAudioSources.PlayVoice(playable);
     }
     public void PlayStaticSFX_AudioClip(AudioClip clip)
     {
-        SoundManager.PlayStaticSFX(clip);
+        DefaultAudioSources.PlayStaticSFX(clip);
     }
     public void PlayStaticSFX_AudioPlayable(AudioPlayable playable)
     {
-        SoundManager.PlayStaticSFX(playable);
+        DefaultAudioSources.PlayStaticSFX(playable);
     }
     public void PlayMusic_AudioClip(AudioClip clip)
     {
-        SoundManager.PlayMusic(clip);
+        DefaultAudioSources.PlayMusic(clip);
     }
     public void PlayMusic_AudioPlayable(AudioPlayable playable)
     {
-        SoundManager.PlayMusic(playable);
+        DefaultAudioSources.PlayMusic(playable);
     }
 }

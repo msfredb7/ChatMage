@@ -123,7 +123,7 @@ public class JesusChains : MonoBehaviour
 
         broken = true;
 
-        SoundManager.PlaySFX(breakSFX);
+        DefaultAudioSources.PlaySFX(breakSFX);
 
         flyingChains = new FlyingChain[chains.Length];
 

@@ -102,7 +102,7 @@ public class JesusV2Vehicle : EnemyVehicle
 
         if (hp > 0)
         {
-            SoundManager.PlaySFX(loseHPSound);
+            DefaultAudioSources.PlaySFX(loseHPSound);
 
             if (!IsHPShown())
                 ShowHP();

@@ -13,7 +13,7 @@ namespace GameIntroOutro
 
         public override void Play()
         {
-            SoundManager.PlaySFX(gameOverSound, soundDelay);
+            DefaultAudioSources.PlaySFX(gameOverSound, soundDelay);
         }
 
         public void Restart()

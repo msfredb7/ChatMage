@@ -7,8 +7,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 using CCC.Persistence;
 
-[CreateAssetMenu(menuName = "Audio/Audio Mixer Saves")]
-public class AudioMixerSaves : ScriptablePersistent
+public class AudioMixerSaves : MonoPersistent
 {
     [System.Serializable]
     public struct Settings
@@ -57,53 +56,57 @@ public class AudioMixerSaves : ScriptablePersistent
     public Settings GetCurrentSettings() { return settings; }
     public Settings SetNewSettings(Settings newSettings) { return settings = newSettings; }
 
+    public static AudioMixerSaves Instance;
+
     public override void Init(Action onComplete)
     {
+        Instance = this;
         if (loadOnInit)
             Load();
         onComplete();
     }
 
-    #region Set
-    public void SetMaster(float dbBoost)
+
+    #region Get / Set
+    public float Master_dB
     {
-        settings.master.dbBoost = dbBoost;
-        ApplyMaster();
+        get { return settings.master.dbBoost; }
+        set { settings.master.dbBoost = value; ApplyMaster(); }
     }
-    public void SetMaster(bool muted)
+    public bool Master_mute
     {
-        settings.master.muted = muted;
-        ApplyMaster();
+        get { return settings.master.muted; }
+        set { settings.master.muted = value; ApplyMaster(); }
     }
-    public void SetSFX(float dbBoost)
+    public float Voice_dB
     {
-        settings.sfx.dbBoost = dbBoost;
-        ApplySFX();
+        get { return settings.voice.dbBoost; }
+        set { settings.voice.dbBoost = value; ApplyVoice(); }
     }
-    public void SetSFX(bool muted)
+    public bool Voice_mute
     {
-        settings.sfx.muted = muted;
-        ApplySFX();
+        get { return settings.voice.muted; }
+        set { settings.voice.muted = value; ApplyVoice(); }
     }
-    public void SetVoice(float dbBoost)
+    public float SFX_dB
     {
-        settings.voice.dbBoost = dbBoost;
-        ApplyVoice();
+        get { return settings.sfx.dbBoost; }
+        set { settings.sfx.dbBoost = value; ApplySFX(); }
     }
-    public void SetVoice(bool muted)
+    public bool SFX_mute
     {
-        settings.voice.muted = muted;
-        ApplyVoice();
+        get { return settings.sfx.muted; }
+        set { settings.sfx.muted = value; ApplySFX(); }
     }
-    public void SetMusic(float dbBoost)
+    public float Music_dB
     {
-        settings.music.dbBoost = dbBoost;
-        ApplyMusic();
+        get { return settings.music.dbBoost; }
+        set { settings.music.dbBoost = value; ApplyMusic(); }
     }
-    public void SetMusic(bool muted)
+    public bool Music_mute
     {
-        settings.music.muted = muted;
-        ApplyMusic();
+        get { return settings.music.muted; }
+        set { settings.music.muted = value; ApplyMusic(); }
     }
     #endregion
 

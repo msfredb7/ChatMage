@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace EndGameReward
 {
@@ -14,6 +15,7 @@ namespace EndGameReward
         public PinataExplosion pinataExplosion;
         public BackgroundFreezer backgroundFreezer;
         public RewardDisplay rewardDisplay;
+        public AudioMixerSnapshot normalAudioSnapshot;
 
         private string levelScriptAssetName;
         private GameReward reward;
@@ -28,7 +30,7 @@ namespace EndGameReward
 
         public void PinataHasBeenDestroyed(Vector2 explosionPosition, Camera currentCamera, Action canUnloadCallback)
         {
-            SoundManager.SlowMotionEffect(false);
+            normalAudioSnapshot.TransitionTo(0.75f);
             backgroundFreezer.FreezeBackground(currentCamera, delegate ()
             {
                 pinataExplosion.Animate(explosionPosition, PinataExplosion.BallColor.Blue);

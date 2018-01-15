@@ -14,7 +14,7 @@ public class MenuOptions : WindowAnimation
     {
         if (isQuitting)
             return;
-        SoundManager.Save();
+        AudioMixerSaves.Instance.Save();
         Exit();
     }
 
@@ -22,7 +22,7 @@ public class MenuOptions : WindowAnimation
     {
         if (isQuitting)
             return;
-        SoundManager.Load();
+        AudioMixerSaves.Instance.Load();
         Exit();
     }
 

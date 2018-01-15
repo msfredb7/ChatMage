@@ -15,7 +15,7 @@ namespace CCC.UI
         }
         void OnClick()
         {
-            SoundManager.PlaySFX(clip);
+            DefaultAudioSources.PlaySFX(clip);
         }
     }
 }

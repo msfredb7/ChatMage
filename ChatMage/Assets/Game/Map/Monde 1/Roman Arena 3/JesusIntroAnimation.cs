@@ -60,10 +60,10 @@ public class JesusIntroAnimation : InGameAnimator
         jesus.ShowHP();
         jesus.GetComponent<AI.JesusV2Brain>().enabled = true;
 
-        SoundManager.PlayMusic(bossMusic, true, musicVolume);
+        DefaultAudioSources.PlayMusic(bossMusic, true, musicVolume);
         jesus.OnDeath += (Unit u) =>
         {
-            SoundManager.StopMusicFaded();
+            DefaultAudioSources.StopMusicFaded();
         };
     }
 
@@ -130,10 +130,10 @@ public class JesusIntroAnimation : InGameAnimator
     public void PlayAnimation()
     {
         AddTimescaleListener();
-        SoundManager.StopMusicFaded();
+        DefaultAudioSources.StopMusicFaded();
         Game.Instance.ui.dialogDisplay.StartDialog(dialog, delegate ()
         {
-            SoundManager.PlaySFX(jesusAwakensSound);
+            DefaultAudioSources.PlaySFX(jesusAwakensSound);
             controller.enabled = true;
             StopPlayer(true);
         });

@@ -27,7 +27,7 @@ public class MainMenu : BaseBehavior
     {
         PersistentLoader.LoadIfNotLoaded(delegate ()
         {
-            SoundManager.PlayMusic(anthem, volume: musicVolume);
+            DefaultAudioSources.PlayMusic(anthem, volume: musicVolume);
             adventureButton.onClick.AddListener(OnAdventureClick);
             endlessButton.onClick.AddListener(OnEndlessClick);
             if (firstLevel != null)

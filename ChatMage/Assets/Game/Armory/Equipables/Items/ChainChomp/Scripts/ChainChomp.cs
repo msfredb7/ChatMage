@@ -152,8 +152,8 @@ public class ChainChomp : MovingUnit, IAttackable
             return;
 
         //SFX
-        SoundManager.PlaySFX(GetHitSFX);
-        SoundManager.PlaySFX(breakSFX);
+        DefaultAudioSources.PlaySFX(GetHitSFX);
+        DefaultAudioSources.PlaySFX(breakSFX);
         sounds.RattleSound = false;
 
         DetachAnchor();
@@ -175,7 +175,7 @@ public class ChainChomp : MovingUnit, IAttackable
             return;
 
         //SFX
-        SoundManager.PlaySFX(breakSFX);
+        DefaultAudioSources.PlaySFX(breakSFX);
         sounds.RattleSound = false;
 
         DetachRealBall();
@@ -304,7 +304,7 @@ public class ChainChomp : MovingUnit, IAttackable
             if (attackable != null)
             {
                 //SFX
-                SoundManager.PlaySFX(hitSFX);
+                DefaultAudioSources.PlaySFX(hitSFX);
 
                 //Screen Shake
                 Game.Instance.gameCamera.vectorShaker.Hit(hitScreenShake * (unit.Position - realBall.position).normalized);
@@ -373,7 +373,7 @@ public class ChainChomp : MovingUnit, IAttackable
         if (IsDead)
             return 0;
 
-        SoundManager.PlaySFX(GetHitSFX);
+        DefaultAudioSources.PlaySFX(GetHitSFX);
 
         if (isVulnerable)
         {

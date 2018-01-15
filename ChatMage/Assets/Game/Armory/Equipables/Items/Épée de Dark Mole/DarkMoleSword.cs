@@ -49,7 +49,7 @@ public class DarkMoleSword : MonoBehaviour
 
     public void OpenSwordSet(int index, float angleDif)
     {
-        SoundManager.PlaySFX(openSFX);
+        DefaultAudioSources.PlaySFX(openSFX);
 
         index = index.Clamped(0, swordSets.Length - 1);
 
@@ -87,6 +87,6 @@ public class DarkMoleSword : MonoBehaviour
         }
         queue.MarkEnd();
 
-        SoundManager.PlaySFX(closeSFX);
+        DefaultAudioSources.PlaySFX(closeSFX);
     }
 }

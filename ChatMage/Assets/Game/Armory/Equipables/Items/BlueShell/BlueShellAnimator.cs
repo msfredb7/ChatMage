@@ -41,6 +41,16 @@ public class BlueShellAnimator : MonoBehaviour
     private Sequence tween;
     private float radius = 0;
 
+    void OnEnable()
+    {
+        shellUnit.onTimeScaleChange += ShellUnit_onTimeScaleChange;
+    }
+
+    void OnDisable()
+    {
+        shellUnit.onTimeScaleChange -= ShellUnit_onTimeScaleChange;
+    }
+
     public void ResetValues()
     {
         shell.enabled = true;
@@ -57,7 +67,7 @@ public class BlueShellAnimator : MonoBehaviour
     public void Explode(TweenCallback onComplete)
     {
         //SFX
-        SoundManager.PlaySFX(explosion_SFX);
+        DefaultAudioSources.PlaySFX(explosion_SFX);
 
         //Enables
         shell.enabled = false;
@@ -91,7 +101,6 @@ public class BlueShellAnimator : MonoBehaviour
         tween = sq;
 
         //Time scale
-        shellUnit.onTimeScaleChange += ShellUnit_onTimeScaleChange;
         ShellUnit_onTimeScaleChange(shellUnit);
 
         //Camera shake
@@ -119,14 +128,16 @@ public class BlueShellAnimator : MonoBehaviour
                 //Register kill
                 if (unit.IsDead && !wasDead && Game.Instance.Player != null)
                     Game.Instance.Player.playerStats.RegisterKilledUnit(unit);
-                    
+
             }
         }
     }
 
     private void ShellUnit_onTimeScaleChange(Unit unit)
     {
-        tween.timeScale = unit.TimeScale;
-        coreAnimator.SetFloat("speed", unit.TimeScale);
+        if (tween != null)
+            tween.timeScale = unit.TimeScale;
+        if (coreAnimator.gameObject.activeInHierarchy)
+            coreAnimator.SetFloat("speed", unit.TimeScale);
     }
 }
