@@ -8,30 +8,42 @@ using FullSerializer;
 using FullInspector;
 using CCC.Persistence;
 
-public class GameSaves : MonoPersistent
+public partial class GameSaves : MonoPersistent
 {
-    [fiInspectorOnly]
-    public OpenSavesButton locationButton;
     public int saveVersion = 1;
 
     [Serializable]
-    public class Data
+    private class Data
     {
         public Dictionary<string, int> ints = new Dictionary<string, int>();
         public Dictionary<string, float> floats = new Dictionary<string, float>();
         public Dictionary<string, string> strings = new Dictionary<string, string>();
         public Dictionary<string, bool> bools = new Dictionary<string, bool>();
+        public Dictionary<string, object> objects = new Dictionary<string, object>();
     }
+
+    private class Category
+    {
+        public string fileName;
+        public Data data;
+        public Category(string fileName)
+        {
+            this.fileName = fileName;
+            data = new Data();
+        }
+    }
+
 
     public static GameSaves instance;
 
-    private void Awake()
-    {
-        instance = this;
-    }
+    /// <summary>
+    /// Read/Write operation queue. C'est une queue qui assure l'ordonnancement des opérations read/write
+    /// </summary>
+    private Dictionary<Category, Queue<Action>> rwoQueue = new Dictionary<Category, Queue<Action>>();
 
     public override void Init(Action onComplete)
     {
+        instance = this;
         LoadAll();
         onComplete();
     }
@@ -39,6 +51,19 @@ public class GameSaves : MonoPersistent
     private string GetPath()
     {
         return Application.persistentDataPath + "/v" + saveVersion + "_";
+    }
+
+    private Data TypeToData(Type type)
+    {
+        return TypeToCategory(type).data;
+    }
+    private Category TypeToCategory(Type type)
+    {
+        return categories[(int)type];
+    }
+    private string TypeToFileName(Type type)
+    {
+        return TypeToCategory(type).fileName;
     }
 
     #region Get Value
@@ -50,7 +75,7 @@ public class GameSaves : MonoPersistent
         else
             return defaultVal;
     }
-    public float GetFloat(Type type, string key, float defaultVal)
+    public float GetFloat(Type type, string key, float defaultVal = 0)
     {
         Data data = TypeToData(type);
         if (data.floats.ContainsKey(key))
@@ -74,6 +99,23 @@ public class GameSaves : MonoPersistent
         else
             return defaultVal;
     }
+    public object GetObjectClone(Type type, string key, object defaultVal = null)
+    {
+        Data data = TypeToData(type);
+        if (data.objects.ContainsKey(key))
+        {
+            object result = data.objects[key];
+            return result != null ? ObjectCopier.Clone(result) : null;
+        }
+        else
+            return defaultVal;
+    }
+
+    public Dictionary<string, int>.KeyCollection GetIntKeys(Type type) { return TypeToData(type).ints.Keys; }
+    public Dictionary<string, bool>.KeyCollection GetBoolKeys(Type type) { return TypeToData(type).bools.Keys; }
+    public Dictionary<string, float>.KeyCollection GetFloatKeys(Type type) { return TypeToData(type).floats.Keys; }
+    public Dictionary<string, string>.KeyCollection GetStringKeys(Type type) { return TypeToData(type).strings.Keys; }
+    public Dictionary<string, object>.KeyCollection GetObjectKeys(Type type) { return TypeToData(type).objects.Keys; }
     #endregion
 
     #region Set Value
@@ -109,6 +151,44 @@ public class GameSaves : MonoPersistent
         else
             data.bools.Add(key, value);
     }
+    public void SetObjectClone(Type type, string key, object value)
+    {
+        object clone = value != null ? ObjectCopier.Clone(value) : null;
+
+        Data data = TypeToData(type);
+        if (data.objects.ContainsKey(key))
+            data.objects[key] = clone;
+        else
+            data.objects.Add(key, clone);
+    }
+    #endregion
+
+    #region Delete
+    public bool DeleteInt(Type type, string key)
+    {
+        Data data = TypeToData(type);
+        return data.ints.Remove(key);
+    }
+    public bool DeleteFloat(Type type, string key)
+    {
+        Data data = TypeToData(type);
+        return data.floats.Remove(key);
+    }
+    public bool DeleteString(Type type, string key)
+    {
+        Data data = TypeToData(type);
+        return data.strings.Remove(key);
+    }
+    public bool DeleteBool(Type type, string key)
+    {
+        Data data = TypeToData(type);
+        return data.bools.Remove(key);
+    }
+    public bool DeleteObjectClone(Type type, string key)
+    {
+        Data data = TypeToData(type);
+        return data.objects.Remove(key);
+    }
     #endregion
 
     #region Contains ?
@@ -135,275 +215,263 @@ public class GameSaves : MonoPersistent
         Data data = TypeToData(type);
         return data.bools.ContainsKey(key);
     }
+
+    public bool ContainsObject(Type type, string key)
+    {
+        Data data = TypeToData(type);
+        return data.objects.ContainsKey(key);
+    }
     #endregion
 
     #region Save/Load
+
+    #region Load
+    public void LoadAll()
+    {
+        for (int i = 0; i < categories.Length; i++)
+        {
+            LoadData(categories[i], null);
+        }
+    }
+    public void LoadAll(Action onComplete)
+    {
+        InitQueue queue = new InitQueue(onComplete);
+        for (int i = 0; i < categories.Length; i++)
+        {
+            LoadData(categories[i], queue.Register());
+        }
+        queue.MarkEnd();
+    }
+    public void LoadAllAsync()
+    {
+        for (int i = 0; i < categories.Length; i++)
+        {
+            LoadDataAsync(categories[i], null);
+        }
+    }
     public void LoadAllAsync(Action onComplete)
     {
         InitQueue queue = new InitQueue(onComplete);
-        LoadDataAsync(Type.Loadout, queue.Register());
-        LoadDataAsync(Type.Levels, queue.Register());
-        LoadDataAsync(Type.Account, queue.Register());
-        LoadDataAsync(Type.Armory, queue.Register());
-        LoadDataAsync(Type.Tutorial, queue.Register());
-        LoadDataAsync(Type.Dialog, queue.Register());
-
+        for (int i = 0; i < categories.Length; i++)
+        {
+            LoadDataAsync(categories[i], queue.Register());
+        }
         queue.MarkEnd();
     }
 
-    public void LoadAll()
+    public void LoadDataAsync(Type type, Action onLoadComplete = null)
     {
-        LoadData(Type.Loadout);
-        LoadData(Type.Levels);
-        LoadData(Type.Account);
-        LoadData(Type.Armory);
-        LoadData(Type.Tutorial);
-        LoadData(Type.Dialog);
+        LoadDataAsync(TypeToCategory(type), onLoadComplete);
+    }
+    private void LoadDataAsync(Category type, Action onLoadComplete)
+    {
+        AddRWOperation(type, () =>
+        {
+            string path = GetPath() + type.fileName;
+
+            //Exists ?
+            if (Saves.Exists(path))
+                Saves.ThreadLoad(path,
+                    delegate (object graph)
+                    {
+                        type.data = (Data)graph;
+
+                        if (onLoadComplete != null)
+                            onLoadComplete();
+
+                        CompleteRWOperation(type);
+                    });
+            else
+            {
+                //Nouveau fichier !
+                type.data = new Data();
+                SaveDataAsync(type, onLoadComplete);
+
+                CompleteRWOperation(type);
+            }
+        });
     }
 
-    public void SaveAllAsync(Action onComplete)
+    public void LoadData(Type type, Action onLoadComplete = null)
     {
-        InitQueue queue = new InitQueue(onComplete);
-        SaveDataAsync(Type.Loadout, queue.Register());
-        SaveDataAsync(Type.Levels, queue.Register());
-        SaveDataAsync(Type.Account, queue.Register());
-        SaveDataAsync(Type.Armory, queue.Register());
-        SaveDataAsync(Type.Tutorial, queue.Register());
-        SaveDataAsync(Type.Dialog, queue.Register());
-
-        queue.MarkEnd();
+        LoadData(TypeToCategory(type), onLoadComplete);
     }
+    private void LoadData(Category category, Action onLoadComplete)
+    {
+        AddRWOperation(category, () =>
+        {
+            string path = GetPath() + category.fileName;
 
-    [InspectorButton()]
+            //Exists ?
+            if (Saves.Exists(path))
+            {
+                object graph = Saves.InstantLoad(path);
+                category.data = (Data)graph;
+
+                if (onLoadComplete != null)
+                    onLoadComplete();
+            }
+            else
+            {
+                //Nouveau fichier !
+                category.data = new Data();
+                SaveData(category, onLoadComplete);
+            }
+
+            CompleteRWOperation(category);
+        });
+    }
+    #endregion
+
+    #region Save
     public void SaveAll()
     {
-        SaveData(Type.Loadout);
-        SaveData(Type.Levels);
-        SaveData(Type.Account);
-        SaveData(Type.Armory);
-        SaveData(Type.Tutorial);
-        SaveData(Type.Dialog);
+        for (int i = 0; i < categories.Length; i++)
+        {
+            SaveData(categories[i], null);
+        }
 #if UNITY_EDITOR
         Debug.Log("All Data Saved");
 #endif
     }
-
-    public void LoadDataAsync(Type type, Action onLoadComplete)
+    public void SaveAll(Action onComplete)
     {
-        string ext = TypeToFileName(type);
-        string path = GetPath() + ext;
-
-        //Exists ?
-        if (Saves.Exists(path))
-            Saves.ThreadLoad(GetPath() + ext,
-                delegate (object graph)
-                {
-                    ApplyDataByType(type, (Data)graph);
-                    if (onLoadComplete != null)
-                        onLoadComplete();
-                });
-        else
+        InitQueue queue = new InitQueue(onComplete);
+        for (int i = 0; i < categories.Length; i++)
         {
-            //Nouveau fichier !
-            NewOfType(type);
-            SaveDataAsync(type, onLoadComplete);
+            SaveData(categories[i], queue.Register());
         }
-
+        queue.MarkEnd();
     }
-
-    public void LoadData(Type type)
+    public void SaveAllAsync()
     {
-        string ext = TypeToFileName(type);
-        string path = GetPath() + ext;
-
-        //Exists ?
-        if (Saves.Exists(path))
+        for (int i = 0; i < categories.Length; i++)
         {
-            object graph = Saves.InstantLoad(GetPath() + ext);
-            ApplyDataByType(type, (Data)graph);
-        }
-        else
-        {
-            //Nouveau fichier !
-            NewOfType(type);
-            SaveData(type);
+            SaveDataAsync(categories[i], null);
         }
     }
-
-    public void SaveDataAsync(Type type, Action onSaveComplete)
+    public void SaveAllAsync(Action onComplete)
     {
-        string ext = TypeToFileName(type);
-        Data data = TypeToData(type);
-
-        Saves.ThreadSave(GetPath() + ext, data, onSaveComplete);
+        InitQueue queue = new InitQueue(onComplete);
+        for (int i = 0; i < categories.Length; i++)
+        {
+            SaveDataAsync(categories[i], queue.Register());
+        }
+        queue.MarkEnd();
     }
 
-    public void SaveData(Type type)
+    public void SaveDataAsync(Type type, Action onSaveComplete = null)
     {
-        string ext = TypeToFileName(type);
-        Data data = TypeToData(type);
-        Saves.InstantSave(GetPath() + ext, data);
+        SaveDataAsync(TypeToCategory(type), onSaveComplete);
+    }
+    private void SaveDataAsync(Category category, Action onSaveComplete)
+    {
+        AddRWOperation(category, () =>
+        {
+            Saves.ThreadSave(GetPath() + category.fileName, category.data, () =>
+            {
+                if (onSaveComplete != null)
+                    onSaveComplete();
+
+                CompleteRWOperation(category);
+            });
+        });
     }
 
-    public void ClearAllSaves()
+    public void SaveData(Type type, Action onSaveComplete = null)
     {
-        ClearAccount();
-        ClearLevelSelect();
-        ClearLoadout();
-        ClearArmory();
-        ClearTutorial();
-        ClearDialogs();
+        SaveData(TypeToCategory(type), onSaveComplete);
     }
+    private void SaveData(Category category, Action onSaveComplete)
+    {
+        AddRWOperation(category, () =>
+        {
+            Saves.InstantSave(GetPath() + category.fileName, category.data);
 
-    [InspectorButton()]
-    public void ClearLoadout()
-    {
-        ClearSave(Type.Loadout);
-#if UNITY_EDITOR
-        Debug.Log("Loadout Cleared");
-#endif
-    }
-    [InspectorButton()]
-    public void ClearLevelSelect()
-    {
-        ClearSave(Type.Levels);
-#if UNITY_EDITOR
-        Debug.Log("LevelSelect Cleared");
-#endif
-    }
-    [InspectorButton()]
-    public void ClearAccount()
-    {
-        ClearSave(Type.Account);
-#if UNITY_EDITOR
-        Debug.Log("Account Cleared");
-#endif
-    }
-    [InspectorButton()]
-    public void ClearArmory()
-    {
-        ClearSave(Type.Armory);
-#if UNITY_EDITOR
-        Debug.Log("Armory Cleared");
-#endif
-    }
-    [InspectorButton()]
-    public void ClearTutorial()
-    {
-        ClearSave(Type.Tutorial);
-#if UNITY_EDITOR
-        Debug.Log("Tutorial Cleared");
-#endif
-    }
-    [InspectorButton()]
-    public void ClearDialogs()
-    {
-        ClearSave(Type.Dialog);
-#if UNITY_EDITOR
-        Debug.Log("Dialogs Cleared");
-#endif
-    }
+            if (onSaveComplete != null)
+                onSaveComplete();
 
-    public void ClearSave(Type type)
-    {
-        Saves.Delete(GetPath() + TypeToFileName(type));
-        NewOfType(type);
+            CompleteRWOperation(category);
+        });
     }
-
-    private void NewOfType(Type type)
-    {
-        ApplyDataByType(type, new Data());
-    }
-
     #endregion
 
-    #region ADD NEW CATEGORIES HERE
-
-    private const string LEVELSELECT_FILE = "levelSelect.dat";
-    private const string LOADOUT_FILE = "loadout.dat";
-    private const string ACCOUNT_FILE = "account.dat";
-    private const string ARMORY_FILE = "armory.dat";
-    private const string TUTORIAL_FILE = "tutorial.dat";
-    private const string DIALOG_FILE = "dialog.dat";
-
-    public enum Type { Levels = 0, Loadout = 1, Account = 2, Armory = 3, Tutorial = 4, Dialog = 5}
-
-    [ShowInInspector]
-    private Data levelSelectData = new Data();
-    [ShowInInspector]
-    private Data loadoutData = new Data();
-    [ShowInInspector]
-    private Data accountData = new Data();
-    [ShowInInspector]
-    private Data armoryData = new Data();
-    [ShowInInspector]
-    private Data tutorialData = new Data();
-    [ShowInInspector]
-    private Data dialogData = new Data();
-
-    private string TypeToFileName(Type type)
+    #region Clear
+    public void ClearAllSaves()
     {
-        switch (type)
+        for (int i = 0; i < categories.Length; i++)
         {
-            case Type.Levels:
-                return LEVELSELECT_FILE;
-            case Type.Loadout:
-                return LOADOUT_FILE;
-            case Type.Account:
-                return ACCOUNT_FILE;
-            case Type.Armory:
-                return ARMORY_FILE;
-            case Type.Tutorial:
-                return TUTORIAL_FILE;
-            case Type.Dialog:
-                return DIALOG_FILE;
-        }
-        return "";
-    }
-
-    private Data TypeToData(Type type)
-    {
-        switch (type)
-        {
-            case Type.Levels:
-                return levelSelectData;
-            case Type.Loadout:
-                return loadoutData;
-            case Type.Account:
-                return accountData;
-            case Type.Armory:
-                return armoryData;
-            case Type.Tutorial:
-                return tutorialData;
-            case Type.Dialog:
-                return dialogData;
-        }
-        return null;
-    }
-
-    private void ApplyDataByType(Type type, Data newData)
-    {
-        switch (type)
-        {
-            case Type.Levels:
-                levelSelectData = newData;
-                break;
-            case Type.Loadout:
-                loadoutData = newData;
-                break;
-            case Type.Account:
-                accountData = newData;
-                break;
-            case Type.Armory:
-                armoryData = newData;
-                break;
-            case Type.Tutorial:
-                tutorialData = newData;
-                break;
-            case Type.Dialog:
-                dialogData = newData;
-                break;
+            ClearSave(categories[i], null);
         }
     }
+    public void ClearAllSaves(Action onComplete)
+    {
+        InitQueue queue = new InitQueue(onComplete);
+        for (int i = 0; i < categories.Length; i++)
+        {
+            ClearSave(categories[i], queue.Register());
+        }
+        queue.MarkEnd();
+    }
+    public void ClearSave(Type type, Action onComplete = null)
+    {
+        ClearSave(TypeToCategory(type), onComplete);
+    }
+    private void ClearSave(Category category, Action onComplete)
+    {
+        AddRWOperation(category, () =>
+        {
+            Saves.Delete(GetPath() + category.fileName);
+            category.data = new Data();
+
+            if (onComplete != null)
+                onComplete();
+
+            CompleteRWOperation(category);
+        });
+    }
+    #endregion
+
+    #region RW Operations
+    private void AddRWOperation(Category category, Action action)
+    {
+        //S'il y a deja une queue, on s'enfile et on attend
+        if (rwoQueue.ContainsKey(category))
+        {
+            //On s'enfile
+            rwoQueue[category].Enqueue(action);
+        }
+        else
+        {
+            //On cree la queue et execute l'operation
+            rwoQueue.Add(category, new Queue<Action>());
+            action();
+        }
+    }
+
+    private void CompleteRWOperation(Category category)
+    {
+        if (rwoQueue.ContainsKey(category))
+        {
+            Queue<Action> q = rwoQueue[category];
+            if (q.Count == 0)
+            {
+                //On est au bout de la file
+                rwoQueue.Remove(category);
+            }
+            else
+            {
+                //On execute la prochain action
+                Action nextOperation = q.Dequeue();
+                nextOperation();
+            }
+        }
+        else
+        {
+            Debug.LogError("Ne devrais pas arriver");
+        }
+    }
+    #endregion
+
+    #endregion
 }
-#endregion
