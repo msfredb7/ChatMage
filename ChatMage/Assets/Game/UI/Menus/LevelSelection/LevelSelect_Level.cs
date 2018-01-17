@@ -10,8 +10,9 @@ namespace LevelSelect
         //public Text displayName;
         public Level level;
         public Button button;
+		public FloatingAnimation flagAnim;
 
-        [NonSerialized]
+		[NonSerialized]
         public RectTransform rectTransform;
 
         public delegate void LevelSelectEvent(Level level);
@@ -21,8 +22,9 @@ namespace LevelSelect
         [HideInInspector]
         public bool hasBeenSeen;
         private const string hasBeenSeenKey = "_seen";
+		private const string completedKey = "cmplt_";
 
-        void Awake()
+		void Awake()
         {
             rectTransform = GetComponent<RectTransform>();
             button.onClick.AddListener(OnClick);
@@ -37,9 +39,17 @@ namespace LevelSelect
         {
             if (GameSaves.instance.ContainsBool(GameSaves.Type.Levels, level.levelScriptName + hasBeenSeenKey))
                 hasBeenSeen = GameSaves.instance.GetBool(GameSaves.Type.Levels, level.levelScriptName + hasBeenSeenKey);
-            /*else
+			/*else
                 GameSaves.instance.SetBool(GameSaves.Type.Levels, hasBeenSeenKey + level.levelScriptName, false);*/
-        }
+
+			if (GameSaves.instance.ContainsBool(GameSaves.Type.Levels, completedKey + level.levelScriptName))
+			{
+				flagAnim.cycleDuration = 2.5f;
+				flagAnim.maxSize = 1.02f;
+				flagAnim.minSize = 0.99f;
+			}
+			flagAnim.enabled = true;
+		}
 
         void OnClick()
         {
