@@ -310,7 +310,7 @@ public class ChainChomp : MovingUnit, IAttackable
                 Game.Instance.gameCamera.vectorShaker.Hit(hitScreenShake * (unit.Position - realBall.position).normalized);
 
                 bool wasDead = unit.IsDead;
-                Game.Instance.commonVfx.SmallHit(collision.contacts[0].point, Color.white);
+                Game.Instance.commonVfx.HitWhite(collision.contacts[0].point);
                 attackable.Attacked(other, hitDamage * Game.Instance.Player.playerStats.damageMultiplier, this, listener.info);
 
                 if (unit.IsDead && !wasDead)

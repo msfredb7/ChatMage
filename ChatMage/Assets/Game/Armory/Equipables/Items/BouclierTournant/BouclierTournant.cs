@@ -61,7 +61,7 @@ public class BouclierTournant : Unit, IAttackable
         if (!IsTurning())
             TurnShield();
 
-        Game.Instance.commonVfx.SmallHit(shieldCollider.transform.position, Color.white);
+        Game.Instance.commonVfx.HitWhite(shieldCollider.transform.position);
     }
 
     private bool IsTurning()

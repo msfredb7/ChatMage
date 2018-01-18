@@ -55,7 +55,7 @@ public class ArcherArrow : MovingUnit
             IAttackable attackable = unit.GetComponent<IAttackable>();
             if (attackable != null)
             {
-                Game.Instance.commonVfx.SmallHit(arrowTip.position, Color.white);
+                Game.Instance.commonVfx.HitWhite(arrowTip.position);
 
                 attackable.Attacked(other, 1, this, listener.info);
                 Die();

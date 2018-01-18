@@ -9,7 +9,7 @@ using UnityEngine.Events;
 
 public class Fred_TestScript : MonoBehaviour
 {
-    public MonoBehaviour someOtherScript;
+    public GameObject obj;
 
     void Start()
     {
@@ -20,18 +20,7 @@ public class Fred_TestScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            GameSaves.instance.SetInt(GameSaves.Type.Levels, "test", 3);
-            GameSaves.instance.SetInt(GameSaves.Type.Levels, "teswdt", 66);
-            GameSaves.instance.SetString(GameSaves.Type.Levels, "teswdt", "dwada");
-            GameSaves.instance.SetObjectClone(GameSaves.Type.Levels, "teswdt", "dwada");
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            GameSaves.instance.SetFloat(GameSaves.Type.Levels, "pogo", 3);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            GameSaves.instance.DeleteFloat(GameSaves.Type.Levels, "pogo");
+            obj.SetActive(!obj.activeSelf);
         }
     }
 }
