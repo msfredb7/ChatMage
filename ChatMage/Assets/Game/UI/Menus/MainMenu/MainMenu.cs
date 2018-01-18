@@ -50,21 +50,9 @@ public class MainMenu : BaseBehavior
         LoadoutResult loadoutResult = new LoadoutResult();
         loadoutResult.AddEquipable(carAssetName, EquipableType.Car);
 
-        //Scene message à donner au framework
+        //Scene message
         ToGameMessage gameMessage = new ToGameMessage(endlessLevel.levelScriptName, loadoutResult, true);
 
-        //Cinematic Settings
-        //CinematicSettings cinematicSettings = new CinematicSettings
-        //{
-        //    skipOnDoubleTap = false,
-        //    nextSceneName = Framework.SCENENAME,
-        //    nextSceneMessage = gameMessage
-        //};
-
-        ////Launch
-        //CinematicScene.LaunchCinematic("Cinematic Demo", cinematicSettings);
-
-        // ON NE PASSE PAS PAR L'INTRO
         LoadingScreen.TransitionTo(Framework.SCENENAME, gameMessage, true);
     }
 

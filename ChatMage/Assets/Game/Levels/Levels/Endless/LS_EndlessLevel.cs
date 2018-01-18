@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class LS_EndlessLevel : LevelScript
 {
@@ -32,6 +33,9 @@ public class LS_EndlessLevel : LevelScript
     UnityEvent startTransition = new UnityEvent();
     UnityEvent startNextWave = new UnityEvent();
 
+    // UI
+    EndlessUI ui;
+
     // Initialisation avant le debut de la partie
     protected override void OnGameReady()
     {
@@ -48,17 +52,23 @@ public class LS_EndlessLevel : LevelScript
 
         playerSpawn = Game.Instance.map.mapping.GetTaggedObject("respawn").gameObject;
 
-        currentStage = 1;
+        LoadStageInfo();
 
-        Game.Instance.ui.stageText.text = "Stage " + currentStage;
-        Game.Instance.ui.stageText.gameObject.SetActive(true);
-
+        // Chargement du UI
+        // Si la scene prend du temps a charge par rapport a l'intro il faudra que le jeu attend pour CECI
+        Scenes.LoadAsync(EndlessUI.SCENENAME, LoadSceneMode.Additive,delegate(Scene scene){
+            ui = scene.FindRootObject<EndlessUI>();
+            ui.stageText.text = "Stage " + currentStage;
+            ui.stageText.gameObject.SetActive(true);
+        });
     }
 
     // Initialisation lors du debut de la partie
     protected override void OnGameStarted()
     {
+        // La porte est ouverte par default, il faut donc fermer apres
         botgate.Close();
+        // On spawn maintenant la premiere vague !
         SpawnWave();
     }
 
@@ -69,6 +79,11 @@ public class LS_EndlessLevel : LevelScript
             default:
                 break;
         }
+    }
+
+    private void LoadStageInfo()
+    {
+        currentStage = 1;
     }
 
     // Spawn d'une vague d'ennemi durant l'étage
@@ -102,7 +117,7 @@ public class LS_EndlessLevel : LevelScript
         wave.when.onlyTriggerOnce = true;
 
         // Lorsque la vague est fini
-        wave.onComplete += NextWave;
+        wave.onComplete += GoToNextWave;
 
         // Initialisation de la vague
         ManuallyAddWave(wave);
@@ -110,7 +125,7 @@ public class LS_EndlessLevel : LevelScript
     }
 
     // Initialisation du processus de changement d'étages
-    private void NextWave()
+    private void GoToNextWave()
     {
         // Ouverture de la porte du haut
         waitingForExit = true;
@@ -148,12 +163,12 @@ public class LS_EndlessLevel : LevelScript
     private void Transition(Action onComplete)
     {
         // Fade out
-        Game.Instance.ui.transitionBG.DOFade(1, transitionDuration).OnComplete(delegate() {
-            Game.Instance.ui.stageText.text = "Stage " + currentStage; // Changement du texte dans le ui
+        ui.transitionBG.DOFade(1, transitionDuration).OnComplete(delegate() {
+            ui.stageText.text = "Stage " + currentStage; // Changement du texte dans le ui
             Game.Instance.DelayedCall(delegate ()
             {
                 // Fade in
-                Game.Instance.ui.transitionBG.DOFade(0, transitionDuration).OnComplete(delegate () {
+                ui.transitionBG.DOFade(0, transitionDuration).OnComplete(delegate () {
                     botgate.Open();
                     Game.Instance.playerBounds.bottom.gameObject.SetActive(false);
                     MovePlayer(onComplete);
@@ -162,7 +177,8 @@ public class LS_EndlessLevel : LevelScript
         }).SetUpdate(true);
     }
 
-    // Deplacement du joueur
+    // TODO : BUG DE CAMERA QUI SE LOCK SOUDAINEMENT SUR LE JOUEUR A FIX
+    // Deplacement du joueur (animation d'intro)
     private void MovePlayer(Action onComplete)
     {
         PlayerController player = Game.Instance.Player;
