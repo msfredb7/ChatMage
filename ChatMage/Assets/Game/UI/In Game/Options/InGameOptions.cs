@@ -19,11 +19,20 @@ public class InGameOptions : WindowAnimation
     {
         base.Awake();
 
-        levelSelectButton.gameObject.SetActive(Game.Instance.framework.CanGoToLevelSelect);
+        PersistentLoader.LoadIfNotLoaded(()=>
+        {
+            if (!IsOpen())
+                Open();
+        });
 
-        //Lock game state
-        Game.Instance.gameRunning.Lock("optionsMenu");
-        Game.Instance.ui.playerInputs.Enabled.Lock("opt");
+        if (Game.Instance != null)
+        {
+            levelSelectButton.gameObject.SetActive(Game.Instance.framework.CanGoToLevelSelect);
+
+            //Lock game state
+            Game.Instance.gameRunning.Lock("optionsMenu");
+            Game.Instance.ui.playerInputs.Enabled.Lock("opt");
+        }
     }
 
     private void OnDestroy()
@@ -38,13 +47,13 @@ public class InGameOptions : WindowAnimation
 
     public void Confirm()
     {
-        AudioMixerSaves.Instance.Save();
+        AudioMixerSaver.Instance.Save();
         Exit();
     }
 
     public void Cancel()
     {
-        AudioMixerSaves.Instance.Load();
+        AudioMixerSaver.Instance.Load();
         Exit();
     }
 

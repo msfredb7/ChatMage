@@ -4,15 +4,18 @@ using UnityEngine;
 using UnityEditor;
 using System.IO;
 using System.Diagnostics;
+using System.Reflection;
+using System;
 
-[CustomEditor(typeof(AudioMixerSaves))]
+[CustomEditor(typeof(AudioMixerSaver))]
 public class AudioMixerSavesEditor : Editor
 {
     SerializedProperty _fileName;
     SerializedProperty _mixer;
-    SerializedProperty _defaultSettings;
     SerializedProperty _loadOnEnable;
     private GUIStyle runtimeStyle;
+    private AudioMixerSaver audioMixerSaves;
+    AudioMixerSaver.ChannelType[] channelTypes;
 
     void CheckResources()
     {
@@ -20,8 +23,6 @@ public class AudioMixerSavesEditor : Editor
             _fileName = serializedObject.FindProperty("fileName");
         if (_mixer == null)
             _mixer = serializedObject.FindProperty("mixer");
-        if (_defaultSettings == null)
-            _defaultSettings = serializedObject.FindProperty("defaultSettings");
         if (_loadOnEnable == null)
             _loadOnEnable = serializedObject.FindProperty("loadOnInit");
 
@@ -30,12 +31,17 @@ public class AudioMixerSavesEditor : Editor
             runtimeStyle = new GUIStyle(EditorStyles.boldLabel);
             runtimeStyle.normal.textColor = new Color(0.65f, 0f, 0f);
         }
+        audioMixerSaves = (AudioMixerSaver)target;
+
+        var values = Enum.GetValues(typeof(AudioMixerSaver.ChannelType));
+
+        channelTypes = new AudioMixerSaver.ChannelType[values.Length];
+        values.CopyTo(channelTypes, 0);
     }
 
     public override void OnInspectorGUI()
     {
         CheckResources();
-        var obj = (AudioMixerSaves)target;
 
         EditorGUI.BeginChangeCheck();
 
@@ -55,20 +61,20 @@ public class AudioMixerSavesEditor : Editor
 
         EditorGUILayout.PropertyField(_loadOnEnable, true);
         EditorGUILayout.PropertyField(_mixer, true);
-        EditorGUILayout.PropertyField(_defaultSettings, true);
+
 
         EditorGUILayout.Space();
         if (GUILayout.Button("Revert to defaults"))
         {
-            obj.SetDefaults();
+            audioMixerSaves.SetDefaults();
         }
         if (GUILayout.Button("Save to disk"))
         {
-            obj.Save();
+            audioMixerSaves.Save();
         }
         if (GUILayout.Button("Load from disk"))
         {
-            obj.Load();
+            audioMixerSaves.Load();
         }
 
         if (EditorGUI.EndChangeCheck())
@@ -76,30 +82,39 @@ public class AudioMixerSavesEditor : Editor
             serializedObject.ApplyModifiedProperties();
         }
 
-        if (Application.isPlaying)
+        EditorGUILayout.Space();
+        EditorGUILayout.LabelField("DATA", runtimeStyle);
+
+        for (int i = 0; i < channelTypes.Length; i++)
         {
-            EditorGUILayout.Space();
-            EditorGUILayout.LabelField("RUNTIME", runtimeStyle);
-
-            AudioMixerSaves.Settings settings = obj.GetCurrentSettings();
-
-            EditorGUI.BeginChangeCheck();
-            DrawChannel("Master", ref settings.master);
-            DrawChannel("Voice", ref settings.voice);
-            DrawChannel("SFX", ref settings.sfx);
-            DrawChannel("Music", ref settings.music);
-            if (EditorGUI.EndChangeCheck())
-            {
-                obj.SetNewSettings(settings);
-            }
+            DrawChannel(channelTypes[i].ToString(), channelTypes[i]);
         }
     }
 
-    private void DrawChannel(string label, ref AudioMixerSaves.Channel channel)
+    private void DrawChannel(string label, ref AudioMixerSaver.ChannelData channel)
     {
         EditorGUILayout.Space();
         EditorGUILayout.LabelField(label);
         channel.muted = EditorGUILayout.Toggle("Muted", channel.muted);
         channel.dbBoost = EditorGUILayout.FloatField("Db Boost", channel.dbBoost);
+    }
+
+    private void DrawChannel(string label, AudioMixerSaver.ChannelType channelType)
+    {
+        EditorGUILayout.Space();
+        EditorGUILayout.LabelField(label);
+
+
+        EditorGUI.BeginChangeCheck();
+
+        var muted = EditorGUILayout.Toggle("Muted", audioMixerSaves.GetMuted(channelType));
+        var volume = EditorGUILayout.FloatField("Db Boost", audioMixerSaves.GetVolume(channelType));
+
+
+        if (EditorGUI.EndChangeCheck())
+        {
+            audioMixerSaves.SetMuted(channelType, muted);
+            audioMixerSaves.SetVolume(channelType, volume);
+        }
     }
 }
