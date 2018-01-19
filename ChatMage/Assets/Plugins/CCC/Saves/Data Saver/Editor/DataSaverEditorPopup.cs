@@ -3,9 +3,9 @@ using UnityEngine;
 using UnityEditor;
 using System;
 
-public class GameSavesEditorPopup : EditorWindow
+public class DataSaverEditorPopup : EditorWindow
 {
-    private GameSavesEditor.DataType dataType;
+    private DataSaverEditor.DataType dataType;
     private DataSaver.Type chosenCategory;
     private DataSaver gameSaves;
 
@@ -16,15 +16,15 @@ public class GameSavesEditorPopup : EditorWindow
     private string keyName = "";
     private Action onAdd;
 
-    public static void Popup(DataSaver gameSaves, DataSaver.Type chosenCategory, GameSavesEditor.DataType dataType, Vector2 position, Action onAdd)
+    public static void Popup(DataSaver gameSaves, DataSaver.Type chosenCategory, DataSaverEditor.DataType dataType, Vector2 position, Action onAdd)
     {
-        GameSavesEditorPopup window = ScriptableObject.CreateInstance<GameSavesEditorPopup>();
+        DataSaverEditorPopup window = ScriptableObject.CreateInstance<DataSaverEditorPopup>();
         window.position = new Rect(position.x, position.y, 250, 88);
         window.Init(gameSaves, chosenCategory, dataType, onAdd);
         window.ShowPopup();
     }
 
-    void Init(DataSaver gameSaves, DataSaver.Type chosenCategory, GameSavesEditor.DataType dataType, Action onAdd)
+    void Init(DataSaver gameSaves, DataSaver.Type chosenCategory, DataSaverEditor.DataType dataType, Action onAdd)
     {
         this.gameSaves = gameSaves;
         this.chosenCategory = chosenCategory;
@@ -52,21 +52,21 @@ public class GameSavesEditorPopup : EditorWindow
         switch (dataType)
         {
             default:
-            case GameSavesEditor.DataType.Object:
-            case GameSavesEditor.DataType.All:
+            case DataSaverEditor.DataType.Object:
+            case DataSaverEditor.DataType.All:
                 Debug.LogError("Error Type");
                 Close();
                 break;
-            case GameSavesEditor.DataType.Int:
+            case DataSaverEditor.DataType.Int:
                 intValue = EditorGUILayout.IntField(intValue);
                 break;
-            case GameSavesEditor.DataType.Bool:
+            case DataSaverEditor.DataType.Bool:
                 boolValue = EditorGUILayout.Toggle(boolValue);
                 break;
-            case GameSavesEditor.DataType.Float:
+            case DataSaverEditor.DataType.Float:
                 floatValue = EditorGUILayout.FloatField(floatValue);
                 break;
-            case GameSavesEditor.DataType.String:
+            case DataSaverEditor.DataType.String:
                 stringValue = EditorGUILayout.TextField(stringValue);
                 break;
         }
@@ -86,19 +86,19 @@ public class GameSavesEditorPopup : EditorWindow
             switch (dataType)
             {
                 default:
-                case GameSavesEditor.DataType.All:
-                case GameSavesEditor.DataType.Object:
+                case DataSaverEditor.DataType.All:
+                case DataSaverEditor.DataType.Object:
                     break;
-                case GameSavesEditor.DataType.Int:
+                case DataSaverEditor.DataType.Int:
                     gameSaves.SetInt(chosenCategory, keyName, intValue);
                     break;
-                case GameSavesEditor.DataType.Bool:
+                case DataSaverEditor.DataType.Bool:
                     gameSaves.SetBool(chosenCategory, keyName, boolValue);
                     break;
-                case GameSavesEditor.DataType.Float:
+                case DataSaverEditor.DataType.Float:
                     gameSaves.SetFloat(chosenCategory, keyName, floatValue);
                     break;
-                case GameSavesEditor.DataType.String:
+                case DataSaverEditor.DataType.String:
                     gameSaves.SetString(chosenCategory, keyName, stringValue);
                     break;
             }

@@ -5,7 +5,7 @@ using UnityEditor;
 using System.IO;
 
 [CustomEditor(typeof(DataSaver))]
-public class GameSavesEditor : Editor
+public class DataSaverEditor : Editor
 {
     public enum DataType { All, Int, Bool, Float, String, Object }
     private const int dataTypeCount = 6;
@@ -301,7 +301,7 @@ public class GameSavesEditor : Editor
             if (GUILayout.Button("+", GUILayout.Width(16), GUILayout.Height(16)))
             {
                 var screenPoint = GUIUtility.GUIToScreenPoint(Event.current.mousePosition);
-                GameSavesEditorPopup.Popup(gameSaves, chosenCategory, type, screenPoint, RefreshKeys);
+                DataSaverEditorPopup.Popup(gameSaves, chosenCategory, type, screenPoint, RefreshKeys);
             }
             GUI.skin.button.padding = wasPadding;
             GUI.skin.button.contentOffset = wasContentOffset;
