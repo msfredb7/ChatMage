@@ -31,10 +31,6 @@ public class GameUI : MonoBehaviour {
     public OptionsButton optionsButtonHigh;
     public GameObject bandeNoir;
 
-    // Endless UI
-    public Text stageText;
-    public Image transitionBG;
-
     public void Init(PlayerController playerController)
     {
         smashDisplayController.Init(playerController);
