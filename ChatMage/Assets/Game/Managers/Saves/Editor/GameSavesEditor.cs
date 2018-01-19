@@ -4,16 +4,16 @@ using UnityEngine;
 using UnityEditor;
 using System.IO;
 
-[CustomEditor(typeof(GameSaves))]
+[CustomEditor(typeof(DataSaver))]
 public class GameSavesEditor : Editor
 {
     public enum DataType { All, Int, Bool, Float, String, Object }
     private const int dataTypeCount = 6;
 
-    GameSaves gameSaves;
+    DataSaver gameSaves;
     string[] categoryNames;
     DataType chosenDataType = DataType.All;
-    GameSaves.Type chosenCategory;
+    DataSaver.Type chosenCategory;
 
     string[] keys;
     int[] keyTypeCounts = new int[dataTypeCount]; // Utilisé pour dessiner le data type All
@@ -23,9 +23,9 @@ public class GameSavesEditor : Editor
 
     void OnEnable()
     {
-        gameSaves = target as GameSaves;
+        gameSaves = target as DataSaver;
 
-        categoryNames = System.Enum.GetNames(typeof(GameSaves.Type));
+        categoryNames = System.Enum.GetNames(typeof(DataSaver.Type));
 
         RefreshKeys();
     }
@@ -183,11 +183,11 @@ public class GameSavesEditor : Editor
                 if (counter >= categoryNames.Length)
                     break;
 
-                GUI.color = (GameSaves.Type)counter == chosenCategory ? selectedColor : stdColor;
+                GUI.color = (DataSaver.Type)counter == chosenCategory ? selectedColor : stdColor;
 
                 if (GUILayout.Button(categoryNames[counter]))
                 {
-                    chosenCategory = (GameSaves.Type)counter;
+                    chosenCategory = (DataSaver.Type)counter;
                     RefreshKeys();
                 }
 

@@ -1,15 +1,13 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 using System;
 using CCC.Utility;
-using FullSerializer;
-using FullInspector;
 using CCC.Persistence;
 
-public partial class GameSaves : MonoPersistent
+[CreateAssetMenu(menuName = "CCC/Other/Data Saver")]
+public partial class DataSaver : ScriptablePersistent
 {
+
     public int saveVersion = 1;
 
     [Serializable]
@@ -34,7 +32,7 @@ public partial class GameSaves : MonoPersistent
     }
 
 
-    public static GameSaves instance;
+    public static DataSaver instance;
 
     /// <summary>
     /// Read/Write operation queue. C'est une queue qui assure l'ordonnancement des opérations read/write

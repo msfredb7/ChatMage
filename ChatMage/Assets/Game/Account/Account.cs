@@ -34,19 +34,19 @@ public class Account : MonoPersistent
 
     public void Load()
     {
-        if (GameSaves.instance.ContainsInt(GameSaves.Type.Account, COINS_KEY))
-            coins = GameSaves.instance.GetInt(GameSaves.Type.Account, COINS_KEY);
+        if (DataSaver.instance.ContainsInt(DataSaver.Type.Account, COINS_KEY))
+            coins = DataSaver.instance.GetInt(DataSaver.Type.Account, COINS_KEY);
         else
         {
             coins = 0;
-            GameSaves.instance.SetInt(GameSaves.Type.Account, COINS_KEY, 0);
+            DataSaver.instance.SetInt(DataSaver.Type.Account, COINS_KEY, 0);
         }
     }
 
     public void Save()
     {
-        GameSaves.instance.SetInt(GameSaves.Type.Account, COINS_KEY, coins);
-        GameSaves.instance.SaveData(GameSaves.Type.Account);
+        DataSaver.instance.SetInt(DataSaver.Type.Account, COINS_KEY, coins);
+        DataSaver.instance.SaveData(DataSaver.Type.Account);
     }
 
     public int Coins

@@ -37,11 +37,11 @@ namespace Dialoguing
         }
         public static void AddToPermanentSkipList(Dialog dialog)
         {
-            GameSaves.instance.SetBool(GameSaves.Type.Dialog, PermanentSkipKey(dialog), true);
+            DataSaver.instance.SetBool(DataSaver.Type.Dialog, PermanentSkipKey(dialog), true);
         }
         public static bool IsInPermanentSkip(Dialog dialog)
         {
-            bool value = GameSaves.instance.GetBool(GameSaves.Type.Dialog, PermanentSkipKey(dialog), false);
+            bool value = DataSaver.instance.GetBool(DataSaver.Type.Dialog, PermanentSkipKey(dialog), false);
             return value;
         }
         #endregion
@@ -49,11 +49,11 @@ namespace Dialoguing
         #region Save
         public static void SavePermanentSkipList()
         {
-            GameSaves.instance.SaveData(GameSaves.Type.Dialog);
+            DataSaver.instance.SaveData(DataSaver.Type.Dialog);
         }
         public static void SavePermanentSkipListAsync()
         {
-            GameSaves.instance.SaveDataAsync(GameSaves.Type.Dialog, null);
+            DataSaver.instance.SaveDataAsync(DataSaver.Type.Dialog, null);
         }
         #endregion
     }

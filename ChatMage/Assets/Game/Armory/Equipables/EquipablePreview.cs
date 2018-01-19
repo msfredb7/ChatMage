@@ -25,7 +25,7 @@ public class EquipablePreview : BaseScriptableObject
     {
         unlocked = true;
         string equipableKey = SAVE_PREFIX + name;
-        GameSaves.instance.SetBool(GameSaves.Type.Armory, equipableKey, unlocked);
+        DataSaver.instance.SetBool(DataSaver.Type.Armory, equipableKey, unlocked);
     }
 
     public void Load()
@@ -37,8 +37,8 @@ public class EquipablePreview : BaseScriptableObject
     {
         string equipableKey = SAVE_PREFIX + previewName;
 
-        if (GameSaves.instance.ContainsBool(GameSaves.Type.Armory, equipableKey))
-            return GameSaves.instance.GetBool(GameSaves.Type.Armory, equipableKey);
+        if (DataSaver.instance.ContainsBool(DataSaver.Type.Armory, equipableKey))
+            return DataSaver.instance.GetBool(DataSaver.Type.Armory, equipableKey);
         else
             return DEFAULT_UNLOCKS.Contains(previewName);
     }

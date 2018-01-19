@@ -37,12 +37,12 @@ namespace LevelSelect
 
         void OnManagersLoaded()
         {
-            if (GameSaves.instance.ContainsBool(GameSaves.Type.Levels, level.levelScriptName + hasBeenSeenKey))
-                hasBeenSeen = GameSaves.instance.GetBool(GameSaves.Type.Levels, level.levelScriptName + hasBeenSeenKey);
+            if (DataSaver.instance.ContainsBool(DataSaver.Type.Levels, level.levelScriptName + hasBeenSeenKey))
+                hasBeenSeen = DataSaver.instance.GetBool(DataSaver.Type.Levels, level.levelScriptName + hasBeenSeenKey);
 			/*else
                 GameSaves.instance.SetBool(GameSaves.Type.Levels, hasBeenSeenKey + level.levelScriptName, false);*/
 
-			if (GameSaves.instance.ContainsBool(GameSaves.Type.Levels, completedKey + level.levelScriptName))
+			if (DataSaver.instance.ContainsBool(DataSaver.Type.Levels, completedKey + level.levelScriptName))
 			{
 				flagAnim.cycleDuration = 2.5f;
 				flagAnim.maxSize = 1.02f;
@@ -81,7 +81,7 @@ namespace LevelSelect
 
         public void MarkAsSeen()
         {
-            GameSaves.instance.SetBool(GameSaves.Type.Levels, level.levelScriptName + hasBeenSeenKey, true);
+            DataSaver.instance.SetBool(DataSaver.Type.Levels, level.levelScriptName + hasBeenSeenKey, true);
             hasBeenSeen = true;
         }
     }

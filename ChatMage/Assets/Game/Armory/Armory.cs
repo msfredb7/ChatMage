@@ -23,11 +23,11 @@ public class Armory : BaseScriptableObject
 
     public int GetLastSavedSlots()
     {
-        if (GameSaves.instance.ContainsInt(GameSaves.Type.Armory, SLOTS_KEY))
-            return GameSaves.instance.GetInt(GameSaves.Type.Armory, SLOTS_KEY);
+        if (DataSaver.instance.ContainsInt(DataSaver.Type.Armory, SLOTS_KEY))
+            return DataSaver.instance.GetInt(DataSaver.Type.Armory, SLOTS_KEY);
         else
         {
-            GameSaves.instance.SetInt(GameSaves.Type.Armory, SLOTS_KEY, defaultItemSlots);
+            DataSaver.instance.SetInt(DataSaver.Type.Armory, SLOTS_KEY, defaultItemSlots);
             return defaultItemSlots;
         }
     }
@@ -40,9 +40,9 @@ public class Armory : BaseScriptableObject
 
     public void SaveSlot(bool saveToDisk = true)
     {
-        GameSaves.instance.SetInt(GameSaves.Type.Armory, SLOTS_KEY, itemSlots);
+        DataSaver.instance.SetInt(DataSaver.Type.Armory, SLOTS_KEY, itemSlots);
         if(saveToDisk)
-            GameSaves.instance.SaveData(GameSaves.Type.Armory);
+            DataSaver.instance.SaveData(DataSaver.Type.Armory);
     }
 
     public List<EquipablePreview> GetAllEquipables()
@@ -211,13 +211,13 @@ public class Armory : BaseScriptableObject
 
     public static bool HasAccessToSmash()
     {
-        return GameSaves.instance.GetBool(GameSaves.Type.Armory, SMASH_ACCESS_KEY, false);
+        return DataSaver.instance.GetBool(DataSaver.Type.Armory, SMASH_ACCESS_KEY, false);
     }
     public static bool HasAccessToItems()
     {
         try
         {
-            return GameSaves.instance.GetBool(GameSaves.Type.Armory, ITEM_ACCESS_KEY);
+            return DataSaver.instance.GetBool(DataSaver.Type.Armory, ITEM_ACCESS_KEY);
         }
         catch
         {
@@ -227,18 +227,18 @@ public class Armory : BaseScriptableObject
 
     public static void UnlockAccessToSmash()
     {
-        GameSaves.instance.SetBool(GameSaves.Type.Armory, SMASH_ACCESS_KEY, true);
-        GameSaves.instance.SaveData(GameSaves.Type.Armory);
+        DataSaver.instance.SetBool(DataSaver.Type.Armory, SMASH_ACCESS_KEY, true);
+        DataSaver.instance.SaveData(DataSaver.Type.Armory);
     }
     public static void LockAccessToSmash()
     {
-        GameSaves.instance.SetBool(GameSaves.Type.Armory, SMASH_ACCESS_KEY, false);
-        GameSaves.instance.SaveData(GameSaves.Type.Armory);
+        DataSaver.instance.SetBool(DataSaver.Type.Armory, SMASH_ACCESS_KEY, false);
+        DataSaver.instance.SaveData(DataSaver.Type.Armory);
     }
     public static void UnlockAccessToItems()
     {
-        GameSaves.instance.SetBool(GameSaves.Type.Armory, ITEM_ACCESS_KEY, true);
-        GameSaves.instance.SaveData(GameSaves.Type.Armory);
+        DataSaver.instance.SetBool(DataSaver.Type.Armory, ITEM_ACCESS_KEY, true);
+        DataSaver.instance.SaveData(DataSaver.Type.Armory);
     }
 
 }

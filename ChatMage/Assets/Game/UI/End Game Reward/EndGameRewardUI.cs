@@ -47,7 +47,7 @@ namespace EndGameReward
         {
             if(levelScriptAssetName == "LS_ThirdLevel")
             {
-                GameSaves.instance.ClearAllSaves();
+                DataSaver.instance.ClearAllSaves();
                 LoadingScreen.TransitionTo(MainMenu.SCENENAME, null);
             } else
                 LoadingScreen.TransitionTo(LevelSelect.LevelSelection.SCENENAME, null);

@@ -45,14 +45,14 @@ public class Level : BaseScriptableObject
     public void LoadData()
     {
         hasBeenCompleted = LevelScript.HasBeenCompleted(levelScriptName);
-        hasBeenSeen = GameSaves.instance.GetBool(GameSaves.Type.Levels, GetCompleteSeenKey());
+        hasBeenSeen = DataSaver.instance.GetBool(DataSaver.Type.Levels, GetCompleteSeenKey());
     }
 
     [InspectorButton]
     private void ApplyData()
     {
-		GameSaves.instance.SetBool(GameSaves.Type.Levels, LevelScript.COMPLETED_KEY + levelScriptName, hasBeenCompleted);
-		GameSaves.instance.SetBool(GameSaves.Type.Levels, GetCompleteSeenKey(), hasBeenSeen);
+		DataSaver.instance.SetBool(DataSaver.Type.Levels, LevelScript.COMPLETED_KEY + levelScriptName, hasBeenCompleted);
+		DataSaver.instance.SetBool(DataSaver.Type.Levels, GetCompleteSeenKey(), hasBeenSeen);
     }
 
     private string GetCompleteSeenKey()

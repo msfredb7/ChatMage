@@ -23,7 +23,7 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
     }
     public static bool HasBeenCompleted(string lvlScriptName)
     {
-        return GameSaves.instance.GetBool(GameSaves.Type.Levels, COMPLETED_KEY + lvlScriptName, false);
+        return DataSaver.instance.GetBool(DataSaver.Type.Levels, COMPLETED_KEY + lvlScriptName, false);
     }
     public static void MarkAsCompleted(LevelScript lvlScript)
     {
@@ -31,8 +31,8 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
     }
     public static void MarkAsCompleted(string lvlScriptName)
     {
-        GameSaves.instance.SetBool(GameSaves.Type.Levels, COMPLETED_KEY + lvlScriptName, true);
-        GameSaves.instance.SaveData(GameSaves.Type.Levels);
+        DataSaver.instance.SetBool(DataSaver.Type.Levels, COMPLETED_KEY + lvlScriptName, true);
+        DataSaver.instance.SaveData(DataSaver.Type.Levels);
     }
 
 

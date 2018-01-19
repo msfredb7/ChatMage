@@ -58,9 +58,9 @@ public class LootBox
             }
 
             if (shouldSaveArmory)
-                GameSaves.instance.SaveDataAsync(GameSaves.Type.Armory, null);
+                DataSaver.instance.SaveDataAsync(DataSaver.Type.Armory, null);
             if (shouldSaveAccount)
-                GameSaves.instance.SaveDataAsync(GameSaves.Type.Account, null);
+                DataSaver.instance.SaveDataAsync(DataSaver.Type.Account, null);
 
 
             string txtMessage = LootBoxRef.PickReport.MessageToString(specialMessage);

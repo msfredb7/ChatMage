@@ -1,10 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using FullInspector;
-
-public partial class GameSaves
+﻿public partial class DataSaver
 {
+    // NB: Le Enum doit match avec les categories
     public enum Type
     {
         Levels = 0,

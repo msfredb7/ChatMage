@@ -6,8 +6,8 @@ using System;
 public class GameSavesEditorPopup : EditorWindow
 {
     private GameSavesEditor.DataType dataType;
-    private GameSaves.Type chosenCategory;
-    private GameSaves gameSaves;
+    private DataSaver.Type chosenCategory;
+    private DataSaver gameSaves;
 
     private int intValue = 0;
     private bool boolValue = false;
@@ -16,7 +16,7 @@ public class GameSavesEditorPopup : EditorWindow
     private string keyName = "";
     private Action onAdd;
 
-    public static void Popup(GameSaves gameSaves, GameSaves.Type chosenCategory, GameSavesEditor.DataType dataType, Vector2 position, Action onAdd)
+    public static void Popup(DataSaver gameSaves, DataSaver.Type chosenCategory, GameSavesEditor.DataType dataType, Vector2 position, Action onAdd)
     {
         GameSavesEditorPopup window = ScriptableObject.CreateInstance<GameSavesEditorPopup>();
         window.position = new Rect(position.x, position.y, 250, 88);
@@ -24,7 +24,7 @@ public class GameSavesEditorPopup : EditorWindow
         window.ShowPopup();
     }
 
-    void Init(GameSaves gameSaves, GameSaves.Type chosenCategory, GameSavesEditor.DataType dataType, Action onAdd)
+    void Init(DataSaver gameSaves, DataSaver.Type chosenCategory, GameSavesEditor.DataType dataType, Action onAdd)
     {
         this.gameSaves = gameSaves;
         this.chosenCategory = chosenCategory;

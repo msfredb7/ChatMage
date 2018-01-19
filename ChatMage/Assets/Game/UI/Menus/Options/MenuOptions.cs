@@ -81,7 +81,7 @@ public class MenuOptions : WindowAnimation
     {
         if (isQuitting)
             return;
-        GameSaves.instance.ClearAllSaves();
+        DataSaver.instance.ClearAllSaves();
         // Permet de ne pas avoir à dire au joueur: "quitte le level select et revient" pour que ca marche
         LoadingScreen.TransitionTo(MainMenu.SCENENAME, null);
     }
@@ -99,8 +99,8 @@ public class MenuOptions : WindowAnimation
     {
         foreach (string levelScriptName in levelToUnlock)
         {
-            GameSaves.instance.SetBool(GameSaves.Type.Levels, LevelScript.COMPLETED_KEY + levelScriptName, true);
-            GameSaves.instance.SaveData(GameSaves.Type.Levels);
+            DataSaver.instance.SetBool(DataSaver.Type.Levels, LevelScript.COMPLETED_KEY + levelScriptName, true);
+            DataSaver.instance.SaveData(DataSaver.Type.Levels);
             // Est-ce qu'il y a autre chose à ajouter ?
         }
         // Permet de ne pas avoir à dire au joueur: "quitte le level select et revient" pour que ca marche

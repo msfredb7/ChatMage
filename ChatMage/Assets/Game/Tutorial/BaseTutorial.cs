@@ -159,8 +159,8 @@ namespace Tutorial
         {
             if (markAsCompleted)
             {
-                GameSaves.instance.SetBool(GameSaves.Type.Tutorial, TUTORIALSAVE + name, true);
-                GameSaves.instance.SaveDataAsync(GameSaves.Type.Tutorial, Quit);
+                DataSaver.instance.SetBool(DataSaver.Type.Tutorial, TUTORIALSAVE + name, true);
+                DataSaver.instance.SaveDataAsync(DataSaver.Type.Tutorial, Quit);
             }
             else
             {
@@ -187,9 +187,9 @@ namespace Tutorial
 
         public static bool HasBeenCompleted(string assetName)
         {
-            if (!GameSaves.instance.ContainsBool(GameSaves.Type.Tutorial, TUTORIALSAVE + assetName))
-                GameSaves.instance.SetBool(GameSaves.Type.Tutorial, TUTORIALSAVE + assetName, false);
-            return GameSaves.instance.GetBool(GameSaves.Type.Tutorial, TUTORIALSAVE + assetName);
+            if (!DataSaver.instance.ContainsBool(DataSaver.Type.Tutorial, TUTORIALSAVE + assetName))
+                DataSaver.instance.SetBool(DataSaver.Type.Tutorial, TUTORIALSAVE + assetName, false);
+            return DataSaver.instance.GetBool(DataSaver.Type.Tutorial, TUTORIALSAVE + assetName);
         }
 
         public void Execute(TutorialEvent tutorialEvent, bool useTime)

@@ -311,7 +311,7 @@ namespace LoadoutMenu
         {
             //Cheat Temporaire
             equipable.preview.MarkAsUnlocked();
-            GameSaves.instance.SaveData(GameSaves.Type.Armory);
+            DataSaver.instance.SaveData(DataSaver.Type.Armory);
             FillUI();
 
             //A remettre

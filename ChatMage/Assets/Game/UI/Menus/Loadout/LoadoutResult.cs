@@ -21,7 +21,7 @@ public class LoadoutResult
 
         public void Save(string sufix = "")
         {
-            GameSaves.instance.SetString(GameSaves.Type.Loadout, LOCAL_KEY + TypeToTag(type) + sufix, equipableName);
+            DataSaver.instance.SetString(DataSaver.Type.Loadout, LOCAL_KEY + TypeToTag(type) + sufix, equipableName);
             Debug.Log("Saving '" + LOCAL_KEY + TypeToTag(type) + sufix + "': " + equipableName);
         }
     }
@@ -37,24 +37,24 @@ public class LoadoutResult
         //Check smash
         string smashKey = LOCAL_KEY + TypeToTag(EquipableType.Smash);
 
-        if (GameSaves.instance.ContainsString(GameSaves.Type.Loadout, smashKey))
-            lastResult.AddEquipable(GameSaves.instance.GetString(GameSaves.Type.Loadout, smashKey), EquipableType.Smash);
+        if (DataSaver.instance.ContainsString(DataSaver.Type.Loadout, smashKey))
+            lastResult.AddEquipable(DataSaver.instance.GetString(DataSaver.Type.Loadout, smashKey), EquipableType.Smash);
 
 
 
         //Check Car
         string carKey = LOCAL_KEY + TypeToTag(EquipableType.Car);
 
-        if (GameSaves.instance.ContainsString(GameSaves.Type.Loadout, carKey))
-            lastResult.AddEquipable(GameSaves.instance.GetString(GameSaves.Type.Loadout, carKey), EquipableType.Car);
+        if (DataSaver.instance.ContainsString(DataSaver.Type.Loadout, carKey))
+            lastResult.AddEquipable(DataSaver.instance.GetString(DataSaver.Type.Loadout, carKey), EquipableType.Car);
 
 
 
         //Check Items
 
         //Check la derniere quantité d'item sauvegardé
-        if (GameSaves.instance.ContainsInt(GameSaves.Type.Loadout, ITEMCOUNT_KEY))
-            maxItemCount = Mathf.Min(maxItemCount, GameSaves.instance.GetInt(GameSaves.Type.Loadout, ITEMCOUNT_KEY));
+        if (DataSaver.instance.ContainsInt(DataSaver.Type.Loadout, ITEMCOUNT_KEY))
+            maxItemCount = Mathf.Min(maxItemCount, DataSaver.instance.GetInt(DataSaver.Type.Loadout, ITEMCOUNT_KEY));
 
         //Continue à check pour des items, tant et aussi longtemps qu'on est < le minimum OU que yen a plus de sauvegardé
         int i = 0;
@@ -62,8 +62,8 @@ public class LoadoutResult
         {
             string itemKey = LOCAL_KEY + TypeToTag(EquipableType.Item) + i.ToString();
 
-            if (GameSaves.instance.ContainsString(GameSaves.Type.Loadout, itemKey))
-                lastResult.AddEquipable(GameSaves.instance.GetString(GameSaves.Type.Loadout, itemKey), EquipableType.Item);
+            if (DataSaver.instance.ContainsString(DataSaver.Type.Loadout, itemKey))
+                lastResult.AddEquipable(DataSaver.instance.GetString(DataSaver.Type.Loadout, itemKey), EquipableType.Item);
             else
                 break;
 
@@ -117,8 +117,8 @@ public class LoadoutResult
                 itemOrders[i].Save(i.ToString());
             }
         }
-        GameSaves.instance.SetInt(GameSaves.Type.Loadout, ITEMCOUNT_KEY, itemOrders.Count);
-        GameSaves.instance.SaveData(GameSaves.Type.Loadout);
+        DataSaver.instance.SetInt(DataSaver.Type.Loadout, ITEMCOUNT_KEY, itemOrders.Count);
+        DataSaver.instance.SaveData(DataSaver.Type.Loadout);
     }
 
     /// <summary>
