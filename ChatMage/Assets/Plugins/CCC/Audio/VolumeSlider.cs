@@ -24,7 +24,9 @@ public class VolumeSlider : MonoBehaviour
 
     void OnDisable()
     {
-        slider.onValueChanged.RemoveListener(OnValueChange);
+        //Note: Je test si le slider n'est pas null parce qu'il vient p-e d'être détruit avec le script
+        if (slider != null)
+            slider.onValueChanged.RemoveListener(OnValueChange);
     }
 
     private void OnValueChange(float sliderValue)

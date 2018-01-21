@@ -15,16 +15,32 @@ public class GameParticleEffect : InGameTimescaleListener
     float MyCurrentTimescale = 1;
 
     List<ParticleSystem> PartSys;
-    Transform Tr;
-    GameObject Go;
+    Transform _tr;
+    Transform Tr
+    {
+        get
+        {
+            if (_tr == null)
+                _tr = transform;
+            return _tr;
+        }
+    }
+    GameObject _go;
+    GameObject Go
+    {
+        get
+        {
+            if (_go == null)
+                _go = gameObject;
+            return _go;
+        }
+    }
 
     void Awake()
     {
         PartSys = new List<ParticleSystem>(GetComponentsInChildren<ParticleSystem>());
-        Go = gameObject;
-        Tr = transform;
         if (DeactivateOnAwake)
-            Deactivate();
+            StopPlaying();
     }
 
     void Start()
@@ -42,13 +58,13 @@ public class GameParticleEffect : InGameTimescaleListener
         Tr.rotation = Quaternion.Euler(Vector3.forward * angle);
     }
 
-    public void Activate()
+    public void Play()
     {
         Go.SetActive(true);
         DeactivationTimer = AnimationDuration;
     }
 
-    public void Deactivate()
+    public void StopPlaying()
     {
         Go.SetActive(false);
     }
@@ -64,7 +80,7 @@ public class GameParticleEffect : InGameTimescaleListener
         {
             DeactivationTimer -= MyCurrentTimescale * Time.deltaTime;
             if (DeactivationTimer <= 0)
-                Deactivate();
+                StopPlaying();
         }
     }
 

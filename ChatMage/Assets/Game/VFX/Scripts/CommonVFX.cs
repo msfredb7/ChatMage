@@ -10,12 +10,20 @@ public class CommonVFX : MonoBehaviour
     private List<GameParticleEffect> WhiteHits = new List<GameParticleEffect>();
 
     [SerializeField]
-    private GameParticleEffect RedHitPrefab;
-    private List<GameParticleEffect> RedHits = new List<GameParticleEffect>();
+    private GameParticleEffect RedHit3Prefab;
+    private List<GameParticleEffect> RedHits3 = new List<GameParticleEffect>();
 
-    public void HitRed(Vector2 position, MultiSize.Size size = MultiSize.Size.Small)
+    [SerializeField]
+    private GameParticleEffect RedHit1Prefab;
+    private List<GameParticleEffect> RedHits1 = new List<GameParticleEffect>();
+
+    public void HitRed3(Vector2 position, MultiSize.Size size = MultiSize.Size.Small)
     {
-        StandardVFX(position, size, RedHits, RedHitPrefab);
+        StandardVFX(position, size, RedHits3, RedHit3Prefab);
+    }
+    public void HitRed1(Vector2 position, MultiSize.Size size = MultiSize.Size.Small)
+    {
+        StandardVFX(position, size, RedHits1, RedHit1Prefab);
     }
 
     public void HitWhite(Vector2 position, MultiSize.Size size = MultiSize.Size.Small)
@@ -32,7 +40,7 @@ public class CommonVFX : MonoBehaviour
             multiSize.SetSize(size);
 
         vfx.MoveTo(position);
-        vfx.Activate();
+        vfx.Play();
     }
 
     private GameParticleEffect GetVFX(List<GameParticleEffect> list, GameParticleEffect prefabReference)

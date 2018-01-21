@@ -122,7 +122,7 @@ public class PlayerStats : PlayerComponent, IAttackable
 
 
         //----------------------VFX + SFX----------------------//
-        Game.Instance.commonVfx.HitRed(on.transform.position, MultiSize.Size.Medium);
+        Game.Instance.commonVfx.HitRed3(on.transform.position, MultiSize.Size.Medium);
         Game.Instance.commonSfx.Hit();
 
 
