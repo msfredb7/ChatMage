@@ -422,20 +422,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 914aebc8b10f48949bd6b9ad2cf0c25a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectReferences:
-  - {fileID: 1170913434}
+  _objectReferences: []
   _serializedStateKeys:
   - milestones
   - milestoneRelativeHeights
   _serializedStateValues:
-  - '[0]'
+  - 
   - '[4.54]'
   topHeight: 5.5
   bottomHeight: -5.5
   setCameraMinMax: 1
   showCameraTrails: 1
-  milestones:
-  - {fileID: 1170913434}
 --- !u!1 &272089696
 GameObject:
   m_ObjectHideFlags: 0
@@ -705,7 +702,8 @@ MonoBehaviour:
   - '{"xMin":358.0,"yMin":60.0,"xMax":508.0,"yMax":124.0}'
   - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[0]}'
-  - '{"spawnSequence":[{"unit":1,"quantity":1}],"onSpawnMethod":"","progressCallbacks":[]}'
+  - '{"spawnSequence":[{"unit":1,"quantity":1}],"useLevelScriptMethod":false,"onSpawnMethod":"","onSpawn":{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"GameEvents.MomentEvent_unit,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]},"progressCallbacks":[]}'
   - '{"logErrorIfUnableToLaunch":true,"spawnTag":"camera","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0}'
   windowRect:
     serializedVersion: 2
@@ -915,6 +913,8 @@ MonoBehaviour:
   gizmosAlwaysVisible: 1
   triggerOn: 1
   disapearAfterTrigger: 1
+  triggerOnGoingUp: 1
+  triggerOnGoingDown: 1
   setAiArea: 1
   aiAreaAdjustToSceenRatio: 1
   aiAreaRelativeToMilestone:
@@ -1230,6 +1230,8 @@ MonoBehaviour:
   roadPlayer: {fileID: 1644651698}
   positionDisplacers: []
   graph: {fileID: 0}
+  meteo: {fileID: 0}
+  markerSpawner: {fileID: 0}
 --- !u!4 &1644651696
 Transform:
   m_ObjectHideFlags: 0
@@ -1708,7 +1710,8 @@ MonoBehaviour:
   - '{"xMin":358.0,"yMin":330.0,"xMax":508.0,"yMax":394.0}'
   - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[0]}'
-  - '{"spawnSequence":[{"unit":1,"quantity":1}],"onSpawnMethod":"","progressCallbacks":[]}'
+  - '{"spawnSequence":[{"unit":1,"quantity":1}],"useLevelScriptMethod":false,"onSpawnMethod":"","onSpawn":{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"GameEvents.MomentEvent_unit,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]},"progressCallbacks":[]}'
   - '{"logErrorIfUnableToLaunch":true,"spawnTag":"camera","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0}'
   windowRect:
     serializedVersion: 2
@@ -1841,7 +1844,8 @@ MonoBehaviour:
   - '{"xMin":369.0,"yMin":248.0,"xMax":519.0,"yMax":312.0}'
   - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[0]}'
-  - '{"spawnSequence":[{"unit":1,"quantity":1}],"onSpawnMethod":"","progressCallbacks":[]}'
+  - '{"spawnSequence":[{"unit":1,"quantity":1}],"useLevelScriptMethod":false,"onSpawnMethod":"","onSpawn":{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"GameEvents.MomentEvent_unit,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]},"progressCallbacks":[]}'
   - '{"logErrorIfUnableToLaunch":true,"spawnTag":"camera","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0}'
   windowRect:
     serializedVersion: 2
@@ -1892,7 +1896,8 @@ MonoBehaviour:
   - '{"xMin":351.0,"yMin":-24.0,"xMax":501.0,"yMax":40.0}'
   - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[0]}'
-  - '{"spawnSequence":[{"unit":1,"quantity":1}],"onSpawnMethod":"","progressCallbacks":[]}'
+  - '{"spawnSequence":[{"unit":1,"quantity":1}],"useLevelScriptMethod":false,"onSpawnMethod":"","onSpawn":{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"GameEvents.MomentEvent_unit,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]},"progressCallbacks":[]}'
   - '{"logErrorIfUnableToLaunch":true,"spawnTag":"camera","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0}'
   windowRect:
     serializedVersion: 2

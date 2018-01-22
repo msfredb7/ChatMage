@@ -804,12 +804,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allegiance: 2
+  isDead: 0
   collider: {fileID: 58604780204281582}
   onHitShakeStrength: 0.75
   targets:
     targetAllegiances: 0000000003000000
   recenterOverTime: 1
   recenterSpeed: 0.5
+  hitSounds:
+    list: []
+  hitVolume: 0.9
 --- !u!114 &114794114027206896
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -862,6 +866,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allegiance: 2
+  isDead: 0
   moveSpeed: 2
   targetDirection: 0
   rotationSetsTargetDirection: 1
@@ -872,6 +877,7 @@ MonoBehaviour:
   turnSpeed: 190
   smartMove: 0
   clampToAIArea: 1
+  smashJuice: 1
   targets:
     targetAllegiances: 00000000
   bodyCenter: {fileID: 0}

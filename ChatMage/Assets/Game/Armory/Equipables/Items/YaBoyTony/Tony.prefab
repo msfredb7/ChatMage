@@ -272,6 +272,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allegiance: 0
+  isDead: 0
   moveSpeed: 4
   targetDirection: 0
   rotationSetsTargetDirection: 1
@@ -282,8 +283,10 @@ MonoBehaviour:
   turnSpeed: 300
   smartMove: 1
   clampToAIArea: 1
+  smashJuice: 1
   targets:
     targetAllegiances: 
+  bodyCenter: {fileID: 0}
   animator: {fileID: 114564324580914688}
   rewardPrefab: {fileID: 114870834835718906, guid: d28e2a568fc043140bfc8bc5777eb644,
     type: 2}
@@ -301,6 +304,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18a4c59be33b17543991d762688b1a2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canGetForcedGoals: 1
   roamTime: 9
 --- !u!114 &114564324580914688
 MonoBehaviour:
@@ -374,6 +378,7 @@ SpriteRenderer:
   m_Size: {x: 3, y: 3}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!212 &212314444708525574
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -414,6 +419,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!212 &212446400955131396
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -454,6 +460,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!212 &212888778400409832
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -494,3 +501,4 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1

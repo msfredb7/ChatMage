@@ -588,6 +588,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allegiance: 2
+  isDead: 0
   moveSpeed: 1.8
   targetDirection: 0
   rotationSetsTargetDirection: 1
@@ -598,8 +599,10 @@ MonoBehaviour:
   turnSpeed: 95
   smartMove: 0
   clampToAIArea: 1
+  smashJuice: 1
   targets:
     targetAllegiances: 00000000
+  bodyCenter: {fileID: 0}
   shieldGroup: {fileID: 1216963666200194}
   swordListener: {fileID: 114246168422857604}
   animator: {fileID: 114967462287717054}
@@ -617,6 +620,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enabled: 1
+  checkWhenUnderCamera: 1
+  checkWhenAboveCamera: 1
   overrideDefaultDeactivationRange: 0
   newDeactivationRange: 10
 --- !u!114 &114959007032342916
@@ -630,6 +635,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ff3c6ae767029149af4ce0038973958, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canGetForcedGoals: 1
 --- !u!114 &114967462287717054
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -691,6 +697,7 @@ SpriteRenderer:
   m_Size: {x: 57.6, y: 10.799999}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!212 &212200375645545098
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -731,6 +738,7 @@ SpriteRenderer:
   m_Size: {x: 57.6, y: 10.799999}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!212 &212313568688495780
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -771,6 +779,7 @@ SpriteRenderer:
   m_Size: {x: 57.6, y: 10.799999}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!212 &212368842169423508
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -811,6 +820,7 @@ SpriteRenderer:
   m_Size: {x: 4, y: 4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!212 &212499013184029594
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -851,6 +861,7 @@ SpriteRenderer:
   m_Size: {x: 2.56, y: 0.32}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!212 &212889182845728774
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -891,6 +902,7 @@ SpriteRenderer:
   m_Size: {x: 6, y: 4.57}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!212 &212902713971886926
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -931,3 +943,4 @@ SpriteRenderer:
   m_Size: {x: 6, y: 4.57}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1

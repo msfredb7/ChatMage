@@ -299,6 +299,7 @@ SpriteRenderer:
   m_Size: {x: 10.72, y: 10.18}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!1 &33914305
 GameObject:
   m_ObjectHideFlags: 0
@@ -368,6 +369,7 @@ SpriteRenderer:
   m_Size: {x: 17, y: 10}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 1
+  m_WasSpriteAssigned: 1
 --- !u!1001 &49969841
 Prefab:
   m_ObjectHideFlags: 0
@@ -499,15 +501,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0480b90d61ccb74ebdc38b6d0287580, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectReferences: []
-  _serializedStateKeys:
-  - type
-  _serializedStateValues:
-  - '"BossSpawn"'
-  adjustToMap: 1
-  useTag: 0
-  type: 3
-  tags: []
 --- !u!4 &88320241
 Transform:
   m_ObjectHideFlags: 0
@@ -548,43 +541,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cc06a4b36bf8bc4fb703c895d675ed5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectReferences:
-  - {fileID: 376287710}
-  - {fileID: 88320240}
+  _objectReferences: []
   _serializedStateKeys:
-  - unfilteredWaypoints
   - unfilteredTaggedObjects
   - unfilteredSpawns
-  - enemyWaypoints
-  - playerWaypoints
-  - bossWaypoints
-  - itemWaypoints
-  - otherWaypoints
-  - taggedWaypoints
   - taggedObjects
   - spawns
   _serializedStateValues:
-  - '[]'
   - 
   - 
-  - '[]'
-  - '[0]'
-  - '[1]'
-  - '[]'
-  - '[]'
-  - '{}'
   - 
   - 
-  unfilteredWaypoints: []
   unfilteredTaggedObjects: []
   unfilteredSpawns: []
-  enemyWaypoints: []
-  playerWaypoints:
-  - {fileID: 376287710}
-  bossWaypoints:
-  - {fileID: 88320240}
-  itemWaypoints: []
-  otherWaypoints: []
 --- !u!4 &153121007
 Transform:
   m_ObjectHideFlags: 0
@@ -842,13 +811,46 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objectReferences: []
   _serializedStateKeys:
+  - windowRect
+  - onTigger
   - triggerOn
   - aiAreaRelativeToMilestone
+  - _leftSide
+  - _rightSide
+  - _bottomSide
+  - _topSide
+  - onExecute
   _serializedStateValues:
+  - '{"xMin":300.0,"yMin":300.0,"xMax":450.0,"yMax":310.0}'
+  - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]}'
   - '"TopOfScreen"'
   - '{"min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0}}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  windowRect:
+    serializedVersion: 2
+    x: 300
+    y: 300
+    width: 150
+    height: 10
+  graph: {fileID: 0}
+  onTigger:
+    iEvents: []
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+  gizmosAlwaysVisible: 1
   triggerOn: 1
   disapearAfterTrigger: 1
+  triggerOnGoingUp: 1
+  triggerOnGoingDown: 1
   setAiArea: 0
   aiAreaAdjustToSceenRatio: 1
   aiAreaRelativeToMilestone:
@@ -860,8 +862,15 @@ MonoBehaviour:
   cameraMinRelativeToMilestone: 0
   setCameraMax: 0
   cameraMaxRelativeToMilestone: 0
+  useCadre: 0
   fireEventToLevelScript: 1
   eventMessage: boss
+  onExecute:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  dialog: {fileID: 0}
 --- !u!4 &296071695
 Transform:
   m_ObjectHideFlags: 0
@@ -946,6 +955,7 @@ SpriteRenderer:
   m_Size: {x: 17, y: 10}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 1
+  m_WasSpriteAssigned: 1
 --- !u!1 &342512529
 GameObject:
   m_ObjectHideFlags: 0
@@ -1018,6 +1028,7 @@ SpriteRenderer:
   m_Size: {x: 10.72, y: 10.18}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!1 &349495391
 GameObject:
   m_ObjectHideFlags: 0
@@ -1060,13 +1071,46 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objectReferences: []
   _serializedStateKeys:
+  - windowRect
+  - onTigger
   - triggerOn
   - aiAreaRelativeToMilestone
+  - _leftSide
+  - _rightSide
+  - _bottomSide
+  - _topSide
+  - onExecute
   _serializedStateValues:
+  - '{"xMin":300.0,"yMin":300.0,"xMax":450.0,"yMax":310.0}'
+  - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]}'
   - '"BottomOfScreen"'
   - '{"min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0}}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  windowRect:
+    serializedVersion: 2
+    x: 300
+    y: 300
+    width: 150
+    height: 10
+  graph: {fileID: 0}
+  onTigger:
+    iEvents: []
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+  gizmosAlwaysVisible: 1
   triggerOn: 0
   disapearAfterTrigger: 0
+  triggerOnGoingUp: 1
+  triggerOnGoingDown: 1
   setAiArea: 0
   aiAreaAdjustToSceenRatio: 1
   aiAreaRelativeToMilestone:
@@ -1078,8 +1122,15 @@ MonoBehaviour:
   cameraMinRelativeToMilestone: 0
   setCameraMax: 0
   cameraMaxRelativeToMilestone: 0
+  useCadre: 0
   fireEventToLevelScript: 0
   eventMessage: supanu
+  onExecute:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  dialog: {fileID: 0}
 --- !u!1 &376287708
 GameObject:
   m_ObjectHideFlags: 0
@@ -1120,15 +1171,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0480b90d61ccb74ebdc38b6d0287580, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectReferences: []
-  _serializedStateKeys:
-  - type
-  _serializedStateValues:
-  - '"PlayerSpawn"'
-  adjustToMap: 1
-  useTag: 0
-  type: 0
-  tags: []
 --- !u!1 &397480593
 GameObject:
   m_ObjectHideFlags: 0
@@ -1198,6 +1240,7 @@ SpriteRenderer:
   m_Size: {x: 17, y: 10}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 1
+  m_WasSpriteAssigned: 1
 --- !u!1001 &409432380
 Prefab:
   m_ObjectHideFlags: 0
@@ -1552,6 +1595,7 @@ SpriteRenderer:
   m_Size: {x: 17, y: 10}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 1
+  m_WasSpriteAssigned: 1
 --- !u!4 &610047563
 Transform:
   m_ObjectHideFlags: 0
@@ -1609,13 +1653,46 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objectReferences: []
   _serializedStateKeys:
+  - windowRect
+  - onTigger
   - triggerOn
   - aiAreaRelativeToMilestone
+  - _leftSide
+  - _rightSide
+  - _bottomSide
+  - _topSide
+  - onExecute
   _serializedStateValues:
+  - '{"xMin":300.0,"yMin":300.0,"xMax":450.0,"yMax":310.0}'
+  - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]}'
   - '"TopOfScreen"'
   - '{"min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0}}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  windowRect:
+    serializedVersion: 2
+    x: 300
+    y: 300
+    width: 150
+    height: 10
+  graph: {fileID: 0}
+  onTigger:
+    iEvents: []
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+  gizmosAlwaysVisible: 1
   triggerOn: 1
   disapearAfterTrigger: 1
+  triggerOnGoingUp: 1
+  triggerOnGoingDown: 1
   setAiArea: 0
   aiAreaAdjustToSceenRatio: 1
   aiAreaRelativeToMilestone:
@@ -1627,8 +1704,15 @@ MonoBehaviour:
   cameraMinRelativeToMilestone: 0
   setCameraMax: 0
   cameraMaxRelativeToMilestone: 0
+  useCadre: 0
   fireEventToLevelScript: 1
   eventMessage: wave 2
+  onExecute:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  dialog: {fileID: 0}
 --- !u!1 &733516071
 GameObject:
   m_ObjectHideFlags: 0
@@ -1701,6 +1785,7 @@ SpriteRenderer:
   m_Size: {x: 10.72, y: 10.18}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!1 &734390078
 GameObject:
   m_ObjectHideFlags: 0
@@ -1773,6 +1858,7 @@ SpriteRenderer:
   m_Size: {x: 10.72, y: 10.18}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!1001 &747219741
 Prefab:
   m_ObjectHideFlags: 0
@@ -2339,13 +2425,46 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objectReferences: []
   _serializedStateKeys:
+  - windowRect
+  - onTigger
   - triggerOn
   - aiAreaRelativeToMilestone
+  - _leftSide
+  - _rightSide
+  - _bottomSide
+  - _topSide
+  - onExecute
   _serializedStateValues:
+  - '{"xMin":300.0,"yMin":300.0,"xMax":450.0,"yMax":310.0}'
+  - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]}'
   - '"TopOfScreen"'
   - '{"min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0}}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  windowRect:
+    serializedVersion: 2
+    x: 300
+    y: 300
+    width: 150
+    height: 10
+  graph: {fileID: 0}
+  onTigger:
+    iEvents: []
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+  gizmosAlwaysVisible: 1
   triggerOn: 1
   disapearAfterTrigger: 1
+  triggerOnGoingUp: 1
+  triggerOnGoingDown: 1
   setAiArea: 0
   aiAreaAdjustToSceenRatio: 1
   aiAreaRelativeToMilestone:
@@ -2357,8 +2476,15 @@ MonoBehaviour:
   cameraMinRelativeToMilestone: 0
   setCameraMax: 0
   cameraMaxRelativeToMilestone: 0
+  useCadre: 0
   fireEventToLevelScript: 1
   eventMessage: wave 1
+  onExecute:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  dialog: {fileID: 0}
 --- !u!1 &893930206
 GameObject:
   m_ObjectHideFlags: 0
@@ -2431,6 +2557,7 @@ SpriteRenderer:
   m_Size: {x: 10.72, y: 10.18}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!4 &902398586
 Transform:
   m_ObjectHideFlags: 0
@@ -2515,6 +2642,7 @@ SpriteRenderer:
   m_Size: {x: 17, y: 10}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 1
+  m_WasSpriteAssigned: 1
 --- !u!1 &1006496100
 GameObject:
   m_ObjectHideFlags: 0
@@ -2587,6 +2715,7 @@ SpriteRenderer:
   m_Size: {x: 10.72, y: 10.18}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!4 &1090220933
 Transform:
   m_ObjectHideFlags: 0
@@ -2671,6 +2800,7 @@ SpriteRenderer:
   m_Size: {x: 17, y: 10}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 1
+  m_WasSpriteAssigned: 1
 --- !u!4 &1141831875
 Transform:
   m_ObjectHideFlags: 0
@@ -2809,31 +2939,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 914aebc8b10f48949bd6b9ad2cf0c25a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectReferences:
-  - {fileID: 1883785221}
-  - {fileID: 349495393}
-  - {fileID: 1693669583}
-  - {fileID: 827045884}
-  - {fileID: 646684558}
-  - {fileID: 248615699}
-  - {fileID: 1507775024}
+  _objectReferences: []
   _serializedStateKeys:
   - milestones
   - milestoneRelativeHeights
   _serializedStateValues:
-  - '[0,1,2,3,4,5,6]'
+  - 
   - '[-41.0,-39.0,-25.0,5.98,14.05,34.62,45.14]'
   topHeight: 4.5
   bottomHeight: -4.5
   setCameraMinMax: 1
-  milestones:
-  - {fileID: 1883785221}
-  - {fileID: 349495393}
-  - {fileID: 1693669583}
-  - {fileID: 827045884}
-  - {fileID: 646684558}
-  - {fileID: 248615699}
-  - {fileID: 1507775024}
+  showCameraTrails: 1
 --- !u!4 &1237816616
 Transform:
   m_ObjectHideFlags: 0
@@ -2877,6 +2993,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allegiance: 1
+  isDead: 0
 --- !u!1 &1397436066
 GameObject:
   m_ObjectHideFlags: 0
@@ -2949,6 +3066,7 @@ SpriteRenderer:
   m_Size: {x: 10.72, y: 10.18}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!1 &1456199599
 GameObject:
   m_ObjectHideFlags: 0
@@ -3005,6 +3123,7 @@ SpriteRenderer:
   m_Size: {x: 17, y: 10}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 1
+  m_WasSpriteAssigned: 1
 --- !u!4 &1456199601
 Transform:
   m_ObjectHideFlags: 0
@@ -3060,13 +3179,46 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objectReferences: []
   _serializedStateKeys:
+  - windowRect
+  - onTigger
   - triggerOn
   - aiAreaRelativeToMilestone
+  - _leftSide
+  - _rightSide
+  - _bottomSide
+  - _topSide
+  - onExecute
   _serializedStateValues:
+  - '{"xMin":300.0,"yMin":300.0,"xMax":450.0,"yMax":310.0}'
+  - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]}'
   - '"TopOfScreen"'
   - '{"min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0}}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  windowRect:
+    serializedVersion: 2
+    x: 300
+    y: 300
+    width: 150
+    height: 10
+  graph: {fileID: 0}
+  onTigger:
+    iEvents: []
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+  gizmosAlwaysVisible: 1
   triggerOn: 1
   disapearAfterTrigger: 1
+  triggerOnGoingUp: 1
+  triggerOnGoingDown: 1
   setAiArea: 0
   aiAreaAdjustToSceenRatio: 1
   aiAreaRelativeToMilestone:
@@ -3078,8 +3230,15 @@ MonoBehaviour:
   cameraMinRelativeToMilestone: 0
   setCameraMax: 0
   cameraMaxRelativeToMilestone: 0
+  useCadre: 0
   fireEventToLevelScript: 1
   eventMessage: finish
+  onExecute:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  dialog: {fileID: 0}
 --- !u!1 &1574417753
 GameObject:
   m_ObjectHideFlags: 0
@@ -3149,6 +3308,7 @@ SpriteRenderer:
   m_Size: {x: 17, y: 10}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 1
+  m_WasSpriteAssigned: 1
 --- !u!1 &1622052380
 GameObject:
   m_ObjectHideFlags: 0
@@ -3216,26 +3376,26 @@ MonoBehaviour:
   - {fileID: 782613386}
   _serializedStateKeys:
   - listUnits
-  - objectsToAjust
   - startAIArea
   - positionDisplacers
   _serializedStateValues:
   - '[0]'
-  - '[]'
   - '{"min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0}}'
   - 
   mapping: {fileID: 153121006}
   cameraSpawn: {fileID: 1833739392}
+  showCameraTrails: 1
   listUnits:
   - {fileID: 782613386}
-  objectsToAjust: []
   setAIArea: 0
   startAIArea:
     min: {x: 0, y: 0}
     max: {x: 0, y: 0}
-  ajustAreaToCamera: 1
   roadPlayer: {fileID: 458826281}
   positionDisplacers: []
+  graph: {fileID: 0}
+  meteo: {fileID: 0}
+  markerSpawner: {fileID: 0}
 --- !u!4 &1644651696
 Transform:
   m_ObjectHideFlags: 0
@@ -3699,13 +3859,46 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objectReferences: []
   _serializedStateKeys:
+  - windowRect
+  - onTigger
   - triggerOn
   - aiAreaRelativeToMilestone
+  - _leftSide
+  - _rightSide
+  - _bottomSide
+  - _topSide
+  - onExecute
   _serializedStateValues:
+  - '{"xMin":300.0,"yMin":300.0,"xMax":450.0,"yMax":310.0}'
+  - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]}'
   - '"TopOfScreen"'
   - '{"min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0}}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  windowRect:
+    serializedVersion: 2
+    x: 300
+    y: 300
+    width: 150
+    height: 10
+  graph: {fileID: 0}
+  onTigger:
+    iEvents: []
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+  gizmosAlwaysVisible: 1
   triggerOn: 1
   disapearAfterTrigger: 1
+  triggerOnGoingUp: 1
+  triggerOnGoingDown: 1
   setAiArea: 0
   aiAreaAdjustToSceenRatio: 1
   aiAreaRelativeToMilestone:
@@ -3717,8 +3910,15 @@ MonoBehaviour:
   cameraMinRelativeToMilestone: 0
   setCameraMax: 0
   cameraMaxRelativeToMilestone: 0
+  useCadre: 0
   fireEventToLevelScript: 1
   eventMessage: wave 1
+  onExecute:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  dialog: {fileID: 0}
 --- !u!1 &1759136731
 GameObject:
   m_ObjectHideFlags: 0
@@ -3788,6 +3988,7 @@ SpriteRenderer:
   m_Size: {x: 17, y: 10}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 1
+  m_WasSpriteAssigned: 1
 --- !u!1 &1794875319
 GameObject:
   m_ObjectHideFlags: 1
@@ -3898,6 +4099,7 @@ SpriteRenderer:
   m_Size: {x: 17, y: 10}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 1
+  m_WasSpriteAssigned: 1
 --- !u!1 &1811386695
 GameObject:
   m_ObjectHideFlags: 0
@@ -3970,6 +4172,7 @@ SpriteRenderer:
   m_Size: {x: 7.86, y: 4.72}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!1 &1822409005
 GameObject:
   m_ObjectHideFlags: 0
@@ -4042,6 +4245,7 @@ SpriteRenderer:
   m_Size: {x: 10.72, y: 10.18}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!1 &1833739391
 GameObject:
   m_ObjectHideFlags: 0
@@ -4271,13 +4475,46 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objectReferences: []
   _serializedStateKeys:
+  - windowRect
+  - onTigger
   - triggerOn
   - aiAreaRelativeToMilestone
+  - _leftSide
+  - _rightSide
+  - _bottomSide
+  - _topSide
+  - onExecute
   _serializedStateValues:
+  - '{"xMin":300.0,"yMin":300.0,"xMax":450.0,"yMax":310.0}'
+  - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]}'
   - '"BottomOfScreen"'
   - '{"min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0}}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"enabled":true,"padding":0.0}'
+  - '{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
+    UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"}'
+  windowRect:
+    serializedVersion: 2
+    x: 300
+    y: 300
+    width: 150
+    height: 10
+  graph: {fileID: 0}
+  onTigger:
+    iEvents: []
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+  gizmosAlwaysVisible: 1
   triggerOn: 0
   disapearAfterTrigger: 0
+  triggerOnGoingUp: 1
+  triggerOnGoingDown: 1
   setAiArea: 0
   aiAreaAdjustToSceenRatio: 1
   aiAreaRelativeToMilestone:
@@ -4289,8 +4526,15 @@ MonoBehaviour:
   cameraMinRelativeToMilestone: 0
   setCameraMax: 0
   cameraMaxRelativeToMilestone: 0
+  useCadre: 0
   fireEventToLevelScript: 0
   eventMessage: supanu
+  onExecute:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  dialog: {fileID: 0}
 --- !u!1001 &1939967847
 Prefab:
   m_ObjectHideFlags: 0
@@ -4464,6 +4708,7 @@ SpriteRenderer:
   m_Size: {x: 17, y: 10}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 1
+  m_WasSpriteAssigned: 1
 --- !u!1 &2037625325
 GameObject:
   m_ObjectHideFlags: 0
