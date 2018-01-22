@@ -35,6 +35,8 @@ public class LootBox
             specialMessage = report.specialMessage;
             List<EquipablePreview> equipableRewards = report.pickedEquipables;
 
+            DataSaver amorySaver = null;
+
             bool shouldSaveArmory = false;
             bool shouldSaveAccount = false;
             for (int i = 0; i < equipableRewards.Count; i++)
@@ -53,14 +55,15 @@ public class LootBox
                 {
                     rewards.Add(new LootBoxRewards(equipableRewards[i], -1));
                     equipableRewards[i].MarkAsUnlocked();
+                    amorySaver = equipableRewards[i].dataSaver;
                     shouldSaveArmory = true;
                 }
             }
 
             if (shouldSaveArmory)
-                DataSaver.instance.SaveDataAsync(DataSaver.Type.Armory, null);
+                amorySaver.SaveAsync();
             if (shouldSaveAccount)
-                DataSaver.instance.SaveDataAsync(DataSaver.Type.Account, null);
+                Account.instance.SaveAsync();
 
 
             string txtMessage = LootBoxRef.PickReport.MessageToString(specialMessage);

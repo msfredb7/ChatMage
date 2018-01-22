@@ -5,7 +5,7 @@ using CCC.Persistence;
 
 public class PersistentLoader : MonoBehaviour
 {
-    [Header("Persistent Objects")]
+    [Reorderable]
     public List<Object> persistentObjects;
 
     public static PersistentLoader instance;
@@ -56,12 +56,8 @@ public class PersistentLoader : MonoBehaviour
             IPersistent manager = persistentObjects[i] as IPersistent;
             if (manager != null)
             {
-                //Instantiate Copy ?
-                if (manager.InstantiateNewOnStart())
-                {
-                    persistentObjects[i] = manager.InstantiateNew();
-                    manager = persistentObjects[i] as IPersistent;
-                }
+                persistentObjects[i] = manager.DuplicationBehavior();
+                manager = persistentObjects[i] as IPersistent;
 
                 //Init
                 manager.Init(queue.Register());

@@ -9,6 +9,8 @@ using DG.Tweening;
 
 public class DialogDisplay : MonoBehaviour
 {
+    public DataSaver dialogDataSaver;
+    public DataSaver levelDataSaver;
     public TextBox textBox;
     public Characters characters;
     public GameObject dialogContainer;
@@ -52,7 +54,7 @@ public class DialogDisplay : MonoBehaviour
     private void LevelScript_onWin()
     {
         if (savePermSkipListOnWin)
-            DialogSkip.SavePermanentSkipListAsync();
+            DialogSkip.SavePermanentSkipListAsync(dialogDataSaver);
     }
 
     void Update()
@@ -158,14 +160,14 @@ public class DialogDisplay : MonoBehaviour
         //Est-ce que le dialog a le flag SkipIfLevelCompleted ?
         if ((dialog.skipFlags & SkipFlags.SkipIfLevelCompleted) != 0)
         {
-            bool isInList = DialogSkip.IsInPermanentSkip(dialog);
-            if (LevelScript.HasBeenCompleted(Game.Instance.levelScript) && isInList)
+            bool isInList = DialogSkip.IsInPermanentSkip(dialog, dialogDataSaver);
+            if (LevelScript.HasBeenCompleted(Game.Instance.levelScript, levelDataSaver) && isInList)
             {
                 return true;
             }
             if (!isInList)
             {
-                DialogSkip.AddToPermanentSkipList(dialog);
+                DialogSkip.AddToPermanentSkipList(dialog, dialogDataSaver);
                 savePermSkipListOnWin = true;
             }
         }

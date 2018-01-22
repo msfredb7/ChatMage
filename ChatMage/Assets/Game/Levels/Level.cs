@@ -13,9 +13,10 @@ public class Level : BaseScriptableObject
 
     [InspectorHeader("Data"), InspectorMargin(25)]
     [fsProperty]
-    private bool hasBeenCompleted;
+    private DataSaver dataSaver;
     [fsProperty]
-    private bool hasBeenSeen;
+    private bool hasBeenCompleted;
+    [fsProperty] private bool hasBeenSeen;
 
     public bool HasBeenCompleted
     {
@@ -44,15 +45,15 @@ public class Level : BaseScriptableObject
 
     public void LoadData()
     {
-        hasBeenCompleted = LevelScript.HasBeenCompleted(levelScriptName);
-        hasBeenSeen = DataSaver.instance.GetBool(DataSaver.Type.Levels, GetCompleteSeenKey());
+        hasBeenCompleted = LevelScript.HasBeenCompleted(levelScriptName, dataSaver);
+        hasBeenSeen = dataSaver.GetBool(GetCompleteSeenKey());
     }
 
     [InspectorButton]
     private void ApplyData()
     {
-		DataSaver.instance.SetBool(DataSaver.Type.Levels, LevelScript.COMPLETED_KEY + levelScriptName, hasBeenCompleted);
-		DataSaver.instance.SetBool(DataSaver.Type.Levels, GetCompleteSeenKey(), hasBeenSeen);
+        dataSaver.SetBool(LevelScript.COMPLETED_KEY + levelScriptName, hasBeenCompleted);
+        dataSaver.SetBool(GetCompleteSeenKey(), hasBeenSeen);
     }
 
     private string GetCompleteSeenKey()

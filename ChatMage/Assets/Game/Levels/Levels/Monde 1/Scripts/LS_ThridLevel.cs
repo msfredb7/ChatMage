@@ -69,7 +69,7 @@ public class LS_ThridLevel : LevelScript
 
     public override void OnWin()
     {
-        Armory.UnlockAccessToSmash();
+        Armory.UnlockAccessToSmash(armoryData);
     }
 
     public override void OnReceiveEvent(string message)

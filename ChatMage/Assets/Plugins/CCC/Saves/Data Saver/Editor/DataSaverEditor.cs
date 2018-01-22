@@ -1,19 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEditor;
 using System.IO;
+using UnityEditor;
+using UnityEngine;
 
 [CustomEditor(typeof(DataSaver))]
 public class DataSaverEditor : Editor
 {
+
     public enum DataType { All, Int, Bool, Float, String, Object }
     private const int dataTypeCount = 6;
 
     DataSaver gameSaves;
-    string[] categoryNames;
     DataType chosenDataType = DataType.All;
-    DataSaver.Type chosenCategory;
 
     string[] keys;
     int[] keyTypeCounts = new int[dataTypeCount]; // Utilisé pour dessiner le data type All
@@ -24,8 +23,6 @@ public class DataSaverEditor : Editor
     void OnEnable()
     {
         gameSaves = target as DataSaver;
-
-        categoryNames = System.Enum.GetNames(typeof(DataSaver.Type));
 
         RefreshKeys();
     }
@@ -49,17 +46,6 @@ public class DataSaverEditor : Editor
             ExecuteAwaitingActions();
 
         EditorGUILayout.Space();
-
-        DrawGlobalUtilityButtons();
-
-        EditorGUILayout.Space();
-        EditorGUILayout.Space();
-        EditorGUILayout.Space();
-
-        EditorGUILayout.LabelField("Category", EditorStyles.boldLabel);
-        DrawCategoryButtons();
-
-        EditorGUILayout.Space();
         EditorGUILayout.Space();
 
         EditorGUILayout.LabelField("Types", EditorStyles.boldLabel);
@@ -70,7 +56,7 @@ public class DataSaverEditor : Editor
         DrawRefreshButton();
         DrawData();
 
-        EditorGUILayout.LabelField("Category Operations", EditorStyles.boldLabel);
+        EditorGUILayout.LabelField("File Operations", EditorStyles.boldLabel);
         DrawUtilityButtons();
 
         EditorGUILayout.Space();
@@ -82,11 +68,11 @@ public class DataSaverEditor : Editor
         {
             case DataType.All:
                 {
-                    var intKeys = gameSaves.GetIntKeys(chosenCategory);
-                    var boolKeys = gameSaves.GetBoolKeys(chosenCategory);
-                    var stringKeys = gameSaves.GetStringKeys(chosenCategory);
-                    var floatKeys = gameSaves.GetFloatKeys(chosenCategory);
-                    var objectKeys = gameSaves.GetObjectKeys(chosenCategory);
+                    var intKeys = gameSaves.GetIntKeys();
+                    var boolKeys = gameSaves.GetBoolKeys();
+                    var stringKeys = gameSaves.GetStringKeys();
+                    var floatKeys = gameSaves.GetFloatKeys();
+                    var objectKeys = gameSaves.GetObjectKeys();
 
                     keys = new string[intKeys.Count + boolKeys.Count + floatKeys.Count + stringKeys.Count + objectKeys.Count];
 
@@ -122,35 +108,35 @@ public class DataSaverEditor : Editor
                 }
             case DataType.Int:
                 {
-                    var newKeys = gameSaves.GetIntKeys(chosenCategory);
+                    var newKeys = gameSaves.GetIntKeys();
                     keys = new string[newKeys.Count];
                     newKeys.CopyTo(keys, 0);
                     break;
                 }
             case DataType.Float:
                 {
-                    var newKeys = gameSaves.GetFloatKeys(chosenCategory);
+                    var newKeys = gameSaves.GetFloatKeys();
                     keys = new string[newKeys.Count];
                     newKeys.CopyTo(keys, 0);
                     break;
                 }
             case DataType.String:
                 {
-                    var newKeys = gameSaves.GetStringKeys(chosenCategory);
+                    var newKeys = gameSaves.GetStringKeys();
                     keys = new string[newKeys.Count];
                     newKeys.CopyTo(keys, 0);
                     break;
                 }
             case DataType.Object:
                 {
-                    var newKeys = gameSaves.GetObjectKeys(chosenCategory);
+                    var newKeys = gameSaves.GetObjectKeys();
                     keys = new string[newKeys.Count];
                     newKeys.CopyTo(keys, 0);
                     break;
                 }
             case DataType.Bool:
                 {
-                    var newKeys = gameSaves.GetBoolKeys(chosenCategory);
+                    var newKeys = gameSaves.GetBoolKeys();
                     keys = new string[newKeys.Count];
                     newKeys.CopyTo(keys, 0);
                     break;
@@ -167,36 +153,6 @@ public class DataSaverEditor : Editor
     private static Color StandardToRefreshColor(Color normalColor)
     {
         return new Color(normalColor.r * 0.8f, normalColor.g * .87f, normalColor.b * 1, normalColor.a);
-    }
-
-    private void DrawCategoryButtons()
-    {
-        var stdColor = GUI.color;
-        var selectedColor = StandardToSelectedColor(stdColor);
-
-        int counter = 0;
-        while (counter < categoryNames.Length)
-        {
-            EditorGUILayout.BeginHorizontal();
-            for (int i = 0; i < 3; i++)
-            {
-                if (counter >= categoryNames.Length)
-                    break;
-
-                GUI.color = (DataSaver.Type)counter == chosenCategory ? selectedColor : stdColor;
-
-                if (GUILayout.Button(categoryNames[counter]))
-                {
-                    chosenCategory = (DataSaver.Type)counter;
-                    RefreshKeys();
-                }
-
-                counter++;
-            }
-            EditorGUILayout.EndHorizontal();
-        }
-
-        GUI.color = stdColor;
     }
 
     private void DrawDataTypeButtons()
@@ -301,7 +257,7 @@ public class DataSaverEditor : Editor
             if (GUILayout.Button("+", GUILayout.Width(16), GUILayout.Height(16)))
             {
                 var screenPoint = GUIUtility.GUIToScreenPoint(Event.current.mousePosition);
-                DataSaverEditorPopup.Popup(gameSaves, chosenCategory, type, screenPoint, RefreshKeys);
+                DataSaverEditorPopup.Popup(gameSaves, type, screenPoint, RefreshKeys);
             }
             GUI.skin.button.padding = wasPadding;
             GUI.skin.button.contentOffset = wasContentOffset;
@@ -360,14 +316,14 @@ public class DataSaverEditor : Editor
             case DataType.Int:
                 {
                     if (deleteKey)
-                        gameSaves.DeleteInt(chosenCategory, key);
+                        gameSaves.DeleteInt(key);
 
                     EditorGUI.BeginChangeCheck();
-                    var newValue = EditorGUILayout.DelayedIntField(key, gameSaves.GetInt(chosenCategory, key));
-                    keyExists = gameSaves.ContainsInt(chosenCategory, key);
+                    var newValue = EditorGUILayout.DelayedIntField(key, gameSaves.GetInt(key));
+                    keyExists = gameSaves.ContainsInt(key);
 
                     if (EditorGUI.EndChangeCheck())
-                        gameSaves.SetInt(chosenCategory, key, newValue);
+                        gameSaves.SetInt(key, newValue);
 
                     break;
                 }
@@ -375,54 +331,54 @@ public class DataSaverEditor : Editor
             case DataType.Float:
                 {
                     if (deleteKey)
-                        gameSaves.DeleteFloat(chosenCategory, key);
+                        gameSaves.DeleteFloat(key);
 
                     EditorGUI.BeginChangeCheck();
-                    var newValue = EditorGUILayout.DelayedFloatField(key, gameSaves.GetFloat(chosenCategory, key));
-                    keyExists = gameSaves.ContainsFloat(chosenCategory, key);
+                    var newValue = EditorGUILayout.DelayedFloatField(key, gameSaves.GetFloat(key));
+                    keyExists = gameSaves.ContainsFloat(key);
 
                     if (EditorGUI.EndChangeCheck())
-                        gameSaves.SetFloat(chosenCategory, key, newValue);
+                        gameSaves.SetFloat(key, newValue);
                     break;
                 }
 
             case DataType.String:
                 {
                     if (deleteKey)
-                        gameSaves.DeleteString(chosenCategory, key);
+                        gameSaves.DeleteString(key);
 
                     EditorGUI.BeginChangeCheck();
-                    var newValue = EditorGUILayout.DelayedTextField(key, gameSaves.GetString(chosenCategory, key));
-                    keyExists = gameSaves.ContainsString(chosenCategory, key);
+                    var newValue = EditorGUILayout.DelayedTextField(key, gameSaves.GetString(key));
+                    keyExists = gameSaves.ContainsString(key);
 
                     if (EditorGUI.EndChangeCheck())
-                        gameSaves.SetString(chosenCategory, key, newValue);
+                        gameSaves.SetString(key, newValue);
                     break;
                 }
 
             case DataType.Bool:
                 {
                     if (deleteKey)
-                        gameSaves.DeleteBool(chosenCategory, key);
+                        gameSaves.DeleteBool(key);
 
                     EditorGUI.BeginChangeCheck();
-                    var newValue = EditorGUILayout.Toggle(key, gameSaves.GetBool(chosenCategory, key));
-                    keyExists = gameSaves.ContainsBool(chosenCategory, key);
+                    var newValue = EditorGUILayout.Toggle(key, gameSaves.GetBool(key));
+                    keyExists = gameSaves.ContainsBool(key);
 
                     if (EditorGUI.EndChangeCheck())
-                        gameSaves.SetBool(chosenCategory, key, newValue);
+                        gameSaves.SetBool(key, newValue);
                     break;
                 }
 
             case DataType.Object:
                 {
                     if (deleteKey)
-                        gameSaves.DeleteObjectClone(chosenCategory, key);
+                        gameSaves.DeleteObjectClone(key);
 
-                    var obj = gameSaves.GetObjectClone(chosenCategory, key);
+                    var obj = gameSaves.GetObjectClone(key);
                     var text = key + ": " + (obj == null ? "null" : obj.GetType().ToString());
                     EditorGUILayout.LabelField(text);
-                    keyExists = gameSaves.ContainsObject(chosenCategory, key);
+                    keyExists = gameSaves.ContainsObject(key);
 
                     break;
                 }
@@ -438,14 +394,10 @@ public class DataSaverEditor : Editor
 
     private void DrawUtilityButtons()
     {
-        var originalGUIColor = GUI.color;
-        GUI.color = Color.Lerp(StandardToSelectedColor(originalGUIColor), originalGUIColor, 0);
-
-
         EditorGUILayout.BeginHorizontal();
         if (GUILayout.Button("Save"))
         {
-            gameSaves.SaveData(chosenCategory);
+            gameSaves.Save();
         }
 
         if (GUILayout.Button("Load"))
@@ -458,38 +410,19 @@ public class DataSaverEditor : Editor
             clearCategory = true;
         }
         EditorGUILayout.EndHorizontal();
-
-        GUI.color = originalGUIColor;
-    }
-    private void DrawGlobalUtilityButtons()
-    {
-        if (GUILayout.Button("Save All"))
-        {
-            gameSaves.SaveAll();
-        }
-
-        if (GUILayout.Button("Load All"))
-        {
-            gameSaves.LoadAll();
-        }
-
-        if (GUILayout.Button("Clear All Saves"))
-        {
-            gameSaves.ClearAllSaves();
-        }
     }
 
     private void ExecuteAwaitingActions()
     {
         if (clearCategory)
         {
-            gameSaves.ClearSave(chosenCategory);
+            gameSaves.ClearSave();
             clearCategory = false;
             RefreshKeys();
         }
         if (loadCategory)
         {
-            gameSaves.LoadData(chosenCategory);
+            gameSaves.Load();
             loadCategory = false;
             RefreshKeys();
         }

@@ -17,14 +17,14 @@ namespace EndGameReward
         public RewardDisplay rewardDisplay;
         public AudioMixerSnapshot normalAudioSnapshot;
 
-        private string levelScriptAssetName;
+        //private string levelScriptAssetName;
         private GameReward reward;
 
         private Vector2 pinataCenter;
 
         public void Init(GameReward reward, string levelScriptAssetName)
         {
-            this.levelScriptAssetName = levelScriptAssetName;
+            //this.levelScriptAssetName = levelScriptAssetName;
             this.reward = reward;
         }
 
@@ -45,12 +45,7 @@ namespace EndGameReward
 
         public void Continue()
         {
-            if(levelScriptAssetName == "LS_ThirdLevel")
-            {
-                DataSaver.instance.ClearAllSaves();
-                LoadingScreen.TransitionTo(MainMenu.SCENENAME, null);
-            } else
-                LoadingScreen.TransitionTo(LevelSelect.LevelSelection.SCENENAME, null);
+            LoadingScreen.TransitionTo(LevelSelect.LevelSelection.SCENENAME, null);
         }
     }
 }

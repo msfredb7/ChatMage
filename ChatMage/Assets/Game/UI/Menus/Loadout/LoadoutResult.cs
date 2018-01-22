@@ -19,10 +19,10 @@ public class LoadoutResult
         public string equipableName;
         public EquipableType type;
 
-        public void Save(string sufix = "")
+        public void Save(DataSaver dataSaver, string suffix = "")
         {
-            DataSaver.instance.SetString(DataSaver.Type.Loadout, LOCAL_KEY + TypeToTag(type) + sufix, equipableName);
-            Debug.Log("Saving '" + LOCAL_KEY + TypeToTag(type) + sufix + "': " + equipableName);
+            dataSaver.SetString(LOCAL_KEY + TypeToTag(type) + suffix, equipableName);
+            Debug.Log("Saving '" + LOCAL_KEY + TypeToTag(type) + suffix + "': " + equipableName);
         }
     }
 
@@ -30,31 +30,31 @@ public class LoadoutResult
     public EquipableOrder carOrder;
     public List<EquipableOrder> itemOrders = new List<EquipableOrder>();
 
-    public static LoadoutResult Load(int maxItemCount = int.MaxValue)
+    public static LoadoutResult Load(DataSaver dataSaver, int maxItemCount = int.MaxValue)
     {
         LoadoutResult lastResult = new LoadoutResult();
 
         //Check smash
         string smashKey = LOCAL_KEY + TypeToTag(EquipableType.Smash);
 
-        if (DataSaver.instance.ContainsString(DataSaver.Type.Loadout, smashKey))
-            lastResult.AddEquipable(DataSaver.instance.GetString(DataSaver.Type.Loadout, smashKey), EquipableType.Smash);
+        if (dataSaver.ContainsString(smashKey))
+            lastResult.AddEquipable(dataSaver.GetString(smashKey), EquipableType.Smash);
 
 
 
         //Check Car
         string carKey = LOCAL_KEY + TypeToTag(EquipableType.Car);
 
-        if (DataSaver.instance.ContainsString(DataSaver.Type.Loadout, carKey))
-            lastResult.AddEquipable(DataSaver.instance.GetString(DataSaver.Type.Loadout, carKey), EquipableType.Car);
+        if (dataSaver.ContainsString(carKey))
+            lastResult.AddEquipable(dataSaver.GetString( carKey), EquipableType.Car);
 
 
 
         //Check Items
 
         //Check la derniere quantité d'item sauvegardé
-        if (DataSaver.instance.ContainsInt(DataSaver.Type.Loadout, ITEMCOUNT_KEY))
-            maxItemCount = Mathf.Min(maxItemCount, DataSaver.instance.GetInt(DataSaver.Type.Loadout, ITEMCOUNT_KEY));
+        if (dataSaver.ContainsInt(ITEMCOUNT_KEY))
+            maxItemCount = Mathf.Min(maxItemCount, dataSaver.GetInt(ITEMCOUNT_KEY));
 
         //Continue à check pour des items, tant et aussi longtemps qu'on est < le minimum OU que yen a plus de sauvegardé
         int i = 0;
@@ -62,8 +62,8 @@ public class LoadoutResult
         {
             string itemKey = LOCAL_KEY + TypeToTag(EquipableType.Item) + i.ToString();
 
-            if (DataSaver.instance.ContainsString(DataSaver.Type.Loadout, itemKey))
-                lastResult.AddEquipable(DataSaver.instance.GetString(DataSaver.Type.Loadout, itemKey), EquipableType.Item);
+            if (dataSaver.ContainsString(itemKey))
+                lastResult.AddEquipable(dataSaver.GetString(itemKey), EquipableType.Item);
             else
                 break;
 
@@ -104,21 +104,21 @@ public class LoadoutResult
         }
     }
 
-    public void Save()
+    public void Save(DataSaver dataSaver)
     {
         if (smashOrder != null)
-            smashOrder.Save();
+            smashOrder.Save(dataSaver);
         if (carOrder != null)
-            carOrder.Save();
+            carOrder.Save(dataSaver);
         if (itemOrders.Count >= 1)
         {
             for (int i = 0; i < itemOrders.Count; i++)
             {
-                itemOrders[i].Save(i.ToString());
+                itemOrders[i].Save(dataSaver, i.ToString());
             }
         }
-        DataSaver.instance.SetInt(DataSaver.Type.Loadout, ITEMCOUNT_KEY, itemOrders.Count);
-        DataSaver.instance.SaveData(DataSaver.Type.Loadout);
+        dataSaver.SetInt(ITEMCOUNT_KEY, itemOrders.Count);
+        dataSaver.Save();
     }
 
     /// <summary>

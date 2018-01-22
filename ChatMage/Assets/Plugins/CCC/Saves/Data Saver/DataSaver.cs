@@ -1,14 +1,16 @@
+﻿using CCC.Utility;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
-using CCC.Utility;
 using CCC.Persistence;
 
 [CreateAssetMenu(menuName = "CCC/Other/Data Saver")]
-public partial class DataSaver : ScriptablePersistent
+public class DataSaver : ScriptablePersistent
 {
+    [Suffix(".dat")] public string fileName = "someData";
+    public const string FILE_EXTENSION = ".dat";
 
-    public int saveVersion = 1;
+    [NonSerialized] private Data data = new Data();
 
     [Serializable]
     private class Data
@@ -20,86 +22,53 @@ public partial class DataSaver : ScriptablePersistent
         public Dictionary<string, object> objects = new Dictionary<string, object>();
     }
 
-    private class Category
-    {
-        public string fileName;
-        public Data data;
-        public Category(string fileName)
-        {
-            this.fileName = fileName;
-            data = new Data();
-        }
-    }
-
-
-    public static DataSaver instance;
-
     /// <summary>
-    /// Read/Write operation queue. C'est une queue qui assure l'ordonnancement des op�rations read/write
+    /// Read/Write operation queue. C'est une queue qui assure l'ordonnancement des opérations read/write
     /// </summary>
-    private Dictionary<Category, Queue<Action>> rwoQueue = new Dictionary<Category, Queue<Action>>();
+    private Queue<Action> rwoQueue = new Queue<Action>();
 
     public override void Init(Action onComplete)
     {
-        instance = this;
-        LoadAll();
+        Load();
         onComplete();
     }
 
     private string GetPath()
     {
-        return Application.persistentDataPath + "/v" + saveVersion + "_";
-    }
-
-    private Data TypeToData(Type type)
-    {
-        return TypeToCategory(type).data;
-    }
-    private Category TypeToCategory(Type type)
-    {
-        return categories[(int)type];
-    }
-    private string TypeToFileName(Type type)
-    {
-        return TypeToCategory(type).fileName;
+        return Application.persistentDataPath + "/" + fileName + FILE_EXTENSION;
     }
 
     #region Get Value
-    public int GetInt(Type type, string key, int defaultVal = 0)
+    public int GetInt(string key, int defaultVal = 0)
     {
-        Data data = TypeToData(type);
         if (data.ints.ContainsKey(key))
             return data.ints[key];
         else
             return defaultVal;
     }
-    public float GetFloat(Type type, string key, float defaultVal = 0)
+    public float GetFloat(string key, float defaultVal = 0)
     {
-        Data data = TypeToData(type);
         if (data.floats.ContainsKey(key))
             return data.floats[key];
         else
             return defaultVal;
     }
-    public string GetString(Type type, string key, string defaultVal = "")
+    public string GetString(string key, string defaultVal = "")
     {
-        Data data = TypeToData(type);
         if (data.strings.ContainsKey(key))
             return data.strings[key];
         else
             return defaultVal;
     }
-    public bool GetBool(Type type, string key, bool defaultVal = false)
+    public bool GetBool(string key, bool defaultVal = false)
     {
-        Data data = TypeToData(type);
         if (data.bools.ContainsKey(key))
             return data.bools[key];
         else
             return defaultVal;
     }
-    public object GetObjectClone(Type type, string key, object defaultVal = null)
+    public object GetObjectClone(string key, object defaultVal = null)
     {
-        Data data = TypeToData(type);
         if (data.objects.ContainsKey(key))
         {
             object result = data.objects[key];
@@ -109,51 +78,46 @@ public partial class DataSaver : ScriptablePersistent
             return defaultVal;
     }
 
-    public Dictionary<string, int>.KeyCollection GetIntKeys(Type type) { return TypeToData(type).ints.Keys; }
-    public Dictionary<string, bool>.KeyCollection GetBoolKeys(Type type) { return TypeToData(type).bools.Keys; }
-    public Dictionary<string, float>.KeyCollection GetFloatKeys(Type type) { return TypeToData(type).floats.Keys; }
-    public Dictionary<string, string>.KeyCollection GetStringKeys(Type type) { return TypeToData(type).strings.Keys; }
-    public Dictionary<string, object>.KeyCollection GetObjectKeys(Type type) { return TypeToData(type).objects.Keys; }
+    public Dictionary<string, int>.KeyCollection GetIntKeys() { return data.ints.Keys; }
+    public Dictionary<string, bool>.KeyCollection GetBoolKeys() { return data.bools.Keys; }
+    public Dictionary<string, float>.KeyCollection GetFloatKeys() { return data.floats.Keys; }
+    public Dictionary<string, string>.KeyCollection GetStringKeys() { return data.strings.Keys; }
+    public Dictionary<string, object>.KeyCollection GetObjectKeys() { return data.objects.Keys; }
     #endregion
 
     #region Set Value
-    public void SetInt(Type type, string key, int value)
+    public void SetInt(string key, int value)
     {
-        Data data = TypeToData(type);
         if (data.ints.ContainsKey(key))
             data.ints[key] = value;
         else
             data.ints.Add(key, value);
     }
-    public void SetFloat(Type type, string key, float value)
+    public void SetFloat(string key, float value)
     {
-        Data data = TypeToData(type);
         if (data.floats.ContainsKey(key))
             data.floats[key] = value;
         else
             data.floats.Add(key, value);
     }
-    public void SetString(Type type, string key, string value)
+    public void SetString(string key, string value)
     {
-        Data data = TypeToData(type);
         if (data.strings.ContainsKey(key))
             data.strings[key] = value;
         else
             data.strings.Add(key, value);
     }
-    public void SetBool(Type type, string key, bool value)
+    public void SetBool(string key, bool value)
     {
-        Data data = TypeToData(type);
         if (data.bools.ContainsKey(key))
             data.bools[key] = value;
         else
             data.bools.Add(key, value);
     }
-    public void SetObjectClone(Type type, string key, object value)
+    public void SetObjectClone(string key, object value)
     {
         object clone = value != null ? ObjectCopier.Clone(value) : null;
 
-        Data data = TypeToData(type);
         if (data.objects.ContainsKey(key))
             data.objects[key] = clone;
         else
@@ -162,149 +126,100 @@ public partial class DataSaver : ScriptablePersistent
     #endregion
 
     #region Delete
-    public bool DeleteInt(Type type, string key)
+    public bool DeleteInt(string key)
     {
-        Data data = TypeToData(type);
         return data.ints.Remove(key);
     }
-    public bool DeleteFloat(Type type, string key)
+    public bool DeleteFloat(string key)
     {
-        Data data = TypeToData(type);
         return data.floats.Remove(key);
     }
-    public bool DeleteString(Type type, string key)
+    public bool DeleteString(string key)
     {
-        Data data = TypeToData(type);
         return data.strings.Remove(key);
     }
-    public bool DeleteBool(Type type, string key)
+    public bool DeleteBool(string key)
     {
-        Data data = TypeToData(type);
         return data.bools.Remove(key);
     }
-    public bool DeleteObjectClone(Type type, string key)
+    public bool DeleteObjectClone(string key)
     {
-        Data data = TypeToData(type);
         return data.objects.Remove(key);
     }
     #endregion
 
     #region Contains ?
-    public bool ContainsInt(Type type, string key)
+    public bool ContainsInt(string key)
     {
-        Data data = TypeToData(type);
         return data.ints.ContainsKey(key);
     }
 
-    public bool ContainsFloat(Type type, string key)
+    public bool ContainsFloat(string key)
     {
-        Data data = TypeToData(type);
         return data.floats.ContainsKey(key);
     }
 
-    public bool ContainsString(Type type, string key)
+    public bool ContainsString(string key)
     {
-        Data data = TypeToData(type);
         return data.strings.ContainsKey(key);
     }
 
-    public bool ContainsBool(Type type, string key)
+    public bool ContainsBool(string key)
     {
-        Data data = TypeToData(type);
         return data.bools.ContainsKey(key);
     }
 
-    public bool ContainsObject(Type type, string key)
+    public bool ContainsObject(string key)
     {
-        Data data = TypeToData(type);
         return data.objects.ContainsKey(key);
     }
     #endregion
 
     #region Save/Load
 
-    #region Load
-    public void LoadAll()
+    public void LoadAsync() { LoadAsync(null); }
+    public void LoadAsync(Action onLoadComplete)
     {
-        for (int i = 0; i < categories.Length; i++)
+        AddRWOperation(() =>
         {
-            LoadData(categories[i], null);
-        }
-    }
-    public void LoadAll(Action onComplete)
-    {
-        InitQueue queue = new InitQueue(onComplete);
-        for (int i = 0; i < categories.Length; i++)
-        {
-            LoadData(categories[i], queue.Register());
-        }
-        queue.MarkEnd();
-    }
-    public void LoadAllAsync()
-    {
-        for (int i = 0; i < categories.Length; i++)
-        {
-            LoadDataAsync(categories[i], null);
-        }
-    }
-    public void LoadAllAsync(Action onComplete)
-    {
-        InitQueue queue = new InitQueue(onComplete);
-        for (int i = 0; i < categories.Length; i++)
-        {
-            LoadDataAsync(categories[i], queue.Register());
-        }
-        queue.MarkEnd();
-    }
-
-    public void LoadDataAsync(Type type, Action onLoadComplete = null)
-    {
-        LoadDataAsync(TypeToCategory(type), onLoadComplete);
-    }
-    private void LoadDataAsync(Category type, Action onLoadComplete)
-    {
-        AddRWOperation(type, () =>
-        {
-            string path = GetPath() + type.fileName;
+            string path = GetPath();
 
             //Exists ?
             if (Saves.Exists(path))
                 Saves.ThreadLoad(path,
                     delegate (object graph)
                     {
-                        type.data = (Data)graph;
+                        data = (Data)graph;
 
                         if (onLoadComplete != null)
                             onLoadComplete();
 
-                        CompleteRWOperation(type);
+                        CompleteRWOperation();
                     });
             else
             {
                 //Nouveau fichier !
-                type.data = new Data();
-                SaveDataAsync(type, onLoadComplete);
+                data = new Data();
+                SaveAsync(onLoadComplete);
 
-                CompleteRWOperation(type);
+                CompleteRWOperation();
             }
         });
     }
 
-    public void LoadData(Type type, Action onLoadComplete = null)
+    public void Load() { Load(null); }
+    public void Load(Action onLoadComplete)
     {
-        LoadData(TypeToCategory(type), onLoadComplete);
-    }
-    private void LoadData(Category category, Action onLoadComplete)
-    {
-        AddRWOperation(category, () =>
+        AddRWOperation(() =>
         {
-            string path = GetPath() + category.fileName;
+            string path = GetPath();
 
             //Exists ?
             if (Saves.Exists(path))
             {
+                //Load and apply
                 object graph = Saves.InstantLoad(path);
-                category.data = (Data)graph;
+                data = (Data)graph;
 
                 if (onLoadComplete != null)
                     onLoadComplete();
@@ -312,162 +227,77 @@ public partial class DataSaver : ScriptablePersistent
             else
             {
                 //Nouveau fichier !
-                category.data = new Data();
-                SaveData(category, onLoadComplete);
+                data = new Data();
+                Save(onLoadComplete);
             }
 
-            CompleteRWOperation(category);
-        });
-    }
-    #endregion
-
-    #region Save
-    public void SaveAll()
-    {
-        for (int i = 0; i < categories.Length; i++)
-        {
-            SaveData(categories[i], null);
-        }
-#if UNITY_EDITOR
-        Debug.Log("All Data Saved");
-#endif
-    }
-    public void SaveAll(Action onComplete)
-    {
-        InitQueue queue = new InitQueue(onComplete);
-        for (int i = 0; i < categories.Length; i++)
-        {
-            SaveData(categories[i], queue.Register());
-        }
-        queue.MarkEnd();
-    }
-    public void SaveAllAsync()
-    {
-        for (int i = 0; i < categories.Length; i++)
-        {
-            SaveDataAsync(categories[i], null);
-        }
-    }
-    public void SaveAllAsync(Action onComplete)
-    {
-        InitQueue queue = new InitQueue(onComplete);
-        for (int i = 0; i < categories.Length; i++)
-        {
-            SaveDataAsync(categories[i], queue.Register());
-        }
-        queue.MarkEnd();
-    }
-
-    public void SaveDataAsync(Type type, Action onSaveComplete = null)
-    {
-        SaveDataAsync(TypeToCategory(type), onSaveComplete);
-    }
-    private void SaveDataAsync(Category category, Action onSaveComplete)
-    {
-        AddRWOperation(category, () =>
-        {
-            Saves.ThreadSave(GetPath() + category.fileName, category.data, () =>
-            {
-                if (onSaveComplete != null)
-                    onSaveComplete();
-
-                CompleteRWOperation(category);
-            });
+            CompleteRWOperation();
         });
     }
 
-    public void SaveData(Type type, Action onSaveComplete = null)
+    public void SaveAsync() { SaveAsync(null); }
+    public void SaveAsync(Action onSaveComplete)
     {
-        SaveData(TypeToCategory(type), onSaveComplete);
+        AddRWOperation(() =>
+       {
+           Saves.ThreadSave(GetPath(), data, () =>
+           {
+               if (onSaveComplete != null)
+                   onSaveComplete();
+
+               CompleteRWOperation();
+           });
+       });
     }
-    private void SaveData(Category category, Action onSaveComplete)
+
+    public void Save() { Save(null); }
+    public void Save(Action onSaveComplete)
     {
-        AddRWOperation(category, () =>
+        AddRWOperation(() =>
         {
-            Saves.InstantSave(GetPath() + category.fileName, category.data);
+            Saves.InstantSave(GetPath(), data);
 
             if (onSaveComplete != null)
                 onSaveComplete();
 
-            CompleteRWOperation(category);
+            CompleteRWOperation();
         });
     }
-    #endregion
 
-    #region Clear
-    public void ClearAllSaves()
+    public void ClearSave() { ClearSave(null); }
+    public void ClearSave(Action onComplete)
     {
-        for (int i = 0; i < categories.Length; i++)
+        AddRWOperation(() =>
         {
-            ClearSave(categories[i], null);
-        }
-    }
-    public void ClearAllSaves(Action onComplete)
-    {
-        InitQueue queue = new InitQueue(onComplete);
-        for (int i = 0; i < categories.Length; i++)
-        {
-            ClearSave(categories[i], queue.Register());
-        }
-        queue.MarkEnd();
-    }
-    public void ClearSave(Type type, Action onComplete = null)
-    {
-        ClearSave(TypeToCategory(type), onComplete);
-    }
-    private void ClearSave(Category category, Action onComplete)
-    {
-        AddRWOperation(category, () =>
-        {
-            Saves.Delete(GetPath() + category.fileName);
-            category.data = new Data();
+            Saves.Delete(GetPath());
+            data = new Data();
 
             if (onComplete != null)
                 onComplete();
 
-            CompleteRWOperation(category);
+            CompleteRWOperation();
         });
     }
-    #endregion
 
     #region RW Operations
-    private void AddRWOperation(Category category, Action action)
+    private void AddRWOperation(Action action)
     {
-        //S'il y a deja une queue, on s'enfile et on attend
-        if (rwoQueue.ContainsKey(category))
-        {
-            //On s'enfile
-            rwoQueue[category].Enqueue(action);
-        }
-        else
-        {
-            //On cree la queue et execute l'operation
-            rwoQueue.Add(category, new Queue<Action>());
+        //On s'enfile
+        rwoQueue.Enqueue(action);
+
+        //Sommes nous les premier a etre dans la queue ?
+        if (rwoQueue.Count == 1)
             action();
-        }
     }
 
-    private void CompleteRWOperation(Category category)
+    private void CompleteRWOperation()
     {
-        if (rwoQueue.ContainsKey(category))
-        {
-            Queue<Action> q = rwoQueue[category];
-            if (q.Count == 0)
-            {
-                //On est au bout de la file
-                rwoQueue.Remove(category);
-            }
-            else
-            {
-                //On execute la prochain action
-                Action nextOperation = q.Dequeue();
-                nextOperation();
-            }
-        }
-        else
-        {
-            Debug.LogError("Ne devrais pas arriver");
-        }
+        //On enleve la derniere action
+        rwoQueue.Dequeue();
+
+        //On execute la prochaine s'il y en a une
+        if (rwoQueue.Count > 0)
+            rwoQueue.Peek()();
     }
     #endregion
 

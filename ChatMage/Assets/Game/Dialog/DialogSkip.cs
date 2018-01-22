@@ -35,25 +35,25 @@ namespace Dialoguing
         {
             return PERMANENT_SKIP + dialog.IDToString();
         }
-        public static void AddToPermanentSkipList(Dialog dialog)
+        public static void AddToPermanentSkipList(Dialog dialog, DataSaver dialogSaver)
         {
-            DataSaver.instance.SetBool(DataSaver.Type.Dialog, PermanentSkipKey(dialog), true);
+            dialogSaver.SetBool(PermanentSkipKey(dialog), true);
         }
-        public static bool IsInPermanentSkip(Dialog dialog)
+        public static bool IsInPermanentSkip(Dialog dialog, DataSaver dialogSaver)
         {
-            bool value = DataSaver.instance.GetBool(DataSaver.Type.Dialog, PermanentSkipKey(dialog), false);
+            bool value = dialogSaver.GetBool(PermanentSkipKey(dialog), false);
             return value;
         }
         #endregion
 
         #region Save
-        public static void SavePermanentSkipList()
+        public static void SavePermanentSkipList(DataSaver dialogSaver)
         {
-            DataSaver.instance.SaveData(DataSaver.Type.Dialog);
+            dialogSaver.Save();
         }
-        public static void SavePermanentSkipListAsync()
+        public static void SavePermanentSkipListAsync(DataSaver dialogSaver)
         {
-            DataSaver.instance.SaveDataAsync(DataSaver.Type.Dialog, null);
+            dialogSaver.SaveAsync();
         }
         #endregion
     }

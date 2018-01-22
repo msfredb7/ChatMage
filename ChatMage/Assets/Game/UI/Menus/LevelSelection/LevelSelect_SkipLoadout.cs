@@ -8,6 +8,7 @@ namespace LevelSelect
     public class LevelSelect_SkipLoadout : MonoBehaviour
     {
         public EquipablePreview[] equipables;
+        public DataSaver loadoutSaver;
 
         public void LoadLevel(string levelScriptName)
         {

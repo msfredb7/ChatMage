@@ -1,4 +1,4 @@
-﻿public partial class DataSaver
+﻿public partial class OLD_DataSaver
 {
     // NB: Le Enum doit match avec les categories
     public enum Type

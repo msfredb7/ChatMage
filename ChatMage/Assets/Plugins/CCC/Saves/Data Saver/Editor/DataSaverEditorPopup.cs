@@ -1,12 +1,12 @@
-﻿
-using UnityEngine;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEditor;
-using System;
+using UnityEngine;
 
 public class DataSaverEditorPopup : EditorWindow
 {
     private DataSaverEditor.DataType dataType;
-    private DataSaver.Type chosenCategory;
     private DataSaver gameSaves;
 
     private int intValue = 0;
@@ -16,18 +16,17 @@ public class DataSaverEditorPopup : EditorWindow
     private string keyName = "";
     private Action onAdd;
 
-    public static void Popup(DataSaver gameSaves, DataSaver.Type chosenCategory, DataSaverEditor.DataType dataType, Vector2 position, Action onAdd)
+    public static void Popup(DataSaver gameSaves, DataSaverEditor.DataType dataType, Vector2 position, Action onAdd)
     {
         DataSaverEditorPopup window = ScriptableObject.CreateInstance<DataSaverEditorPopup>();
         window.position = new Rect(position.x, position.y, 250, 88);
-        window.Init(gameSaves, chosenCategory, dataType, onAdd);
+        window.Init(gameSaves, dataType, onAdd);
         window.ShowPopup();
     }
 
-    void Init(DataSaver gameSaves, DataSaver.Type chosenCategory, DataSaverEditor.DataType dataType, Action onAdd)
+    void Init(DataSaver gameSaves, DataSaverEditor.DataType dataType, Action onAdd)
     {
         this.gameSaves = gameSaves;
-        this.chosenCategory = chosenCategory;
         this.dataType = dataType;
         this.onAdd = onAdd;
     }
@@ -36,7 +35,7 @@ public class DataSaverEditorPopup : EditorWindow
     {
         this.DrawWindowColor(new Color(.65f, .65f, .65f));
 
-        EditorGUILayout.LabelField(chosenCategory.ToString() + " - "  + dataType.ToString());
+        EditorGUILayout.LabelField(dataType.ToString());
         EditorGUILayout.Space();
 
         GUILayoutOption firstBoxWidth = GUILayout.Width((position.width / 2) - 7);
@@ -90,16 +89,16 @@ public class DataSaverEditorPopup : EditorWindow
                 case DataSaverEditor.DataType.Object:
                     break;
                 case DataSaverEditor.DataType.Int:
-                    gameSaves.SetInt(chosenCategory, keyName, intValue);
+                    gameSaves.SetInt(keyName, intValue);
                     break;
                 case DataSaverEditor.DataType.Bool:
-                    gameSaves.SetBool(chosenCategory, keyName, boolValue);
+                    gameSaves.SetBool(keyName, boolValue);
                     break;
                 case DataSaverEditor.DataType.Float:
-                    gameSaves.SetFloat(chosenCategory, keyName, floatValue);
+                    gameSaves.SetFloat(keyName, floatValue);
                     break;
                 case DataSaverEditor.DataType.String:
-                    gameSaves.SetString(chosenCategory, keyName, stringValue);
+                    gameSaves.SetString(keyName, stringValue);
                     break;
             }
 

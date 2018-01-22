@@ -82,4 +82,10 @@ public class ITM_DarkMoleSword : Item
         sharedSlots.ReleaseSeat(this);
         sword = null;
     }
+
+    protected override void ClearReferences()
+    {
+        base.ClearReferences();
+        sharedSlots.ReleaseSeat(this);
+    }
 }

@@ -10,10 +10,12 @@ public class Account : MonoPersistent
     private const string COINS_KEY = "coins";
 
     // Coins
-    private int coins = 0;
+    private int _coins = 0;
     public event SimpleEvent onCoinsChange;
 
     private Purchaser purchaser;
+    [SerializeField] DataSaver dataSaver;
+
     public static Account instance;
 
     void Awake()
@@ -24,7 +26,8 @@ public class Account : MonoPersistent
 
     public override void Init(Action onComplete)
     {
-        Load();
+        FetchData();
+
 #if UNITY_ANDROID
         purchaser = new Purchaser();
         purchaser.Init();
@@ -32,28 +35,30 @@ public class Account : MonoPersistent
         onComplete();
     }
 
-    public void Load()
+    private void FetchData()
     {
-        if (DataSaver.instance.ContainsInt(DataSaver.Type.Account, COINS_KEY))
-            coins = DataSaver.instance.GetInt(DataSaver.Type.Account, COINS_KEY);
-        else
-        {
-            coins = 0;
-            DataSaver.instance.SetInt(DataSaver.Type.Account, COINS_KEY, 0);
-        }
+        Coins = dataSaver.GetInt(COINS_KEY, 0);
     }
 
     public void Save()
     {
-        DataSaver.instance.SetInt(DataSaver.Type.Account, COINS_KEY, coins);
-        DataSaver.instance.SaveData(DataSaver.Type.Account);
+        dataSaver.Save();
+    }
+    public void SaveAsync(Action onComplete = null)
+    {
+        dataSaver.SaveAsync(onComplete);
     }
 
     public int Coins
     {
         get
         {
-            return coins;
+            return _coins;
+        }
+        private set
+        {
+            _coins = value;
+            dataSaver.SetInt(COINS_KEY, _coins);
         }
     }
 
@@ -63,11 +68,11 @@ public class Account : MonoPersistent
     /// <returns>Retourne si le changement a reussi ou pas</returns>
     public bool AddCoins(int amount, bool saveAfterwards = true)
     {
-        int moneyResult = coins + amount;
+        int moneyResult = Coins + amount;
         if (moneyResult < 0)
             return false;
 
-        coins = moneyResult;
+        Coins = moneyResult;
         if (onCoinsChange != null)
             onCoinsChange();
 

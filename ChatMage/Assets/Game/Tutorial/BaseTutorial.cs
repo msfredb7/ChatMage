@@ -54,7 +54,7 @@ namespace Tutorial
                 Debug.Log(functionName + "Event Complete");
             }
         }
-
+        public DataSaver dataSaver;
         public bool startTutorialOnInit = true;
         public List<TutorialEvent> tutorialEvents = new List<TutorialEvent>();
 
@@ -159,8 +159,8 @@ namespace Tutorial
         {
             if (markAsCompleted)
             {
-                DataSaver.instance.SetBool(DataSaver.Type.Tutorial, TUTORIALSAVE + name, true);
-                DataSaver.instance.SaveDataAsync(DataSaver.Type.Tutorial, Quit);
+                dataSaver.SetBool(TUTORIALSAVE + name, true);
+                dataSaver.SaveAsync(Quit);
             }
             else
             {
@@ -185,11 +185,11 @@ namespace Tutorial
             Scenes.UnloadAsync(TutorialScene.SCENENAME);
         }
 
-        public static bool HasBeenCompleted(string assetName)
+        public static bool HasBeenCompleted(string assetName, DataSaver tutorialSaver)
         {
-            if (!DataSaver.instance.ContainsBool(DataSaver.Type.Tutorial, TUTORIALSAVE + assetName))
-                DataSaver.instance.SetBool(DataSaver.Type.Tutorial, TUTORIALSAVE + assetName, false);
-            return DataSaver.instance.GetBool(DataSaver.Type.Tutorial, TUTORIALSAVE + assetName);
+            if (!tutorialSaver.ContainsBool(TUTORIALSAVE + assetName))
+                tutorialSaver.SetBool(TUTORIALSAVE + assetName, false);
+            return tutorialSaver.GetBool(TUTORIALSAVE + assetName);
         }
 
         public void Execute(TutorialEvent tutorialEvent, bool useTime)

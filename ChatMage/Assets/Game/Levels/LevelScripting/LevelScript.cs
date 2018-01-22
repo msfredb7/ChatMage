@@ -17,22 +17,22 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
     //public const string WINRESULT_KEY = "winr";
     //public const string HAS_EVER_BEEN_WON = "first-winr";
     public const string COMPLETED_KEY = "cmplt_";
-    public static bool HasBeenCompleted(LevelScript lvlScript)
+    public static bool HasBeenCompleted(LevelScript lvlScript, DataSaver levelSaver)
     {
-        return HasBeenCompleted(lvlScript.name);
+        return HasBeenCompleted(lvlScript.name, levelSaver);
     }
-    public static bool HasBeenCompleted(string lvlScriptName)
+    public static bool HasBeenCompleted(string lvlScriptName, DataSaver levelSaver)
     {
-        return DataSaver.instance.GetBool(DataSaver.Type.Levels, COMPLETED_KEY + lvlScriptName, false);
+        return levelSaver.GetBool(COMPLETED_KEY + lvlScriptName, false);
     }
-    public static void MarkAsCompleted(LevelScript lvlScript)
+    public static void MarkAsCompleted(LevelScript lvlScript, DataSaver levelSaver)
     {
-        MarkAsCompleted(lvlScript.name);
+        MarkAsCompleted(lvlScript.name, levelSaver);
     }
-    public static void MarkAsCompleted(string lvlScriptName)
+    public static void MarkAsCompleted(string lvlScriptName, DataSaver levelSaver)
     {
-        DataSaver.instance.SetBool(DataSaver.Type.Levels, COMPLETED_KEY + lvlScriptName, true);
-        DataSaver.instance.SaveData(DataSaver.Type.Levels);
+        levelSaver.SetBool(COMPLETED_KEY + lvlScriptName, true);
+        levelSaver.Save();
     }
 
 
@@ -46,6 +46,8 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
 
     [InspectorHeader("General Info")]
     public SceneInfo sceneInfo;
+    public DataSaver dataSaver;
+    public DataSaver armoryData;
 
     [InspectorHeader("Conditions")]
     public GameCondition.BaseWinningCondition[] winningConditions;
@@ -88,6 +90,8 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
     public bool activateTutorial = false;
     [InspectorShowIf("activateTutorial")]
     public string tutorialAssetName;
+    [InspectorShowIf("activateTutorial")]
+    public DataSaver tutorialData;
 
     [fsIgnore, NotSerialized]
     private List<UnitWaveV2> eventTriggeredWaves;
@@ -140,7 +144,7 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
                 inGameEvents.SpawnUnderGame(introPrefab).Play(Game.Instance.StartGame);
         }
 
-        if (Armory.HasAccessToSmash())
+        if (Armory.HasAccessToSmash(armoryData))
         {
             Game.Instance.smashManager.smashEnabled = true;
             Game.Instance.ui.smashDisplay.canBeShown = true;
@@ -182,7 +186,7 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
     [InspectorButton]
     private void Debug_MarkHasCompleted()
     {
-        MarkAsCompleted(this);
+        MarkAsCompleted(this, dataSaver);
     }
 
     public void Win()
@@ -192,12 +196,12 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
 
         isOver = true;
 
-        bool wasCompleted = HasBeenCompleted(this);
+        bool wasCompleted = HasBeenCompleted(this, dataSaver);
 
         rewards.firstWin = !wasCompleted;
         if (!wasCompleted)
         {
-            MarkAsCompleted(this);
+            MarkAsCompleted(this, dataSaver);
         }
 
 
@@ -270,7 +274,7 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
     {
         if (!string.IsNullOrEmpty(tutorialAssetName))
         {
-            Tutorial.TutorialScene.StartTutorial(tutorialAssetName);
+            Tutorial.TutorialScene.StartTutorial(tutorialAssetName, tutorialData);
         }
     }
 
@@ -362,7 +366,7 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
     {
         //Game.instance.SetUnitSnapBorders(horizontalUnitSnap, 0, verticalUnitSnap, 0);
         Game.Instance.healthPackManager.enableHealthPackSpawn = !noHealthPacks;
-        bool smashAccess = Armory.HasAccessToSmash();
+        bool smashAccess = Armory.HasAccessToSmash(armoryData);
         Game.Instance.smashManager.smashEnabled = smashAccess;
         Game.Instance.ui.smashDisplay.canBeShown = smashAccess;
     }

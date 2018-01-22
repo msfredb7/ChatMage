@@ -9,14 +9,9 @@ namespace CCC.Persistence
     {
         public abstract void Init(Action onComplete);
 
-        public UnityEngine.Object InstantiateNew()
+        public UnityEngine.Object DuplicationBehavior()
         {
-            return this.Duplicate();
-        }
-
-        public bool InstantiateNewOnStart()
-        {
-            return false;
+            return this;
         }
     }
 }

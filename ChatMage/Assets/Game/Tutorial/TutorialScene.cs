@@ -22,10 +22,10 @@ namespace Tutorial
         /// <summary>
         /// Retourne faux si le tutoriel a deja ete completer
         /// </summary>
-        public static bool StartTutorial(string tutorialAssetName)
+        public static bool StartTutorial(string tutorialAssetName, DataSaver tutorialSaver)
         {
             //Check if completed ?
-            bool hasBeenCompleted = BaseTutorial.HasBeenCompleted(tutorialAssetName);
+            bool hasBeenCompleted = BaseTutorial.HasBeenCompleted(tutorialAssetName, tutorialSaver);
 
             if (hasBeenCompleted)
                 return false;
