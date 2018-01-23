@@ -88,6 +88,8 @@ public class ReorderableDrawer : PropertyDrawer
     // --------------------------------------------------------------------------------------------
     public override void OnGUI(Rect rect, SerializedProperty property, GUIContent label)
     {
+        EditorGUI.BeginChangeCheck();
+
         var content = EditorGUI.BeginProperty(rect, label, property);
 
         m_info = GetArrayFieldInfo(property);
@@ -115,6 +117,14 @@ public class ReorderableDrawer : PropertyDrawer
         DrawElement(rect, elementRect, property, content);
 
         EditorGUI.EndProperty();
+
+        if (EditorGUI.EndChangeCheck())
+        {
+            //On check si c'est un asset, et non un scene-object
+            var obj = property.serializedObject.targetObject;
+            if(AssetDatabase.Contains(obj))
+                EditorUtility.SetDirty(obj);
+        }
     }
 
     // --------------------------------------------------------------------------------------------
