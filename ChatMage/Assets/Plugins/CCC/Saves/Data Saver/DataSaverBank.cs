@@ -47,4 +47,10 @@ public class DataSaverBank : ScriptablePersistent
     {
         return dataSavers[(int)type];
     }
+    public DataSaver[] GetDataSavers()
+    {
+        DataSaver[] copy = new DataSaver[dataSavers.Length];
+        dataSavers.CopyTo(copy, 0);
+        return copy;
+    }
 }
