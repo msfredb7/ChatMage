@@ -27,6 +27,9 @@ public class StageButton : MonoBehaviour {
         //Scene message
         ToGameMessage gameMessage = new ToGameMessage(endlessLevel.levelScriptName, loadoutResult, true);
 
+        // Save stage choice
+        PlayerPrefs.SetInt(LS_EndlessLevel.stageKey, stageNumber);
+
         LoadingScreen.TransitionTo(Framework.SCENENAME, gameMessage, true);
     }
 }

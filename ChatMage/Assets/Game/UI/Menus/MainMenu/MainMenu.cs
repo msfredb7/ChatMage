@@ -13,7 +13,8 @@ public class MainMenu : BaseBehavior
     public Button endlessButton;
     public Button quitButton;
     public bool easyVersion = true; // POUR LE MIGS HARD(Accès direct au level select et loadout)
-                             //              EASY(Jeu normal avec cinématique et saut au niveau 1-1)
+                                    //              EASY(Jeu normal avec cinématique et saut au niveau 1-1)
+    public bool debugEndless = false;
 
     [Header("First time playing")]
     public Level firstLevel;
@@ -22,6 +23,8 @@ public class MainMenu : BaseBehavior
 
     public AudioClip anthem;
     public float musicVolume = 0.65f;
+
+    public LS_ThridLevel thirdLevel;
 
     public void Init()
     {
@@ -33,6 +36,25 @@ public class MainMenu : BaseBehavior
             if (firstLevel != null)
                 firstLevel.LoadData();
         });
+
+        // Verify if Endless Mode is accessible
+        if(thirdLevel.dataSaver.ContainsBool(LS_ThridLevel.COMPLETED_KEY + thirdLevel.name))
+        {
+            if (!thirdLevel.dataSaver.GetBool(LS_ThridLevel.COMPLETED_KEY + thirdLevel.name))
+            {
+                SetTextButtonActive(endlessButton,false);
+            }
+            else
+            {
+                SetTextButtonActive(endlessButton, true);
+            }
+        } else
+        {
+            SetTextButtonActive(endlessButton, false);
+        }
+
+        if (debugEndless)
+            SetTextButtonActive(endlessButton, true);
     }
 
     void OnAdventureClick()
@@ -83,5 +105,28 @@ public class MainMenu : BaseBehavior
     void GoToLevelSelect()
     {
         LoadingScreen.TransitionTo(LevelSelect.LevelSelection.SCENENAME, null);
+    }
+
+    void SetTextButtonActive(Button button, bool active)
+    {
+        button.interactable = active;
+        Text text = button.GetComponentInChildren<Text>();
+        if (text != null)
+        {
+            if (active)
+                text.color = text.color.ChangedAlpha(1);
+            else
+                text.color = text.color.ChangedAlpha(0.5f);
+        }
+
+        FadeFlash flash = button.GetComponent<FadeFlash>();
+        if (flash != null)
+        {
+            if (!active)
+            {
+                flash.Stop();
+                button.GetComponent<CanvasGroup>().alpha = 0.5f;
+            }
+        }
     }
 }
