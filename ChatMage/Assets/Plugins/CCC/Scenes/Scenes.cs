@@ -48,24 +48,32 @@ public class Scenes : MonoPersistent
 
     #region Load/Unload Methods
 
-    static public void Load(string name, LoadSceneMode mode = LoadSceneMode.Single, Action<Scene> callback = null, bool unique = true)
+    static public void Load(string name, LoadSceneMode mode = LoadSceneMode.Single, Action<Scene> callback = null, bool allowMultiple = true)
     {
-        if (unique && _HandleUniqueLoad(name, callback))
+        if (allowMultiple && _HandleUniqueLoad(name, callback))
             return;
 
         ScenePromise scenePromise = new ScenePromise(name, callback);
         loadingScenes.Add(scenePromise);
         SceneManager.LoadScene(name, mode);
     }
-
-    static public void LoadAsync(string name, LoadSceneMode mode = LoadSceneMode.Single, Action<Scene> callback = null, bool unique = true)
+    static public void Load(SceneInfo sceneInfo, Action<Scene> callback = null)
     {
-        if (unique && _HandleUniqueLoad(name, callback))
+        Load(sceneInfo.SceneName, sceneInfo.LoadMode, callback, sceneInfo.AllowMultiple);
+    }
+
+    static public void LoadAsync(string name, LoadSceneMode mode = LoadSceneMode.Single, Action<Scene> callback = null, bool allowMultiple = true)
+    {
+        if (allowMultiple && _HandleUniqueLoad(name, callback))
             return;
 
         ScenePromise scenePromise = new ScenePromise(name, callback);
         loadingScenes.Add(scenePromise);
         SceneManager.LoadSceneAsync(name, mode);
+    }
+    static public void LoadAsync(SceneInfo sceneInfo, Action<Scene> callback = null)
+    {
+        LoadAsync(sceneInfo.SceneName, sceneInfo.LoadMode, callback, sceneInfo.AllowMultiple);
     }
 
     static private bool _HandleUniqueLoad(string sceneName, Action<Scene> callback)
@@ -88,6 +96,10 @@ public class Scenes : MonoPersistent
     {
         SceneManager.UnloadSceneAsync(name);
     }
+    static public void UnloadAsync(SceneInfo sceneInfo)
+    {
+        UnloadAsync(sceneInfo.SceneName);
+    }
 
     static public bool IsActiveOrBeingLoaded(string sceneName)
     {
@@ -95,6 +107,11 @@ public class Scenes : MonoPersistent
             return true;
         return false;
     }
+    static public bool IsActiveOrBeingLoaded(SceneInfo sceneInfo)
+    {
+        return IsActiveOrBeingLoaded(sceneInfo.SceneName);
+    }
+
     static public bool IsBeingLoaded(string sceneName)
     {
         for (int i = 0; i < loadingScenes.Count; i++)
@@ -103,6 +120,11 @@ public class Scenes : MonoPersistent
         }
         return false;
     }
+    static public bool IsBeingLoaded(SceneInfo sceneInfo)
+    {
+        return IsBeingLoaded(sceneInfo.SceneName);
+    }
+
     static public bool IsActive(string sceneName)
     {
         for (int i = 0; i < SceneManager.sceneCount; i++)
@@ -110,6 +132,10 @@ public class Scenes : MonoPersistent
             if (SceneManager.GetSceneAt(i).name == sceneName) return true;
         }
         return false;
+    }
+    static public bool IsActive(SceneInfo sceneInfo)
+    {
+        return IsActive(sceneInfo.SceneName);
     }
 
     static public Scene GetActive(string sceneName)
@@ -120,8 +146,12 @@ public class Scenes : MonoPersistent
         }
         throw new System.Exception("No active scene by that name: " + sceneName);
     }
+    static public Scene GetActive(SceneInfo sceneInfo)
+    {
+        return GetActive(sceneInfo.SceneName);
+    }
 
-    static public int SceneCount()
+    static public int ActiveSceneCount()
     {
         return SceneManager.sceneCount;
     }

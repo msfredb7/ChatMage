@@ -26,7 +26,7 @@ public class ShopMenu : MonoBehaviour
 
     void Awake()
     {
-        if (Scenes.SceneCount() == 1)
+        if (Scenes.ActiveSceneCount() == 1)
         {
             //Debug launch !
             SetPreviousContext(LevelSelect.LevelSelection.SCENENAME);

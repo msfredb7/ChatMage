@@ -27,42 +27,13 @@ public class SceneInfo : ScriptableObject
 
     [SerializeField, ReadOnly]
     private string sceneName;
-    public string SceneName { get { return sceneName; } }
 
     [SerializeField, Header("Defaults")] private LoadSceneMode loadMode = LoadSceneMode.Single;
     [SerializeField] private bool allowMultiple = false;
 
-    public void LoadScene()
-    {
-        LoadScene(null);
-    }
-    public void LoadScene(Action<Scene> onLoad)
-    {
-        LoadScene(onLoad, loadMode, !allowMultiple);
-    }
-    public void LoadScene(Action<Scene> onLoad, LoadSceneMode loadSceneMode, bool unique)
-    {
-        Scenes.Load(SceneName, loadSceneMode, onLoad, unique);
-    }
-
-
-    public void LoadSceneAsync()
-    {
-        LoadSceneAsync(null);
-    }
-    public void LoadSceneAsync(Action<Scene> onLoad)
-    {
-        LoadSceneAsync(onLoad, loadMode, !allowMultiple);
-    }
-    public void LoadSceneAsync(Action<Scene> onLoad, LoadSceneMode loadSceneMode, bool unique)
-    {
-        Scenes.LoadAsync(SceneName, loadSceneMode, onLoad, unique);
-    }
-
-    public bool IsActive()
-    {
-        return Scenes.IsActive(SceneName);
-    }
+    public string SceneName { get { return sceneName; } }
+    public bool AllowMultiple { get { return allowMultiple; } }
+    public LoadSceneMode LoadMode { get { return loadMode; } }
 
 #if UNITY_EDITOR
     [OnOpenAsset(1)]

@@ -10,7 +10,7 @@ public class GameDebugLauncher : MonoBehaviour
 
     void Start()
     {
-        if (Scenes.SceneCount() == 1 && Scenes.LoadingSceneCount() <= 0)
+        if (Scenes.ActiveSceneCount() == 1 && Scenes.LoadingSceneCount() <= 0)
         {
             PersistentLoader.LoadIfNotLoaded(delegate ()
             {

@@ -40,7 +40,7 @@ public class Framework : MonoBehaviour
         //Debug Init
         //Note: c'est important de sync avec le mastermanager.
         //Sinon, partir de la scène 'Framework' ne marcherait pas
-        if (Scenes.SceneCount() == 1 && !hasInit)
+        if (Scenes.ActiveSceneCount() == 1 && !hasInit)
             PersistentLoader.LoadIfNotLoaded(Init);
     }
 
@@ -72,7 +72,7 @@ public class Framework : MonoBehaviour
         this.canGoToLevelSelect = canGoToLevelSelect;
 
         //La map est déjà loadé, probablement du au mode debug. On ne la reload pas
-        if (level.sceneInfo.IsActive())
+        if (Scenes.IsActive(level.sceneInfo))
         {
             OnMapLoaded(Scenes.GetActive(level.sceneInfo.SceneName));
         }
@@ -80,16 +80,16 @@ public class Framework : MonoBehaviour
         {
             if (loadScenesAsync)
             {
-                level.sceneInfo.LoadSceneAsync(OnMapLoaded);
+                Scenes.LoadAsync(level.sceneInfo, OnMapLoaded);
             }
             else
             {
-                level.sceneInfo.LoadScene(OnMapLoaded);
+                Scenes.Load(level.sceneInfo, OnMapLoaded);
             }
         }
 
         //Le UI est déjà loadé, probablement du au mode debug. On ne la reload pas
-        if (gameUiScene.IsActive())
+        if (Scenes.IsActive(gameUiScene))
         {
             OnUILoaded(Scenes.GetActive(gameUiScene.SceneName));
         }
@@ -97,11 +97,11 @@ public class Framework : MonoBehaviour
         {
             if (loadScenesAsync)
             {
-                gameUiScene.LoadSceneAsync(OnUILoaded);
+                Scenes.LoadAsync(gameUiScene, OnUILoaded);
             }
             else
             {
-                gameUiScene.LoadScene(OnUILoaded);
+                Scenes.Load(gameUiScene, OnUILoaded);
             }
         }
     }
@@ -143,7 +143,7 @@ public class Framework : MonoBehaviour
         PlayerController player = playerbuilder.BuildPlayer();
 
         //Game Init
-        game.Init(levelScript,this, player);
+        game.Init(levelScript, this, player);
 
         //Init map
         map.Init(player);
