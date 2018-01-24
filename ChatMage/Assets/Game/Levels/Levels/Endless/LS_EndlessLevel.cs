@@ -1,6 +1,5 @@
 ﻿using LevelScripting;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
@@ -35,6 +34,13 @@ public class LS_EndlessLevel : LevelScript
 
     // UI
     EndlessUI ui;
+
+    // Stage at Start
+    public const string stageKey = "EndlessStage";
+
+    // Best Stage
+    const string bestStageKey = "EndlessBestStage";
+    int currentBest;
 
     // Initialisation avant le debut de la partie
     protected override void OnGameReady()
@@ -83,7 +89,15 @@ public class LS_EndlessLevel : LevelScript
 
     private void LoadStageInfo()
     {
-        currentStage = 1;
+        // Get current stage
+        currentStage = PlayerPrefs.GetInt(stageKey);
+
+        // Get current best
+        if (dataSaver.ContainsInt(bestStageKey))
+            currentBest = dataSaver.GetInt(bestStageKey);
+        else
+            dataSaver.SetInt(bestStageKey, currentStage);
+
     }
 
     // Spawn d'une vague d'ennemi durant l'étage
@@ -142,7 +156,7 @@ public class LS_EndlessLevel : LevelScript
             }, gateClosingDelay);
 
             // Debut de la transition
-            Transition(delegate() {
+            Transition(delegate () {
                 // Quand la transition est fini on attend que le joueur entre
                 startNextWave.AddListener(delegate () {
                     // le joueur est la on ferme tout
@@ -156,6 +170,16 @@ public class LS_EndlessLevel : LevelScript
                 });
             });
             currentStage++;
+
+            // On a battu le record !
+            if (currentStage > currentBest)
+            {
+                dataSaver.SetInt(bestStageKey, currentStage);
+                currentBest = currentStage;
+                // TODO : Faire une animation
+            }
+
+            dataSaver.SetInt(bestStageKey, currentStage);
         });
     }
 
