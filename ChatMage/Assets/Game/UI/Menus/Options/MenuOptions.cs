@@ -10,11 +10,13 @@ public class MenuOptions : WindowAnimation
     public const string SCENENAME = "MenuOptions";
     private bool isQuitting = false;
 
+    [SerializeField] private AudioMixerSaver audioMixerSaver;
+
     public void Confirm()
     {
         if (isQuitting)
             return;
-        AudioMixerSaver.Instance.Save();
+        audioMixerSaver.Save();
         Exit();
     }
 
@@ -22,7 +24,7 @@ public class MenuOptions : WindowAnimation
     {
         if (isQuitting)
             return;
-        AudioMixerSaver.Instance.Load();
+        audioMixerSaver.Load();
         Exit();
     }
 

@@ -12,6 +12,7 @@ public class InGameOptions : WindowAnimation
 
     [Header("Options Menu")]
     public Button levelSelectButton;
+    [SerializeField] private AudioMixerSaver audioMixerSaver;
 
     private bool isQuitting = false;
 
@@ -47,13 +48,13 @@ public class InGameOptions : WindowAnimation
 
     public void Confirm()
     {
-        AudioMixerSaver.Instance.Save();
+        audioMixerSaver.Save();
         Exit();
     }
 
     public void Cancel()
     {
-        AudioMixerSaver.Instance.Load();
+        audioMixerSaver.Load();
         Exit();
     }
 

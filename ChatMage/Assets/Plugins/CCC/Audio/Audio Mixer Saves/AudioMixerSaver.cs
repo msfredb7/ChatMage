@@ -39,11 +39,8 @@ public partial class AudioMixerSaver : ScriptablePersistent
     [SerializeField] private bool loadOnInit = true;
     [SerializeField] private AudioMixer mixer;
 
-    public static AudioMixerSaver Instance;
-
     public override void Init(Action onComplete)
     {
-        Instance = this;
         if (loadOnInit)
             Load();
         onComplete();
