@@ -8,14 +8,29 @@ namespace CCC.UI
     public class ButtonSound : MonoBehaviour
     {
         public AudioClip clip;
-        void Start()
+        public AudioAsset audioAsset;
+
+        private void Awake()
         {
             PersistentLoader.LoadIfNotLoaded();
+        }
+
+        void OnEnable()
+        {
             GetComponent<Button>().onClick.AddListener(OnClick);
         }
+
+        void OnDisable()
+        {
+            GetComponent<Button>().onClick.RemoveListener(OnClick);
+        }
+
         void OnClick()
         {
-            DefaultAudioSources.PlaySFX(clip);
+            if (clip == null)
+                DefaultAudioSources.PlaySFX(audioAsset);
+            else
+                DefaultAudioSources.PlaySFX(clip);
         }
     }
 }

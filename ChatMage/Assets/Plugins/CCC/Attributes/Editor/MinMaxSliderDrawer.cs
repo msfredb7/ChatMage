@@ -1,9 +1,6 @@
 using UnityEngine;
-#if UNITY_EDITOR
 using UnityEditor;
-#endif
 
-#if UNITY_EDITOR
 [CustomPropertyDrawer(typeof(MinMaxSliderAttribute))]
 class MinMaxSliderDrawer : PropertyDrawer
 {
@@ -42,7 +39,7 @@ class MinMaxSliderDrawer : PropertyDrawer
 
             float labelWidth = EditorGUIUtility.labelWidth;
             EditorGUIUtility.labelWidth = 0;
-            min= EditorGUI.FloatField(minRegion, min);
+            min = EditorGUI.FloatField(minRegion, min);
             max = EditorGUI.FloatField(maxRegion, max);
             EditorGUIUtility.labelWidth = labelWidth;
             if (EditorGUI.EndChangeCheck())
@@ -58,4 +55,3 @@ class MinMaxSliderDrawer : PropertyDrawer
         }
     }
 }
-#endif

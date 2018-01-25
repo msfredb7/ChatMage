@@ -9,7 +9,7 @@ using UnityEngine.Events;
 
 public class Fred_TestScript : MonoBehaviour
 {
-    public GameObject obj;
+    public List<string> list;
 
     void Start()
     {
@@ -20,7 +20,8 @@ public class Fred_TestScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            obj.SetActive(!obj.activeSelf);
+            list.Shuffle();
         }
     }
+
 }

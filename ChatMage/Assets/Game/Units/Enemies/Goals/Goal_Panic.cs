@@ -29,7 +29,7 @@ namespace AI
         {
             if (IsActive())
             {
-                veh.GotoPosition(CCC.Math.Vectors.RandomVector2(0, 360, MIN_DIST, MAX_DIST) + veh.Position, NewDestination);
+                veh.GotoPosition(CCC.Math.Vectors.RandomVector2(MIN_DIST, MAX_DIST, 0, 360) + veh.Position, NewDestination);
                 lastDestinationTime = events.GameTime;
             }
         }

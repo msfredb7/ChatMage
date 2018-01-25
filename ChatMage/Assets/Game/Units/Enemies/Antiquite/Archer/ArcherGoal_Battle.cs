@@ -48,7 +48,7 @@ namespace AI
             //Shoot
             ArcherGoal_Shoot shootGoal = new ArcherGoal_Shoot(veh, target);
             shootGoal.CanBeInterrupted = false;
-            
+
             AddSubGoal(shootGoal);
         }
 
@@ -68,22 +68,22 @@ namespace AI
             Vector2 deltaMove = Vector2.zero;
             if (target == null)
             {
-                deltaMove = Vectors.RandomVector2(0, 360, MIN_DIST, MAX_DIST);
+                deltaMove = Vectors.RandomVector2(MIN_DIST, MAX_DIST, 0, 360);
             }
             else
             {
                 Vector2 meToTarget = target.Position - veh.Position;
-                float angleToTarget = Vectors.VectorToAngle(meToTarget);
+                float angleToTarget = meToTarget.ToAngle();
 
                 bool invert = UnityEngine.Random.value > 0.5f;
 
                 if (meToTarget.sqrMagnitude < TOO_CLOSE_DIST)
                 {
-                    deltaMove = Vectors.RandomVector2(angleToTarget + 90, angleToTarget + 120, MIN_DIST, MAX_DIST);
+                    deltaMove = Vectors.RandomVector2(MIN_DIST, MAX_DIST, angleToTarget + 90, angleToTarget + 120);
                 }
                 else
                 {
-                    deltaMove = Vectors.RandomVector2(angleToTarget + 60, angleToTarget + 120, MIN_DIST, MAX_DIST);
+                    deltaMove = Vectors.RandomVector2(MIN_DIST, MAX_DIST, angleToTarget + 60, angleToTarget + 120);
                 }
                 if (invert)
                     deltaMove = -deltaMove;

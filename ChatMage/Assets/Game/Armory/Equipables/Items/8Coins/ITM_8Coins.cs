@@ -183,7 +183,7 @@ public class ITM_8Coins : Item
 
         for (int i = 0; i < coins.Length; i++)
         {
-            Vector2 randomV = Vectors.RandomVector2(0, 360, 0, 1f);
+            Vector2 randomV = Vectors.RandomVector2( 0, 1f, 0, 360);
 
             int s = i.Mod(4);
             float profondeur = 0.6f;

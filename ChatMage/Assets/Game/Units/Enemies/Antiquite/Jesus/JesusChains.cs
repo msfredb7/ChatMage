@@ -132,7 +132,7 @@ public class JesusChains : MonoBehaviour
             flyingChains[i] = new FlyingChain()
             {
                 tr = chains[i],
-                velocity = Vectors.RandomVector2(minBreakAngle, maxBreakAngle, minSpeed, maxSpeed),
+                velocity = Vectors.RandomVector2(minSpeed, maxSpeed, minBreakAngle, maxBreakAngle),
                 angVelocity = Random.Range(minAngSpeed, maxAngSpeed) * (Random.value > 0.5f ? 1 : -1),
                 duration = Random.Range(minDuration, maxDuration)
             };
