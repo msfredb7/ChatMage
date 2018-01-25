@@ -10,14 +10,20 @@ public class IntroCinematic : MonoBehaviour {
 	public Button skipBTN;
 	int currentScene;
 
-	/*void Start() {
+	void Start() {
+		//Debug.Log("Test start intro");
 		StartScene();
+	}
+
+	/*void Update()
+	{
+		//Debug.Log(Input.GetMouseButtonDown(0));
 	}*/
 
 	public void StartScene() {
 		currentScene = 0;
 
-		skipBTN.onClick.AddListener(ClickToSkip);
+		//skipBTN.onClick.AddListener(ClickToSkip);
 
 		/*for(var i = 1; i< transform.childCount - 1; i++) {
 			scenes.Add(transform.GetChild(i).GetComponent<SceneAnimation>());
