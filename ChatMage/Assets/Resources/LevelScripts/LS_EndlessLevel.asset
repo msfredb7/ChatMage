@@ -13,6 +13,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objectReferences:
   - {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
+  - {fileID: 114917152140949164, guid: 90a1293e412776e4db23eb9595fcf924, type: 2}
+  - {fileID: 114031953647070938, guid: dca25e04556fe204da1a495069e8c437, type: 2}
+  - {fileID: 114782444358368932, guid: 444a36ca87f7fa248b0d5ff50d76f643, type: 2}
+  - {fileID: 114481925992522316, guid: 3ad6240e35c93a0469e0870f61273c74, type: 2}
+  - {fileID: 114923829034378616, guid: 7ec293da9a2e20c4caaa28d716dc5124, type: 2}
   _serializedStateKeys:
   - winningConditions
   - losingConditions
@@ -20,13 +25,15 @@ MonoBehaviour:
   - waves
   - rewards
   - possibleUnits
+  - difficultyProgressionType
   _serializedStateValues:
   - '[]'
-  - '[]'
+  - '[{"$type":"GameCondition.LoseOnPlayerDeath"}]'
   - '[]'
   - '[]'
   - '{"overrideGoldAmount":false,"goldReward":null,"giveLootBox":false,"lootboxRefName":null,"goldified":false}'
-  - '[0]'
+  - '[{"unit":0,"power":1,"unlockAt":0,"canBeInGroup":true},{"unit":1,"power":2,"unlockAt":0,"canBeInGroup":true},{"unit":2,"power":3,"unlockAt":10,"canBeInGroup":false},{"unit":3,"power":4,"unlockAt":20,"canBeInGroup":false},{"unit":4,"power":5,"unlockAt":10,"canBeInGroup":true},{"unit":5,"power":6,"unlockAt":15,"canBeInGroup":false}]'
+  - '"linear"'
   sceneInfo: {fileID: 11400000, guid: 776a9f058fff5af4290e4a682ca54c98, type: 2}
   dataSaver: {fileID: 11400000, guid: ddccaa3a858acc3458d9734bb2ec9d3e, type: 2}
   armoryData: {fileID: 11400000, guid: 7974f73ff596eae41a4721224c1384f2, type: 2}
@@ -43,7 +50,10 @@ MonoBehaviour:
   activateTutorial: 0
   tutorialAssetName: 
   tutorialData: {fileID: 0}
-  possibleUnits:
-  - {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
-  spawnInterval: 0.25
+  difficultyProgressionType: 1
+  progressionConstant: 2
+  spawnInterval: 1
+  milestoneLittleGroups: 10
   playerEnterDelay: 0.5
+  useDebug: 1
+  debugStage: 1
