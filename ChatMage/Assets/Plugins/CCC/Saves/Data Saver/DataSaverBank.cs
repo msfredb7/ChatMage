@@ -5,18 +5,8 @@ using CCC.Persistence;
 using System;
 
 [CreateAssetMenu(menuName = "CCC/Other/Data Saver Bank")]
-public class DataSaverBank : ScriptablePersistent
+public partial class DataSaverBank : ScriptablePersistent
 {
-    public enum Type
-    {
-        Account,
-        Armory,
-        Dialog,
-        Levels,
-        Loadout,
-        Tutorial
-    }
-
     [SerializeField, HideInInspector] private DataSaver[] dataSavers = new DataSaver[Enum.GetValues(typeof(Type)).Length];
 
     [NonSerialized]

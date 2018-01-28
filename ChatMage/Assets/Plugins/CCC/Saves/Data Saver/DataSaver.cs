@@ -10,7 +10,17 @@ public class DataSaver : ScriptablePersistent
     [Suffix(".dat")] public string fileName = "someData";
     public const string FILE_EXTENSION = ".dat";
 
-    [NonSerialized] private Data data = new Data();
+    [NonSerialized] private Data _data = new Data();
+    private Data data
+    {
+        get { return _data; }
+        set
+        {
+            _data = value;
+            if (OnOverwriteData != null)
+                OnOverwriteData();
+        }
+    }
 
     [Serializable]
     private class Data
@@ -21,6 +31,12 @@ public class DataSaver : ScriptablePersistent
         public Dictionary<string, bool> bools = new Dictionary<string, bool>();
         public Dictionary<string, object> objects = new Dictionary<string, object>();
     }
+
+    public delegate void SaverEvent();
+    /// <summary>
+    /// Évenement appelé lorsqu'on overwrite les données (load/clear)
+    /// </summary>
+    public event SaverEvent OnOverwriteData;
 
     /// <summary>
     /// Read/Write operation queue. C'est une queue qui assure l'ordonnancement des opérations read/write
@@ -228,6 +244,7 @@ public class DataSaver : ScriptablePersistent
             {
                 //Nouveau fichier !
                 data = new Data();
+
                 Save(onLoadComplete);
             }
 

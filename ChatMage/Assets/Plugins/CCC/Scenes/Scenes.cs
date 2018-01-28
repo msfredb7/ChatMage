@@ -92,6 +92,10 @@ public class Scenes : MonoPersistent
         return false;
     }
 
+    static public void UnloadAsync(Scene scene)
+    {
+        SceneManager.UnloadSceneAsync(scene);
+    }
     static public void UnloadAsync(string name)
     {
         SceneManager.UnloadSceneAsync(name);
@@ -151,14 +155,14 @@ public class Scenes : MonoPersistent
         return GetActive(sceneInfo.SceneName);
     }
 
-    static public int ActiveSceneCount()
+    static public int ActiveSceneCount
     {
-        return SceneManager.sceneCount;
+        get { return SceneManager.sceneCount; }
     }
 
-    static public int LoadingSceneCount()
+    static public int LoadingSceneCount
     {
-        return loadingScenes.Count;
+        get { return loadingScenes.Count; }
     }
 
     #endregion

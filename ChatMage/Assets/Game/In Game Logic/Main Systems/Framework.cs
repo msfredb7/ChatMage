@@ -40,7 +40,7 @@ public class Framework : MonoBehaviour
         //Debug Init
         //Note: c'est important de sync avec le mastermanager.
         //Sinon, partir de la scène 'Framework' ne marcherait pas
-        if (Scenes.ActiveSceneCount() == 1 && !hasInit)
+        if (Scenes.ActiveSceneCount == 1 && !hasInit)
             PersistentLoader.LoadIfNotLoaded(Init);
     }
 
