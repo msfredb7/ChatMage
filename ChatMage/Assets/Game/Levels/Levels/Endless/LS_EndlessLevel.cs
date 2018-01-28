@@ -14,8 +14,31 @@ public class LS_EndlessLevel : LevelScript
 
     // Spawn
     string spawnTag = "random";
-    public List<Unit> possibleUnits;
+
+    public class EnemyTypes : IWeight
+    {
+        public Unit unit;
+        public int power;
+        public int unlockAt;
+        public bool canBeInGroup;
+
+        public EnemyTypes(Unit unit, int power)
+        {
+            this.unit = unit;
+            this.power = power;
+        }
+
+        public float Weight
+        {
+            get { return power; }
+        }
+    }
+
+    public List<EnemyTypes> possibleUnits;
+    public DifficultyModificatorTypes difficultyProgressionType;
+    public float progressionConstant = 2.0f;
     public float spawnInterval = 0.5f;
+    public int milestoneLittleGroups = 10;
     GameObject playerSpawn;
 
     // Etage
@@ -31,6 +54,9 @@ public class LS_EndlessLevel : LevelScript
     bool waitingForEnter = false;
     UnityEvent startTransition = new UnityEvent();
     UnityEvent startNextWave = new UnityEvent();
+    public bool useDebug = false;
+    [FullInspector.InspectorShowIf("useDebug")]
+    public int debugStage = 1;
 
     // UI
     EndlessUI ui;
@@ -98,6 +124,8 @@ public class LS_EndlessLevel : LevelScript
         else
             dataSaver.SetInt(bestStageKey, currentStage);
 
+        if (useDebug)
+            currentStage = debugStage;
     }
 
     // Spawn d'une vague d'ennemi durant l'étage
@@ -112,10 +140,7 @@ public class LS_EndlessLevel : LevelScript
 
         // What ?
         wave.what = new WaveWhat();
-        wave.what.spawnSequence = new UnitPack[1];
-        wave.what.spawnSequence[0] = new UnitPack();
-        wave.what.spawnSequence[0].unit = possibleUnits[0];
-        wave.what.spawnSequence[0].quantity = 1;
+        wave.what.spawnSequence = CreateUnitWave(currentStage,possibleUnits,difficultyProgressionType);
 
         // Where ?
         wave.where = new WaveWhereV2();
@@ -136,6 +161,95 @@ public class LS_EndlessLevel : LevelScript
         // Initialisation de la vague
         ManuallyAddWave(wave);
         TriggerWaveManually("wave");
+    }
+
+    // Formule mathematique d'augmentation de la difficulte
+    public enum DifficultyModificatorTypes
+    {
+        exponent = 0,
+        linear = 1
+    }
+
+    // Algorithm to create a good wave depending on the stage
+    private UnitPack[] CreateUnitWave(int currentWave, List<EnemyTypes> units, DifficultyModificatorTypes difficulty)
+    {
+        List<UnitPack> unitPack = new List<UnitPack>();
+        int wavePower = 1; // minimum
+
+        // Calculate wave power from a mathematical function depending on the stage we're in
+        switch (difficulty)
+        {
+            case DifficultyModificatorTypes.exponent:
+                wavePower = Mathf.RoundToInt(Mathf.Pow(progressionConstant, currentWave));
+                break;
+            case DifficultyModificatorTypes.linear:
+                wavePower = Mathf.RoundToInt(progressionConstant * currentWave);
+                break;
+            default:
+                break;
+        }
+
+        // Tant que la vague est pas remplis au point d'avoir la puissance
+        while(wavePower > 0)
+        {
+            // On cree des packs d'ennemi et les ajoute à la vague
+            UnitPack currentPack = new UnitPack();
+            wavePower -= CreateUnitPack(ref currentPack, wavePower, possibleUnits, difficulty, unitPack.Count+1);
+            unitPack.Add(currentPack);
+        }
+
+        // On cree le resultat, le rempli et le retourne
+        UnitPack[] result = new UnitPack[unitPack.Count];
+        for (int i = 0; i < unitPack.Count; i++)
+        {
+            result[i] = unitPack[i];
+        }
+        return result;
+    }
+
+    // Create un pack d'ennemi a envoyé 
+    private int CreateUnitPack(ref UnitPack pack, int puissanceRestante, List<EnemyTypes> units, DifficultyModificatorTypes difficulty, int packNumber)
+    {
+        // Calculate pack power from a mathematical function
+        int packPowerTarget = 1; // minimum
+        switch (difficulty)
+        {
+            case DifficultyModificatorTypes.exponent:
+                packPowerTarget = Mathf.RoundToInt(Mathf.Pow(progressionConstant, packNumber));
+                break;
+            case DifficultyModificatorTypes.linear:
+                packPowerTarget = Mathf.RoundToInt(progressionConstant * packNumber);
+                break;
+            default:
+                break;
+        }
+
+        // On crée un lot aléatoire d'ennemi
+        Lottery<EnemyTypes> enemyLot = new Lottery<EnemyTypes>();
+        for (int i = 0; i < units.Count; i++)
+        {
+            // Si le power de la unit n'est pas trop fort comparé à la puissance de la wave
+            if (units[i].power <= packPowerTarget)
+            {
+                // et si on a unlock la unit, on peut la spawn
+                if(units[i].unlockAt <= currentStage)
+                    enemyLot.Add(units[i]);
+            }
+                
+        }
+
+        // On choisit aleatoirement un ennemi
+        EnemyTypes chosenEnemy = enemyLot.Pick();
+        pack.unit = chosenEnemy.unit;
+        // On va en spawn le plus possible selon le power max de paquet d'ennemi
+        if (chosenEnemy.canBeInGroup)
+            pack.quantity = Mathf.RoundToInt(packPowerTarget / chosenEnemy.power);
+        else // sinon on doit spawn un petit group selon des paramètres
+            pack.quantity = UnityEngine.Random.Range(Mathf.FloorToInt(currentStage / milestoneLittleGroups), Mathf.FloorToInt(currentStage / milestoneLittleGroups)+1);
+
+        // On a notre pack d'ennemi qui va spawn dans la wave
+        // On retourne la puissance du pack
+        return (chosenEnemy.power * pack.quantity);
     }
 
     // Initialisation du processus de changement d'étages
