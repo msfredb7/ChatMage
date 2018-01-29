@@ -44,35 +44,35 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
 
 
 
-    [InspectorHeader("General Info")]
+    [InspectorCategory("LEVEL"), InspectorHeader("General Info")]
     public SceneInfo sceneInfo;
     public DataSaver dataSaver;
     public DataSaver armoryData;
 
-    [InspectorHeader("Conditions")]
+    [InspectorCategory("LEVEL"), InspectorHeader("Conditions")]
     public GameCondition.BaseWinningCondition[] winningConditions;
     public GameCondition.BaseLosingCondition[] losingConditions;
 
-    [InspectorHeader("Wrap Animations")]
+    [InspectorCategory("LEVEL"), InspectorHeader("Wrap Animations")]
     public BaseIntro introPrefab;
     public BaseWinOutro winOutroPrefab;
     public BaseLoseOutro loseOutroPrefab;
 
 
-    [InspectorHeader("Base Settings")]
+    [InspectorCategory("LEVEL"), InspectorHeader("Base Settings")]
     [InspectorTooltip("No healthpacks during the entire level")]
     public bool noHealthPacks = false;
     public bool followPlayerOnStart = false;
 
-    [InspectorHeader("In Game Events")]
+    [InspectorCategory("LEVEL"), InspectorHeader("In Game Events")]
     public bool useCustomGenericEvents = false;
     [InspectorShowIf("useCustomGenericEvents")]
     public List<EventScripting> events;
 
-    [InspectorHeader("Unit Waves")]
+    [InspectorCategory("LEVEL"), InspectorHeader("Unit Waves")]
     public List<UnitWaveV2> waves;
 
-    [InspectorHeader("Winning Rewards")]
+    [InspectorCategory("LEVEL"), InspectorHeader("Winning Rewards")]
     public GameReward rewards;
 
     public event SimpleEvent onWin;
@@ -86,7 +86,7 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
     [fsIgnore, NotSerialized, NonSerialized]
     protected InGameEvents inGameEvents;
 
-    [InspectorHeader("Tutoriel")]
+    [InspectorCategory("LEVEL"), InspectorHeader("Tutoriel")]
     public bool activateTutorial = false;
     [InspectorShowIf("activateTutorial")]
     public string tutorialAssetName;
@@ -183,7 +183,7 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
         OnUpdate();
     }
 
-    [InspectorButton]
+    [InspectorCategory("LEVEL"), InspectorButton]
     private void Debug_MarkHasCompleted()
     {
         MarkAsCompleted(this, dataSaver);
