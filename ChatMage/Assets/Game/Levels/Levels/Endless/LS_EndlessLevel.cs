@@ -38,6 +38,13 @@ public class LS_EndlessLevel : LevelScript
         }
     }
 
+    [InspectorCategory("ENDLESS MODE"), InspectorHeader("Reset")]
+    public static int stepToResetSave = 5;
+    [InspectorCategory("ENDLESS MODE")]
+    public Item startingItem;
+    [InspectorCategory("ENDLESS MODE")]
+    public SceneInfo stageSelection;
+
     // Spawn
     string spawnTag = "random";
 
@@ -55,6 +62,7 @@ public class LS_EndlessLevel : LevelScript
     public DifficultyProgression wavePower;
 
     // Etage
+    int currentStep;
     int currentStage;
 
     // Transition
@@ -71,6 +79,8 @@ public class LS_EndlessLevel : LevelScript
     bool waitingForEnter = false;
     UnityEvent startTransition = new UnityEvent();
     UnityEvent startNextWave = new UnityEvent();
+    [InspectorCategory("ENDLESS MODE")]
+    public float fadeTextAnim = 1.0f;
 
     // Gates
     SidewaysFakeGate topgate;
@@ -79,8 +89,8 @@ public class LS_EndlessLevel : LevelScript
     // Debug
     [InspectorCategory("ENDLESS MODE"), InspectorHeader("Debug")]
     public bool useDebug = false;
-    [FullInspector.InspectorShowIf("useDebug")]
-    public int debugStage = 1;
+    [InspectorCategory("ENDLESS MODE"),FullInspector.InspectorShowIf("useDebug")]
+    public int debugStep = 1;
 
     // UI
     EndlessUI ui;
@@ -89,7 +99,7 @@ public class LS_EndlessLevel : LevelScript
     public const string stageKey = "EndlessStage";
 
     // Best Stage
-    const string bestStageKey = "EndlessBestStage";
+    public const string bestStepKey = "EndlessBestStage";
     int currentBest;
 
     // Initialisation avant le debut de la partie
@@ -124,6 +134,8 @@ public class LS_EndlessLevel : LevelScript
     {
         // La porte est ouverte par default, il faut donc fermer apres
         botgate.Close();
+        // On fade out l'affichage de l'etage
+        ui.stageText.DOFade(0, fadeTextAnim);
         // On spawn maintenant la premiere vague !
         SpawnWave();
     }
@@ -141,15 +153,16 @@ public class LS_EndlessLevel : LevelScript
     {
         // Get current stage
         currentStage = PlayerPrefs.GetInt(stageKey);
+        currentStep = Mathf.FloorToInt((currentStage-1) * stepToResetSave)+1;
 
         // Get current best
-        if (dataSaver.ContainsInt(bestStageKey))
-            currentBest = dataSaver.GetInt(bestStageKey);
+        if (dataSaver.ContainsInt(bestStepKey))
+            currentBest = dataSaver.GetInt(bestStepKey);
         else
-            dataSaver.SetInt(bestStageKey, currentStage);
+            dataSaver.SetInt(bestStepKey, currentStep);
 
         if (useDebug)
-            currentStage = debugStage;
+            currentStep = debugStep;
     }
 
     // Spawn d'une vague d'ennemi durant l'étage
@@ -159,12 +172,12 @@ public class LS_EndlessLevel : LevelScript
         UnitWaveV2 wave = new UnitWaveV2();
         wave.infiniteRepeat = false;
         wave.pauseBetweenRepeat = 0;
-        wave.spawnInterval = 1/(spawnInterval.GetProgression(difficulty.GetProgression(currentStage)));
+        wave.spawnInterval = 1/(spawnInterval.GetProgression(difficulty.GetProgression(currentStep)));
         wave.preLaunchDialog = null;
 
         // What ?
         wave.what = new WaveWhat();
-        wave.what.spawnSequence = CreateUnitWave(currentStage,possibleUnits);
+        wave.what.spawnSequence = CreateUnitWave(currentStage + (currentStep - ((currentStage - 1) * stepToResetSave)), possibleUnits);
 
         // Where ?
         wave.where = new WaveWhereV2();
@@ -309,7 +322,7 @@ public class LS_EndlessLevel : LevelScript
             if (units[i].power <= power)
             {
                 // et si on a unlock la unit, on peut la spawn
-                if(units[i].unlockAt <= currentStage)
+                if(units[i].unlockAt <= currentStep)
                     enemyLot.Add(units[i], Mathf.FloorToInt(1 + (units[i].Weight * diversityFactor))); // chance de choisir cette unit influencer par la diversite
             }
         }
@@ -351,6 +364,7 @@ public class LS_EndlessLevel : LevelScript
                     startNextWave.AddListener(delegate () {
                         // le joueur est la on ferme tout
                         botgate.Close();
+                        ui.stageText.DOFade(0, fadeTextAnim);
                         Game.Instance.playerBounds.bottom.gameObject.SetActive(true);
                         // on reset les event pour la prochaine fois
                         startTransition = new UnityEvent();
@@ -359,17 +373,17 @@ public class LS_EndlessLevel : LevelScript
                         SpawnWave();
                     });
                 });
-                currentStage++;
+                currentStep++;
 
                 // On a battu le record !
-                if (currentStage > currentBest)
+                if (currentStep > currentBest)
                 {
-                    dataSaver.SetInt(bestStageKey, currentStage);
-                    currentBest = currentStage;
+                    dataSaver.SetInt(bestStepKey, currentStep);
+                    currentBest = currentStep;
                     // TODO : Faire une animation
                 }
 
-                dataSaver.SetInt(bestStageKey, currentStage);
+                dataSaver.SetInt(bestStepKey, currentStep);
             });
         }, gateAnimDelay);
     }
@@ -382,17 +396,28 @@ public class LS_EndlessLevel : LevelScript
             ui.stageText.text = "Stage " + currentStage; // Changement du texte dans le ui
             Game.Instance.DelayedCall(delegate ()
             {
+                // Avant de Fade In
+                // Si on a franchis un palier
+                if (((currentStep+1) % stepToResetSave) == 0)
+                {
+                    // On reset le endless mode
+                    BackToStageSelection();
+                    return;
+                } else
+                {
+                    ui.stageText.text = "Stage " + currentStage + ": Step " + (currentStep - ((currentStage-1) * stepToResetSave));
+                    ui.stageText.color = ui.stageText.color.ChangedAlpha(1);
+                }
+                MovePlayer(onComplete);
                 // Fade in
                 ui.transitionBG.DOFade(0, transitionDuration).OnComplete(delegate () {
                     botgate.Open();
                     Game.Instance.playerBounds.bottom.gameObject.SetActive(false);
-                    MovePlayer(onComplete);
                 }).SetUpdate(true);
             }, transitionPause);
         }).SetUpdate(true);
     }
 
-    // TODO : BUG DE CAMERA QUI SE LOCK SOUDAINEMENT SUR LE JOUEUR A FIX
     // Deplacement du joueur (animation d'intro)
     private void MovePlayer(Action onComplete)
     {
@@ -429,6 +454,12 @@ public class LS_EndlessLevel : LevelScript
         */
     }
 
+    // Retour a la tour
+    private void BackToStageSelection()
+    {
+        LoadingScreen.TransitionTo(stageSelection.SceneName, null);
+    }
+
     // DETECTORS
 
     private void PlayerEnteringTopDetector(ColliderInfo other, ColliderListener listener)
@@ -449,4 +480,5 @@ public class LS_EndlessLevel : LevelScript
         Game.Instance.Player.playerDriver.enableInput = true;
         startNextWave.Invoke();
     }
+
 }
