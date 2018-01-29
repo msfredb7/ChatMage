@@ -5,10 +5,10 @@ using UnityEngine.Events;
 using FullInspector;
 using FullSerializer;
 using CCC.Utility;
-using CCC.Manager;
 using System;
+using CCC.DesignPattern;
 
-public class Game : PublicSingleton<Game>
+public class Game : PublicFISingleton<Game>
 {
     //Linked references
     [InspectorHeader("References")]
@@ -28,7 +28,7 @@ public class Game : PublicSingleton<Game>
     [fsIgnore, NonSerialized]
     public Map map;
     [fsIgnore, NonSerialized]
-    public UiSystem ui;
+    public GameUI ui;
     [fsIgnore, NonSerialized]
     public LevelScript levelScript;
     [fsIgnore, NonSerialized]
@@ -209,7 +209,7 @@ public class Game : PublicSingleton<Game>
     private void OnUnitDestroy(Unit unit)
     {
         //est-ce qu'on est entrain de quit ?
-        if (instance == null)
+        if (Instance == null)
             return;
 
         //On l'enleve de la liste

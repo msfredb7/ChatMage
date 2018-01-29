@@ -20,7 +20,7 @@ namespace AI
 
         private void OnSingBegin()
         {
-            Game.instance.gameCamera.vectorShaker.AddShaker(this);
+            Game.Instance.gameCamera.vectorShaker.AddShaker(this);
 
             Allegiance[] allowedAlligiances = veh.boostTargets.targetAllegiances.ToArray();
 
@@ -42,7 +42,7 @@ namespace AI
 
         private void OnSingEnd()
         {
-            Game.instance.gameCamera.vectorShaker.RemoveShaker(this);
+            Game.Instance.gameCamera.vectorShaker.RemoveShaker(this);
         }
 
         public float GetShakeStrength()

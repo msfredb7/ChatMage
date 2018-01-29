@@ -28,7 +28,7 @@ public class TonyVehicle : EnemyVehicle
         base.Update();
 
         if(cam == null)
-            cam = Game.instance.gameCamera;
+            cam = Game.Instance.gameCamera;
         else
         {
             float distToCam = cam.Height - Position.y;
@@ -44,7 +44,7 @@ public class TonyVehicle : EnemyVehicle
         if (other.parentUnit is PlayerVehicle)
         {
             //Reward player
-            Game.instance.SpawnUnit(rewardPrefab, zoneTransform.position);
+            Game.Instance.SpawnUnit(rewardPrefab, zoneTransform.position);
 
             if (onSnapTaken != null)
                 onSnapTaken();

@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using CCC.Manager;
 using System;
+using CCC.Persistence;
 
-public class ResourceLoader : BaseManager<ResourceLoader>
+public class ResourceLoader : MonoPersistent
 {
     private abstract class PendingRequest
     {
@@ -30,10 +30,16 @@ public class ResourceLoader : BaseManager<ResourceLoader>
     }
 
     private List<PendingRequest> pendingRequests = new List<PendingRequest>();
+    private static ResourceLoader instance;
 
-    public override void Init()
+    void Awake()
     {
-        CompleteInit();
+        instance = this;
+    }
+
+    public override void Init(Action onComplete)
+    {
+        onComplete();
     }
 
     /// <summary>

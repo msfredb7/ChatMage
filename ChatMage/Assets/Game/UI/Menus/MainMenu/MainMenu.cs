@@ -1,4 +1,4 @@
-using CCC.Manager;
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,40 +9,73 @@ using FullInspector;
 public class MainMenu : BaseBehavior
 {
     public const string SCENENAME = "MainMenu";
-    public Button playButton;
+    public Button adventureButton;
+    public Button endlessButton;
     public Button quitButton;
     public bool easyVersion = true; // POUR LE MIGS HARD(Accès direct au level select et loadout)
-                             //              EASY(Jeu normal avec cinématique et saut au niveau 1-1)
+                                    //              EASY(Jeu normal avec cinématique et saut au niveau 1-1)
+    public bool debugEndless = false;
 
     [Header("First time playing")]
     public Level firstLevel;
+    public Level endlessLevel;
     public string carAssetName;
 
     public AudioClip anthem;
     public float musicVolume = 0.65f;
 
+    public LS_ThridLevel thirdLevel;
+
     public void Init()
     {
-        MasterManager.Sync(delegate ()
+        PersistentLoader.LoadIfNotLoaded(delegate ()
         {
-            SoundManager.PlayMusic(anthem, volume: musicVolume);
-            playButton.onClick.AddListener(OnClick);
+            DefaultAudioSources.PlayMusic(anthem, volume: musicVolume);
+            adventureButton.onClick.AddListener(OnAdventureClick);
+            endlessButton.onClick.AddListener(OnEndlessClick);
             if (firstLevel != null)
                 firstLevel.LoadData();
         });
+
+        // Verify if Endless Mode is accessible
+        if(thirdLevel.dataSaver.ContainsBool(LS_ThridLevel.COMPLETED_KEY + thirdLevel.name))
+        {
+            if (!thirdLevel.dataSaver.GetBool(LS_ThridLevel.COMPLETED_KEY + thirdLevel.name))
+            {
+                SetTextButtonActive(endlessButton,false);
+            }
+            else
+            {
+                SetTextButtonActive(endlessButton, true);
+            }
+        } else
+        {
+            SetTextButtonActive(endlessButton, false);
+        }
+
+        if (debugEndless)
+            SetTextButtonActive(endlessButton, true);
     }
 
-    void OnClick()
+    void OnAdventureClick()
     {
         //Check first level. Si le premier level n'a pas été complété, on fait -> cinematic -> first level
         if (firstLevel != null && !firstLevel.HasBeenCompleted && easyVersion)
-        {
             GoToFirstLevel();
-        }
         else
-        {
             GoToLevelSelect();
-        }
+    }
+
+    void OnEndlessClick()
+    {
+        //Loadout (TEMPORAIRE)
+        LoadoutResult loadoutResult = new LoadoutResult();
+        loadoutResult.AddEquipable(carAssetName, EquipableType.Car);
+
+        //Scene message
+        ToGameMessage gameMessage = new ToGameMessage(endlessLevel.levelScriptName, loadoutResult, true);
+
+        LoadingScreen.TransitionTo(Framework.SCENENAME, gameMessage, true);
     }
 
     void GoToFirstLevel()
@@ -53,8 +86,6 @@ public class MainMenu : BaseBehavior
 
         //Scene message à donner au framework
         ToGameMessage gameMessage = new ToGameMessage(firstLevel.levelScriptName, loadoutResult, true);
-
-
 
         //Cinematic Settings
         //CinematicSettings cinematicSettings = new CinematicSettings
@@ -74,5 +105,28 @@ public class MainMenu : BaseBehavior
     void GoToLevelSelect()
     {
         LoadingScreen.TransitionTo(LevelSelect.LevelSelection.SCENENAME, null);
+    }
+
+    void SetTextButtonActive(Button button, bool active)
+    {
+        button.interactable = active;
+        Text text = button.GetComponentInChildren<Text>();
+        if (text != null)
+        {
+            if (active)
+                text.color = text.color.ChangedAlpha(1);
+            else
+                text.color = text.color.ChangedAlpha(0.5f);
+        }
+
+        FadeFlash flash = button.GetComponent<FadeFlash>();
+        if (flash != null)
+        {
+            if (!active)
+            {
+                flash.Stop();
+                button.GetComponent<CanvasGroup>().alpha = 0.5f;
+            }
+        }
     }
 }

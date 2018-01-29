@@ -25,12 +25,12 @@ public class ITM_Axe : Item
 
     public override void OnUpdate()
     {
-        if(Game.instance.Player != null)
+        if(Game.Instance.Player != null)
         {
             if (!alreadyDone)
             {
                 alreadyDone = true;
-                Instantiate(axePrefab, Game.instance.Player.vehicle.transform);
+                Instantiate(axePrefab, Game.Instance.Player.vehicle.transform);
             }
         }
     }

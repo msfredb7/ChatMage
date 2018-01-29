@@ -10,7 +10,7 @@ public class Car_Phantom : StdCar
     {
         base.OnGameStarted();
 
-        Game.instance.Player.playerStats.sprite.color = Color.cyan;
-        Game.instance.Player.playerStats.unhitableDuration = unhitableDuration;
+        Game.Instance.Player.playerStats.sprite.color = Color.cyan;
+        Game.Instance.Player.playerStats.unhitableDuration = unhitableDuration;
     }
 }

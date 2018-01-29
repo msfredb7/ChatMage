@@ -32,11 +32,13 @@ namespace GameIntroOutro
         [Header("Portal Exit")]
         public float portalCloseDelay = 0.75f;
 
+        private Sequence sq;
+
         public override void Play(Action onComplete)
         {
 
             //On commence avec la camera zoomed in
-            GameCamera gCam = Game.instance.gameCamera;
+            GameCamera gCam = Game.Instance.gameCamera;
             //Camera ortho
             gCam.OrthoSize = cameraOrthographicSize;
             //Camera wiggle
@@ -48,10 +50,10 @@ namespace GameIntroOutro
             gCam.enabled = false;
 
             //Get player
-            PlayerController player = Game.instance.Player;
+            PlayerController player = Game.Instance.Player;
             Vehicle veh = player.vehicle;
 
-            Vector2 camRightBorder = Game.instance.gameCamera.Center + Vector2.right * gCam.OrthoSize * gCam.cam.aspect;
+            Vector2 camRightBorder = Game.Instance.gameCamera.Center + Vector2.right * gCam.OrthoSize * gCam.cam.aspect;
 
             //Position portal
             Vector2 portalPos = cameraSideOffset + camRightBorder;
@@ -69,7 +71,7 @@ namespace GameIntroOutro
             veh.wheelsOnTheGround.Lock(LOCK_KEY);
             veh.canTurn.Lock(LOCK_KEY);
 
-            Sequence sq = DOTween.Sequence().OnComplete(
+            sq = DOTween.Sequence().OnComplete(
                 delegate ()
                 {
                     //Unlock player
@@ -116,6 +118,12 @@ namespace GameIntroOutro
 
             //Unzoom
             sq.Join(gCam.DOOrthoSize(gCam.DefaultOrthoSize, unzoomDuration).SetEase(Ease.InOutSine));
+        }
+
+        private void OnDestroy()
+        {
+            if (sq != null && sq.IsActive())
+                sq.Kill();
         }
     }
 

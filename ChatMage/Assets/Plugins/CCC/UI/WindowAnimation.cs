@@ -3,7 +3,6 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using DG.Tweening;
-using CCC.Manager;
 
 namespace CCC.UI
 {
@@ -65,7 +64,8 @@ namespace CCC.UI
                 Open();
         }
 
-        public void Open(TweenCallback onComplete = null)
+        public void Open() { Open(null); }
+        public void Open(TweenCallback onComplete)
         {
             isOpen = true;
             bgTr.gameObject.SetActive(true);
@@ -106,7 +106,8 @@ namespace CCC.UI
             }
         }
 
-        public void Close(TweenCallback onComplete = null)
+        public void Close() { Close(null); }
+        public void Close(TweenCallback onComplete)
         {
             isOpen = false;
 

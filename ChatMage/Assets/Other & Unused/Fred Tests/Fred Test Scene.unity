@@ -227,6 +227,7 @@ GameObject:
   - component: {fileID: 1205636209}
   - component: {fileID: 1205636215}
   - component: {fileID: 1205636214}
+  - component: {fileID: 1205636216}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -285,7 +286,7 @@ Camera:
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
-  m_AllowMSAA: 1
+  m_AllowMSAA: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -315,12 +316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d0bd9990e4d1c1459607cbad3ec8273, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  samples: 50
-  tries: 300
-  random:
-    currentChances: 0.36
-    successRate: 0.59
-    hardness: 0.086
+  list: []
 --- !u!82 &1205636215
 AudioSource:
   m_ObjectHideFlags: 0
@@ -401,3 +397,44 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &1205636216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1205636208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a694854f63fe49e4b935f71d339845c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  action: {fileID: 11400000, guid: 03d95e22d8f2d0b4da4352bcd19c5a86, type: 2}
+  onPressEvents: 1
+  onPress:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1205636214}
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  onHoldEvents: 0
+  onHold:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  onReleaseEvents: 0
+  onRelease:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null

@@ -1,5 +1,4 @@
-﻿using CCC.Manager;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,6 +8,6 @@ public class SoundPlayerOnEnable : SoundPlayer
 
     void OnEnable()
     {
-        DelayManager.LocalCallTo(PlaySound, addDelay, this);
+        this.DelayedCall(PlaySound, addDelay);
     }
 }

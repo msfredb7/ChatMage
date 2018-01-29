@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using CCC.Manager;
+
 
 namespace LoadoutMenu
 {
@@ -29,19 +29,19 @@ namespace LoadoutMenu
             {
                 case LoadoutTab.Car:
                     text.text = carText;
-                    SoundManager.PlaySFX(carAudio, volume: 1);
+                    DefaultAudioSources.PlaySFX(carAudio, volume: 1);
                     break;
                 case LoadoutTab.Smash:
                     text.text = smashText;
-                    SoundManager.PlaySFX(smashAudio, volume: 1);
+                    DefaultAudioSources.PlaySFX(smashAudio, volume: 1);
                     break;
                 case LoadoutTab.Items:
                     text.text = itemsText;
-                    SoundManager.PlaySFX(itemsAudio, volume: 1);
+                    DefaultAudioSources.PlaySFX(itemsAudio, volume: 1);
                     break;
                 case LoadoutTab.Recap:
                     text.text = recapText;
-                    SoundManager.PlaySFX(recapAudio, volume: 1);
+                    DefaultAudioSources.PlaySFX(recapAudio, volume: 1);
                     break;
                 default:
                     throw new System.Exception("shit");

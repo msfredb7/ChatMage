@@ -32,8 +32,8 @@ public class LS_2_Bonus1 : LevelScript
 
         enemyCount = 0;
         waveCount = 0;
-        Game.instance.onUnitDestroyed += Instance_onUnitDestroyed;
-        Game.instance.onUnitSpawned += Instance_onUnitSpawned;
+        Game.Instance.onUnitDestroyed += Instance_onUnitDestroyed;
+        Game.Instance.onUnitSpawned += Instance_onUnitSpawned;
     }
 
     private void Instance_onUnitSpawned(Unit unit)
@@ -96,7 +96,7 @@ public class LS_2_Bonus1 : LevelScript
     {
         inWave = false;
 
-        Map map = Game.instance.map;
+        Map map = Game.Instance.map;
 
         map.roadPlayer.CurrentRoad.ApplyMaxToCamera();
 

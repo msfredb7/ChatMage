@@ -1,46 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
+using FullInspector;
 
 public class ITM_MagicMushroom : Item
 {
-    public float scaleMultiplier = 2;
-    public float hpMultiplier = 2;
+    [InspectorHeader("Grow")]
+    public AudioPlayable growSFX;
+    public float growDelay;
+    public float animDuration = 0.75f;
+    public float scaleIncrease = 0.5f;
+
+    [InspectorHeader("Shrink")]
+    public AudioPlayable shrinkSFX;
 
     public override void Equip(int duplicateIndex)
     {
-        throw new System.NotImplementedException();
-    }
-
-    public override void Init(PlayerController player)
-    {
-        base.Init(player);
-    }
-
-    public override void OnGameReady()
-    {
-        //NOTE: �a serait peut-etre mieux de scale individuellement les partie du char qu'on veut grossir
-        //      Sinon, on risque de grossir des chose non voulue (ex: des prefab de d'autres items)
-
-        Transform body = player.body;
-        body.localScale = Vector3.Scale(body.localScale, Vector3.one * scaleMultiplier);
-
-        player.playerStats.health.MAX = Mathf.RoundToInt((float)player.playerStats.health * hpMultiplier);
-        player.playerStats.health.Set(player.playerStats.health.MAX);
-    }
-
-    public override void OnGameStarted()
-    {
-
-    }
-
-    public override void OnUpdate()
-    {
-
+        //On utilise Delay manager et non InGameEvents parce qu'on veut pas que le delai scale avec le ZaWarudo
+        Game.Instance.DelayedCall(() =>
+        {
+            DefaultAudioSources.PlaySFX(growSFX);
+            player.body.DOBlendableScaleBy(Vector3.one * scaleIncrease, animDuration).SetEase(Ease.OutElastic);
+        }, growDelay);
     }
 
     public override void Unequip()
     {
-        throw new System.NotImplementedException();
+        DefaultAudioSources.PlaySFX(shrinkSFX);
+        player.body.DOBlendableScaleBy(Vector3.one * -scaleIncrease, animDuration).SetEase(Ease.OutElastic);
     }
 }

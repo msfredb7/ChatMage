@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using CCC.Manager;
 
 public class SoundPlayerOnStart : SoundPlayer {
 
@@ -10,6 +9,6 @@ public class SoundPlayerOnStart : SoundPlayer {
     new void Start()
     {
         base.Start();
-        DelayManager.LocalCallTo(PlaySound, addDelay, this);
+        this.DelayedCall(PlaySound, addDelay);
     }
 }

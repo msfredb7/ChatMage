@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class LS_2_3 : LevelScript
 {
-    [InspectorHeader("Dialog"), InspectorMargin(10)]
+    [InspectorCategory("UNIQUE"), InspectorHeader("Dialog"), InspectorMargin(10)]
     public Dialoguing.Dialog thankYou;
     public Dialoguing.Dialog princessSaved;
 
@@ -25,7 +25,7 @@ public class LS_2_3 : LevelScript
     protected override void OnGameReady()
     {
         canWin = false;
-        map = Game.instance.map;
+        map = Game.Instance.map;
         gate = map.mapping.GetTaggedObject("gate");
     }
 
@@ -39,18 +39,18 @@ public class LS_2_3 : LevelScript
         switch (message)
         {
             case "saveDialogEvent":
-                Game.instance.ui.dialogDisplay.StartDialog(princessSaved);
+                Game.Instance.ui.dialogDisplay.StartDialog(princessSaved);
                 canWin = true;
                 break;
             case "ending":
                 if (!canWin)
                 {
-                    Game.instance.gameCamera.followPlayer = true;
-                    Game.instance.gameCamera.canScrollUp = true;
-                    Game.instance.map.roadPlayer.CurrentRoad.ApplyMinMaxToCamera();
+                    Game.Instance.gameCamera.followPlayer = true;
+                    Game.Instance.gameCamera.canScrollUp = true;
+                    Game.Instance.map.roadPlayer.CurrentRoad.ApplyMinMaxToCamera();
                 } else
                 {
-                    Game.instance.ui.dialogDisplay.StartDialog(thankYou,delegate() {
+                    Game.Instance.ui.dialogDisplay.StartDialog(thankYou,delegate() {
                         gate.GetComponent<SidewaysFakeGate>().Open();
                         Win();
                     });

@@ -23,7 +23,7 @@ public class BouclierTournant : Unit, IAttackable
     void Start()
     {
         //On grossie le shield si on a 'boostedAOE'
-        if (Game.instance.Player.playerStats.boostedAOE)
+        if (Game.Instance.Player.playerStats.boostedAOE)
             shieldCollider.transform.localScale *= boostedSizeMultiplier;
 
         shieldCollider.onCollisionEnter += ShieldCollider_onCollisionEnter;
@@ -43,7 +43,7 @@ public class BouclierTournant : Unit, IAttackable
             attackable.Attacked(other, 1, null);
 
             if (unit.IsDead && !wasDead)
-                Game.instance.Player.playerStats.RegisterKilledUnit(unit);
+                Game.Instance.Player.playerStats.RegisterKilledUnit(unit);
 
             OnShieldHit();
         }
@@ -61,7 +61,7 @@ public class BouclierTournant : Unit, IAttackable
         if (!IsTurning())
             TurnShield();
 
-        Game.instance.commonVfx.SmallHit(shieldCollider.transform.position, Color.white);
+        Game.Instance.commonVfx.HitWhite(shieldCollider.transform.position);
     }
 
     private bool IsTurning()

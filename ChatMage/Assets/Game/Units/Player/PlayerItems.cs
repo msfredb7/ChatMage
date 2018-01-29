@@ -8,6 +8,8 @@ public class PlayerItems : PlayerComponent
     public List<Item> items = new List<Item>();
     public event SimpleEvent OnItemListChange;
 
+    public int ItemCount { get { return items.Count; } }
+
     public override void Init(PlayerController controller)
     {
         base.Init(controller);
@@ -92,7 +94,7 @@ public class PlayerItems : PlayerComponent
 
     void Update()
     {
-        if (Game.instance.gameReady)
+        if (Game.Instance.gameReady)
             for (int i = 0; i < items.Count; i++)
             {
                 items[i].OnUpdate();

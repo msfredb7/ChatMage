@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using CCC.Manager;
 using CCC.Utility;
 
 namespace GameEvents
@@ -13,7 +12,7 @@ namespace GameEvents
 
         public void Trigger()
         {
-            Game.instance.music.TransitionTo(music);
+            Game.Instance.music.TransitionTo(music);
         }
 
         public override Color GUIColor()

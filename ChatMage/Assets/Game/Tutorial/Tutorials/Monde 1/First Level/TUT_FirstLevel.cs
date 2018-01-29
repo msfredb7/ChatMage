@@ -23,13 +23,13 @@ namespace Tutorial
             if (hasStarted)
             {
                 currentLevel.onEventReceived -= CurrentLevel_onEventReceived;
-                Game.instance.onUnitSpawned -= TutoEnemy;
+                Game.Instance.onUnitSpawned -= TutoEnemy;
             }
         }
 
         protected override void OnStart()
         {
-            if (Game.instance == null)
+            if (Game.Instance == null)
             {
                 Debug.LogError("Game is null ?");
                 End(false);
@@ -38,8 +38,8 @@ namespace Tutorial
 
             isMobile = Application.isMobilePlatform;
             hasStarted = true;
-            Game.instance.levelScript.onEventReceived += CurrentLevel_onEventReceived;
-            Game.instance.onUnitSpawned += TutoEnemy;
+            Game.Instance.levelScript.onEventReceived += CurrentLevel_onEventReceived;
+            Game.Instance.onUnitSpawned += TutoEnemy;
         }
 
         private void CurrentLevel_onEventReceived(string text)
@@ -196,7 +196,7 @@ namespace Tutorial
                 if (unit != null)
                     modules.spotlight.OnWorld(unit.Position);
                 else
-                    modules.spotlight.OnWorld(Game.instance.Player.vehicle.Position);
+                    modules.spotlight.OnWorld(Game.Instance.Player.vehicle.Position);
 
                 modules.textDisplay.DisplayText("Defeat your enemies by striking them."
                     + " But be careful! They will try to attack you too!", true);
@@ -211,7 +211,7 @@ namespace Tutorial
                     });
             });
 
-            Game.instance.onUnitSpawned -= TutoEnemy;
+            Game.Instance.onUnitSpawned -= TutoEnemy;
         }
     }
 

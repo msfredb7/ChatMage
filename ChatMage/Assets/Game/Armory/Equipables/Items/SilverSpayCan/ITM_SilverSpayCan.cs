@@ -16,7 +16,7 @@ public class ITM_SilverSpayCan : Item
     public override void OnGameStarted()
     {
         // Pour etre sur que le healthpackmanager a fait son init
-        Game.instance.healthPackManager.spawnArmor = true;
+        Game.Instance.healthPackManager.spawnArmor = true;
     }
 
     public override void OnUpdate()

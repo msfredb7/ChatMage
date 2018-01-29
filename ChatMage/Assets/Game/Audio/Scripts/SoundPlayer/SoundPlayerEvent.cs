@@ -1,5 +1,4 @@
-﻿using CCC.Manager;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -14,7 +13,7 @@ public class SoundPlayerEvent : SoundPlayer
         base.Start();
         onBegin.AddListener(delegate ()
         {
-            DelayManager.LocalCallTo(PlaySound, addDelay, this);
+            this.DelayedCall(PlaySound, addDelay);
         });
     }
 }

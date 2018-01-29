@@ -7,7 +7,7 @@ namespace GameEvents
     {
         public void Trigger()
         {
-            Game.instance.map.ResetAIArea();
+            Game.Instance.map.ResetAIArea();
         }
 
         public override Color GUIColor()

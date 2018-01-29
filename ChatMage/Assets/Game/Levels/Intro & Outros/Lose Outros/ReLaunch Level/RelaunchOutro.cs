@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using CCC.Manager;
+
 
 namespace GameIntroOutro
 {
@@ -13,12 +13,12 @@ namespace GameIntroOutro
 
         public override void Play()
         {
-            SoundManager.PlaySFX(gameOverSound, soundDelay);
+            DefaultAudioSources.PlaySFX(gameOverSound, soundDelay);
         }
 
         public void Restart()
         {
-            Game.instance.framework.RestartLevel();
+            Game.Instance.framework.RestartLevel();
         }
     }
 }

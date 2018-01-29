@@ -1,4 +1,4 @@
-using CCC.Manager;
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -58,7 +58,7 @@ public class LoadingScreen
             if (SceneManager.GetSceneAt(i).name != SCENENAME)
                 Scenes.UnloadAsync(SceneManager.GetSceneAt(i).name);
         }
-        DelayManager.LocalCallTo(LateLoad, 0, animator, true);
+        PersistentLoader.instance.CallNextFrame(LateLoad);
     }
 
     private static void LateLoad()

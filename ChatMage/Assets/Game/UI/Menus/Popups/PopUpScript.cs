@@ -1,4 +1,4 @@
-using CCC.Manager;
+
 using CCC.UI;
 using System;
 using System.Collections;
@@ -33,7 +33,7 @@ public class PopUpScript : WindowAnimation
     {
         if (Camera.main == null)
             cam.gameObject.SetActive(true);
-        MasterManager.Sync();
+        PersistentLoader.LoadIfNotLoaded();
     }
 
     public PopUpScript SetOkPopUp(Action okCallback = null)

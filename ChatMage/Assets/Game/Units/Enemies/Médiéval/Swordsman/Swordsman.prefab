@@ -384,6 +384,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allegiance: 2
+  isDead: 0
   moveSpeed: 2
   targetDirection: 0
   rotationSetsTargetDirection: 1
@@ -394,8 +395,10 @@ MonoBehaviour:
   turnSpeed: 210
   smartMove: 0
   clampToAIArea: 1
+  smashJuice: 1
   targets:
     targetAllegiances: 00000000
+  bodyCenter: {fileID: 0}
   animator: {fileID: 114600131749444562}
   bodySprite: {fileID: 212569535150933362}
   attackListener: {fileID: 114304675681669396}
@@ -455,6 +458,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enabled: 1
+  checkWhenUnderCamera: 1
+  checkWhenAboveCamera: 1
   overrideDefaultDeactivationRange: 0
   newDeactivationRange: 10
 --- !u!114 &114833601093544724
@@ -468,6 +473,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2ffadeadda65074884d31968b63878f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canGetForcedGoals: 1
   startAttackRange: 1.5
   movementPrediction: 1
   thinkAheadLength: 0.5
@@ -511,6 +517,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!212 &212291421455443066
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -551,6 +558,7 @@ SpriteRenderer:
   m_Size: {x: 4, y: 4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!212 &212569535150933362
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -591,6 +599,7 @@ SpriteRenderer:
   m_Size: {x: 4, y: 4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!212 &212733597403336442
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -631,3 +640,4 @@ SpriteRenderer:
   m_Size: {x: 2.56, y: 0.64}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1

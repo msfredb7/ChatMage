@@ -14,8 +14,8 @@ namespace GameEvents
             if (Application.isPlaying)
             {
                 triggered = false;
-                if(Game.instance != null)
-                    HookOntoGame(Game.instance);
+                if(Game.Instance != null)
+                    HookOntoGame(Game.Instance);
             }
         }
 
@@ -23,8 +23,8 @@ namespace GameEvents
         {
             if (Application.isPlaying)
             {
-                if (Game.instance != null)
-                    HookOntoGame(Game.instance);
+                if (Game.Instance != null)
+                    HookOntoGame(Game.Instance);
             }
         }
 

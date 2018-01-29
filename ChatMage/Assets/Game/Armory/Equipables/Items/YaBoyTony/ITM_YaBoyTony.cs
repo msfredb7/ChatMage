@@ -14,7 +14,7 @@ public class ITM_YaBoyTony : Item
 
     public override void OnGameReady()
     {
-        Game.instance.SpawnUnit(tonyPrefab, Game.instance.gameCamera.Center + Vector2.right * 1.5f);
+        Game.Instance.SpawnUnit(tonyPrefab, Game.Instance.gameCamera.Center + Vector2.right * 1.5f);
     }
 
     public override void OnGameStarted()

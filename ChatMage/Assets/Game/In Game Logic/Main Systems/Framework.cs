@@ -2,14 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using CCC.Manager;
 using UnityEngine.Events;
 
 public class Framework : MonoBehaviour
 {
     public const string SCENENAME = "Framework";
-    public bool loadScenesAsync = false;
     public Game game;
+
+    public bool loadScenesAsync = false;
+    public SceneInfo gameUiScene;
+
     [Header("Temporaire")]
     public PlayerBuilder playerbuilder;
 
@@ -20,7 +22,7 @@ public class Framework : MonoBehaviour
     private Vector2 screenBounds;
     private bool hasInit = false;
 
-    private UiSystem uiSystem;
+    private GameUI uiSystem;
     private Map map;
 
     private bool mapLoaded = false;
@@ -38,8 +40,8 @@ public class Framework : MonoBehaviour
         //Debug Init
         //Note: c'est important de sync avec le mastermanager.
         //Sinon, partir de la scène 'Framework' ne marcherait pas
-        if (Scenes.SceneCount() == 1 && !hasInit)
-            MasterManager.Sync(Init);
+        if (Scenes.ActiveSceneCount() == 1 && !hasInit)
+            PersistentLoader.LoadIfNotLoaded(Init);
     }
 
     //LE init utilisé pour start tout
@@ -70,36 +72,36 @@ public class Framework : MonoBehaviour
         this.canGoToLevelSelect = canGoToLevelSelect;
 
         //La map est déjà loadé, probablement du au mode debug. On ne la reload pas
-        if (Scenes.Exists(level.sceneName))
+        if (Scenes.IsActive(level.sceneInfo))
         {
-            OnMapLoaded(Scenes.GetActive(level.sceneName));
+            OnMapLoaded(Scenes.GetActive(level.sceneInfo.SceneName));
         }
         else
         {
             if (loadScenesAsync)
             {
-                Scenes.LoadAsync(level.sceneName, LoadSceneMode.Additive, OnMapLoaded);
+                Scenes.LoadAsync(level.sceneInfo, OnMapLoaded);
             }
             else
             {
-                Scenes.Load(level.sceneName, LoadSceneMode.Additive, OnMapLoaded);
+                Scenes.Load(level.sceneInfo, OnMapLoaded);
             }
         }
 
         //Le UI est déjà loadé, probablement du au mode debug. On ne la reload pas
-        if (Scenes.Exists(UiSystem.SCENENAME))
+        if (Scenes.IsActive(gameUiScene))
         {
-            OnUILoaded(Scenes.GetActive(UiSystem.SCENENAME));
+            OnUILoaded(Scenes.GetActive(gameUiScene.SceneName));
         }
         else
         {
             if (loadScenesAsync)
             {
-                Scenes.LoadAsync(UiSystem.SCENENAME, LoadSceneMode.Additive, OnUILoaded);
+                Scenes.LoadAsync(gameUiScene, OnUILoaded);
             }
             else
             {
-                Scenes.Load(UiSystem.SCENENAME, LoadSceneMode.Additive, OnUILoaded);
+                Scenes.Load(gameUiScene, OnUILoaded);
             }
         }
     }
@@ -114,7 +116,7 @@ public class Framework : MonoBehaviour
     }
     void OnUILoaded(Scene scene)
     {
-        uiSystem = Scenes.FindRootObject<UiSystem>(scene);
+        uiSystem = Scenes.FindRootObject<GameUI>(scene);
         uiLoaded = true;
 
         if (mapLoaded)
@@ -141,7 +143,7 @@ public class Framework : MonoBehaviour
         PlayerController player = playerbuilder.BuildPlayer();
 
         //Game Init
-        game.Init(levelScript,this, player);
+        game.Init(levelScript, this, player);
 
         //Init map
         map.Init(player);

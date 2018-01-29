@@ -14,7 +14,7 @@ public class ItemPack : Pack
 
     protected override void OnPickUp()
     {
-        PlayerController player = Game.instance != null ? Game.instance.Player : null;
+        PlayerController player = Game.Instance != null ? Game.Instance.Player : null;
 
         if (itemReference != null && player != null)
             player.playerItems.Equip(itemReference);

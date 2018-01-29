@@ -55,14 +55,14 @@ public class GotoOnSpawn : OnSpawnAction
             case UnitSpawn.PositionType.World:
                 break;
             case UnitSpawn.PositionType.RelativeToPlayer:
-                PlayerController player = Game.instance.Player;
+                PlayerController player = Game.Instance.Player;
                 if (player != null)
                     destination += player.vehicle.Position;
                 else
-                    destination += Game.instance.gameCamera.Center;
+                    destination += Game.Instance.gameCamera.Center;
                 break;
             case UnitSpawn.PositionType.RelativeToCamera:
-                destination += Game.instance.gameCamera.Center;
+                destination += Game.Instance.gameCamera.Center;
                 break;
         }
 

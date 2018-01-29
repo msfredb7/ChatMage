@@ -229,6 +229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allegiance: 2
+  isDead: 0
   moveSpeed: 3
   targetDirection: 0
   rotationSetsTargetDirection: 1
@@ -239,8 +240,10 @@ MonoBehaviour:
   turnSpeed: 350
   smartMove: 0
   clampToAIArea: 1
+  smashJuice: 1
   targets:
     targetAllegiances: 
+  bodyCenter: {fileID: 0}
   visualScaleOverJump:
     serializedVersion: 2
     m_Curve:
@@ -293,6 +296,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86c57540124806f4eaee716fc45470d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canGetForcedGoals: 1
   slimeClone: {fileID: 114108277431155286, guid: c5dd2c52252edfa498a734d2e8cc8312,
     type: 2}
   reproduceEvery: 2
@@ -350,6 +354,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!212 &212287581308144322
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -390,6 +395,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
 --- !u!212 &212869191298984562
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -430,3 +436,4 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1

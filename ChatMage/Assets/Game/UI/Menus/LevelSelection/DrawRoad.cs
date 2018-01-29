@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using CCC.Manager;
+
 using DG.Tweening;
 
 namespace LevelSelect {
@@ -22,21 +22,21 @@ namespace LevelSelect {
 			currentDot = 0;
 			amountOfDots = roadContainer.childCount;
 
-			DelayManager.LocalCallTo(MakeRoad, timeBetweenDots, this);
+			this.DelayedCall(MakeRoad, timeBetweenDots);
 		}
 
 		void MakeRoad() {
 			Transform tempChild = roadContainer.GetChild(currentDot);
 			tempChild.localScale = Vector3.zero;
 			tempChild.gameObject.SetActive(true);
-			tempChild.DOScale(Vector3.one * 0.5f, 0.5f).SetEase(Ease.InOutElastic);
+			tempChild.DOScale(Vector3.one * 0.5f, 0.5f).SetEase(Ease.OutElastic);
 			//roadContainer.GetChild(currentDot).gameObject.SetActive(true);
 
 			currentDot++;
 			if (currentDot < amountOfDots)
-				DelayManager.LocalCallTo(MakeRoad, timeBetweenDots, this);
+				this.DelayedCall(MakeRoad, timeBetweenDots);
 			else 
-				DelayManager.LocalCallTo(delegate () {nextLevel.gameObject.SetActive(true); nextLevel.GetChild(0).GetChild(0).GetComponent<Animator>().enabled = true; }, timeBetweenDots, this);
+				this.DelayedCall(delegate () {nextLevel.gameObject.SetActive(true); nextLevel.GetChild(0).GetChild(0).GetComponent<Animator>().enabled = true; }, timeBetweenDots);
 		}
 
 		public void ShowAllRoad() {

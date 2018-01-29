@@ -75,7 +75,7 @@ namespace LevelScripting
             }
 
             //Get Spawn
-            List<UnitSpawn> spawns = Game.instance.map.mapping.GetSpawns_NewList(where.spawnTag);
+            List<UnitSpawn> spawns = Game.Instance.map.mapping.GetSpawns_NewList(where.spawnTag);
             if (spawns == null || spawns.Count == 0)
             {
                 if (where.logErrorIfUnableToLaunch)

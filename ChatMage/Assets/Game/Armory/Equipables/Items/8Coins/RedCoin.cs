@@ -20,7 +20,7 @@ public class RedCoin : MonoBehaviour
         if (!gameObject.activeSelf)
             return;
 
-        if(other.parentUnit == Game.instance.Player.vehicle)
+        if(other.parentUnit == Game.Instance.Player.vehicle)
         {
             onDeath(this);
             gameObject.SetActive(false);

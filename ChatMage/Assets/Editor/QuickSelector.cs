@@ -8,28 +8,28 @@ public static class QuickSelector
     [MenuItem("The Time Drifter/Select Player %&p", priority = 10)]
     public static void SelectPlayer()
     {
-        if(Game.instance != null && Game.instance.Player != null)
+        if(Game.Instance != null && Game.Instance.Player != null)
         {
-            Selection.activeGameObject = Game.instance.Player.gameObject;
+            Selection.activeGameObject = Game.Instance.Player.gameObject;
         }
     }
     [MenuItem("The Time Drifter/Select Player %&p", true)]
     static bool ValidateSelectPlayer()
     {
-        return Game.instance != null && Game.instance.Player != null;
+        return Game.Instance != null && Game.Instance.Player != null;
     }
 
     [MenuItem("The Time Drifter/Select Camera %&c", priority = 10)]
     public static void SelectCamera()
     {
-        if (Game.instance != null && Game.instance.gameCamera != null)
+        if (Game.Instance != null && Game.Instance.gameCamera != null)
         {
-            Selection.activeGameObject = Game.instance.gameCamera.cam.gameObject;
+            Selection.activeGameObject = Game.Instance.gameCamera.cam.gameObject;
         }
     }
     [MenuItem("The Time Drifter/Select Camera %&c", true)]
     static bool ValidateSelectCamera()
     {
-        return Game.instance != null && Game.instance.gameCamera != null;
+        return Game.Instance != null && Game.Instance.gameCamera != null;
     }
 }

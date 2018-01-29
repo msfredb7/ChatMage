@@ -19,9 +19,9 @@ namespace Tutorial
         /// </summary>
         public void TimeFreeze()
         {
-            if(Game.instance != null)
+            if(Game.Instance != null)
             {
-                Game.instance.gameRunning.LockUnique("tutsc"); // Short pour 'Tuto shorcuts'
+                Game.Instance.gameRunning.LockUnique("tutsc"); // Short pour 'Tuto shorcuts'
             }
         }
 
@@ -30,9 +30,9 @@ namespace Tutorial
         /// </summary>
         public void TimeUnFreeze()
         {
-            if (Game.instance != null)
+            if (Game.Instance != null)
             {
-                Game.instance.gameRunning.UnlockAll("tutsc"); // Short pour 'Tuto shorcuts'
+                Game.Instance.gameRunning.UnlockAll("tutsc"); // Short pour 'Tuto shorcuts'
             }
         }
 

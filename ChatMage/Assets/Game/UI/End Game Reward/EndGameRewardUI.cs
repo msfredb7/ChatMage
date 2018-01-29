@@ -1,8 +1,9 @@
-using CCC.Manager;
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace EndGameReward
 {
@@ -14,41 +15,37 @@ namespace EndGameReward
         public PinataExplosion pinataExplosion;
         public BackgroundFreezer backgroundFreezer;
         public RewardDisplay rewardDisplay;
+        public AudioMixerSnapshot normalAudioSnapshot;
 
-        private string levelScriptAssetName;
+        //private string levelScriptAssetName;
         private GameReward reward;
 
         private Vector2 pinataCenter;
 
         public void Init(GameReward reward, string levelScriptAssetName)
         {
-            this.levelScriptAssetName = levelScriptAssetName;
+            //this.levelScriptAssetName = levelScriptAssetName;
             this.reward = reward;
         }
 
         public void PinataHasBeenDestroyed(Vector2 explosionPosition, Camera currentCamera, Action canUnloadCallback)
         {
-            SoundManager.SlowMotionEffect(false);
+            normalAudioSnapshot.TransitionTo(0.75f);
             backgroundFreezer.FreezeBackground(currentCamera, delegate ()
             {
                 pinataExplosion.Animate(explosionPosition, PinataExplosion.BallColor.Blue);
                 canUnloadCallback();
             });
 
-            DelayManager.LocalCallTo(delegate ()
+            this.DelayedCall(delegate ()
             {
                 rewardDisplay.Init(reward);
-            }, 1, this);
+            }, 1);
         }
 
         public void Continue()
         {
-            if(levelScriptAssetName == "LS_ThirdLevel")
-            {
-                GameSaves.instance.ClearAllSaves();
-                LoadingScreen.TransitionTo(MainMenu.SCENENAME, null);
-            } else
-                LoadingScreen.TransitionTo(LevelSelect.LevelSelection.SCENENAME, null);
+            LoadingScreen.TransitionTo(LevelSelect.LevelSelection.SCENENAME, null);
         }
     }
 }

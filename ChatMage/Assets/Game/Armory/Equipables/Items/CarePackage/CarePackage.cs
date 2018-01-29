@@ -17,7 +17,7 @@ public class CarePackage : Unit
 
     private void Listener_onTriggerEnter(ColliderInfo other, ColliderListener listener)
     {
-        if (other.parentUnit != Game.instance.Player.vehicle)
+        if (other.parentUnit != Game.Instance.Player.vehicle)
             return;
 
         Die();
@@ -27,7 +27,7 @@ public class CarePackage : Unit
     {
         base.Die();
 
-        Game.instance.SpawnUnit(rewards[Random.Range(0, rewards.Length)], Position);
+        Game.Instance.SpawnUnit(rewards[Random.Range(0, rewards.Length)], Position);
 
         Destroy();
     }

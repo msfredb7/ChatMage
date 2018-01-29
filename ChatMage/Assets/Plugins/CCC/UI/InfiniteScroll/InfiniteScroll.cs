@@ -6,11 +6,6 @@ using UnityEngine.EventSystems;
 using System;
 using UnityEngine.Events;
 
-#if UNITY_EDITOR
-using UnityEditor;
-using UnityEditor.SceneManagement;
-#endif
-
 public abstract class InfiniteScroll : MonoBehaviour, IDragHandler
 {
     public ScrollRect scrollRect;
@@ -205,35 +200,3 @@ public abstract class InfiniteScroll : MonoBehaviour, IDragHandler
     protected abstract Vector2 GetItemSize();
     protected abstract Vector2 GetItemSpacing();
 }
-
-
-
-
-#if UNITY_EDITOR
-[CustomEditor(typeof(InfiniteScroll))]
-public class InfiniteScrollEditor : Editor
-{
-    public override void OnInspectorGUI()
-    {
-        base.OnInspectorGUI();
-        InfiniteScroll scroller = target as InfiniteScroll;
-
-
-        Color guiColor = GUI.color;
-
-
-        if (!scroller.IsDataOk())
-            GUI.color = Color.red;
-
-        if (GUILayout.Button("Fetch layout data"))
-        {
-            scroller.FetchData();
-            EditorSceneManager.MarkSceneDirty(scroller.gameObject.scene);
-        }
-
-
-
-        GUI.color = guiColor;
-    }
-}
-#endif

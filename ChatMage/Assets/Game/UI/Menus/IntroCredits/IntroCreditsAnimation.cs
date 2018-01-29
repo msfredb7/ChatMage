@@ -1,4 +1,4 @@
-﻿using CCC.Manager;
+﻿
 using DG.Tweening;
 using System.Collections;
 using UnityEngine;
@@ -16,11 +16,11 @@ public class IntroCreditsAnimation : MonoBehaviour
 
     void Start()
     {
-        MasterManager.Sync(delegate ()
+        PersistentLoader.LoadIfNotLoaded(delegate ()
         {
-            SoundManager.PlayMusic(logoSound, false, 0.1f); // Son de l'apparition du logo
+            DefaultAudioSources.PlayMusic(logoSound, false, 0.1f); // Son de l'apparition du logo
             // Après un délai initial
-            DelayManager.LocalCallTo(delegate ()
+            this.DelayedCall(delegate ()
             {
                 Sequence animation = DOTween.Sequence();
                 animation.Append(backgroundSprite.DOFade(1, fadeDuration));
@@ -28,7 +28,7 @@ public class IntroCreditsAnimation : MonoBehaviour
                 animation.Append(logo2Sprite.DOFade(0, fadeDuration)); // On fait fade out le logo
                 animation.Append(backgroundSprite.DOFade(0, fadeDuration)); // On fait fade out le background
                 animation.OnComplete(delegate () { Scenes.Load("MainMenu"); });
-            }, startDelay, this);
+            }, startDelay);
         });
     }
 

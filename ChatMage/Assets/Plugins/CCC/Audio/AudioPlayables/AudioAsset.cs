@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Audio/Audio Asset")]
+[CreateAssetMenu(menuName = "CCC/Audio/Audio Asset", fileName = "AA_Something")]
 public class AudioAsset : AudioPlayable
 {
     public AudioClip clip;
@@ -21,11 +21,5 @@ public class AudioAsset : AudioPlayable
         audioSource.clip = clip;
         audioSource.loop = true;
         audioSource.Play();
-    }
-
-    public override void GetClipAndVolume(out AudioClip clip, out float volume)
-    {
-        clip = this.clip;
-        volume = this.volume;
     }
 }

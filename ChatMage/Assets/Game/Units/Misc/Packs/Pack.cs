@@ -6,7 +6,7 @@ using DG.Tweening;
 public abstract class Pack : MovingUnit
 {
     [Header("Pack"), Header("Pick up settings")]
-    public bool isPreSpawned = false;
+    public bool isPreSpawned = true;
 
     [Header("Linking")]
     public SimpleColliderListener colliderListener;
@@ -101,13 +101,13 @@ public abstract class Pack : MovingUnit
 
     public void PickUp(ColliderInfo info, ColliderListener listener)
     {
-        if (!isDead && info.parentUnit == Game.instance.Player.vehicle)
+        if (!isDead && info.parentUnit == Game.Instance.Player.vehicle)
         {
             if (pickupSound != null)
-                SoundManager.PlaySFX(pickupSound);
+                DefaultAudioSources.PlaySFX(pickupSound);
             OnPickUp();
+            Die();
         }
-        Die();
     }
 
     protected override void Die()

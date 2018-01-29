@@ -48,9 +48,9 @@ namespace AI
 
         void CheckRock()
         {
-            if(!rockAdded && Game.instance != null)
+            if(!rockAdded && Game.Instance != null)
             {
-                Game.instance.AddExistingUnit(myRock, false);
+                Game.Instance.AddExistingUnit(myRock, false);
                 rockAdded = true;
             }
         }

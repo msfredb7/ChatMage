@@ -1,4 +1,4 @@
-using CCC.Manager;
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,19 +27,19 @@ namespace LevelSelect
 
         void Start()
         {
-            MasterManager.Sync(OnSync);
+            PersistentLoader.LoadIfNotLoaded(OnSync);
             backButton.onClick.AddListener(OnBackClicked);
             shopButton.onClick.AddListener(OnShopClicked);
         }
 
         void OnSync()
         {
-            SoundManager.PlayMusic(levelSelectMusic, volume: musicVolume);
+            DefaultAudioSources.PlayMusic(levelSelectMusic, volume: musicVolume);
             AddListeners();
 
             //Un peu lourd ? Peut-être qu'on pourrait faire ça AVANT que le loading screen disparaisse (comme Framework)
             LoadAllData();
-
+			
             mapAnimator.SetLastUnlockedRegionIndex(GetLastUnlockedRegion());
 
             VerifyNewLevelAnimation();

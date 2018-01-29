@@ -91,10 +91,10 @@ public class MeteoPlayer : MonoBehaviour
     {
         get
         {
-            if (gc == null && Game.instance != null)
+            if (gc == null && Game.Instance != null)
             {
-                gc = Game.instance.gameCamera;
-                worldTimescale = Game.instance.worldTimeScale;
+                gc = Game.Instance.gameCamera;
+                worldTimescale = Game.Instance.worldTimeScale;
             }
             return gc;
         }

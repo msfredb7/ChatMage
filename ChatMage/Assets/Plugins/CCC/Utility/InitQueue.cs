@@ -1,14 +1,13 @@
 using DG.Tweening;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class InitQueue
 {
     Action onComplete;
     int count = 0;
     private bool endSpecified = false;
+    private bool isOver = false;
+    public bool IsOver { get { return isOver; } }
 
     public InitQueue(Action onComplete)
     {
@@ -27,13 +26,27 @@ public class InitQueue
     public void MarkEnd()
     {
         endSpecified = true;
-        if (count <= 0)
-            onComplete();
+        CheckCompletion();
     }
     void OnCompleteAnyInit()
     {
         count--;
+        CheckCompletion();
+    }
+
+    void CheckCompletion()
+    {
         if (count <= 0 && endSpecified)
+            Complete();
+    }
+
+    private void Complete()
+    {
+        isOver = true;
+        if (onComplete != null)
+        {
             onComplete();
+            onComplete = null;
+        }
     }
 }

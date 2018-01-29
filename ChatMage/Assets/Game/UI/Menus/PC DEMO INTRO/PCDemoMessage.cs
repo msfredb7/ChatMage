@@ -19,7 +19,7 @@ public class PCDemoMessage : MonoBehaviour
     void Start()
     {
         enabled = false;
-        CCC.Manager.MasterManager.Sync(() => enabled = true);
+        PersistentLoader.LoadIfNotLoaded(() => enabled = true);
     }
 
     void Update()

@@ -9,10 +9,10 @@ namespace GameEvents
     {
         public void Trigger()
         {
-            Game.instance.gameCamera.followPlayer = true;
-            Game.instance.gameCamera.canScrollUp = true;
-            Game.instance.map.roadPlayer.CurrentRoad.ApplyMinMaxToCamera();
-            Game.instance.cadre.Disappear();
+            Game.Instance.gameCamera.followPlayer = true;
+            Game.Instance.gameCamera.canScrollUp = true;
+            Game.Instance.map.roadPlayer.CurrentRoad.ApplyMinMaxToCamera();
+            Game.Instance.cadre.Disappear();
         }
 
         public override Color GUIColor()

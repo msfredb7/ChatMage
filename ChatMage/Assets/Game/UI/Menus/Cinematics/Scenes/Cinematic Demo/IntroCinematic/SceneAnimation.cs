@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using CCC.Manager;
+
 using DG.Tweening;
 
 public class SceneAnimation : MonoBehaviour {
@@ -40,7 +40,7 @@ public class SceneAnimation : MonoBehaviour {
 			sceneText.text += text[currentLetter];
 			currentLetter++;
 			if (currentLetter < text.Length)
-				DelayManager.LocalCallTo(AddLetter, timeBetweenLetters, this);
+				this.DelayedCall(AddLetter, timeBetweenLetters);
 		}
 		
 	}

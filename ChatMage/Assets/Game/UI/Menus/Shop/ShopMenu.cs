@@ -1,4 +1,4 @@
-using CCC.Manager;
+
 using CompleteProject;
 using System.Collections;
 using System.Collections.Generic;
@@ -26,7 +26,7 @@ public class ShopMenu : MonoBehaviour
 
     void Awake()
     {
-        if (Scenes.SceneCount() == 1)
+        if (Scenes.ActiveSceneCount() == 1)
         {
             //Debug launch !
             SetPreviousContext(LevelSelect.LevelSelection.SCENENAME);
@@ -35,7 +35,7 @@ public class ShopMenu : MonoBehaviour
 
     void Start()
     {
-        MasterManager.Sync(OnSync);
+        PersistentLoader.LoadIfNotLoaded(OnSync);
         deactivateScenePanel.SetActive(false);
     }
 

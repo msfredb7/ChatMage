@@ -9,7 +9,7 @@ namespace GameEvents
     {
         public void Trigger()
         {
-            Game.instance.cadre.Disappear();
+            Game.Instance.cadre.Disappear();
         }
 
         public override string NodeLabel()

@@ -38,7 +38,7 @@ namespace LevelScripting
             FilterType type = filterType;
 
             //Si le joueur est null, on utilise la camera a la place
-            if (type == FilterType.RelativeToPlayer && Game.instance.Player == null)
+            if (type == FilterType.RelativeToPlayer && Game.Instance.Player == null)
                 type = FilterType.RelativeToCamera;
 
             switch (type)
@@ -49,7 +49,7 @@ namespace LevelScripting
                 case FilterType.RelativeToPlayer:
                     {
                         List<UnitSpawn> newList = new List<UnitSpawn>();
-                        Vector2 anchor = Game.instance.Player.vehicle.Position;
+                        Vector2 anchor = Game.Instance.Player.vehicle.Position;
                         for (int i = 0; i < spawns.Count; i++)
                         {
                             if (IsWithinRegion(spawns[i].transform.position, anchor, min, max))
@@ -60,7 +60,7 @@ namespace LevelScripting
                 case FilterType.RelativeToCamera:
                     {
                         List<UnitSpawn> newList = new List<UnitSpawn>();
-                        Vector2 anchor = Game.instance.gameCamera.Center;
+                        Vector2 anchor = Game.Instance.gameCamera.Center;
                         for (int i = 0; i < spawns.Count; i++)
                         {
                             if (IsWithinRegion(spawns[i].transform.position, anchor, min, max))
@@ -114,7 +114,7 @@ namespace LevelScripting
             SelectType type = selectType;
 
             //Si le joueur est null, on utilise la camera a la place
-            if (type == SelectType.ClosestToPlayer && Game.instance.Player == null)
+            if (type == SelectType.ClosestToPlayer && Game.Instance.Player == null)
                 type = SelectType.ClosestToCamera;
 
             switch (type)
@@ -125,9 +125,9 @@ namespace LevelScripting
                 case SelectType.Random:
                     return spawns[Random.Range(0, spawns.Count)];
                 case SelectType.ClosestToPlayer:
-                    return GetClosestTo(Game.instance.Player.vehicle.Position, spawns);
+                    return GetClosestTo(Game.Instance.Player.vehicle.Position, spawns);
                 case SelectType.ClosestToCamera:
-                    return GetClosestTo(Game.instance.gameCamera.Center, spawns);
+                    return GetClosestTo(Game.Instance.gameCamera.Center, spawns);
             }
         }
 

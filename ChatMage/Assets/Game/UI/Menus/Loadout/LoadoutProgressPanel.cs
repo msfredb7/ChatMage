@@ -16,6 +16,7 @@ namespace LoadoutMenu
         public Image smashImage;
         public Text itemSlotsCounter;
         public RectTransform underliner;
+        public DataSaver armoryData;
 
         [Header("Underliner Animations")]
         public float carPos;
@@ -41,9 +42,9 @@ namespace LoadoutMenu
             OnItemChange();
 
             //Pourrais �tre fait de mani�re plus sexy dans le futur
-            if (!Armory.HasAccessToSmash() && !nevenShowSmash)
+            if (!Armory.HasAccessToSmash(armoryData) && !nevenShowSmash)
                 smashImage.rectTransform.parent.gameObject.SetActive(false);
-            if (!Armory.HasAccessToItems())
+            if (!Armory.HasAccessToItems(armoryData))
                 itemSlotsCounter.rectTransform.parent.gameObject.SetActive(false);
         }
 

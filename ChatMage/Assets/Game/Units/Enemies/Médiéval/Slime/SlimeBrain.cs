@@ -50,7 +50,7 @@ namespace AI
         {
             //Spawn other slime
             Vector2 spawnDelta = transform.localToWorldMatrix.MultiplyVector(reproduceSpawnDelta);
-            SlimeVehicle newSlime = Game.instance.SpawnUnit(slimeClone, Game.instance.aiArea.ClampToArea(veh.Position + spawnDelta));
+            SlimeVehicle newSlime = Game.Instance.SpawnUnit(slimeClone, Game.Instance.aiArea.ClampToArea(veh.Position + spawnDelta));
             newSlime.transform.rotation = transform.rotation;
 
             SlimeBrain brain = newSlime.GetComponent<SlimeBrain>();

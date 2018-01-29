@@ -5,10 +5,11 @@ using UnityEngine;
 public class LevelSelect_PCDEMO : MonoBehaviour
 {
     public EquipablePreview[] equipables;
+    public DataSaver loadoutSaver;
 
     void Start()
     {
-        SoundManager.StopMusicFaded();
+        DefaultAudioSources.StopMusicFaded();
     }
 
 

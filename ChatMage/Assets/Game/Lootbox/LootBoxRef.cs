@@ -54,6 +54,7 @@ public class LootBoxRef : BaseScriptableObject
             }
         }
     }
+    public DataSaver armoryData;
 
     [InspectorHeader("Description")]
     public string identifiant; // doit etre identique au nom de l'objet
@@ -127,12 +128,12 @@ public class LootBoxRef : BaseScriptableObject
     {
         // Contruction de la lottery
         Lottery<LootBoxEquipable> lot = new Lottery<LootBoxEquipable>();
-        bool accessToSmash = Armory.HasAccessToSmash();
-        bool accessToItems = Armory.HasAccessToItems();
+        bool accessToSmash = Armory.HasAccessToSmash(armoryData);
+        bool accessToItems = Armory.HasAccessToItems(armoryData);
         for (int i = 0; i < items.Count; i++)
         {
             //Condition: goal + unlocked
-            if (goldified && EquipablePreview.IsUnlocked(items[i].equipablePreviewName))
+            if (goldified && EquipablePreview.IsUnlocked(armoryData, items[i].equipablePreviewName))
                 continue;
 
             //Condition: access to items

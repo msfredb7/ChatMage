@@ -97,7 +97,8 @@ public class PlayerCarTriggers : PlayerComponent
         damage *= controller.playerStats.damageMultiplier;
         if (damage > 0)
         {
-            if (attackable.Attacked(other, damage, controller.vehicle, listener.info) <= 0)
+            bool wasDead = unit.IsDead;
+            if (attackable.Attacked(other, damage, controller.vehicle, listener.info) <= 0 && !wasDead)
             {
                 //Unit killed !
                 controller.playerStats.RegisterKilledUnit(unit);
@@ -107,11 +108,16 @@ public class PlayerCarTriggers : PlayerComponent
                     onUnitKilled(unit, side, other, listener);
             }
 
+            var myPos = transform.position;
+            var otherPos = other.transform.position;
+            Vector2 vDir = (otherPos - transform.position).normalized;
+
             //Camera shake!
-            Game.instance.gameCamera.vectorShaker.Hit((transform.position - other.transform.position).normalized * camHitStrengthOnHit);
+            Game.Instance.gameCamera.vectorShaker.Hit(-vDir * camHitStrengthOnHit);
             //Hit animation
-            Game.instance.commonVfx.SmallHit(other.transform.position, Color.white);
-            SoundManager.PlaySFX(damageUnitSFX);
+            Game.Instance.commonVfx.HitWhite(otherPos);
+
+            DefaultAudioSources.PlaySFX(damageUnitSFX);
         }
     }
 

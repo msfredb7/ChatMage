@@ -69,7 +69,7 @@ namespace AI
         private void ShootBubble()
         {
             shootCooldownRemains = shootCooldown;
-            Game.instance.SpawnUnit(projectilePrefab, shootEmitter.position)
+            Game.Instance.SpawnUnit(projectilePrefab, shootEmitter.position)
                 .Init(veh.Rotation, veh, friendTarget != null ? friendTarget : null);
 
             shootCooldownRemains = shootCooldown;
@@ -77,14 +77,14 @@ namespace AI
 
         private Unit SearchForUnBubbledEnemy()
         {
-            if (Game.instance == null)
+            if (Game.Instance == null)
                 return null;
 
             Unit recordHolder = null;
             float record = float.PositiveInfinity;
 
             Vector2 myPos = veh.Position;
-            foreach (Unit unit in Game.instance.attackableUnits)
+            foreach (Unit unit in Game.Instance.attackableUnits)
             {
                 if (unit == veh)
                     continue;

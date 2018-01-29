@@ -18,7 +18,7 @@ namespace Tutorial
 
         protected override void OnStart()
         {
-            switche = Game.instance.map.mapping.GetTaggedObject("switch").GetComponent<MedievalSwitch>();
+            switche = Game.Instance.map.mapping.GetTaggedObject("switch").GetComponent<MedievalSwitch>();
         }
 
         public void FocusOnSwitch(Action OnComplete)

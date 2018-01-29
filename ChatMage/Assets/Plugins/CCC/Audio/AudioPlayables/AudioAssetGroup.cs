@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-[CreateAssetMenu(menuName = "Audio/Audio Asset Group")]
+[CreateAssetMenu(menuName = "CCC/Audio/Audio Asset Group", fileName = "AAG_Something")]
 public class AudioAssetGroup : AudioPlayable
 {
-    public AudioAsset[] clips;
+    public AudioPlayable[] clips;
 
     [NonSerialized]
     private int lastPickedIndex = -1;
@@ -32,7 +32,7 @@ public class AudioAssetGroup : AudioPlayable
         return clips != null && clips.Length != 0;
     }
 
-    private AudioAsset PickAsset()
+    private AudioPlayable PickAsset()
     {
         if (lastPickedIndex >= clips.Length)
             lastPickedIndex = 0;
@@ -59,10 +59,5 @@ public class AudioAssetGroup : AudioPlayable
         int pickedIndex = UnityEngine.Random.Range(from, to) % clips.Length;
         lastPickedIndex = pickedIndex;
         return clips[pickedIndex];
-    }
-
-    public override void GetClipAndVolume(out AudioClip clip, out float volume)
-    {
-        PickAsset().GetClipAndVolume(out clip, out volume);
     }
 }

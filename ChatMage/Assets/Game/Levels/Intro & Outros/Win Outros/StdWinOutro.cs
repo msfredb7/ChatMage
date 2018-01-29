@@ -1,4 +1,4 @@
-﻿using CCC.Manager;
+﻿
 using EndGameReward;
 using System.Collections;
 using System.Collections.Generic;
@@ -21,7 +21,7 @@ namespace GameIntroOutro
         {
             rewardUI = Scenes.FindRootObject<EndGameRewardUI>(scene);
 
-            rewardUI.Init(Game.instance.levelScript.rewards, Game.instance.levelScript.name);
+            rewardUI.Init(Game.Instance.levelScript.rewards, Game.Instance.levelScript.name);
 
             CheckEnd();
         }
@@ -40,16 +40,16 @@ namespace GameIntroOutro
                 return;
             hasEnded = true;
 
-            Camera cam = Game.instance.gameCamera.cam;
+            Camera cam = Game.Instance.gameCamera.cam;
             rewardUI.PinataHasBeenDestroyed(
-                Game.instance.gameCamera.Center,
+                Game.Instance.gameCamera.Center,
                 cam,
                 UnloadGameScenes);
         }
 
         protected virtual void UnloadGameScenes()
         {
-            Game.instance.music.TransitionTo(MusicManager.SongName.Win);
+            Game.Instance.music.TransitionTo(MusicManager.SongName.Win);
             //On unload TOUS les scene sauf celle du endGameResult
             //   Peut etre qu'on devrais seulement unload les scene 'Framework' 'Map' et 'UI'
             //   Si on decide de faire ca, LE FAIRE DANS FRAMEWORK

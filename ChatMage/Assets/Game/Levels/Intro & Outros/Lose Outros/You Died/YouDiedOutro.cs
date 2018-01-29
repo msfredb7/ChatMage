@@ -14,7 +14,7 @@ namespace GameIntroOutro
 
         public void Restart()
         {
-            Game.instance.framework.RestartLevel();
+            Game.Instance.framework.RestartLevel();
         }
 
         public void GoBackToMenu()

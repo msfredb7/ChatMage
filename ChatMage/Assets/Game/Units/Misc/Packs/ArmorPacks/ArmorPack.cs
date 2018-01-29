@@ -10,6 +10,6 @@ public class ArmorPack : Pack
 
     protected override void OnPickUp()
     {
-        Game.instance.Player.playerStats.GiveArmor(armorValue);
+        Game.Instance.Player.playerStats.GiveArmor(armorValue);
     }
 }

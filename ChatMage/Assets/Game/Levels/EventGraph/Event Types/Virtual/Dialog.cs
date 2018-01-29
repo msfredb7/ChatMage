@@ -16,9 +16,9 @@ namespace GameEvents
             if (dialog != null)
             {
                 if (onComplete != null)
-                    Game.instance.ui.dialogDisplay.StartDialog(dialog);
+                    Game.Instance.ui.dialogDisplay.StartDialog(dialog);
                 else
-                    Game.instance.ui.dialogDisplay.StartDialog(dialog, delegate() {
+                    Game.Instance.ui.dialogDisplay.StartDialog(dialog, delegate() {
                         onComplete.Invoke();
                     });
             }

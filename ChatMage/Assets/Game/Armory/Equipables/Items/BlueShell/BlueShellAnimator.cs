@@ -10,7 +10,11 @@ public class BlueShellAnimator : MonoBehaviour
     public SpriteRenderer shell;
     public BlueShellVehicle shellUnit;
 
+    [Header("Camera Shake")]
+    public float cameraShake_strength = 0.75f;
+
     [Header("Explosion")]
+    public AudioPlayable explosion_SFX;
     public LayerMask explosionLayerMask;
     public float explosionNormalRadius = 2;
     public float explosionBoostedRadius = 3;
@@ -37,6 +41,16 @@ public class BlueShellAnimator : MonoBehaviour
     private Sequence tween;
     private float radius = 0;
 
+    void OnEnable()
+    {
+        shellUnit.onTimeScaleChange += ShellUnit_onTimeScaleChange;
+    }
+
+    void OnDisable()
+    {
+        shellUnit.onTimeScaleChange -= ShellUnit_onTimeScaleChange;
+    }
+
     public void ResetValues()
     {
         shell.enabled = true;
@@ -44,7 +58,7 @@ public class BlueShellAnimator : MonoBehaviour
         lightFade.enabled = false;
         shockWave.enabled = false;
 
-        if (Game.instance.Player != null && Game.instance.Player.playerStats.boostedAOE)
+        if (Game.Instance.Player != null && Game.Instance.Player.playerStats.boostedAOE)
             radius = explosionBoostedRadius;
         else
             radius = explosionNormalRadius;
@@ -52,6 +66,9 @@ public class BlueShellAnimator : MonoBehaviour
 
     public void Explode(TweenCallback onComplete)
     {
+        //SFX
+        DefaultAudioSources.PlaySFX(explosion_SFX);
+
         //Enables
         shell.enabled = false;
         lightFade.enabled = true;
@@ -84,11 +101,10 @@ public class BlueShellAnimator : MonoBehaviour
         tween = sq;
 
         //Time scale
-        shellUnit.onTimeScaleChange += ShellUnit_onTimeScaleChange;
         ShellUnit_onTimeScaleChange(shellUnit);
 
         //Camera shake
-        Game.instance.gameCamera.vectorShaker.Shake();
+        Game.Instance.gameCamera.vectorShaker.Shake(cameraShake_strength);
 
         //Explosion !
         List<ColliderInfo> infos = UnitDetection.OverlapCircleAll(shellUnit.Position, radius, explosionLayerMask);
@@ -110,16 +126,18 @@ public class BlueShellAnimator : MonoBehaviour
                 attackable.Attacked(other, 1, shellUnit);
 
                 //Register kill
-                if (unit.IsDead && !wasDead && Game.instance.Player != null)
-                    Game.instance.Player.playerStats.RegisterKilledUnit(unit);
-                    
+                if (unit.IsDead && !wasDead && Game.Instance.Player != null)
+                    Game.Instance.Player.playerStats.RegisterKilledUnit(unit);
+
             }
         }
     }
 
     private void ShellUnit_onTimeScaleChange(Unit unit)
     {
-        tween.timeScale = unit.TimeScale;
-        coreAnimator.SetFloat("speed", unit.TimeScale);
+        if (tween != null)
+            tween.timeScale = unit.TimeScale;
+        if (coreAnimator.gameObject.activeInHierarchy)
+            coreAnimator.SetFloat("speed", unit.TimeScale);
     }
 }

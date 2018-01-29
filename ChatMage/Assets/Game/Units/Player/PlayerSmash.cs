@@ -1,4 +1,4 @@
-using CCC.Manager;
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,7 +21,7 @@ public class PlayerSmash : PlayerComponent
     public override void Init(PlayerController controller)
     {
         base.Init(controller);
-        smashManager = Game.instance.smashManager;
+        smashManager = Game.Instance.smashManager;
     }
 
     public void SetSmash(Smash smash)
@@ -83,7 +83,7 @@ public class PlayerSmash : PlayerComponent
         smashManager.canGainJuice.UnlockAll(SM_LOCK_KEY);
 
         if (smash.clearAllJuiceOnCompletion)
-            Game.instance.smashManager.RemoveAllJuice();
+            Game.Instance.smashManager.RemoveAllJuice();
 
         if (onSmashCompleted != null)
             onSmashCompleted.Invoke();

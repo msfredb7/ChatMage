@@ -22,7 +22,7 @@ public class ITM_McPack : Item
 
     public override void OnGameStarted()
     {
-        HealthPackManager hpMan = Game.instance.healthPackManager;
+        HealthPackManager hpMan = Game.Instance.healthPackManager;
 
         hpMan.luckMultiplier *= appearanceMultiplier;
         hpMan.healthPackValue = regenAmount;

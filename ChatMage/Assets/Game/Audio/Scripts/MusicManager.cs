@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using CCC.Manager;
 using DG.Tweening;
 
 public class MusicManager : MonoBehaviour {
@@ -18,7 +17,7 @@ public class MusicManager : MonoBehaviour {
 
     void Start()
     {
-        Game.instance.onGameReady += delegate ()
+        Game.Instance.onGameReady += delegate ()
         {
             PlaySong(SongName.Ambient);
         };
@@ -30,27 +29,27 @@ public class MusicManager : MonoBehaviour {
         {
             case SongName.Ambient:
                 if (transition)
-                    SoundManager.TransitionToMusic(ambient, true, musicVolume, transistionDuration);
+                    DefaultAudioSources.TransitionToMusic(ambient, true, musicVolume, transistionDuration);
                 else
-                    SoundManager.PlayMusic(ambient, true, musicVolume);
+                    DefaultAudioSources.PlayMusic(ambient, true, musicVolume);
                 break;
             case SongName.Fight:
                 if (transition)
-                    SoundManager.TransitionToMusic(fight, true, musicVolume,transistionDuration);
+                    DefaultAudioSources.TransitionToMusic(fight, true, musicVolume,transistionDuration);
                 else
-                    SoundManager.PlayMusic(fight, true, musicVolume);
+                    DefaultAudioSources.PlayMusic(fight, true, musicVolume);
                 break;
             case SongName.BossBattle:
                 if (transition)
-                    SoundManager.TransitionToMusic(bossBattle, true, musicVolume,transistionDuration);
+                    DefaultAudioSources.TransitionToMusic(bossBattle, true, musicVolume,transistionDuration);
                 else
-                    SoundManager.PlayMusic(bossBattle, true, musicVolume);
+                    DefaultAudioSources.PlayMusic(bossBattle, true, musicVolume);
                 break;
             case SongName.Win:
                 if (transition)
-                    SoundManager.TransitionToMusic(winAnthem, true, musicVolume,transistionDuration);
+                    DefaultAudioSources.TransitionToMusic(winAnthem, true, musicVolume,transistionDuration);
                 else
-                    SoundManager.PlayMusic(winAnthem, true, musicVolume);
+                    DefaultAudioSources.PlayMusic(winAnthem, true, musicVolume);
                 break;
             default:
                 break;

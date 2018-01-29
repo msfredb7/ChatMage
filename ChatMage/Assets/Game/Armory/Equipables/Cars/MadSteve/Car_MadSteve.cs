@@ -22,7 +22,7 @@ public class Car_MadSteve : StdCar
         base.Init(player);
 
         trail = Instantiate(trailOfCollidersPrefab.gameObject).GetComponent<TrailOfColliders>();
-        trail.transform.SetParent(Game.instance.transform);
+        trail.transform.SetParent(Game.Instance.transform);
         trail.enabled = false;
 
         trail.OnTriggerEnter += OnUnitEnterTrail;

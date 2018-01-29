@@ -29,10 +29,10 @@ public class LS_2_1 : LevelScript {
 
     private void ResetRoad()
     {
-        Game.instance.gameCamera.followPlayer = true;
-        Game.instance.gameCamera.canScrollUp = true;
-        Game.instance.map.roadPlayer.CurrentRoad.ApplyMinMaxToCamera();
-        Game.instance.cadre.Disappear();
+        Game.Instance.gameCamera.followPlayer = true;
+        Game.Instance.gameCamera.canScrollUp = true;
+        Game.Instance.map.roadPlayer.CurrentRoad.ApplyMinMaxToCamera();
+        Game.Instance.cadre.Disappear();
     }
 
     protected override void OnUpdate()

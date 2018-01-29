@@ -12,7 +12,7 @@ namespace GameEvents
 
         public void Trigger()
         {
-            MeteoPlayer meteo = Game.instance.map.meteo;
+            MeteoPlayer meteo = Game.Instance.map.meteo;
             if(meteo != null)
             {
                 if (meteoState)

@@ -11,8 +11,8 @@ public class SmashDisplayV2_Controller : MonoBehaviour
 
     public void Init(PlayerController playerController)
     {
-        smashManager = Game.instance.smashManager;
-        game = Game.instance;
+        smashManager = Game.Instance.smashManager;
+        game = Game.Instance;
 
         smashManager.onJuiceChange += UpdateJuice;
         smashManager.onMinimumJuiceChange += UpdateMarker;

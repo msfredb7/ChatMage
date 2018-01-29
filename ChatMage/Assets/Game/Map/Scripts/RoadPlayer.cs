@@ -29,10 +29,10 @@ public class RoadPlayer : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (playerT == null || Game.instance == null || !Game.instance.gameStarted)
+        if (playerT == null || Game.Instance == null || !Game.Instance.gameStarted)
             return;
 
-        if (!Game.instance.unitsContainer.gameObject.activeSelf)
+        if (!Game.Instance.unitsContainer.gameObject.activeSelf)
         {
             if (justTeleported)
             {
@@ -47,7 +47,7 @@ public class RoadPlayer : MonoBehaviour
 
     void Update()
     {
-        if (playerT == null || Game.instance == null || !Game.instance.gameStarted)
+        if (playerT == null || Game.Instance == null || !Game.Instance.gameStarted)
             return;
 
         float playerHeight = playerT.position.y;
@@ -66,17 +66,17 @@ public class RoadPlayer : MonoBehaviour
 
     void FinishTeleport()
     {
-        Game.instance.unitsContainer.gameObject.SetActive(true);
+        Game.Instance.unitsContainer.gameObject.SetActive(true);
 
         //Load rigidbods data
-        for (int i = 0; i < Game.instance.unitsContainer.childCount; i++)
+        for (int i = 0; i < Game.Instance.unitsContainer.childCount; i++)
         {
-            MovingUnit unit = Game.instance.unitsContainer.GetChild(i).GetComponent<MovingUnit>();
+            MovingUnit unit = Game.Instance.unitsContainer.GetChild(i).GetComponent<MovingUnit>();
             if (unit != null)
                 unit.LoadRigidbody();
         }
 
-        Game.instance.gameCamera.OnCompleteTeleport();
+        Game.Instance.gameCamera.OnCompleteTeleport();
         currentRoad.OnCompleteTeleport();
 
         if (onCompleteTeleport != null)
@@ -97,7 +97,7 @@ public class RoadPlayer : MonoBehaviour
                 0);
         teleportingContainer.gameObject.SetActive(false);
 
-        Transform unitContainer = Game.instance.unitsContainer;
+        Transform unitContainer = Game.Instance.unitsContainer;
 
         //Save rigidbods data
         for (int i = 0; i < unitContainer.childCount; i++)
@@ -130,12 +130,12 @@ public class RoadPlayer : MonoBehaviour
                 0);
 
                 //Notify camera
-        Game.instance.gameCamera.OnTeleport(teleportingContainer.position.y - lastY);
+        Game.Instance.gameCamera.OnTeleport(teleportingContainer.position.y - lastY);
 
         //Get out of teleporter
         for (int i = 0; i < teleportingContainer.childCount; i++)
         {
-            teleportingContainer.GetChild(i).SetParent(Game.instance.unitsContainer, true);
+            teleportingContainer.GetChild(i).SetParent(Game.Instance.unitsContainer, true);
             i--;
         }
 
@@ -159,7 +159,7 @@ public class RoadPlayer : MonoBehaviour
 
         //Enable new road
         currentRoad = roads[index];
-        currentRoad.Init(Game.instance.gameCamera, this);
+        currentRoad.Init(Game.Instance.gameCamera, this);
         currentRoad.gameObject.SetActive(true);
         currentRoadIndex = index;
     }

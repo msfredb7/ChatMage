@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using CCC.Manager;
+
 using System;
 
 public class RoadMapPoint : MonoBehaviour {
@@ -34,7 +34,7 @@ public class RoadMapPoint : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-        MasterManager.Sync();
+        PersistentLoader.LoadIfNotLoaded();
 
         roadIntensity = (roadIntensity * Screen.width) / 1920;
     }
@@ -61,7 +61,7 @@ public class RoadMapPoint : MonoBehaviour {
         // Add first dot
         dotList.Add(Instantiate(dotSpritePrefab, transform.position, Quaternion.identity, closestParent.transform));
         dotCount++;
-        DelayManager.LocalCallTo(MakeRoad, timeBetweenDots, this);
+        this.DelayedCall(MakeRoad, timeBetweenDots);
     }
 	
 	void MakeRoad()
@@ -75,7 +75,7 @@ public class RoadMapPoint : MonoBehaviour {
             onComplete.Invoke();
             return;
         } 
-        DelayManager.LocalCallTo(MakeRoad, timeBetweenDots, this);
+        this.DelayedCall(MakeRoad, timeBetweenDots);
     }
 
     Vector3 ApplyCurveOnVecPos(Vector2 currentPos)

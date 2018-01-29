@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FullInspector;
-using CCC.Manager;
 using UnityEngine.Events;
 using CCC.Utility;
 
@@ -30,7 +29,7 @@ public class SoundPlayer : BaseBehavior
 
     protected void Start()
     {
-        MasterManager.Sync();
+        PersistentLoader.LoadIfNotLoaded();
     }
 
     public virtual void PlaySound()
@@ -38,13 +37,13 @@ public class SoundPlayer : BaseBehavior
         switch (soundType)
         {
             case SoundType.music:
-                SoundManager.PlayMusic(soundList.Pick(), looping, volume);
+                DefaultAudioSources.PlayMusic(soundList.Pick(), looping, volume);
                 break;
             case SoundType.sfx:
-                SoundManager.PlaySFX(soundList.Pick(), delay, volume, sfxLoopSource);
+                DefaultAudioSources.PlaySFX(soundList.Pick(), delay, volume, sfxLoopSource);
                 break;
             case SoundType.voice:
-                SoundManager.PlayVoice(soundList.Pick(), delay, volume);
+                DefaultAudioSources.PlayVoice(soundList.Pick(), delay, volume);
                 break;
             default:
                 break;

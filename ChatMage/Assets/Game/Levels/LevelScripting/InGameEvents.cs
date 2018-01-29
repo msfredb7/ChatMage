@@ -1,4 +1,4 @@
-using CCC.Manager;
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,7 +20,7 @@ public class InGameEvents : MonoBehaviour
 
     void Update()
     {
-        timer += Time.deltaTime * Game.instance.worldTimeScale;
+        timer += Time.deltaTime * Game.Instance.worldTimeScale;
         CheckActionList();
     }
 
@@ -79,14 +79,14 @@ public class InGameEvents : MonoBehaviour
 
     public T SpawnUnderUI<T>(T prefab) where T : MonoBehaviour
     {
-        return Instantiate(prefab, Game.instance.ui.transform).GetComponent<T>();
+        return Instantiate(prefab, Game.Instance.ui.transform).GetComponent<T>();
     }
     public T SpawnUnderUIWithinGameView<T>(T prefab) where T : MonoBehaviour
     {
-        return Instantiate(prefab, Game.instance.ui.stayWithinGameView).GetComponent<T>();
+        return Instantiate(prefab, Game.Instance.ui.stayWithinGameView).GetComponent<T>();
     }
     public T SpawnUnderGame<T>(T prefab) where T : MonoBehaviour
     {
-        return Instantiate(prefab, Game.instance.transform).GetComponent<T>();
+        return Instantiate(prefab, Game.Instance.transform).GetComponent<T>();
     }
 }

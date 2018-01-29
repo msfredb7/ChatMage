@@ -70,7 +70,7 @@ public class Targets
         //En g�n�ral, on passe ici, sachant que les ennemi cherche pas mal toujours le joueur
         if (targetAllegiances.Count == 1 && targetAllegiances[0] == Allegiance.Ally)
         {
-            PlayerController player = Game.instance == null ? null : Game.instance.Player;
+            PlayerController player = Game.Instance == null ? null : Game.Instance.Player;
 
             if (player != null && Unit.HasPresence(player.vehicle))
                 return player.vehicle;
@@ -85,7 +85,7 @@ public class Targets
             float smallestDistance = float.PositiveInfinity;
             Unit recordHolder = null;
 
-            LinkedList<Unit> list = searchOnlyIAttackables ? Game.instance.attackableUnits : Game.instance.units;
+            LinkedList<Unit> list = searchOnlyIAttackables ? Game.Instance.attackableUnits : Game.Instance.units;
 
             foreach (Unit unit in list)
             {

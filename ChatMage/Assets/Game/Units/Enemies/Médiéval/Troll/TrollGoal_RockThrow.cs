@@ -39,7 +39,7 @@ namespace AI
             lookAtTarget = false;
             myRock.flySpeed = veh.throwSpeed * (veh.TimeScale + 1) / 2;
             myRock.ThrownState(veh.WorldDirection2D(), veh);
-            myRock.transform.SetParent(Game.instance.unitsContainer, true);
+            myRock.transform.SetParent(Game.Instance.unitsContainer, true);
         }
 
         public override void Interrupted()
@@ -53,7 +53,7 @@ namespace AI
         {
             if (myRock.InTheHandsOf == veh)
             {
-                myRock.transform.SetParent(Game.instance.unitsContainer, true);
+                myRock.transform.SetParent(Game.Instance.unitsContainer, true);
                 myRock.StoppedState();
             }
 

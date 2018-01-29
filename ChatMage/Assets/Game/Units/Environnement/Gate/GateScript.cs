@@ -19,7 +19,7 @@ public class GateScript : Unit, IAttackable
 
     protected override void Die()
     {
-        Game.instance.gameCamera.followPlayer = true;
+        Game.Instance.gameCamera.followPlayer = true;
 
         base.Die();
 

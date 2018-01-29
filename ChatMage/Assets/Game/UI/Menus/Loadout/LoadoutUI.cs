@@ -1,4 +1,4 @@
-using CCC.Manager;
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,6 +29,8 @@ namespace LoadoutMenu
         public LoadoutPanelAnimator panelAnimator;
         public LoadoutProgressPanel progressPanel;
         public LoadoutTextChanger[] textChangers;
+        public DataSaver armoryDataSaver;
+        public DataSaver loadoutDataSaver;
 
         public AudioClip loadoutSong;
         public AudioClip nextSound;
@@ -51,7 +53,7 @@ namespace LoadoutMenu
         [InspectorButton]
         private void DebugLaunch()
         {
-            MasterManager.Sync(delegate ()
+            PersistentLoader.LoadIfNotLoaded(delegate ()
             {
                 Init(debugLevel.levelScriptName, debugStartTab);
             });
@@ -82,9 +84,9 @@ namespace LoadoutMenu
             //Détermine les tabs qui sont available
             availableTabs = new List<LoadoutTab>(3);
             availableTabs.Add(LoadoutTab.Car);
-            if (Armory.HasAccessToItems())
+            if (Armory.HasAccessToItems(armoryDataSaver))
                 availableTabs.Add(LoadoutTab.Items);
-            if (Armory.HasAccessToSmash() && !preventAccessToSmash)
+            if (Armory.HasAccessToSmash(armoryDataSaver) && !preventAccessToSmash)
                 availableTabs.Add(LoadoutTab.Smash);
 
             //Détermine quel tab nous devrions être
@@ -99,10 +101,10 @@ namespace LoadoutMenu
             }
 
             // Chanson du Loadout
-            SoundManager.PlayMusic(loadoutSong);
+            DefaultAudioSources.PlayMusic(loadoutSong);
 
             //Le dernier loadoutResult. On veut remettre le même build que la dernière fois
-            LoadoutResult lastLoadoutResult = LoadoutResult.Load();
+            LoadoutResult lastLoadoutResult = LoadoutResult.Load(loadoutDataSaver);
 
             //On crée le loadout
             currentLoadout = new Loadout(armory.cars, armory.smashes, armory.items, armory.ItemSlots, lastLoadoutResult);
@@ -218,14 +220,14 @@ namespace LoadoutMenu
             //On est a la derniere tab ?
             if (currentTabIndex == availableTabs.Count - 1)
             {
-                SoundManager.PlaySFX(completeSound);
+                DefaultAudioSources.PlaySFX(completeSound);
                 LauchGame();
             }
             else
             {
                 currentTabIndex++;
 
-                SoundManager.PlaySFX(nextSound);
+                DefaultAudioSources.PlaySFX(nextSound);
 
                 //Update le progress panel
                 progressPanel.SetTab(CurrentTab, true);
@@ -311,7 +313,7 @@ namespace LoadoutMenu
         {
             //Cheat Temporaire
             equipable.preview.MarkAsUnlocked();
-            GameSaves.instance.SaveData(GameSaves.Type.Armory);
+            armoryDataSaver.Save();
             FillUI();
 
             //A remettre
@@ -385,7 +387,7 @@ namespace LoadoutMenu
             LoadoutResult result = currentLoadout.ProduceResult();
             if (result.smashOrder == null && armory.defaultSmash != null)
                 result.AddEquipable(armory.defaultSmash.equipableAssetName, EquipableType.Smash);
-            result.Save();
+            result.Save(loadoutDataSaver);
 
             return result;
         }

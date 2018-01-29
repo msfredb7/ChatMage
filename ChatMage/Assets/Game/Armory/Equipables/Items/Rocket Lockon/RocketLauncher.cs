@@ -34,7 +34,7 @@ public class RocketLauncher : MonoBehaviour
     void Start()
     {
         tr = transform;
-        player = Game.instance.Player.vehicle;
+        player = Game.Instance.Player.vehicle;
         internalClock = 0;
 
         animItem.SetInactive();
@@ -82,7 +82,7 @@ public class RocketLauncher : MonoBehaviour
             if (elapsed >= lockOnDuration)
             {
                 //Launch Rocket !
-                Game.instance.SpawnUnit(rocketPrefab, tr.position).Init(lockon.target.transform);
+                Game.Instance.SpawnUnit(rocketPrefab, tr.position).Init(lockon.target.transform);
 
                 //Terminate animation
                 lockon.anim.SetInactive();
@@ -106,7 +106,7 @@ public class RocketLauncher : MonoBehaviour
     {
         Vector2 myPos = tr.position;
 
-        LinkedListNode<Unit> node = Game.instance.attackableUnits.First;
+        LinkedListNode<Unit> node = Game.Instance.attackableUnits.First;
         while (node != null)
         {
             Unit val = node.Value;

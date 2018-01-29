@@ -16,6 +16,7 @@ public class EquipablePreview : BaseScriptableObject
     public string equipableAssetName;
     public Sprite icon;
     public EquipableType type;
+    public DataSaver dataSaver;
 
     public bool Unlocked { get { return unlocked; } }
     private bool unlocked = false;
@@ -25,20 +26,20 @@ public class EquipablePreview : BaseScriptableObject
     {
         unlocked = true;
         string equipableKey = SAVE_PREFIX + name;
-        GameSaves.instance.SetBool(GameSaves.Type.Armory, equipableKey, unlocked);
+        dataSaver.SetBool(equipableKey, unlocked);
     }
 
     public void Load()
     {
-        unlocked = IsUnlocked(name);
+        unlocked = IsUnlocked(dataSaver, name);
     }
 
-    public static bool IsUnlocked(string previewName)
+    public static bool IsUnlocked(DataSaver armoryDataSaver, string previewName)
     {
         string equipableKey = SAVE_PREFIX + previewName;
 
-        if (GameSaves.instance.ContainsBool(GameSaves.Type.Armory, equipableKey))
-            return GameSaves.instance.GetBool(GameSaves.Type.Armory, equipableKey);
+        if (armoryDataSaver.ContainsBool(equipableKey))
+            return armoryDataSaver.GetBool(equipableKey);
         else
             return DEFAULT_UNLOCKS.Contains(previewName);
     }

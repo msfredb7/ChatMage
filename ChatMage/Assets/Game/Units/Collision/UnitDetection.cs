@@ -6,7 +6,7 @@ public static class UnitDetection
 {
     public static List<Unit> OverlapCircleUnits(Vector2 center, float radius, Unit excludedUnit, Allegiance[] allowedAllegiances)
     {
-        if (Game.instance == null)
+        if (Game.Instance == null)
             return null;
         
         List<Unit> filteredList = new List<Unit>(5);
@@ -14,7 +14,7 @@ public static class UnitDetection
         float sqrRadius = radius * radius;
 
         
-        foreach (Unit unit in Game.instance.units)
+        foreach (Unit unit in Game.Instance.units)
         {
             //Unit
             if (unit == excludedUnit)

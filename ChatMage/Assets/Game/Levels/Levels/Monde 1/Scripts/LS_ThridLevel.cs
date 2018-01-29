@@ -8,7 +8,7 @@ using DG.Tweening;
 
 public class LS_ThridLevel : LevelScript
 {
-    [InspectorHeader("Wave 1")]
+    [InspectorCategory("UNIQUE"), InspectorHeader("Wave 1")]
     public int waveOne_armyWallBefore = 1;
     public string waveOne_prespawnedTag = "inter 1";
     public List<Unit> waveOne_sequence = new List<Unit>();
@@ -18,7 +18,7 @@ public class LS_ThridLevel : LevelScript
     bool waveOne_reached = false;
 
 
-    [InspectorHeader("Wave 2")]
+    [InspectorCategory("UNIQUE"), InspectorHeader("Wave 2")]
     public int waveTwo_armyWallBefore = 2;
     public string waveTwo_prespawnedTag = "inter 2";
     public List<Unit> waveTwo_sequence = new List<Unit>();
@@ -45,16 +45,16 @@ public class LS_ThridLevel : LevelScript
 
     protected override void OnGameReady()
     {
-        Game.instance.smashManager.smashEnabled = true;
-        Game.instance.ui.smashDisplay.canBeShown = true;
+        Game.Instance.smashManager.smashEnabled = true;
+        Game.Instance.ui.smashDisplay.canBeShown = true;
 
 
         //Get army wall + disable collision
-        armyWall = Game.instance.map.mapping.GetTaggedObject("army wall").GetComponent<ArmyWallScript>();
+        armyWall = Game.Instance.map.mapping.GetTaggedObject("army wall").GetComponent<ArmyWallScript>();
         armyWall.DisableCollision();
 
         //On l'approche du joueur 
-        Game.instance.events.AddDelayedAction(() =>
+        Game.Instance.events.AddDelayedAction(() =>
         {
             armyWall.BringCloseToPlayer();
         },
@@ -69,7 +69,7 @@ public class LS_ThridLevel : LevelScript
 
     public override void OnWin()
     {
-        Armory.UnlockAccessToSmash();
+        Armory.UnlockAccessToSmash(armoryData);
     }
 
     public override void OnReceiveEvent(string message)
@@ -89,7 +89,7 @@ public class LS_ThridLevel : LevelScript
 
     private void Intersect1()
     {
-        Mapping mapping = Game.instance.map.mapping;
+        Mapping mapping = Game.Instance.map.mapping;
         List<TaggedObject> preSpawned = mapping.GetTaggedObjects(waveOne_prespawnedTag);
         Intersection(preSpawned,
             waveOne_sequence,
@@ -98,7 +98,7 @@ public class LS_ThridLevel : LevelScript
             waveOne_armyWallBefore,
             () =>
             {
-                ((GameEvents.EmptyEvent)Game.instance.map.graph.events.Find(
+                ((GameEvents.EmptyEvent)Game.Instance.map.graph.events.Find(
                     (UnityEngine.Object obj) => obj.name == "On Wave 1 Cpl")).Trigger();
             },
             mapping.GetTaggedObject("g1 marker").GetComponent<MarkerReceiver>());
@@ -107,7 +107,7 @@ public class LS_ThridLevel : LevelScript
     }
     private void Intersect2()
     {
-        Mapping mapping = Game.instance.map.mapping;
+        Mapping mapping = Game.Instance.map.mapping;
         List<TaggedObject> preSpawned = mapping.GetTaggedObjects(waveTwo_prespawnedTag);
         Intersection(preSpawned,
             waveTwo_sequence,
@@ -116,7 +116,7 @@ public class LS_ThridLevel : LevelScript
             waveTwo_armyWallBefore,
             () =>
             {
-                ((GameEvents.EmptyEvent)Game.instance.map.graph.events.Find(
+                ((GameEvents.EmptyEvent)Game.Instance.map.graph.events.Find(
                     (UnityEngine.Object obj) => obj.name == "On Wave 2 Cpl")).Trigger();
             },
             mapping.GetTaggedObject("g2 marker").GetComponent<MarkerReceiver>());
@@ -126,13 +126,13 @@ public class LS_ThridLevel : LevelScript
 
     private void Intersection(List<TaggedObject> preSpawned, List<Unit> wave, string spawnTag, float interval, int armyWallBefore, Action onComplete, MarkerReceiver markersTarget)
     {
-        MarkerSpawner marker = Game.instance.map.markerSpawner;
+        MarkerSpawner marker = Game.Instance.map.markerSpawner;
         int preSpawnedCount = preSpawned.Count;    // Les unit�es pre-spawned
         int plannedWaveCount = wave.Count;   // Les unit�es qui vont arriver d'en bas, par la wave
         int ambushCount = 0;        // Les unit�es qui ont spawn sur les cot� qui sont encore active
 
 
-        float minY = Game.instance.gameCamera.Bottom - 0.75f;
+        float minY = Game.Instance.gameCamera.Bottom - 0.75f;
         float minX = (GameCamera.DEFAULT_SCREEN_WIDTH / -2) + 1;
         float xLength = minX.Abs() * 2;
 
@@ -208,7 +208,7 @@ public class LS_ThridLevel : LevelScript
         {
             List<Unit> newWaveList = new List<Unit>(wave);
             newWaveList.RemoveRange(0, ambushCount.Capped(newWaveList.Count));
-            Game.instance.map.mapping.GetSpawn(spawnTag)
+            Game.Instance.map.mapping.GetSpawn(spawnTag)
                 .SpawnUnits(newWaveList, interval, (Unit u) =>
                 {
                     progressTracker.RegisterUnit(u);

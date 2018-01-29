@@ -10,6 +10,6 @@ public class HealthPack : Pack
 
     protected override void OnPickUp()
     {
-        Game.instance.Player.playerStats.GiveHealth(healValue);
+        Game.Instance.Player.playerStats.GiveHealth(healValue);
     }
 }

@@ -10,18 +10,18 @@ public abstract class Car : Equipable
     public PlayerController playerPrefab;
 
     [InspectorMargin(12), InspectorHeader("HP")]
-    public int startingHP = 3;
-    public int startingArmor = 0;
+    public int startingHPItems = 1;
 
     public override void Init(PlayerController player)
     {
         base.Init(player);
 
-        player.playerStats.health.MAX = startingHP;
-        player.playerStats.health.Set(startingHP);
-
-        player.playerStats.armor.MAX = int.MaxValue;
-        player.playerStats.armor.Set(startingArmor);
+        Item hpItem = Game.Instance.itemSpawner.settings.commonItems.Count > 0 ? Game.Instance.itemSpawner.settings.commonItems[0] : null;
+        if(hpItem != null)
+            for (int i = 0; i < startingHPItems; i++)
+            {
+                player.playerItems.Equip(hpItem);
+            }
     }
 
 

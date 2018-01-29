@@ -25,7 +25,7 @@ public class PlayerInput : MonoBehaviour
 
     void Update()
     {
-        if (controller == null || !Game.instance.gameStarted || !Enabled)
+        if (controller == null || !Game.Instance.gameStarted || !Enabled)
             return;
 
 
@@ -53,7 +53,7 @@ public class PlayerInput : MonoBehaviour
                     turning++;
                 if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
                     turning--;
-                if (Game.instance.gameRunning && Input.GetKeyDown(KeyCode.Space))
+                if (Game.Instance.gameRunning && Input.GetKeyDown(KeyCode.Space))
                     smashPress = true;
             }
         }
@@ -64,7 +64,7 @@ public class PlayerInput : MonoBehaviour
 
     void OnPlayerTouch(Vector2 pixelPosition)
     {
-        if (!Application.isMobilePlatform || !Game.instance.gameRunning)
+        if (!Application.isMobilePlatform || !Game.Instance.gameRunning)
             return;
 
         float x = pixelPosition.x;

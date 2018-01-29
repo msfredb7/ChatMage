@@ -65,12 +65,12 @@ public class MedievalBridge : MonoBehaviour
 
     void ApplyTimescale()
     {
-        if (!timescaleListener && Game.instance != null)
+        if (!timescaleListener && Game.Instance != null)
         {
-            Game.instance.worldTimeScale.onSet.AddListener(UpdateTimescale);
+            Game.Instance.worldTimeScale.onSet.AddListener(UpdateTimescale);
             timescaleListener = true;
 
-            UpdateTimescale(Game.instance.worldTimeScale);
+            UpdateTimescale(Game.Instance.worldTimeScale);
         }
 
         controller.speed = timescale;
@@ -78,7 +78,7 @@ public class MedievalBridge : MonoBehaviour
 
     void OnDestroy()
     {
-        if (Game.instance != null)
-            Game.instance.worldTimeScale.onSet.RemoveListener(UpdateTimescale);
+        if (Game.Instance != null)
+            Game.Instance.worldTimeScale.onSet.RemoveListener(UpdateTimescale);
     }
 }

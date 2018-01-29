@@ -15,7 +15,7 @@ public class ITM_CooldownReduction : Item
 
     public override void OnGameReady()
     {
-        Game.instance.Player.playerStats.cooldownMultiplier.Set(1 - cooldownReduction);
+        Game.Instance.Player.playerStats.cooldownMultiplier.Set(1 - cooldownReduction);
     }
 
     public override void OnGameStarted()

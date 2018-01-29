@@ -19,7 +19,7 @@ namespace Tutorial
             killCount = 0;
 
             //On listen a quand le joueur arrive a la 2e intersection
-            Milestone secondIntersection = Game.instance.map.roadPlayer.CurrentRoad.milestones.Find(
+            Milestone secondIntersection = Game.Instance.map.roadPlayer.CurrentRoad.milestones.Find(
              (x) => x.GameObj.name == "Second Intersection") as Milestone;
 
             if (secondIntersection == null)
@@ -32,7 +32,7 @@ namespace Tutorial
                 secondIntersection.onExecute.AddListener(OnReach2ndIntersection);
             }
 
-            Game.instance.Player.playerSmash.onSmashStarted += OnPlayerSmash;
+            Game.Instance.Player.playerSmash.onSmashStarted += OnPlayerSmash;
         }
 
         private void OnPlayerSmash()
@@ -42,10 +42,10 @@ namespace Tutorial
 
         void OnReach2ndIntersection()
         {
-            PlayerController pc = Game.instance.Player;
+            PlayerController pc = Game.Instance.Player;
             if (pc != null)
             {
-                pc.playerStats.onUnitKilled += CheckLaunchTut;
+                pc.playerStats.OnUnitKilled += CheckLaunchTut;
             }
         }
 
@@ -61,10 +61,10 @@ namespace Tutorial
         void LaunchTut(Unit unitKilled)
         {
             //Remove listener
-            PlayerController pc = Game.instance.Player;
+            PlayerController pc = Game.Instance.Player;
             if (pc != null)
             {
-                pc.playerStats.onUnitKilled -= CheckLaunchTut;
+                pc.playerStats.OnUnitKilled -= CheckLaunchTut;
             }
 
             canLaunchTut = false;
@@ -73,13 +73,13 @@ namespace Tutorial
 
         void P1_ShowSmashMeter()
         {
-            Game.instance.ui.playerInputs.Enabled.Lock("tut");
+            Game.Instance.ui.playerInputs.Enabled.Lock("tut");
 
             modules.shorcuts.TimeFreeze();
             modules.textDisplay.SetBottom();
             modules.textDisplay.DisplayText("You have earned enough time-energy by defeating enemies. You can now use your "
                 + "special power to <color=#96EEFFFF>SLOW DOWN TIME!</color>", true);
-            modules.spotlight.On(Game.instance.ui.smashDisplay.GetAbsolutePosition());
+            modules.spotlight.On(Game.Instance.ui.smashDisplay.GetAbsolutePosition());
 
             modules.delayedAction.Do(1, () => modules.shorcuts.WaitForTouchOrKeyDown(P2_YouHaveEnough));
         }
@@ -102,7 +102,7 @@ namespace Tutorial
             modules.delayedAction.Do(1, () =>
                 modules.shorcuts.WaitForTouchOrKeyDown(() =>
                 {
-                    Game.instance.ui.playerInputs.Enabled.Unlock("tut");
+                    Game.Instance.ui.playerInputs.Enabled.Unlock("tut");
                     modules.shorcuts.TimeUnFreeze();
                     if (controlsDisplay != null)
                         controlsDisplay.Hide();

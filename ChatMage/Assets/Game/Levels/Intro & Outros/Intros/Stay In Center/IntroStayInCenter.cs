@@ -20,12 +20,12 @@ namespace GameIntroOutro
         {
             //Camera
 
-            GameCamera gameCamera = Game.instance.gameCamera;
+            GameCamera gameCamera = Game.Instance.gameCamera;
             gameCamera.OrthoSize = cameraOrthographicSize;
 
-            PlayerVehicle veh = Game.instance.Player.vehicle;
+            PlayerVehicle veh = Game.Instance.Player.vehicle;
 
-            veh.TeleportPosition(Game.instance.gameCamera.Center);
+            veh.TeleportPosition(Game.Instance.gameCamera.Center);
             veh.TeleportDirection(90);
 
             veh.canMove.Lock("intro");

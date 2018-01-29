@@ -21,13 +21,13 @@ public class LS_fredLevelScript : LevelScript
 
     protected override void OnGameStarted()
     {
-        Game.instance.playerBounds.DisableAll();
+        Game.Instance.playerBounds.DisableAll();
     }
 
     protected override void OnUpdate()
     {
         if (Input.GetKeyDown(KeyCode.T))
-            Game.instance.map.mapping.GetSpawn("plus").CancelSpawning();
+            Game.Instance.map.mapping.GetSpawn("plus").CancelSpawning();
         if (Input.GetKeyDown(KeyCode.L) && !IsOver)
         {
             Lose();

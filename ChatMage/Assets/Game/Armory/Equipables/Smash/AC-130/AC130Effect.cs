@@ -41,13 +41,13 @@ public class AC130Effect : MonoBehaviour
 
     void OnEnable()
     {
-        Game.instance.Player.vehicle.OnDeath += OnPlayerDeath;
+        Game.Instance.Player.vehicle.OnDeath += OnPlayerDeath;
     }
 
     void OnDisable()
     {
-        if (Game.instance != null && Game.instance.Player != null)
-            Game.instance.Player.vehicle.OnDeath -= OnPlayerDeath;
+        if (Game.Instance != null && Game.Instance.Player != null)
+            Game.Instance.Player.vehicle.OnDeath -= OnPlayerDeath;
     }
 
     void OnPlayerDeath(Unit unit)
@@ -57,7 +57,7 @@ public class AC130Effect : MonoBehaviour
 
     void Start()
     {
-        blackAndWhite = Game.instance.gameCamera.cam.gameObject.AddComponent<Invert_BlackAndWhite>();
+        blackAndWhite = Game.Instance.gameCamera.cam.gameObject.AddComponent<Invert_BlackAndWhite>();
         blackAndWhite.material = blackAndWhiteMat;
         blackAndWhite.enabled = false;
     }
@@ -66,7 +66,7 @@ public class AC130Effect : MonoBehaviour
     {
         if (remainingDuration > 0)
         {
-            remainingDuration -= Time.deltaTime * Game.instance.worldTimeScale;
+            remainingDuration -= Time.deltaTime * Game.Instance.worldTimeScale;
 
             if (remainingDuration <= 0)
             {
@@ -76,7 +76,7 @@ public class AC130Effect : MonoBehaviour
 
         if (remainingReloadTime > 0)
         {
-            remainingReloadTime -= Time.deltaTime * Game.instance.worldTimeScale;
+            remainingReloadTime -= Time.deltaTime * Game.Instance.worldTimeScale;
 
             //Si on a plus d'ammo, end
             if (remainingReloadTime <= 0 && ammo == 0)
@@ -90,9 +90,9 @@ public class AC130Effect : MonoBehaviour
 
     void Shoot()
     {
-        Vector2 pos = Game.instance.gameCamera.cam.ScreenToWorldPoint(Toucher.GetTouchPosition());
+        Vector2 pos = Game.Instance.gameCamera.cam.ScreenToWorldPoint(Toucher.GetTouchPosition());
 
-        Game.instance.SpawnUnit(bulletPrefab, pos).Init(blackFade);
+        Game.Instance.SpawnUnit(bulletPrefab, pos).Init(blackFade);
 
         //Reload time
         remainingReloadTime = reloadDuration;
@@ -101,7 +101,7 @@ public class AC130Effect : MonoBehaviour
         crossair.Shoot(Toucher.GetTouchPosition(), reloadDuration);
 
         //Shake
-        Game.instance.gameCamera.vectorShaker.Shake(shakeIntensity, shakeDuration);
+        Game.Instance.gameCamera.vectorShaker.Shake(shakeIntensity, shakeDuration);
 
         //black fade anim ?
 
@@ -133,14 +133,14 @@ public class AC130Effect : MonoBehaviour
         UpdateAmmoDisplay();
 
         //Deactivate player
-        if (Game.instance.Player != null)
-            Game.instance.Player.gameObject.SetActive(false);
+        if (Game.Instance.Player != null)
+            Game.Instance.Player.gameObject.SetActive(false);
 
 
         //Panic units
-        forcedGoals = new List<Goal>(Game.instance.attackableUnits.Count);
+        forcedGoals = new List<Goal>(Game.Instance.attackableUnits.Count);
 
-        LinkedListNode<Unit> node = Game.instance.attackableUnits.First;
+        LinkedListNode<Unit> node = Game.Instance.attackableUnits.First;
         while (node != null)
         {
             Unit val = node.Value;
@@ -148,7 +148,7 @@ public class AC130Effect : MonoBehaviour
             node = node.Next;
         }
 
-        Game.instance.onUnitSpawned += PanicUnit;
+        Game.Instance.onUnitSpawned += PanicUnit;
 
         //Black fade out
         blackFade.DOFade(0, fadeDuration);
@@ -186,7 +186,7 @@ public class AC130Effect : MonoBehaviour
             forcedGoals = null;
         }
 
-        Game.instance.onUnitSpawned -= PanicUnit;
+        Game.Instance.onUnitSpawned -= PanicUnit;
 
         //Black fade in
         blackFade.DOKill();
@@ -207,8 +207,8 @@ public class AC130Effect : MonoBehaviour
         container.SetActive(false);
 
         //Reactivate player
-        if (Game.instance.Player != null)
-            Game.instance.Player.gameObject.SetActive(true);
+        if (Game.Instance.Player != null)
+            Game.Instance.Player.gameObject.SetActive(true);
 
         if (onComplete != null)
             onComplete();

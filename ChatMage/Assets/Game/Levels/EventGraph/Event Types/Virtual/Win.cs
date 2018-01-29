@@ -9,8 +9,8 @@ namespace GameEvents
     {
         public void Trigger()
         {
-            Game.instance.levelScript.Win();
-            Game.instance.music.TransitionTo(MusicManager.SongName.Win);
+            Game.Instance.levelScript.Win();
+            Game.Instance.music.TransitionTo(MusicManager.SongName.Win);
         }
 
         public override Color GUIColor()

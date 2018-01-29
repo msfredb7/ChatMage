@@ -8,32 +8,28 @@ using UnityEngine;
 public class ItemSpawner : MonoBehaviour
 {
     public ItemPack pickupPrefab;
-    public List<Item> commonItemsReferences = new List<Item>();
-    public List<Item> specialItemsReferences = new List<Item>();
 
-    [Header("Algorithme simple TEMPORAIRE")]
-    public int everyXKills = 5;
-    public int specialEveryXItem = 3;
+    public ItemSpawnerSettings settings;
 
     private int killCounter = 0;
     private int commonItemCounter = 0;
 
     void Start()
     {
-        if (Game.instance == null)
+        if (Game.Instance == null)
         {
             gameObject.SetActive(false);
             Debug.LogError("Pas d'instance de Game.");
         }
         else
         {
-            Game.instance.onGameReady += OnGameReady;
+            Game.Instance.onGameReady += OnGameReady;
         }
     }
 
     private void OnGameReady()
     {
-        Game.instance.Player.playerStats.onUnitKilled += OnUnitKilled;
+        Game.Instance.Player.playerStats.OnUnitKilled += OnUnitKilled;
     }
 
     private void OnUnitKilled(Unit unit)
@@ -44,7 +40,7 @@ public class ItemSpawner : MonoBehaviour
         killCounter++;
 
         //Algorithme temporaire
-        if (killCounter >= everyXKills)
+        if (killCounter >= settings.everyXKill)
         {
             SpawnItem(unit.Position);
             killCounter = 0;
@@ -53,20 +49,20 @@ public class ItemSpawner : MonoBehaviour
 
     public void SpawnItem(Vector2 at)
     {
-        if (commonItemsReferences.Count == 0)
+        if (settings.commonItems.Count == 0)
         {
             //Il n'y a pas d'item common
             SpawnSpecialItem(at);
             return;
         }
-        else if (specialItemsReferences.Count == 0)
+        else if (settings.specialItems.Count == 0)
         {
             //Il n'y a pas d'item special
             SpawnCommonItem(at);
             return;
         }
 
-        if (commonItemCounter >= specialEveryXItem)
+        if (commonItemCounter >= settings.specialItemEveryXItem)
         {
             //Il est l'heure d'avoir un special item
             SpawnSpecialItem(at);
@@ -82,16 +78,20 @@ public class ItemSpawner : MonoBehaviour
 
     public void SpawnCommonItem(Vector2 at)
     {
-        SpawnItem(commonItemsReferences.PickRandom(), at);
+        commonItemCounter++;
+        SpawnItem(settings.commonItems.PickRandom(), at);
     }
 
     public void SpawnSpecialItem(Vector2 at)
     {
-        SpawnItem(specialItemsReferences.PickRandom(), at);
+        commonItemCounter = 0;
+        SpawnItem(settings.specialItems.PickRandom(), at);
     }
 
     public void SpawnItem(Item item, Vector2 at)
     {
-        Game.instance.SpawnUnit(pickupPrefab, at).SetItem(item);
+        ItemPack itemPack = Game.Instance.SpawnUnit(pickupPrefab, at);
+        itemPack.SetItem(item);
+        itemPack.isPreSpawned = false;
     }
 }

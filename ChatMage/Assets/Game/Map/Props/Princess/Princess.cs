@@ -23,7 +23,7 @@ public class Princess : Unit, IAttackable
         {
             // TRIGGER LES EVENNEMENTS DE PRENDRE LA PRINCESSE
             // Animation ?
-            List<IMilestone> milestones = Game.instance.map.roadPlayer.CurrentRoad.milestones;
+            List<IMilestone> milestones = Game.Instance.map.roadPlayer.CurrentRoad.milestones;
             for (int i = 0; i < milestones.Count; i++)
             {
                 milestones[i].GameObj.SetActive(true);
@@ -41,7 +41,7 @@ public class Princess : Unit, IAttackable
 
     protected override void Die()
     {
-        Game.instance.levelScript.ReceiveEvent(saveDialogEvent);
+        Game.Instance.levelScript.ReceiveEvent(saveDialogEvent);
 
         base.Die();
 

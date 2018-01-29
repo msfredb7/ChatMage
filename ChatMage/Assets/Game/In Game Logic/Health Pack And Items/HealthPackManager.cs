@@ -33,7 +33,7 @@ public class HealthPackManager : MonoBehaviour
 
     public void Init(PlayerController controller)
     {
-        controller.playerStats.onUnitKilled += PlayerStats_onUnitKilled;
+        controller.playerStats.OnUnitKilled += PlayerStats_onUnitKilled;
         player = controller;
         spawnArmor = false;
     }
@@ -41,7 +41,7 @@ public class HealthPackManager : MonoBehaviour
     void Update()
     {
         //On n'augmente pas si le joueur est full hp
-        if (!Game.instance.gameStarted || player == null || player.playerStats.health >= player.playerStats.health.MAX)
+        if (!Game.Instance.gameStarted || player == null || player.playerStats.health >= player.playerStats.health.MAX)
             return;
 
 
@@ -87,10 +87,18 @@ public class HealthPackManager : MonoBehaviour
             //Success !
 
             //Spawn
-            if(spawnArmor)
-                Game.instance.SpawnUnit(armorPackPrefab, position).armorValue = armorPackValue;
+            if (spawnArmor)
+            {
+                ArmorPack armorPack = Game.Instance.SpawnUnit(armorPackPrefab, position);
+                armorPack.armorValue = armorPackValue;
+                armorPack.isPreSpawned = false;
+            }
             else
-                Game.instance.SpawnUnit(healthPackPrefab, position).healValue = healthPackValue;
+            {
+                HealthPack healthPack = Game.Instance.SpawnUnit(healthPackPrefab, position);
+                healthPack.healValue = healthPackValue;
+                healthPack.isPreSpawned = false;
+            }
 
             //Reset
             spawnChance = 0;

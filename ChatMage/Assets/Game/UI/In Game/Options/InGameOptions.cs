@@ -1,4 +1,4 @@
-using CCC.Manager;
+
 using CCC.UI;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,6 +12,7 @@ public class InGameOptions : WindowAnimation
 
     [Header("Options Menu")]
     public Button levelSelectButton;
+    [SerializeField] private AudioMixerSaver audioMixerSaver;
 
     private bool isQuitting = false;
 
@@ -19,25 +20,48 @@ public class InGameOptions : WindowAnimation
     {
         base.Awake();
 
-        levelSelectButton.gameObject.SetActive(Game.instance.framework.CanGoToLevelSelect);
+        PersistentLoader.LoadIfNotLoaded(()=>
+        {
+            if (!IsOpen())
+                Open();
+        });
+
+        if (Game.Instance != null)
+        {
+            levelSelectButton.gameObject.SetActive(Game.Instance.framework.CanGoToLevelSelect);
+
+            //Lock game state
+            Game.Instance.gameRunning.Lock("optionsMenu");
+            Game.Instance.ui.playerInputs.Enabled.Lock("opt");
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (Application.isPlaying && isQuitting && Game.Instance != null)
+        {
+            //Unlock game state
+            Game.Instance.gameRunning.Unlock("optionsMenu");
+            Game.Instance.ui.playerInputs.Enabled.Unlock("opt");
+        }
     }
 
     public void Confirm()
     {
-        SoundManager.Save();
+        audioMixerSaver.Save();
         Exit();
     }
 
     public void Cancel()
     {
-        SoundManager.Load();
+        audioMixerSaver.Load();
         Exit();
     }
 
     public void RestartGame()
     {
-        if (Game.instance != null)
-            Game.instance.framework.RestartLevel();
+        if (Game.Instance != null)
+            Game.Instance.framework.RestartLevel();
     }
 
     public void BackToLevelSelect()
@@ -57,39 +81,13 @@ public class InGameOptions : WindowAnimation
                 delegate ()
                 {
                     Scenes.UnloadAsync(SCENENAME);
-                    isQuitting = false;
-                    OnQuit();
                 }
             );
         }
         else
         {
             Scenes.UnloadAsync(SCENENAME);
-            isQuitting = false;
-            OnQuit();
         }
-    }
-
-    public void CHEAT_Invincible()
-    {
-        Game.instance.Player.playerStats.damagable = false;
-    }
-    public void CHEAT_FastSmash()
-    {
-        SmashManager sm = Game.instance.smashManager;
-        sm.IncreaseSmashJuice(sm.MaxJuice);
-        //if (sm.CurrentSmashBall != null)
-        //    sm.CurrentSmashBall.ForceDeath();
-        //else
-        //    sm.DecreaseCooldown(sm.RemainingTime);
-    }
-    public void CHEAT_Win()
-    {
-        Game.instance.levelScript.Win();
-    }
-    public void CHEAT_Lose()
-    {
-        Game.instance.levelScript.Lose();
     }
 
     void Update()
@@ -102,27 +100,14 @@ public class InGameOptions : WindowAnimation
 
     public static void OpenIfClosed()
     {
-        if (Game.instance == null)
+        if (Game.Instance == null)
         {
             Debug.LogWarning("Cannot open InGameOptions if the game is not running.");
             return;
         }
 
-        if (Scenes.Exists(SCENENAME))
+        if (Scenes.IsActive(SCENENAME))
             return;
         Scenes.LoadAsync(SCENENAME, LoadSceneMode.Additive);
-        OnStartOpen();
-    }
-
-    static void OnStartOpen()
-    {
-        Game.instance.gameRunning.Lock("optionsMenu");
-        Game.instance.ui.playerInputs.Enabled.Lock("opt");
-    }
-
-    static void OnQuit()
-    {
-        Game.instance.gameRunning.Unlock("optionsMenu");
-        Game.instance.ui.playerInputs.Enabled.Unlock("opt");
     }
 }

@@ -1,0 +1,114 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98d7c47753320e446b12b00b70629b8f, type: 3}
+  m_Name: LS_EndlessLevel
+  m_EditorClassIdentifier: 
+  _objectReferences:
+  - {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
+  - {fileID: 114917152140949164, guid: 90a1293e412776e4db23eb9595fcf924, type: 2}
+  - {fileID: 114031953647070938, guid: dca25e04556fe204da1a495069e8c437, type: 2}
+  - {fileID: 114782444358368932, guid: 444a36ca87f7fa248b0d5ff50d76f643, type: 2}
+  - {fileID: 114481925992522316, guid: 3ad6240e35c93a0469e0870f61273c74, type: 2}
+  - {fileID: 114923829034378616, guid: 7ec293da9a2e20c4caaa28d716dc5124, type: 2}
+  - {fileID: 11400000, guid: fa7429869f17d2e4a9dc1408b2119a9b, type: 2}
+  - {fileID: 11400000, guid: 74bd7215eb47f1f4aa6a841840037070, type: 2}
+  _serializedStateKeys:
+  - winningConditions
+  - losingConditions
+  - events
+  - waves
+  - rewards
+  - possibleUnits
+  - difficulty
+  - spawnInterval
+  - enemyDiversity
+  - wavePower
+  _serializedStateValues:
+  - '[]'
+  - '[{"$type":"GameCondition.LoseOnPlayerDeath"}]'
+  - '[]'
+  - '[]'
+  - '{"overrideGoldAmount":false,"goldReward":null,"giveLootBox":false,"lootboxRefName":null,"goldified":false}'
+  - '[{"unit":0,"power":1,"unlockAt":0},{"unit":1,"power":2,"unlockAt":0},{"unit":2,"power":3,"unlockAt":10},{"unit":3,"power":4,"unlockAt":20},{"unit":4,"power":5,"unlockAt":10},{"unit":5,"power":6,"unlockAt":15}]'
+  - '{"miny":0.0,"maxy":1000.0,"speed":{"UseConstant":false,"ConstantValue":0.0,"Variable":6},"minx":0.0}'
+  - '{"miny":0.6,"maxy":10.0,"speed":{"UseConstant":true,"ConstantValue":0.025,"Variable":null},"minx":0.0}'
+  - '{"miny":0.0,"maxy":1.0,"speed":{"UseConstant":true,"ConstantValue":0.25,"Variable":null},"minx":0.0}'
+  - '{"miny":0.0,"maxy":1000.0,"speed":{"UseConstant":false,"ConstantValue":0.0,"Variable":7},"minx":0.0}'
+  sceneInfo: {fileID: 11400000, guid: 776a9f058fff5af4290e4a682ca54c98, type: 2}
+  dataSaver: {fileID: 11400000, guid: ddccaa3a858acc3458d9734bb2ec9d3e, type: 2}
+  armoryData: {fileID: 11400000, guid: 7974f73ff596eae41a4721224c1384f2, type: 2}
+  introPrefab: {fileID: 114690852151089258, guid: 56b8379faad364644b69bd2f4acbd4ce,
+    type: 2}
+  winOutroPrefab: {fileID: 114142920246135100, guid: ec7fee02bead26b41a01387023fc7091,
+    type: 2}
+  loseOutroPrefab: {fileID: 114019376999675500, guid: 5fb703884a8fef84baed936668fb2290,
+    type: 2}
+  noHealthPacks: 0
+  followPlayerOnStart: 0
+  useCustomGenericEvents: 0
+  events: []
+  activateTutorial: 0
+  tutorialAssetName: 
+  tutorialData: {fileID: 0}
+  possibleUnits:
+  - unit: {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
+    power: 1
+    unlockAt: 0
+  - unit: {fileID: 114917152140949164, guid: 90a1293e412776e4db23eb9595fcf924, type: 2}
+    power: 2
+    unlockAt: 0
+  - unit: {fileID: 114031953647070938, guid: dca25e04556fe204da1a495069e8c437, type: 2}
+    power: 3
+    unlockAt: 10
+  - unit: {fileID: 114782444358368932, guid: 444a36ca87f7fa248b0d5ff50d76f643, type: 2}
+    power: 4
+    unlockAt: 20
+  - unit: {fileID: 114481925992522316, guid: 3ad6240e35c93a0469e0870f61273c74, type: 2}
+    power: 5
+    unlockAt: 10
+  - unit: {fileID: 114923829034378616, guid: 7ec293da9a2e20c4caaa28d716dc5124, type: 2}
+    power: 6
+    unlockAt: 15
+  difficulty:
+    miny: 0
+    maxy: 1000
+    speed:
+      UseConstant: 0
+      ConstantValue: 0
+      Variable: {fileID: 11400000, guid: fa7429869f17d2e4a9dc1408b2119a9b, type: 2}
+    minx: 0
+  spawnInterval:
+    miny: 0.6
+    maxy: 10
+    speed:
+      UseConstant: 1
+      ConstantValue: 0.025
+      Variable: {fileID: 0}
+    minx: 0
+  enemyDiversity:
+    miny: 0
+    maxy: 1
+    speed:
+      UseConstant: 1
+      ConstantValue: 0.25
+      Variable: {fileID: 0}
+    minx: 0
+  wavePower:
+    miny: 0
+    maxy: 1000
+    speed:
+      UseConstant: 0
+      ConstantValue: 0
+      Variable: {fileID: 11400000, guid: 74bd7215eb47f1f4aa6a841840037070, type: 2}
+    minx: 0
+  playerEnterDelay: 0.5
+  useDebug: 1
+  debugStage: 1

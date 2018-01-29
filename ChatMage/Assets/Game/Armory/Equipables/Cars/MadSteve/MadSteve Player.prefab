@@ -827,6 +827,7 @@ MonoBehaviour:
   playerStats: {fileID: 114783034109136898}
   playerLocations: {fileID: 114083506589892786}
   playerCarTriggers: {fileID: 114788055183922844}
+  vehicleSounds: {fileID: 0}
 --- !u!114 &114083506589892786
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1105,19 +1106,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allegiance: 0
+  isDead: 0
   moveSpeed: 6
   targetDirection: 0
   rotationSetsTargetDirection: 1
   useWeight: 1
   weight: 0.2
-  sortingLayer: Environment
-  beginDriftDelta: 1
-  spawnStdTrails: 1
-  stdTrailPrefab: {fileID: 96069006699315678, guid: 8019fc47a4ed30441aaf9013a5ab9532,
-    type: 2}
-  spawnDriftTrails: 1
-  driftTrailPrefab: {fileID: 96117882176352154, guid: 6563e043288d8554283cd7d0d1d0e22a,
-    type: 2}
+  driftStrain: 0
+  motorStrain: 0
 --- !u!114 &114783034109136898
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1129,10 +1125,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab4e1c3ffedab7840bc32399fcfeb54e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onHitShakeStrength: 0.18
   loseHpHitColor: {r: 1, g: 0, b: 0, a: 1}
   sprite: {fileID: 212924482062069292}
   unhitableDuration: 1
+  lowHPFlash_Color: {r: 1, g: 1, b: 1, a: 1}
+  lowHPFlash_Speed: 1
+  lowHPFlash_Ease: 2
   damagable: 1
   isVisible: 1
   boostedAOE: 0
@@ -1147,7 +1145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f86c6641aa2dfa448822fb69e172d873, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camHitStrengthOnHit: 0.12
+  damageUnitSFX: {fileID: 0}
   masterTriggerListener: {fileID: 114500554078214102}
   frontTrig: {fileID: 114579370144108426}
   backTrig: {fileID: 114170125751899762}

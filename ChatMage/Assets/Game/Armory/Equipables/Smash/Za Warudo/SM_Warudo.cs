@@ -2,10 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using CCC.Manager;
 using FullInspector;
 using FullSerializer;
 using DG.Tweening;
+using UnityEngine.Audio;
 
 public class SM_Warudo : Smash
 {
@@ -18,6 +18,8 @@ public class SM_Warudo : Smash
     [InspectorHeader("SFX Linking")]
     public AudioClip sfx;
     public AudioClip exitSfx;
+    public AudioMixerSnapshot slowMotionSnapshot;
+    public AudioMixerSnapshot normalSnapshot;
 
     [InspectorHeader("VFX Linking")]
     public Material zaWarudoMat;
@@ -54,7 +56,7 @@ public class SM_Warudo : Smash
     public override void Init(PlayerController player)
     {
         base.Init(player);
-        vfx = Game.instance.gameCamera.cam.gameObject.AddComponent<ZaWarudoEffect>();
+        vfx = Game.Instance.gameCamera.cam.gameObject.AddComponent<ZaWarudoEffect>();
         vfx.colorShiftStart = zwv_ColorShiftStart;
         vfx.colorShiftend = zwv_ColorShiftEnd;
         vfx.fisheyeStrength = zwv_FishEyeStrength;
@@ -68,7 +70,7 @@ public class SM_Warudo : Smash
 
         vfx.fisheye.fishEyeShader = fishEyeShader;
 
-        vignette_instance = Instantiate(vignette.gameObject, Game.instance.ui.stayWithinGameView).GetComponent<CanvasGroup>();
+        vignette_instance = Instantiate(vignette.gameObject, Game.Instance.ui.stayWithinGameView).GetComponent<CanvasGroup>();
         vignette_instance.gameObject.SetActive(false);
     }
 
@@ -86,13 +88,13 @@ public class SM_Warudo : Smash
     public override void OnGameReady()
     {
         player.vehicle.onDestroy += OnPlayerDestroy;
-        smashManager = Game.instance.smashManager;
+        smashManager = Game.Instance.smashManager;
     }
 
     void OnPlayerDestroy(Unit player)
     {
         //a-t-on simplement fermer le jeu ?
-        if (Game.instance != null && Application.isPlaying && isIn)
+        if (Game.Instance != null && Application.isPlaying && isIn)
         {
             OnSmashEnd();
         }
@@ -101,7 +103,8 @@ public class SM_Warudo : Smash
         if (isIn)
         {
             isIn = false;
-            SoundManager.SlowMotionEffect(false);
+            normalSnapshot.TransitionTo(0.75f);
+            //SoundManager.SlowMotionEffect(false);
         }
     }
 
@@ -123,10 +126,11 @@ public class SM_Warudo : Smash
         //Shader animation
         vfx.Animate(delegate ()
         {
-            if (Game.instance == null)
+            if (Game.Instance == null)
                 return;
 
-            SoundManager.SlowMotionEffect(true);
+            slowMotionSnapshot.TransitionTo(0.75f);
+            //SoundManager.SlowMotionEffect(true);
 
             isIn = true;
 
@@ -140,37 +144,37 @@ public class SM_Warudo : Smash
                 AddActiveCarTrails();
         });
 
-        SoundManager.PlayStaticSFX(sfx);
+        DefaultAudioSources.PlayStaticSFX(sfx);
     }
 
     void MultiplyTimescale(float multiplier)
     {
-        LinkedListNode<Unit> node = Game.instance.units.First;
+        LinkedListNode<Unit> node = Game.Instance.units.First;
         while (node != null)
         {
             Unit val = node.Value;
 
-            if (val != player.vehicle)
+            if(val.allegiance != Allegiance.Ally)
                 val.TimeScale *= multiplier;
 
             node = node.Next;
         }
 
         if (multiplier > 1)
-            Game.instance.worldTimeScale.RemoveBuff("zwrdo");
+            Game.Instance.worldTimeScale.RemoveBuff("zwrdo");
         else
-            Game.instance.worldTimeScale.AddBuff("zwrdo", multiplier * 100 - 100, CCC.Utility.BuffType.Percent);
+            Game.Instance.worldTimeScale.AddBuff("zwrdo", multiplier * 100 - 100, CCC.Utility.BuffType.Percent);
     }
 
     void AddActiveCarTrails()
     {
-        if (Game.instance == null || Game.instance.Player == null)
+        if (Game.Instance == null || Game.Instance.Player == null)
             return;
 
         carTrails.sortingLayerName = trailsLayer;
         carTrails.sortingOrder = trailsOrderInLayer;
 
-        PlayerLocations pl = Game.instance.Player.playerLocations;
+        PlayerLocations pl = Game.Instance.Player.playerLocations;
         activeCarTrails[0] = Instantiate(carTrails.gameObject, pl.BackLeftWheel);
         activeCarTrails[0].transform.localPosition = new Vector3(-.1f, -.07f, 0);
 
@@ -180,7 +184,7 @@ public class SM_Warudo : Smash
     }
     void DetachActiveCarTrails()
     {
-        if (Game.instance == null)
+        if (Game.Instance == null)
             return;
 
         for (int i = 0; i < activeCarTrails.Length; i++)
@@ -188,7 +192,7 @@ public class SM_Warudo : Smash
             if (activeCarTrails[i] == null)
                 continue;
 
-            activeCarTrails[i].transform.SetParent(Game.instance.unitsContainer);
+            activeCarTrails[i].transform.SetParent(Game.Instance.unitsContainer);
             activeCarTrails[i].GetComponent<TrailRenderer>().autodestruct = true;
         }
     }
@@ -217,10 +221,11 @@ public class SM_Warudo : Smash
         {
             MultiplyTimescale(1 / timescaleMultiplier);
         });
-        
 
-        SoundManager.SlowMotionEffect(false);
-        SoundManager.PlayStaticSFX(exitSfx);
+
+        normalSnapshot.TransitionTo(0.75f);
+        //SoundManager.SlowMotionEffect(false);
+        DefaultAudioSources.PlayStaticSFX(exitSfx);
     }
 
     public override void OnUpdate()

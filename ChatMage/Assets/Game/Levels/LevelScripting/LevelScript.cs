@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FullInspector;
 using UnityEngine.Events;
-using CCC.Manager;
+
 using FullSerializer;
 using LevelScripting;
 using DG.Tweening;
@@ -17,22 +17,22 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
     //public const string WINRESULT_KEY = "winr";
     //public const string HAS_EVER_BEEN_WON = "first-winr";
     public const string COMPLETED_KEY = "cmplt_";
-    public static bool HasBeenCompleted(LevelScript lvlScript)
+    public static bool HasBeenCompleted(LevelScript lvlScript, DataSaver levelSaver)
     {
-        return HasBeenCompleted(lvlScript.name);
+        return HasBeenCompleted(lvlScript.name, levelSaver);
     }
-    public static bool HasBeenCompleted(string lvlScriptName)
+    public static bool HasBeenCompleted(string lvlScriptName, DataSaver levelSaver)
     {
-        return GameSaves.instance.GetBool(GameSaves.Type.Levels, COMPLETED_KEY + lvlScriptName, false);
+        return levelSaver.GetBool(COMPLETED_KEY + lvlScriptName, false);
     }
-    public static void MarkAsCompleted(LevelScript lvlScript)
+    public static void MarkAsCompleted(LevelScript lvlScript, DataSaver levelSaver)
     {
-        MarkAsCompleted(lvlScript.name);
+        MarkAsCompleted(lvlScript.name, levelSaver);
     }
-    public static void MarkAsCompleted(string lvlScriptName)
+    public static void MarkAsCompleted(string lvlScriptName, DataSaver levelSaver)
     {
-        GameSaves.instance.SetBool(GameSaves.Type.Levels, COMPLETED_KEY + lvlScriptName, true);
-        GameSaves.instance.SaveData(GameSaves.Type.Levels);
+        levelSaver.SetBool(COMPLETED_KEY + lvlScriptName, true);
+        levelSaver.Save();
     }
 
 
@@ -44,33 +44,35 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
 
 
 
-    [InspectorHeader("General Info")]
-    public string sceneName;
+    [InspectorCategory("LEVEL"), InspectorHeader("General Info")]
+    public SceneInfo sceneInfo;
+    public DataSaver dataSaver;
+    public DataSaver armoryData;
 
-    [InspectorHeader("Conditions")]
+    [InspectorCategory("LEVEL"), InspectorHeader("Conditions")]
     public GameCondition.BaseWinningCondition[] winningConditions;
     public GameCondition.BaseLosingCondition[] losingConditions;
 
-    [InspectorHeader("Wrap Animations")]
+    [InspectorCategory("LEVEL"), InspectorHeader("Wrap Animations")]
     public BaseIntro introPrefab;
     public BaseWinOutro winOutroPrefab;
     public BaseLoseOutro loseOutroPrefab;
 
 
-    [InspectorHeader("Base Settings")]
+    [InspectorCategory("LEVEL"), InspectorHeader("Base Settings")]
     [InspectorTooltip("No healthpacks during the entire level")]
     public bool noHealthPacks = false;
     public bool followPlayerOnStart = false;
 
-    [InspectorHeader("In Game Events")]
+    [InspectorCategory("LEVEL"), InspectorHeader("In Game Events")]
     public bool useCustomGenericEvents = false;
     [InspectorShowIf("useCustomGenericEvents")]
     public List<EventScripting> events;
 
-    [InspectorHeader("Unit Waves")]
+    [InspectorCategory("LEVEL"), InspectorHeader("Unit Waves")]
     public List<UnitWaveV2> waves;
 
-    [InspectorHeader("Winning Rewards")]
+    [InspectorCategory("LEVEL"), InspectorHeader("Winning Rewards")]
     public GameReward rewards;
 
     public event SimpleEvent onWin;
@@ -84,10 +86,12 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
     [fsIgnore, NotSerialized, NonSerialized]
     protected InGameEvents inGameEvents;
 
-    [InspectorHeader("Tutoriel")]
+    [InspectorCategory("LEVEL"), InspectorHeader("Tutoriel")]
     public bool activateTutorial = false;
     [InspectorShowIf("activateTutorial")]
     public string tutorialAssetName;
+    [InspectorShowIf("activateTutorial")]
+    public DataSaver tutorialData;
 
     [fsIgnore, NotSerialized]
     private List<UnitWaveV2> eventTriggeredWaves;
@@ -109,10 +113,10 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
     public void Init(System.Action onComplete)
     {
         ResetData();
-        Game.instance.onGameReady += GameReady;
-        Game.instance.onGameStarted += GameStarted;
+        Game.Instance.onGameReady += GameReady;
+        Game.Instance.onGameStarted += GameStarted;
 
-        this.inGameEvents = Game.instance.events;
+        this.inGameEvents = Game.Instance.events;
 
         if (useCustomGenericEvents)
             foreach (EventScripting ev in events)
@@ -135,20 +139,20 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
         if (introPrefab != null)
         {
             if (introPrefab.parentType == BaseIntro.ParentType.UnderCanvas)
-                inGameEvents.SpawnUnderUI(introPrefab).Play(Game.instance.StartGame);
+                inGameEvents.SpawnUnderUI(introPrefab).Play(Game.Instance.StartGame);
             else
-                inGameEvents.SpawnUnderGame(introPrefab).Play(Game.instance.StartGame);
+                inGameEvents.SpawnUnderGame(introPrefab).Play(Game.Instance.StartGame);
         }
 
-        if (Armory.HasAccessToSmash())
+        if (Armory.HasAccessToSmash(armoryData))
         {
-            Game.instance.smashManager.smashEnabled = true;
-            Game.instance.ui.smashDisplay.canBeShown = true;
+            Game.Instance.smashManager.smashEnabled = true;
+            Game.Instance.ui.smashDisplay.canBeShown = true;
         }
         else
         {
-            Game.instance.smashManager.smashEnabled = false;
-            Game.instance.ui.smashDisplay.canBeShown = false;
+            Game.Instance.smashManager.smashEnabled = false;
+            Game.Instance.ui.smashDisplay.canBeShown = false;
         }
 
         OnGameReady();
@@ -165,10 +169,10 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
             StartTutorial();
 
         //Camera follow player ?
-        Game.instance.gameCamera.followPlayer = followPlayerOnStart;
+        Game.Instance.gameCamera.followPlayer = followPlayerOnStart;
 
         //Les bounds physique qui bloque le joueur
-        Game.instance.playerBounds.EnableAll();
+        Game.Instance.playerBounds.EnableAll();
 
         OnGameStarted();
     }
@@ -179,10 +183,10 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
         OnUpdate();
     }
 
-    [InspectorButton]
+    [InspectorCategory("LEVEL"), InspectorButton]
     private void Debug_MarkHasCompleted()
     {
-        MarkAsCompleted(this);
+        MarkAsCompleted(this, dataSaver);
     }
 
     public void Win()
@@ -192,12 +196,12 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
 
         isOver = true;
 
-        bool wasCompleted = HasBeenCompleted(this);
+        bool wasCompleted = HasBeenCompleted(this, dataSaver);
 
         rewards.firstWin = !wasCompleted;
         if (!wasCompleted)
         {
-            MarkAsCompleted(this);
+            MarkAsCompleted(this, dataSaver);
         }
 
 
@@ -235,9 +239,9 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
         isOver = true;
 
         //Disable player input
-        if (Game.instance.Player != null)
+        if (Game.Instance.Player != null)
         {
-            Game.instance.Player.playerDriver.enableInput = false;
+            Game.Instance.Player.playerDriver.enableInput = false;
         }
 
         if (onLose != null)
@@ -270,7 +274,7 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
     {
         if (!string.IsNullOrEmpty(tutorialAssetName))
         {
-            Tutorial.TutorialScene.StartTutorial(tutorialAssetName);
+            Tutorial.TutorialScene.StartTutorial(tutorialAssetName, tutorialData);
         }
     }
 
@@ -339,6 +343,14 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
         }
     }
 
+    public void ManuallyAddWave(UnitWaveV2 wave)
+    {
+        if (manuallyTriggeredWaves == null)
+            manuallyTriggeredWaves = new List<UnitWaveV2>();
+
+        manuallyTriggeredWaves.Add(wave);
+    }
+
     public virtual void OnInit() { }
     protected virtual void OnGameReady() { }
     protected virtual void OnGameStarted() { }
@@ -353,10 +365,10 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
     void ApplySettings()
     {
         //Game.instance.SetUnitSnapBorders(horizontalUnitSnap, 0, verticalUnitSnap, 0);
-        Game.instance.healthPackManager.enableHealthPackSpawn = !noHealthPacks;
-        bool smashAccess = Armory.HasAccessToSmash();
-        Game.instance.smashManager.smashEnabled = smashAccess;
-        Game.instance.ui.smashDisplay.canBeShown = smashAccess;
+        Game.Instance.healthPackManager.enableHealthPackSpawn = !noHealthPacks;
+        bool smashAccess = Armory.HasAccessToSmash(armoryData);
+        Game.Instance.smashManager.smashEnabled = smashAccess;
+        Game.Instance.ui.smashDisplay.canBeShown = smashAccess;
     }
 
     ///////////////////////////////////////////////////// Loosing/Winning Conditions
@@ -371,7 +383,7 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
             for (int i = 0; i < losingConditions.Length; i++)
             {
                 if (losingConditions[i] != null)
-                    losingConditions[i].Init(Game.instance.Player, this);
+                    losingConditions[i].Init(Game.Instance.Player, this);
             }
 
         // Init les winning conditions
@@ -379,7 +391,7 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
             for (int i = 0; i < winningConditions.Length; i++)
             {
                 if (winningConditions[i] != null)
-                    winningConditions[i].Init(Game.instance.Player, this);
+                    winningConditions[i].Init(Game.Instance.Player, this);
             }
     }
 
@@ -495,7 +507,7 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
     {
         if (wave.preLaunchDialog != null)
         {
-            Game.instance.ui.dialogDisplay.StartDialog(wave.preLaunchDialog, delegate ()
+            Game.Instance.ui.dialogDisplay.StartDialog(wave.preLaunchDialog, delegate ()
             {
                 wave.LaunchNow(this);
                 OnWaveLaunch();

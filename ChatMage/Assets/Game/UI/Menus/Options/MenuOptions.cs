@@ -1,4 +1,4 @@
-using CCC.Manager;
+
 using CCC.UI;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,11 +10,13 @@ public class MenuOptions : WindowAnimation
     public const string SCENENAME = "MenuOptions";
     private bool isQuitting = false;
 
+    [SerializeField] private AudioMixerSaver audioMixerSaver;
+
     public void Confirm()
     {
         if (isQuitting)
             return;
-        SoundManager.Save();
+        audioMixerSaver.Save();
         Exit();
     }
 
@@ -22,7 +24,7 @@ public class MenuOptions : WindowAnimation
     {
         if (isQuitting)
             return;
-        SoundManager.Load();
+        audioMixerSaver.Load();
         Exit();
     }
 
@@ -51,13 +53,13 @@ public class MenuOptions : WindowAnimation
 
     public static void OpenIfClosed()
     {
-        if (Game.instance != null)
+        if (Game.Instance != null)
         {
             Debug.LogWarning("Cannot open MenuOptions if the game is running.");
             return;
         }
 
-        if (Scenes.Exists(SCENENAME))
+        if (Scenes.IsActive(SCENENAME))
             return;
         Scenes.LoadAsync(SCENENAME, LoadSceneMode.Additive);
     }
@@ -66,44 +68,7 @@ public class MenuOptions : WindowAnimation
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            print("pls");
             Confirm();
         }
-    }
-
-
-
-    //------------------------------� enlever------------------------------//
-
-    public List<string> levelToUnlock = new List<string>();
-
-    public void ClearSave()
-    {
-        if (isQuitting)
-            return;
-        GameSaves.instance.ClearAllSaves();
-        // Permet de ne pas avoir à dire au joueur: "quitte le level select et revient" pour que ca marche
-        LoadingScreen.TransitionTo(MainMenu.SCENENAME, null);
-    }
-
-    public void GainSmashAccess()
-    {
-        Armory.UnlockAccessToSmash();
-    }
-    public void GainItemsAccess()
-    {
-        Armory.UnlockAccessToItems();
-    }
-
-    public void UnlockAllLevels()
-    {
-        foreach (string levelScriptName in levelToUnlock)
-        {
-            GameSaves.instance.SetBool(GameSaves.Type.Levels, LevelScript.COMPLETED_KEY + levelScriptName, true);
-            GameSaves.instance.SaveData(GameSaves.Type.Levels);
-            // Est-ce qu'il y a autre chose à ajouter ?
-        }
-        // Permet de ne pas avoir à dire au joueur: "quitte le level select et revient" pour que ca marche
-        LoadingScreen.TransitionTo(MainMenu.SCENENAME, null);
     }
 }

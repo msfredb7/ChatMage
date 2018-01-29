@@ -1,4 +1,4 @@
-using CCC.Manager;
+
 using DG.Tweening;
 using FullInspector;
 using System;
@@ -54,7 +54,7 @@ namespace Tutorial
                 Debug.Log(functionName + "Event Complete");
             }
         }
-
+        public DataSaver dataSaver;
         public bool startTutorialOnInit = true;
         public List<TutorialEvent> tutorialEvents = new List<TutorialEvent>();
 
@@ -69,8 +69,8 @@ namespace Tutorial
         {
             this.modules = modules;
 
-            if(Game.instance != null)
-                currentLevel = Game.instance.levelScript;
+            if(Game.Instance != null)
+                currentLevel = Game.Instance.levelScript;
 
             if (startTutorialOnInit)
                 Start();
@@ -159,8 +159,8 @@ namespace Tutorial
         {
             if (markAsCompleted)
             {
-                GameSaves.instance.SetBool(GameSaves.Type.Tutorial, TUTORIALSAVE + name, true);
-                GameSaves.instance.SaveDataAsync(GameSaves.Type.Tutorial, Quit);
+                dataSaver.SetBool(TUTORIALSAVE + name, true);
+                dataSaver.SaveAsync(Quit);
             }
             else
             {
@@ -185,11 +185,11 @@ namespace Tutorial
             Scenes.UnloadAsync(TutorialScene.SCENENAME);
         }
 
-        public static bool HasBeenCompleted(string assetName)
+        public static bool HasBeenCompleted(string assetName, DataSaver tutorialSaver)
         {
-            if (!GameSaves.instance.ContainsBool(GameSaves.Type.Tutorial, TUTORIALSAVE + assetName))
-                GameSaves.instance.SetBool(GameSaves.Type.Tutorial, TUTORIALSAVE + assetName, false);
-            return GameSaves.instance.GetBool(GameSaves.Type.Tutorial, TUTORIALSAVE + assetName);
+            if (!tutorialSaver.ContainsBool(TUTORIALSAVE + assetName))
+                tutorialSaver.SetBool(TUTORIALSAVE + assetName, false);
+            return tutorialSaver.GetBool(TUTORIALSAVE + assetName);
         }
 
         public void Execute(TutorialEvent tutorialEvent, bool useTime)

@@ -9,6 +9,8 @@ public class Armory : BaseScriptableObject
     private const string SLOTS_KEY = "slt";
     // On a des previews qu'on affichera dans le UI pour ensuite 
 
+    public DataSaver dataSaver;
+
     // Items
     private int itemSlots;
     public int defaultItemSlots = 3;
@@ -23,11 +25,11 @@ public class Armory : BaseScriptableObject
 
     public int GetLastSavedSlots()
     {
-        if (GameSaves.instance.ContainsInt(GameSaves.Type.Armory, SLOTS_KEY))
-            return GameSaves.instance.GetInt(GameSaves.Type.Armory, SLOTS_KEY);
+        if (dataSaver.ContainsInt(SLOTS_KEY))
+            return dataSaver.GetInt(SLOTS_KEY);
         else
         {
-            GameSaves.instance.SetInt(GameSaves.Type.Armory, SLOTS_KEY, defaultItemSlots);
+            dataSaver.SetInt(SLOTS_KEY, defaultItemSlots);
             return defaultItemSlots;
         }
     }
@@ -40,9 +42,9 @@ public class Armory : BaseScriptableObject
 
     public void SaveSlot(bool saveToDisk = true)
     {
-        GameSaves.instance.SetInt(GameSaves.Type.Armory, SLOTS_KEY, itemSlots);
+        dataSaver.SetInt(SLOTS_KEY, itemSlots);
         if(saveToDisk)
-            GameSaves.instance.SaveData(GameSaves.Type.Armory);
+            dataSaver.Save();
     }
 
     public List<EquipablePreview> GetAllEquipables()
@@ -209,15 +211,15 @@ public class Armory : BaseScriptableObject
     private const string SMASH_ACCESS_KEY = "smACCESS";
     private const string ITEM_ACCESS_KEY = "itACCESS";
 
-    public static bool HasAccessToSmash()
+    public static bool HasAccessToSmash(DataSaver armoryData)
     {
-        return GameSaves.instance.GetBool(GameSaves.Type.Armory, SMASH_ACCESS_KEY, false);
+        return armoryData.GetBool(SMASH_ACCESS_KEY, false);
     }
-    public static bool HasAccessToItems()
+    public static bool HasAccessToItems(DataSaver armoryData)
     {
         try
         {
-            return GameSaves.instance.GetBool(GameSaves.Type.Armory, ITEM_ACCESS_KEY);
+            return armoryData.GetBool(ITEM_ACCESS_KEY);
         }
         catch
         {
@@ -225,20 +227,20 @@ public class Armory : BaseScriptableObject
         }
     }
 
-    public static void UnlockAccessToSmash()
+    public static void UnlockAccessToSmash(DataSaver armoryData)
     {
-        GameSaves.instance.SetBool(GameSaves.Type.Armory, SMASH_ACCESS_KEY, true);
-        GameSaves.instance.SaveData(GameSaves.Type.Armory);
+        armoryData.SetBool(SMASH_ACCESS_KEY, true);
+        armoryData.Save();
     }
-    public static void LockAccessToSmash()
+    public static void LockAccessToSmash(DataSaver armoryData)
     {
-        GameSaves.instance.SetBool(GameSaves.Type.Armory, SMASH_ACCESS_KEY, false);
-        GameSaves.instance.SaveData(GameSaves.Type.Armory);
+        armoryData.SetBool(SMASH_ACCESS_KEY, false);
+        armoryData.Save();
     }
-    public static void UnlockAccessToItems()
+    public static void UnlockAccessToItems(DataSaver armoryData)
     {
-        GameSaves.instance.SetBool(GameSaves.Type.Armory, ITEM_ACCESS_KEY, true);
-        GameSaves.instance.SaveData(GameSaves.Type.Armory);
+        armoryData.SetBool(ITEM_ACCESS_KEY, true);
+        armoryData.Save();
     }
 
 }

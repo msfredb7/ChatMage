@@ -74,7 +74,7 @@ public class Road : BaseBehavior
             enabled = false;
             return;
         }
-        if (gameCamera == null || !Game.instance.gameStarted)
+        if (gameCamera == null || !Game.Instance.gameStarted)
             return;
 
         //Ne va se faire qu'une seul fois

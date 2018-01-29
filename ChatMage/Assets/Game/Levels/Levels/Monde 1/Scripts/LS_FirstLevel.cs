@@ -15,7 +15,7 @@ public class LS_FirstLevel : LevelScript
         switch (message)
         {
             case "fade bot":
-                Game.instance.map.mapping.GetTaggedObject("bot").GetComponent<SpriteGroup>().DOFade(1, 0.5f).SetUpdate(true);
+                Game.Instance.map.mapping.GetTaggedObject("bot").GetComponent<SpriteGroup>().DOFade(1, 0.5f).SetUpdate(true);
                 break;
         }
     }

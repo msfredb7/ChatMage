@@ -82,7 +82,7 @@ public class ITM_8Coins : Item
         coins = new RedCoin[coinsCount];
         for (int i = 0; i < coinsCount; i++)
         {
-            RedCoin newCoin = Instantiate(coinPrefab, Game.instance.unitsContainer);
+            RedCoin newCoin = Instantiate(coinPrefab, Game.Instance.unitsContainer);
             newCoin.onDeath = OnCoinTaken;
             coins[i] = newCoin;
         }
@@ -99,7 +99,7 @@ public class ITM_8Coins : Item
     private void Win(Vector2 position)
     {
         //Spawn reward
-        Game.instance.SpawnUnit(rewardPrefab, position);
+        Game.Instance.SpawnUnit(rewardPrefab, position);
         OnWaveFinished();
     }
 
@@ -177,13 +177,13 @@ public class ITM_8Coins : Item
     //Les 4 coins de la map
     private float Pattern0()
     {
-        GameCamera cam = Game.instance.gameCamera;
+        GameCamera cam = Game.Instance.gameCamera;
         Vector2 halfedScreenSize = cam.ScreenSize / 2;
         Vector2 v = Vector2.zero;
 
         for (int i = 0; i < coins.Length; i++)
         {
-            Vector2 randomV = Vectors.RandomVector2(0, 360, 0, 1f);
+            Vector2 randomV = Vectors.RandomVector2( 0, 1f, 0, 360);
 
             int s = i.Mod(4);
             float profondeur = 0.6f;
@@ -220,7 +220,7 @@ public class ITM_8Coins : Item
         angle = Random.value * 90 + angle + 135;
         Vector2 dir = (angle).ToVector();
 
-        Vector2 camCenter = Game.instance.gameCamera.Center;
+        Vector2 camCenter = Game.Instance.gameCamera.Center;
 
         float espacement = 0.85f;
 
