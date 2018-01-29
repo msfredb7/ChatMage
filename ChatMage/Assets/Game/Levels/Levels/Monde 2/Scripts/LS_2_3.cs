@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class LS_2_3 : LevelScript
 {
-    [InspectorHeader("Dialog"), InspectorMargin(10)]
+    [InspectorCategory("UNIQUE"), InspectorHeader("Dialog"), InspectorMargin(10)]
     public Dialoguing.Dialog thankYou;
     public Dialoguing.Dialog princessSaved;
 

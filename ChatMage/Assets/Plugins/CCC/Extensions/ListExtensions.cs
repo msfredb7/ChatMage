@@ -128,4 +128,14 @@ public static class ListExtensions
             list[i] = temp;
         }
     }
+
+    public static void Print<T>(this List<T> list)
+    {
+        string result = "";
+        for (int i = 0; i < list.Count; i++)
+        {
+            result += i + ":" + list[i] + "|";
+        }
+        Debug.Log(result);
+    }
 }

@@ -5,55 +5,79 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using FullInspector;
+using CCC.Math;
 
 public class LS_EndlessLevel : LevelScript
 {
-    // Gates
-    SidewaysFakeGate topgate;
-    SidewaysFakeGate botgate;
-
-    // Spawn
-    string spawnTag = "random";
-
+    // Type d'ennemi possible et leur paramètre
+    [System.Serializable]
     public class EnemyTypes : IWeight
     {
         public Unit unit;
         public int power;
-        public int unlockAt;
-        public bool canBeInGroup;
+        public int unlockAt = 0;
 
-        public EnemyTypes(Unit unit, int power)
-        {
-            this.unit = unit;
-            this.power = power;
-        }
-
-        public float Weight
+        public float Weight // Poid si jamais il n'y a aucun diversite
         {
             get { return power; }
         }
     }
 
+    [System.Serializable]
+    public class DifficultyProgression
+    {
+        public float miny;
+        public float maxy;
+        public FloatReference speed;
+        public float minx;
+
+        public float GetProgression(float difficultyValue)
+        {
+            return new NeverReachingCurve(miny, maxy, speed, minx).Evalutate(difficultyValue);
+        }
+    }
+
+    // Spawn
+    string spawnTag = "random";
+
+    [InspectorCategory("ENDLESS MODE"), InspectorHeader("Ennemy Units")]
     public List<EnemyTypes> possibleUnits;
-    public DifficultyModificatorTypes difficultyProgressionType;
-    public float progressionConstant = 2.0f;
-    public float spawnInterval = 0.5f;
-    public int milestoneLittleGroups = 10;
-    GameObject playerSpawn;
+
+    // Progression de la difficulté
+    [InspectorCategory("ENDLESS MODE"), InspectorHeader("Difficulty Progression")]
+    public DifficultyProgression difficulty;
+    [InspectorCategory("ENDLESS MODE")]
+    public DifficultyProgression spawnInterval;
+    [InspectorCategory("ENDLESS MODE")]
+    public DifficultyProgression enemyDiversity;
+    [InspectorCategory("ENDLESS MODE")]
+    public DifficultyProgression wavePower;
 
     // Etage
     int currentStage;
+
+    // Transition
+    GameObject playerSpawn;
     private const string LOCK_KEY = "transitionlock";
+    [InspectorCategory("ENDLESS MODE"), InspectorHeader("Tranistion Animation")]
     public float playerEnterDelay = 1.5f;
     float transitionDuration = 1;
     float transitionPause = 0.5f;
-    float gateClosingDelay = 0.5f;
+    float gateAnimDelay = 0.5f;
     SimpleColliderListener topdetector;
     SimpleColliderListener botdetector;
     bool waitingForExit = false;
     bool waitingForEnter = false;
     UnityEvent startTransition = new UnityEvent();
     UnityEvent startNextWave = new UnityEvent();
+
+    // Gates
+    SidewaysFakeGate topgate;
+    SidewaysFakeGate botgate;
+
+    // Debug
+    [InspectorCategory("ENDLESS MODE"), InspectorHeader("Debug")]
     public bool useDebug = false;
     [FullInspector.InspectorShowIf("useDebug")]
     public int debugStage = 1;
@@ -135,12 +159,12 @@ public class LS_EndlessLevel : LevelScript
         UnitWaveV2 wave = new UnitWaveV2();
         wave.infiniteRepeat = false;
         wave.pauseBetweenRepeat = 0;
-        wave.spawnInterval = 1;
+        wave.spawnInterval = 1/(spawnInterval.GetProgression(difficulty.GetProgression(currentStage)));
         wave.preLaunchDialog = null;
 
         // What ?
         wave.what = new WaveWhat();
-        wave.what.spawnSequence = CreateUnitWave(currentStage,possibleUnits,difficultyProgressionType);
+        wave.what.spawnSequence = CreateUnitWave(currentStage,possibleUnits);
 
         // Where ?
         wave.where = new WaveWhereV2();
@@ -163,43 +187,30 @@ public class LS_EndlessLevel : LevelScript
         TriggerWaveManually("wave");
     }
 
-    // Formule mathematique d'augmentation de la difficulte
-    public enum DifficultyModificatorTypes
-    {
-        exponent = 0,
-        linear = 1
-    }
-
     // Algorithm to create a good wave depending on the stage
-    private UnitPack[] CreateUnitWave(int currentWave, List<EnemyTypes> units, DifficultyModificatorTypes difficulty)
+    private UnitPack[] CreateUnitWave(int currentStage, List<EnemyTypes> units)
     {
         List<UnitPack> unitPack = new List<UnitPack>();
-        int wavePower = 1; // minimum
+        int currentWavePower = Mathf.RoundToInt(wavePower.GetProgression(difficulty.GetProgression(currentStage)));
 
-        // Calculate wave power from a mathematical function depending on the stage we're in
-        switch (difficulty)
-        {
-            case DifficultyModificatorTypes.exponent:
-                wavePower = Mathf.RoundToInt(Mathf.Pow(progressionConstant, currentWave));
-                break;
-            case DifficultyModificatorTypes.linear:
-                wavePower = Mathf.RoundToInt(progressionConstant * currentWave);
-                break;
-            default:
-                break;
-        }
+        float currentDiversity = Mathf.RoundToInt(enemyDiversity.GetProgression(difficulty.GetProgression(currentStage)));
 
-        // Tant que la vague est pas remplis au point d'avoir la puissance
-        while(wavePower > 0)
+        // On trouve la sommation de power qui permet d'obtenir de power total
+        List<int> packsPower = FindIncreasingPartSum(currentWavePower);
+
+        // On utilise la sommation de power pour generer les packs
+        for (int i = 0; i < packsPower.Count; i++)
         {
-            // On cree des packs d'ennemi et les ajoute à la vague
+            // On a cree un pack d'ennemi et on l'ajoute à la vague
             UnitPack currentPack = new UnitPack();
-            wavePower -= CreateUnitPack(ref currentPack, wavePower, possibleUnits, difficulty, unitPack.Count+1);
+            CreateUnitPack(ref currentPack, packsPower[i], possibleUnits, currentDiversity);
             unitPack.Add(currentPack);
+
         }
 
-        // On cree le resultat, le rempli et le retourne
+        // On cree le resultat
         UnitPack[] result = new UnitPack[unitPack.Count];
+        // et on ajoute nos packs dedans
         for (int i = 0; i < unitPack.Count; i++)
         {
             result[i] = unitPack[i];
@@ -207,45 +218,108 @@ public class LS_EndlessLevel : LevelScript
         return result;
     }
 
-    // Create un pack d'ennemi a envoyé 
-    private int CreateUnitPack(ref UnitPack pack, int puissanceRestante, List<EnemyTypes> units, DifficultyModificatorTypes difficulty, int packNumber)
+    private List<int> FindIncreasingPartSum(int number)
     {
-        // Calculate pack power from a mathematical function
-        int packPowerTarget = 1; // minimum
-        switch (difficulty)
-        {
-            case DifficultyModificatorTypes.exponent:
-                packPowerTarget = Mathf.RoundToInt(Mathf.Pow(progressionConstant, packNumber));
-                break;
-            case DifficultyModificatorTypes.linear:
-                packPowerTarget = Mathf.RoundToInt(progressionConstant * packNumber);
-                break;
-            default:
-                break;
-        }
+        // Si on passe 0, on quitte
+        if (number <= 0)
+            return null;
 
-        // On crée un lot aléatoire d'ennemi
+        // On cree le resultat
+        List<int> result = new List<int>();
+
+        // Trouver une liste qui fonctionne
+        int sum = 1; // minimum de 1
+        result.Add(1);
+        // On additionne des nombres consecutifs jusqu'a obtenir notre nombre
+        for (int i = 1; sum != number; i++)
+        {
+            // On ajoute le nombre courrant a la somme
+            sum += i;
+            // La somme est rendu trop grande ?
+            if (sum > number)
+            {
+                // On revient en arriere et on recommence a partir de 0
+                sum -= i;
+                i = 0;
+                continue;
+            }
+            else
+            {
+                // Notre somme st pas encore rendu a notre nombre, on ajoute donc le dernier nombre ajoute et on continue
+                result.Add(i);
+            }
+        }
+        // On a trouver la bonne combinaison ! Mais elle n'est pas encore croissante.
+
+        // Optimisons la liste !
+        for (int i = 0; i + 1 < result.Count; i++)
+        {
+            // Si l'element courrant est plus grand que le suivant, on doit optimiser
+            if (result[i] > result[i + 1])
+            {
+                // On est deja la fin de la liste
+                if (i + 2 > result.Count)
+                {
+                    // on ajoute le dernier terme a l'avant dernier et on quitte
+                    result[i] += result[i + 1];
+                    result.RemoveAt(i + 1);
+                    break;
+                }
+                else
+                {
+                    // Sinon, on optimise tout les elements suivant
+                    for (int j = i + 1; j + 1 < result.Count; j++)
+                    {
+                        // Si le terme suivant de celui qu'on optimise est plus petit que le terme courrant, on optimise
+                        if (result[i] > result[j + 1])
+                        {
+                            // on concatene les deux termes suivant en un seul terme
+                            result[i + 1] += result[j + 1];
+                            // On l'elime
+                            result.RemoveAt(j + 1);
+                            // On continue tant qu'il n'y a plus d'autres suivants
+                            j--;
+                            continue;
+                        }
+                    }
+                    // On a fini d'optimiser la fin de la liste en un seul terme
+                    // Ce dernier terme a besoin d'etre optimiser egalement ?
+                    if (result[i] > result[i + 1])
+                    {
+                        // on ajoute le dernier terme a l'avant dernier et on quitte
+                        result[i] += result[i + 1];
+                        result.RemoveAt(i + 1);
+                        break;
+                    }
+                }
+            }
+        }
+        //result.Print();
+        return result;
+    }
+
+    // Create un pack d'ennemi a envoyé 
+    private int CreateUnitPack(ref UnitPack pack, int power, List<EnemyTypes> units, float diversityFactor)
+    {
+        // On crée un lot aléatoire des ennemis accessible
         Lottery<EnemyTypes> enemyLot = new Lottery<EnemyTypes>();
         for (int i = 0; i < units.Count; i++)
         {
             // Si le power de la unit n'est pas trop fort comparé à la puissance de la wave
-            if (units[i].power <= packPowerTarget)
+            if (units[i].power <= power)
             {
                 // et si on a unlock la unit, on peut la spawn
                 if(units[i].unlockAt <= currentStage)
-                    enemyLot.Add(units[i]);
+                    enemyLot.Add(units[i], Mathf.FloorToInt(1 + (units[i].Weight * diversityFactor))); // chance de choisir cette unit influencer par la diversite
             }
-                
         }
 
         // On choisit aleatoirement un ennemi
         EnemyTypes chosenEnemy = enemyLot.Pick();
         pack.unit = chosenEnemy.unit;
         // On va en spawn le plus possible selon le power max de paquet d'ennemi
-        if (chosenEnemy.canBeInGroup)
-            pack.quantity = Mathf.RoundToInt(packPowerTarget / chosenEnemy.power);
-        else // sinon on doit spawn un petit group selon des paramètres
-            pack.quantity = UnityEngine.Random.Range(Mathf.FloorToInt(currentStage / milestoneLittleGroups), Mathf.FloorToInt(currentStage / milestoneLittleGroups)+1);
+        pack.quantity = Mathf.RoundToInt(power / chosenEnemy.power);
+        // On peut ajouter des choses qui influence le nombre d'ennemi ICI et tout s'ajuste
 
         // On a notre pack d'ennemi qui va spawn dans la wave
         // On retourne la puissance du pack
@@ -255,46 +329,49 @@ public class LS_EndlessLevel : LevelScript
     // Initialisation du processus de changement d'étages
     private void GoToNextWave()
     {
-        // Ouverture de la porte du haut
-        waitingForExit = true;
-        topgate.Open();
-        Game.Instance.playerBounds.top.gameObject.SetActive(false);
-        startTransition.AddListener(delegate ()
+        Game.Instance.DelayedCall(delegate ()
         {
-            // Le joueur est dans la porte du haut
-            // Apres un court delai (le temps qu'il rentre) on ferme tout et on teleporte le joueur
-            Game.Instance.DelayedCall(delegate ()
+            // Ouverture de la porte du haut
+            waitingForExit = true;
+            topgate.Open();
+            Game.Instance.playerBounds.top.gameObject.SetActive(false);
+            startTransition.AddListener(delegate ()
             {
-                topgate.Close();
-                Game.Instance.playerBounds.top.gameObject.SetActive(true);
-            }, gateClosingDelay);
+                // Le joueur est dans la porte du haut
+                // Apres un court delai (le temps qu'il rentre) on ferme tout et on teleporte le joueur
+                Game.Instance.DelayedCall(delegate ()
+                {
+                    topgate.Close();
+                    Game.Instance.playerBounds.top.gameObject.SetActive(true);
+                }, gateAnimDelay);
 
-            // Debut de la transition
-            Transition(delegate () {
-                // Quand la transition est fini on attend que le joueur entre
-                startNextWave.AddListener(delegate () {
-                    // le joueur est la on ferme tout
-                    botgate.Close();
-                    Game.Instance.playerBounds.bottom.gameObject.SetActive(true);
-                    // on reset les event pour la prochaine fois
-                    startTransition = new UnityEvent();
-                    startNextWave = new UnityEvent();
-                    // On spawn la prochaine vague
-                    SpawnWave();
+                // Debut de la transition
+                Transition(delegate () {
+                    // Quand la transition est fini on attend que le joueur entre
+                    startNextWave.AddListener(delegate () {
+                        // le joueur est la on ferme tout
+                        botgate.Close();
+                        Game.Instance.playerBounds.bottom.gameObject.SetActive(true);
+                        // on reset les event pour la prochaine fois
+                        startTransition = new UnityEvent();
+                        startNextWave = new UnityEvent();
+                        // On spawn la prochaine vague
+                        SpawnWave();
+                    });
                 });
-            });
-            currentStage++;
+                currentStage++;
 
-            // On a battu le record !
-            if (currentStage > currentBest)
-            {
+                // On a battu le record !
+                if (currentStage > currentBest)
+                {
+                    dataSaver.SetInt(bestStageKey, currentStage);
+                    currentBest = currentStage;
+                    // TODO : Faire une animation
+                }
+
                 dataSaver.SetInt(bestStageKey, currentStage);
-                currentBest = currentStage;
-                // TODO : Faire une animation
-            }
-
-            dataSaver.SetInt(bestStageKey, currentStage);
-        });
+            });
+        }, gateAnimDelay);
     }
 
     // Animation de transition

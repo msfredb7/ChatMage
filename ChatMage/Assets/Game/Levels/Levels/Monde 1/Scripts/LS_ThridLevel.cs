@@ -8,7 +8,7 @@ using DG.Tweening;
 
 public class LS_ThridLevel : LevelScript
 {
-    [InspectorHeader("Wave 1")]
+    [InspectorCategory("UNIQUE"), InspectorHeader("Wave 1")]
     public int waveOne_armyWallBefore = 1;
     public string waveOne_prespawnedTag = "inter 1";
     public List<Unit> waveOne_sequence = new List<Unit>();
@@ -18,7 +18,7 @@ public class LS_ThridLevel : LevelScript
     bool waveOne_reached = false;
 
 
-    [InspectorHeader("Wave 2")]
+    [InspectorCategory("UNIQUE"), InspectorHeader("Wave 2")]
     public int waveTwo_armyWallBefore = 2;
     public string waveTwo_prespawnedTag = "inter 2";
     public List<Unit> waveTwo_sequence = new List<Unit>();

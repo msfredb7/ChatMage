@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class LS_2_2 : LevelScript
 {
-    [InspectorHeader("Dialog"), InspectorMargin(10)]
+    [InspectorCategory("UNIQUE"), InspectorHeader("Dialog"), InspectorMargin(10)]
     public Dialoguing.Dialog defendTheWall;
     
     private bool topDone;
