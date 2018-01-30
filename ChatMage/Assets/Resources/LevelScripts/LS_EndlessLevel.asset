@@ -39,8 +39,8 @@ MonoBehaviour:
   - '{"overrideGoldAmount":false,"goldReward":null,"giveLootBox":false,"lootboxRefName":null,"goldified":false}'
   - '[{"unit":0,"power":1,"unlockAt":0},{"unit":1,"power":2,"unlockAt":0},{"unit":2,"power":3,"unlockAt":10},{"unit":3,"power":4,"unlockAt":20},{"unit":4,"power":5,"unlockAt":10},{"unit":5,"power":6,"unlockAt":15}]'
   - '{"miny":0.0,"maxy":1000.0,"speed":{"UseConstant":false,"ConstantValue":0.0,"Variable":6},"minx":0.0}'
-  - '{"miny":0.6,"maxy":10.0,"speed":{"UseConstant":true,"ConstantValue":0.025,"Variable":null},"minx":0.0}'
-  - '{"miny":0.0,"maxy":1.0,"speed":{"UseConstant":true,"ConstantValue":0.25,"Variable":null},"minx":0.0}'
+  - '{"miny":0.6,"maxy":10.0,"speed":{"UseConstant":true,"ConstantValue":0.01,"Variable":null},"minx":0.0}'
+  - '{"miny":0.0,"maxy":1.0,"speed":{"UseConstant":true,"ConstantValue":0.25,"Variable":null},"minx":1.0}'
   - '{"miny":0.0,"maxy":1000.0,"speed":{"UseConstant":false,"ConstantValue":0.0,"Variable":7},"minx":0.0}'
   sceneInfo: {fileID: 11400000, guid: 776a9f058fff5af4290e4a682ca54c98, type: 2}
   dataSaver: {fileID: 11400000, guid: ddccaa3a858acc3458d9734bb2ec9d3e, type: 2}
@@ -58,6 +58,8 @@ MonoBehaviour:
   activateTutorial: 0
   tutorialAssetName: 
   tutorialData: {fileID: 0}
+  startingItem: {fileID: 11400000, guid: 7b32e730ab6dce6479a5e0dce7f4d3f1, type: 2}
+  stageSelection: {fileID: 11400000, guid: 2617fb3b43982884cabf88a0ffea03f9, type: 2}
   possibleUnits:
   - unit: {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
     power: 1
@@ -90,7 +92,7 @@ MonoBehaviour:
     maxy: 10
     speed:
       UseConstant: 1
-      ConstantValue: 0.025
+      ConstantValue: 0.01
       Variable: {fileID: 0}
     minx: 0
   enemyDiversity:
@@ -100,7 +102,7 @@ MonoBehaviour:
       UseConstant: 1
       ConstantValue: 0.25
       Variable: {fileID: 0}
-    minx: 0
+    minx: 1
   wavePower:
     miny: 0
     maxy: 1000
@@ -110,5 +112,6 @@ MonoBehaviour:
       Variable: {fileID: 11400000, guid: 74bd7215eb47f1f4aa6a841840037070, type: 2}
     minx: 0
   playerEnterDelay: 0.5
-  useDebug: 1
-  debugStage: 1
+  fadeTextAnim: 1
+  useDebug: 0
+  debugStep: 1

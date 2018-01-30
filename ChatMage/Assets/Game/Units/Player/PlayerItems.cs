@@ -75,6 +75,13 @@ public class PlayerItems : PlayerComponent
             Unequip(items[0]);
         }
     }
+    public void UnequipAll()
+    {
+        for (int i = 0; i < items.Count; i++)
+        {
+            Unequip(items[i]);
+        }
+    }
 
     public override void OnGameReady()
     {
