@@ -55,12 +55,15 @@ public class ITM_BlueShell : Item
 
     public override void Equip(int duplicateIndex)
     {
+        base.Equip(duplicateIndex);
+
         countdown = startDelay;
         shellSpawned = false;
     }
 
     public override void Unequip()
     {
+        base.Unequip();
     }
 
     private float Cooldown { get { return cooldown * player.playerStats.cooldownMultiplier; } }

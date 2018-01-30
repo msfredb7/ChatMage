@@ -16,6 +16,7 @@ public class GameUI : MonoBehaviour {
     public BossHealthBarDisplay bossHealthBar;
     public RectTransform stayWithinGameView;
     public ItemsDisplay itemsDisplay;
+    public ItemsDisplay_Controller newItemsDisplay;
 
     [HideInInspector]
     public HealthDisplay healthDisplay;
@@ -39,6 +40,7 @@ public class GameUI : MonoBehaviour {
         dialogDisplay.onEndDialog += () => playerInputs.Enabled.Unlock("dialog");
         dialogDisplay.Init();
         itemsDisplay.Init(playerController);
+        newItemsDisplay.Init(playerController);
 
         float aspect = Game.Instance.gameCamera.cam.aspect;
 

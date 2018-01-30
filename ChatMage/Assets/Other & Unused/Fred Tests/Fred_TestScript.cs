@@ -6,22 +6,30 @@ using FullInspector;
 using Dialoguing;
 
 using UnityEngine.Events;
+using CCC.Utility;
+using UnityEngine.UI;
 
 public class Fred_TestScript : MonoBehaviour
 {
-    public List<string> list;
+    public Sprite icon;
+    public ItemsDisplay_Controller controller;
+    public List<Image> images = new List<Image>();
 
     void Start()
     {
         Debug.LogWarning("Hello, je suis un Fred_TestScript, ne pas m'oublier ici (" + gameObject.name + ")");
     }
 
-    void Update()
+    private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            list.Shuffle();
+            images.Add(controller.AddItem(icon));
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            controller.RemoveItem(images[0]);
+            images.RemoveAt(0);
         }
     }
-
 }

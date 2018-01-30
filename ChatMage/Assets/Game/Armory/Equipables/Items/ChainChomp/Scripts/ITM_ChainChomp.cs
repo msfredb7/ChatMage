@@ -26,6 +26,8 @@ public class ITM_ChainChomp : Item
 
     public override void Equip(int duplicateIndex)
     {
+        base.Equip(duplicateIndex);
+
         chainChompInstance = Game.Instance.SpawnUnit(prefab, player.vehicle.Position);
         chainChompInstance.Init(player.playerLocations.boule, player);
         chainChompInstance.Spawn();
@@ -71,6 +73,8 @@ public class ITM_ChainChomp : Item
 
     public override void Unequip()
     {
+        base.Unequip();
+
         if (chainChompInstance != null)
             chainChompInstance.BreakFromPlayerAndDisappear(null);
         ReleaseSeat();

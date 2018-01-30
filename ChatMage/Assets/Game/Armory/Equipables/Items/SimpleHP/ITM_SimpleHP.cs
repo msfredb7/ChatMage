@@ -6,6 +6,8 @@ public class ITM_SimpleHP : Item
 {
     public override void Equip(int duplicateIndex)
     {
+        base.Equip(duplicateIndex);
+
         //Rien a faire
     }
 
@@ -26,6 +28,8 @@ public class ITM_SimpleHP : Item
 
     public override void Unequip()
     {
+        base.Unequip();
+
         //Rien a faire
     }
 }

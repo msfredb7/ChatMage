@@ -13,6 +13,8 @@ public class ITM_DarkMoleSword : Item
 
     public override void Equip(int duplicateIndex)
     {
+        base.Equip(duplicateIndex);
+
         sword = swordPrefab.DuplicateGO(player.transform);
         sword.gameObject.SetActive(false);
         sword.SetController(player);
@@ -78,6 +80,8 @@ public class ITM_DarkMoleSword : Item
 
     public override void Unequip()
     {
+        base.Unequip();
+
         sword.BreakOff(sword.DestroyGO);
         sharedSlots.ReleaseSeat(this);
         sword = null;

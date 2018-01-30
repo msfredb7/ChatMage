@@ -17,6 +17,8 @@ public class ITM_MagicMushroom : Item
 
     public override void Equip(int duplicateIndex)
     {
+        base.Equip(duplicateIndex);
+
         //On utilise Delay manager et non InGameEvents parce qu'on veut pas que le delai scale avec le ZaWarudo
         Game.Instance.DelayedCall(() =>
         {
@@ -27,6 +29,8 @@ public class ITM_MagicMushroom : Item
 
     public override void Unequip()
     {
+        base.Unequip();
+
         DefaultAudioSources.PlaySFX(shrinkSFX);
         player.body.DOBlendableScaleBy(Vector3.one * -scaleIncrease, animDuration).SetEase(Ease.OutElastic);
     }
