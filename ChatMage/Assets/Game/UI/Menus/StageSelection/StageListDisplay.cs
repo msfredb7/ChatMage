@@ -7,8 +7,6 @@ public class StageListDisplay : MonoBehaviour {
     public StageButton buttonPrefab;
     public Transform countainer;
 
-    public InfiniteVerticalScroll infiniteScroller;
-
     public DataSaver datasaver;
 
     public int minimumStageUnlocked = 1;
