@@ -5,20 +5,33 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using FullInspector;
+using DG.Tweening;
 
 public class MainMenu : BaseBehavior
 {
     public const string SCENENAME = "MainMenu";
-    public Button adventureButton;
-    public Button endlessButton;
-    public Button quitButton;
     public bool easyVersion = true; // POUR LE MIGS HARD(Accès direct au level select et loadout)
                                     //              EASY(Jeu normal avec cinématique et saut au niveau 1-1)
     public bool debugEndless = false;
 
+    public Button infoCredits;
+    public SceneInfo credits;
+
+    private List<Button> modeButtons;
+    private int currentPosition;
+    private Vector3 leftPos;
+    private Vector3 rightPos;
+    private Vector3 midPos;
+    public Button adventureButton;
+    public Button endlessButton;
+    public Button testButton;
+    public Button goRight;
+    public Button goLeft;
+    public float animDuration = 1.0f;
+
     [Header("First time playing")]
     public Level firstLevel;
-    public Level endlessLevel;
+    public SceneInfo stageSelectionInfo;
     public string carAssetName;
 
     public AudioClip anthem;
@@ -33,28 +46,63 @@ public class MainMenu : BaseBehavior
             DefaultAudioSources.PlayMusic(anthem, volume: musicVolume);
             adventureButton.onClick.AddListener(OnAdventureClick);
             endlessButton.onClick.AddListener(OnEndlessClick);
+            goRight.onClick.AddListener(ModesGoRight);
+            goLeft.onClick.AddListener(ModesGoLeft);
+            infoCredits.onClick.AddListener(OpenCredits);
             if (firstLevel != null)
                 firstLevel.LoadData();
         });
 
+        MakeButtonList();
+
         // Verify if Endless Mode is accessible
-        if(thirdLevel.dataSaver.ContainsBool(LS_ThridLevel.COMPLETED_KEY + thirdLevel.name))
+        if (debugEndless)
         {
-            if (!thirdLevel.dataSaver.GetBool(LS_ThridLevel.COMPLETED_KEY + thirdLevel.name))
+            SetTextButtonActive(endlessButton, true);
+            SetTextButtonActive(goLeft, true);
+        }
+        else
+        {
+            if (thirdLevel.dataSaver.ContainsBool(LS_ThridLevel.COMPLETED_KEY + thirdLevel.name))
             {
-                SetTextButtonActive(endlessButton,false);
+                if (!thirdLevel.dataSaver.GetBool(LS_ThridLevel.COMPLETED_KEY + thirdLevel.name))
+                {
+                    SetTextButtonActive(endlessButton, false);
+                    SetTextButtonActive(goLeft, false);
+                }
+                else
+                {
+                    SetTextButtonActive(endlessButton, true);
+                    SetTextButtonActive(goLeft, true);
+                }
             }
             else
             {
-                SetTextButtonActive(endlessButton, true);
+                SetTextButtonActive(endlessButton, false);
+                SetTextButtonActive(goLeft, false);
             }
-        } else
-        {
-            SetTextButtonActive(endlessButton, false);
         }
 
-        if (debugEndless)
-            SetTextButtonActive(endlessButton, true);
+        SetTextButtonActive(goRight, false);
+    }
+
+    void OpenCredits()
+    {
+        Scenes.Load(credits);
+    }
+
+    void MakeButtonList()
+    {
+        modeButtons = new List<Button>();
+        modeButtons.Add(testButton);
+        modeButtons.Add(adventureButton);
+        modeButtons.Add(endlessButton);
+
+        currentPosition = 1;
+
+        midPos = adventureButton.transform.position;
+        leftPos = testButton.transform.position;
+        rightPos = endlessButton.transform.position;
     }
 
     void OnAdventureClick()
@@ -68,14 +116,7 @@ public class MainMenu : BaseBehavior
 
     void OnEndlessClick()
     {
-        //Loadout (TEMPORAIRE)
-        LoadoutResult loadoutResult = new LoadoutResult();
-        loadoutResult.AddEquipable(carAssetName, EquipableType.Car);
-
-        //Scene message
-        ToGameMessage gameMessage = new ToGameMessage(endlessLevel.levelScriptName, loadoutResult, true);
-
-        LoadingScreen.TransitionTo(Framework.SCENENAME, gameMessage, true);
+        LoadingScreen.TransitionTo(stageSelectionInfo.SceneName, null);
     }
 
     void GoToFirstLevel()
@@ -110,6 +151,10 @@ public class MainMenu : BaseBehavior
     void SetTextButtonActive(Button button, bool active)
     {
         button.interactable = active;
+
+        if (button.GetComponent<FadeFlash>() == null)
+            return;
+
         Text text = button.GetComponentInChildren<Text>();
         if (text != null)
         {
@@ -128,5 +173,37 @@ public class MainMenu : BaseBehavior
                 button.GetComponent<CanvasGroup>().alpha = 0.5f;
             }
         }
+    }
+    
+    void ModesGoLeft()
+    {
+        // Do animation
+        modeButtons[currentPosition].gameObject.transform.DOMove(leftPos,animDuration);
+        modeButtons[currentPosition+1].gameObject.transform.DOMove(midPos, animDuration);
+
+        currentPosition++;
+
+        if ((currentPosition + 1) > (modeButtons.Count - 1))
+            SetTextButtonActive(goLeft, false);
+        else
+            SetTextButtonActive(goLeft, true);
+
+        SetTextButtonActive(goRight, true);
+    }
+
+    void ModesGoRight()
+    {
+        // Do animation
+        modeButtons[currentPosition].gameObject.transform.DOMove(rightPos, animDuration);
+        modeButtons[currentPosition - 1].gameObject.transform.DOMove(midPos, animDuration);
+
+        currentPosition--;
+
+        if ((currentPosition - 1) < (modeButtons.Count - 1))
+            SetTextButtonActive(goRight, false);
+        else
+            SetTextButtonActive(goRight, true);
+
+        SetTextButtonActive(goLeft, true);
     }
 }
