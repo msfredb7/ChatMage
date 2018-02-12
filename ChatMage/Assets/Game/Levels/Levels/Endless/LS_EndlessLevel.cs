@@ -39,7 +39,7 @@ public class LS_EndlessLevel : LevelScript
     }
 
     [InspectorCategory("ENDLESS MODE"), InspectorHeader("Reset")]
-    public static int stepToResetSave = 5;
+    public static int stepToResetSave = 11;
     [InspectorCategory("ENDLESS MODE")]
     public Item startingItem;
     [InspectorCategory("ENDLESS MODE")]
