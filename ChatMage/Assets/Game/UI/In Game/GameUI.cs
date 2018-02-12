@@ -17,6 +17,7 @@ public class GameUI : MonoBehaviour {
     public RectTransform stayWithinGameView;
     public ItemsDisplay itemsDisplay;
     public ItemsDisplay_Controller newItemsDisplay;
+    public NewItemNotification itemNotification;
 
     [HideInInspector]
     public HealthDisplay healthDisplay;
