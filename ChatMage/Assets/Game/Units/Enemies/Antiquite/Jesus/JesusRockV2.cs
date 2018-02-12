@@ -18,8 +18,7 @@ public class JesusRockV2 : MovingUnit
     public float recenterSpeed = 0.25f;
 
     [Header("SFX")]
-    public CCC.Utility.RandomAudioCliptList hitSounds;
-    public float hitVolume = .9f;
+    public AudioPlayable rockHitSFX;
 
     private bool isFlying = false;
     public bool IsFlying { get { return isFlying; } }
@@ -87,7 +86,7 @@ public class JesusRockV2 : MovingUnit
         rb.drag = 20;
         cannotHit = null;
 
-        DefaultAudioSources.PlaySFX(hitSounds.Pick(), volume: hitVolume);
+        DefaultAudioSources.PlaySFX(rockHitSFX);
 
         Game.Instance.gameCamera.vectorShaker.Shake(onHitShakeStrength);
     }

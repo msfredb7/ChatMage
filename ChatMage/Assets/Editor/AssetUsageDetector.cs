@@ -2,7 +2,7 @@
 // Finds references to an asset or Object
 // 
 // Note that static variables are not searched
-// Found a bug? Let me know on Unity forums! 
+// Found a bug? Let me know on Unity forums! //
 
 using UnityEngine;
 using UnityEditor;
