@@ -17,14 +17,14 @@ public class SoundPlayer : BaseBehavior
     [InspectorHeader("SETTINGS")]
     public bool useCustomSettings = false;
     [InspectorShowIf("useCustomSettings")]
-    public bool looping = false;
+    public bool loopingMusic = false;
     [InspectorShowIf("useCustomSettings")]
     public float volume = 1;
     [InspectorShowIf("useCustomSettings")]
     public float delay = 0;
     [InspectorShowIf("useCustomSettings")]
     public bool startOnReactivation = false;
-    [InspectorShowIf("looping")]
+    [InspectorShowIf("useCustomSettings")]
     public AudioSource sfxLoopSource;
 
     protected void Start()
@@ -37,7 +37,7 @@ public class SoundPlayer : BaseBehavior
         switch (soundType)
         {
             case SoundType.music:
-                DefaultAudioSources.PlayMusic(soundList.Pick(), looping, volume);
+                DefaultAudioSources.PlayMusic(soundList.Pick(), loopingMusic, volume);
                 break;
             case SoundType.sfx:
                 DefaultAudioSources.PlaySFX(soundList.Pick(), delay, volume, sfxLoopSource);

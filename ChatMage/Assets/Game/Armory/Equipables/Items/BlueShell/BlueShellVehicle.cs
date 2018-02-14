@@ -37,6 +37,8 @@ public class BlueShellVehicle : Vehicle
         colliderListener.onTriggerEnter += ColliderListener_onTriggerEnter;
 
         onTimeScaleChange += BlueShellScript_onTimeScaleChange;
+
+        GetComponent<SoundPlayer>().PlaySound();
     }
 
     private void BlueShellScript_onTimeScaleChange(Unit unit)
@@ -61,6 +63,9 @@ public class BlueShellVehicle : Vehicle
         chooseNewTurnAcc = 0;
         isDead = false;
         canMove.Unlock("exl");
+
+        GetComponent<AudioSource>().enabled = true;
+        GetComponent<SoundPlayer>().PlaySound();
 
         animator.ResetValues();
     }
@@ -178,6 +183,8 @@ public class BlueShellVehicle : Vehicle
     protected override void Die()
     {
         base.Die();
+
+        GetComponent<AudioSource>().enabled = false;
 
         rb.velocity = Vector2.zero;
         enabled = false;
