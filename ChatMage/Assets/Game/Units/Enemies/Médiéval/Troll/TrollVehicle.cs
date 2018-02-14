@@ -11,6 +11,7 @@ public class TrollVehicle : EnemyVehicle
     [Header("On Hit")]
     public float invulnurableDuration = 1.5f;
     public float bumpForce = 5;
+    public AudioPlayable loseHpSFX;
 
     [Header("Linking")]
     public new Collider2D collider;
@@ -49,6 +50,8 @@ public class TrollVehicle : EnemyVehicle
 
         //Decrease hp
         hp -= amount;
+
+        DefaultAudioSources.PlaySFX(loseHpSFX);
 
         TimeScale *= timescaleIncrease;
 

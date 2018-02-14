@@ -35,6 +35,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4387865360698530}
+  - component: {fileID: 114500389620081630}
   - component: {fileID: 50444528847392400}
   - component: {fileID: 114923829034378616}
   - component: {fileID: 114840759910089144}
@@ -779,6 +780,17 @@ MonoBehaviour:
   checkWhenAboveCamera: 1
   overrideDefaultDeactivationRange: 0
   newDeactivationRange: 10
+--- !u!114 &114500389620081630
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1214888114290920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c1e7e79607d73a4a9f2cb0a618f1bb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114569604835767190
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -826,6 +838,8 @@ MonoBehaviour:
   controller: {fileID: 95953902237908536}
   veh: {fileID: 114923829034378616}
   stompShake: 0.08
+  stompSound: {fileID: 11400000, guid: 450036acfe7d00348986b62cb4319ca0, type: 2}
+  bigStompSound: {fileID: 11400000, guid: 91fcec055eee8b145b01183e27a53059, type: 2}
 --- !u!114 &114823334829093598
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -883,6 +897,7 @@ MonoBehaviour:
   finalTimescale: 1.5
   invulnurableDuration: 1.4
   bumpForce: 5
+  loseHpSFX: {fileID: 11400000, guid: 78d82f875c089a646a91efdbb9403203, type: 2}
   collider: {fileID: 58356847242024798}
   animator: {fileID: 114794114027206896}
   rockTransporter: {fileID: 4240125626703782}

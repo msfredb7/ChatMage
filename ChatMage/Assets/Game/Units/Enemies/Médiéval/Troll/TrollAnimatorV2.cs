@@ -8,6 +8,9 @@ public class TrollAnimatorV2 : EnemyAnimator
     public TrollVehicle veh;
     public float stompShake = 0.2f;
 
+    public AudioPlayable stompSound;
+    public AudioPlayable bigStompSound;
+
     private Action pickUpMoment;
     private Action pickUpCallback;
     private Action throwMoment;
@@ -66,10 +69,12 @@ public class TrollAnimatorV2 : EnemyAnimator
     }
     private void _Stomp()
     {
+        DefaultAudioSources.PlaySFX(stompSound);
         Game.Instance.gameCamera.vectorShaker.Shake(stompShake);
     }
     private void _BigStomp()
     {
+        DefaultAudioSources.PlaySFX(stompSound);
         Game.Instance.gameCamera.vectorShaker.Shake(stompShake * 2);
     }
 }
