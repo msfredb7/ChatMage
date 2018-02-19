@@ -243,7 +243,7 @@ namespace GameEvents
                 }
                 GUI.color = Color.white;
             }
-            else if (eventPastType == EventType.repaint)
+            else if (eventPastType == EventType.Repaint)
             {
                 //Rebuild items ?
                 if (graph != null)
