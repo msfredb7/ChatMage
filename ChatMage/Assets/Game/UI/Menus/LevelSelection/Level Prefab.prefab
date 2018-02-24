@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 224039168244706696}
   - component: {fileID: 114940240829285300}
   - component: {fileID: 114465314620475280}
-  - component: {fileID: 114667480570353276}
+  - component: {fileID: 114389129746326778}
   m_Layer: 5
   m_Name: Level Prefab
   m_TagString: Untagged
@@ -282,6 +282,24 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114389129746326778
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1494598005308054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65700410db02be340bd0a50f4b17bfc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animateOnEnable: 1
+  stopOnDisable: 1
+  independantUpdate: 1
+  cycleDuration: 1
+  maxSize: 1.15
+  minSize: 0.85
+  ease: 4
 --- !u!114 &114465314620475280
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -312,24 +330,6 @@ MonoBehaviour:
   releaseSpeed: 0.175
   pressEase: 2
   releaseEase: 24
---- !u!114 &114667480570353276
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1494598005308054}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af9f804bec092924cb6d32b75c5a64ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animateOnEnable: 1
-  stopOnDisable: 1
-  independantUpdate: 1
-  cycleDuration: 1.5
-  maxSize: 1.1
-  minSize: 0.95
-  ease: 4
 --- !u!114 &114758742383248224
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -342,6 +342,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clip: {fileID: 8300000, guid: 20c32850932fd934588de69524fe416c, type: 3}
+  audioAsset: {fileID: 0}
 --- !u!114 &114940240829285300
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -355,7 +356,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: {fileID: 11400000, guid: 8158ee834c01fc44b82c857548b48b1c, type: 2}
   button: {fileID: 114210399563652852}
-  flagAnim: {fileID: 114667480570353276}
+  flagAnim: {fileID: 114389129746326778}
   dataSaver: {fileID: 0}
   hasBeenSeen: 0
 --- !u!222 &222140860744878000
