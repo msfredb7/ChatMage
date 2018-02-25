@@ -18,11 +18,11 @@ namespace EndGameReward
         public AudioMixerSnapshot normalAudioSnapshot;
 
         //private string levelScriptAssetName;
-        private GameReward reward;
+        private List<EquipablePreview> reward;
 
         private Vector2 pinataCenter;
 
-        public void Init(GameReward reward, string levelScriptAssetName)
+        public void Init(List<EquipablePreview> reward, string levelScriptAssetName)
         {
             //this.levelScriptAssetName = levelScriptAssetName;
             this.reward = reward;

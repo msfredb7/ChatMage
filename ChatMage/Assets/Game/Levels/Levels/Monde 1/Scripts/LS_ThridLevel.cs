@@ -10,9 +10,13 @@ public class LS_ThridLevel : LevelScript
 {
     [InspectorCategory("UNIQUE"), InspectorHeader("Wave 1")]
     public int waveOne_armyWallBefore = 1;
+    [InspectorCategory("UNIQUE")]
     public string waveOne_prespawnedTag = "inter 1";
+    [InspectorCategory("UNIQUE")]
     public List<Unit> waveOne_sequence = new List<Unit>();
+    [InspectorCategory("UNIQUE")]
     public float waveOne_interval = 0.25f;
+    [InspectorCategory("UNIQUE")]
     public string waveOne_spawnTag = "inter 1";
     [NonSerialized, NotSerialized]
     bool waveOne_reached = false;
@@ -20,9 +24,13 @@ public class LS_ThridLevel : LevelScript
 
     [InspectorCategory("UNIQUE"), InspectorHeader("Wave 2")]
     public int waveTwo_armyWallBefore = 2;
+    [InspectorCategory("UNIQUE")]
     public string waveTwo_prespawnedTag = "inter 2";
+    [InspectorCategory("UNIQUE")]
     public List<Unit> waveTwo_sequence = new List<Unit>();
+    [InspectorCategory("UNIQUE")]
     public float waveTwo_interval = 0.25f;
+    [InspectorCategory("UNIQUE")]
     public string waveTwo_spawnTag = "inter 2";
     [NonSerialized, NotSerialized]
     bool waveTwo_reached = false;
