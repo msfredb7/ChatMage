@@ -51,8 +51,10 @@ namespace LevelSelect
                 flagAnim.cycleDuration = 2.5f;
                 flagAnim.maxSize = 1.02f;
                 flagAnim.minSize = 0.99f;
-            }
-            flagAnim.enabled = true;
+				flagAnim.enabled = false;
+			}
+
+            
         }
 
         void OnClick()
@@ -70,8 +72,13 @@ namespace LevelSelect
             return level.IsUnlocked();
         }
 
-        // Devrais être fait au début du levelSelect
-        public void LoadData()
+		public bool IsCompleted()
+		{
+			return level.HasBeenCompleted;
+		}
+
+		// Devrais être fait au début du levelSelect
+		public void LoadData()
         {
             level.LoadData();
 

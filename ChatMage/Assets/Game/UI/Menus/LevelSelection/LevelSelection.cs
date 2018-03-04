@@ -24,8 +24,10 @@ namespace LevelSelect
 		public LevelSelect_SkipLoadout demoScript;
         public AudioClip levelSelectMusic;
         public float musicVolume;
+		
+		public DataSaver dataSaver;
 
-        void Start()
+		void Start()
         {
             PersistentLoader.LoadIfNotLoaded(OnSync);
             backButton.onClick.AddListener(OnBackClicked);
@@ -42,7 +44,14 @@ namespace LevelSelect
 			
             mapAnimator.SetLastUnlockedRegionIndex(GetLastUnlockedRegion());
 
-            VerifyNewLevelAnimation();
+			if (regions[GetLastUnlockedRegion()].RegionCompleted() && !dataSaver.GetBool("region_" + GetLastUnlockedRegion() + "_completed"))
+			{
+				dataSaver.SetBool("region_" + GetLastUnlockedRegion() + "_completed", true);
+				dataSaver.Save();
+				RegionComplete.OpenIfClosed();
+			}
+
+			VerifyNewLevelAnimation();
             //NOTE: Quand on va vouloir implémenté des animation forcés (ex: unlock un nouveau niveau / une nouvelle région)
             //      on va devoir mettre une variable sauvegardé dans Level du style: 'bool hasBeenSeen'
             //      si le niveau est unlocked MAIS que hasBeenSeen est faux, on met hasBeenSeen à vrai (+ on sauvegarde)

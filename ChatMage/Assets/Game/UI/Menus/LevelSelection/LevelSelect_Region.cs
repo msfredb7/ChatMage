@@ -60,5 +60,15 @@ namespace LevelSelect
                 levelItems[i].Hide();
             }
         }
+
+		public bool RegionCompleted()
+		{
+			for (int i = 0; i < levelItems.Count; i++)
+			{
+				if (!levelItems[i].IsCompleted())
+					return false;
+			}
+			return true;
+		}
     }
 }
