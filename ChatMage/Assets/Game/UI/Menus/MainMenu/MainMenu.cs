@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using FullInspector;
 using DG.Tweening;
+using CCC.UI.Animation;
 
 public class MainMenu : BaseBehavior
 {

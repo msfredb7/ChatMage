@@ -15,8 +15,6 @@ MonoBehaviour:
   - {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
   - {fileID: 114917152140949164, guid: 90a1293e412776e4db23eb9595fcf924, type: 2}
   - {fileID: 114031953647070938, guid: dca25e04556fe204da1a495069e8c437, type: 2}
-  - {fileID: 114782444358368932, guid: 444a36ca87f7fa248b0d5ff50d76f643, type: 2}
-  - {fileID: 114481925992522316, guid: 3ad6240e35c93a0469e0870f61273c74, type: 2}
   - {fileID: 114923829034378616, guid: 7ec293da9a2e20c4caaa28d716dc5124, type: 2}
   - {fileID: 11400000, guid: fa7429869f17d2e4a9dc1408b2119a9b, type: 2}
   - {fileID: 11400000, guid: 74bd7215eb47f1f4aa6a841840037070, type: 2}
@@ -36,12 +34,12 @@ MonoBehaviour:
   - '[{"$type":"GameCondition.LoseOnPlayerDeath"}]'
   - '[]'
   - '[]'
-  - '{"overrideGoldAmount":false,"goldReward":null,"giveLootBox":false,"lootboxRefName":null,"goldified":false}'
-  - '[{"unit":0,"power":1,"unlockAt":0},{"unit":1,"power":2,"unlockAt":0},{"unit":2,"power":2,"unlockAt":10},{"unit":3,"power":2,"unlockAt":20},{"unit":4,"power":3,"unlockAt":10},{"unit":5,"power":5,"unlockAt":20}]'
-  - '{"miny":0.0,"maxy":1000.0,"speed":{"UseConstant":false,"ConstantValue":0.0,"Variable":6},"minx":0.0}'
-  - '{"miny":0.6,"maxy":10.0,"speed":{"UseConstant":true,"ConstantValue":0.01,"Variable":null},"minx":0.0}'
+  - '[]'
+  - '[{"unit":0,"power":1,"unlockAt":0},{"unit":1,"power":2,"unlockAt":0},{"unit":2,"power":2,"unlockAt":0},{"unit":3,"power":5,"unlockAt":0}]'
+  - '{"miny":0.0,"maxy":1000.0,"speed":{"UseConstant":false,"ConstantValue":0.0,"Variable":4},"minx":0.0}'
+  - '{"miny":0.6,"maxy":10.0,"speed":{"UseConstant":true,"ConstantValue":0.0005,"Variable":null},"minx":0.0}'
   - '{"miny":0.0,"maxy":1.0,"speed":{"UseConstant":true,"ConstantValue":0.25,"Variable":null},"minx":1.0}'
-  - '{"miny":0.0,"maxy":1000.0,"speed":{"UseConstant":false,"ConstantValue":0.0,"Variable":7},"minx":0.0}'
+  - '{"miny":0.0,"maxy":1000.0,"speed":{"UseConstant":false,"ConstantValue":0.0,"Variable":5},"minx":0.0}'
   sceneInfo: {fileID: 11400000, guid: 776a9f058fff5af4290e4a682ca54c98, type: 2}
   dataSaver: {fileID: 11400000, guid: ddccaa3a858acc3458d9734bb2ec9d3e, type: 2}
   armoryData: {fileID: 11400000, guid: 7974f73ff596eae41a4721224c1384f2, type: 2}
@@ -55,6 +53,7 @@ MonoBehaviour:
   followPlayerOnStart: 0
   useCustomGenericEvents: 0
   events: []
+  rewards: []
   activateTutorial: 0
   tutorialAssetName: 
   tutorialData: {fileID: 0}
@@ -69,16 +68,10 @@ MonoBehaviour:
     unlockAt: 0
   - unit: {fileID: 114031953647070938, guid: dca25e04556fe204da1a495069e8c437, type: 2}
     power: 2
-    unlockAt: 10
-  - unit: {fileID: 114782444358368932, guid: 444a36ca87f7fa248b0d5ff50d76f643, type: 2}
-    power: 2
-    unlockAt: 20
-  - unit: {fileID: 114481925992522316, guid: 3ad6240e35c93a0469e0870f61273c74, type: 2}
-    power: 3
-    unlockAt: 10
+    unlockAt: 0
   - unit: {fileID: 114923829034378616, guid: 7ec293da9a2e20c4caaa28d716dc5124, type: 2}
     power: 5
-    unlockAt: 20
+    unlockAt: 0
   difficulty:
     miny: 0
     maxy: 1000
@@ -92,7 +85,7 @@ MonoBehaviour:
     maxy: 10
     speed:
       UseConstant: 1
-      ConstantValue: 0.01
+      ConstantValue: 0.0005
       Variable: {fileID: 0}
     minx: 0
   enemyDiversity:
@@ -113,5 +106,5 @@ MonoBehaviour:
     minx: 0
   playerEnterDelay: 0.5
   fadeTextAnim: 1
-  useDebug: 1
-  debugStep: 1
+  useDebug: 0
+  debugStep: 30

@@ -46,34 +46,40 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
 
     [InspectorCategory("LEVEL"), InspectorHeader("General Info")]
     public SceneInfo sceneInfo;
+    [InspectorCategory("LEVEL")]
     public DataSaver dataSaver;
+    [InspectorCategory("LEVEL")]
     public DataSaver armoryData;
 
     [InspectorCategory("LEVEL"), InspectorHeader("Conditions")]
     public GameCondition.BaseWinningCondition[] winningConditions;
+    [InspectorCategory("LEVEL")]
     public GameCondition.BaseLosingCondition[] losingConditions;
 
     [InspectorCategory("LEVEL"), InspectorHeader("Wrap Animations")]
     public BaseIntro introPrefab;
+    [InspectorCategory("LEVEL")]
     public BaseWinOutro winOutroPrefab;
+    [InspectorCategory("LEVEL")]
     public BaseLoseOutro loseOutroPrefab;
 
 
     [InspectorCategory("LEVEL"), InspectorHeader("Base Settings")]
     [InspectorTooltip("No healthpacks during the entire level")]
     public bool noHealthPacks = false;
+    [InspectorCategory("LEVEL")]
     public bool followPlayerOnStart = false;
 
     [InspectorCategory("LEVEL"), InspectorHeader("In Game Events")]
     public bool useCustomGenericEvents = false;
-    [InspectorShowIf("useCustomGenericEvents")]
+    [InspectorCategory("LEVEL"),InspectorShowIf("useCustomGenericEvents")]
     public List<EventScripting> events;
 
     [InspectorCategory("LEVEL"), InspectorHeader("Unit Waves")]
     public List<UnitWaveV2> waves;
 
     [InspectorCategory("LEVEL"), InspectorHeader("Winning Rewards")]
-    public GameReward rewards;
+    public List<EquipablePreview> rewards;
 
     public event SimpleEvent onWin;
     public event SimpleEvent onLose;
@@ -88,9 +94,9 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
 
     [InspectorCategory("LEVEL"), InspectorHeader("Tutoriel")]
     public bool activateTutorial = false;
-    [InspectorShowIf("activateTutorial")]
+    [InspectorCategory("LEVEL"),InspectorShowIf("activateTutorial")]
     public string tutorialAssetName;
-    [InspectorShowIf("activateTutorial")]
+    [InspectorCategory("LEVEL"),InspectorShowIf("activateTutorial")]
     public DataSaver tutorialData;
 
     [fsIgnore, NotSerialized]
@@ -198,11 +204,8 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
 
         bool wasCompleted = HasBeenCompleted(this, dataSaver);
 
-        rewards.firstWin = !wasCompleted;
         if (!wasCompleted)
-        {
             MarkAsCompleted(this, dataSaver);
-        }
 
 
         if (onWin != null)

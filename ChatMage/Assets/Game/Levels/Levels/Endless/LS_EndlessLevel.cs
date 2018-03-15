@@ -126,7 +126,10 @@ public class LS_EndlessLevel : LevelScript
         // Si la scene prend du temps a charge par rapport a l'intro il faudra que le jeu attend pour CECI
         Scenes.LoadAsync(EndlessUI.SCENENAME, LoadSceneMode.Additive,delegate(Scene scene){
             ui = scene.FindRootObject<EndlessUI>();
-            ui.stageText.text = "Stage " + currentStage;
+            if(!useDebug)
+                ui.stageText.text = "Stage " + currentStage;
+            else
+                ui.stageText.text = "Stage " + currentStage + " Step " + (currentStep - ((currentStage - 1) * (stepToResetSave - 1)));
             ui.stageText.gameObject.SetActive(true);
         });
     }
@@ -173,7 +176,7 @@ public class LS_EndlessLevel : LevelScript
         if (useDebug)
         {
             currentStep = debugStep;
-            currentStage = Mathf.FloorToInt(debugStep / 5);
+            currentStage = Mathf.CeilToInt((float)debugStep / (float)stepToResetSave);
             if (currentStage < 1)
                 currentStage = 1; 
         }
@@ -216,14 +219,15 @@ public class LS_EndlessLevel : LevelScript
     // Pour balance les etages, on va toujours utiliser le power d'un autre step plus bas selon cette formule
     private int GetRealStepForPower(int step, int stage)
     {
-        return ((currentStage - 1) + (currentStep - ((currentStage - 1) * stepToResetSave)));
+        return (stage + (step - ((stage - 1) * (stepToResetSave - 1))));
     }
 
     // Algorithm to create a good wave depending on the stage
     private UnitPack[] CreateUnitWave(int stepUsedForPowerMesure, List<EnemyTypes> units)
     {
         List<UnitPack> unitPack = new List<UnitPack>();
-        int currentWavePower = Mathf.RoundToInt(wavePower.GetProgression(Mathf.RoundToInt(difficulty.GetProgression(stepUsedForPowerMesure))));
+        int difficultyTarget = Mathf.RoundToInt(difficulty.GetProgression(stepUsedForPowerMesure));
+        int currentWavePower = Mathf.RoundToInt(wavePower.GetProgression(difficultyTarget));
 
         float currentDiversity = enemyDiversity.GetProgression(Mathf.RoundToInt(difficulty.GetProgression(stepUsedForPowerMesure)));
 
@@ -424,7 +428,7 @@ public class LS_EndlessLevel : LevelScript
         ui.transitionBG.DOFade(1, transitionDuration).OnComplete(delegate() {
             // Avant de Fade In
              // Si on avait franchis un palier
-            if ((currentStep % stepToResetSave) == 0)
+            if ((currentStep - ((currentStage - 1) * (stepToResetSave - 1))) >= stepToResetSave)
             {
                 //Debug.Log("stage " + currentStage + " (step " + currentStep + ") done");
                 // On transitionne vers le prochain pallier
@@ -444,7 +448,7 @@ public class LS_EndlessLevel : LevelScript
                 if(currentStage == 1)
                     ui.stageText.text = "Stage " + currentStage + ": Step " + currentStep;
                 else
-                    ui.stageText.text = "Stage " + currentStage + ": Step " + ((currentStep - ((currentStage - 1) * stepToResetSave)) + 1);
+                    ui.stageText.text = "Stage " + currentStage + ": Step " + (currentStep - ((currentStage - 1) * (stepToResetSave - 1)));
                 ui.stageText.color = ui.stageText.color.ChangedAlpha(1);
             }
 

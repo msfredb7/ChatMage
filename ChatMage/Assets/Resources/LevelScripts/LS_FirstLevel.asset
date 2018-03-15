@@ -11,7 +11,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab2a298efac19554eb792357b04a4e6a, type: 3}
   m_Name: LS_FirstLevel
   m_EditorClassIdentifier: 
-  _objectReferences: []
+  _objectReferences:
+  - {fileID: 11400000, guid: 0d9aa9f1011a4f94eb5de9e0300f16e0, type: 2}
   _serializedStateKeys:
   - winningConditions
   - losingConditions
@@ -23,7 +24,7 @@ MonoBehaviour:
   - '[{"$type":"GameCondition.LoseOnPlayerDeath"}]'
   - 
   - '[]'
-  - '{"overrideGoldAmount":false,"goldReward":{"baseAmountMin":0,"baseAmountMax":0,"firstWinAmountMin":0,"firstWinAmountMax":0},"giveLootBox":false,"lootboxRefName":null,"goldified":false}'
+  - '[0]'
   sceneInfo: {fileID: 11400000, guid: d6b18cc1df85b9f46a4f7a755ea5789b, type: 2}
   dataSaver: {fileID: 11400000, guid: ddccaa3a858acc3458d9734bb2ec9d3e, type: 2}
   armoryData: {fileID: 11400000, guid: 7974f73ff596eae41a4721224c1384f2, type: 2}
@@ -37,6 +38,8 @@ MonoBehaviour:
   followPlayerOnStart: 0
   useCustomGenericEvents: 0
   events: []
+  rewards:
+  - {fileID: 11400000, guid: 0d9aa9f1011a4f94eb5de9e0300f16e0, type: 2}
   activateTutorial: 1
   tutorialAssetName: TUT_FirstLevel
   tutorialData: {fileID: 11400000, guid: f28f3cb61caa2154ea729f180e2286ea, type: 2}
