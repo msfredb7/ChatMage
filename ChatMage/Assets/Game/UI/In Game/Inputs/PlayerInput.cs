@@ -6,7 +6,7 @@ public class PlayerInput : MonoBehaviour
 {
     private PlayerController controller;
 
-    public CCC.Utility.Locker Enabled = new CCC.Utility.Locker();
+    public Locker Enabled = new Locker();
 
     private int turning;
     private bool smashPress;
