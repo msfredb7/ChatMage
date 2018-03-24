@@ -415,21 +415,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85205e10ad9c52a4db004e69b39bacba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectReferences:
-  - {fileID: 8300000, guid: 774f060258ec47548b727adad6d7c0bd, type: 3}
+  _objectReferences: []
   _serializedStateKeys:
   - soundList
   - soundType
   _serializedStateValues:
-  - '{"list":[0]}'
+  - '{"list":[null]}'
   - '"sfx"'
   tag: close
   soundList:
     list:
-    - {fileID: 8300000, guid: 774f060258ec47548b727adad6d7c0bd, type: 3}
+    - {fileID: 0}
   soundType: 1
   useCustomSettings: 0
-  looping: 0
+  loopingMusic: 0
   volume: 1
   delay: 0
   startOnReactivation: 0
@@ -445,21 +444,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85205e10ad9c52a4db004e69b39bacba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectReferences:
-  - {fileID: 8300000, guid: d5e2f80da7d64984eae7db2b207069b9, type: 3}
+  _objectReferences: []
   _serializedStateKeys:
   - soundList
   - soundType
   _serializedStateValues:
-  - '{"list":[0]}'
+  - '{"list":[null]}'
   - '"sfx"'
   tag: loop
   soundList:
     list:
-    - {fileID: 8300000, guid: d5e2f80da7d64984eae7db2b207069b9, type: 3}
+    - {fileID: 0}
   soundType: 1
   useCustomSettings: 1
-  looping: 1
+  loopingMusic: 0
   volume: 0.3
   delay: 0.3
   startOnReactivation: 1
@@ -475,21 +473,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85205e10ad9c52a4db004e69b39bacba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectReferences:
-  - {fileID: 8300000, guid: 26c3d86e338fb6c4c962a2bfa6352d74, type: 3}
+  _objectReferences: []
   _serializedStateKeys:
   - soundList
   - soundType
   _serializedStateValues:
-  - '{"list":[0]}'
+  - '{"list":[null]}'
   - '"sfx"'
   tag: open
   soundList:
     list:
-    - {fileID: 8300000, guid: 26c3d86e338fb6c4c962a2bfa6352d74, type: 3}
+    - {fileID: 0}
   soundType: 1
   useCustomSettings: 0
-  looping: 0
+  loopingMusic: 0
   volume: 1
   delay: 0
   startOnReactivation: 0
@@ -521,6 +518,7 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -536,6 +534,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -553,6 +552,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
 --- !u!212 &212103651167985086
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -562,6 +562,7 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -577,6 +578,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -594,6 +596,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
 --- !u!212 &212314180329439732
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -603,6 +606,7 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -618,6 +622,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -635,6 +640,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
 --- !u!212 &212592376054948282
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -644,6 +650,7 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -659,6 +666,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -676,3 +684,4 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0

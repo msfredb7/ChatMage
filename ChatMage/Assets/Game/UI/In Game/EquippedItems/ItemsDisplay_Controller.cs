@@ -40,7 +40,7 @@ public class ItemsDisplay_Controller : Pool<ItemsDiplay_Ball>
     private Image AddItem(Sprite itemSprite, Vector3 spawnPosition, bool skipIntro = false)
     {
         var newBall = GetFromPool();
-        newBall.Tr.SetParent(ballContainer);
+        newBall.Tr.SetParent(destroyedBallContainer);
         balls.Add(newBall);
 
         if (skipIntro)
@@ -101,6 +101,7 @@ public class ItemsDisplay_Controller : Pool<ItemsDiplay_Ball>
         if (ballIndex > 0)
             ball.GetGravityComponent().nextGravityComponent = balls[ballIndex - 1].GetGravityComponent();
         ball.GetGravityComponent().enabled = true;
+        ball.Tr.SetParent(ballContainer);
     }
 
     private int FindBall(Image imageReference)
