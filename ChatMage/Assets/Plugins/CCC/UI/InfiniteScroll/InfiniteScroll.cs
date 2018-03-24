@@ -13,9 +13,6 @@ public abstract class InfiniteScroll : MonoBehaviour, IDragHandler
     [System.Serializable]
     public class RewindEvent : UnityEvent<int> { }
 
-    public RewindEvent onHorizontalRewind = new RewindEvent();
-    public RewindEvent onVerticalRewind = new RewindEvent();
-
     [SerializeField, ReadOnly]
     protected Vector2 itemSize = Vector2.zero;
     [SerializeField, ReadOnly]
@@ -55,7 +52,7 @@ public abstract class InfiniteScroll : MonoBehaviour, IDragHandler
             Vector2 velocity = scrollRect.velocity;
 
             //On kill le drag s'il y a lieu
-            if (lastDragEvent.dragging)
+            if (lastDragEvent != null && lastDragEvent.dragging)
             {
                 scrollRect.OnEndDrag(lastDragEvent);
             }
@@ -67,7 +64,7 @@ public abstract class InfiniteScroll : MonoBehaviour, IDragHandler
                 RewindHorizontal(normalizedPosition.x);
 
             //On reanime le drag d'entre les morts s'il y a lieu
-            if (lastDragEvent.dragging)
+            if (lastDragEvent != null && lastDragEvent.dragging)
             {
                 scrollRect.OnBeginDrag(lastDragEvent);
             }
@@ -105,8 +102,10 @@ public abstract class InfiniteScroll : MonoBehaviour, IDragHandler
         int mult = normalizedPosition > 1 ? -1 : 1;
 
         scrollRect.verticalNormalizedPosition += deplacement * mult;
-        onVerticalRewind.Invoke((itemDelta * mult).RoundedToInt());
+        OnVerticalRewind((itemDelta * mult).RoundedToInt());
     }
+
+    protected virtual void OnVerticalRewind(int value) { }
 
     private void RewindHorizontal(float normalizedPosition)
     {
@@ -116,8 +115,9 @@ public abstract class InfiniteScroll : MonoBehaviour, IDragHandler
         int mult = normalizedPosition > 1 ? -1 : 1;
 
         scrollRect.horizontalNormalizedPosition += deplacement * mult;
-        onHorizontalRewind.Invoke((itemDelta * mult).RoundedToInt());
+        OnHorizontalRewind((itemDelta * mult).RoundedToInt());
     }
+    protected virtual void OnHorizontalRewind(int value) { }
 
     private float CalculateRewindDelta(float _itemSpacing, float _itemSize, float _viewportSize, float _deplacementMaxDuScroll, int shownItemsAtATime, out float itemDelta)
     {
@@ -133,7 +133,7 @@ public abstract class InfiniteScroll : MonoBehaviour, IDragHandler
         return deplacement;
     }
 
-    public bool IsDataOk()
+    public virtual bool IsDataOk()
     {
         if (scrollRect == null)
         {
