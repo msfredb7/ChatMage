@@ -128,9 +128,9 @@ namespace CCC.UI.Animation
             if (destroyOnComplete)
             {
                 if (fadeDuration + delayBeforeFade > moveDuration)
-                    fadeAnim.onComplete = this.DestroyGO;
+                    fadeAnim.OnComplete(this.DestroyGO);
                 else
-                    moveAnim.onComplete = this.DestroyGO;
+                    moveAnim.OnComplete(this.DestroyGO);
             }
         }
 

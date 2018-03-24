@@ -8,7 +8,7 @@ namespace GameEvents
     public class EventGraph : MonoBehaviour
     {
         [Header("NE PAS TOUCHER A LA LISTE")]
-        [ReadOnly(forwardToChildren = false)]
+        [ReadOnly(forwardToChildren: false)]
         public List<Object> events = new List<Object>();
 
         public event SimpleEvent onEventsAddedOrRemoved;
