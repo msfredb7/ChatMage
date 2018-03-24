@@ -1,16 +1,16 @@
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using System.Threading;
-using UnityEngine.Events;
 using System;
 using CCC.Threading;
 
-namespace CCC.Utility
+namespace CCC.Serialization
 {
     public class Saves
     {
         static public void ThreadSave(string path, object graph, Action onComplete = null)
         {
+            MainThread.SpawnIfNotSpawned();
             Thread t = new Thread(new ThreadStart(() => ThreadSaveMethod(path, graph, onComplete)));
             t.Start();
         }
@@ -28,6 +28,7 @@ namespace CCC.Utility
 
         static public void ThreadLoad(string path, Action<object> onComplete)
         {
+            MainThread.SpawnIfNotSpawned();
             Thread t = new Thread(new ThreadStart(delegate () { ThreadLoadMethod(path, onComplete); }));
             t.Start();
         }
@@ -41,11 +42,17 @@ namespace CCC.Utility
                 return;
             }
 
+            object obj = null;
             BinaryFormatter bf = new BinaryFormatter();
-            //UnityEngine.Debug.Log("load started: " + path);
             FileStream file = File.Open(path, FileMode.Open);
-            //UnityEngine.Debug.Log("load completed" + path);
-            object obj = bf.Deserialize(file);
+            try
+            {
+                obj = bf.Deserialize(file);
+            }
+            catch (Exception e)
+            {
+                UnityEngine.Debug.LogError("Failed to deserialize the following file:\n" + path + "\n\nError:\n" + e.Message);
+            }
             file.Close();
 
 
@@ -68,10 +75,22 @@ namespace CCC.Utility
         {
             if (!Exists(path))
                 return null;
+
+            object obj = null;
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Open(path, FileMode.Open);
-            object obj = bf.Deserialize(file);
+
+            try
+            {
+                obj = bf.Deserialize(file);
+            }
+            catch (Exception e)
+            {
+                UnityEngine.Debug.LogError("Failed to deserialize the following file:\n" + path + "\n\nError:\n" + e.Message);
+            }
+
             file.Close();
+
             return obj;
         }
 

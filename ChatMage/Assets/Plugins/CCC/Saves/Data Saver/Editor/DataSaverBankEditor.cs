@@ -15,7 +15,12 @@ public class DataSaverBankEditor : Editor
     {
         bank = target as DataSaverBank;
         typeNames = Enum.GetNames(typeof(DataSaverBank.Type));
-        //values = Enum.GetValues(typeof(DataSaverBank.Type));
+
+        if (!bank.VerifyArrayIntegrity())
+        {
+            if (AssetDatabase.Contains(bank))
+                EditorUtility.SetDirty(bank);
+        }
     }
 
     public override void OnInspectorGUI()

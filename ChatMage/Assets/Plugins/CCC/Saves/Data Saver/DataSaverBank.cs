@@ -17,6 +17,8 @@ public partial class DataSaverBank : ScriptablePersistent
         if (Instance != null)
             Debug.Log("hmm");
 
+        VerifyArrayIntegrity();
+
         Instance = this;
 
 
@@ -42,5 +44,21 @@ public partial class DataSaverBank : ScriptablePersistent
         DataSaver[] copy = new DataSaver[dataSavers.Length];
         dataSavers.CopyTo(copy, 0);
         return copy;
+    }
+
+    public bool VerifyArrayIntegrity()
+    {
+        if(Enum.GetValues(typeof(Type)).Length != dataSavers.Length)
+        {
+            var newArray = new DataSaver[Enum.GetValues(typeof(Type)).Length];
+            int minLength = Mathf.Min(newArray.Length, dataSavers.Length);
+            for (int i = 0; i < dataSavers.Length && i < minLength; i++)
+            {
+                newArray[i] = dataSavers[i];
+            }
+            dataSavers = newArray;
+            return false;
+        }
+        return true;
     }
 }
