@@ -11,9 +11,7 @@ using UnityEngine.UI;
 
 public class Fred_TestScript : MonoBehaviour
 {
-    public Sprite icon;
-    public ItemsDisplay_Controller controller;
-    public List<Image> images = new List<Image>();
+    public Tower_SpeedRecorder speedRecorder;
 
     void Start()
     {
@@ -22,14 +20,6 @@ public class Fred_TestScript : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            images.Add(controller.AddItem(icon));
-        }
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            controller.RemoveItem(images[0]);
-            images.RemoveAt(0);
-        }
+        transform.position += Vector3.up * speedRecorder.WorldVelocity * Time.deltaTime;
     }
 }
