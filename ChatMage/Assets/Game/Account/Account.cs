@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using CCC.Persistence;
 using System;
+#if UNITY_ADS
+using UnityEngine.Advertisements;
+#endif
 
 public class Account : MonoPersistent
 {
@@ -23,7 +26,6 @@ public class Account : MonoPersistent
         instance = this;
     }
 
-
     public override void Init(Action onComplete)
     {
         FetchData();
@@ -34,6 +36,28 @@ public class Account : MonoPersistent
 #endif
         onComplete();
     }
+
+    // ADS
+#if UNITY_ADS
+    private const string androidGameId = "1426499", iosGameId = "1426500";
+    private const bool testMode = true;
+
+    //#if UNITY_ADS
+    public void ShowRewardedAd()
+    {
+        string gameId;
+#if UNITY_ANDROID
+        gameId = androidGameId;
+#elif UNITY_IOS
+        gameId = iosGameId;
+#endif
+
+        if (!Advertisement.isInitialized)
+        {
+            Advertisement.Initialize(gameId, testMode);
+        }
+    }
+#endif
 
     private void FetchData()
     {

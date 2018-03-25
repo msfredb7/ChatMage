@@ -154,10 +154,18 @@ public class LS_EndlessLevel : LevelScript
         }
     }
 
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        // clear
+        currentStep = 0;
+        currentStage = 0;
+    }
+
     private void LoadStageInfo()
     {
         // Get current stage and step
-        currentStage = PlayerPrefs.GetInt(stageKey);
+        currentStage = PlayerPrefs.GetInt(stageKey,1);
         currentStep = (currentStage-1) * stepToResetSave;
         if (currentStep < 1)
             currentStep = 1;
