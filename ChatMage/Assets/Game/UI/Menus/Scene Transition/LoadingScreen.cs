@@ -58,7 +58,7 @@ public class LoadingScreen
             if (SceneManager.GetSceneAt(i).name != SCENENAME)
                 Scenes.UnloadAsync(SceneManager.GetSceneAt(i).name);
         }
-        PersistentLoader.instance.CallNextFrame(LateLoad);
+        CoroutineLauncher.Instance.CallNextFrame(LateLoad);
     }
 
     private static void LateLoad()
@@ -68,6 +68,8 @@ public class LoadingScreen
 
     private static void OnDestinationLoaded(Scene scene)
     {
+        SceneManager.SetActiveScene(scene);
+
         if (!waitForNextSceneSetup)
             OnNewSetupComplete();
         animator.OnNewSceneLoaded();
