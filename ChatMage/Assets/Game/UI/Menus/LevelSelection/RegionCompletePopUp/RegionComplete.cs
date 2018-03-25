@@ -9,6 +9,8 @@ public class RegionComplete : WindowAnimation {
 	public const string SCENENAME = "RegionComplete";
 	private bool isQuitting = false;
 
+    public SceneInfo endlessStageSelectionScene;
+
 	public void CloseMenu()
 	{
 		if (isQuitting)
@@ -22,10 +24,12 @@ public class RegionComplete : WindowAnimation {
 	public void KeepPlaying()
 	{
 		Debug.Log("Keep playing");
+        Close();
 	}
 	public void EndlessMode()
 	{
 		Debug.Log("Endless Mode");
+        LoadingScreen.TransitionTo(endlessStageSelectionScene.SceneName, null);
 	}
 
 

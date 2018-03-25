@@ -186,6 +186,12 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
     // Update Level Script
     public void Update()
     {
+#if UNITY_EDITOR
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            Win();
+        }
+#endif
         OnUpdate();
     }
 
@@ -398,7 +404,7 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
             }
     }
 
-    #region Wave
+#region Wave
     ///////////////////////////////////////////////////// Wave queueing
     void StartWaves()
     {
@@ -522,9 +528,9 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
             OnWaveLaunch();
         }
     }
-    #endregion
+#endregion
 
-    #region Events
+#region Events
     ///////////////////////////////////////////////////// Event scripting
 
     void EventScriptOnCompleted(EventScripting ev)
@@ -553,5 +559,5 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
         }
     }
 
-    #endregion
+#endregion
 }

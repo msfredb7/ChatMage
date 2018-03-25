@@ -61,7 +61,6 @@ namespace LevelSelect
         {
             //Click animation !
 
-
             //Event
             if (onLevelSelected != null)
                 onLevelSelected(level);
