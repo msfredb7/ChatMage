@@ -48,11 +48,14 @@ public class StageListDisplay : MonoBehaviour
 
     void Start()
     {
-        LoadInfo();
-        SpawnButtons();
+        PersistentLoader.LoadIfNotLoaded(() =>
+        {
+            LoadInfo();
+            SpawnButtons();
 
-        if (StageUnlocked >= animMinButtons)
-            this.DelayedCall(AnimateUp, animDelay);
+            if (StageUnlocked >= animMinButtons)
+                this.DelayedCall(AnimateUp, animDelay);
+        });
     }
 
     void LoadInfo()
