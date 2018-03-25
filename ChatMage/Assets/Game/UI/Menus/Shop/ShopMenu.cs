@@ -119,7 +119,7 @@ public class ShopMenu : MonoBehaviour
     public void BuyMoney(int amount)
     {
 #if UNITY_ANDROID
-        Account.instance.BuyCoins(amount);
+        //Account.instance.BuyCoins(amount);
 #endif
     }
 
