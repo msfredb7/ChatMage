@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 #if UNITY_ADS
 using UnityEngine.Advertisements;
 #endif
@@ -41,9 +42,9 @@ public class AdsStarter : MonoBehaviour
         // }, 0.75f);
     }
 
+#if UNITY_ADS
     private void HandleShowResult(ShowResult result)
     {
-#if UNITY_ADS
         switch (result)
         {
             case ShowResult.Finished:
@@ -65,11 +66,11 @@ public class AdsStarter : MonoBehaviour
                     onAdComplete();
                 return;
         }
-#endif
         // Si le callback est fait, mais que le result est bizarre, on continue
         //LoadingScreen.TransitionTo(nextSceneName, currentMessage, true);
         if (onAdComplete != null)
             onAdComplete();
     }
+#endif
 
 }
