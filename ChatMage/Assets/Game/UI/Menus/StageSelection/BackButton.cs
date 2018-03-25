@@ -16,6 +16,6 @@ public class BackButton : MonoBehaviour {
 	
 	void OnBack()
     {
-        LoadingScreen.TransitionTo(MainMenu.SCENENAME, null, true);
+        LoadingScreen.TransitionTo(MainMenu.SCENENAME, null);
     }
 }

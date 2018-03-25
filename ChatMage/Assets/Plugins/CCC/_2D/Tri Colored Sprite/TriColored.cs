@@ -33,7 +33,6 @@ public class TriColored : MonoBehaviour
 #if UNITY_EDITOR
             if (material == null)
             {
-                print("null mat");
                 Shader shader = Shader.Find(SHADERNAME);
                 if (shader == null)
                 {

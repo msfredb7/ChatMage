@@ -160,20 +160,25 @@ public class SpriteOffset : MonoBehaviour
             return GetComponent<MeshFilter>();
         }
     }
-}
 
-#if UNITY_EDITOR
-[CustomEditor(typeof(SpriteOffset))]
-public class SpriteOffsetEditor : Editor
-{
-    public override void OnInspectorGUI()
+    void OnValidate()
     {
-        EditorGUI.BeginChangeCheck();
-        base.OnInspectorGUI();
-        if (EditorGUI.EndChangeCheck())
-        {
-            (target as SpriteOffset).ApplyAll();
-        }
+        ApplyAll();
     }
 }
-#endif
+
+//#if UNITY_EDITOR
+//[CustomEditor(typeof(SpriteOffset))]
+//public class SpriteOffsetEditor : Editor
+//{
+//    public override void OnInspectorGUI()
+//    {
+//        EditorGUI.BeginChangeCheck();
+//        base.OnInspectorGUI();
+//        if (EditorGUI.EndChangeCheck())
+//        {
+//            (target as SpriteOffset).ApplyAll();
+//        }
+//    }
+//}
+//#endif
