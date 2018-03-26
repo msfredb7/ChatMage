@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class VarVariable<T> : ScriptableObject, ISerializationCallbackReceiver
+public abstract class VarVariable<T> : ScriptableObject
 {
 #if UNITY_EDITOR
     [Multiline]
@@ -18,9 +18,10 @@ public abstract class VarVariable<T> : ScriptableObject, ISerializationCallbackR
         set { RuntimeValue = value; }
     }
 
-    public void OnAfterDeserialize()
+    public void OnEnable()
     {
         RuntimeValue = value;
+        Debug.Log(name + ":" + value);
     }
 
     public void OnBeforeSerialize()

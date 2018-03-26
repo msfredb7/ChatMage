@@ -40,6 +40,8 @@ public class Map : BaseBehavior
 
         for (int i = 0; i < listUnits.Count; i++)
         {
+            if (listUnits[i] == null)
+                continue;
             Unit unit = listUnits[i].GetComponent<Unit>();
             if (unit != null)
                 Game.Instance.AddExistingUnit(unit);

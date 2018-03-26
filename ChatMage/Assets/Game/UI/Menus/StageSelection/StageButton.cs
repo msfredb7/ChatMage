@@ -30,6 +30,8 @@ public class StageButton : MonoBehaviour {
         // Save stage choice
         PlayerPrefs.SetInt(LS_EndlessLevel.stageKey, stageNumber);
 
+        DefaultAudioSources.StopMusicFaded(1);
+
         LoadingScreen.TransitionTo(Framework.SCENENAME, gameMessage, true);
     }
 }

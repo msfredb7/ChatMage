@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ItemPack : Pack
 {
-    [System.NonSerialized]
     public Item itemReference;
 
     public DataSaver firstPickupSave;
