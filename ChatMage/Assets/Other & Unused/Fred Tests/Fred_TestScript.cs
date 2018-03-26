@@ -11,7 +11,7 @@ using UnityEngine.UI;
 
 public class Fred_TestScript : MonoBehaviour
 {
-    public Tower_SpeedRecorder speedRecorder;
+    public GameIntroOutro.YouDiedOutro youDiedOutro;
 
     void Start()
     {
@@ -20,6 +20,9 @@ public class Fred_TestScript : MonoBehaviour
 
     private void Update()
     {
-        transform.position += Vector3.up * speedRecorder.WorldVelocity * Time.deltaTime;
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            youDiedOutro.Play();
+        }
     }
 }
