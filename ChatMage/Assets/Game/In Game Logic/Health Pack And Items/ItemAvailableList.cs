@@ -28,13 +28,20 @@ public class ItemAvailableList : ScriptableObject
         }
     }
 
-    // PEUT METTRE DES ALGO DE SELECTION D'ITEM ICI (ex: Lottery) 
-    // -> Ex: mushroom peut etre pogner max 5 fois ?
-    // -> dictionnaire ????
-
     public Item GetRandomAvailableItem()
     {
-        return availableItems[Random.Range(0, availableItems.Count-1)];
+        Lottery<Item> lotItem = new Lottery<Item>();
+        for (int i = 0; i < availableItems.Count; i++)
+        {
+            lotItem.Add(availableItems[i], availableItems[i].GetWeight());
+        }
+        if(lotItem.Count > 0)
+        {
+            return lotItem.Pick();
+        } else
+        {
+            return null;
+        }
     }
 
     public bool AreThereSpecialItemsAvailable()

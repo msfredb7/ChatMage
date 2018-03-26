@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class Item : Equipable
+public abstract class Item : Equipable, IItemWeight
 {
     public Sprite ingameIcon;
     public string description;
@@ -63,5 +63,10 @@ public abstract class Item : Equipable
     public void Lock()
     {
         armorySaver.SetBool(equipableKey + name,false);
+    }
+
+    public virtual float GetWeight()
+    {
+        return 1;
     }
 }

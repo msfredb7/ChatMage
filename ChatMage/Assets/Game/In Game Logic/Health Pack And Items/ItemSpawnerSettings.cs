@@ -5,14 +5,17 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Time Drifter/Item Spawner Settings")]
 public class ItemSpawnerSettings : ScriptableObject
 {
+    [Header("Item List")]
     public ItemAvailableList itemList;
     public List<Item> commonItems = new List<Item>();
 
     [Header("Gain Item")]
-    public int everyXKill = 10;
+    public int gainItemOnKillChance = 25; // / 100
+    public float gainItemOnKillHardness = 0.25f;
 
     [Header("Gain Special Item")]
-    public int specialItemEveryXItem = 3;
+    public int gainSpecialItemOnItemPackChance = 33;  // / 100
+    public float gainItemOnItemPackHardness = 0.25f;
 
     public Item GainItem()
     {
