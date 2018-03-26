@@ -29,6 +29,7 @@ public class RegionComplete : WindowAnimation {
 	public void EndlessMode()
 	{
 		Debug.Log("Endless Mode");
+        DefaultAudioSources.StopMusicFaded(1);
         LoadingScreen.TransitionTo(endlessStageSelectionScene.SceneName, null);
 	}
 

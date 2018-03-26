@@ -23,6 +23,7 @@ namespace LevelSelect
 		[Header("MIGS DEMO")]
 		public LevelSelect_SkipLoadout demoScript;
         public AudioClip levelSelectMusic;
+        public AudioClip regionCompleteMusic;
         public float musicVolume;
 		
 		public DataSaver dataSaver;
@@ -36,7 +37,7 @@ namespace LevelSelect
 
         void OnSync()
         {
-            DefaultAudioSources.PlayMusic(levelSelectMusic, volume: musicVolume);
+            
             AddListeners();
 
             //Un peu lourd ? Peut-être qu'on pourrait faire ça AVANT que le loading screen disparaisse (comme Framework)
@@ -49,7 +50,11 @@ namespace LevelSelect
 				dataSaver.SetBool("region_" + GetLastUnlockedRegion() + "_completed", true);
 				dataSaver.Save();
 				RegionComplete.OpenIfClosed();
-			}
+                DefaultAudioSources.PlayMusic(regionCompleteMusic, volume: musicVolume);
+            } else
+            {
+                DefaultAudioSources.PlayMusic(levelSelectMusic, volume: musicVolume);
+            }
 
 			VerifyNewLevelAnimation();
             //NOTE: Quand on va vouloir implémenté des animation forcés (ex: unlock un nouveau niveau / une nouvelle région)
@@ -93,6 +98,7 @@ namespace LevelSelect
 
 		public void OnBackClicked()
         {
+            DefaultAudioSources.StopMusicFaded(1);
             LoadingScreen.TransitionTo(MainMenu.SCENENAME, null);
         }
 

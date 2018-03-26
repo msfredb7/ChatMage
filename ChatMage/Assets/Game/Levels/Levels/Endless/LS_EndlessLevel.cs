@@ -101,6 +101,10 @@ public class LS_EndlessLevel : LevelScript
     public const string bestStepKey = "EndlessBestStage";
     int currentBest;
 
+    // Item Charge
+    public int[] charges = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+    private int currentAmounOfCharges;
+
     // Initialisation avant le debut de la partie
     protected override void OnGameReady()
     {
@@ -218,6 +222,9 @@ public class LS_EndlessLevel : LevelScript
 
         // Lorsque la vague est fini
         wave.onComplete += GoToNextWave;
+
+        // Gestion des Charges
+        GiveCharge(charges[(currentStep - ((currentStage - 1) * (stepToResetSave - 1)))]);
 
         // Initialisation de la vague
         ManuallyAddWave(wave);
@@ -487,25 +494,6 @@ public class LS_EndlessLevel : LevelScript
 
             onComplete.Invoke();
         }, playerEnterDelay);
-
-        /* Animation avec DOTWEEN qui marche pas
-
-        Sequence sq = DOTween.Sequence();
-
-        sq.Insert(playerEnterDelay, playerVehicle.transform.DOMove(new Vector3(0, Game.Instance.gameCamera.Height/2,0), 1 - playerEnterDelay)
-            .OnComplete(delegate ()
-            {
-                //Re-enable player things
-                player.playerDriver.enableInput = true;
-            }));
-
-        sq.InsertCallback(1, delegate ()
-            {
-                // La transition est vraiment fini
-                onComplete.Invoke();
-            })
-            .SetUpdate(false);
-        */
     }
 
     // Retour a la tour
@@ -535,4 +523,20 @@ public class LS_EndlessLevel : LevelScript
         startNextWave.Invoke();
     }
 
+    // CHARGES
+
+    public int GetCharges()
+    {
+        return currentAmounOfCharges;
+    }
+
+    public void UseCharge()
+    {
+        currentAmounOfCharges--;
+    }
+
+    private void GiveCharge(int amount)
+    {
+        currentAmounOfCharges += amount;
+    }
 }

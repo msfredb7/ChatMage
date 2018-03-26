@@ -28,7 +28,7 @@ public class BubbleMageAnimatorV2 : EnemyAnimator
         chargeMoment = chargeCompleteMoment;
         this.shootMoment = shootMoment;
         shootCallback = onComplete;
-        DefaultAudioSources.PlaySFX(chargeSound);
+        DefaultAudioSources.PlaySFX(chargeSound,0,1,GetComponent<AudioSource>());
         controller.SetTrigger(attackHash);
     }
 
