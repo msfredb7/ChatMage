@@ -77,8 +77,11 @@ public class PortalVFX : InGameAnimator
     public void Close(TweenCallback onComplete)
     {
         sq.PlayBackwards();
-        soundPlayer.PlayChoosenSound("close");
-        soundPlayer.GetSoundPlayer("loop").SetLoopingSFXActive(false);
+        if(soundPlayer != null)
+        {
+            soundPlayer.PlayChoosenSound("close");
+            soundPlayer.GetSoundPlayer("loop").SetLoopingSFXActive(false);
+        }
 
         sq.OnComplete(() =>
         {
