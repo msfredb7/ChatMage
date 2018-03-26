@@ -16,7 +16,7 @@ public abstract class Car : Equipable
     {
         base.Init(player);
 
-        Item hpItem = Game.Instance.itemSpawner.settings.commonItems.Count > 0 ? Game.Instance.itemSpawner.settings.commonItems[0] : null;
+        Item hpItem = Game.Instance.itemSpawner.settings.commonItems.Count > 0 ? Game.Instance.itemSpawner.settings.GainItem() : null;
         if(hpItem != null)
             for (int i = 0; i < startingHPItems; i++)
             {

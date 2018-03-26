@@ -30,6 +30,7 @@ public class ItemSpawner : MonoBehaviour
     private void OnGameReady()
     {
         Game.Instance.Player.playerStats.OnUnitKilled += OnUnitKilled;
+        settings.Init();
     }
 
     private void OnUnitKilled(Unit unit)
@@ -55,7 +56,7 @@ public class ItemSpawner : MonoBehaviour
             SpawnSpecialItem(at);
             return;
         }
-        else if (settings.specialItems.Count == 0)
+        else if (!settings.itemList.AreThereSpecialItemsAvailable())
         {
             //Il n'y a pas d'item special
             SpawnCommonItem(at);
@@ -79,13 +80,13 @@ public class ItemSpawner : MonoBehaviour
     public void SpawnCommonItem(Vector2 at)
     {
         commonItemCounter++;
-        SpawnItem(settings.commonItems.PickRandom(), at);
+        SpawnItem(settings.GainItem(), at);
     }
 
     public void SpawnSpecialItem(Vector2 at)
     {
         commonItemCounter = 0;
-        SpawnItem(settings.specialItems.PickRandom(), at);
+        SpawnItem(settings.GainSpecialItem(), at);
     }
 
     public void SpawnItem(Item item, Vector2 at)

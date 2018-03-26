@@ -13,6 +13,9 @@ public abstract class Item : Equipable
     [System.NonSerialized, FullSerializer.fsIgnore]
     private Image ballImageReference;
 
+    public DataSaver armorySaver;
+    private const string equipableKey = "equipable_";
+
     public virtual void Equip(int duplicateIndex)
     {
         var itemDisplay = Game.Instance.ui.newItemsDisplay;
@@ -39,4 +42,25 @@ public abstract class Item : Equipable
     public override void OnGameReady() { }
     public override void OnGameStarted() { }
     public override void OnUpdate() { }
+
+    public bool IsAvailable()
+    {
+        if(armorySaver.ContainsBool(equipableKey + name)){
+            return armorySaver.GetBool(equipableKey + name);
+        } else
+        {
+            Lock();
+            return IsAvailable();
+        }
+    }
+
+    public void Unlocked()
+    {
+        armorySaver.SetBool(equipableKey + name, true);
+    }
+
+    public void Lock()
+    {
+        armorySaver.SetBool(equipableKey + name,false);
+    }
 }
