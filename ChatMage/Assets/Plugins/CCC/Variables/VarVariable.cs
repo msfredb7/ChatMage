@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class VarVariable<T> : ScriptableObject
+public abstract class VarVariable<T> : ScriptableObject, ISerializationCallbackReceiver
 {
-#if UNITY_EDITOR
+    //#if UNITY_EDITOR
     [Multiline]
     public string DeveloperDescription = "";
-#endif
+    //#endif
 
     private T RuntimeValue;
     [SerializeField] private T value;
@@ -18,16 +18,12 @@ public abstract class VarVariable<T> : ScriptableObject
         set { RuntimeValue = value; }
     }
 
-    public void OnEnable()
+    public void OnAfterDeserialize()
     {
         RuntimeValue = value;
-        Debug.Log(name + ":" + value);
     }
 
-    public void OnBeforeSerialize()
-    {
-
-    }
+    public void OnBeforeSerialize() { }
 
     public static implicit operator T(VarVariable<T> reference)
     {
