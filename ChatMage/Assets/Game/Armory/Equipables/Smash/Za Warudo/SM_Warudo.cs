@@ -154,7 +154,7 @@ public class SM_Warudo : Smash
         {
             Unit val = node.Value;
 
-            if(val.allegiance != Allegiance.Ally)
+            if (val.allegiance != Allegiance.Ally)
                 val.TimeScale *= multiplier;
 
             node = node.Next;
@@ -175,11 +175,13 @@ public class SM_Warudo : Smash
         carTrails.sortingOrder = trailsOrderInLayer;
 
         PlayerLocations pl = Game.Instance.Player.playerLocations;
-        activeCarTrails[0] = Instantiate(carTrails.gameObject, pl.BackLeftWheel);
+        activeCarTrails[0] = Instantiate(carTrails.gameObject, pl.BackLeftWheel.position, Quaternion.identity, pl.BackLeftWheel);
         activeCarTrails[0].transform.localPosition = new Vector3(-.1f, -.07f, 0);
+        activeCarTrails[0].GetComponent<TrailRenderer>().enabled = true;
 
-        activeCarTrails[1] = Instantiate(carTrails.gameObject, pl.BackRightWheel);
+        activeCarTrails[1] = Instantiate(carTrails.gameObject, pl.BackRightWheel.position, Quaternion.identity, pl.BackRightWheel);
         activeCarTrails[1].transform.localPosition = new Vector3(-.1f, .07f, 0);
+        activeCarTrails[1].GetComponent<TrailRenderer>().enabled = true;
 
     }
     void DetachActiveCarTrails()
