@@ -19,7 +19,8 @@ public class LoadingScreenAnimation : MonoBehaviour
         bg.DOFade(1, 1).OnComplete(delegate ()
         {
             state = State.Waiting;
-            Camera.main.gameObject.SetActive(false);
+            if (Camera.main != null)
+                Camera.main.gameObject.SetActive(false);
             cam.gameObject.SetActive(true);
             onComplete();
         }).SetUpdate(true);

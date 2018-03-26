@@ -34,7 +34,7 @@ public class ItemPack : Pack
                 firstPickupSave.SaveAsync();
 
                 // Trigger UI Anim
-                //Game.Instance.ui.
+                Game.Instance.ui.itemNotification.Notify(itemReference);
             } // else it isn't the first time so its ok
         }
     }
