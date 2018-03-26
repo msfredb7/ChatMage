@@ -13,6 +13,7 @@ public class NewItemNotification : MonoBehaviour
 
     [Header("Animation References")]
     public Image blackBG;
+    public Sprite simpleHpSprite;
     public Text title;
     public Text description;
     public Image itemImage;
@@ -56,8 +57,7 @@ public class NewItemNotification : MonoBehaviour
         content.alpha = 0;
         blackBG.SetAlpha(0);
         description.text = item.description;
-        itemImage.sprite = item.ingameIcon;
-        itemImage.SetAlpha(item.name == EXCEPTION ? 0 : 1);
+        itemImage.sprite = item.name == EXCEPTION ? simpleHpSprite : item.ingameIcon;
 
         DefaultAudioSources.PlayStaticSFX(sfx);
 
