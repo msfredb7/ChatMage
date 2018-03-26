@@ -34,7 +34,7 @@ public class LS_EndlessLevel : LevelScript
 
         public float GetProgression(float difficultyValue)
         {
-            return new NeverReachingCurve(miny, maxy, speed, minx).Evalutate(difficultyValue);
+            return new NeverReachingCurve(miny, maxy, speed/1000000f, minx).Evalutate(difficultyValue);
         }
     }
 
@@ -203,6 +203,20 @@ public class LS_EndlessLevel : LevelScript
         wave.pauseBetweenRepeat = 0;
         wave.spawnInterval = 1/(spawnInterval.GetProgression(Mathf.RoundToInt(difficulty.GetProgression(currentStep))));
 
+        Debug.Log("Current Stage : " + currentStage + "\n" +
+        "Current Step : " + currentStep + "\n" +
+        "Step in Stage : " + (currentStep - ((currentStage - 1) * (stepToResetSave - 1))) + "\n" +
+        "Spawn Interval : " + wave.spawnInterval + "\n" +
+        "Amount of Charges : " + currentAmounOfCharges + "\n" +
+        "Current Best : " + currentBest + "\n" +
+        "Is Debug : " + useDebug + "\n" +
+        "Current Difficulty : " + difficulty.GetProgression(currentStep) + "\n" +
+        "Difficulty maxy : " + difficulty.maxy + "\n" +
+        "Difficulty minx : " + difficulty.minx + "\n" +
+        "Difficulty miny : " + difficulty.miny + "\n" +
+        "Difficulty speed : " + difficulty.speed.Value + "\n" +
+        "Real Wave Power : " + GetRealStepForPower(currentStep, currentStage) + "\n");
+
         // What ?
         wave.what = new WaveWhat();
         wave.what.spawnSequence = CreateUnitWave(GetRealStepForPower(currentStep,currentStage), possibleUnits);
@@ -246,7 +260,7 @@ public class LS_EndlessLevel : LevelScript
 
         float currentDiversity = enemyDiversity.GetProgression(Mathf.RoundToInt(difficulty.GetProgression(stepUsedForPowerMesure)));
 
-        //Debug.Log("Create wave of power" + currentWavePower + ",speed " + 1 / (spawnInterval.GetProgression(difficulty.GetProgression(currentStep))) + ",diversity " + currentDiversity);
+        Debug.Log("Create wave of power" + currentWavePower + ",speed " + 1 / (spawnInterval.GetProgression(difficulty.GetProgression(currentStep))) + ",diversity " + currentDiversity);
 
         // On trouve la sommation de power qui permet d'obtenir de power total
         List<int> packsPower = FindIncreasingPartSum(currentWavePower);
