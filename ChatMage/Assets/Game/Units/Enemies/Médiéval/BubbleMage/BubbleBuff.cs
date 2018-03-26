@@ -68,8 +68,11 @@ public class BubbleBuff : BaseBuff, IAttackable
                     BumpMode.VelocityChange);
         }
 
-        if(!removeShield)
+        if (!removeShield)
+        {
             UnityEngine.Object.Destroy(vfx);
+            vfx.GetComponent<BubbleExplosionSFX>().PlaySound();
+        }
 
         removeShield = true;
 

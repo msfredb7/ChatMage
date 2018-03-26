@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class BubbleProjectile : MovingUnit
 {
@@ -20,6 +21,9 @@ public class BubbleProjectile : MovingUnit
     private Unit doNoHit;
     private Unit seek;
 
+    public AudioPlayable bubble;
+    public AudioSource bubbleTravelSource;
+
     void Start()
     {
         listener.onTriggerEnter += Listener_onTriggerEnter;
@@ -36,6 +40,7 @@ public class BubbleProjectile : MovingUnit
         {
             if (!unit.HasBuffOfType(typeof(BubbleBuff)))
             {
+                DefaultAudioSources.PlaySFX(bubble);
                 unit.AddBuff(new BubbleBuff(0.2f, bubbleVFX, vfxScaleToUnitWidth));
             }
             Die();
@@ -44,6 +49,7 @@ public class BubbleProjectile : MovingUnit
 
     protected override void Die()
     {
+        bubbleTravelSource.volume = 0;
         if (!isDead)
             Game.Instance.events.AddDelayedAction(Destroy, 1.5f);
         base.Die();
@@ -80,7 +86,10 @@ public class BubbleProjectile : MovingUnit
         maxTimeAlive -= deltaTime;
 
         if (maxTimeAlive < 0 && !isDead)
+        {
             Die();
+        }
+            
     }
 
     private void UpdateSpeed()
