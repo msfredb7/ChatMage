@@ -11,8 +11,8 @@ public class ItemSpawner : MonoBehaviour
 
     public ItemSpawnerSettings settings;
 
-    private int killCounter = 0;
-    private int commonItemCounter = 0;
+    private PseudoRand onUnitSpawnChance;
+    private PseudoRand onItemSpawnChance;
 
     void Start()
     {
@@ -29,7 +29,10 @@ public class ItemSpawner : MonoBehaviour
 
     private void OnGameReady()
     {
+        onUnitSpawnChance = new PseudoRand(settings.gainItemOnKillChance/100f,settings.gainItemOnKillHardness);
+        onItemSpawnChance = new PseudoRand(settings.gainSpecialItemOnItemPackChance/100f,settings.gainItemOnItemPackHardness);
         Game.Instance.Player.playerStats.OnUnitKilled += OnUnitKilled;
+        settings.Init();
     }
 
     private void OnUnitKilled(Unit unit)
@@ -37,59 +40,40 @@ public class ItemSpawner : MonoBehaviour
         if (!enabled || unit == null || unit.allegiance != Allegiance.Enemy)
             return;
 
-        killCounter++;
-
-        //Algorithme temporaire
-        if (killCounter >= settings.everyXKill)
+        Debug.Log("Succes Rate : " + onUnitSpawnChance.SuccessRate + "~ Current Chances : " + onUnitSpawnChance.CurrentChances);
+        if (onUnitSpawnChance.PickResult())
         {
             SpawnItem(unit.Position);
-            killCounter = 0;
         }
     }
 
     public void SpawnItem(Vector2 at)
     {
-        if (settings.commonItems.Count == 0)
+        if (onItemSpawnChance.PickResult())
         {
-            //Il n'y a pas d'item common
+            // Special Item !
             SpawnSpecialItem(at);
-            return;
-        }
-        else if (settings.specialItems.Count == 0)
+        } else
         {
-            //Il n'y a pas d'item special
+            // Common Item !
             SpawnCommonItem(at);
-            return;
-        }
-
-        if (commonItemCounter >= settings.specialItemEveryXItem)
-        {
-            //Il est l'heure d'avoir un special item
-            SpawnSpecialItem(at);
-            return;
-        }
-        else
-        {
-            //Il est l'heure d'avoir un common item
-            SpawnCommonItem(at);
-            return;
         }
     }
 
     public void SpawnCommonItem(Vector2 at)
     {
-        commonItemCounter++;
-        SpawnItem(settings.commonItems.PickRandom(), at);
+        SpawnItem(settings.GainItem(), at);
     }
 
     public void SpawnSpecialItem(Vector2 at)
     {
-        commonItemCounter = 0;
-        SpawnItem(settings.specialItems.PickRandom(), at);
+        SpawnItem(settings.GainSpecialItem(), at);
     }
 
     public void SpawnItem(Item item, Vector2 at)
     {
+        if (item == null)
+            return;
         ItemPack itemPack = Game.Instance.SpawnUnit(pickupPrefab, at);
         itemPack.SetItem(item);
         itemPack.isPreSpawned = false;

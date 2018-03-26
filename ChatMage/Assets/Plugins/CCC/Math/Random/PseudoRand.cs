@@ -32,6 +32,7 @@ public class PseudoRand
     public PseudoRand(float successRate, float hardness)
     {
         SuccessRate = successRate;
+        ResetChances();
         Hardness = hardness;
     }
 
