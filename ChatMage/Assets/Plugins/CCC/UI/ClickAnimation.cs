@@ -11,6 +11,7 @@ public class ClickAnimation : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     public float releaseSpeed = 0.175f;
     public Ease pressEase = Ease.InSine;
     public Ease releaseEase = Ease.OutElastic;
+    public bool independentUpdate = false;
 
     private RectTransform tr;
     private bool clickSequence = false;
@@ -41,13 +42,13 @@ public class ClickAnimation : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     private Tween DownAnim()
     {
         currentTween.Kill();
-        return currentTween = tr.DOScale(Vector3.one * downSize, 0.1f / (pressSpeed + 0.001f)).SetEase(pressEase);
+        return currentTween = tr.DOScale(Vector3.one * downSize, 0.1f / (pressSpeed + 0.001f)).SetEase(pressEase).SetUpdate(independentUpdate);
     }
 
     private Tween UpAnim()
     {
         currentTween.Kill();
-        return currentTween = tr.DOScale(Vector3.one, 0.1f / (releaseSpeed + 0.001f)).SetEase(releaseEase);
+        return currentTween = tr.DOScale(Vector3.one, 0.1f / (releaseSpeed + 0.001f)).SetEase(releaseEase).SetUpdate(independentUpdate);
     }
 
     public void OnPointerDown(PointerEventData eventData)

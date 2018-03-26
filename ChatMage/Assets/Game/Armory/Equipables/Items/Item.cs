@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public abstract class Item : Equipable
 {
     public Sprite ingameIcon;
+    public string description;
 
     [System.NonSerialized, FullSerializer.fsIgnore]
     public int originalAssetID;
