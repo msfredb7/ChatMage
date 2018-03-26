@@ -40,7 +40,6 @@ public class ItemSpawner : MonoBehaviour
         if (!enabled || unit == null || unit.allegiance != Allegiance.Enemy)
             return;
 
-        Debug.Log("Succes Rate : " + onUnitSpawnChance.SuccessRate + "~ Current Chances : " + onUnitSpawnChance.CurrentChances);
         if (onUnitSpawnChance.PickResult())
         {
             SpawnItem(unit.Position);
