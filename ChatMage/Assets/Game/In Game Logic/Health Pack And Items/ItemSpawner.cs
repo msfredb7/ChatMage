@@ -11,6 +11,8 @@ public class ItemSpawner : MonoBehaviour
 
     public ItemSpawnerSettings settings;
 
+    public int endlessMaxItemGivenPerStage = 5;
+
     private PseudoRand onUnitSpawnChance;
     private PseudoRand onItemSpawnChance;
 
@@ -39,11 +41,21 @@ public class ItemSpawner : MonoBehaviour
     {
         if (!enabled || unit == null || unit.allegiance != Allegiance.Enemy)
             return;
-
-        Debug.Log("Succes Rate : " + onUnitSpawnChance.SuccessRate + "~ Current Chances : " + onUnitSpawnChance.CurrentChances);
+        
         if (onUnitSpawnChance.PickResult())
         {
-            SpawnItem(unit.Position);
+            if (Game.Instance.levelScript.name == "LS_EndlessLevel")
+            {
+                if (((LS_EndlessLevel)Game.Instance.levelScript).GetCharges() <= 0)
+                    return;
+                else
+                {
+                    SpawnItem(unit.Position);
+                    ((LS_EndlessLevel)Game.Instance.levelScript).UseCharge();
+                    return;
+                }
+            } else
+                SpawnItem(unit.Position);
         }
     }
 
