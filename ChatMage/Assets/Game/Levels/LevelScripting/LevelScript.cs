@@ -236,7 +236,11 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
                     break;
             }
             if (outro != null)
+            {
+                Game.Instance.commonSfx.WinEndGameIntro();
                 outro.Play();
+            }
+                
         }
 
         OnWin();
