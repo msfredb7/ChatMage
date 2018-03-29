@@ -32,6 +32,7 @@ public class BubbleMageVehicle : EnemyVehicle
             canMove.Lock("dead");
 
             animator.DeathAnimation(Destroy);
+            GetComponent<AudioSource>().volume = 0;
             GetComponent<AI.BubbleMageBrain>().enabled = false;
             GetComponent<Collider2D>().enabled = false;
         }

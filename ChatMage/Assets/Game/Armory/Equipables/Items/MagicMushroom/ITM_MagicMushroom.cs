@@ -34,4 +34,22 @@ public class ITM_MagicMushroom : Item
         DefaultAudioSources.PlaySFX(shrinkSFX);
         player.body.DOBlendableScaleBy(Vector3.one * -scaleIncrease, animDuration).SetEase(Ease.OutElastic);
     }
+
+    [InspectorHeader("Weight Conditions")]
+    public int cantHaveMoreThen = 4;
+
+    public override float GetWeight()
+    {
+        float ajustedWeight = 1;
+        List<Item> playerItems = Game.Instance.Player.playerItems.items;
+        int amountOfBlueShellsPlayerHave = 0;
+        for (int i = 0; i < playerItems.Count; i++)
+        {
+            if (playerItems[i].GetType() == typeof(ITM_MagicMushroom))
+                amountOfBlueShellsPlayerHave++;
+        }
+        if (amountOfBlueShellsPlayerHave >= cantHaveMoreThen)
+            ajustedWeight = 0;
+        return (base.GetWeight() * ajustedWeight);
+    }
 }

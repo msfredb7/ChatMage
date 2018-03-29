@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FullInspector;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -91,5 +92,23 @@ public class ITM_DarkMoleSword : Item
     {
         base.ClearReferences();
         sharedSlots.ReleaseSeat(this);
+    }
+
+    [InspectorHeader("Weight Conditions")]
+    public int cantHaveMoreThen = 10;
+
+    public override float GetWeight()
+    {
+        float ajustedWeight = 1;
+        List<Item> playerItems = Game.Instance.Player.playerItems.items;
+        int amountOfBlueShellsPlayerHave = 0;
+        for (int i = 0; i < playerItems.Count; i++)
+        {
+            if (playerItems[i].GetType() == typeof(ITM_DarkMoleSword))
+                amountOfBlueShellsPlayerHave++;
+        }
+        if (amountOfBlueShellsPlayerHave >= cantHaveMoreThen)
+            ajustedWeight = 0;
+        return (base.GetWeight() * ajustedWeight);
     }
 }

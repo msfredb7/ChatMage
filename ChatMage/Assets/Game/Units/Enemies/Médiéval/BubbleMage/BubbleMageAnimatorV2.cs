@@ -15,6 +15,9 @@ public class BubbleMageAnimatorV2 : EnemyAnimator
     private Action shootMoment;
     private Action shootCallback;
 
+    public AudioPlayable chargeSound;
+    public AudioPlayable shootSound;
+
     void Awake()
     {
         veh = GetComponent<BubbleMageVehicle>();
@@ -25,7 +28,7 @@ public class BubbleMageAnimatorV2 : EnemyAnimator
         chargeMoment = chargeCompleteMoment;
         this.shootMoment = shootMoment;
         shootCallback = onComplete;
-
+        DefaultAudioSources.PlaySFX(chargeSound,0,1,GetComponent<AudioSource>());
         controller.SetTrigger(attackHash);
     }
 
@@ -43,6 +46,7 @@ public class BubbleMageAnimatorV2 : EnemyAnimator
 
     private void _ShootMoment()
     {
+        DefaultAudioSources.PlaySFX(shootSound);
         if (shootMoment != null)
             shootMoment();
         shootMoment = null;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FullInspector;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -84,5 +85,25 @@ public class ITM_ChainChomp : Item
     {
         base.ClearReferences();
         sharedTables.ReleaseSeat(this);
+    }
+
+    [InspectorHeader("Weight Conditions")]
+    public int cantHaveMoreThen = 4;
+
+    public override float GetWeight()
+    {
+        float ajustedWeight = 1;
+        List<Item> playerItems = Game.Instance.Player.playerItems.items;
+        int amountOfBlueShellsPlayerHave = 0;
+        for (int i = 0; i < playerItems.Count; i++)
+        {
+            if (playerItems[i].GetType() == typeof(ITM_ChainChomp))
+                amountOfBlueShellsPlayerHave++;
+        }
+        if (amountOfBlueShellsPlayerHave >= cantHaveMoreThen)
+            ajustedWeight = 0;
+        if (amountOfBlueShellsPlayerHave == 0)
+            ajustedWeight *= 2;
+        return (base.GetWeight() * ajustedWeight);
     }
 }

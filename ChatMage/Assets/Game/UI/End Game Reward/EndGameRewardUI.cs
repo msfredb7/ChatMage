@@ -14,7 +14,8 @@ namespace EndGameReward
         [Header("Linking")]
         public PinataExplosion pinataExplosion;
         public BackgroundFreezer backgroundFreezer;
-        public RewardDisplay rewardDisplay;
+        //public RewardDisplay rewardDisplay;
+        public WinAnimation winAnimation;
         public AudioMixerSnapshot normalAudioSnapshot;
 
         //private string levelScriptAssetName;
@@ -33,13 +34,14 @@ namespace EndGameReward
             normalAudioSnapshot.TransitionTo(0.75f);
             backgroundFreezer.FreezeBackground(currentCamera, delegate ()
             {
-                pinataExplosion.Animate(explosionPosition, PinataExplosion.BallColor.Blue);
+                //pinataExplosion.Animate(explosionPosition, PinataExplosion.BallColor.Blue);
                 canUnloadCallback();
             });
 
             this.DelayedCall(delegate ()
             {
-                rewardDisplay.Init(reward);
+                winAnimation.Animate();
+                //rewardDisplay.Init(reward);
             }, 1);
         }
 

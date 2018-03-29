@@ -3952,7 +3952,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offsetRatio: {x: 1, y: 1}
   offsetLoopDuration: 6
-  showOnStart: 0
+  showOnStart: 1
 --- !u!114 &1203758039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6116,6 +6116,9 @@ MonoBehaviour:
   - {fileID: 212359538}
   - {fileID: 274893097}
   - {fileID: 1000554274}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   _values:
   - _keys: []
     _values: []
@@ -6153,6 +6156,15 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 1000554274}
+  - _keys: []
+    _values: []
+    _target: {fileID: 0}
+  - _keys: []
+    _values: []
+    _target: {fileID: 0}
+  - _keys: []
+    _values: []
+    _target: {fileID: 0}
 --- !u!114 &1649213853
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6177,14 +6189,22 @@ MonoBehaviour:
   - {fileID: 212359538}
   - {fileID: 274893097}
   - {fileID: 1000554274}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   _values:
   - _keys: []
     _values: []
     _target: {fileID: 153121006}
+  - _keys: []
+    _values: []
+    _target: {fileID: 266624493}
   - _keys:
-    - DefaultBehaviorEditor.topHeight.EditProperty
-    - DefaultBehaviorEditor.milestones.EditProperty
-    - DefaultBehaviorEditor.milestoneRelativeHeights.EditProperty
+    - DefaultBehaviorEditor.mapping.EditProperty
+    - DefaultBehaviorEditor.cameraSpawn.EditProperty
+    - DefaultBehaviorEditor.listUnits.EditProperty
+    - DefaultBehaviorEditor.setAIArea.EditProperty
+    - DefaultBehaviorEditor.roadPlayer.EditProperty
     _values:
     - _showDropdown: 0
       _serializedIsActive: 1
@@ -6192,9 +6212,10 @@ MonoBehaviour:
       _serializedIsActive: 1
     - _showDropdown: 0
       _serializedIsActive: 1
-    _target: {fileID: 266624493}
-  - _keys: []
-    _values: []
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
     _target: {fileID: 1644651695}
   - _keys: []
     _values: []
@@ -6223,6 +6244,15 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 1000554274}
+  - _keys: []
+    _values: []
+    _target: {fileID: 0}
+  - _keys: []
+    _values: []
+    _target: {fileID: 0}
+  - _keys: []
+    _values: []
+    _target: {fileID: 0}
 --- !u!1 &1653960348
 GameObject:
   m_ObjectHideFlags: 0

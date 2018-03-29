@@ -17,6 +17,9 @@ public class LS_FirstLevel : LevelScript
             case "fade bot":
                 Game.Instance.map.mapping.GetTaggedObject("bot").GetComponent<SpriteGroup>().DOFade(1, 0.5f).SetUpdate(true);
                 break;
+            case "arrowEvent":
+                Game.Instance.map.mapping.GetTaggedObject("arrow").GetComponent<GuideArrow>().gameObject.SetActive(true);
+                break;
         }
     }
 }

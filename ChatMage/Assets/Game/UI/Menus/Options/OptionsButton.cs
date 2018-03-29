@@ -5,6 +5,7 @@ using UnityEngine;
 using System;
 using CCC.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class OptionsButton : MonoBehaviour
 {
@@ -16,7 +17,19 @@ public class OptionsButton : MonoBehaviour
     {
         if (canOpenWithEscape && Input.GetKeyDown(KeyCode.Escape))
         {
-            OpenOptions();
+            var clickAnim = GetComponent<ClickAnimation>();
+            if (clickAnim != null)
+                clickAnim.ManualClickAnim();
+
+            var buttonSound = GetComponent<ButtonSoundADV>();
+            if (buttonSound)
+                buttonSound.ManualClick();
+
+            var button = GetComponent<Button>();
+            if (button)
+                button.onClick.Invoke();
+            else
+                OpenOptions();
         }
     }
 

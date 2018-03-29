@@ -48,6 +48,6 @@ public class WalkOnSpawn : OnSpawnAction
             //On reactive le cerveau a la fin
             if (!veh.IsDead && brain != null)
                 brain.enabled = true;
-        });
+        }, 2.5f);
     }
 }

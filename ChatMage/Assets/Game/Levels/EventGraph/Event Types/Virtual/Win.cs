@@ -4,12 +4,11 @@ using UnityEngine;
 
 namespace GameEvents
 {
-    [MenuItem("Level/Win"), DefaultNodeName("Win")]
+    [MenuItem("Music/Win"), DefaultNodeName("Win")]
     public class Win : VirtualEvent, IEvent
     {
         public void Trigger()
         {
-            Game.Instance.levelScript.Win();
             Game.Instance.music.TransitionTo(MusicManager.SongName.Win);
         }
 
@@ -20,7 +19,7 @@ namespace GameEvents
 
         public override string NodeLabel()
         {
-            return "Win the Game";
+            return "Win Music for the end of the Game";
         }
     }
 }

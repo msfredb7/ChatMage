@@ -18,22 +18,15 @@ public class RegionComplete : WindowAnimation {
 		Exit();
 	}
 
-
-
-
 	public void KeepPlaying()
 	{
-		Debug.Log("Keep playing");
-        Close();
+        Exit();
 	}
 	public void EndlessMode()
 	{
-		Debug.Log("Endless Mode");
+        DefaultAudioSources.StopMusicFaded(1);
         LoadingScreen.TransitionTo(endlessStageSelectionScene.SceneName, null);
 	}
-
-
-
 
 	private void Exit()
 	{
@@ -70,14 +63,4 @@ public class RegionComplete : WindowAnimation {
 			return;
 		Scenes.LoadAsync(SCENENAME, LoadSceneMode.Additive);
 	}
-
-	/*
-	void Update()
-	{
-		if (Input.GetKeyDown(KeyCode.Escape))
-		{
-			CloseMenu();
-		}
-	}
-	*/
 }

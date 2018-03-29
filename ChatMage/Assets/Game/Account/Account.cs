@@ -17,9 +17,16 @@ public class Account : MonoPersistent
     public event SimpleEvent onCoinsChange;
 
     private Purchaser purchaser;
-    [SerializeField] DataSaver dataSaver;
+    [SerializeField]
+    DataSaver dataSaver;
 
     public static Account instance;
+
+#if UNITY_ADS
+    // ADS
+    private const string androidGameId = "1426499", iosGameId = "1426500";
+    private const bool testMode = true;
+#endif
 
     void Awake()
     {
@@ -30,34 +37,30 @@ public class Account : MonoPersistent
     {
         FetchData();
 
+        // INIT MOBILE TOOLS FOR PLAYER
 #if UNITY_ANDROID
-        purchaser = new Purchaser();
-        purchaser.Init();
-#endif
-        onComplete();
-    }
+        // IN GAME PURCHASE
+        //purchaser = new Purchaser();
+        //purchaser.Init();
 
-    // ADS
+        // ADS
 #if UNITY_ADS
-    private const string androidGameId = "1426499", iosGameId = "1426500";
-    private const bool testMode = true;
-
-    //#if UNITY_ADS
-    public void ShowRewardedAd()
-    {
         string gameId;
 #if UNITY_ANDROID
         gameId = androidGameId;
 #elif UNITY_IOS
         gameId = iosGameId;
 #endif
-
         if (!Advertisement.isInitialized)
         {
             Advertisement.Initialize(gameId, testMode);
         }
-    }
 #endif
+#endif
+
+        onComplete();
+    }
+
 
     private void FetchData()
     {
@@ -110,15 +113,17 @@ public class Account : MonoPersistent
     {
         return AddCoins(StorePrice.GetPrice(commandType) * amount, saveAfterwards);
     }
-#if UNITY_ANDROID
-    public void BuyCoins(int amount)
-    {
-        purchaser.BuyConsumable(amount);
-    }
 
-    public void BuyFullGame()
-    {
-        purchaser.BuyTheGame();
-    }
+    // IN GAME PURCHASE
+#if UNITY_ANDROID
+    //public void BuyCoins(int amount)
+    //{
+    //    purchaser.BuyConsumable(amount);
+    //}
+
+    //public void BuyFullGame()
+    //{
+    //    purchaser.BuyTheGame();
+    //}
 #endif
 }

@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using FullInspector;
 
-public class EndGameRewardDebug : BaseBehavior {
-
-    public EndGameReward.PinataExplosion explosion;
+public class EndGameRewardDebug : BaseBehavior
+{
+    public WinAnimation winAnimation;
 
     [InspectorButton]
     public void Animate()
     {
-        explosion.Animate(Vector2.up * 1.15f, EndGameReward.PinataExplosion.BallColor.Blue);
+        winAnimation.Animate();
     }
 }

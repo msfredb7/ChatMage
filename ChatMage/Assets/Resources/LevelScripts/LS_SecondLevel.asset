@@ -11,7 +11,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53f3c83a20da88e47a6a88af09b295a0, type: 3}
   m_Name: LS_SecondLevel
   m_EditorClassIdentifier: 
-  _objectReferences: []
+  _objectReferences:
+  - {fileID: 11400000, guid: e9934c509f41f20478c8992e4248029a, type: 2}
   _serializedStateKeys:
   - winningConditions
   - losingConditions
@@ -23,7 +24,7 @@ MonoBehaviour:
   - '[{"$type":"GameCondition.LoseOnPlayerDeath"}]'
   - 
   - '[]'
-  - '[]'
+  - '[0]'
   sceneInfo: {fileID: 11400000, guid: e31ac6f130048af479d415ea76ec8c35, type: 2}
   dataSaver: {fileID: 11400000, guid: ddccaa3a858acc3458d9734bb2ec9d3e, type: 2}
   armoryData: {fileID: 11400000, guid: 7974f73ff596eae41a4721224c1384f2, type: 2}
@@ -37,7 +38,8 @@ MonoBehaviour:
   followPlayerOnStart: 0
   useCustomGenericEvents: 0
   events: []
-  rewards: []
+  rewards:
+  - {fileID: 11400000, guid: e9934c509f41f20478c8992e4248029a, type: 2}
   activateTutorial: 0
   tutorialAssetName: TUT_SmashTutorial
   tutorialData: {fileID: 0}

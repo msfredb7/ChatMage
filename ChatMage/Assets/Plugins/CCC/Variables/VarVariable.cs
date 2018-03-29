@@ -4,10 +4,10 @@ using UnityEngine;
 
 public abstract class VarVariable<T> : ScriptableObject, ISerializationCallbackReceiver
 {
-#if UNITY_EDITOR
+    //#if UNITY_EDITOR
     [Multiline]
     public string DeveloperDescription = "";
-#endif
+    //#endif
 
     private T RuntimeValue;
     [SerializeField] private T value;
@@ -23,10 +23,7 @@ public abstract class VarVariable<T> : ScriptableObject, ISerializationCallbackR
         RuntimeValue = value;
     }
 
-    public void OnBeforeSerialize()
-    {
-
-    }
+    public void OnBeforeSerialize() { }
 
     public static implicit operator T(VarVariable<T> reference)
     {

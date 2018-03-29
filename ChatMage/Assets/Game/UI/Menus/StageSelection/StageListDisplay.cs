@@ -26,6 +26,8 @@ public class StageListDisplay : MonoBehaviour
 
     public int minimumStageUnlocked = 1;
 
+    public AudioClip stageSelectionMusic;
+
     private int _stageAmountUnlocked;
     private Tween scrollAnim;
 
@@ -48,6 +50,7 @@ public class StageListDisplay : MonoBehaviour
 
     void Start()
     {
+        DefaultAudioSources.PlayMusic(stageSelectionMusic);
         PersistentLoader.LoadIfNotLoaded(() =>
         {
             LoadInfo();
@@ -63,7 +66,6 @@ public class StageListDisplay : MonoBehaviour
         StageUnlocked = Mathf.FloorToInt(datasaver.GetInt(LS_EndlessLevel.bestStepKey) / LS_EndlessLevel.stepToResetSave) + 1;
         if (StageUnlocked < minimumStageUnlocked)
             StageUnlocked = minimumStageUnlocked;
-        //Debug.Log(datasaver.GetInt(LS_EndlessLevel.bestStepKey));
     }
 
     void SpawnButtons()

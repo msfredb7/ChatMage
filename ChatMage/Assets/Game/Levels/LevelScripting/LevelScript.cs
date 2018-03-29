@@ -79,7 +79,7 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
     public List<UnitWaveV2> waves;
 
     [InspectorCategory("LEVEL"), InspectorHeader("Winning Rewards")]
-    public List<EquipablePreview> rewards;
+    public List<Item> rewards;
 
     public event SimpleEvent onWin;
     public event SimpleEvent onLose;
@@ -211,8 +211,10 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
         bool wasCompleted = HasBeenCompleted(this, dataSaver);
 
         if (!wasCompleted)
+        {
             MarkAsCompleted(this, dataSaver);
-
+            GiveRewards();
+        }
 
         if (onWin != null)
             onWin();
@@ -234,7 +236,11 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
                     break;
             }
             if (outro != null)
+            {
+                Game.Instance.commonSfx.WinEndGameIntro();
                 outro.Play();
+            }
+                
         }
 
         OnWin();
@@ -277,6 +283,14 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
         }
 
         OnLose();
+    }
+
+    void GiveRewards()
+    {
+        for (int i = 0; i < rewards.Count; i++)
+        {
+            rewards[i].Unlocked();
+        }
     }
 
     void StartTutorial()

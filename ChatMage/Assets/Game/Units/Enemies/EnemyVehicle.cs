@@ -21,6 +21,7 @@ public abstract class EnemyVehicle : Vehicle, IAttackable
     protected Vector2 targetPosition;
     protected bool goingToTargetPosition = false;
     protected Action onReach = null;
+    private float gotoMaxDurationTimer;
 
     public bool IsEnginOn { get { return currentMoveSpeed > 0; } }
 
@@ -39,12 +40,12 @@ public abstract class EnemyVehicle : Vehicle, IAttackable
         onReach = null;
     }
 
-    public void GotoPosition(Vector2 position, Action onReach = null)
+    public void GotoPosition(Vector2 position, Action onReach = null, float maximumAllowedDuration = -1)
     {
-        QuickGotoPos(position, onReach);
+        QuickGotoPos(position, onReach, maximumAllowedDuration);
     }
 
-    private void QuickGotoPos(Vector2 position, Action onReach = null)
+    private void QuickGotoPos(Vector2 position, Action onReach, float maximumAllowedDuration)
     {
         //Clamp to AI Area
         if (clampToAIArea && Game.Instance != null)
@@ -52,6 +53,8 @@ public abstract class EnemyVehicle : Vehicle, IAttackable
 
         if (smartMove)
             position = NAV_SmartMover.SmartifyMove(Position, position, unitWidth);
+
+        gotoMaxDurationTimer = maximumAllowedDuration;
 
         targetPosition = position;
         goingToTargetPosition = true;
@@ -98,10 +101,16 @@ public abstract class EnemyVehicle : Vehicle, IAttackable
     {
         if (goingToTargetPosition)
         {
+            // Timer pour s'assurer qu'on seek pas une position pour l'infinie
+            bool wasInTimer = gotoMaxDurationTimer > 0;
+            gotoMaxDurationTimer -= Time.fixedDeltaTime;
+            bool isInTimer = gotoMaxDurationTimer > 0;
+            bool timerHasJustEnded = wasInTimer && !isInTimer;
+
             Vector2 v = targetPosition - rb.position;
 
             //Distance to target ?
-            if (v.sqrMagnitude > 0.09f)
+            if (v.sqrMagnitude > 0.09f && !timerHasJustEnded)
             {
                 float vAngle = v.ToAngle();
                 float angleDelta = (Rotation - vAngle).Abs();

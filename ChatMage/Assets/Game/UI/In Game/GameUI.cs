@@ -42,6 +42,7 @@ public class GameUI : MonoBehaviour {
         dialogDisplay.Init();
         itemsDisplay.Init(playerController);
         newItemsDisplay.Init(playerController);
+        itemNotification.Init(playerController.GetComponent<PlayerItems>());
 
         float aspect = Game.Instance.gameCamera.cam.aspect;
 

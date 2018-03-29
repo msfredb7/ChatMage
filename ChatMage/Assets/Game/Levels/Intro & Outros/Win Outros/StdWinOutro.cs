@@ -21,7 +21,7 @@ namespace GameIntroOutro
         {
             rewardUI = Scenes.FindRootObject<EndGameRewardUI>(scene);
 
-            rewardUI.Init(Game.Instance.levelScript.rewards, Game.Instance.levelScript.name);
+            //rewardUI.Init(Game.Instance.levelScript.rewards, Game.Instance.levelScript.name);
 
             CheckEnd();
         }

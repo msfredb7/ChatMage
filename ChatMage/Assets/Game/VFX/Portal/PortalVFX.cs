@@ -40,14 +40,16 @@ public class PortalVFX : InGameAnimator
 
         portalScaler.localScale = new Vector3(0, 0, 1);
 
-        light.color = light.color.ChangedAlpha(0);
+        if (light)
+            light.color = light.color.ChangedAlpha(0);
 
         sq = DOTween.Sequence();
         sq.SetAutoKill(false);
         sq.Join(portalScaler.DOScaleX(1, xDuration).SetEase(xEase));
         sq.Join(portalScaler.DOScaleY(1, yDuration).SetEase(yEase));
         sq.Join(portalScaler.DOScaleY(1, yDuration).SetEase(yEase));
-        sq.Join(light.DOFade(lightAlpha, Mathf.Max(yDuration, xDuration)).SetEase(Ease.OutSine));
+        if (light)
+            sq.Join(light.DOFade(lightAlpha, Mathf.Max(yDuration, xDuration)).SetEase(Ease.OutSine));
 
         AddTimescaleListener();
 
@@ -77,8 +79,11 @@ public class PortalVFX : InGameAnimator
     public void Close(TweenCallback onComplete)
     {
         sq.PlayBackwards();
-        soundPlayer.PlayChoosenSound("close");
-        soundPlayer.GetSoundPlayer("loop").SetLoopingSFXActive(false);
+        if (soundPlayer != null)
+        {
+            soundPlayer.PlayChoosenSound("close");
+            soundPlayer.GetSoundPlayer("loop").SetLoopingSFXActive(false);
+        }
 
         sq.OnComplete(() =>
         {
@@ -103,7 +108,9 @@ public class PortalVFX : InGameAnimator
     void Active(bool state)
     {
         portalScaler.gameObject.SetActive(state);
-        light.enabled = state;
+        if (light)
+            light.enabled = state;
+        Debug.Log("active " + state);
     }
 
     protected override void UpdateTimescale(float worldTimescale)

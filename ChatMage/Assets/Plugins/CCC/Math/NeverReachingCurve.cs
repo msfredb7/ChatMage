@@ -9,9 +9,10 @@ namespace CCC.Math
     /// Similar to Lerp, but alpha can go from 'minX' to positive infinity
     /// View online: https://www.desmos.com/calculator/botoga5bml
     /// </summary>
+    //[System.Serializable]
     public struct NeverReachingCurve
     {
-        public float a
+        public float A
         {
             get { return _a; }
             set
@@ -20,7 +21,7 @@ namespace CCC.Math
                 Calculate_O_and_P();
             }
         }
-        public float b
+        public float B
         {
             get { return _b; }
             set
@@ -29,7 +30,7 @@ namespace CCC.Math
                 Calculate_O_and_P();
             }
         }
-        public float speed
+        public float Speed
         {
             get { return _speed; }
             set
@@ -38,7 +39,7 @@ namespace CCC.Math
                 Calculate_O_and_P();
             }
         }
-        public float minX
+        public float MinX
         {
             get { return _minX; }
             set
@@ -87,10 +88,10 @@ namespace CCC.Math
 
             NeverReachingCurve c = (NeverReachingCurve)obj;
 
-            return _a == c.a
-                && _b == c.b
-                && _speed == c.speed
-                && _minX == c.minX;
+            return _a == c.A
+                && _b == c.B
+                && _speed == c.Speed
+                && _minX == c.MinX;
         }
 
         public override int GetHashCode()
@@ -100,7 +101,7 @@ namespace CCC.Math
 
         public override string ToString()
         {
-            return "NRC: a=" + a + "    b=" + b + "    speed=" + speed + "    minX=" + minX;
+            return "NRC: a=" + A + "    b=" + B + "    speed=" + Speed + "    minX=" + MinX;
         }
 
         public static bool operator ==(NeverReachingCurve i, NeverReachingCurve j)

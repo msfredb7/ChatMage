@@ -17,4 +17,9 @@ public class ButtonSoundADV : MonoBehaviour, IPointerClickHandler, IPointerDownH
     {
         DefaultAudioSources.PlayStaticSFX(onClick);
     }
+
+    public void ManualClick()
+    {
+        DefaultAudioSources.PlayStaticSFX(onClick);
+    }
 }
