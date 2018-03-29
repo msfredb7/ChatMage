@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ItemPack : Pack
 {
+    [Header("Item Related")]
     public Item itemReference;
-
     public DataSaver firstPickupSave;
 
     private string firstPickUpKey = "FPUK";

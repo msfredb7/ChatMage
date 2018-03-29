@@ -5553,11 +5553,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4827846602179008, guid: 8a3b671c04f45a24b81c599f602d69d3, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -6.39
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 4827846602179008, guid: 8a3b671c04f45a24b81c599f602d69d3, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -21.04
+      value: -23.25
       objectReference: {fileID: 0}
     - target: {fileID: 4827846602179008, guid: 8a3b671c04f45a24b81c599f602d69d3, type: 2}
       propertyPath: m_LocalPosition.z
@@ -5589,6 +5589,14 @@ Prefab:
       value: 
       objectReference: {fileID: 11400000, guid: 7b32e730ab6dce6479a5e0dce7f4d3f1,
         type: 2}
+    - target: {fileID: 4827846602179008, guid: 8a3b671c04f45a24b81c599f602d69d3, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4827846602179008, guid: 8a3b671c04f45a24b81c599f602d69d3, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8a3b671c04f45a24b81c599f602d69d3, type: 2}
   m_IsPrefabParent: 0
@@ -7768,6 +7776,11 @@ Transform:
   m_Father: {fileID: 1659626762}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1361414148 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1080693320418902, guid: 8a3b671c04f45a24b81c599f602d69d3,
+    type: 2}
+  m_PrefabInternal: {fileID: 942875580}
 --- !u!1 &1363500749
 GameObject:
   m_ObjectHideFlags: 0
@@ -10150,6 +10163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objectReferences:
   - {fileID: 1236529703}
+  - {fileID: 1361414148}
   - {fileID: 1642682635}
   - {fileID: 627822515}
   - {fileID: 1569576615}
@@ -10158,14 +10172,15 @@ MonoBehaviour:
   - startAIArea
   - positionDisplacers
   _serializedStateValues:
-  - '[0]'
+  - '[0,1]'
   - '{"min":{"x":-8.0,"y":-25.0},"max":{"x":8.0,"y":5.61}}'
-  - '[1,2,3]'
+  - '[2,3,4]'
   mapping: {fileID: 153121006}
   cameraSpawn: {fileID: 1833739392}
   showCameraTrails: 1
   listUnits:
   - {fileID: 1236529703}
+  - {fileID: 1361414148}
   setAIArea: 1
   startAIArea:
     min: {x: -8, y: -25}
@@ -10546,23 +10561,8 @@ MonoBehaviour:
     - _showDropdown: 0
       _serializedIsActive: 1
     _target: {fileID: 267499301}
-  - _keys:
-    - DefaultBehaviorEditor.mapping.EditProperty
-    - DefaultBehaviorEditor.cameraSpawn.EditProperty
-    - DefaultBehaviorEditor.listUnits.EditProperty
-    - DefaultBehaviorEditor.setAIArea.EditProperty
-    - DefaultBehaviorEditor.roadPlayer.EditProperty
-    _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 1
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
+  - _keys: []
+    _values: []
     _target: {fileID: 1644651695}
   - _keys:
     - DefaultBehaviorEditor.modifyCanScrollUp.EditProperty

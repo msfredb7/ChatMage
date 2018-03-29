@@ -8,7 +8,7 @@ using FullInspector;
 using DG.Tweening;
 using CCC.UI.Animation;
 
-public class MainMenu : BaseBehavior
+public class MainMenu : MonoBehaviour
 {
     public const string SCENENAME = "MainMenu";
     public bool easyVersion = true; // POUR LE MIGS HARD(Accès direct au level select et loadout)
@@ -31,20 +31,22 @@ public class MainMenu : BaseBehavior
     public float animDuration = 1.0f;
 
     [Header("First time playing")]
+    public SceneInfo cinematicScene;
     public Level firstLevel;
     public SceneInfo stageSelectionInfo;
     public string carAssetName;
-
-    public AudioClip anthem;
-    public float musicVolume = 0.65f;
-
     public LS_ThridLevel thirdLevel;
+
+    [Header("Music")]
+    public AudioAsset music;
+
 
     public void Init()
     {
         PersistentLoader.LoadIfNotLoaded(delegate ()
         {
-            DefaultAudioSources.PlayMusic(anthem, volume: musicVolume);
+            DefaultAudioSources.PlayMusic(music);
+
             adventureButton.onClick.AddListener(OnAdventureClick);
             endlessButton.onClick.AddListener(OnEndlessClick);
             goRight.onClick.AddListener(ModesGoRight);
@@ -64,9 +66,9 @@ public class MainMenu : BaseBehavior
         }
         else
         {
-            if (thirdLevel.dataSaver.ContainsBool(LS_ThridLevel.COMPLETED_KEY + thirdLevel.name))
+            if (thirdLevel.dataSaver.ContainsBool(LevelScript.COMPLETED_KEY + thirdLevel.name))
             {
-                if (!thirdLevel.dataSaver.GetBool(LS_ThridLevel.COMPLETED_KEY + thirdLevel.name))
+                if (!thirdLevel.dataSaver.GetBool(LevelScript.COMPLETED_KEY + thirdLevel.name))
                 {
                     SetTextButtonActive(endlessButton, false);
                     SetTextButtonActive(goLeft, false);
@@ -141,7 +143,10 @@ public class MainMenu : BaseBehavior
         //CinematicScene.LaunchCinematic("Cinematic Demo", cinematicSettings);
 
         // ON NE PASSE PAS PAR L'INTRO
-        LoadingScreen.TransitionTo(Framework.SCENENAME, gameMessage, true);
+        CinematicEnder.onCompletion = new CinematicEnder.OnCompletion(Framework.SCENENAME, gameMessage, true);
+        DefaultAudioSources.StopMusicFaded();
+        LoadingScreen.TransitionTo(cinematicScene.SceneName, null, false, Color.black);
+        //LoadingScreen.TransitionTo(Framework.SCENENAME, gameMessage, true);
     }
 
     void GoToLevelSelect()
