@@ -19,14 +19,14 @@ namespace EndGameReward
         public AudioMixerSnapshot normalAudioSnapshot;
 
         //private string levelScriptAssetName;
-        private List<EquipablePreview> reward;
+        //private List<EquipablePreview> reward;
 
         private Vector2 pinataCenter;
 
         public void Init(List<EquipablePreview> reward, string levelScriptAssetName)
         {
             //this.levelScriptAssetName = levelScriptAssetName;
-            this.reward = reward;
+            //this.reward = reward;
         }
 
         public void PinataHasBeenDestroyed(Vector2 explosionPosition, Camera currentCamera, Action canUnloadCallback)

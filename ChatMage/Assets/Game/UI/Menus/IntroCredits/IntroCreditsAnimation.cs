@@ -12,13 +12,13 @@ public class IntroCreditsAnimation : MonoBehaviour
     public Image logo2Sprite;
     public float fadeDuration = 1f;
     public float startDelay = 2f;
-    public AudioClip logoSound;
+    public AudioAsset logoSound;
 
     void Start()
     {
         PersistentLoader.LoadIfNotLoaded(delegate ()
         {
-            DefaultAudioSources.PlayMusic(logoSound, false, 0.1f); // Son de l'apparition du logo
+            DefaultAudioSources.PlayStaticSFX(logoSound); // Son de l'apparition du logo
             // Après un délai initial
             this.DelayedCall(delegate ()
             {
@@ -27,14 +27,19 @@ public class IntroCreditsAnimation : MonoBehaviour
                 animation.Append(logo2Sprite.DOFade(1, fadeDuration)); // On fait fade in le logo
                 animation.Append(logo2Sprite.DOFade(0, fadeDuration)); // On fait fade out le logo
                 animation.Append(backgroundSprite.DOFade(0, fadeDuration)); // On fait fade out le background
-                animation.OnComplete(delegate () { Scenes.Load("MainMenu"); });
+                animation.OnComplete(LoadNextScene);
             }, startDelay);
         });
     }
 
     void Update()
     {
-        if (Input.anyKey)
-            Scenes.Load("MainMenu");
+        if (Input.anyKeyDown || Input.touchCount > 0)
+            LoadNextScene();
+    }
+
+    private void LoadNextScene()
+    {
+        Scenes.Load(MainMenu.SCENENAME);
     }
 }

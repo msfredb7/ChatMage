@@ -22,9 +22,8 @@ namespace LevelSelect
 
 		[Header("MIGS DEMO")]
 		public LevelSelect_SkipLoadout demoScript;
-        public AudioClip levelSelectMusic;
-        public AudioClip regionCompleteMusic;
-        public float musicVolume;
+        public AudioAsset levelSelectMusic;
+        public AudioAsset regionCompleteMusic;
 		
 		public DataSaver dataSaver;
 
@@ -50,10 +49,10 @@ namespace LevelSelect
 				dataSaver.SetBool("region_" + GetLastUnlockedRegion() + "_completed", true);
 				dataSaver.Save();
 				RegionComplete.OpenIfClosed();
-                DefaultAudioSources.PlayMusic(regionCompleteMusic, volume: musicVolume);
+                DefaultAudioSources.TransitionToMusic(regionCompleteMusic);
             } else
             {
-                DefaultAudioSources.PlayMusic(levelSelectMusic, volume: musicVolume);
+                DefaultAudioSources.TransitionToMusic(levelSelectMusic);
             }
 
 			VerifyNewLevelAnimation();

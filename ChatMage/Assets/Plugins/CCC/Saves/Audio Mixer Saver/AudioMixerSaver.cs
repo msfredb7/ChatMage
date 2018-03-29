@@ -41,8 +41,9 @@ public partial class AudioMixerSaver : FileScriptableInterface, IPersistent
     public void Init(Action onComplete)
     {
         if (loadOnInit)
-            Load();
-        onComplete();
+            Load(onComplete);
+        else
+            onComplete();
     }
     public UnityEngine.Object DuplicationBehavior()
     {
