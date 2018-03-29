@@ -17,13 +17,19 @@ public class LoadingScreen
     private static bool isInTransition = false;
     private static LoadingScreenAnimation animator;
     private static bool waitForNextSceneSetup = false;
+    public static Color color;
 
     public static void TransitionTo(string sceneName, SceneMessage message, bool waitForNextSceneSetup = false)
+    {
+        TransitionTo(sceneName, message, waitForNextSceneSetup, Color.white);
+    }
+    public static void TransitionTo(string sceneName, SceneMessage message, bool waitForNextSceneSetup, Color color)
     {
         if (isInTransition)
         {
             throw new System.Exception("Cannot transition to " + sceneName + ". We are already transitioning.");
         }
+        LoadingScreen.color = color;
 
         LoadingScreen.waitForNextSceneSetup = waitForNextSceneSetup;
         isInTransition = true;

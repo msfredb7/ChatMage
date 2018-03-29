@@ -13,6 +13,11 @@ public class LoadingScreenAnimation : MonoBehaviour
     public State GetState() { return state; }
     private State state = State.BeforeIntro;
 
+    void Awake()
+    {
+        bg.color = LoadingScreen.color;
+    }
+
     public void Intro(UnityAction onComplete)
     {
         state = State.Intro;
