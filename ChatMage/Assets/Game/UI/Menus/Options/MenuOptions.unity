@@ -887,6 +887,7 @@ GameObject:
   - component: {fileID: 1217391660}
   - component: {fileID: 1217391659}
   - component: {fileID: 1217391657}
+  - component: {fileID: 1217391658}
   m_Layer: 5
   m_Name: Menu Options Canvas
   m_TagString: Untagged
@@ -917,9 +918,28 @@ MonoBehaviour:
   exitTime: 0.25
   exitEase: 2
   instantHideContent: 1
+  unloadSceneOnClose: 1
   autoDetectSize: 1
   size: {x: 0, y: 0}
   audioMixerSaver: {fileID: 11400000, guid: b6140d55064df084fb07a35e1f35757b, type: 2}
+--- !u!114 &1217391658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1217391656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab763c5484204424b97914e3210c2eed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CanBeClosedWithEscape: 1
+  buttonClickToSimulate: {fileID: 1914878562}
+  closeAction:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &1217391659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1789,7 +1809,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -15, y: 15}
+  m_AnchoredPosition: {x: -15, y: 14.999985}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1914878562
@@ -1889,6 +1909,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   downSize: 0.93
+  upSize: 1
   pressSpeed: 4
   releaseSpeed: 0.175
   pressEase: 2

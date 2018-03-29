@@ -8,47 +8,21 @@ using UnityEngine.SceneManagement;
 public class MenuOptions : WindowAnimation
 {
     public const string SCENENAME = "MenuOptions";
-    private bool isQuitting = false;
 
     [SerializeField] private AudioMixerSaver audioMixerSaver;
 
     public void Confirm()
     {
-        if (isQuitting)
-            return;
-        audioMixerSaver.Save();
-        Exit();
+        if (IsOpen())
+            audioMixerSaver.Save();
+        Close();
     }
 
     public void Cancel()
     {
-        if (isQuitting)
-            return;
-        audioMixerSaver.Load();
-        Exit();
-    }
-
-    private void Exit()
-    {
-        if (isQuitting) return;
-
-        isQuitting = true;
-
-        if (this != null)
-        {
-            Close(
-                delegate ()
-                {
-                    Scenes.UnloadAsync(SCENENAME);
-                    isQuitting = false;
-                }
-            );
-        }
-        else
-        {
-            Scenes.UnloadAsync(SCENENAME);
-            isQuitting = false;
-        }
+        if (IsOpen())
+            audioMixerSaver.Load();
+        Close();
     }
 
     public static void OpenIfClosed()
@@ -62,13 +36,5 @@ public class MenuOptions : WindowAnimation
         if (Scenes.IsActive(SCENENAME))
             return;
         Scenes.LoadAsync(SCENENAME, LoadSceneMode.Additive);
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Confirm();
-        }
     }
 }

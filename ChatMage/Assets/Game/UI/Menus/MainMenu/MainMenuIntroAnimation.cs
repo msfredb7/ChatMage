@@ -2,18 +2,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class MainMenuIntroAnimation : MonoBehaviour {
-
-    public CanvasGroup canvasGroup;
+public class MainMenuIntroAnimation : MonoBehaviour
+{
+    public Image frontFade;
     public float fadeDuration = 1f;
-
-    public MainMenu mainMenu;
 
     void Start()
     {
-        mainMenu.Init();
-        canvasGroup.alpha = 0;
-        canvasGroup.DOFade(1, fadeDuration).OnComplete(null);
+        frontFade.enabled = true;
+        frontFade.DOFade(0, fadeDuration).onComplete = () => frontFade.enabled = false;
     }
 }

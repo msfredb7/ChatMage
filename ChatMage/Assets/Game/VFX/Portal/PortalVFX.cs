@@ -110,7 +110,6 @@ public class PortalVFX : InGameAnimator
         portalScaler.gameObject.SetActive(state);
         if (light)
             light.enabled = state;
-        Debug.Log("active " + state);
     }
 
     protected override void UpdateTimescale(float worldTimescale)

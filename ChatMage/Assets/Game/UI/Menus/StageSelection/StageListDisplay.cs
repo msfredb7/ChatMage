@@ -26,7 +26,7 @@ public class StageListDisplay : MonoBehaviour
 
     public int minimumStageUnlocked = 1;
 
-    public AudioClip stageSelectionMusic;
+    public AudioAsset stageSelectionMusic;
 
     private int _stageAmountUnlocked;
     private Tween scrollAnim;
@@ -50,7 +50,7 @@ public class StageListDisplay : MonoBehaviour
 
     void Start()
     {
-        DefaultAudioSources.PlayMusic(stageSelectionMusic);
+        DefaultAudioSources.TransitionToMusic(stageSelectionMusic, startingVolume: 1);
         PersistentLoader.LoadIfNotLoaded(() =>
         {
             LoadInfo();

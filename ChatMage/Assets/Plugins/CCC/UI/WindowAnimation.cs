@@ -1,5 +1,5 @@
 using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using DG.Tweening;
@@ -8,7 +8,6 @@ namespace CCC.UI
 {
     public class WindowAnimation : MonoBehaviour
     {
-
         [Header("Components")]
         public RectTransform windowBg;
         public CanvasGroup content;
@@ -31,6 +30,7 @@ namespace CCC.UI
         public float exitTime = 0.35f;
         public Ease exitEase = Ease.InSine;
         public bool instantHideContent = false;
+        public bool unloadSceneOnClose = true;
 
         [Header("Size")]
         public bool autoDetectSize = true;
@@ -67,6 +67,8 @@ namespace CCC.UI
         public void Open() { Open(null); }
         public void Open(TweenCallback onComplete)
         {
+            if (isOpen)
+                return;
             isOpen = true;
             bgTr.gameObject.SetActive(true);
 
@@ -109,6 +111,8 @@ namespace CCC.UI
         public void Close() { Close(null); }
         public void Close(TweenCallback onComplete)
         {
+            if (!isOpen)
+                return;
             isOpen = false;
 
             float delay = content == null || instantHideContent ? 0 : exitTime * 0.75f;
@@ -142,8 +146,13 @@ namespace CCC.UI
             bgTr.DOSizeDelta(smallV, exitTime).SetDelay(delay).SetEase(exitEase).OnComplete(delegate ()
             {
                 bgTr.gameObject.SetActive(false);
+
+                if (unloadSceneOnClose)
+                    UnloadScene();
+
                 if (onComplete != null)
                     onComplete.Invoke();
+
             }).SetUpdate(true);
         }
 
@@ -203,12 +212,16 @@ namespace CCC.UI
                 content.alpha = 0;
                 content.gameObject.SetActive(false);
             }
+
+            if (unloadSceneOnClose)
+                UnloadScene();
         }
 
         public virtual void QuitScene()
         {
+            unloadSceneOnClose = true;
             if (isOpen)
-                Close(UnloadScene);
+                Close();
             else
                 UnloadScene();
         }

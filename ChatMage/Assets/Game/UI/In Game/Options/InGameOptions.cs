@@ -14,13 +14,11 @@ public class InGameOptions : WindowAnimation
     public Button levelSelectButton;
     [SerializeField] private AudioMixerSaver audioMixerSaver;
 
-    private bool isQuitting = false;
-
     protected override void Awake()
     {
         base.Awake();
 
-        PersistentLoader.LoadIfNotLoaded(()=>
+        PersistentLoader.LoadIfNotLoaded(() =>
         {
             if (!IsOpen())
                 Open();
@@ -36,9 +34,9 @@ public class InGameOptions : WindowAnimation
         }
     }
 
-    private void OnDestroy()
+    protected void OnDestroy()
     {
-        if (Application.isPlaying && isQuitting && Game.Instance != null)
+        if (Application.isPlaying && Game.Instance != null)
         {
             //Unlock game state
             Game.Instance.gameRunning.Unlock("optionsMenu");
@@ -48,14 +46,16 @@ public class InGameOptions : WindowAnimation
 
     public void Confirm()
     {
-        audioMixerSaver.Save();
-        Exit();
+        if (IsOpen())
+            audioMixerSaver.Save();
+        Close();
     }
 
     public void Cancel()
     {
-        audioMixerSaver.Load();
-        Exit();
+        if (IsOpen())
+            audioMixerSaver.Load();
+        Close();
     }
 
     public void RestartGame()
@@ -67,35 +67,6 @@ public class InGameOptions : WindowAnimation
     public void BackToLevelSelect()
     {
         LoadingScreen.TransitionTo(LevelSelect.LevelSelection.SCENENAME, null);
-    }
-
-    public void Exit()
-    {
-        if (isQuitting) return;
-
-        isQuitting = true;
-
-        if (this != null)
-        {
-            Close(
-                delegate ()
-                {
-                    Scenes.UnloadAsync(SCENENAME);
-                }
-            );
-        }
-        else
-        {
-            Scenes.UnloadAsync(SCENENAME);
-        }
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Confirm();
-        }
     }
 
     public static void OpenIfClosed()
