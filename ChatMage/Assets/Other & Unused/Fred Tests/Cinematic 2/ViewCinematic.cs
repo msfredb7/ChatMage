@@ -9,6 +9,7 @@ public class ViewCinematic : MonoBehaviour
 
     public void Launch()
     {
+        DefaultAudioSources.StopMusicFaded(0.75f);
         CinematicEnder.onCompletion = new CinematicEnder.OnCompletion(returnScene.SceneName, null, false);
         LoadingScreen.TransitionTo(cinematicScene.SceneName, null, false, Color.black);
     }

@@ -4,23 +4,18 @@ using UnityEngine;
 
 public class CinematicMaestro : MonoBehaviour
 {
-    public bool playFirstMusicOnStart = true;
-    public AudioAsset[] musics;
-
-    private int musicIndex = 0;
+    public AudioMixerSaver mixerSaver;
+    private float wasMusicVolume;
 
     void Start()
     {
-        if (playFirstMusicOnStart)
-        {
-            DefaultAudioSources.PlayMusic(musics[musicIndex]);
-            musicIndex++;
-        }
+        wasMusicVolume = mixerSaver.GetVolume(AudioMixerSaver.ChannelType.Music);
+        mixerSaver.SetVolume(AudioMixerSaver.ChannelType.Music, 1);
     }
 
-    public void NextMusic()
+    void OnDestroy()
     {
-        DefaultAudioSources.TransitionToMusic(musics[musicIndex]);
-        musicIndex++;
+        if (mixerSaver != null && Application.isPlaying)
+            mixerSaver.SetVolume(AudioMixerSaver.ChannelType.Music, wasMusicVolume);
     }
 }

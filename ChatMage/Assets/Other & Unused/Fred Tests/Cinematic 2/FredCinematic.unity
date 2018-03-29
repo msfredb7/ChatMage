@@ -254,6 +254,7 @@ GameObject:
   - component: {fileID: 52080104}
   - component: {fileID: 52080107}
   - component: {fileID: 52080105}
+  - component: {fileID: 52080106}
   m_Layer: 5
   m_Name: Maestro
   m_TagString: Untagged
@@ -310,6 +311,18 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &52080106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 52080103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7323fd9623257094b8c7db65bb6d3769, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mixerSaver: {fileID: 11400000, guid: b6140d55064df084fb07a35e1f35757b, type: 2}
 --- !u!320 &52080107
 PlayableDirector:
   m_ObjectHideFlags: 0

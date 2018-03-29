@@ -15,7 +15,7 @@ public class LoadingScreenAnimation : MonoBehaviour
 
     void Awake()
     {
-        bg.color = LoadingScreen.color;
+        bg.color = LoadingScreen.color.ChangedAlpha(0);
     }
 
     public void Intro(UnityAction onComplete)
