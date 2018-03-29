@@ -20,6 +20,7 @@ public class CinematicEnder : MonoBehaviour
 
     void OnEnable()
     {
+        DefaultAudioSources.StopMusicFaded();
         if(onCompletion != null)
         {
             LoadingScreen.TransitionTo(onCompletion.SceneName, onCompletion.SceneMessage, onCompletion.WaitForNextSceneToSetup, Color.black);
