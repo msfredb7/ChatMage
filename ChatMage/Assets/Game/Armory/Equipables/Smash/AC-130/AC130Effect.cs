@@ -17,9 +17,10 @@ public class AC130Effect : MonoBehaviour
     public AC130Bullet bulletPrefab;
 
     [Header("Audio")]
+    public AudioPlayable enterSound;
     public AudioSource[] ambientSources;
-    public AudioAsset shootSFX;
-    public AudioAsset preHitSFX;
+    public AudioPlayable shootSFX;
+    public AudioPlayable preHitSFX;
     public float preHitDelay = 0.761f;
     public float audioTimeScaleEffect = 0.5f;
 
@@ -179,6 +180,10 @@ public class AC130Effect : MonoBehaviour
                 ambientSources[i].volume = 0;
                 ambientSources[i].DOFade(ambientSourceVolumes[i], 1);
             }
+
+            // Arrival audio
+            if (enterSound != null)
+                DefaultAudioSources.PlaySFX(enterSound);
 
             //Black fade in
             enterExitAnimation = blackFade.DOFade(1, fadeDuration).OnComplete(OnEnterCockpit);
