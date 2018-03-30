@@ -17,6 +17,13 @@ public class GuideArrow : MonoBehaviour
     protected Tween tween;
     private float timer = -1;
 
+    Vector3 initialPos;
+
+    void Start()
+    {
+        initialPos = transform.position;
+    }
+
     public void Show()
     {
         gameObject.SetActive(true);
@@ -25,6 +32,7 @@ public class GuideArrow : MonoBehaviour
     public void Hide()
     {
         gameObject.SetActive(false);
+        transform.position = initialPos;
         timer = -1;
     }
 
