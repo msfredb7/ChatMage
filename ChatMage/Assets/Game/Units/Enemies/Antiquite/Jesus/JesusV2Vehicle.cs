@@ -16,6 +16,7 @@ public class JesusV2Vehicle : EnemyVehicle
     public float invulnurableDuration = 1.5f;
     public float bumpForce = 5;
     public AudioPlayable loseHPSound;
+    public float juicePerHit = 1f;
 
     [Header("Linking")]
     public new Collider2D collider;
@@ -43,8 +44,8 @@ public class JesusV2Vehicle : EnemyVehicle
         Damagable = damagableOnStart;
 
         maxHp = hp;
-        int willBeHit = (maxHp - 1).Raised(1);
-        timescaleIncrease = Mathf.Pow(finalTimescale, 1f/ willBeHit);
+        int increments = (maxHp - 1).Raised(1) + 2;
+        timescaleIncrease = Mathf.Pow(finalTimescale, 1f / increments);
     }
 
     public bool Damagable
@@ -87,8 +88,12 @@ public class JesusV2Vehicle : EnemyVehicle
         //Decrease hp
         hp -= amount;
 
-        TimeScale *= timescaleIncrease;
-        timescaleIncreaseCount++;
+        var increments = hp == 1 ? 3 : 1;
+        for (int i = 0; i < increments; i++)
+        {
+            TimeScale *= timescaleIncrease;
+            timescaleIncreaseCount++;
+        }
 
         //Flashs animation
         damagable = false;
@@ -99,6 +104,9 @@ public class JesusV2Vehicle : EnemyVehicle
         if (unit != null && unit is Vehicle)
             (unit as Vehicle).Bump((unit.Position - Position).normalized * bumpForce, -1, BumpMode.VelocityAdd);
 
+        // Fill juice
+        if (unit == Game.Instance.Player.vehicle)
+            Game.Instance.smashManager.IncreaseSmashJuice(juicePerHit);
 
         if (hp > 0)
         {
@@ -143,7 +151,8 @@ public class JesusV2Vehicle : EnemyVehicle
             canTurn.Lock("dead");
             canMove.Lock("dead");
 
-            TimeScale = TimeScale/ Mathf.Pow(timescaleIncrease, timescaleIncreaseCount);
+            TimeScale = TimeScale / Mathf.Pow(timescaleIncrease, timescaleIncreaseCount);
+            Debug.Log("Timescale: " + TimeScale);
             animator.DeathAnimation(null);
             GetComponent<AI.JesusV2Brain>().enabled = false;
 
