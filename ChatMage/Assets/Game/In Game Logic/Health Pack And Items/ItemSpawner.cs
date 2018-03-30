@@ -39,7 +39,7 @@ public class ItemSpawner : MonoBehaviour
 
     private void OnUnitKilled(Unit unit)
     {
-        if (!enabled || unit == null || unit.allegiance != Allegiance.Enemy)
+        if (!enabled || unit == null || unit.allegiance != Allegiance.Enemy || unit.GetComponent<NoItemGiver>())
             return;
         
         if (onUnitSpawnChance.PickResult())

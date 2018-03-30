@@ -11,6 +11,7 @@ public static class MonoBehaviourExtensions
     }
     public static Coroutine DelayedCall(this MonoBehaviour source, Action action, float delay, bool realTime = false)
     {
+        Debug.Log("hello boi");
         return source.StartCoroutine(DelayedCallTo(action, delay, realTime));
     }
     private static IEnumerator DelayedCallTo(Action action, float delay, bool realTime)
