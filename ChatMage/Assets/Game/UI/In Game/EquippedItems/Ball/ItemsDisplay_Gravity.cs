@@ -12,13 +12,21 @@ public class ItemsDisplay_Gravity : MonoBehaviour
     [SerializeField] private FloatReference bounce;
     [SerializeField] private float maxVerticalVel = 500;
     [SerializeField] private bool selfUpdate = false;
+    [SerializeField] AudioPlayable hitSFX;
 
     private RectTransform tr;
     private float currentSpeed = 0;
 
+    private bool allowedToSFX;
+
     void Awake()
     {
         tr = GetComponent<RectTransform>();
+    }
+
+    void OnEnable()
+    {
+        allowedToSFX = true;
     }
 
     void Update()
@@ -43,6 +51,13 @@ public class ItemsDisplay_Gravity : MonoBehaviour
 
             if (bottomHeight <= minHeight)
             {
+                if (allowedToSFX)
+                {
+                    allowedToSFX = false;
+                    if (hitSFX != null)
+                        DefaultAudioSources.PlayStaticSFX(hitSFX);
+                }
+
                 if (currentSpeed.Abs() > velocityKill && bounce > 0)
                 {
                     //Bounce !
@@ -69,6 +84,6 @@ public class ItemsDisplay_Gravity : MonoBehaviour
 
     private float GetTargetBottomHeight()
     {
-        return nextGravityComponent == null ? -rack.sizeDelta.y  : nextGravityComponent.GetTopHeight();
+        return nextGravityComponent == null ? -rack.sizeDelta.y : nextGravityComponent.GetTopHeight();
     }
 }

@@ -22,20 +22,23 @@ public class ItemsDiplay_Ball : ItemsDisplay_Controller.PoolItem
     [SerializeField] private Ease breakPiecesEase = Ease.OutQuint;
     [Header("Fade"), SerializeField] private float breakFadeDelay = 0.4f;
     [SerializeField] private float breakFadeDuration = 0.6f;
+    [SerializeField] AudioPlayable breakSFX;
 
     [Header("Scale"), SerializeField] private float breakScaleDuration = 0.5f;
     [SerializeField] private float breakFinalSize = 0.6f;
-
-    private Transform tr;
-    public Transform Tr { get { return tr; } }
+    
+    public Transform Tr { get; private set; }
 
     void Awake()
     {
-        tr = transform;
+        Tr = transform;
     }
 
     public void BreakAnimation()
     {
+        if (breakSFX != null)
+            DefaultAudioSources.PlaySFX(breakSFX);
+
         GetGravityComponent().enabled = false;
         upperBall.enabled = false;
         underBall.enabled = false;
@@ -43,8 +46,8 @@ public class ItemsDiplay_Ball : ItemsDisplay_Controller.PoolItem
         Sequence sq = DOTween.Sequence();
 
         //Scale up, mais slmt si on est pas deja gros
-        if (tr.localScale.x < breakFinalSize)
-            sq.Join(tr.DOScale(breakFinalSize, breakScaleDuration).SetEase(Ease.OutQuint));
+        if (Tr.localScale.x < breakFinalSize)
+            sq.Join(Tr.DOScale(breakFinalSize, breakScaleDuration).SetEase(Ease.OutQuint));
 
         //Move pieces
         for (int i = 0; i < brokenPieces.Length; i++)
@@ -70,7 +73,7 @@ public class ItemsDiplay_Ball : ItemsDisplay_Controller.PoolItem
     public override void Activate()
     {
         itemImage.SetAlpha(1);
-        tr.localScale = Vector3.one;
+        Tr.localScale = Vector3.one;
         upperBall.enabled = true;
         underBall.enabled = true;
         for (int i = 0; i < brokenPieces.Length; i++)
