@@ -6,16 +6,16 @@ using UnityEngine;
 public class ItemAvailableList : ScriptableObject
 {
     [Header("ITEMS")]
-    private List<Item> availableItems = new List<Item>();
     public List<Item> allNonCommonItems = new List<Item>();
-
     public bool debugUnlockAll = true;
+
+    private List<Item> availableItems = new List<Item>();
 
     public void Init()
     {
         availableItems.Clear();
         if (debugUnlockAll)
-            availableItems = allNonCommonItems;
+            availableItems.AddRange(allNonCommonItems);
         else
         {
             for (int i = 0; i < allNonCommonItems.Count; i++)
@@ -35,10 +35,11 @@ public class ItemAvailableList : ScriptableObject
         {
             lotItem.Add(availableItems[i], availableItems[i].GetWeight());
         }
-        if(lotItem.Count > 0)
+        if (lotItem.Count > 0)
         {
             return lotItem.Pick();
-        } else
+        }
+        else
         {
             return null;
         }
