@@ -317,7 +317,6 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 2c8a3c17122a27c4bbdc8164b6807bf4, type: 3}
     - {fileID: 8300000, guid: e3ed7d0c024cdef4c99a997155dc4e8e, type: 3}
     - {fileID: 8300000, guid: 79db12a5b3e54b849a1f805881a81aa5, type: 3}
-  winIntro: {fileID: 8300000, guid: ca59306165ce188428e09967e4cda56a, type: 3}
   sfxStandardVolume: 1
 --- !u!114 &218698584
 MonoBehaviour:
@@ -906,8 +905,17 @@ MonoBehaviour:
   _keys:
   - {fileID: 986166561}
   _values:
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.gameCamera.EditProperty
+    - DefaultBehaviorEditor.units.EditProperty
+    - DefaultBehaviorEditor.attackableUnits.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
     _target: {fileID: 986166561}
 --- !u!1 &1461222805
 GameObject:

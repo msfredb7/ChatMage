@@ -32,6 +32,7 @@ public class AC130Effect : MonoBehaviour
     private float remainingReloadTime;
 
     private List<Goal> forcedGoals;
+    private Tween enterExitAnimation;
 
     void Awake()
     {
@@ -112,15 +113,27 @@ public class AC130Effect : MonoBehaviour
 
     public void Smash(float duration, int ammo, Action onComplete)
     {
-        this.ammo = ammo;
-        this.onComplete = onComplete;
-        remainingDuration = duration;
-        ending = false;
+        if (gameObject.activeSelf && !ending)
+        {
+            remainingDuration += duration;
+            this.ammo += ammo;
+        }
+        else
+        {
 
-        gameObject.SetActive(true);
+            this.ammo = ammo;
+            this.onComplete = onComplete;
+            remainingDuration = duration;
+            ending = false;
 
-        //Black fade in
-        blackFade.DOFade(1, fadeDuration).OnComplete(OnEnterCockpit);
+            gameObject.SetActive(true);
+
+            if (enterExitAnimation != null && enterExitAnimation.IsActive())
+                enterExitAnimation.Kill();
+
+            //Black fade in
+            enterExitAnimation = blackFade.DOFade(1, fadeDuration).OnComplete(OnEnterCockpit);
+        }
     }
 
     void OnEnterCockpit()
@@ -151,7 +164,7 @@ public class AC130Effect : MonoBehaviour
         Game.Instance.onUnitSpawned += PanicUnit;
 
         //Black fade out
-        blackFade.DOFade(0, fadeDuration);
+        enterExitAnimation = blackFade.DOFade(0, fadeDuration);
     }
 
     private void PanicUnit(Unit unit)
@@ -189,14 +202,15 @@ public class AC130Effect : MonoBehaviour
         Game.Instance.onUnitSpawned -= PanicUnit;
 
         //Black fade in
-        blackFade.DOKill();
-        blackFade.DOFade(1, fadeDuration).OnComplete(OnExitCockpit);
+        if (enterExitAnimation != null && enterExitAnimation.IsActive())
+            enterExitAnimation.Kill();
+        enterExitAnimation = blackFade.DOFade(1, fadeDuration).OnComplete(OnExitCockpit);
     }
 
     void OnExitCockpit()
     {
         //Black fade out, then deactivate self
-        blackFade.DOFade(0, fadeDuration).OnComplete(delegate ()
+        enterExitAnimation = blackFade.DOFade(0, fadeDuration).OnComplete(delegate ()
         {
             gameObject.SetActive(false);
         });

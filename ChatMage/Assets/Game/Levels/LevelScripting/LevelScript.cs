@@ -186,12 +186,6 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
     // Update Level Script
     public void Update()
     {
-#if UNITY_EDITOR
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            Win();
-        }
-#endif
         OnUpdate();
     }
 
