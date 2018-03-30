@@ -11,7 +11,7 @@ public class PlayerSmash : PlayerComponent
 
     public bool SmashEquipped { get { return smash != null; } }
     public Smash Smash { get { return smash; } }
-    private bool smashInProgress;
+    public bool SmashInProgress { get; private set; }
 
     [System.NonSerialized]
     private Smash smash;
@@ -39,7 +39,7 @@ public class PlayerSmash : PlayerComponent
 
         if (smash != null)
             smash.OnGameReady();
-        smashInProgress = false;
+        SmashInProgress = false;
     }
 
     public override void OnGameStarted()
@@ -48,16 +48,16 @@ public class PlayerSmash : PlayerComponent
             smash.OnGameStarted();
     }
 
-    private void Update()
+    public void Update()
     {
-        if (smashInProgress)
+        if (SmashInProgress)
             smash.OnUpdate();
     }
 
     //Utilisation du smash !
     public void SmashClick()
     {
-        if (smashInProgress || !smashManager.CanSmash())
+        if (SmashInProgress || !smashManager.CanSmash())
             return;
 
         OnStartSmash();
@@ -66,7 +66,7 @@ public class PlayerSmash : PlayerComponent
 
     void OnStartSmash()
     {
-        smashInProgress = true;
+        SmashInProgress = true;
 
         if (!smash.canGainJuiceWhileSmashing)
             smashManager.canGainJuice.Lock(SM_LOCK_KEY);
@@ -79,7 +79,7 @@ public class PlayerSmash : PlayerComponent
 
     void OnEndSmash()
     {
-        smashInProgress = false;
+        SmashInProgress = false;
         smashManager.canGainJuice.UnlockAll(SM_LOCK_KEY);
 
         if (smash.clearAllJuiceOnCompletion)

@@ -18,7 +18,7 @@ public class ITM_AC130 : Item
         base.Equip(duplicateIndex);
 
 
-        effect = Game.Instance.GetComponentInChildren<AC130Effect>();
+        effect = Game.Instance.GetComponentInChildren<AC130Effect>(true);
         if (effect == null)
             effect = Instantiate(effectPrefab.gameObject, Game.Instance.transform).GetComponent<AC130Effect>();
 

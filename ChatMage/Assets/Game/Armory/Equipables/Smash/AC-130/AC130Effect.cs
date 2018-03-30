@@ -17,9 +17,11 @@ public class AC130Effect : MonoBehaviour
     public AC130Bullet bulletPrefab;
 
     [Header("Audio")]
+    public AudioSource[] ambientSources;
     public AudioAsset shootSFX;
-    public AudioAsset explosionSFX;
-    public float explosionDelay;
+    public AudioAsset preHitSFX;
+    public float preHitDelay = 0.761f;
+    public float audioTimeScaleEffect = 0.5f;
 
     [Header("Fade Settings")]
     public float fadeDuration = 0.3f;
@@ -38,22 +40,41 @@ public class AC130Effect : MonoBehaviour
 
     private List<Goal> forcedGoals;
     private Tween enterExitAnimation;
+    private float[] ambientSourceVolumes;
 
     void Awake()
     {
         gameObject.SetActive(false);
         container.SetActive(false);
+
+        ambientSourceVolumes = new float[ambientSources.Length];
+        for (int i = 0; i < ambientSources.Length; i++)
+        {
+            ambientSourceVolumes[i] = ambientSources[i].volume;
+        }
     }
 
     void OnEnable()
     {
         Game.Instance.Player.vehicle.OnDeath += OnPlayerDeath;
+        Game.Instance.worldTimeScale.onSet.AddListener(OnTimeScaleChange);
     }
 
     void OnDisable()
     {
         if (Game.Instance != null && Game.Instance.Player != null)
             Game.Instance.Player.vehicle.OnDeath -= OnPlayerDeath;
+    }
+
+    void OnTimeScaleChange(float worldTimescale)
+    {
+        ApplyTimescaleToAnimations();
+    }
+
+    void ApplyTimescaleToAnimations()
+    {
+        //On ne le fait pas finalement, c'est bcp trop long pour rien
+        //enterExitAnimation.timeScale = Game.Instance.worldTimeScale;
     }
 
     void OnPlayerDeath(Unit unit)
@@ -72,6 +93,9 @@ public class AC130Effect : MonoBehaviour
     {
         if (!Game.Instance.gameRunning)
             return;
+
+        // CAS EXCEPTIONNEL: Il faut call le player smash à la main parce que le joueur est désactivé
+        Game.Instance.Player.playerSmash.Update();
 
         if (remainingDuration > 0)
         {
@@ -117,8 +141,11 @@ public class AC130Effect : MonoBehaviour
         if (shootSFX != null)
             DefaultAudioSources.PlaySFX(shootSFX);
 
-        if (explosionSFX != null)
-            DefaultAudioSources.PlaySFX(explosionSFX, bullet.arriveDelay - explosionDelay);
+        if (preHitSFX != null && !Game.Instance.Player.playerSmash.SmashInProgress)
+        {
+            var totalDelay = Mathf.Max(0, bullet.arriveDelay - preHitDelay);
+            Game.Instance.events.AddDelayedAction(() => DefaultAudioSources.PlaySFX(preHitSFX), totalDelay);
+        }
 
         //Ammo
         ammo--;
@@ -145,8 +172,18 @@ public class AC130Effect : MonoBehaviour
             if (enterExitAnimation != null && enterExitAnimation.IsActive())
                 enterExitAnimation.Kill();
 
+            // Ambiant audio
+            for (int i = 0; i < ambientSources.Length; i++)
+            {
+                ambientSources[i].DOKill();
+                ambientSources[i].volume = 0;
+                ambientSources[i].DOFade(ambientSourceVolumes[i], 1);
+            }
+
             //Black fade in
             enterExitAnimation = blackFade.DOFade(1, fadeDuration).OnComplete(OnEnterCockpit);
+
+            ApplyTimescaleToAnimations();
         }
         UpdateAmmoDisplay();
     }
@@ -180,6 +217,8 @@ public class AC130Effect : MonoBehaviour
 
         //Black fade out
         enterExitAnimation = blackFade.DOFade(0, fadeDuration);
+
+        ApplyTimescaleToAnimations();
     }
 
     private void PanicUnit(Unit unit)
@@ -216,10 +255,20 @@ public class AC130Effect : MonoBehaviour
 
         Game.Instance.onUnitSpawned -= PanicUnit;
 
+
+        // Ambiant audio
+        for (int i = 0; i < ambientSources.Length; i++)
+        {
+            ambientSources[i].DOKill();
+            ambientSources[i].DOFade(0, 1);
+        }
+
         //Black fade in
         if (enterExitAnimation != null && enterExitAnimation.IsActive())
             enterExitAnimation.Kill();
+
         enterExitAnimation = blackFade.DOFade(1, fadeDuration).OnComplete(OnExitCockpit);
+        ApplyTimescaleToAnimations();
     }
 
     void OnExitCockpit()
@@ -241,6 +290,8 @@ public class AC130Effect : MonoBehaviour
 
         if (onComplete != null)
             onComplete();
+
+        ApplyTimescaleToAnimations();
     }
 
     void UpdateAmmoDisplay()

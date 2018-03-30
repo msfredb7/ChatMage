@@ -13,6 +13,9 @@ public class AC130Bullet : Unit
     [Header("Settings")]
     public float arriveDelay = 2;
 
+    [Header("Audio")]
+    public AudioAsset explosionSFX;
+
     [Header("Animation")]
     public SpriteRenderer cloudTwo;
     public float cloudTwoFinalScale = 2;
@@ -43,14 +46,18 @@ public class AC130Bullet : Unit
         hasReceivedEvent = true;
 
         //Attack unit
-        if (other.parentUnit.allegiance == Allegiance.Enemy || other.parentUnit.allegiance == Allegiance.SmashBall)
+        var unit = other.parentUnit;
+        if (unit.allegiance == Allegiance.Enemy || unit.allegiance == Allegiance.SmashBall)
         {
             IAttackable attackable = other.parentUnit.GetComponent<IAttackable>();
+            var wasDead = unit.IsDead;
             if (attackable != null)
                 attackable.Attacked(other, 1, listener.info.parentUnit, listener.info);
+            if (unit.IsDead && !wasDead && Game.Instance.Player != null)
+                Game.Instance.Player.playerStats.RegisterKilledUnit(unit);
         }
     }
-    
+
     void Animate()
     {
         cloudTwo.enabled = true;
@@ -62,23 +69,23 @@ public class AC130Bullet : Unit
         sq.Join(cloudTwo.transform.DOScale(cloudTwoFinalScale, 3).SetEase(Ease.OutCirc));
         sq.Join(cloudThree.transform.DOScale(cloudThreeFinalScale, 3).SetEase(Ease.OutCirc));
         sq.Join(shockWave.transform.DOScale(shockWaveFinalSize, 0.5f).SetEase(Ease.Linear));
-        sq.Join(shockWave.DOFade(0, 1).SetEase(Ease.Linear).OnComplete(delegate() { shockWave.enabled = false; }));
+        sq.Join(shockWave.DOFade(0, 1).SetEase(Ease.Linear).OnComplete(delegate () { shockWave.enabled = false; }));
 
         blackFade.color = new Color(1, 1, 1, 0.35f);
 
-        sq.InsertCallback(0.05f, delegate() { blackFade.color = new Color(0, 0, 0, 0); });
+        sq.InsertCallback(0.05f, delegate () { blackFade.color = new Color(0, 0, 0, 0); });
         //sq.Insert(0.05f, blackFade.DOFade(0.35f, 0.5f));
         //sq.Insert(0.55f, blackFade.DOFade(0, 2));
 
         sq.Insert(1, cloudTwo.DOFade(0, 4).SetEase(Ease.Linear));
         sq.Join(cloudThree.DOFade(0, 4).SetEase(Ease.Linear));
-        
+
         sq.OnComplete(Die);
 
         sq.timeScale = timeScale;
 
         tween = sq;
-        
+
         Game.Instance.gameCamera.vectorShaker.Shake();
     }
 
@@ -97,6 +104,8 @@ public class AC130Bullet : Unit
 
     void Detonate()
     {
+        if (explosionSFX != null)
+            DefaultAudioSources.PlaySFX(explosionSFX);
         col.enabled = true;
         Animate();
     }
