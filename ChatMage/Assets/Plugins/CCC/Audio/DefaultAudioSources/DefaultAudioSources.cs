@@ -156,7 +156,7 @@ public class DefaultAudioSources : MonoBehaviour
     /// <returns>The standard source volume</returns>
     static private float Internal_PlayMusic(AudioPlayable playable, bool looping, float volumeMultiplier = 1)
     {
-        if (!CheckResources_Instance() || !CheckResources_MusicSource())
+        if (!CheckResources_Instance() || !CheckResources_MusicSource() || playable == null)
             return 0;
 
         AudioSource source = GetAndIncrementMusicSource();
@@ -173,7 +173,7 @@ public class DefaultAudioSources : MonoBehaviour
     }
     static private void Internal_PlayMusic(AudioClip clip, bool looping, float volume)
     {
-        if (!CheckResources_Instance() || !CheckResources_MusicSource())
+        if (!CheckResources_Instance() || !CheckResources_MusicSource() || clip == null)
             return;
 
         AudioSource source = GetAndIncrementMusicSource();

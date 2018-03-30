@@ -18,7 +18,8 @@ namespace Dialoguing
         public Text text;
         public float writeSpeed = 2;
         public ScrambleMode scrambling = ScrambleMode.None;
-        public SoundPlayer scramblingSound;
+        public AudioSource sfx;
+        //public SoundPlayer scramblingSound;
 
         private Tweener textTween;
         private Tweener backgroundTween;
@@ -27,6 +28,7 @@ namespace Dialoguing
         void Awake()
         {
             text.text = "";
+            sfx.enabled = false;
         }
 
         public void DisplayMessage(string message)
@@ -36,7 +38,7 @@ namespace Dialoguing
             if (textTween != null)
             {
                 textTween.Kill();
-                scramblingSound.SetLoopingSFXActive(false);
+                //scramblingSound.SetLoopingSFXActive(false);
             }
 
             targetMessage = message;
@@ -45,9 +47,11 @@ namespace Dialoguing
 
             textTween = text.DOText(targetMessage, duration, scrambleMode: scrambling)
                 .SetUpdate(true);
-            scramblingSound.SetLoopingSFXActive(true);
-            scramblingSound.PlaySound();
-            textTween.OnComplete(delegate () { scramblingSound.SetLoopingSFXActive(false); });
+            sfx.enabled = true;
+            //scramblingSound.SetLoopingSFXActive(true);
+            //scramblingSound.PlaySound();
+            textTween.OnComplete(()=> sfx.enabled = false);
+            //textTween.OnComplete(delegate () { scramblingSound.SetLoopingSFXActive(false); });
         }
 
         public bool IsAnimatingText()
@@ -94,7 +98,7 @@ namespace Dialoguing
             if (textTween != null)
             {
                 textTween.Kill();
-                scramblingSound.SetLoopingSFXActive(false);
+                sfx.enabled = false;
             }
 
             text.text = targetMessage;

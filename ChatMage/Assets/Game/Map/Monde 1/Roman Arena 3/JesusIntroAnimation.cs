@@ -86,7 +86,7 @@ public class JesusIntroAnimation : InGameAnimator
         {
             rightRockRenderer.sortingLayerName = temporaryRockLayer;
             rightRock.gameObject.SetActive(true);
-            rightRock.flySpeed = rockSpeed * Game.Instance.worldTimeScale;
+            rightRock.flySpeed = rockSpeed;// * Game.Instance.worldTimeScale;
             rightRock.ThrownState_Destination(rightRockDestinationOffset + rightRock.Position);
 
             rightBrickWall.Animate(() =>
@@ -98,7 +98,7 @@ public class JesusIntroAnimation : InGameAnimator
         {
             leftRockRenderer.sortingLayerName = temporaryRockLayer;
             leftRock.gameObject.SetActive(true);
-            leftRock.flySpeed = rockSpeed * Game.Instance.worldTimeScale;
+            leftRock.flySpeed = rockSpeed;// * Game.Instance.worldTimeScale;
             leftRock.ThrownState_Destination(leftRockDestinationOffset + leftRock.Position);
 
             leftBrickWall.Animate(() =>

@@ -8,6 +8,7 @@ public class WinAnimation : MonoBehaviour
     public PortalVFX portal;
     public RectTransform frame;
     public AudioAsset sfx;
+    public float delayAfterSFX;
     public CanvasGroup buttons;
 
     private float frameFinalX;
@@ -38,10 +39,13 @@ public class WinAnimation : MonoBehaviour
 
     IEnumerator AnimationRoutine()
     {
+        buttons.alpha = 0;
+
         if (sfx != null)
             DefaultAudioSources.PlayStaticSFX(sfx);
 
-        buttons.alpha = 0;
+        yield return new WaitForSeconds(delayAfterSFX);
+
         portal.Open();
 
         yield return new WaitForSeconds(portal.yDuration * 0.5f);

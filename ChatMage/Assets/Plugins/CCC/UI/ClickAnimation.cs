@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 public class ClickAnimation : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerExitHandler
 {
     public float downSize = 0.93f;
+    public float upSize = 1f;
     [Range(0, 10)]
     public float pressSpeed = 4;
     [Range(0, 10)]
@@ -48,7 +49,7 @@ public class ClickAnimation : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     private Tween UpAnim()
     {
         currentTween.Kill();
-        return currentTween = tr.DOScale(Vector3.one, 0.1f / (releaseSpeed + 0.001f)).SetEase(releaseEase).SetUpdate(independentUpdate);
+        return currentTween = tr.DOScale(Vector3.one * upSize, 0.1f / (releaseSpeed + 0.001f)).SetEase(releaseEase).SetUpdate(independentUpdate);
     }
 
     public void OnPointerDown(PointerEventData eventData)

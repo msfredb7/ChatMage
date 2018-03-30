@@ -30,6 +30,7 @@ public class JesusRockV2 : MovingUnit
     private Vector2 destination;
     private GameObject go;
     private Collider2D[] contacts = new Collider2D[1];
+    private Vector2 thrownSpeed;
 
     protected override void Awake()
     {
@@ -58,7 +59,9 @@ public class JesusRockV2 : MovingUnit
         go.layer = Layers.FLYING_SOLID_ENEMY;
         rb.simulated = true;
 
-        Speed = direction.normalized * flySpeed;
+        var vel = direction.normalized * flySpeed;
+        thrownSpeed = vel;
+        Speed = vel * TimeScale;
 
         tr.position += (Vector3)Speed * FixedDeltaTime();
         collider.enabled = true;
@@ -114,7 +117,7 @@ public class JesusRockV2 : MovingUnit
                 {
                     JesusRockV2 rock = unit as JesusRockV2;
                     rock.Speed = Speed;
-                    rock.ThrownState(-collision.contacts[0].normal, this);
+                    rock.ThrownState(rock.Position - Position, this);
                 }
                 else if (targets.IsValidTarget(unit))
                 {
@@ -137,6 +140,11 @@ public class JesusRockV2 : MovingUnit
     {
         base.FixedUpdate();
 
+        if(IsFlying)
+        {
+            Speed = thrownSpeed * TimeScale;
+        }
+
         if (isFlying && go.layer == Layers.FLYING_SOLID_ENEMY)
         {
             int contactCount = rb.GetContacts(contacts);
@@ -158,7 +166,7 @@ public class JesusRockV2 : MovingUnit
 
         if (hasDestination)
         {
-            if ((destination - Position).sqrMagnitude < 0.2)
+            if ((destination - Position).sqrMagnitude < 0.2f)
                 StoppedState();
         }
     }

@@ -237,7 +237,8 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
             }
             if (outro != null)
             {
-                Game.Instance.commonSfx.WinEndGameIntro();
+                //Game.Instance.commonSfx.WinEndGameIntro();
+                DefaultAudioSources.StopMusicFaded();
                 outro.Play();
             }
                 

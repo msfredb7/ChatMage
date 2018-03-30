@@ -37,7 +37,7 @@ namespace AI
         void ThrowMoment()
         {
             lookAtTarget = false;
-            myRock.flySpeed = veh.throwSpeed * (veh.TimeScale + 1) / 2;
+            myRock.flySpeed = veh.throwSpeed * Mathf.Max((veh.TimeScale + 1) / 2, 1);
             myRock.ThrownState(veh.WorldDirection2D(), veh);
             myRock.transform.SetParent(Game.Instance.unitsContainer, true);
         }

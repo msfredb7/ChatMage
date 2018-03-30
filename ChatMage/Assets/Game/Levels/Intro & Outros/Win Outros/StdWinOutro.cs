@@ -49,7 +49,7 @@ namespace GameIntroOutro
 
         protected virtual void UnloadGameScenes()
         {
-            Game.Instance.music.TransitionTo(MusicManager.SongName.Win);
+            //Game.Instance.music.TransitionTo(MusicManager.SongName.Win);
             //On unload TOUS les scene sauf celle du endGameResult
             //   Peut etre qu'on devrais seulement unload les scene 'Framework' 'Map' et 'UI'
             //   Si on decide de faire ca, LE FAIRE DANS FRAMEWORK
