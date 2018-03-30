@@ -14,6 +14,8 @@ public class InGameOptions : WindowAnimation
     public Button levelSelectButton;
     [SerializeField] private AudioMixerSaver audioMixerSaver;
 
+    public SceneInfo endlessStageSelectionScreen;
+
     protected override void Awake()
     {
         base.Awake();
@@ -66,7 +68,10 @@ public class InGameOptions : WindowAnimation
 
     public void BackToLevelSelect()
     {
-        LoadingScreen.TransitionTo(LevelSelect.LevelSelection.SCENENAME, null);
+        if(Game.Instance.levelScript.name == "LS_EndlessLevel")
+            LoadingScreen.TransitionTo(endlessStageSelectionScreen.SceneName, null);
+        else
+            LoadingScreen.TransitionTo(LevelSelect.LevelSelection.SCENENAME, null);
     }
 
     public static void OpenIfClosed()

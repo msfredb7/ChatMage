@@ -81,9 +81,10 @@ public class LS_EndlessLevel : LevelScript
     [InspectorCategory("ENDLESS MODE")]
     public float fadeTextAnim = 1.0f;
 
-    // Gates
+    // Gates and arrow
     SidewaysFakeGate topgate;
     SidewaysFakeGate botgate;
+    GuideArrow arrow;
 
     // Debug
     [InspectorCategory("ENDLESS MODE"), InspectorHeader("Debug")]
@@ -121,6 +122,7 @@ public class LS_EndlessLevel : LevelScript
         topdetector.onTriggerEnter += PlayerEnteringTopDetector;
         botdetector = Game.Instance.map.mapping.GetTaggedObject("botdetector").GetComponent<SimpleColliderListener>();
         botdetector.onTriggerExit += PlayerEnteringMap;
+        arrow = Game.Instance.map.mapping.GetTaggedObject("arrow").GetComponent<GuideArrow>();
 
         playerSpawn = Game.Instance.map.mapping.GetTaggedObject("respawn").gameObject;
 
@@ -134,7 +136,7 @@ public class LS_EndlessLevel : LevelScript
                 ui.stageText.text = "Stage " + currentStage;
             else
                 ui.stageText.text = "Stage " + currentStage + " Step " + (currentStep - ((currentStage - 1) * (stepToResetSave - 1)));
-            ui.stageText.gameObject.SetActive(true);
+            ui.stageText.DOFade(1, fadeTextAnim);
         });
     }
 
@@ -203,7 +205,7 @@ public class LS_EndlessLevel : LevelScript
         wave.pauseBetweenRepeat = 0;
         wave.spawnInterval = 1/(spawnInterval.GetProgression(Mathf.RoundToInt(difficulty.GetProgression(currentStep))));
 
-        Debug.Log("Current Stage : " + currentStage + "\n" +
+        /*Debug.Log("Current Stage : " + currentStage + "\n" +
         "Current Step : " + currentStep + "\n" +
         "Step in Stage : " + (currentStep - ((currentStage - 1) * (stepToResetSave - 1))) + "\n" +
         "Spawn Interval : " + wave.spawnInterval + "\n" +
@@ -215,7 +217,7 @@ public class LS_EndlessLevel : LevelScript
         "Difficulty minx : " + difficulty.minx + "\n" +
         "Difficulty miny : " + difficulty.miny + "\n" +
         "Difficulty speed : " + difficulty.speed.Value + "\n" +
-        "Real Wave Power : " + GetRealStepForPower(currentStep, currentStage) + "\n");
+        "Real Wave Power : " + GetRealStepForPower(currentStep, currentStage) + "\n");*/
 
         // What ?
         wave.what = new WaveWhat();
@@ -235,14 +237,25 @@ public class LS_EndlessLevel : LevelScript
         wave.when.onlyTriggerOnce = true;
 
         // Lorsque la vague est fini
-        wave.onComplete += GoToNextWave;
+        wave.onComplete += delegate () {
+            Game.Instance.DelayedCall(delegate ()
+            {
+                Game.Instance.music.PlaySong(MusicManager.SongName.Ambient, true);
+                GoToNextWave();
+            }, 0.5f);
+        };
+
 
         // Gestion des Charges
-        GiveCharge(charges[(currentStep - ((currentStage - 1) * (stepToResetSave - 1)))]);
+        if (charges.Length <= 0)
+            GiveCharge(0);
+        else
+            GiveCharge(charges[(currentStep - ((currentStage - 1) * (stepToResetSave - 1))) - 1]);
 
         // Initialisation de la vague
         ManuallyAddWave(wave);
         TriggerWaveManually("wave");
+        Game.Instance.music.PlaySong(MusicManager.SongName.Fight, true);
     }
 
     // Pour balance les etages, on va toujours utiliser le power d'un autre step plus bas selon cette formule
@@ -260,7 +273,7 @@ public class LS_EndlessLevel : LevelScript
 
         float currentDiversity = enemyDiversity.GetProgression(Mathf.RoundToInt(difficulty.GetProgression(stepUsedForPowerMesure)));
 
-        Debug.Log("Create wave of power" + currentWavePower + ",speed " + 1 / (spawnInterval.GetProgression(difficulty.GetProgression(currentStep))) + ",diversity " + currentDiversity);
+        //Debug.Log("Create wave of power" + currentWavePower + ",speed " + 1 / (spawnInterval.GetProgression(difficulty.GetProgression(currentStep))) + ",diversity " + currentDiversity);
 
         // On trouve la sommation de power qui permet d'obtenir de power total
         List<int> packsPower = FindIncreasingPartSum(currentWavePower);
@@ -399,6 +412,7 @@ public class LS_EndlessLevel : LevelScript
         {
             // Ouverture de la porte du haut
             waitingForExit = true;
+            arrow.Show();
             topgate.Open();
             Game.Instance.playerBounds.top.gameObject.SetActive(false);
             startTransition.AddListener(delegate ()
@@ -412,6 +426,7 @@ public class LS_EndlessLevel : LevelScript
                 Game.Instance.DelayedCall(delegate ()
                 {
                     topgate.Close();
+                    arrow.Hide();
                     Game.Instance.playerBounds.top.gameObject.SetActive(true);
                 }, gateAnimDelay);
 
