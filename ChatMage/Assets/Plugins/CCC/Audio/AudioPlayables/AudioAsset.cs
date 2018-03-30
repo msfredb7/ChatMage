@@ -6,7 +6,6 @@ using UnityEngine;
 public class AudioAsset : AudioPlayable
 {
     public AudioClip clip;
-    [Range(0, 1)]
     public float volume = 1;
 
 

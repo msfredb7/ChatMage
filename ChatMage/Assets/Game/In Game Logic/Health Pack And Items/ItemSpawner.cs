@@ -31,8 +31,8 @@ public class ItemSpawner : MonoBehaviour
 
     private void OnGameReady()
     {
-        onUnitSpawnChance = new PseudoRand(settings.gainItemOnKillChance/100f,settings.gainItemOnKillHardness);
-        onItemSpawnChance = new PseudoRand(settings.gainSpecialItemOnItemPackChance/100f,settings.gainItemOnItemPackHardness);
+        onUnitSpawnChance = new PseudoRand(settings.gainItemOnKillChance / 100f, settings.gainItemOnKillHardness);
+        onItemSpawnChance = new PseudoRand(settings.gainSpecialItemOnItemPackChance / 100f, settings.gainItemOnItemPackHardness);
         Game.Instance.Player.playerStats.OnUnitKilled += OnUnitKilled;
         settings.Init();
     }
@@ -41,20 +41,22 @@ public class ItemSpawner : MonoBehaviour
     {
         if (!enabled || unit == null || unit.allegiance != Allegiance.Enemy || unit.GetComponent<NoItemGiver>())
             return;
-        
+
         if (onUnitSpawnChance.PickResult())
         {
-            if (Game.Instance.levelScript.name == "LS_EndlessLevel")
+            if (Game.Instance.levelScript is LS_EndlessLevel)
             {
-                if (((LS_EndlessLevel)Game.Instance.levelScript).GetCharges() <= 0)
+                var endlessLevel = (LS_EndlessLevel)Game.Instance.levelScript;
+                if (endlessLevel.GetCharges() <= 0)
                     return;
                 else
                 {
                     SpawnItem(unit.Position);
-                    ((LS_EndlessLevel)Game.Instance.levelScript).UseCharge();
+                    endlessLevel.UseCharge();
                     return;
                 }
-            } else
+            }
+            else
                 SpawnItem(unit.Position);
         }
     }
@@ -65,7 +67,8 @@ public class ItemSpawner : MonoBehaviour
         {
             // Special Item !
             SpawnSpecialItem(at);
-        } else
+        }
+        else
         {
             // Common Item !
             SpawnCommonItem(at);

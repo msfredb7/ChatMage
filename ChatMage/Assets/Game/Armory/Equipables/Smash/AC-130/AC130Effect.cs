@@ -16,6 +16,11 @@ public class AC130Effect : MonoBehaviour
     public GameObject container;
     public AC130Bullet bulletPrefab;
 
+    [Header("Audio")]
+    public AudioAsset shootSFX;
+    public AudioAsset explosionSFX;
+    public float explosionDelay;
+
     [Header("Fade Settings")]
     public float fadeDuration = 0.3f;
 
@@ -65,6 +70,9 @@ public class AC130Effect : MonoBehaviour
 
     void Update()
     {
+        if (!Game.Instance.gameRunning)
+            return;
+
         if (remainingDuration > 0)
         {
             remainingDuration -= Time.deltaTime * Game.Instance.worldTimeScale;
@@ -93,7 +101,8 @@ public class AC130Effect : MonoBehaviour
     {
         Vector2 pos = Game.Instance.gameCamera.cam.ScreenToWorldPoint(Toucher.GetTouchPosition());
 
-        Game.Instance.SpawnUnit(bulletPrefab, pos).Init(blackFade);
+        var bullet = Game.Instance.SpawnUnit(bulletPrefab, pos);
+        bullet.Init(blackFade);
 
         //Reload time
         remainingReloadTime = reloadDuration;
@@ -104,7 +113,12 @@ public class AC130Effect : MonoBehaviour
         //Shake
         Game.Instance.gameCamera.vectorShaker.Shake(shakeIntensity, shakeDuration);
 
-        //black fade anim ?
+        // SFX
+        if (shootSFX != null)
+            DefaultAudioSources.PlaySFX(shootSFX);
+
+        if (explosionSFX != null)
+            DefaultAudioSources.PlaySFX(explosionSFX, bullet.arriveDelay - explosionDelay);
 
         //Ammo
         ammo--;
@@ -134,6 +148,7 @@ public class AC130Effect : MonoBehaviour
             //Black fade in
             enterExitAnimation = blackFade.DOFade(1, fadeDuration).OnComplete(OnEnterCockpit);
         }
+        UpdateAmmoDisplay();
     }
 
     void OnEnterCockpit()
