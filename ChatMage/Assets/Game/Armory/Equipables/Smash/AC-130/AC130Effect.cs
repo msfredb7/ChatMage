@@ -44,6 +44,8 @@ public class AC130Effect : MonoBehaviour
     private Tween enterExitAnimation;
     private float[] ambientSourceVolumes;
 
+    private const string SMASHLOCK = "ac130";
+
     void Awake()
     {
         gameObject.SetActive(false);
@@ -163,6 +165,8 @@ public class AC130Effect : MonoBehaviour
         }
         else
         {
+            if (Application.isMobilePlatform)
+                Game.Instance.ui.playerInputs.CanSmash.LockUnique(SMASHLOCK);
 
             this.ammo = ammo;
             this.onComplete = onComplete;
@@ -247,6 +251,8 @@ public class AC130Effect : MonoBehaviour
             return;
 
         ending = true;
+
+        Game.Instance.ui.playerInputs.CanSmash.UnlockAll(SMASHLOCK);
 
         if (forcedGoals != null)
         {

@@ -139,7 +139,9 @@ public class AC130Bullet : Unit
             base.TimeScale = value;
 
             if (tween != null && tween.IsActive())
+            {
                 tween.timeScale = timeScale;
+            }
         }
     }
 

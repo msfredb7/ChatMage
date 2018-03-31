@@ -7,6 +7,8 @@ public class PlayerInput : MonoBehaviour
     private PlayerController controller;
 
     public Locker Enabled = new Locker();
+    public Locker CanSmash = new Locker();
+    public Locker CanTurn = new Locker();
 
     private int turning;
     private bool smashPress;
@@ -50,11 +52,22 @@ public class PlayerInput : MonoBehaviour
             {
                 //Touch de clavier
                 if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
-                    turning++;
+                {
+                    if (CanTurn)
+                        turning++;
+                }
+
                 if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
-                    turning--;
+                {
+                    if (CanTurn)
+                        turning--;
+                }
+
                 if (Game.Instance.gameRunning && Input.GetKeyDown(KeyCode.Space))
-                    smashPress = true;
+                {
+                    if (CanSmash)
+                        smashPress = true;
+                }
             }
         }
 
@@ -71,11 +84,20 @@ public class PlayerInput : MonoBehaviour
         float regionWidth = Screen.width / 3f;
 
         if (x < regionWidth)
-            turning--;
+        {
+            if (CanTurn)
+                turning--;
+        }
         else if (x < regionWidth * 2)
-            smashPress = true;
+        {
+            if (CanSmash)
+                smashPress = true;
+        }
         else if (x < regionWidth * 3)
-            turning++;
+        {
+            if (CanTurn)
+                turning++;
+        }
     }
 
     void ApplyFlags()
