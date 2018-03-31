@@ -12,6 +12,8 @@ public class AC130Bullet : Unit
 
     [Header("Settings")]
     public float arriveDelay = 2;
+    [Range(0, 1)]
+    public float timescaleInfluence = 0.5f;
 
     [Header("Audio")]
     public AudioAsset explosionSFX;
@@ -28,12 +30,27 @@ public class AC130Bullet : Unit
     private bool lastedAtLeastAFrame = false;
     private Image blackFade;
     private Tween tween;
+    private float detonateTimer;
 
     void Start()
     {
         listener.onTriggerEnter += Listener_onTriggerEnter;
 
-        Game.Instance.events.AddDelayedAction(Detonate, arriveDelay);
+        detonateTimer = arriveDelay;
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+
+        if(detonateTimer > 0)
+        {
+            detonateTimer -= Mathf.Lerp(Time.deltaTime, DeltaTime(), timescaleInfluence);
+            if (detonateTimer <= 0)
+            {
+                Detonate();
+            }
+        }
     }
 
     public void Init(Image blackFade)

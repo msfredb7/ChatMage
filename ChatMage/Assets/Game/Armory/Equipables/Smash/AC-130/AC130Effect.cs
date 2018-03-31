@@ -31,6 +31,7 @@ public class AC130Effect : MonoBehaviour
     public float reloadDuration = 1.5f;
     public float shakeIntensity = 1;
     public float shakeDuration = 1;
+    public bool scaleReloadTimeWithWorldTimescale = false;
 
     Action onComplete;
     float remainingDuration = 0;
@@ -110,7 +111,7 @@ public class AC130Effect : MonoBehaviour
 
         if (remainingReloadTime > 0)
         {
-            remainingReloadTime -= Time.deltaTime * Game.Instance.worldTimeScale;
+            remainingReloadTime -= Time.deltaTime * (scaleReloadTimeWithWorldTimescale ? Game.Instance.worldTimeScale : 1f);
 
             //Si on a plus d'ammo, end
             if (remainingReloadTime <= 0 && ammo == 0)
