@@ -198,6 +198,8 @@ public class LS_EndlessLevel : LevelScript
         else
             wave.spawnInterval = specificSpawnInterval;
 
+        UnityEngine.Random.InitState(Mathf.RoundToInt(difficulty.GetProgression(currentStep)));
+
         /*Debug.Log("Current Stage : " + currentStage + "\n" +
         "Current Step : " + currentStep + "\n" +
         "Step in Stage : " + (currentStep - ((currentStage - 1) * (stepToResetSave - 1))) + "\n" +
