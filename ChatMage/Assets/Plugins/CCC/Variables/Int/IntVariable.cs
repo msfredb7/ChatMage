@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu(fileName = "Var_NewInt", menuName = "CCC/Variable/Int")]
 public class IntVariable : VarVariable<int>
