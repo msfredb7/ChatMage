@@ -42,12 +42,6 @@ public class ITM_SuperCar : Item, ISpeedBuff
 
         AddBuff();
 
-        Game.Instance.DelayedCall(() =>
-        {
-            DefaultAudioSources.PlaySFX(nitroActivation);
-            remainingNitro.Value += nitroDuration;
-        }, 0.5f);
-
         // Spawn if null
         if (sharedAudioSource.Value == null)
         {
@@ -61,7 +55,8 @@ public class ITM_SuperCar : Item, ISpeedBuff
         if (controller.Value == null)
             IsController = true;
 
-        // Subscribe to event
+        // Subscribe to events
+        player.playerItems.OnGainItem += AddNitroBoost;
         findNewControllerEvent.Subscribe(FindNewAudioController);
     }
 
@@ -77,7 +72,8 @@ public class ITM_SuperCar : Item, ISpeedBuff
     {
         base.Unequip();
 
-        // Unsubscribe from event
+        // Unsubscribe from events
+        player.playerItems.OnGainItem -= AddNitroBoost;
         findNewControllerEvent.Unsubscribe(FindNewAudioController);
 
         // Lose control of source
@@ -129,6 +125,16 @@ public class ITM_SuperCar : Item, ISpeedBuff
             remainingNitro.Value = Mathf.Max(remainingNitro.Value - Time.deltaTime, 0);
         }
 
+    }
+
+    private void AddNitroBoost(Item newItem)
+    {
+        Game.Instance.DelayedCall(() =>
+        {
+            if (IsController)
+                DefaultAudioSources.PlaySFX(nitroActivation);
+            remainingNitro.Value += nitroDuration;
+        }, 0.5f);
     }
 
     private void AddBuff()

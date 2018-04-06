@@ -7,6 +7,8 @@ public class PlayerItems : PlayerComponent
 {
     public List<Item> items = new List<Item>();
     public event SimpleEvent OnItemListChange;
+    public event Action<Item> OnGainItem;
+    public event Action<Item> OnLoseItem;
 
     public int ItemCount { get { return items.Count; } }
 
@@ -33,6 +35,9 @@ public class PlayerItems : PlayerComponent
         int duplicateIndex = GetDuplicateCount_Asset(itemAssetReference);
         items.Add(newItem);
         newItem.Equip(duplicateIndex);
+
+        if (OnGainItem != null)
+            OnGainItem(newItem);
 
         if (OnItemListChange != null)
             OnItemListChange();
@@ -63,6 +68,9 @@ public class PlayerItems : PlayerComponent
         {
             items.Remove(item);
             item.Unequip();
+
+            if (OnLoseItem != null)
+                OnLoseItem(item);
 
             if (OnItemListChange != null)
                 OnItemListChange();
