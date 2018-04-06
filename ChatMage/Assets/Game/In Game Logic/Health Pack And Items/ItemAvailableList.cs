@@ -33,8 +33,10 @@ public class ItemAvailableList : ScriptableObject
         Lottery<Item> lotItem = new Lottery<Item>();
         for (int i = 0; i < availableItems.Count; i++)
         {
-            lotItem.Add(availableItems[i], availableItems[i].GetWeight());
+            if(canGetMoreOfItem(availableItems[i]))
+                lotItem.Add(availableItems[i], availableItems[i].GetWeight());
         }
+
         if (lotItem.Count > 0)
         {
             return lotItem.Pick();
@@ -48,5 +50,21 @@ public class ItemAvailableList : ScriptableObject
     public bool AreThereSpecialItemsAvailable()
     {
         return availableItems.Count > 0 ? true : false;
+    }
+
+    private bool canGetMoreOfItem(Item item)
+    {
+        List<Item> playerItems = Game.Instance.Player.playerItems.items;
+        int amountPlayerHas = 0;
+        for (int i = 0; i < playerItems.Count; i++)
+        {
+            if (playerItems[i].GetType() == item.GetType())
+                amountPlayerHas++;
+        }
+
+        if (item.maxEquiped < 0)
+            return true;
+
+        return amountPlayerHas >= item.maxEquiped ? false : true;
     }
 }

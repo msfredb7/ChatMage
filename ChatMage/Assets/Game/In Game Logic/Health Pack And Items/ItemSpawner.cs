@@ -77,20 +77,18 @@ public class ItemSpawner : MonoBehaviour
 
     public void SpawnCommonItem(Vector2 at)
     {
-        SpawnItem(settings.GainItem(), at);
+        SpawnItem(false, at);
     }
 
     public void SpawnSpecialItem(Vector2 at)
     {
-        SpawnItem(settings.GainSpecialItem(), at);
+        SpawnItem(true, at);
     }
 
-    public void SpawnItem(Item item, Vector2 at)
+    public void SpawnItem(bool special, Vector2 at)
     {
-        if (item == null)
-            return;
         ItemPack itemPack = Game.Instance.SpawnUnit(pickupPrefab, at);
-        itemPack.SetItem(item);
+        itemPack.SetInfo(settings,special);
         itemPack.isPreSpawned = false;
     }
 }

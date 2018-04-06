@@ -213,6 +213,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e9934c509f41f20478c8992e4248029a, type: 2}
   - {fileID: 11400000, guid: 3b96f54dd6bf1fa4cbcb9eae397db2f9, type: 2}
   - {fileID: 11400000, guid: 732bde95df79da541aa452ebdfd3ec77, type: 2}
+  - {fileID: 114564938662220348, guid: 7935dd52775ae614e82924ee74f1319b, type: 2}
+  - {fileID: 114985049177857650, guid: 7935dd52775ae614e82924ee74f1319b, type: 2}
+  - {fileID: 114506413012067704, guid: 7935dd52775ae614e82924ee74f1319b, type: 2}
+  - {fileID: 11400000, guid: e569bd7a6c774b3419584285b33978ff, type: 2}
+  - {fileID: 11400000, guid: 7883bd7f619fee64fbcaf778651f21bb, type: 2}
   _values:
   - _keys: []
     _values: []
@@ -723,6 +728,24 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 11400000, guid: 732bde95df79da541aa452ebdfd3ec77, type: 2}
+  - _keys: []
+    _values: []
+    _target: {fileID: 114564938662220348, guid: 7935dd52775ae614e82924ee74f1319b,
+      type: 2}
+  - _keys: []
+    _values: []
+    _target: {fileID: 114985049177857650, guid: 7935dd52775ae614e82924ee74f1319b,
+      type: 2}
+  - _keys: []
+    _values: []
+    _target: {fileID: 114506413012067704, guid: 7935dd52775ae614e82924ee74f1319b,
+      type: 2}
+  - _keys: []
+    _values: []
+    _target: {fileID: 11400000, guid: e569bd7a6c774b3419584285b33978ff, type: 2}
+  - _keys: []
+    _values: []
+    _target: {fileID: 11400000, guid: 7883bd7f619fee64fbcaf778651f21bb, type: 2}
 --- !u!114 &114574157853951048
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -895,6 +918,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e9934c509f41f20478c8992e4248029a, type: 2}
   - {fileID: 11400000, guid: 3b96f54dd6bf1fa4cbcb9eae397db2f9, type: 2}
   - {fileID: 11400000, guid: 732bde95df79da541aa452ebdfd3ec77, type: 2}
+  - {fileID: 114564938662220348, guid: 7935dd52775ae614e82924ee74f1319b, type: 2}
+  - {fileID: 114985049177857650, guid: 7935dd52775ae614e82924ee74f1319b, type: 2}
+  - {fileID: 114506413012067704, guid: 7935dd52775ae614e82924ee74f1319b, type: 2}
+  - {fileID: 11400000, guid: e569bd7a6c774b3419584285b33978ff, type: 2}
+  - {fileID: 11400000, guid: 7883bd7f619fee64fbcaf778651f21bb, type: 2}
   _values:
   - _keys:
     - DefaultBehaviorEditor.sceneInfo.EditProperty
@@ -1210,14 +1238,8 @@ MonoBehaviour:
       _serializedIsActive: 1
     _target: {fileID: 11400000, guid: 24f9ca6709f27bc4a8a00531daa2c460, type: 2}
   - _keys:
-    - DefaultBehaviorEditor.playerPrefab.EditProperty
-    - DefaultBehaviorEditor.startingHP.EditProperty
-    - DefaultBehaviorEditor.turnAcceleration.EditProperty
+    - DefaultBehaviorEditor.startingHPItems.EditProperty
     _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
     - _showDropdown: 0
       _serializedIsActive: 1
     _target: {fileID: 11400000, guid: d6ba12b13f1008c4490f62670cc5584a, type: 2}
@@ -1380,20 +1402,8 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 11400000, guid: bf3df672499eb2344b98af3c9c61fb8c, type: 2}
-  - _keys:
-    - DefaultBehaviorEditor.sphereTrigger.EditProperty
-    - DefaultBehaviorEditor.debugRays.EditProperty
-    - DefaultBehaviorEditor.boostedMaxRange.EditProperty
-    - DefaultBehaviorEditor.dashDuration.EditProperty
-    _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
+  - _keys: []
+    _values: []
     _target: {fileID: 11400000, guid: 4ed9064e4b1e1cb4180de5728b92c5cd, type: 2}
   - _keys: []
     _values: []
@@ -1458,11 +1468,8 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 11400000, guid: 41bf824f75bf21b41bd78dad9e78d4cc, type: 2}
-  - _keys:
-    - DefaultBehaviorEditor.cooldownReduction.EditProperty
-    _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
+  - _keys: []
+    _values: []
     _target: {fileID: 11400000, guid: 3ba772465f0845d4a9f65088fbae714f, type: 2}
   - _keys: []
     _values: []
@@ -1897,8 +1904,11 @@ MonoBehaviour:
     - _showDropdown: 0
       _serializedIsActive: 1
     _target: {fileID: 11400000, guid: dad57d4799f09bf49940c16206098b8b, type: 2}
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.cantHaveMoreThen.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
     _target: {fileID: 11400000, guid: 0b86fb7c5eb3e874497d97449a4cd753, type: 2}
   - _keys:
     - DefaultBehaviorEditor.growSFX.EditProperty
@@ -1909,27 +1919,36 @@ MonoBehaviour:
     - _showDropdown: 0
       _serializedIsActive: 1
     _target: {fileID: 11400000, guid: 11d4c674b7007cc48a8d6e36d56c7ca8, type: 2}
-  - _keys:
-    - DefaultBehaviorEditor.cantHaveMoreThen.EditProperty
-    _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
+  - _keys: []
+    _values: []
     _target: {fileID: 11400000, guid: e9934c509f41f20478c8992e4248029a, type: 2}
   - _keys: []
     _values: []
     _target: {fileID: 11400000, guid: 3b96f54dd6bf1fa4cbcb9eae397db2f9, type: 2}
+  - _keys: []
+    _values: []
+    _target: {fileID: 11400000, guid: 732bde95df79da541aa452ebdfd3ec77, type: 2}
   - _keys:
-    - DefaultBehaviorEditor.carVisual.EditProperty
-    - DefaultBehaviorEditor.speedCurve.EditProperty
-    - DefaultBehaviorEditor.remainingNitro.EditProperty
-    - DefaultBehaviorEditor.nitroActivation.EditProperty
+    - DefaultBehaviorEditor.useCustomSettings.EditProperty
     _values:
     - _showDropdown: 0
       _serializedIsActive: 1
+    _target: {fileID: 114564938662220348, guid: 7935dd52775ae614e82924ee74f1319b,
+      type: 2}
+  - _keys:
+    - DefaultBehaviorEditor.useCustomSettings.EditProperty
+    _values:
     - _showDropdown: 0
       _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    _target: {fileID: 11400000, guid: 732bde95df79da541aa452ebdfd3ec77, type: 2}
+    _target: {fileID: 114985049177857650, guid: 7935dd52775ae614e82924ee74f1319b,
+      type: 2}
+  - _keys: []
+    _values: []
+    _target: {fileID: 114506413012067704, guid: 7935dd52775ae614e82924ee74f1319b,
+      type: 2}
+  - _keys: []
+    _values: []
+    _target: {fileID: 11400000, guid: e569bd7a6c774b3419584285b33978ff, type: 2}
+  - _keys: []
+    _values: []
+    _target: {fileID: 11400000, guid: 7883bd7f619fee64fbcaf778651f21bb, type: 2}
