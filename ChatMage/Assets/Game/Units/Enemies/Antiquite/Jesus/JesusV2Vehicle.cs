@@ -152,7 +152,7 @@ public class JesusV2Vehicle : EnemyVehicle
             canMove.Lock("dead");
 
             TimeScale = TimeScale / Mathf.Pow(timescaleIncrease, timescaleIncreaseCount);
-            Debug.Log("Timescale: " + TimeScale);
+
             animator.DeathAnimation(null);
             GetComponent<AI.JesusV2Brain>().enabled = false;
 
