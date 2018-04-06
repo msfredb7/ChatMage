@@ -17,6 +17,9 @@ public class LS_EndlessLevel : LevelScript
         public Unit unit;
         public int power;
         public int unlockAt = 0;
+        public int cooldown = 0;
+        [HideInInspector]
+        public int counter = 0; // use to calculate the cooldown
 
         public float Weight // Poid si jamais il n'y a aucun diversite
         {
@@ -34,7 +37,7 @@ public class LS_EndlessLevel : LevelScript
 
         public float GetProgression(float difficultyValue)
         {
-            return new NeverReachingCurve(miny, maxy, speed/1000000f, minx).Evalutate(difficultyValue);
+            return new NeverReachingCurve(miny, maxy, speed / 1000000f, minx).Evalutate(difficultyValue);
         }
     }
 
@@ -55,6 +58,10 @@ public class LS_EndlessLevel : LevelScript
     [InspectorCategory("ENDLESS MODE"), InspectorHeader("Difficulty Progression")]
     public DifficultyProgression difficulty;
     [InspectorCategory("ENDLESS MODE")]
+    public bool useCurveForSpawnInterval = false;
+    [InspectorCategory("ENDLESS MODE"), InspectorHideIf("useCurveForSpawnInterval")]
+    public float specificSpawnInterval = 1f;
+    [InspectorCategory("ENDLESS MODE"), InspectorShowIf("useCurveForSpawnInterval")]
     public DifficultyProgression spawnInterval;
     [InspectorCategory("ENDLESS MODE")]
     public DifficultyProgression enemyDiversity;
@@ -85,12 +92,6 @@ public class LS_EndlessLevel : LevelScript
     SidewaysFakeGate topgate;
     SidewaysFakeGate botgate;
     GuideArrow arrow;
-
-    // Debug
-    [InspectorCategory("ENDLESS MODE"), InspectorHeader("Debug")]
-    public bool useDebug = false;
-    [InspectorCategory("ENDLESS MODE"),FullInspector.InspectorShowIf("useDebug")]
-    public int debugStep = 1;
 
     // UI
     EndlessUI ui;
@@ -132,10 +133,7 @@ public class LS_EndlessLevel : LevelScript
         // Si la scene prend du temps a charge par rapport a l'intro il faudra que le jeu attend pour CECI
         Scenes.LoadAsync(EndlessUI.SCENENAME, LoadSceneMode.Additive,delegate(Scene scene){
             ui = scene.FindRootObject<EndlessUI>();
-            if(!useDebug)
-                ui.stageText.text = "Stage " + currentStage;
-            else
-                ui.stageText.text = "Stage " + currentStage + " Step " + (currentStep - ((currentStage - 1) * (stepToResetSave - 1)));
+            ui.stageText.text = "Stage " + currentStage + " Step " + (currentStep - ((currentStage - 1) * (stepToResetSave - 1)));
             ui.stageText.DOFade(1, fadeTextAnim);
         });
     }
@@ -172,7 +170,8 @@ public class LS_EndlessLevel : LevelScript
     {
         // Get current stage and step
         currentStage = PlayerPrefs.GetInt(stageKey,1);
-        currentStep = (currentStage-1) * stepToResetSave;
+        currentStep = ((currentStage-1) * (stepToResetSave-1)) + 1;
+        Debug.Log(currentStep);
         if (currentStep < 1)
             currentStep = 1;
 
@@ -185,15 +184,6 @@ public class LS_EndlessLevel : LevelScript
             dataSaver.SetInt(bestStepKey, currentBest);
             dataSaver.Save();
         }
-
-        // If debug, put custom step
-        if (useDebug)
-        {
-            currentStep = debugStep;
-            currentStage = Mathf.CeilToInt((float)debugStep / (float)stepToResetSave);
-            if (currentStage < 1)
-                currentStage = 1; 
-        }
     }
 
     // Spawn d'une vague d'ennemi durant l'étage
@@ -203,7 +193,12 @@ public class LS_EndlessLevel : LevelScript
         UnitWaveV2 wave = new UnitWaveV2();
         wave.infiniteRepeat = false;
         wave.pauseBetweenRepeat = 0;
-        wave.spawnInterval = 1/(spawnInterval.GetProgression(Mathf.RoundToInt(difficulty.GetProgression(currentStep))));
+        if(useCurveForSpawnInterval)
+            wave.spawnInterval = 1 / (spawnInterval.GetProgression(Mathf.RoundToInt(difficulty.GetProgression(currentStep))));
+        else
+            wave.spawnInterval = specificSpawnInterval;
+
+        UnityEngine.Random.InitState(Mathf.RoundToInt(difficulty.GetProgression(currentStep)));
 
         /*Debug.Log("Current Stage : " + currentStage + "\n" +
         "Current Step : " + currentStep + "\n" +
@@ -251,6 +246,7 @@ public class LS_EndlessLevel : LevelScript
             GiveCharge(0);
         else
             GiveCharge(charges[(currentStep - ((currentStage - 1) * (stepToResetSave - 1))) - 1]);
+            
 
         // Initialisation de la vague
         ManuallyAddWave(wave);
@@ -284,6 +280,7 @@ public class LS_EndlessLevel : LevelScript
             // On a cree un pack d'ennemi et on l'ajoute à la vague
             UnitPack currentPack = new UnitPack();
             CreateUnitPack(ref currentPack, packsPower[i], possibleUnits, currentDiversity);
+            DecreaseCooldownOfOtherUnits(currentPack.unit);
             unitPack.Add(currentPack);
         }
 
@@ -389,20 +386,29 @@ public class LS_EndlessLevel : LevelScript
             {
                 // et si on a unlock la unit, on peut la spawn
                 if(units[i].unlockAt <= currentStep)
-                    enemyLot.Add(units[i], Mathf.FloorToInt(1 + (units[i].Weight * diversityFactor))); // chance de choisir cette unit influencer par la diversite
+                    enemyLot.Add(units[i], Mathf.FloorToInt(1 + (units[i].Weight / diversityFactor))); // chance de choisir cette unit influencer par la diversite
             }
         }
 
         // On choisit aleatoirement un ennemi
         EnemyTypes chosenEnemy = enemyLot.Pick();
-        pack.unit = chosenEnemy.unit;
-        // On va en spawn le plus possible selon le power max de paquet d'ennemi
-        pack.quantity = Mathf.RoundToInt(power / chosenEnemy.power);
-        // On peut ajouter des choses qui influence le nombre d'ennemi ICI et tout s'ajuste
+        // Est-ce que le cooldown empeche la selection de cette unité ?
+        if(chosenEnemy.counter > 0)
+        {
+            // Oui, on restart la selection
+            return CreateUnitPack(ref pack,power,units,diversityFactor);
+        } else
+        {
+            chosenEnemy.counter = chosenEnemy.cooldown; // Reset cooldown après avoir choisit cette unité
+            pack.unit = chosenEnemy.unit;
+            // On va en spawn le plus possible selon le power max de paquet d'ennemi
+            pack.quantity = Mathf.RoundToInt(power / chosenEnemy.power);
+            // On peut ajouter des choses qui influence le nombre d'ennemi ICI et tout s'ajuste
 
-        // On a notre pack d'ennemi qui va spawn dans la wave
-        // On retourne la puissance du pack
-        return (chosenEnemy.power * pack.quantity);
+            // On a notre pack d'ennemi qui va spawn dans la wave
+            // On retourne la puissance du pack
+            return (chosenEnemy.power * pack.quantity);
+        }
     }
 
     // Initialisation du processus de changement d'étages
@@ -529,6 +535,15 @@ public class LS_EndlessLevel : LevelScript
     private void BackToStageSelection()
     {
         LoadingScreen.TransitionTo(stageSelection.SceneName, null);
+    }
+
+    private void DecreaseCooldownOfOtherUnits(Unit unit)
+    {
+        for (int i = 0; i < possibleUnits.Count; i++)
+        {
+            if (possibleUnits[i].unit != unit)
+                possibleUnits[i].counter--;
+        }
     }
 
     // DETECTORS
