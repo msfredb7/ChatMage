@@ -17,6 +17,7 @@ public class BubbleMageAnimatorV2 : EnemyAnimator
 
     public AudioPlayable chargeSound;
     public AudioPlayable shootSound;
+    public AudioPlayable earlyShootSound;
 
     void Awake()
     {
@@ -28,7 +29,7 @@ public class BubbleMageAnimatorV2 : EnemyAnimator
         chargeMoment = chargeCompleteMoment;
         this.shootMoment = shootMoment;
         shootCallback = onComplete;
-        DefaultAudioSources.PlaySFX(chargeSound,0,1,GetComponent<AudioSource>());
+        DefaultAudioSources.PlaySFX(chargeSound, 0, 1, GetComponent<AudioSource>());
         controller.SetTrigger(attackHash);
     }
 
@@ -42,6 +43,12 @@ public class BubbleMageAnimatorV2 : EnemyAnimator
         if (chargeMoment != null)
             chargeMoment();
         chargeMoment = null;
+    }
+
+    private void _EarlyShootMoment()
+    {
+        if (earlyShootSound != null)
+            DefaultAudioSources.PlaySFX(earlyShootSound);
     }
 
     private void _ShootMoment()

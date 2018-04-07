@@ -42,7 +42,7 @@ public abstract class StdCar : Car
                 // mais qu'on etait pas en train de spin
                 if (!spinning)
                 {
-                    Debug.Log("SPINNING");
+                    //Debug.Log("SPINNING");
                     // init le spin
                     turnSpeed = spinSpeed;
                     turnAcceleration = spinAcceleration;
