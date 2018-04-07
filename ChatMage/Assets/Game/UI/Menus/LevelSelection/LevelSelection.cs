@@ -30,8 +30,10 @@ namespace LevelSelect
         void Start()
         {
             PersistentLoader.LoadIfNotLoaded(OnSync);
-            backButton.onClick.AddListener(OnBackClicked);
-            shopButton.onClick.AddListener(OnShopClicked);
+            if (backButton)
+                backButton.onClick.AddListener(OnBackClicked);
+            if (shopButton)
+                shopButton.onClick.AddListener(OnShopClicked);
         }
 
         void OnSync()
