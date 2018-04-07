@@ -9,6 +9,7 @@ public class EndlessUI : MonoBehaviour {
 
     // Endless UI
     public Text stageText;
+    public EndlessUI_WaveIntro waveIntro;
     public Image transitionBG;
 
 }
