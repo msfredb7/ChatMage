@@ -18,8 +18,8 @@ namespace AI
         private float fleeDistSQR;
         private float shootCooldownRemains = 0;
 
-        private Unit friendTarget;
-        private Unit enemyTarget;
+        private Unit shootTarget;
+        private Unit fleeTarget;
         private bool isFleeing = false;
 
         void Start()
@@ -35,32 +35,36 @@ namespace AI
 
             shootCooldownRemains -= veh.DeltaTime();
 
-            if (friendTarget == null && shootCooldownRemains <= 0)
+            if (shootTarget == null && shootCooldownRemains <= 0)
             {
-                friendTarget = SearchForUnBubbledEnemy();
+                shootTarget = SearchForShootingTarget();
 
-                if (friendTarget != null)
+                if (shootTarget != null)
                 {
-                    Goal shieldGoal = new BubbleMageGoal_ShieldAlly(veh, friendTarget, shootDistance, ShootBubble);
-                    shieldGoal.onRemoved = (Goal g) => friendTarget = null;
+                    Goal shieldGoal = new BubbleMageGoal_ShieldAlly(veh, shootTarget, shootDistance, ShootBubble)
+                    {
+                        onRemoved = (Goal g) => shootTarget = null
+                    };
                     AddGoal(shieldGoal);
                 }
             }
 
             //Check for enemy targets
-            if (enemyTarget == null)
-                enemyTarget = veh.targets.TryToFindTarget(veh);
+            if (fleeTarget == null)
+                fleeTarget = veh.targets.TryToFindTarget(veh);
 
             //Check if enemy is too close
-            if(enemyTarget != null && !isFleeing)
+            if(fleeTarget != null && !isFleeing)
             {
-                Vector2 meToTarget = enemyTarget.Position - veh.Position;
+                Vector2 meToTarget = fleeTarget.Position - veh.Position;
                 if(meToTarget.sqrMagnitude < fleeDistSQR)
                 {
                     //Flee !
                     isFleeing = true;
-                    Goal fleeGoal = new Goal_Flee(veh, enemyTarget, fleeDistance);
-                    fleeGoal.onRemoved = (Goal g) => isFleeing = false;
+                    Goal fleeGoal = new Goal_Flee(veh, fleeTarget, fleeDistance)
+                    {
+                        onRemoved = (Goal g) => isFleeing = false
+                    };
                     AddForcedGoal(fleeGoal, -5);
                 }
             }
@@ -68,18 +72,29 @@ namespace AI
 
         private void ShootBubble()
         {
-            shootCooldownRemains = shootCooldown;
-            Game.Instance.SpawnUnit(projectilePrefab, shootEmitter.position)
-                .Init(veh.Rotation, veh, friendTarget != null ? friendTarget : null);
+            ExplosifyMage explosifyMage = GetComponent<ExplosifyMage>();
+
+            if(explosifyMage != null)
+            {
+                // Explosion
+                explosifyMage.ShootAtTarget(shootTarget, shootEmitter.position);
+            }
+            else
+            {
+                // Bubble
+                Game.Instance.SpawnUnit(projectilePrefab, shootEmitter.position)
+                    .Init(veh.Rotation, veh, shootTarget);
+            }
 
             shootCooldownRemains = shootCooldown;
         }
 
-        private Unit SearchForUnBubbledEnemy()
+        private Unit SearchForShootingTarget()
         {
             if (Game.Instance == null)
                 return null;
 
+            ExplosifyMage explosifyMage = GetComponent<ExplosifyMage>();
             Unit recordHolder = null;
             float record = float.PositiveInfinity;
 
@@ -88,7 +103,7 @@ namespace AI
             {
                 if (unit == veh)
                     continue;
-                if (!unit.IsDead && bubbleTargets.IsValidTarget(unit) && !unit.HasBuffOfType(typeof(BubbleBuff)))
+                if (!unit.IsDead && bubbleTargets.IsValidTarget(unit) && (!unit.HasBuffOfType(typeof(BubbleBuff)) || explosifyMage))
                 {
                     Vector2 v = unit.Position - myPos;
                     float dist = v.sqrMagnitude;

@@ -32,37 +32,37 @@ public class SpriteColors : MonoBehaviour
         propertyBlock = new MaterialPropertyBlock();
         _renderer = GetComponent<Renderer>();
 
-        if (Application.isPlaying)
-            return;
-
-        Material material = Resources.Load(FOLDERNAME + "/" + MATERIALNAME) as Material;
+        if (!Application.isPlaying)
+        {
+            Material material = Resources.Load(FOLDERNAME + "/" + MATERIALNAME) as Material;
 
 #if UNITY_EDITOR
-        if (material == null)
-        {
-            print("null mat");
-            Shader shader = Shader.Find(SHADERNAME);
-            if (shader == null)
+            if (material == null)
             {
-                Debug.LogError("Besoin du shader CCC/HSVShift");
-                return;
+                print("null mat");
+                Shader shader = Shader.Find(SHADERNAME);
+                if (shader == null)
+                {
+                    Debug.LogError("Besoin du shader CCC/HSVShift");
+                    return;
+                }
+                if (!AssetDatabase.IsValidFolder("Assets/Resources"))
+                {
+                    AssetDatabase.CreateFolder("Assets", "Resources");
+                }
+                if (!AssetDatabase.IsValidFolder("Assets/Resources/" + FOLDERNAME))
+                {
+                    AssetDatabase.CreateFolder("Assets/Resources", FOLDERNAME);
+                }
+                Material newMat = new Material(shader);
+                AssetDatabase.CreateAsset(newMat, "Assets/Resources/" + FOLDERNAME + "/" + MATERIALNAME + ".mat");
+                material = Resources.Load(FOLDERNAME + "/" + MATERIALNAME) as Material;
             }
-            if (!AssetDatabase.IsValidFolder("Assets/Resources"))
-            {
-                AssetDatabase.CreateFolder("Assets", "Resources");
-            }
-            if (!AssetDatabase.IsValidFolder("Assets/Resources/" + FOLDERNAME))
-            {
-                AssetDatabase.CreateFolder("Assets/Resources", FOLDERNAME);
-            }
-            Material newMat = new Material(shader);
-            AssetDatabase.CreateAsset(newMat, "Assets/Resources/" + FOLDERNAME + "/" + MATERIALNAME + ".mat");
-            material = Resources.Load(FOLDERNAME + "/" + MATERIALNAME) as Material;
-        }
 #endif
 
-        if (GetComponent<SpriteRenderer>() != null)
-            GetComponent<SpriteRenderer>().sharedMaterial = material;
+            if (GetComponent<SpriteRenderer>() != null)
+                GetComponent<SpriteRenderer>().sharedMaterial = material;
+        }
 
         Apply();
     }
@@ -76,6 +76,8 @@ public class SpriteColors : MonoBehaviour
     public void Apply()
     {
         Verify();
+        if (_renderer == null)
+            return;
 
         SpriteRenderer sprRenderer = GetComponent<SpriteRenderer>();
 

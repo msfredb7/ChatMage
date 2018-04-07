@@ -53,7 +53,10 @@ public class ITM_SuperCar : Item, ISpeedBuff
         }
 
         if (controller.Value == null)
+        {
             IsController = true;
+            remainingNitro.Value = 0;
+        }
 
         // Subscribe to events
         player.playerItems.OnGainItem += AddNitroBoost;
