@@ -171,7 +171,7 @@ public class LS_EndlessLevel : LevelScript
         // Get current stage and step
         currentStage = PlayerPrefs.GetInt(stageKey,1);
         currentStep = ((currentStage-1) * (stepToResetSave-1)) + 1;
-        Debug.Log(currentStep);
+        //Debug.Log(currentStep);
         if (currentStep < 1)
             currentStep = 1;
 

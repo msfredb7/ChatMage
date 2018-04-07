@@ -4,27 +4,52 @@ using UnityEngine;
 
 public class ItemPack : Pack
 {
-    [Header("Item Related")]
-    public Item itemReference;
+    private ItemSpawnerSettings settings;
+    [Header("Specific Item Reference")]
+    public Item item;
+    [Header("Saver")]
     public DataSaver firstPickupSave;
+
+    private bool shouldSpawnSpecial;
 
     private string firstPickUpKey = "FPUK";
 
-    public void SetItem(Item itemReference)
+    public void SetInfo(ItemSpawnerSettings settings, bool specialItem)
     {
-        this.itemReference = itemReference;
+        this.settings = settings;
+        shouldSpawnSpecial = specialItem;
     }
 
     protected override void OnPickUp()
     {
         PlayerController player = Game.Instance != null ? Game.Instance.Player : null;
 
-        if (itemReference != null && player != null)
+        if (player != null)
         {
+            if(item == null)
+            {
+                if(settings != null)
+                {
+                    // Get Item
+                    if (shouldSpawnSpecial)
+                    {
+                        item = settings.GainSpecialItem();
+                        if (item == null)
+                            item = settings.GainItem();
+                    }
+                    else
+                        item = settings.GainItem();
+                }
+                else
+                {
+                    Debug.LogError("Error, no settings in item packs");
+                }
+            }
+
             // Equip item
-            player.playerItems.Equip(itemReference);
+            player.playerItems.Equip(item);
             // First Time Its Equiped ?
-            string key = firstPickUpKey + itemReference.name;
+            string key = firstPickUpKey + item.name;
             // Save Exist doesn't exist so its the first time
             if (!firstPickupSave.ContainsBool(key))
             {
@@ -33,7 +58,7 @@ public class ItemPack : Pack
                 firstPickupSave.SaveAsync();
 
                 // Trigger UI Anim
-                Game.Instance.ui.itemNotification.Notify(itemReference);
+                Game.Instance.ui.itemNotification.Notify(item);
             } // else it isn't the first time so its ok
         }
     }

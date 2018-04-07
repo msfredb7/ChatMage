@@ -17,6 +17,9 @@ public class PlayerVehicle : Vehicle, IAttackable, IVisible
     public ISpeedOverrider speedOverrider = null;
     public List<ISpeedBuff> speedBuffs = new List<ISpeedBuff>();
 
+    // Spinner
+    public bool canSpin = false;
+
     public float RealMoveSpeed()
     {
         return ActualMoveSpeed();

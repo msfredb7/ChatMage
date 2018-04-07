@@ -7,6 +7,7 @@ public abstract class Item : Equipable, IItemWeight
 {
     public Sprite ingameIcon;
     public string description;
+    public int maxEquiped;
 
     [System.NonSerialized, FullSerializer.fsIgnore]
     public int originalAssetID;
