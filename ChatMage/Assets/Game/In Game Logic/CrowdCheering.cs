@@ -28,6 +28,8 @@ public class CrowdCheering : MonoBehaviour {
     {
         if (unit is JesusV2Vehicle)
             return;
+        if (unit is DestructibleDoor)
+            return;
         if (canDoSound)
             DoCrowdSoundEffect();
     }
