@@ -50,6 +50,8 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
     public DataSaver dataSaver;
     [InspectorCategory("LEVEL")]
     public DataSaver armoryData;
+    [InspectorCategory("LEVEL")]
+    public ItemSpawnerSettings overrideItems;
 
     [InspectorCategory("LEVEL"), InspectorHeader("Conditions")]
     public GameCondition.BaseWinningCondition[] winningConditions;

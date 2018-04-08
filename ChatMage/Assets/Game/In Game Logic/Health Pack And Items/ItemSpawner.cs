@@ -31,6 +31,10 @@ public class ItemSpawner : MonoBehaviour
 
     private void OnGameReady()
     {
+        // Fetch items
+        if (Game.Instance.levelScript.overrideItems != null)
+            settings = Game.Instance.levelScript.overrideItems;
+
         onUnitSpawnChance = new PseudoRand(settings.gainItemOnKillChance / 100f, settings.gainItemOnKillHardness);
         onItemSpawnChance = new PseudoRand(settings.gainSpecialItemOnItemPackChance / 100f, settings.gainItemOnItemPackHardness);
         Game.Instance.Player.playerStats.OnUnitKilled += OnUnitKilled;
