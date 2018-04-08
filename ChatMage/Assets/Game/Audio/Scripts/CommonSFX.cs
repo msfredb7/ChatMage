@@ -9,8 +9,6 @@ public class CommonSFX : MonoBehaviour
     public RandomAudioCliptList smashActivation;
     public RandomAudioCliptList deathSounds;
     public RandomAudioCliptList crowdScreamingSound;
-    public AudioClip hitMark;
-    //public AudioClip winIntro;
 
     public float sfxStandardVolume = 1;
 
@@ -27,11 +25,6 @@ public class CommonSFX : MonoBehaviour
     public void Death()
     {
         DefaultAudioSources.PlaySFX(deathSounds.Pick(), 0, sfxStandardVolume);
-    }
-
-    public void HitMark()
-    {
-        DefaultAudioSources.PlaySFX(hitMark, 0, sfxStandardVolume);
     }
 
     public void CrowdScreaming()

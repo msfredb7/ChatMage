@@ -33,11 +33,12 @@ public class ItemAvailableList : ScriptableObject
         Lottery<Item> lotItem = new Lottery<Item>();
         for (int i = 0; i < availableItems.Count; i++)
         {
-            if(canGetMoreOfItem(availableItems[i]))
-                lotItem.Add(availableItems[i], availableItems[i].GetWeight());
+            // NB: ça devrait être à chaque item de décidé. Il pourrons le faire dans GetWeight
+            //if(CanGetMoreOfItem(availableItems[i]))
+            lotItem.Add(availableItems[i], availableItems[i].GetWeight());
         }
 
-        if (lotItem.Count > 0)
+        if (lotItem.Count > 0 && lotItem.TotalWeight > 0)
         {
             return lotItem.Pick();
         }
@@ -52,19 +53,19 @@ public class ItemAvailableList : ScriptableObject
         return availableItems.Count > 0 ? true : false;
     }
 
-    private bool canGetMoreOfItem(Item item)
-    {
-        List<Item> playerItems = Game.Instance.Player.playerItems.items;
-        int amountPlayerHas = 0;
-        for (int i = 0; i < playerItems.Count; i++)
-        {
-            if (playerItems[i].GetType() == item.GetType())
-                amountPlayerHas++;
-        }
+    //private bool CanGetMoreOfItem(Item item)
+    //{
+    //    List<Item> playerItems = Game.Instance.Player.playerItems.items;
+    //    int amountPlayerHas = 0;
+    //    for (int i = 0; i < playerItems.Count; i++)
+    //    {
+    //        if (playerItems[i].GetType() == item.GetType())
+    //            amountPlayerHas++;
+    //    }
 
-        if (item.maxEquiped < 0)
-            return true;
+    //    if (item.maxEquiped < 0)
+    //        return true;
 
-        return amountPlayerHas >= item.maxEquiped ? false : true;
-    }
+    //    return amountPlayerHas >= item.maxEquiped ? false : true;
+    //}
 }
