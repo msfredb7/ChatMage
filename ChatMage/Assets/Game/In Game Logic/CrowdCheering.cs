@@ -5,6 +5,7 @@ using UnityEngine;
 public class CrowdCheering : MonoBehaviour {
 
     public float cheerCooldown = 5f;
+    public AudioPlayable crowdCheer;
 
     private float timer;
 
@@ -26,9 +27,9 @@ public class CrowdCheering : MonoBehaviour {
 
     private void PlayerStats_OnUnitKilled(Unit unit)
     {
-        if (unit is JesusV2Vehicle)
+        if (!Game.Instance.map.allowCrowdCheering)
             return;
-        if (unit is DestructibleDoor)
+        if (unit is IAttackable && ((IAttackable)unit).GetSmashJuiceReward() <= 0)
             return;
         if (canDoSound)
             DoCrowdSoundEffect();
@@ -48,7 +49,7 @@ public class CrowdCheering : MonoBehaviour {
     {
         if (Game.Instance != null)
         {
-            Game.Instance.commonSfx.CrowdScreaming();
+            DefaultAudioSources.PlayStaticSFX(crowdCheer);
             canDoSound = false;
             timer = cheerCooldown;
         }

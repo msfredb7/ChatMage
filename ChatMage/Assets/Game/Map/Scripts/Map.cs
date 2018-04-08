@@ -30,6 +30,7 @@ public class Map : BaseBehavior
     public GameEvents.EventGraph graph;
     public MeteoPlayer meteo;
     public MarkerSpawner markerSpawner;
+    public bool allowCrowdCheering = true;
 
     /// <summary>
     /// Initialise les settings de la map

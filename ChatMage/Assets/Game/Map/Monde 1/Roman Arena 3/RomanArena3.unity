@@ -26213,6 +26213,7 @@ MonoBehaviour:
   graph: {fileID: 1644651699}
   meteo: {fileID: 896440375}
   markerSpawner: {fileID: 1644651701}
+  allowCrowdCheering: 0
 --- !u!4 &1644651696
 Transform:
   m_ObjectHideFlags: 0
@@ -26711,8 +26712,23 @@ MonoBehaviour:
     - _showDropdown: 1
       _serializedIsActive: 1
     _target: {fileID: 266624493}
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.mapping.EditProperty
+    - DefaultBehaviorEditor.cameraSpawn.EditProperty
+    - DefaultBehaviorEditor.listUnits.EditProperty
+    - DefaultBehaviorEditor.setAIArea.EditProperty
+    - DefaultBehaviorEditor.roadPlayer.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 1
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
     _target: {fileID: 1644651695}
   - _keys: []
     _values: []
