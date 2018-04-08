@@ -13,7 +13,7 @@ public class CloseWindowsWithEscape : CCC.Persistence.MonoPersistent
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Joystick1Button7))
         {
             if(WindowController.windowsInFocus.Count > 0)
             {
