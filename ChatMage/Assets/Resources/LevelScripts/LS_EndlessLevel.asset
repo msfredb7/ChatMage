@@ -37,8 +37,8 @@ MonoBehaviour:
   - '[]'
   - '[]'
   - '[]'
-  - '[{"unit":0,"power":1,"unlockAt":0,"cooldown":0,"counter":-3,"spawnInterval":0.9},{"unit":1,"power":2,"unlockAt":0,"cooldown":1,"counter":1,"spawnInterval":1.25},{"unit":2,"power":2,"unlockAt":0,"cooldown":1,"counter":-40,"spawnInterval":1.25},{"unit":3,"power":4,"unlockAt":0,"cooldown":3,"counter":-12,"spawnInterval":4.0},{"unit":4,"power":2,"unlockAt":0,"cooldown":0,"counter":-1,"spawnInterval":1.0},{"unit":5,"power":2,"unlockAt":0,"cooldown":0,"counter":-2,"spawnInterval":1.0}]'
-  - '{"miny":0.0,"maxy":1000.0,"speed":{"UseConstant":false,"ConstantValue":0.0,"Variable":6},"minx":0.0}'
+  - '[{"unit":0,"power":1,"unlockAt":0,"cooldown":0,"counter":-3,"spawnInterval":0.9},{"unit":1,"power":2,"unlockAt":0,"cooldown":0,"counter":1,"spawnInterval":1.25},{"unit":2,"power":2,"unlockAt":0,"cooldown":0,"counter":-40,"spawnInterval":1.25},{"unit":3,"power":4,"unlockAt":0,"cooldown":1,"counter":-12,"spawnInterval":4.0},{"unit":4,"power":2,"unlockAt":0,"cooldown":0,"counter":-1,"spawnInterval":1.0},{"unit":5,"power":2,"unlockAt":0,"cooldown":0,"counter":-2,"spawnInterval":1.0}]'
+  - '{"miny":4.0,"maxy":1000.0,"speed":{"UseConstant":false,"ConstantValue":0.0,"Variable":6},"minx":0.0}'
   - '{"miny":0.6,"maxy":10.0,"speed":{"UseConstant":true,"ConstantValue":0.0005,"Variable":null},"minx":0.0}'
   - '{"miny":0.0,"maxy":10.0,"speed":{"UseConstant":true,"ConstantValue":0.0025,"Variable":null},"minx":1.0}'
   - '{"miny":0.0,"maxy":1000.0,"speed":{"UseConstant":false,"ConstantValue":0.0,"Variable":7},"minx":0.0}'
@@ -72,19 +72,19 @@ MonoBehaviour:
   - unit: {fileID: 114917152140949164, guid: 90a1293e412776e4db23eb9595fcf924, type: 2}
     power: 2
     unlockAt: 0
-    cooldown: 1
+    cooldown: 0
     counter: 1
     spawnInterval: 1.25
   - unit: {fileID: 114031953647070938, guid: dca25e04556fe204da1a495069e8c437, type: 2}
     power: 2
     unlockAt: 0
-    cooldown: 1
+    cooldown: 0
     counter: -40
     spawnInterval: 1.25
   - unit: {fileID: 114923829034378616, guid: 7ec293da9a2e20c4caaa28d716dc5124, type: 2}
     power: 4
     unlockAt: 0
-    cooldown: 3
+    cooldown: 1
     counter: -12
     spawnInterval: 4
   - unit: {fileID: 114117048000841424, guid: 7935dd52775ae614e82924ee74f1319b, type: 2}
@@ -100,7 +100,7 @@ MonoBehaviour:
     counter: -2
     spawnInterval: 1
   difficulty:
-    miny: 0
+    miny: 4
     maxy: 1000
     speed:
       UseConstant: 0
