@@ -104,6 +104,47 @@ public abstract class UnitSpawn : BaseBehavior
             }, delay);
     }
 
+    public virtual void SpawnUnits(Unit[] units, float[] intervals)
+    {
+        float totalDelay = 0;
+        int intervalLength = intervals.Length;
+        for (int i = 0; i < units.Length; i++)
+        {
+            SpawnUnit(units[i], totalDelay);
+            totalDelay += intervals[i % intervalLength];
+        }
+    }
+    public virtual void SpawnUnits(List<Unit> units, List<float> intervals)
+    {
+        float totalDelay = 0;
+        int intervalLength = intervals.Count;
+        for (int i = 0; i < units.Count; i++)
+        {
+            SpawnUnit(units[i], totalDelay);
+            totalDelay += intervals[i % intervalLength];
+        }
+    }
+    public virtual void SpawnUnits(Unit[] units, float[] intervals, Action<Unit> callback)
+    {
+        float totalDelay = 0;
+        int intervalLength = intervals.Length;
+        for (int i = 0; i < units.Length; i++)
+        {
+            SpawnUnit(units[i], totalDelay, callback);
+            totalDelay += intervals[i % intervalLength];
+        }
+    }
+    public virtual void SpawnUnits(List<Unit> units, List<float> intervals, Action<Unit> callback)
+    {
+        float totalDelay = 0;
+        int intervalLength = intervals.Count;
+        for (int i = 0; i < units.Count; i++)
+        {
+            SpawnUnit(units[i], totalDelay, callback);
+            totalDelay += intervals[i % intervalLength];
+        }
+    }
+
     public virtual void SpawnUnits(Unit[] units, float interval)
     {
         for (int i = 0; i < units.Length; i++)
@@ -135,6 +176,55 @@ public abstract class UnitSpawn : BaseBehavior
             float delay = i * interval;
             SpawnUnit(units[i], delay, callback);
         }
+    }
+
+    public void SpawnUnits(Unit[] units, float[] intervals, float delay)
+    {
+        float time = events.GameTime;
+        if (delay <= 0)
+            SpawnUnits(units, intervals);
+        else
+            events.AddDelayedAction(delegate ()
+            {
+                if (time > cancelTime)
+                    SpawnUnits(units, intervals);
+            }, delay);
+    }
+    public void SpawnUnits(List<Unit> units, List<float> intervals, float delay)
+    {
+        float time = events.GameTime;
+        if (delay <= 0)
+            SpawnUnits(units, intervals);
+        else
+            events.AddDelayedAction(delegate ()
+            {
+                if (time > cancelTime)
+                    SpawnUnits(units, intervals);
+            }, delay);
+    }
+    public void SpawnUnits(Unit[] units, float[] intervals, float delay, Action<Unit> callback)
+    {
+        float time = events.GameTime;
+        if (delay <= 0)
+            SpawnUnits(units, intervals, callback);
+        else
+            events.AddDelayedAction(delegate ()
+            {
+                if (time > cancelTime)
+                    SpawnUnits(units, intervals, callback);
+            }, delay);
+    }
+    public void SpawnUnits(List<Unit> units, List<float> intervals, float delay, Action<Unit> callback)
+    {
+        float time = events.GameTime;
+        if (delay <= 0)
+            SpawnUnits(units, intervals, callback);
+        else
+            events.AddDelayedAction(delegate ()
+            {
+                if (time > cancelTime)
+                    SpawnUnits(units, intervals, callback);
+            }, delay);
     }
 
     public void SpawnUnits(Unit[] units, float interval, float delay)

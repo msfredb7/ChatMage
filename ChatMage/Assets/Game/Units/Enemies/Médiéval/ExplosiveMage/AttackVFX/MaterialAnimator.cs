@@ -29,14 +29,18 @@ public class MaterialAnimator : MonoBehaviour
 
         if (mutex == null || mutex.Value == this)
         {
+            var offset = material.mainTextureOffset;
             if (basedOnMotion)
             {
-                material.mainTextureOffset += (tr.position - lastPosition).magnitude * offsetPerUnitOfMotion;
+                offset += (tr.position - lastPosition).magnitude * offsetPerUnitOfMotion;
             }
             else
             {
-                material.mainTextureOffset += offsetSpeed * Time.deltaTime;
+                offset += offsetSpeed * Time.deltaTime;
             }
+            offset.x = offset.x.Mod(1);
+            offset.y = offset.y.Mod(1);
+            material.mainTextureOffset = offset;
         }
 
         lastPosition = tr.position;

@@ -1376,6 +1376,15 @@ MonoBehaviour:
   - {fileID: 368159655}
   - {fileID: 1960989995}
   - {fileID: 712447063}
+  spawn: {fileID: 298466611}
+  unitsToSpawn:
+  - {fileID: 114031953647070938, guid: dca25e04556fe204da1a495069e8c437, type: 2}
+  - {fileID: 114031953647070938, guid: dca25e04556fe204da1a495069e8c437, type: 2}
+  - {fileID: 114031953647070938, guid: dca25e04556fe204da1a495069e8c437, type: 2}
+  - {fileID: 114031953647070938, guid: dca25e04556fe204da1a495069e8c437, type: 2}
+  intervals:
+  - 2
+  - 4
   i: 0
 --- !u!4 &903408044
 Transform:
@@ -2011,11 +2020,10 @@ MonoBehaviour:
     x: 204.09998
     y: 116
     width: 150
-    height: 10
+    height: 64
   graph: {fileID: 1644651698}
   onGameStart:
-    iEvents:
-    - {fileID: 1934595440}
+    iEvents: []
     unityEvent:
       m_PersistentCalls:
         m_Calls: []
@@ -2143,8 +2151,23 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 153121006}
-  - _keys: []
-    _values: []
+  - _keys:
+    - DefaultBehaviorEditor.mapping.EditProperty
+    - DefaultBehaviorEditor.cameraSpawn.EditProperty
+    - DefaultBehaviorEditor.listUnits.EditProperty
+    - DefaultBehaviorEditor.setAIArea.EditProperty
+    - DefaultBehaviorEditor.roadPlayer.EditProperty
+    _values:
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
+    - _showDropdown: 0
+      _serializedIsActive: 1
     _target: {fileID: 1644651695}
   - _keys: []
     _values: []
@@ -2591,7 +2614,7 @@ MonoBehaviour:
   - what
   - where
   _serializedStateValues:
-  - '{"xMin":626.0,"yMin":116.0,"xMax":776.0,"yMax":126.0}'
+  - '{"xMin":626.0,"yMin":116.0,"xMax":776.0,"yMax":200.0}'
   - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]}'
   - '{"spawnSequence":[{"unit":0,"quantity":1}],"useLevelScriptMethod":true,"onSpawnMethod":"MakeSmart","onSpawn":{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"GameEvents.MomentEvent_unit,
@@ -2603,7 +2626,7 @@ MonoBehaviour:
     x: 626
     y: 116
     width: 150
-    height: 10
+    height: 84
   graph: {fileID: 1644651698}
   onComplete:
     iEvents: []
