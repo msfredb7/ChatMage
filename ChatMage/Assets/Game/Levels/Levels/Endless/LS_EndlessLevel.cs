@@ -50,7 +50,7 @@ public class LS_EndlessLevel : LevelScript
     public SceneInfo stageSelection;
 
     // Spawn
-    string spawnTag = "random";
+    string spawnTag = "ordered";
 
     [InspectorCategory("ENDLESS MODE"), InspectorHeader("Ennemy Units")]
     public List<EnemyTypes> possibleUnits;
