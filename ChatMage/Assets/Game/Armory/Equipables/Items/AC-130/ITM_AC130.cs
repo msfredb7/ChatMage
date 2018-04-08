@@ -31,4 +31,22 @@ public class ITM_AC130 : Item
         effect.Smash(duration, ammo, null);
         player.playerItems.Unequip(this);
     }
+
+    public override float GetWeight()
+    {
+        int enemyCount = 0;
+        foreach (var unit in Game.Instance.attackableUnits)
+        {
+            if (unit.allegiance == Allegiance.Enemy)
+                enemyCount++;
+        }
+
+        if (enemyCount < 2)
+            return 0;
+
+        if (enemyCount > 3)
+            return 2;
+
+        return 1;
+    }
 }

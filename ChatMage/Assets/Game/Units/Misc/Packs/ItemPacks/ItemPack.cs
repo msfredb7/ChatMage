@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class ItemPack : Pack
 {
-    private ItemSpawnerSettings settings;
-    [Header("Specific Item Reference")]
-    public Item item;
     [Header("Saver")]
     public DataSaver firstPickupSave;
 
-    private bool shouldSpawnSpecial;
+    [Header("Prespawned")]
+    public Item item;
+    public ItemSpawnerSettings settings;
+    public bool shouldSpawnSpecial;
 
     private string firstPickUpKey = "FPUK";
 

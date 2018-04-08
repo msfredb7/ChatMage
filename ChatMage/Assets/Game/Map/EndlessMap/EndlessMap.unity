@@ -994,6 +994,69 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!1001 &255618976
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4827846602179008, guid: 8a3b671c04f45a24b81c599f602d69d3, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 3.26
+      objectReference: {fileID: 0}
+    - target: {fileID: 4827846602179008, guid: 8a3b671c04f45a24b81c599f602d69d3, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4827846602179008, guid: 8a3b671c04f45a24b81c599f602d69d3, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4827846602179008, guid: 8a3b671c04f45a24b81c599f602d69d3, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4827846602179008, guid: 8a3b671c04f45a24b81c599f602d69d3, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4827846602179008, guid: 8a3b671c04f45a24b81c599f602d69d3, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4827846602179008, guid: 8a3b671c04f45a24b81c599f602d69d3, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4827846602179008, guid: 8a3b671c04f45a24b81c599f602d69d3, type: 2}
+      propertyPath: m_RootOrder
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 114163676029376476, guid: 8a3b671c04f45a24b81c599f602d69d3,
+        type: 2}
+      propertyPath: settings
+      value: 
+      objectReference: {fileID: 11400000, guid: 58b567f7d48b73c43bbac1db95d48a7b,
+        type: 2}
+    - target: {fileID: 114163676029376476, guid: 8a3b671c04f45a24b81c599f602d69d3,
+        type: 2}
+      propertyPath: shouldSpawnSpecial
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114163676029376476, guid: 8a3b671c04f45a24b81c599f602d69d3,
+        type: 2}
+      propertyPath: item
+      value: 
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 8a3b671c04f45a24b81c599f602d69d3, type: 2}
+  m_IsPrefabParent: 0
+--- !u!1 &255618977 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1080693320418902, guid: 8a3b671c04f45a24b81c599f602d69d3,
+    type: 2}
+  m_PrefabInternal: {fileID: 255618976}
 --- !u!1 &264762862
 GameObject:
   m_ObjectHideFlags: 0
@@ -6075,19 +6138,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aaeb5c3ac4e10847931e7ba2845ab6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectReferences: []
+  _objectReferences:
+  - {fileID: 255618977}
   _serializedStateKeys:
   - listUnits
   - startAIArea
   - positionDisplacers
   _serializedStateValues:
-  - '[]'
+  - '[0]'
   - '{"min":{"x":-9.15,"y":-4.25},"max":{"x":9.15,"y":5.5}}'
   - '[]'
   mapping: {fileID: 153121006}
   cameraSpawn: {fileID: 1833739392}
   showCameraTrails: 1
-  listUnits: []
+  allowAutoDeactivation: 0
+  listUnits:
+  - {fileID: 255618977}
   setAIArea: 1
   startAIArea:
     min: {x: -9.15, y: -4.25}
@@ -6097,6 +6163,7 @@ MonoBehaviour:
   graph: {fileID: 0}
   meteo: {fileID: 1203758038}
   markerSpawner: {fileID: 0}
+  allowCrowdCheering: 1
 --- !u!4 &1644651696
 Transform:
   m_ObjectHideFlags: 0
@@ -6270,23 +6337,8 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 266624493}
-  - _keys:
-    - DefaultBehaviorEditor.mapping.EditProperty
-    - DefaultBehaviorEditor.cameraSpawn.EditProperty
-    - DefaultBehaviorEditor.listUnits.EditProperty
-    - DefaultBehaviorEditor.setAIArea.EditProperty
-    - DefaultBehaviorEditor.roadPlayer.EditProperty
-    _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 1
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
+  - _keys: []
+    _values: []
     _target: {fileID: 1644651695}
   - _keys: []
     _values: []
