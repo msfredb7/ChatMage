@@ -51,19 +51,19 @@ public class PlayerInput : MonoBehaviour
             else
             {
                 //Touch de clavier
-                if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
+                if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D) || (Input.GetAxis("Horizontal") > 0.1f))
                 {
                     if (CanTurn)
                         turning++;
                 }
 
-                if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
+                if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A) || (Input.GetAxis("Horizontal") < -0.1f))
                 {
                     if (CanTurn)
                         turning--;
                 }
 
-                if (Game.Instance.gameRunning && Input.GetKeyDown(KeyCode.Space))
+                if (Game.Instance.gameRunning && (Input.GetKeyDown(KeyCode.Space) || IsPlayerPressingUltimateButton()))
                 {
                     if (CanSmash)
                         smashPress = true;
@@ -73,6 +73,18 @@ public class PlayerInput : MonoBehaviour
 
         ApplyFlags();
         ClearFlags();
+    }
+
+    bool IsPlayerPressingUltimateButton()
+    {
+        if(Input.GetButtonDown("A_Button1") ||
+           Input.GetButtonDown("A_Button2") ||
+           Input.GetButtonDown("A_Button3") ||
+           Input.GetButtonDown("A_Button4"))
+        {
+            return true;
+        }
+        else { return false; }
     }
 
     void OnPlayerTouch(Vector2 pixelPosition)

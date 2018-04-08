@@ -7,7 +7,7 @@ public class ITM_DebugInvicible : Item
 {
     public override void Equip(int duplicateIndex)
     {
-        throw new NotImplementedException();
+        Game.Instance.Player.playerStats.damagable = false;
     }
 
     public override void OnGameReady()
@@ -25,6 +25,6 @@ public class ITM_DebugInvicible : Item
 
     public override void Unequip()
     {
-        throw new NotImplementedException();
+        Game.Instance.Player.playerStats.damagable = true;
     }
 }

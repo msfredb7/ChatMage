@@ -25,15 +25,18 @@ public class NewItemNotification : MonoBehaviour
     [Header("Settings")]
     public float pauseDuration = 2f;
 
+    private bool animDone;
 
     Queue<Item> notifQueue = new Queue<Item>();
     float blackBGDefaultAlpha;
-    Tween tween;
+    Tween introTween;
+    Tween outroTween;
 
     private void Awake()
     {
         blackBGDefaultAlpha = blackBG.color.a;
         gameObject.SetActive(false);
+        animDone = false;
     }
 
     public void Init(PlayerItems playerItems)
@@ -69,25 +72,42 @@ public class NewItemNotification : MonoBehaviour
 
         // Pause
         sq.AppendInterval(pauseDuration);
+        sq.AppendCallback(() => animDone = true);
 
-        // Close
-        sq.Append(content.DOFade(0, 0.4f));
-        sq.Join(blackBG.DOFade(0, 0.4f));
-        sq.OnComplete(() =>
-        {
-            Game.Instance.gameRunning.Unlock(GAMELOCK);
-            gameObject.SetActive(false);
-            CheckForNextInQueue();
-        });
-        tween = sq;
+        introTween = sq;
 
         // Spin dem rays
-        godRays.DORotate(Vector3.forward * 360, sq.Duration(), RotateMode.LocalAxisAdd).SetUpdate(true);
+        godRays.DORotate(Vector3.forward * 360, sq.Duration(), RotateMode.LocalAxisAdd).SetUpdate(true).SetLoops(-1);
+    }
+
+    void Update()
+    {
+        if (Input.anyKeyDown)
+        {
+            if (animDone)
+            {
+                // Close
+                var sq = DOTween.Sequence().SetUpdate(true);
+                sq.Append(content.DOFade(0, 0.4f));
+                sq.Join(blackBG.DOFade(0, 0.4f));
+                sq.OnComplete(() =>
+                {
+                    Game.Instance.gameRunning.Unlock(GAMELOCK);
+                    gameObject.SetActive(false);
+                    CheckForNextInQueue();
+                });
+                outroTween = sq;
+            }
+        }
     }
 
     private void OnDestroy()
     {
-        if (tween != null && tween.IsActive())
-            tween.Kill();
+        if (introTween != null && introTween.IsActive())
+        {
+            introTween.Kill();
+            outroTween.Kill();
+        }
+            
     }
 }

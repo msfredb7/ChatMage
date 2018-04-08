@@ -198,6 +198,7 @@ GameObject:
   - component: {fileID: 218698584}
   - component: {fileID: 218698585}
   - component: {fileID: 218698586}
+  - component: {fileID: 218698587}
   m_Layer: 0
   m_Name: Motton de script
   m_TagString: Untagged
@@ -317,9 +318,8 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 2c8a3c17122a27c4bbdc8164b6807bf4, type: 3}
     - {fileID: 8300000, guid: e3ed7d0c024cdef4c99a997155dc4e8e, type: 3}
     - {fileID: 8300000, guid: 79db12a5b3e54b849a1f805881a81aa5, type: 3}
-  crowdScreamingSound:
-    list: []
-  hitMark: {fileID: 8300000, guid: e2401ef3e9548f349b59ebe3d258985d, type: 3}
+  crowdScreamingSound: {fileID: 11400000, guid: e0377b2b861bf9c46b9fd8cf68c8e669,
+    type: 2}
   sfxStandardVolume: 1
 --- !u!114 &218698584
 MonoBehaviour:
@@ -433,6 +433,18 @@ MonoBehaviour:
     type: 2}
   settings: {fileID: 11400000, guid: d9b25bf8416a5784ca8a75b902fe22ac, type: 2}
   endlessMaxItemGivenPerStage: 5
+--- !u!114 &218698587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 218698577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4998c3ab86d82f84491929c7a15018bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cheerCooldown: 5
 --- !u!1 &471814416
 GameObject:
   m_ObjectHideFlags: 0

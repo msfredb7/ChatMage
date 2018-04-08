@@ -164,4 +164,15 @@ public class JesusV2Vehicle : EnemyVehicle
 
         base.Die();
     }
+
+    protected override void Update()
+    {
+        base.Update();
+#if UNITY_EDITOR
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            Die();
+        }
+#endif
+    }
 }

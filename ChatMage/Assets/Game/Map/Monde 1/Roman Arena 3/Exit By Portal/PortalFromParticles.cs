@@ -32,6 +32,11 @@ public class PortalFromParticles : MonoBehaviour
     private GameObject topWallVisuals;
     Sequence sq;
 
+    // SFX
+    public AudioSource source;
+    public AudioAsset particleExplosion;
+    public AudioAsset particleMoving;
+
     void Start()
     {
         unit.OnDeath += (u) => Play();
@@ -53,12 +58,12 @@ public class PortalFromParticles : MonoBehaviour
         //Delay
         sq.AppendInterval(particlesDelay);
         //Wind Zone
-        sq.AppendCallback(ps.Play);
+        sq.AppendCallback(delegate() { ps.Play(); particleExplosion.PlayOn(source); });
 
         //Delay
         sq.AppendInterval(windZoneDelay);
         //Wind Zone
-        sq.AppendCallback(() => windZone.gameObject.SetActive(true));
+        sq.AppendCallback(delegate() { windZone.gameObject.SetActive(true); /*particleMoving.PlayOn(source); */ });
 
         //Delay
         sq.AppendInterval(portalDelay);
