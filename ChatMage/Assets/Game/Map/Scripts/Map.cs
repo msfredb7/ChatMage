@@ -14,6 +14,7 @@ public class Map : BaseBehavior
     [InspectorMargin(10), InspectorHeader("Camera")]
     public CameraSpawn cameraSpawn;
     public bool showCameraTrails = true;
+    public bool allowAutoDeactivation = false;
 
     [InspectorMargin(10), InspectorHeader("Units Already Spawned")]
     public List<GameObject> listUnits = new List<GameObject>();
