@@ -260,6 +260,10 @@ public class LS_EndlessLevel : LevelScript
         ManuallyAddWave(wave);
         TriggerWaveManually("wave");
         Game.Instance.music.PlaySong(MusicManager.SongName.Fight, true);
+
+
+        // On re-randomise le jeu
+        UnityEngine.Random.InitState(Mathf.RoundToInt(Time.timeSinceLevelLoad * 100));
     }
 
     // Pour balance les etages, on va toujours utiliser le power d'un autre step plus bas selon cette formule
