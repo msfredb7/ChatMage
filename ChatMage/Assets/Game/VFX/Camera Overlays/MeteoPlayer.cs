@@ -60,13 +60,17 @@ public class MeteoPlayer : MonoBehaviour
 
     public void Show(float duration = 1.5f)
     {
+        IsShown = true;
         ColorGoTo(duration, stdColor);
     }
 
     public void Hide(float duration = 1.5f)
     {
+        IsShown = false;
         ColorGoTo(duration, stdColor.ChangedAlpha(0));
     }
+
+    public bool IsShown { get; private set; }
 
     private void ColorGoTo(float duration, Color destination)
     {

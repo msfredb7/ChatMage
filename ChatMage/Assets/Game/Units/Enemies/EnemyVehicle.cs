@@ -103,7 +103,7 @@ public abstract class EnemyVehicle : Vehicle, IAttackable
         {
             // Timer pour s'assurer qu'on seek pas une position pour l'infinie
             bool wasInTimer = gotoMaxDurationTimer > 0;
-            gotoMaxDurationTimer -= Time.fixedDeltaTime;
+            gotoMaxDurationTimer -= FixedDeltaTime();
             bool isInTimer = gotoMaxDurationTimer > 0;
             bool timerHasJustEnded = wasInTimer && !isInTimer;
 

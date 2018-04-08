@@ -3,12 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class MusicManager : MonoBehaviour {
+public class MusicManager : MonoBehaviour
+{
 
     public AudioClip ambient;
     public AudioClip fight;
     public AudioClip bossBattle;
     public AudioClip winAnthem;
+
+    public AudioSource crowdLoopSource;
+    public float crowdMinVolume = 0.05f;
+    public float crowdMaxVolume = 0.135f;
+    public float crowdVolumeSpeed = 0.35f;
 
     public enum SongName { Ambient = 0, Fight = 1, BossBattle = 2, Win = 3 }
 
@@ -20,7 +26,19 @@ public class MusicManager : MonoBehaviour {
         Game.Instance.onGameReady += delegate ()
         {
             PlaySong(SongName.Ambient);
+
+            if (Game.Instance.map.allowCrowdCheering)
+                crowdLoopSource.Play();
         };
+    }
+
+    void Update()
+    {
+        if(Game.Instance.gameReady && Game.Instance.map.meteo != null)
+        {
+            float targetVolume = Game.Instance.map.meteo.IsShown ? crowdMaxVolume : crowdMinVolume;
+            crowdLoopSource.volume = crowdLoopSource.volume.MovedTowards(targetVolume, Time.deltaTime * crowdVolumeSpeed);
+        }
     }
 
     public void PlaySong(SongName song, bool transition = false)
@@ -35,19 +53,19 @@ public class MusicManager : MonoBehaviour {
                 break;
             case SongName.Fight:
                 if (transition)
-                    DefaultAudioSources.TransitionToMusic(fight, true, musicVolume,transistionDuration);
+                    DefaultAudioSources.TransitionToMusic(fight, true, musicVolume, transistionDuration);
                 else
                     DefaultAudioSources.PlayMusic(fight, true, musicVolume);
                 break;
             case SongName.BossBattle:
                 if (transition)
-                    DefaultAudioSources.TransitionToMusic(bossBattle, true, musicVolume,transistionDuration);
+                    DefaultAudioSources.TransitionToMusic(bossBattle, true, musicVolume, transistionDuration);
                 else
                     DefaultAudioSources.PlayMusic(bossBattle, true, musicVolume);
                 break;
             case SongName.Win:
                 if (transition)
-                    DefaultAudioSources.TransitionToMusic(winAnthem, true, musicVolume,transistionDuration);
+                    DefaultAudioSources.TransitionToMusic(winAnthem, true, musicVolume, transistionDuration);
                 else
                     DefaultAudioSources.PlayMusic(winAnthem, true, musicVolume);
                 break;
