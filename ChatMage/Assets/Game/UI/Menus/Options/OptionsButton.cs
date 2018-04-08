@@ -15,7 +15,7 @@ public class OptionsButton : MonoBehaviour
 
     void Update()
     {
-        if (canOpenWithEscape && Input.GetKeyDown(KeyCode.Escape) && WindowController.windowsInFocus.Count == 0)
+        if (canOpenWithEscape && WindowController.windowsInFocus.Count == 0 && (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Joystick1Button7)))
         {
             var clickAnim = GetComponent<ClickAnimation>();
             if (clickAnim != null)
