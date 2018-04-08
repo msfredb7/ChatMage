@@ -20,6 +20,7 @@ public class LS_EndlessLevel : LevelScript
         public int cooldown = 0;
         [HideInInspector]
         public int counter = 0; // use to calculate the cooldown
+        public float delayToNextSpawn;
 
         public float Weight // Poid si jamais il n'y a aucun diversite
         {

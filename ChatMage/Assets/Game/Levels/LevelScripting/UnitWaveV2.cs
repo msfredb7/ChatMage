@@ -26,7 +26,11 @@ namespace LevelScripting
         public WaveWhen when;
 
         [InspectorCategory("Across")]
+        public bool variableIntervals = false;
+        [InspectorCategory("Across"), InspectorHideIf("variableIntervals")]
         public float spawnInterval = 1;
+        [InspectorCategory("Across"), InspectorShowIf("variableIntervals")]
+        public float[] spawnIntervals;
 
         [InspectorCategory("Other")]
         public Dialoguing.Dialog preLaunchDialog;
@@ -122,16 +126,25 @@ namespace LevelScripting
                     //Spawn units !
                     if (callbacker != null || spawnAction != null)
                     {
-                        spawn.SpawnUnits(units, spawnInterval, delegate (Unit unit)
+                        Action<Unit> cb = (Unit unit) =>
                         {
                             if (callbacker != null)
                                 callbacker.RegisterUnit(unit);
                             if (spawnAction != null)
                                 spawnAction(unit);
-                        });
+                        };
+                        if (variableIntervals)
+                            spawn.SpawnUnits(units, spawnIntervals, cb);
+                        else
+                            spawn.SpawnUnits(units, spawnInterval, cb);
                     }
                     else
-                        spawn.SpawnUnits(units, spawnInterval);
+                    {
+                        if (variableIntervals)
+                            spawn.SpawnUnits(units, spawnIntervals);
+                        else
+                            spawn.SpawnUnits(units, spawnInterval);
+                    }
                 }
             }
             else
@@ -150,7 +163,26 @@ namespace LevelScripting
             return true;
         }
 
-        public float Duration { get { return (what.TotalUnits - 1) * spawnInterval; } }
+        public float Duration
+        {
+            get
+            {
+                if (variableIntervals)
+                {
+                    float total = 0;
+                    int intervalCount = what.TotalUnits - 1;
+                    for (int i = 0; i < intervalCount; i++)
+                    {
+                        total += spawnIntervals[i % spawnIntervals.Length];
+                    }
+                    return total;
+                }
+                else
+                {
+                    return (what.TotalUnits - 1) * spawnInterval;
+                }
+            }
+        }
 
 
         private void InfiniteSpawning(bool insertDelay, UnitSpawn spawn, Unit[] sequence, Action<Unit> spawnAction)
@@ -162,8 +194,7 @@ namespace LevelScripting
             }
 
             int i = 0;
-            float realInterval = spawnInterval.Raised(0.1f);
-            spawn.SpawnUnits(sequence, realInterval, insertDelay ? (realInterval + pauseBetweenRepeat) : -1, delegate (Unit unit)
+            Action<Unit> cb = delegate (Unit unit)
             {
                 i++;
                 if (unit != null)
@@ -174,10 +205,20 @@ namespace LevelScripting
                         spawnAction(unit);
                 }
 
-                //Sommes nous au bout de la sequence ? Si oui, recommancer
+                //Sommes nous au bout de la sequence ? Si oui, recommencer
                 if (i == sequence.Length)
                     InfiniteSpawning(true, spawn, sequence, spawnAction);
-            });
+            };
+
+            if (variableIntervals)
+            {
+                spawn.SpawnUnits(sequence, spawnIntervals, insertDelay ? (spawnIntervals.Last() + pauseBetweenRepeat) : -1, cb);
+            }
+            else
+            {
+                float realInterval = spawnInterval.Raised(0.1f);
+                spawn.SpawnUnits(sequence, realInterval, insertDelay ? (realInterval + pauseBetweenRepeat) : -1, cb);
+            }
         }
 
         public void StopInfiniteRepeat()

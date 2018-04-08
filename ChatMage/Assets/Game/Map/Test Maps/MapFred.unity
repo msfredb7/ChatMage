@@ -1369,23 +1369,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d0bd9990e4d1c1459607cbad3ec8273, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 114668588376948974, guid: 8b07c225bcd7cd049a7ccbc8d57393a9,
-    type: 2}
-  destinations:
-  - {fileID: 1737917708}
-  - {fileID: 368159655}
-  - {fileID: 1960989995}
-  - {fileID: 712447063}
+  _objectReferences:
+  - {fileID: 114031953647070938, guid: dca25e04556fe204da1a495069e8c437, type: 2}
+  - {fileID: 114117048000841424, guid: a77d1fe458ce3364092b759e6508eaed, type: 2}
+  _serializedStateKeys:
+  - wave
+  _serializedStateValues:
+  - '{"what":{"spawnSequence":[{"unit":0,"quantity":2},{"unit":1,"quantity":1}],"onSpawnMethod":"","progressCallbacks":[]},"infiniteRepeat":false,"pauseBetweenRepeat":0.0,"where":{"logErrorIfUnableToLaunch":true,"spawnTag":"ordered","filterType":"None","min":{"x":0.0,"y":0.0},"max":{"x":0.0,"y":0.0},"selectType":"ByIndex","index":0},"when":{"type":"At","time":0.0,"name":null,"onlyTriggerOnce":false},"variableIntervals":true,"spawnInterval":1.0,"spawnIntervals":[1.0,2.0],"preLaunchDialog":null}'
   spawn: {fileID: 298466611}
-  unitsToSpawn:
-  - {fileID: 114031953647070938, guid: dca25e04556fe204da1a495069e8c437, type: 2}
-  - {fileID: 114031953647070938, guid: dca25e04556fe204da1a495069e8c437, type: 2}
-  - {fileID: 114031953647070938, guid: dca25e04556fe204da1a495069e8c437, type: 2}
-  - {fileID: 114031953647070938, guid: dca25e04556fe204da1a495069e8c437, type: 2}
-  intervals:
-  - 2
-  - 4
-  i: 0
 --- !u!4 &903408044
 Transform:
   m_ObjectHideFlags: 0
@@ -2020,7 +2011,7 @@ MonoBehaviour:
     x: 204.09998
     y: 116
     width: 150
-    height: 64
+    height: 10
   graph: {fileID: 1644651698}
   onGameStart:
     iEvents: []
@@ -2083,6 +2074,7 @@ MonoBehaviour:
   - {fileID: 1934595440}
   - {fileID: 2120832837}
   - {fileID: 298466611}
+  - {fileID: 903408043}
   _values:
   - _keys: []
     _values: []
@@ -2120,6 +2112,9 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 298466611}
+  - _keys: []
+    _values: []
+    _target: {fileID: 903408043}
 --- !u!114 &1649213853
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2144,6 +2139,7 @@ MonoBehaviour:
   - {fileID: 1934595440}
   - {fileID: 2120832837}
   - {fileID: 298466611}
+  - {fileID: 903408043}
   _values:
   - _keys: []
     _values: []
@@ -2151,23 +2147,8 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 153121006}
-  - _keys:
-    - DefaultBehaviorEditor.mapping.EditProperty
-    - DefaultBehaviorEditor.cameraSpawn.EditProperty
-    - DefaultBehaviorEditor.listUnits.EditProperty
-    - DefaultBehaviorEditor.setAIArea.EditProperty
-    - DefaultBehaviorEditor.roadPlayer.EditProperty
-    _values:
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
-    - _showDropdown: 0
-      _serializedIsActive: 1
+  - _keys: []
+    _values: []
     _target: {fileID: 1644651695}
   - _keys: []
     _values: []
@@ -2199,6 +2180,9 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 298466611}
+  - _keys: []
+    _values: []
+    _target: {fileID: 903408043}
 --- !u!1 &1650513456
 GameObject:
   m_ObjectHideFlags: 0
@@ -2614,7 +2598,7 @@ MonoBehaviour:
   - what
   - where
   _serializedStateValues:
-  - '{"xMin":626.0,"yMin":116.0,"xMax":776.0,"yMax":200.0}'
+  - '{"xMin":626.0,"yMin":116.0,"xMax":776.0,"yMax":126.0}'
   - '{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"UnityEngine.Events.UnityEvent,
     UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"},"iEvents":[]}'
   - '{"spawnSequence":[{"unit":0,"quantity":1}],"useLevelScriptMethod":true,"onSpawnMethod":"MakeSmart","onSpawn":{"unityEvent":{"m_PersistentCalls":{"m_Calls":[]},"m_TypeName":"GameEvents.MomentEvent_unit,
@@ -2626,7 +2610,7 @@ MonoBehaviour:
     x: 626
     y: 116
     width: 150
-    height: 84
+    height: 10
   graph: {fileID: 1644651698}
   onComplete:
     iEvents: []

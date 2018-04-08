@@ -10,14 +10,15 @@ using UnityEngine.Events;
 using CCC.Utility;
 using UnityEngine.UI;
 
-public class Fred_TestScript : MonoBehaviour
+public class Fred_TestScript : BaseBehavior
 {
-    public ExplosiveMageProjectile projectile;
-    public Transform[] destinations;
+    //public ExplosiveMageProjectile projectile;
+    //public Transform[] destinations;
     public UnitSpawn spawn;
-    public List<Unit> unitsToSpawn;
-    public List<float> intervals;
-    public int i = 0;
+    public LevelScripting.UnitWaveV2 wave;
+    //public List<Unit> unitsToSpawn;
+    //public List<float> intervals;
+    //public int i = 0;
 
     void Start()
     {
@@ -27,17 +28,19 @@ public class Fred_TestScript : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            projectile.DuplicateGO(Vector2.zero, Quaternion.identity).GoTo(destinations[i].position);
-            i++;
-            if (i == destinations.Length)
-                i = 0;
-        }
-
-        //if (Input.GetKeyDown(KeyCode.T))
+        //if (Input.GetKeyDown(KeyCode.Y))
         //{
-        //    spawn.SpawnUnits(unitsToSpawn, intervals, 1.5f, (x) => Debug.Log("hello: " + x));
+        //    projectile.DuplicateGO(Vector2.zero, Quaternion.identity).GoTo(destinations[i].position);
+        //    i++;
+        //    if (i == destinations.Length)
+        //        i = 0;
         //}
+
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            wave.LaunchNow(Game.Instance.levelScript);
+            //spawn.SpawnUnits(unitsToSpawn, intervals, 1.5f, (x) => Debug.Log("hello: " + x));
+        }
     }
 }
