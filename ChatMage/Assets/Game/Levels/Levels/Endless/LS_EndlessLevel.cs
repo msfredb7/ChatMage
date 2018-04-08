@@ -168,7 +168,7 @@ public class LS_EndlessLevel : LevelScript
         currentStep = 0;
         currentStage = 0;
     }
-
+    
     private void LoadStageInfo()
     {
         // Get current stage and step
@@ -507,6 +507,8 @@ public class LS_EndlessLevel : LevelScript
         // Fade out
         ui.transitionBG.DOFade(1, transitionDuration).OnComplete(delegate ()
         {
+            ClearRocks();
+
             // Teleport player
             MovePlayer(delegate ()
             {
@@ -592,5 +594,20 @@ public class LS_EndlessLevel : LevelScript
     private void GiveCharge(int amount)
     {
         currentAmounOfCharges += amount;
+    }
+
+
+    private void ClearRocks()
+    {
+        LinkedListNode<Unit> node = Game.Instance.units.First;
+        while (node != null)
+        {
+            Unit val = node.Value;
+
+            if (val is JesusRockV2)
+                val.ForceDie();
+
+            node = node.Next;
+        }
     }
 }

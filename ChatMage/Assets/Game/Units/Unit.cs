@@ -14,6 +14,7 @@ public abstract class Unit : MonoBehaviour
     public Allegiance allegiance = Allegiance.Enemy;
 
     protected float timeScale = 1;
+    public float baseTimescale = 1;
 
     [System.Serializable]
     public class Unit_UnityEvent : UnityEvent<Unit> { }

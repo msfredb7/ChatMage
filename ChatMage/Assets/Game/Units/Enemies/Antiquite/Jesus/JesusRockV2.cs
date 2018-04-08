@@ -170,4 +170,11 @@ public class JesusRockV2 : MovingUnit
                 StoppedState();
         }
     }
+
+    protected override void Die()
+    {
+        base.Die();
+
+        Destroy();
+    }
 }
