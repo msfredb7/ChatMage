@@ -173,7 +173,7 @@ public class Game : PublicFISingleton<Game>
     {
         if (putInUnitsContainer)
             unit.transform.SetParent(unitsContainer);
-        unit.TimeScale = worldTimeScale;
+        unit.TimeScale = worldTimeScale * unit.baseTimescale;
 
         units.AddLast(unit);
         unit.stdNode = units.Last;

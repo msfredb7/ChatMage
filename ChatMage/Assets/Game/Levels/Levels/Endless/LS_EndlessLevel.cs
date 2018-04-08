@@ -20,6 +20,7 @@ public class LS_EndlessLevel : LevelScript
         public int cooldown = 0;
         [HideInInspector]
         public int counter = 0; // use to calculate the cooldown
+        public float spawnInterval;
 
         public float Weight // Poid si jamais il n'y a aucun diversite
         {
@@ -167,7 +168,7 @@ public class LS_EndlessLevel : LevelScript
         currentStep = 0;
         currentStage = 0;
     }
-
+    
     private void LoadStageInfo()
     {
         // Get current stage and step
@@ -218,7 +219,11 @@ public class LS_EndlessLevel : LevelScript
 
         // What ?
         wave.what = new WaveWhat();
-        wave.what.spawnSequence = CreateUnitWave(GetRealStepForPower(currentStep, currentStage), possibleUnits);
+
+        List<float> spawnIntervals;
+        wave.what.spawnSequence = CreateUnitWave(GetRealStepForPower(currentStep, currentStage), possibleUnits, out spawnIntervals);
+        wave.spawnIntervals = spawnIntervals.ToArray();
+        wave.variableIntervals = true;
 
         // Where ?
         wave.where = new WaveWhereV2();
@@ -264,9 +269,10 @@ public class LS_EndlessLevel : LevelScript
     }
 
     // Algorithm to create a good wave depending on the stage
-    private UnitPack[] CreateUnitWave(int stepUsedForPowerMesure, List<EnemyTypes> units)
+    private UnitPack[] CreateUnitWave(int stepUsedForPowerMesure, List<EnemyTypes> units, out List<float> spawnIntervals)
     {
         List<UnitPack> unitPack = new List<UnitPack>();
+        spawnIntervals = new List<float>();
         int difficultyTarget = Mathf.RoundToInt(difficulty.GetProgression(stepUsedForPowerMesure));
         int currentWavePower = Mathf.RoundToInt(wavePower.GetProgression(difficultyTarget));
 
@@ -282,19 +288,12 @@ public class LS_EndlessLevel : LevelScript
         {
             // On a cree un pack d'ennemi et on l'ajoute à la vague
             UnitPack currentPack = new UnitPack();
-            CreateUnitPack(ref currentPack, packsPower[i], possibleUnits, currentDiversity);
+            CreateUnitPack(ref currentPack, packsPower[i], possibleUnits, currentDiversity, ref spawnIntervals);
             DecreaseCooldownOfOtherUnits(currentPack.unit);
             unitPack.Add(currentPack);
         }
-
-        // On cree le resultat
-        UnitPack[] result = new UnitPack[unitPack.Count];
-        // et on ajoute nos packs dedans
-        for (int i = 0; i < unitPack.Count; i++)
-        {
-            result[i] = unitPack[i];
-        }
-        return result;
+        
+        return unitPack.ToArray();
     }
 
     private List<int> FindIncreasingPartSum(int number)
@@ -378,7 +377,7 @@ public class LS_EndlessLevel : LevelScript
     }
 
     // Create un pack d'ennemi a envoyé 
-    private int CreateUnitPack(ref UnitPack pack, int power, List<EnemyTypes> units, float diversityFactor)
+    private int CreateUnitPack(ref UnitPack pack, int power, List<EnemyTypes> units, float diversityFactor, ref List<float> spawnIntervals)
     {
         // On crée un lot aléatoire des ennemis accessible
         Lottery<EnemyTypes> enemyLot = new Lottery<EnemyTypes>();
@@ -395,11 +394,12 @@ public class LS_EndlessLevel : LevelScript
 
         // On choisit aleatoirement un ennemi
         EnemyTypes chosenEnemy = enemyLot.Pick();
+
         // Est-ce que le cooldown empeche la selection de cette unité ?
         if (chosenEnemy.counter > 0)
         {
             // Oui, on restart la selection
-            return CreateUnitPack(ref pack, power, units, diversityFactor);
+            return CreateUnitPack(ref pack, power, units, diversityFactor, ref spawnIntervals);
         }
         else
         {
@@ -408,6 +408,12 @@ public class LS_EndlessLevel : LevelScript
             // On va en spawn le plus possible selon le power max de paquet d'ennemi
             pack.quantity = Mathf.RoundToInt(power / chosenEnemy.power);
             // On peut ajouter des choses qui influence le nombre d'ennemi ICI et tout s'ajuste
+
+
+            for (int i = 0; i < pack.quantity; i++)
+            {
+                spawnIntervals.Add(chosenEnemy.spawnInterval);
+            }
 
             // On a notre pack d'ennemi qui va spawn dans la wave
             // On retourne la puissance du pack
@@ -501,6 +507,8 @@ public class LS_EndlessLevel : LevelScript
         // Fade out
         ui.transitionBG.DOFade(1, transitionDuration).OnComplete(delegate ()
         {
+            ClearRocks();
+
             // Teleport player
             MovePlayer(delegate ()
             {
@@ -586,5 +594,20 @@ public class LS_EndlessLevel : LevelScript
     private void GiveCharge(int amount)
     {
         currentAmounOfCharges += amount;
+    }
+
+
+    private void ClearRocks()
+    {
+        LinkedListNode<Unit> node = Game.Instance.units.First;
+        while (node != null)
+        {
+            Unit val = node.Value;
+
+            if (val is JesusRockV2)
+                val.ForceDie();
+
+            node = node.Next;
+        }
     }
 }

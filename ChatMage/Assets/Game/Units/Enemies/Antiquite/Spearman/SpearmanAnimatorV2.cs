@@ -27,12 +27,12 @@ public class SpearmanAnimatorV2 : EnemyAnimator
         vehicle.spearAttackConsumed = false;
     }
 
-    private void _AttackMoment()
+    public void _AttackMoment()
     {
         if (attackMoment != null)
             attackMoment();
     }
-    private void _AttackComplete()
+    public void _AttackComplete()
     {
         if (attackCallback != null)
             attackCallback();
