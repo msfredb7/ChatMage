@@ -42,7 +42,7 @@ public class EndlessUI_WaveIntro : MonoBehaviour
             DefaultAudioSources.PlayStaticSFX(minorSFX);
 
         text.enabled = true;
-        text.text = "Level " + level + " - " + step;
+        text.text = "Level " + level + " - " + (step == 10 ? "Finale" : step.ToString());
 
         // Fade in/out
         text.color = text.color.ChangedAlpha(0);

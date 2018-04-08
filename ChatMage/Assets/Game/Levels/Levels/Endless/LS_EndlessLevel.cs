@@ -546,7 +546,7 @@ public class LS_EndlessLevel : LevelScript
     // Retour a la tour
     private void BackToStageSelection()
     {
-        LoadingScreen.TransitionTo(stageSelection.SceneName, null);
+        Win();
     }
 
     private void DecreaseCooldownOfOtherUnits(Unit unit)

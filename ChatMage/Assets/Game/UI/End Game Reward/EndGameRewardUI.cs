@@ -17,6 +17,10 @@ namespace EndGameReward
         //public RewardDisplay rewardDisplay;
         public WinAnimation winAnimation;
         public AudioMixerSnapshot normalAudioSnapshot;
+        public SceneInfo adventureModeReturn;
+        public SceneInfo endlessModeReturn;
+
+        public static bool AdventureMode { get; set; }
 
         //private string levelScriptAssetName;
         //private List<EquipablePreview> reward;
@@ -47,7 +51,10 @@ namespace EndGameReward
 
         public void Continue()
         {
-            LoadingScreen.TransitionTo(LevelSelect.LevelSelection.SCENENAME, null);
+            if (AdventureMode)
+                LoadingScreen.TransitionTo(adventureModeReturn.SceneName, null);
+            else
+                LoadingScreen.TransitionTo(endlessModeReturn.SceneName, null);
         }
     }
 }

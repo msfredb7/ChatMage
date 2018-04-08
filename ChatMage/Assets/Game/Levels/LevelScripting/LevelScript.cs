@@ -202,6 +202,8 @@ public abstract class LevelScript : BaseScriptableObject, IEventReceiver
 
         isOver = true;
 
+        EndGameReward.EndGameRewardUI.AdventureMode = !(this is LS_EndlessLevel);
+
         bool wasCompleted = HasBeenCompleted(this, dataSaver);
 
         if (!wasCompleted)
