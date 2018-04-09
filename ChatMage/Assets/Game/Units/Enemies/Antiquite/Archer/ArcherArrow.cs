@@ -30,15 +30,22 @@ public class ArcherArrow : MovingUnit
     private Vector2 wasVelocity;
     private bool weJustHitAPlayer;
     private int stuckInCarCounter = 0;
+    private Vector2 flyVector;
 
     public void Init(Unit origin, Vector2 dir, Targets targetsToCopy)
     {
         listener.onTriggerEnter += Listener_onTriggerEnter;
         listener.onCollisionEnter += Listener_onCollisionEnter;
-        Speed = dir.normalized * shootSpeed * timeScale;
+        flyVector = dir.normalized * shootSpeed;
+        ApplyFlyVector();
         transform.rotation = Quaternion.Euler(Vector3.forward * Vehicle.VectorToAngle(dir));
 
         targets = new Targets(targetsToCopy);
+    }
+
+    private void ApplyFlyVector()
+    {
+        Speed = flyVector * timeScale;
     }
 
     protected override void FixedUpdate()
@@ -46,6 +53,8 @@ public class ArcherArrow : MovingUnit
         base.FixedUpdate();
 
         wasVelocity = Speed;
+
+        ApplyFlyVector();
 
         if (!isDead && !bounce)
         {
@@ -94,8 +103,9 @@ public class ArcherArrow : MovingUnit
                 averageNormals.Normalize();
 
                 var newDir = Vector2.Reflect(wasVelocity, averageNormals);
-                Speed = shootSpeed * timeScale * newDir.normalized;
+                flyVector = newDir.normalized * shootSpeed;
                 Rotation = newDir.ToAngle();
+                ApplyFlyVector();
                 bounceCount--;
 
                 //if (!weJustHitAPlayer)

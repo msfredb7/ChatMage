@@ -373,7 +373,7 @@ namespace FullInspector.Internal {
         private static bool VerifyBinding(string name, object obj) {
             if (obj == null) {
                 if (fiUtility.IsEditor) {
-                    Debug.Log("There is no binding for " + name + " even though we are in an editor");
+                    //Debug.Log("There is no binding for " + name + " even though we are in an editor");
                 }
 
                 return false;
