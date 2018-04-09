@@ -33,5 +33,6 @@ public class StageButton : MonoBehaviour {
         DefaultAudioSources.StopMusicFaded(1);
 
         LoadingScreen.TransitionTo(Framework.SCENENAME, gameMessage, true);
+        GetComponent<AdsStarter>().ShowRewardedAd();
     }
 }

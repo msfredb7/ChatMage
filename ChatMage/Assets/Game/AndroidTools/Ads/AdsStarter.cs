@@ -16,30 +16,39 @@ public class AdsStarter : MonoBehaviour
 
     private Action onAdComplete;
 
+    private const string key = "previouslyDoneAd";
+
     // ADS
 
     public void ShowRewardedAd(/*AdsRelayer relayerMessage,*/ Action onComplete = null)
     {
 #if UNITY_ADS
-        //this.DelayedCall(delegate () {
-        if (Advertisement.IsReady("video"))
+        bool doAd = (PlayerPrefs.GetInt(key, 0) == 0 ? true : false);
+        if (doAd)
         {
-            var options = new ShowOptions { resultCallback = HandleShowResult };
-            Advertisement.Show("video", options);
-            onAdComplete = onComplete;
-            return;
-        }
-        else
-        {
-            PopUpMenu.ShowOKPopUpMenu("Could not connect", "You are not connected to the internet. Please verify your connection.", delegate ()
+            PlayerPrefs.SetInt(key, 1);
+            //this.DelayedCall(delegate () {
+            if (Advertisement.IsReady("video"))
             {
-                //LoadingScreen.TransitionTo(previousSceneName, null);
-                if (onComplete != null)
-                    onComplete();
-            });
+                var options = new ShowOptions { resultCallback = HandleShowResult };
+                Advertisement.Show("video", options);
+                onAdComplete = onComplete;
+                return;
+            }
+            else
+            {
+                PopUpMenu.ShowOKPopUpMenu("Could not connect", "You are not connected to the internet. Please verify your connection.", delegate ()
+                {
+                    //LoadingScreen.TransitionTo(previousSceneName, null);
+                    if (onComplete != null)
+                        onComplete();
+                });
+            }
+        } else
+        {
+            PlayerPrefs.SetInt(key, 0);
         }
 #endif
-        // }, 0.75f);
     }
 
 #if UNITY_ADS
