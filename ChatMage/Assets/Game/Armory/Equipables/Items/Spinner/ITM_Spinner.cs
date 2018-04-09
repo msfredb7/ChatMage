@@ -14,7 +14,7 @@ public class ITM_Spinner : Item
         base.Unequip();
 
         // Are we the last spinner ?
-        if (player.playerItems.GetDuplicateCount(originalAssetID) == 0)
+        if (player.playerItems.GetCountOf(originalAssetID) == 0)
             Game.Instance.Player.vehicle.CanSpin = false;
     }
 
@@ -22,14 +22,7 @@ public class ITM_Spinner : Item
     {
         get
         {
-            int count = 0;
-            var list = Game.Instance.Player.playerItems.items;
-            foreach (var item in list)
-            {
-                if (item is ITM_Spinner)
-                    count++;
-            }
-            return count;
+            return Game.Instance.Player.playerItems.GetCountOf<ITM_Spinner>();
         }
     }
 
