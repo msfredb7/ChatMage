@@ -1,6 +1,7 @@
 ﻿using LevelScripting;
 using System;
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.Events;
@@ -518,6 +519,7 @@ public class LS_EndlessLevel : LevelScript
             // Teleport player
             MovePlayer(delegate ()
             {
+
                 // Fade in
                 ui.transitionBG.DOFade(0, transitionDuration).OnComplete(delegate ()
                 {
@@ -528,7 +530,13 @@ public class LS_EndlessLevel : LevelScript
                     Game.Instance.playerBounds.bottom.gameObject.SetActive(false);
                     onComplete.Invoke();
                 }).SetUpdate(true);
+
+
+                ClearTrails();
+                Game.Instance.StartCoroutine(LateClearTrail());
             });
+
+
         }).SetUpdate(true);
     }
 
@@ -624,6 +632,30 @@ public class LS_EndlessLevel : LevelScript
                 val.ForceDie();
 
             node = node.Next;
+        }
+    }
+
+
+    IEnumerator LateClearTrail()
+    {
+        yield return new WaitForFixedUpdate();
+        ClearTrails();
+    }
+
+    private void ClearTrails()
+    {
+        var player = Game.Instance.Player;
+        if(player != null)
+        {
+            var trailsController = player.GetComponent<PlayerDriftTrails>();
+            if(trailsController != null)
+            {
+                foreach (var trail in trailsController.standardTrailInstances)
+                {
+                    if (trail != null)
+                        trail.Clear();
+                }
+            }
         }
     }
 }

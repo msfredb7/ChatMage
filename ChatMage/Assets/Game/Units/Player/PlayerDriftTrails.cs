@@ -12,6 +12,9 @@ public class PlayerDriftTrails : MonoBehaviour
     public bool spawnDriftTrails = true;
     public TrailRenderer driftTrailPrefab;
 
+    [ReadOnly]
+    public List<TrailRenderer> standardTrailInstances = new List<TrailRenderer>();
+
     private Transform[] trails;
 
     private PlayerController controller;
@@ -28,8 +31,8 @@ public class PlayerDriftTrails : MonoBehaviour
 
         if (spawnStdTrails)
         {
-            NewTrail(stdTrailPrefab, controller.playerLocations.BackLeftWheel.position);
-            NewTrail(stdTrailPrefab, controller.playerLocations.BackRightWheel.position);
+            standardTrailInstances.Add(NewTrail(stdTrailPrefab, controller.playerLocations.BackLeftWheel.position).GetComponent<TrailRenderer>());
+            standardTrailInstances.Add(NewTrail(stdTrailPrefab, controller.playerLocations.BackRightWheel.position).GetComponent<TrailRenderer>());
         }
     }
 

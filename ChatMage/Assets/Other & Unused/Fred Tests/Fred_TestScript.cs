@@ -39,7 +39,23 @@ public class Fred_TestScript : BaseBehavior
 
         if (Input.GetKeyDown(KeyCode.T))
         {
-            wave.LaunchNow(Game.Instance.levelScript);
+            var player = Game.Instance.Player;
+            if (player != null)
+            {
+                var trailsController = player.GetComponent<PlayerDriftTrails>();
+                if (trailsController != null)
+                {
+                    foreach (var trail in trailsController.standardTrailInstances)
+                    {
+                        if (trail != null)
+                            trail.Clear();
+
+                        Debug.Log("clear !");
+                    }
+                }
+            }
+            Debug.Log("i did it reddit !");
+            //wave.LaunchNow(Game.Instance.levelScript);
             //spawn.SpawnUnits(unitsToSpawn, intervals, 1.5f, (x) => Debug.Log("hello: " + x));
         }
     }
