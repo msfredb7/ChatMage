@@ -21,6 +21,7 @@ namespace AI
         private Unit shootTarget;
         private Unit fleeTarget;
         private bool isFleeing = false;
+        private Vector2 lastKnownTargetPosition;
 
         void Start()
         {
@@ -68,6 +69,9 @@ namespace AI
                     AddForcedGoal(fleeGoal, -5);
                 }
             }
+
+            if (shootTarget != null)
+                lastKnownTargetPosition = shootTarget.Position;
         }
 
         private void ShootBubble()
@@ -77,7 +81,10 @@ namespace AI
             if(explosifyMage != null)
             {
                 // Explosion
-                explosifyMage.ShootAtTarget(shootTarget, shootEmitter.position);
+                if (shootTarget != null)
+                    explosifyMage.ShootAtTarget(shootTarget, shootEmitter.position);
+                else
+                    explosifyMage.ShootAtPosition(lastKnownTargetPosition, shootEmitter.position);
             }
             else
             {

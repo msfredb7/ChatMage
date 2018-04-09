@@ -15,10 +15,16 @@ public class ExplosifyMage : MonoBehaviour
         {
             targetPos = PredictAim(unit as Vehicle, emissionPosition);
         }
-        if (clampTargetToAIArea)
-            targetPos = Game.Instance.aiArea.ClampToArea(targetPos);
 
-        projectilePrefab.DuplicateGO(emissionPosition, Quaternion.identity).GoTo(targetPos);
+        ShootAtPosition(targetPos, emissionPosition);
+    }
+
+    public void ShootAtPosition(Vector2 position, Vector2 emissionPosition)
+    {
+        if (clampTargetToAIArea)
+            position = Game.Instance.aiArea.ClampToArea(position);
+
+        projectilePrefab.DuplicateGO(emissionPosition, Quaternion.identity).GoTo(position);
     }
 
     public Vector2 PredictAim(Vehicle enemy, Vector2 emissionPosition)

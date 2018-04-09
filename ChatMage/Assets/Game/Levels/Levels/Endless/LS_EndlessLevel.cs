@@ -168,7 +168,7 @@ public class LS_EndlessLevel : LevelScript
         currentStep = 0;
         currentStage = 0;
     }
-    
+
     private void LoadStageInfo()
     {
         // Get current stage and step
@@ -296,7 +296,7 @@ public class LS_EndlessLevel : LevelScript
             DecreaseCooldownOfOtherUnits(currentPack.unit);
             unitPack.Add(currentPack);
         }
-        
+
         return unitPack.ToArray();
     }
 
@@ -439,8 +439,10 @@ public class LS_EndlessLevel : LevelScript
             {
                 // Disable input joueur
                 Game.Instance.Player.playerDriver.enableInput = false;
+
                 // on reset les event pour la prochaine fois
                 startTransition.RemoveAllListeners();
+
                 // Le joueur est dans la porte du haut
                 // Apres un court delai (le temps qu'il rentre) on ferme tout et on teleporte le joueur
                 Game.Instance.DelayedCall(delegate ()
@@ -540,6 +542,14 @@ public class LS_EndlessLevel : LevelScript
         {
             playerVehicle.TeleportPosition(playerSpawn.transform.position);
             playerVehicle.TeleportDirection(90);
+
+            // Note: Si on est dans le AC-130, il faut bouger le joueur à la main parce que son rigidbody est désactivé
+            if (!player.gameObject.activeInHierarchy)
+            {
+                var tr = playerVehicle.transform;
+                tr.position = playerSpawn.transform.position;
+                tr.rotation = Quaternion.Euler(Vector3.forward * 90);
+            }
 
             waitingForEnter = true;
 

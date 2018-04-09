@@ -10,6 +10,8 @@ public class ITM_AC130 : Item
     public float duration = 30;
     public int ammo = 6;
 
+    public static bool IsInAC130 = false; 
+
     [fsIgnore, NonSerialized]
     private AC130Effect effect;
 
@@ -28,7 +30,8 @@ public class ITM_AC130 : Item
 
     private void DestroyAndLaunch()
     {
-        effect.Smash(duration, ammo, null);
+        IsInAC130 = true;
+        effect.Smash(duration, ammo, () => IsInAC130 = false);
         player.playerItems.Unequip(this);
     }
 
