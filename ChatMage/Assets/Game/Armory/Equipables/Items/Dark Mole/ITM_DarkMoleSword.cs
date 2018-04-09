@@ -83,7 +83,11 @@ public class ITM_DarkMoleSword : Item
     {
         base.Unequip();
 
-        sword.BreakOff(sword.DestroyGO);
+        sword.BreakOff(()=>
+        {
+            if (sword != null)
+                sword.DestroyGO();
+        });
         sharedSlots.ReleaseSeat(this);
         sword = null;
     }

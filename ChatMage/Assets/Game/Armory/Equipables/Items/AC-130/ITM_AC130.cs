@@ -37,7 +37,7 @@ public class ITM_AC130 : Item
         int enemyCount = 0;
         foreach (var unit in Game.Instance.attackableUnits)
         {
-            if (unit.allegiance == Allegiance.Enemy)
+            if (unit.allegiance == Allegiance.Enemy && !unit.IsDead)
                 enemyCount++;
         }
 

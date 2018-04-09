@@ -222,7 +222,9 @@ public class Game : PublicFISingleton<Game>
 
         //Attackable ?
         if (unit is IAttackable)
+        {
             attackableUnits.Remove(unit.attackableNode);
+        }
 
         if (onUnitDestroyed != null)
             onUnitDestroyed(unit);

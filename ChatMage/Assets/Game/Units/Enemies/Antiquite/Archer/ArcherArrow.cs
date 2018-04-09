@@ -66,6 +66,9 @@ public class ArcherArrow : MovingUnit
     {
         if (bounceOn.Contains(collision.gameObject.layer) && bounce)
         {
+            if (collision.contacts.Length > 0)
+                ImpactEffect(collision.contacts[0].point);
+
             if (bounceCount > 0 && collision.contacts.Length > 0)
             {
                 Vector2 averageNormals = Vector2.zero;
@@ -81,18 +84,22 @@ public class ArcherArrow : MovingUnit
                 Rotation = newDir.ToAngle();
                 bounceCount--;
 
-                if (!weJustHitAPlayer)
-                {
-                    // Impact SFX + VFX
-                    Game.Instance.commonVfx.HitWhite(collision.contacts[0].point);
-                    DefaultAudioSources.PlaySFX(bounceSFX);
-                }
+                //if (!weJustHitAPlayer)
+                //{
+                //    // Impact SFX + VFX
+                //}
             }
             else
             {
                 Die();
             }
         }
+    }
+
+    private void ImpactEffect(Vector2 position)
+    {
+        Game.Instance.commonVfx.HitWhite(position);
+        DefaultAudioSources.PlaySFX(bounceSFX);
     }
 
     private void Listener_onTriggerEnter(ColliderInfo other, ColliderListener listener)
