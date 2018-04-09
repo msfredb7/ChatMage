@@ -398,7 +398,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &349708121
 RectTransform:
   m_ObjectHideFlags: 0
@@ -412,10 +412,10 @@ RectTransform:
   m_Father: {fileID: 1705747882}
   m_RootOrder: 29
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 276, y: -1296.9181}
+  m_SizeDelta: {x: 552, y: 23.411829}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &349708122
 MonoBehaviour:
@@ -449,7 +449,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Mad Max, JetPack, Flying Carpet,
+  m_Text: 
 --- !u!222 &349708123
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -824,7 +824,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Advenutre World 2 - Medieval Time
+  m_Text: Advenutre World 2 - Medieval Era
 --- !u!222 &516156880
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1389,7 +1389,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e71486c4bf9461646ba8f7b0ce2df1e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollingSpeed: {x: 0, y: -0.1}
+  scrollingSpeed: {x: 0, y: -0.06}
   scrollOnStart: 1
   startDelay: 1.5
   stopOnScroll: 1
@@ -1691,7 +1691,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Rasengan, Pitbull, Tony, Bad Luck Charm,
+  m_Text: "Rasengan, Pitbull, Tony,\nBad Luck Charm, Mad Jack, \nJetPack, Flying Carpet,
+    \nSmash Ball, Rising Sun, Bard"
 --- !u!222 &777785660
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2642,7 +2643,6 @@ GameObject:
   - component: {fileID: 1392536775}
   - component: {fileID: 1392536778}
   - component: {fileID: 1392536777}
-  - component: {fileID: 1392536776}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -2666,47 +2666,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 1449.2}
+  m_AnchoredPosition: {x: 0, y: 0.000061035156}
+  m_SizeDelta: {x: 0, y: 2028.5}
   m_Pivot: {x: 0, y: 1}
---- !u!114 &1392536776
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1392536774}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6572974889c30ab4eb50105f08127c56, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onClick:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  onEnter:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  onExit:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  onUp:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  onDown:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  isDragging: 0
-  isIn: 0
 --- !u!114 &1392536777
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2989,7 +2951,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1604123617
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3003,10 +2965,10 @@ RectTransform:
   m_Father: {fileID: 1705747882}
   m_RootOrder: 30
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 276, y: -1331.7299}
+  m_SizeDelta: {x: 552, y: 23.411829}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1604123618
 MonoBehaviour:
@@ -3040,7 +3002,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Smash Ball, Rising Sun, Bard
+  m_Text: 
 --- !u!222 &1604123619
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3182,7 +3144,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0.00007589864}
-  m_SizeDelta: {x: -60, y: 1449.2}
+  m_SizeDelta: {x: -60, y: 2028.5}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1705747883
 MonoBehaviour:
