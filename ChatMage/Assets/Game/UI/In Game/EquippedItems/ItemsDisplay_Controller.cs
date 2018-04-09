@@ -74,12 +74,12 @@ public class ItemsDisplay_Controller : Pool<ItemsDiplay_Ball>
         if (ballIndex < 0)
             return;
 
-        rack.MoveUp();
         balls[ballIndex].Tr.SetParent(destroyedBallContainer);
         balls[ballIndex].BreakAnimation();
 
         //Interrupt intro if necessary
-        introHandler.Interrupt(balls[ballIndex]);
+        if (!introHandler.Interrupt(balls[ballIndex]))
+            rack.MoveUp();
 
         //Update la parenté de la ball au dessus
         if (ballIndex < balls.Count - 1)

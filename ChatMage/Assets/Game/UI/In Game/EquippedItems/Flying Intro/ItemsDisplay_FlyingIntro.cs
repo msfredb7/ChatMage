@@ -55,7 +55,7 @@ public class ItemsDisplay_FlyingIntro : MonoBehaviour
         }, newAnim.sequence));
     }
 
-    public void Interrupt(ItemsDiplay_Ball ball)
+    public bool Interrupt(ItemsDiplay_Ball ball)
     {
         for (int i = 0; i < onGoingAnimations.Count; i++)
         {
@@ -64,9 +64,11 @@ public class ItemsDisplay_FlyingIntro : MonoBehaviour
                 onGoingAnimations[i].sequence.Kill();
                 StopCoroutine(onGoingAnimations[i].coroutine);
                 onGoingAnimations.RemoveAt(i);
-                return;
+                return true;
             }
         }
+
+        return false;
     }
 
     IEnumerator AnimationRoutine(ItemsDiplay_Ball ball, Vector3 spawnPosition, bool goToFullPosition, Action onAlmostComplete, Action onComplete,  Sequence sequence)
