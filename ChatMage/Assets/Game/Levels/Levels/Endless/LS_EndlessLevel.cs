@@ -105,7 +105,7 @@ public class LS_EndlessLevel : LevelScript
     int currentBest;
 
     // Item Charge
-    public int[] charges = { 1, 1, 0, 1, 1, 0, 1, 1, 0, 0 };
+    public int[] charges = { 0, 1, 1, 0, 1, 1, 0, 1, 1, 0 };
     private int currentAmounOfCharges;
 
     // Initialisation avant le debut de la partie
