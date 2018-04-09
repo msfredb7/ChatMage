@@ -34,7 +34,7 @@ public abstract class StdCar : Car
 
     public override void OnInputUpdate(float horizontalInput)
     {
-        if (player.vehicle.canSpin)
+        if (player.vehicle.CanSpin || spinning)
         {
             // Si on a reussi a faire le combo
             if (comboAmount >= comboAmountRequire)

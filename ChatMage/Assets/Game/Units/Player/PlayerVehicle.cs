@@ -11,14 +11,36 @@ public class PlayerVehicle : Vehicle, IAttackable, IVisible
     [ReadOnly]
     public float motorStrain;
 
+    [Header("Spinner")]
+    public SpriteRenderer[] spinnerSprites;
+
     [NonSerialized]
     public PlayerController controller;
 
     public ISpeedOverrider speedOverrider = null;
     public List<ISpeedBuff> speedBuffs = new List<ISpeedBuff>();
 
+    protected override void Awake()
+    {
+        base.Awake();
+
+        CanSpin = false;
+    }
+
     // Spinner
-    public bool canSpin = false;
+    public bool CanSpin
+    {
+        get { return _canSpin; }
+        set
+        {
+            foreach (var spr in spinnerSprites)
+            {
+                spr.enabled = value;
+            }
+            _canSpin = value;
+        }
+    }
+    private bool _canSpin = false;
 
     public float RealMoveSpeed()
     {

@@ -28,7 +28,7 @@ public class ArcherArrow : MovingUnit
     [NonSerialized]
     private Targets targets;
     private Vector2 wasVelocity;
-    private bool weJustHitAPlayer;
+    //private bool weJustHitAPlayer;
     private int stuckInCarCounter = 0;
     private Vector2 flyVector;
 
@@ -63,7 +63,7 @@ public class ArcherArrow : MovingUnit
             if (distanceTravelled > flyDistance)
                 Die();
         }
-        weJustHitAPlayer = false;
+        //weJustHitAPlayer = false;
 
         if(stuckInCarCounter >= 8)
         {
@@ -74,7 +74,7 @@ public class ArcherArrow : MovingUnit
     private void Listener_onCollisionEnter(ColliderInfo other, Collision2D collision, ColliderListener listener)
     {
         Listener_onTriggerEnter(other, listener);
-        weJustHitAPlayer = true;
+        //weJustHitAPlayer = true;
     }
 
     void OnCollisionStay2D(Collision2D collision)

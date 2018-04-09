@@ -14,11 +14,11 @@ public class ItemsDisplay_Controller : Pool<ItemsDiplay_Ball>
 
     public List<ItemsDiplay_Ball> balls = new List<ItemsDiplay_Ball>();
 
-    private PlayerController player;
+    //private PlayerController player;
 
     public void Init(PlayerController player)
     {
-        this.player = player;
+        //this.player = player;
     }
 
     protected override ItemsDiplay_Ball NewItem()

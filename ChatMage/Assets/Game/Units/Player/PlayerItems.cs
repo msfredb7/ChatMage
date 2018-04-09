@@ -51,7 +51,7 @@ public class PlayerItems : PlayerComponent
     {
         return GetDuplicateCount(itemCopy.originalAssetID);
     }
-    private int GetDuplicateCount(int originalAssetID)
+    public int GetDuplicateCount(int originalAssetID)
     {
         int amount = 0;
         for (int i = 0; i < items.Count; i++)
