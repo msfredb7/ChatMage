@@ -542,6 +542,7 @@ public class LS_EndlessLevel : LevelScript
         {
             playerVehicle.TeleportPosition(playerSpawn.transform.position);
             playerVehicle.TeleportDirection(90);
+            playerVehicle.rb.freezeRotation = true;
 
             // Note: Si on est dans le AC-130, il faut bouger le joueur à la main parce que son rigidbody est désactivé
             if (!player.gameObject.activeInHierarchy)
@@ -590,6 +591,7 @@ public class LS_EndlessLevel : LevelScript
 
         waitingForEnter = false;
         Game.Instance.Player.playerDriver.enableInput = true;
+        Game.Instance.Player.vehicle.rb.freezeRotation = false;
         startNextWave.Invoke();
     }
 

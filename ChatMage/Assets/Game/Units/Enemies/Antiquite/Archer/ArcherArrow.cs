@@ -29,6 +29,7 @@ public class ArcherArrow : MovingUnit
     private Targets targets;
     private Vector2 wasVelocity;
     private bool weJustHitAPlayer;
+    private int stuckInCarCounter = 0;
 
     public void Init(Unit origin, Vector2 dir, Targets targetsToCopy)
     {
@@ -54,12 +55,25 @@ public class ArcherArrow : MovingUnit
                 Die();
         }
         weJustHitAPlayer = false;
+
+        if(stuckInCarCounter >= 8)
+        {
+            Die();
+        }
     }
 
     private void Listener_onCollisionEnter(ColliderInfo other, Collision2D collision, ColliderListener listener)
     {
         Listener_onTriggerEnter(other, listener);
         weJustHitAPlayer = true;
+    }
+
+    void OnCollisionStay2D(Collision2D collision)
+    {
+        if(collision.rigidbody.gameObject == Game.Instance.Player.gameObject)
+        {
+            stuckInCarCounter++;
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
