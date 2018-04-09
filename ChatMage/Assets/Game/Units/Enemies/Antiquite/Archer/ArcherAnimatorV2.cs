@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ArcherAnimatorV2 : EnemyAnimator
 {
-    public SpriteRenderer arrowRenderer;
+    public SpriteRenderer[] arrowRenderer;
 
     int attackHash = Animator.StringToHash("attack");
     int cancelReloadHash = Animator.StringToHash("cancelReload");
@@ -61,7 +61,11 @@ public class ArcherAnimatorV2 : EnemyAnimator
 
     private void OnAmmoChange()
     {
-        arrowRenderer.enabled = veh.Ammo > 0;
+        bool enabled = veh.Ammo > 0;
+        foreach (var spr in arrowRenderer)
+        {
+            spr.enabled = enabled;
+        }
     }
 
     private void _ShootMoment()
