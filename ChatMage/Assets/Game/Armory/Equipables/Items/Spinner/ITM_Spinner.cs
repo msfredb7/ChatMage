@@ -23,7 +23,7 @@ public class ITM_Spinner : Item
         get
         {
             int count = 0;
-            var list = player.playerItems.items;
+            var list = Game.Instance.Player.playerItems.items;
             foreach (var item in list)
             {
                 if (item is ITM_Spinner)
