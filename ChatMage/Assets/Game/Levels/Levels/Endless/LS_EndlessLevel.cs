@@ -264,7 +264,7 @@ public class LS_EndlessLevel : LevelScript
 
 
         // On re-randomise le jeu
-        UnityEngine.Random.InitState(Mathf.RoundToInt(Time.timeSinceLevelLoad * 1000));
+        UnityEngine.Random.InitState(Mathf.RoundToInt(Time.time * 1000));
     }
 
     // Pour balance les etages, on va toujours utiliser le power d'un autre step plus bas selon cette formule
