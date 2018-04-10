@@ -11,13 +11,25 @@ public class DisplayExplication : MonoBehaviour {
 
     void Start()
     {
-        if (endlessTutorialSaver.GetInt(alreadyDisplayedKey, 0) == 0)
-            Display();
+        if (!endlessTutorialSaver.HasEverLoaded)
+        {
+            endlessTutorialSaver.Load(delegate ()
+            {
+                if (endlessTutorialSaver.GetInt(alreadyDisplayedKey, 0) == 0)
+                    Display();
+            });
+        }
+        else
+        {
+            if (endlessTutorialSaver.GetInt(alreadyDisplayedKey, 0) == 0)
+                Display();
+        }
     }
 
 	public void Display()
     {
         endlessTutorialSaver.SetInt(alreadyDisplayedKey, 1);
+        endlessTutorialSaver.Save();
         Scenes.Load(explicationScene);
     }
 }
