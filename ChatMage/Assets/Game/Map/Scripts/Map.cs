@@ -31,6 +31,7 @@ public class Map : BaseBehavior
     public MeteoPlayer meteo;
     public MarkerSpawner markerSpawner;
     public bool allowCrowdCheering = true;
+    public bool allowMusicOnStart = true;
 
     /// <summary>
     /// Initialise les settings de la map
