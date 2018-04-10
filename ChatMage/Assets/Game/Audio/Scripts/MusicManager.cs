@@ -25,7 +25,8 @@ public class MusicManager : MonoBehaviour
     {
         Game.Instance.onGameReady += delegate ()
         {
-            PlaySong(SongName.Ambient);
+            if(Game.Instance.map.allowMusicOnStart)
+                PlaySong(SongName.Ambient);
 
             if (Game.Instance.map.allowCrowdCheering)
                 crowdLoopSource.Play();

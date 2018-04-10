@@ -6164,6 +6164,7 @@ MonoBehaviour:
   meteo: {fileID: 1203758038}
   markerSpawner: {fileID: 0}
   allowCrowdCheering: 1
+  allowMusicOnStart: 0
 --- !u!4 &1644651696
 Transform:
   m_ObjectHideFlags: 0
@@ -6334,20 +6335,26 @@ MonoBehaviour:
   - _keys: []
     _values: []
     _target: {fileID: 153121006}
+  - _keys: []
+    _values: []
+    _target: {fileID: 266624493}
   - _keys:
-    - DefaultBehaviorEditor.topHeight.EditProperty
-    - DefaultBehaviorEditor.milestones.EditProperty
-    - DefaultBehaviorEditor.milestoneRelativeHeights.EditProperty
+    - DefaultBehaviorEditor.mapping.EditProperty
+    - DefaultBehaviorEditor.cameraSpawn.EditProperty
+    - DefaultBehaviorEditor.listUnits.EditProperty
+    - DefaultBehaviorEditor.setAIArea.EditProperty
+    - DefaultBehaviorEditor.roadPlayer.EditProperty
     _values:
     - _showDropdown: 0
       _serializedIsActive: 1
     - _showDropdown: 0
       _serializedIsActive: 1
+    - _showDropdown: 1
+      _serializedIsActive: 1
     - _showDropdown: 0
       _serializedIsActive: 1
-    _target: {fileID: 266624493}
-  - _keys: []
-    _values: []
+    - _showDropdown: 0
+      _serializedIsActive: 1
     _target: {fileID: 1644651695}
   - _keys: []
     _values: []

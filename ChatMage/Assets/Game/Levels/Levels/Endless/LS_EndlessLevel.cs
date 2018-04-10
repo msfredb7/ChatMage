@@ -105,6 +105,10 @@ public class LS_EndlessLevel : LevelScript
     public const string bestStepKey = "EndlessBestStage";
     int currentBest;
 
+    // Music 
+    [InspectorCategory("ENDLESS MODE")]
+    public AudioPlayable finalSong;
+
     // Item Charge
     public int[] charges = { 0, 1, 1, 0, 1, 1, 0, 1, 1, 0 };
     private int currentAmounOfCharges;
@@ -244,7 +248,6 @@ public class LS_EndlessLevel : LevelScript
         {
             Game.Instance.DelayedCall(delegate ()
             {
-                Game.Instance.music.PlaySong(MusicManager.SongName.Ambient, true);
                 GoToNextWave();
             }, 0.5f);
         };
@@ -256,11 +259,13 @@ public class LS_EndlessLevel : LevelScript
         else
             GiveCharge(charges[(currentStep - ((currentStage - 1) * (stepToResetSave - 1))) - 1]);
 
+        // Music last level
+        if(((currentStep - ((currentStage - 1) * (stepToResetSave - 1))) - 1) >= 9)
+            DefaultAudioSources.PlayMusic(finalSong);
 
         // Initialisation de la vague
         ManuallyAddWave(wave);
         TriggerWaveManually("wave");
-        Game.Instance.music.PlaySong(MusicManager.SongName.Fight, true);
 
 
         // On re-randomise le jeu
