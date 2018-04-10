@@ -55,13 +55,13 @@ public class PlayerItems : PlayerComponent
 
     public int GetDuplicateCount_Asset(Item itemAssetReference)
     {
-        return GetDuplicateCount(itemAssetReference.GetInstanceID());
+        return GetCountOf(itemAssetReference.GetInstanceID());
     }
     public int GetDuplicateCount_Copy(Item itemCopy)
     {
-        return GetDuplicateCount(itemCopy.originalAssetID);
+        return GetCountOf(itemCopy.originalAssetID);
     }
-    public int GetDuplicateCount(int originalAssetID)
+    public int GetCountOf(int originalAssetID)
     {
         int amount = 0;
         for (int i = 0; i < items.Count; i++)
@@ -70,6 +70,16 @@ public class PlayerItems : PlayerComponent
                 amount++;
         }
         return amount;
+    }
+    public int GetCountOf<T>()
+    {
+        int total = 0;
+        foreach (var item in items)
+        {
+            if (item is T)
+                total++;
+        }
+        return total;
     }
 
     public void Unequip(Item item)
