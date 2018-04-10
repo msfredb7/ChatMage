@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ITM_Spinner : Item
 {
-    public AudioClip spinnerSFX;
+    public AudioPlayable spinnerSFX;
 
     public override void Equip(int duplicateIndex)
     {
