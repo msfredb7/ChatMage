@@ -51,19 +51,19 @@ public class PlayerInput : MonoBehaviour
             else
             {
                 //Touch de clavier
-                if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D) || (Input.GetAxis("Horizontal") > 0.1f))
+                if (HorizontalAxis > 0.1f)
                 {
                     if (CanTurn)
                         turning++;
                 }
 
-                if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A) || (Input.GetAxis("Horizontal") < -0.1f))
+                if (HorizontalAxis < -0.1f)
                 {
                     if (CanTurn)
                         turning--;
                 }
 
-                if (Game.Instance.gameRunning && (Input.GetKeyDown(KeyCode.Space) || IsPlayerPressingUltimateButton()))
+                if (Game.Instance.gameRunning && UltimateButtonDown)
                 {
                     if (CanSmash)
                         smashPress = true;
@@ -75,16 +75,31 @@ public class PlayerInput : MonoBehaviour
         ClearFlags();
     }
 
-    bool IsPlayerPressingUltimateButton()
+    float HorizontalAxis
     {
-        if(Input.GetButtonDown("A_Button1") ||
-           Input.GetButtonDown("A_Button2") ||
-           Input.GetButtonDown("A_Button3") ||
-           Input.GetButtonDown("A_Button4"))
+        get
         {
-            return true;
+            //var keyboard = Input.GetAxisRaw("Turn (Keys)");
+            //var joystick = Input.GetAxisRaw("Turn (Joystick)");
+            //if (keyboard.Abs() > joystick.Abs())
+            //    return keyboard;
+            //else
+            //    return joystick;
+
+            return Input.GetAxisRaw("Turn");
         }
-        else { return false; }
+    }
+
+    bool UltimateButtonDown
+    {
+        get
+        {
+            return Input.GetKeyDown(KeyCode.Space) ||
+               Input.GetButtonDown("Activate Power (1)") ||
+               Input.GetButtonDown("Activate Power (2)") ||
+               Input.GetButtonDown("Activate Power (3)") ||
+               Input.GetButtonDown("Activate Power (4)");
+        }
     }
 
     void OnPlayerTouch(Vector2 pixelPosition)
