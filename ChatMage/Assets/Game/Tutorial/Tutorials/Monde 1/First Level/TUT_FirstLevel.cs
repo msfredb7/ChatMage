@@ -205,14 +205,45 @@ namespace Tutorial
                     delegate ()
                     {
                         if (isMobile)
-                            modules.proxyButton.ProxyScreen(onComplete);
+                            modules.proxyButton.ProxyScreen(delegate ()
+                            {
+                                modules.spotlight.On(Game.Instance.ui.itemsDisplay.transform.position);
+
+                                modules.textDisplay.DisplayText("Here are displayed your items."
+                                    + " If you get hit, you will lose one item. If you have none to spare, you will die. They act like health points.", true);
+
+                                modules.delayedAction.Do(0.75f, delegate ()
+                                {
+                                    if (isMobile)
+                                        modules.proxyButton.ProxyScreen(onComplete);
+                                    else
+                                        modules.waitForInput.OnAnyKeyDown(onComplete);
+                                });
+
+                            });
                         else
-                            modules.waitForInput.OnAnyKeyDown(onComplete);
+                            modules.waitForInput.OnAnyKeyDown(delegate ()
+                            {
+                                modules.spotlight.On(Game.Instance.ui.itemsDisplay.transform.position);
+
+                                modules.textDisplay.DisplayText("Here are displayed your items."
+                                    + " If you get hit, you will lose one item. If you have none to spare, you will die. They act like health points.", true);
+
+                                modules.delayedAction.Do(0.75f, delegate ()
+                                {
+                                    if (isMobile)
+                                        modules.proxyButton.ProxyScreen(onComplete);
+                                    else
+                                        modules.waitForInput.OnAnyKeyDown(onComplete);
+                                });
+                            });
                     });
             });
 
             Game.Instance.onUnitSpawned -= TutoEnemy;
         }
+
+
     }
 
 }
