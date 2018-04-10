@@ -12,6 +12,8 @@ namespace Tutorial
     {
         public CanvasGroup handClickPrefab;
         public CanvasGroupBehaviour turnRightOrLeftPrefab;
+        public CanvasGroup handheldPrefab;
+        public CanvasGroup keyboardControlsPrefab;
 
         [NonSerialized, fsIgnore]
         private bool hasStarted = false;
@@ -59,6 +61,8 @@ namespace Tutorial
 
             Image handClick = null;
             CanvasGroupBehaviour turnRightOrLeft = null;
+            CanvasGroup handheld = null;
+            CanvasGroup pcControls = null;
 
             Action onComplete = () =>
             {
@@ -71,18 +75,22 @@ namespace Tutorial
                     cg.DOFade(0, 0.5f).SetUpdate(true);
                 }
 
-                modules.shorcuts.TimeUnFreeze();
-                modules.textDisplay.HideText();
-                modules.spotlight.Off();
-                modules.delayedAction.Do(2, () => TutoMove2(handClick, turnRightOrLeft));
+                //modules.shorcuts.TimeUnFreeze();
+                //modules.textDisplay.HideText();
+                //modules.spotlight.Off();
+                //modules.delayedAction.Do(2, () => TutoMove2(handClick, turnRightOrLeft));
+                TutoMove2(handClick, turnRightOrLeft, handheld, pcControls);
             };
 
             if (isMobile)
             {
                 modules.textDisplay.DisplayText("Turn left by clicking on the left side of your screen", true);
 
+                //modules.spotlight.FillCenter(true, true);
+                //modules.spotlight.On();
 
                 handClick = Instantiate(handClickPrefab.gameObject, modules.transform).GetComponent<Image>();
+                handheld = Instantiate(handheldPrefab.gameObject, modules.transform).GetComponent<CanvasGroup>();
 
                 RectTransform tr = handClick.GetComponent<RectTransform>();
                 tr.localScale = Vector3.one;
@@ -91,8 +99,14 @@ namespace Tutorial
                 tr.anchoredPosition = Vector2.zero;
                 tr.sizeDelta = Vector2.zero;
 
+                // Fade in handheld, et on le flip du bon coté
+                handheld.alpha = 0;
+                handheld.DOFade(1, 1).SetUpdate(true);
+                handheld.transform.localScale = new Vector3(-1, 1, 1);
+
                 //Fade in la main
                 handClick.GetComponent<CanvasGroup>().DOFade(1, 0.5f).SetUpdate(true);
+                handClick.transform.Find("Right").GetComponent<Image>().enabled = false;
 
                 //Flash le background
                 handClick.DOFade(0.15f, 1).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo).SetUpdate(true);
@@ -107,26 +121,40 @@ namespace Tutorial
             {
                 modules.spotlight.FillCenter(true, true);
                 modules.spotlight.On();
-                turnRightOrLeft = Instantiate(turnRightOrLeftPrefab.gameObject, modules.transform).GetComponent<CanvasGroupBehaviour>();
-                turnRightOrLeft.transform.localScale = Vector3.one;
-                turnRightOrLeft.HideInstant();
-                turnRightOrLeft.Show();
 
-                RectTransform tr = turnRightOrLeft.GetComponent<RectTransform>();
-                tr.anchorMin = new Vector2(0.5f, 0.5f);
-                tr.anchorMax = tr.anchorMin;
+                pcControls = Instantiate(keyboardControlsPrefab.gameObject, modules.transform).GetComponent<CanvasGroup>();
+
+                pcControls.alpha = 0;
+                pcControls.DOFade(1, 0.6f).SetUpdate(true);
+
+                //turnRightOrLeft = Instantiate(turnRightOrLeftPrefab.gameObject, modules.transform).GetComponent<CanvasGroupBehaviour>();
+                //turnRightOrLeft.transform.localScale = Vector3.one;
+                //turnRightOrLeft.HideInstant();
+                //turnRightOrLeft.Show();
+
+                //RectTransform tr = turnRightOrLeft.GetComponent<RectTransform>();
+                //tr.anchorMin = new Vector2(0.5f, 0.5f);
+                //tr.anchorMax = tr.anchorMin;
 
 
-                modules.textDisplay.DisplayText("Turn left by pressing A or LEFT ARROW", true);
+                modules.textDisplay.DisplayText("Turn left: A or LEFT ARROW.\n\nTurn right: D or RIGHT ARROW", true);
 
-                modules.waitForInput.OnKeyDown(onComplete, KeyCode.A, KeyCode.LeftArrow);
+                modules.delayedAction.Do(0.75f,
+                    delegate ()
+                    {
+                        modules.waitForInput.OnAnyKeyDown(onComplete);
+                    });
             }
         }
 
-        void TutoMove2(Image handClick, CanvasGroupBehaviour turnRightOrLeft)
+        void TutoMove2(Image handClick, CanvasGroupBehaviour turnRightOrLeft, CanvasGroup handheld, CanvasGroup pcControls)
         {
             modules.shorcuts.TimeFreeze();
             modules.textDisplay.SetBottom();
+
+            // On reflip le handheld du bon coté
+            if (handheld != null)
+                handheld.transform.localScale = Vector3.one;
 
             Action onComplete = () =>
             {
@@ -136,8 +164,15 @@ namespace Tutorial
                     cg.DOKill();
                     cg.DOFade(0, 0.5f).SetUpdate(true).OnComplete(cg.DestroyGO);
                 }
+                if (handheld != null)
+                {
+                    handheld.DOKill();
+                    handheld.DOFade(0, 0.5f).SetUpdate(true).onComplete = handheld.DestroyGO;
+                }
+
                 if (turnRightOrLeft != null)
                     turnRightOrLeft.Hide();
+
                 modules.shorcuts.TimeUnFreeze();
                 modules.textDisplay.HideText();
                 modules.spotlight.Off();
@@ -145,9 +180,12 @@ namespace Tutorial
 
             if (isMobile)
             {
+                handClick.transform.Find("Right").GetComponent<Image>().enabled = true;
+                handClick.transform.Find("Left").GetComponent<Image>().enabled = false;
+                handClick.GetComponent<CanvasGroup>().DOFade(1, 0.5f).SetUpdate(true);
+
                 modules.textDisplay.DisplayText("Turn right by clicking on the right side of your screen", true);
 
-                handClick.GetComponent<CanvasGroup>().DOFade(1, 0.5f).SetUpdate(true);
 
                 RectTransform tr = handClick.GetComponent<RectTransform>();
                 tr.anchorMin = new Vector2(0.6667f, 0);
@@ -163,15 +201,19 @@ namespace Tutorial
             }
             else
             {
-                modules.spotlight.On();
+                if (pcControls != null)
+                    pcControls.DOFade(0, 0.6f).SetUpdate(true).onComplete = pcControls.DestroyGO;
 
-                turnRightOrLeft.Show();
-                turnRightOrLeft.transform.GetChild(0).gameObject.SetActive(false);
-                turnRightOrLeft.transform.GetChild(1).gameObject.SetActive(true);
+                onComplete();
+                //modules.spotlight.On();
 
-                modules.textDisplay.DisplayText("Turn right by pressing D or RIGHT ARROW", true);
+                //turnRightOrLeft.Show();
+                //turnRightOrLeft.transform.GetChild(0).gameObject.SetActive(false);
+                //turnRightOrLeft.transform.GetChild(1).gameObject.SetActive(true);
 
-                modules.waitForInput.OnKeyDown(onComplete, KeyCode.D, KeyCode.RightArrow);
+                //modules.textDisplay.DisplayText("Turn right by pressing D or RIGHT ARROW", true);
+
+                //modules.waitForInput.OnKeyDown(onComplete, KeyCode.D, KeyCode.RightArrow);
             }
         }
 
