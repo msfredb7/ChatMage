@@ -10,15 +10,18 @@ using UnityEngine.Events;
 using CCC.Utility;
 using UnityEngine.UI;
 
-public class Fred_TestScript : BaseBehavior
+public class Fred_TestScript : MonoBehaviour
 {
-    //public ExplosiveMageProjectile projectile;
-    //public Transform[] destinations;
-    public UnitSpawn spawn;
-    public LevelScripting.UnitWaveV2 wave;
-    //public List<Unit> unitsToSpawn;
-    //public List<float> intervals;
-    //public int i = 0;
+    [System.Serializable]
+    public struct Element
+    {
+        public string name;
+        public float value;
+    }
+
+    public List<Element> elements = new List<Element>();
+    public List<Element> results = new List<Element>();
+    public int pickCount = 500;
 
     void Start()
     {
@@ -27,19 +30,39 @@ public class Fred_TestScript : BaseBehavior
 
     void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.Y))
-        //{
-        //    projectile.DuplicateGO(Vector2.zero, Quaternion.identity).GoTo(destinations[i].position);
-        //    i++;
-        //    if (i == destinations.Length)
-        //        i = 0;
-        //}
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            results = new List<Element>(elements);
 
-        if (Input.GetButtonDown("Activate Power (2)"))
-            Debug.Log("sup");
+            //Reset results
+            for (int i = 0; i < results.Count; i++)
+            {
+                var r = results[i];
+                r.value = 0;
+                results[i] = r;
+            }
 
-        Debug.Log(Input.GetAxisRaw("Turn"));
+            for (int u = 0; u < pickCount; u++)
+            {
+                Lottery<Element> lottery = new Lottery<Element>();
 
-        //Debug.Log(Input.GetAxisRaw("Turn (Keys)"));
+                for (int i = 0; i < elements.Count; i++)
+                {
+                    lottery.Add(elements[i], elements[i].value);
+                }
+
+                string namePicked = lottery.Pick().name;
+
+                for (int i = 0; i < results.Count; i++)
+                {
+                    if (results[i].name == namePicked)
+                    {
+                        var r = results[i];
+                        r.value += 1f / pickCount;
+                        results[i] = r;
+                    }
+                }
+            }
+        }
     }
 }
