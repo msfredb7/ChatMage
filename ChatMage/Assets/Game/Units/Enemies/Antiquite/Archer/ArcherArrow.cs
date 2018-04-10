@@ -65,7 +65,7 @@ public class ArcherArrow : MovingUnit
         }
         //weJustHitAPlayer = false;
 
-        if(stuckInCarCounter >= 8)
+        if (stuckInCarCounter >= 8)
         {
             Die();
         }
@@ -79,7 +79,9 @@ public class ArcherArrow : MovingUnit
 
     void OnCollisionStay2D(Collision2D collision)
     {
-        if(collision.rigidbody.gameObject == Game.Instance.Player.gameObject)
+        if (Game.Instance.Player != null &&
+            collision.rigidbody != null &&
+            collision.rigidbody.gameObject == Game.Instance.Player.gameObject)
         {
             stuckInCarCounter++;
         }

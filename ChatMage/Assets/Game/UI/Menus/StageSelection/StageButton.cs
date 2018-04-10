@@ -14,7 +14,7 @@ public class StageButton : MonoBehaviour {
     public void SetButtonInfo(int stageNumber)
     {
         this.stageNumber = stageNumber;
-        stageName.text = "STAGE " + stageNumber;
+        stageName.text = "LEVEL " + stageNumber;
         button.onClick.AddListener(GoToStage);
     }
 

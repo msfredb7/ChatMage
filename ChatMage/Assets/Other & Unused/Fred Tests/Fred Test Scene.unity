@@ -255,12 +255,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d0bd9990e4d1c1459607cbad3ec8273, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectReferences: []
-  _serializedStateKeys:
-  - wave
-  _serializedStateValues:
-  - '{"what":{"spawnSequence":[],"onSpawnMethod":"","progressCallbacks":[]},"infiniteRepeat":false,"pauseBetweenRepeat":0.0,"where":null,"when":null,"variableIntervals":false,"spawnInterval":1.0,"spawnIntervals":null,"preLaunchDialog":null}'
-  spawn: {fileID: 0}
+  elements:
+  - name: One
+    value: 1
+  - name: Two
+    value: 1
+  - name: Three
+    value: 1
+  - name: Four
+    value: 0.5
+  - name: Five
+    value: 0
+  results: []
+  pickCount: 500
 --- !u!124 &1205636211
 Behaviour:
   m_ObjectHideFlags: 0
