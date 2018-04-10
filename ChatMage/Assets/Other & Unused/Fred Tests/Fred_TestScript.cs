@@ -32,37 +32,8 @@ public class Fred_TestScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Y))
         {
-            results = new List<Element>(elements);
-
-            //Reset results
-            for (int i = 0; i < results.Count; i++)
-            {
-                var r = results[i];
-                r.value = 0;
-                results[i] = r;
-            }
-
-            for (int u = 0; u < pickCount; u++)
-            {
-                Lottery<Element> lottery = new Lottery<Element>();
-
-                for (int i = 0; i < elements.Count; i++)
-                {
-                    lottery.Add(elements[i], elements[i].value);
-                }
-
-                string namePicked = lottery.Pick().name;
-
-                for (int i = 0; i < results.Count; i++)
-                {
-                    if (results[i].name == namePicked)
-                    {
-                        var r = results[i];
-                        r.value += 1f / pickCount;
-                        results[i] = r;
-                    }
-                }
-            }
+            var player = Game.Instance.Player;
+            player.vehicle.Attacked(player.playerCarTriggers.frontCol.info, 1, null);
         }
     }
 }

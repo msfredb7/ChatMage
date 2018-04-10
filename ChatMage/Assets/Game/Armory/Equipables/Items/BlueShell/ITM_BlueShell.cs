@@ -68,23 +68,8 @@ public class ITM_BlueShell : Item
 
     private float Cooldown { get { return cooldown * player.playerStats.cooldownMultiplier; } }
 
-    // WEIGHT
-
-    [InspectorHeader("Weight Conditions")]
-    public int cantHaveMoreThen = 8;
-
     public override float GetWeight()
     {
-        float ajustedWeight = 1;
-        List<Item> playerItems = Game.Instance.Player.playerItems.items;
-        int amountOfBlueShellsPlayerHave = 0;
-        for (int i = 0; i < playerItems.Count; i++)
-        {
-            if (playerItems[i].GetType() == typeof(ITM_BlueShell))
-                amountOfBlueShellsPlayerHave++;
-        }
-        if (amountOfBlueShellsPlayerHave >= cantHaveMoreThen)
-            ajustedWeight = 0;
-        return (base.GetWeight() * ajustedWeight);
+        return 1;
     }
 }

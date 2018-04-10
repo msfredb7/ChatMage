@@ -34,20 +34,27 @@ public class PlayerItems : PlayerComponent
         //Duplicate index = le nombre d'item identique existant deja
         int duplicateIndex = GetDuplicateCount_Asset(itemAssetReference);
         items.Add(newItem);
-        newItem.Equip(duplicateIndex);
+        try
+        {
+            newItem.Equip(duplicateIndex);
 
-        if (OnGainItem != null)
-            OnGainItem(newItem);
+            if (OnGainItem != null)
+                OnGainItem(newItem);
 
-        if (OnItemListChange != null)
-            OnItemListChange();
+            if (OnItemListChange != null)
+                OnItemListChange();
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("Failed to equip item: " + e.Message);
+        }
     }
 
     public Item GetAReferenceToItemOfType<T>()
     {
         foreach (Item item in items)
         {
-            if(item is T)
+            if (item is T)
                 return item;
         }
         return null;
@@ -87,18 +94,26 @@ public class PlayerItems : PlayerComponent
         if (items.Contains(item))
         {
             items.Remove(item);
-            item.Unequip();
 
-            if (OnLoseItem != null)
-                OnLoseItem(item);
+            try
+            {
+                item.Unequip();
 
-            if (OnItemListChange != null)
-                OnItemListChange();
+                if (OnLoseItem != null)
+                    OnLoseItem(item);
+
+                if (OnItemListChange != null)
+                    OnItemListChange();
+            }
+            catch (Exception e)
+            {
+                Debug.LogError("Failed to unequip item: " + e.Message);
+            }
         }
     }
     public void UnequipFirst()
     {
-        if(items.Count > 0)
+        if (items.Count > 0)
         {
             Unequip(items[0]);
         }

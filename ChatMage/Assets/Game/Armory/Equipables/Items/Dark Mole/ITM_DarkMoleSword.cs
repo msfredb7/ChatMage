@@ -11,11 +11,11 @@ public class ITM_DarkMoleSword : Item
 
     [FullSerializer.fsIgnore]
     private DarkMoleSword sword;
+    private bool equipped = false;
 
     public override void Equip(int duplicateIndex)
     {
         base.Equip(duplicateIndex);
-
         sword = swordPrefab.DuplicateGO(player.transform);
         sword.gameObject.SetActive(false);
         sword.SetController(player);
@@ -24,6 +24,9 @@ public class ITM_DarkMoleSword : Item
         //C'est temporaire et ca devrais etre enlever dans le futur
         Game.Instance.events.AddDelayedAction(() =>
         {
+            if (!equipped)
+                return;
+
             sword.gameObject.SetActive(true);
             int table;
             int seat;
@@ -35,6 +38,8 @@ public class ITM_DarkMoleSword : Item
 
             sword.OpenSwordSet(table, angle * (seat.IsEvenNumber() ? 1 : -1));
         }, 0.5f);
+
+        equipped = true;
     }
 
     public static int DivideAlgo(int n, int max)
@@ -83,36 +88,24 @@ public class ITM_DarkMoleSword : Item
     {
         base.Unequip();
 
+        equipped = false;
+        sharedSlots.ReleaseSeat(this);
         sword.BreakOff(()=>
         {
             if (sword != null)
                 sword.DestroyGO();
         });
-        sharedSlots.ReleaseSeat(this);
-        sword = null;
     }
 
     protected override void ClearReferences()
     {
         base.ClearReferences();
         sharedSlots.ReleaseSeat(this);
+        equipped = false;
     }
-
-    [InspectorHeader("Weight Conditions")]
-    public int cantHaveMoreThen = 10;
 
     public override float GetWeight()
     {
-        float ajustedWeight = 1;
-        List<Item> playerItems = Game.Instance.Player.playerItems.items;
-        int amountOfBlueShellsPlayerHave = 0;
-        for (int i = 0; i < playerItems.Count; i++)
-        {
-            if (playerItems[i].GetType() == typeof(ITM_DarkMoleSword))
-                amountOfBlueShellsPlayerHave++;
-        }
-        if (amountOfBlueShellsPlayerHave >= cantHaveMoreThen)
-            ajustedWeight = 0;
-        return (base.GetWeight() * ajustedWeight);
+        return 1;
     }
 }

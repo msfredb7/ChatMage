@@ -54,13 +54,13 @@ public class ITM_SuperCar : Item, ISpeedBuff
 
         if (controller.Value == null)
         {
-            IsController = true;
+            controller.Value = this;
             remainingNitro.Value = 0;
         }
 
         // Subscribe to events
         player.playerItems.OnGainItem += AddNitroBoost;
-        findNewControllerEvent.Subscribe(FindNewAudioController);
+        findNewControllerEvent.Subscribe(FindNewController);
     }
 
     public float GetAdditionalSpeed()
@@ -77,12 +77,12 @@ public class ITM_SuperCar : Item, ISpeedBuff
 
         // Unsubscribe from events
         player.playerItems.OnGainItem -= AddNitroBoost;
-        findNewControllerEvent.Unsubscribe(FindNewAudioController);
+        findNewControllerEvent.Unsubscribe(FindNewController);
 
         // Lose control of source
         if (IsController)
         {
-            IsController = false;
+            controller.Value = null;
             findNewControllerEvent.Raise();
 
             // We're the last one, remove everything
@@ -163,8 +163,13 @@ public class ITM_SuperCar : Item, ISpeedBuff
 
     private void DestroyVisuals()
     {
-        Destroy(SharedCarVisualsController.gameObject);
-        originalCarVisuals.gameObject.SetActive(true);
+        if(sharedCarVisuals.Value != null)
+        {
+            Destroy(SharedCarVisualsController.gameObject);
+            originalCarVisuals.gameObject.SetActive(true);
+        }
+        else
+            Debug.LogError("Should not happen");
     }
 
     private void SpawnAudio()
@@ -173,24 +178,20 @@ public class ITM_SuperCar : Item, ISpeedBuff
     }
     private void DestroyAudio()
     {
-        Destroy((sharedAudioSource.Value as AudioSource).gameObject);
+        if (sharedAudioSource.Value != null)
+            Destroy((sharedAudioSource.Value as AudioSource).gameObject);
+        else
+            Debug.LogError("Should not happen");
     }
 
-    private void FindNewAudioController()
+    private void FindNewController()
     {
         if (controller.Value == null)
-            IsController = true;
+            controller.Value = this;
     }
 
     private bool IsController
     {
         get { return controller.Value == this; }
-        set
-        {
-            if (value)
-                controller.Value = this;
-            else if (IsController)
-                controller.Value = null;
-        }
     }
 }

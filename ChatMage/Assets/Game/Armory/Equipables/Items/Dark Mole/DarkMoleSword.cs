@@ -76,8 +76,13 @@ public class DarkMoleSword : MonoBehaviour
 
     public void BreakOff(Action onComplete)
     {
-        InitQueue queue = new InitQueue(onComplete);
+        if(swords == null || swords.Length < 0)
+        {
+            onComplete();
+            return;
+        }
 
+        InitQueue queue = new InitQueue(onComplete);
         Vector2 velocity = player == null ? Vector2.zero : player.vehicle.Speed;
         Transform container = Game.Instance.unitsContainer;
 
