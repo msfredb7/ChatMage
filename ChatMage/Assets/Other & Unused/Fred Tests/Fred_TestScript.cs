@@ -27,7 +27,6 @@ public class Fred_TestScript : BaseBehavior
 
     void Update()
     {
-
         //if (Input.GetKeyDown(KeyCode.Y))
         //{
         //    projectile.DuplicateGO(Vector2.zero, Quaternion.identity).GoTo(destinations[i].position);
@@ -36,27 +35,11 @@ public class Fred_TestScript : BaseBehavior
         //        i = 0;
         //}
 
+        if (Input.GetButtonDown("Activate Power (2)"))
+            Debug.Log("sup");
 
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            var player = Game.Instance.Player;
-            if (player != null)
-            {
-                var trailsController = player.GetComponent<PlayerDriftTrails>();
-                if (trailsController != null)
-                {
-                    foreach (var trail in trailsController.standardTrailInstances)
-                    {
-                        if (trail != null)
-                            trail.Clear();
+        Debug.Log(Input.GetAxisRaw("Turn"));
 
-                        Debug.Log("clear !");
-                    }
-                }
-            }
-            Debug.Log("i did it reddit !");
-            //wave.LaunchNow(Game.Instance.levelScript);
-            //spawn.SpawnUnits(unitsToSpawn, intervals, 1.5f, (x) => Debug.Log("hello: " + x));
-        }
+        //Debug.Log(Input.GetAxisRaw("Turn (Keys)"));
     }
 }
