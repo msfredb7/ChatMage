@@ -42,9 +42,12 @@ public abstract class StdCar : Car
                 // mais qu'on etait pas en train de spin
                 if (!spinning)
                 {
-                    //Debug.Log("SPINNING");
+
                     // init le spin
-                    DefaultAudioSources.PlaySFX((Game.Instance.Player.playerItems.GetAReferenceToItemOfType<ITM_Spinner>() as ITM_Spinner).spinnerSFX);
+                    var item = player.playerItems.GetAReferenceToItemOfType<ITM_Spinner>();
+                    if (item != null)
+                        DefaultAudioSources.PlaySFX(((ITM_Spinner)item).spinnerSFX);
+
                     turnSpeed = spinSpeed;
                     turnAcceleration = spinAcceleration;
                     spinning = true;
