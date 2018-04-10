@@ -30,6 +30,9 @@ public class ITM_Spinner : Item
 
     public override float GetWeight()
     {
-        return SimilarItemCount >= 1 ? 0 : base.GetWeight();
+        if (Game.Instance.Player.playerItems.GetCountOf<ITM_ChainChomp>() > 1)
+            return 0;
+        else
+            return SimilarItemCount >= 1 ? 0 : base.GetWeight();
     }
 }
