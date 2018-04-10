@@ -43,6 +43,16 @@ public class PlayerItems : PlayerComponent
             OnItemListChange();
     }
 
+    public Item GetAReferenceToItemOfType<T>()
+    {
+        foreach (Item item in items)
+        {
+            if(item is T)
+                return item;
+        }
+        return null;
+    }
+
     public int GetDuplicateCount_Asset(Item itemAssetReference)
     {
         return GetCountOf(itemAssetReference.GetInstanceID());

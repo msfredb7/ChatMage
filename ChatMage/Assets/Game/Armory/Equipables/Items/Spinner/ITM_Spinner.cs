@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ITM_Spinner : Item
 {
+    public AudioClip spinnerSFX;
+
     public override void Equip(int duplicateIndex)
     {
         base.Equip(duplicateIndex);

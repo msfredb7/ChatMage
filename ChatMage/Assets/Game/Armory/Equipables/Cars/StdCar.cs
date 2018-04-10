@@ -44,6 +44,7 @@ public abstract class StdCar : Car
                 {
                     //Debug.Log("SPINNING");
                     // init le spin
+                    DefaultAudioSources.PlaySFX((Game.Instance.Player.playerItems.GetAReferenceToItemOfType<ITM_Spinner>() as ITM_Spinner).spinnerSFX);
                     turnSpeed = spinSpeed;
                     turnAcceleration = spinAcceleration;
                     spinning = true;
