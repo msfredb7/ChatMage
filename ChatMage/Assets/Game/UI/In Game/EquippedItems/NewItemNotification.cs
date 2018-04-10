@@ -36,7 +36,6 @@ public class NewItemNotification : MonoBehaviour
     {
         blackBGDefaultAlpha = blackBG.color.a;
         gameObject.SetActive(false);
-        animDone = false;
     }
 
     public void Init(PlayerItems playerItems)
@@ -51,6 +50,8 @@ public class NewItemNotification : MonoBehaviour
 
     public void Notify(Item item)
     {
+        animDone = false;
+
         gameObject.SetActive(true);
 
         Game.Instance.gameRunning.Lock(GAMELOCK);
@@ -77,7 +78,8 @@ public class NewItemNotification : MonoBehaviour
         introTween = sq;
 
         // Spin dem rays
-        godRays.DORotate(Vector3.forward * 360, sq.Duration(), RotateMode.LocalAxisAdd).SetUpdate(true).SetLoops(-1);
+        godRays.DOKill();
+        godRays.DORotate(Vector3.forward * 360, sq.Duration() * 2, RotateMode.LocalAxisAdd).SetUpdate(true).SetLoops(-1);
     }
 
     void Update()
@@ -108,6 +110,6 @@ public class NewItemNotification : MonoBehaviour
             introTween.Kill();
             outroTween.Kill();
         }
-            
+
     }
 }
