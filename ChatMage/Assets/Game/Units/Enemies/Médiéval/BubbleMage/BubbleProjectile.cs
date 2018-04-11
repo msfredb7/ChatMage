@@ -78,7 +78,7 @@ public class BubbleProjectile : MovingUnit
         if(HasPresence(seek))
         {
             Vector2 v = seek.Position - Position;
-            Rotation = Rotation.MovedTowards(v.ToAngle(), deltaTime * turnSpeed);
+            Rotation = Mathf.MoveTowardsAngle(Rotation, v.ToAngle(), deltaTime * turnSpeed);
 
             UpdateSpeed();
         }
