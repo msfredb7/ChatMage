@@ -81,12 +81,6 @@ public class LS_EndlessLevel : LevelScript
     public float playerEnterDelay = 1.5f;
     float transitionDuration = 1;
     float gateAnimDelay = 0.5f;
-    SimpleColliderListener topdetector;
-    SimpleColliderListener botdetector;
-    bool waitingForExit = false;
-    bool waitingForEnter = false;
-    UnityEvent startTransition = new UnityEvent();
-    UnityEvent startNextWave = new UnityEvent();
     [InspectorCategory("ENDLESS MODE")]
     public float fadeTextAnim = 1.0f;
 
@@ -119,16 +113,9 @@ public class LS_EndlessLevel : LevelScript
         Game.Instance.smashManager.smashEnabled = true;
         Game.Instance.ui.smashDisplay.canBeShown = true;
 
-        startTransition.RemoveAllListeners();
-        startNextWave.RemoveAllListeners();
-
         // Obtenir les références nécessaire
         topgate = Game.Instance.map.mapping.GetTaggedObject("topgate").GetComponent<SidewaysFakeGate>();
         botgate = Game.Instance.map.mapping.GetTaggedObject("botgate").GetComponent<SidewaysFakeGate>();
-        topdetector = Game.Instance.map.mapping.GetTaggedObject("topdetector").GetComponent<SimpleColliderListener>();
-        topdetector.onTriggerEnter += PlayerEnteringTopDetector;
-        botdetector = Game.Instance.map.mapping.GetTaggedObject("botdetector").GetComponent<SimpleColliderListener>();
-        botdetector.onTriggerExit += PlayerEnteringMap;
         arrow = Game.Instance.map.mapping.GetTaggedObject("arrow").GetComponent<GuideArrow>();
 
         playerSpawn = Game.Instance.map.mapping.GetTaggedObject("respawn").gameObject;
@@ -198,16 +185,18 @@ public class LS_EndlessLevel : LevelScript
     private void SpawnWave()
     {
         // Definition de la vague
-        UnitWaveV2 wave = new UnitWaveV2();
-        wave.infiniteRepeat = false;
-        wave.pauseBetweenRepeat = 0;
+        UnitWaveV2 wave = new UnitWaveV2
+        {
+            infiniteRepeat = false,
+            pauseBetweenRepeat = 0
+        };
         if (useCurveForSpawnInterval)
             wave.spawnInterval = 1 / (spawnInterval.GetProgression(Mathf.RoundToInt(difficulty.GetProgression(currentStep))));
         else
             wave.spawnInterval = specificSpawnInterval;
 
 
-        UnityEngine.Random.InitState(currentStep*100);
+        UnityEngine.Random.InitState(currentStep * 100);
 
         /*Debug.Log("Current Stage : " + currentStage + "\n" +
         "Current Step : " + currentStep + "\n" +
@@ -232,17 +221,21 @@ public class LS_EndlessLevel : LevelScript
         wave.variableIntervals = true;
 
         // Where ?
-        wave.where = new WaveWhereV2();
-        wave.where.spawnTag = spawnTag;
-        wave.where.filterType = WaveWhereV2.FilterType.None;
-        wave.where.selectType = WaveWhereV2.SelectType.ByIndex;
-        wave.where.index = 0;
+        wave.where = new WaveWhereV2
+        {
+            spawnTag = spawnTag,
+            filterType = WaveWhereV2.FilterType.None,
+            selectType = WaveWhereV2.SelectType.ByIndex,
+            index = 0
+        };
 
         // When ?
-        wave.when = new WaveWhen();
-        wave.when.type = WaveWhen.Type.OnManualTrigger;
-        wave.when.name = "wave";
-        wave.when.onlyTriggerOnce = true;
+        wave.when = new WaveWhen
+        {
+            type = WaveWhen.Type.OnManualTrigger,
+            name = "wave",
+            onlyTriggerOnce = true
+        };
 
         // Lorsque la vague est fini
         wave.onComplete += delegate ()
@@ -438,17 +431,15 @@ public class LS_EndlessLevel : LevelScript
         Game.Instance.DelayedCall(delegate ()
         {
             // Ouverture de la porte du haut
-            waitingForExit = true;
+            //waitingForExit = true;
             arrow.Show();
             topgate.Open();
             Game.Instance.playerBounds.top.gameObject.SetActive(false);
-            startTransition.AddListener(delegate ()
+
+            Action onPlayerExit = ()=>
             {
                 // Disable input joueur
                 Game.Instance.Player.playerDriver.enableInput = false;
-
-                // on reset les event pour la prochaine fois
-                startTransition.RemoveAllListeners();
 
                 // Le joueur est dans la porte du haut
                 // Apres un court delai (le temps qu'il rentre) on ferme tout et on teleporte le joueur
@@ -466,7 +457,6 @@ public class LS_EndlessLevel : LevelScript
                     dataSaver.SetInt(bestStepKey, currentStep);
                     dataSaver.Save();
                     currentBest = currentStep;
-                    // TODO : Faire une animation
                 }
 
                 //Debug.Log("Transitionning from step " + currentStep + ",pack " + (currentStep - ((currentStage - 1) * stepToResetSave)) + ",stage " + currentStage);
@@ -480,19 +470,35 @@ public class LS_EndlessLevel : LevelScript
                 Transition(delegate ()
                 {
                     // Quand la transition est fini on attend que le joueur entre
-                    startNextWave.AddListener(delegate ()
+                    Action onPlayerEnter = () =>
                     {
-                        // le joueur est la on ferme tout
+                        // Re-enable player controls
+                        Game.Instance.Player.playerDriver.enableInput = true;
+                        Game.Instance.Player.vehicle.rb.freezeRotation = false;
+
+                        // Ferme la porte
                         botgate.Close();
-                        //ui.stageText.DOFade(0, fadeTextAnim);
+
                         Game.Instance.playerBounds.bottom.gameObject.SetActive(true);
-                        // on reset les event pour la prochaine fois
-                        startNextWave.RemoveAllListeners();
+
                         // On spawn la prochaine vague
                         SpawnWave();
-                    });
+                    };
+
+                    // Si le joueur est déjà à l'intérieur, on execute l'action directement. Sinon, on listen à l'event
+                    if (playerPositionState == PlayerPositionState.CompletelyInside)
+                        onPlayerEnter();
+                    else
+                        onNextCompleteEntrance = onPlayerEnter;
                 });
-            });
+            };
+            
+            // Si le joueur est déjà à l'extérieur, on execute l'action directement. Sinon, on listen à l'event
+            if (playerPositionState == PlayerPositionState.CompletelyOutside)
+                onPlayerExit();
+            else
+                onNextCompleteExit = onPlayerExit;
+
         }, gateAnimDelay);
     }
 
@@ -556,7 +562,8 @@ public class LS_EndlessLevel : LevelScript
         {
             playerVehicle.TeleportPosition(playerSpawn.transform.position);
             playerVehicle.TeleportDirection(90);
-            playerVehicle.rb.freezeRotation = true;
+            playerVehicle.rb.velocity = Vector2.zero;
+            playerVehicle.rb.angularVelocity = 0;
 
             // Note: Si on est dans le AC-130, il faut bouger le joueur à la main parce que son rigidbody est désactivé
             if (!player.gameObject.activeInHierarchy)
@@ -566,7 +573,7 @@ public class LS_EndlessLevel : LevelScript
                 tr.rotation = Quaternion.Euler(Vector3.forward * 90);
             }
 
-            waitingForEnter = true;
+            playerVehicle.rb.freezeRotation = true;
 
             onComplete.Invoke();
         }, playerEnterDelay);
@@ -589,24 +596,74 @@ public class LS_EndlessLevel : LevelScript
 
     // DETECTORS
 
-    private void PlayerEnteringTopDetector(ColliderInfo other, ColliderListener listener)
-    {
-        if (!waitingForExit)
-            return;
+    private enum PlayerPositionState { CompletelyInside = 0, PartiallyInside = 1, CompletelyOutside = 2 }
+    private PlayerPositionState playerPositionState;
+    private Action onNextCompleteEntrance;
+    private Action onNextCompleteExit;
 
-        waitingForExit = false;
-        startTransition.Invoke();
+    protected override void OnUpdate()
+    {
+        base.OnUpdate();
+
+        var previousState = playerPositionState;
+        playerPositionState = GetPlayerPositionState();
+
+        // Il y a eu un changement ?
+        if (playerPositionState != previousState)
+        {
+            // Raise events
+            if (playerPositionState == PlayerPositionState.CompletelyInside)
+            {
+                if (onNextCompleteEntrance != null)
+                {
+                    onNextCompleteEntrance.Invoke();
+                    onNextCompleteEntrance = null;
+                }
+            }
+            else if (playerPositionState == PlayerPositionState.CompletelyOutside)
+            {
+                if (onNextCompleteExit != null)
+                {
+                    onNextCompleteExit.Invoke();
+                    onNextCompleteExit = null;
+                }
+            }
+        }
     }
 
-    private void PlayerEnteringMap(ColliderInfo other, ColliderListener listener)
+    private PlayerPositionState GetPlayerPositionState()
     {
-        if (!waitingForEnter)
-            return;
+        if (PlayerIsCompletelyInside)
+            return PlayerPositionState.CompletelyInside;
+        if (PlayerIsCompletelyOutside)
+            return PlayerPositionState.CompletelyOutside;
+        return PlayerPositionState.PartiallyInside;
+    }
 
-        waitingForEnter = false;
-        Game.Instance.Player.playerDriver.enableInput = true;
-        Game.Instance.Player.vehicle.rb.freezeRotation = false;
-        startNextWave.Invoke();
+    private bool PlayerIsCompletelyInside
+    {
+        get
+        {
+            var player = Game.Instance.Player;
+            if (player == null)
+                return false;
+
+            var yPos = player.vehicle.transform.position.y;
+            return yPos > -2.59f && yPos < 3.831;
+        }
+    }
+
+    private bool PlayerIsCompletelyOutside
+    {
+        get
+        {
+            var player = Game.Instance.Player;
+            if (player == null)
+                return false;
+
+            var yPos = player.vehicle.transform.position.y;
+            return yPos > 7.52f || yPos < -6.66f;
+        }
     }
 
     // CHARGES

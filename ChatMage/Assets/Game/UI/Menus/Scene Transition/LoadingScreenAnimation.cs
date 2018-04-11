@@ -4,12 +4,14 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.Audio;
 
 public class LoadingScreenAnimation : MonoBehaviour
 {
     public enum State { BeforeIntro, Intro, Waiting, Outro, PostOutro }
     public Image bg;
     public Camera cam;
+    public AudioMixerSnapshot normalSnapshot;
     public State GetState() { return state; }
     private State state = State.BeforeIntro;
 
@@ -20,6 +22,7 @@ public class LoadingScreenAnimation : MonoBehaviour
 
     public void Intro(UnityAction onComplete)
     {
+        normalSnapshot.TransitionTo(0.5f);
         state = State.Intro;
         bg.DOFade(1, 1).OnComplete(delegate ()
         {
