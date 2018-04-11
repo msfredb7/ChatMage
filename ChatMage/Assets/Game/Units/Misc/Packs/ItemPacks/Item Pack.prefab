@@ -293,6 +293,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allegiance: 1
+  baseTimescale: 1
   isDead: 0
   isPreSpawned: 1
   colliderListener: {fileID: 114216933662194410}
@@ -309,8 +310,10 @@ MonoBehaviour:
   spawnRotateLoops: 5
   flipMaxSize: 1.6
   pickupSound: {fileID: 11400000, guid: bb8e6e0ec26bd804eaabb553ed750ae6, type: 2}
-  itemReference: {fileID: 0}
   firstPickupSave: {fileID: 11400000, guid: 7974f73ff596eae41a4721224c1384f2, type: 2}
+  item: {fileID: 0}
+  settings: {fileID: 0}
+  shouldSpawnSpecial: 0
 --- !u!114 &114216933662194410
 MonoBehaviour:
   m_ObjectHideFlags: 1
