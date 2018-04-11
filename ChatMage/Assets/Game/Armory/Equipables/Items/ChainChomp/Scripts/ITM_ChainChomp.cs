@@ -89,7 +89,10 @@ public class ITM_ChainChomp : Item
 
     public override float GetWeight()
     {
-        if (Game.Instance.Player.playerItems.GetCountOf<ITM_Spinner>() >= 1 && Game.Instance.Player.playerItems.GetCountOf<ITM_ChainChomp>() > 1)
+        var playerItems = Game.Instance.Player.playerItems;
+        
+        // Si on a déjà 1 spinner, on ne peut pas aller plus loin qu'1 chain chomp de plus
+        if (playerItems.GetCountOf<ITM_Spinner>() > 0 && playerItems.GetCountOf<ITM_ChainChomp>() > 0)
             return 0;
         else
             return 1;

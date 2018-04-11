@@ -15,24 +15,21 @@ public class ITM_Spinner : Item
     {
         base.Unequip();
 
-        // Are we the last spinner ?
+        // Were we the last spinner ?
         if (player.playerItems.GetCountOf(originalAssetID) == 0)
             Game.Instance.Player.vehicle.CanSpin = false;
     }
 
-    public int SimilarItemCount
-    {
-        get
-        {
-            return Game.Instance.Player.playerItems.GetCountOf<ITM_Spinner>();
-        }
-    }
-
     public override float GetWeight()
     {
-        if (Game.Instance.Player.playerItems.GetCountOf<ITM_ChainChomp>() > 1)
+        var playerItems = Game.Instance.Player.playerItems;
+
+        // Si nous avons plus d'1 ChainChomp, on ne peut pas avoir de spinner
+        // +
+        // Si nous avons déjà un spinner, on en veut pas un 2e
+        if (playerItems.GetCountOf<ITM_ChainChomp>() > 1 || playerItems.GetCountOf<ITM_Spinner>() > 0)
             return 0;
-        else
-            return SimilarItemCount >= 1 ? 0 : base.GetWeight();
+
+        return 1;
     }
 }
