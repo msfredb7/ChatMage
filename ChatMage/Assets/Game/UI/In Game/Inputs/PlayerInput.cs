@@ -42,32 +42,23 @@ public class PlayerInput : MonoBehaviour
         }
         else
         {
-            if (Input.GetMouseButton(0))
+            //Touch de clavier
+            if (HorizontalAxis > 0.1f)
             {
-                //Click de souris
-                Vector2 pos = Input.mousePosition;
-                OnPlayerTouch(pos);
+                if (CanTurn)
+                    turning++;
             }
-            else
+
+            if (HorizontalAxis < -0.1f)
             {
-                //Touch de clavier
-                if (HorizontalAxis > 0.1f)
-                {
-                    if (CanTurn)
-                        turning++;
-                }
+                if (CanTurn)
+                    turning--;
+            }
 
-                if (HorizontalAxis < -0.1f)
-                {
-                    if (CanTurn)
-                        turning--;
-                }
-
-                if (Game.Instance.gameRunning && UltimateButtonDown)
-                {
-                    if (CanSmash)
-                        smashPress = true;
-                }
+            if (Game.Instance.gameRunning && UltimateButtonDown)
+            {
+                if (CanSmash)
+                    smashPress = true;
             }
         }
 

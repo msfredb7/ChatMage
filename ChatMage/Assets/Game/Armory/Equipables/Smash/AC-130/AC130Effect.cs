@@ -39,6 +39,7 @@ public class AC130Effect : MonoBehaviour
     private Invert_BlackAndWhite blackAndWhite;
     private int ammo = 3;
     private float remainingReloadTime;
+    private float remainingDeadInputTime;
 
     private List<Goal> forcedGoals;
     private Tween enterExitAnimation;
@@ -97,13 +98,14 @@ public class AC130Effect : MonoBehaviour
     {
         if (!Game.Instance.gameRunning)
             return;
+        var deltaTime = Time.deltaTime;
 
         // CAS EXCEPTIONNEL: Il faut call le player smash à la main parce que le joueur est désactivé
         Game.Instance.Player.playerSmash.Update();
 
         if (remainingDuration > 0)
         {
-            remainingDuration -= Time.deltaTime * Game.Instance.worldTimeScale;
+            remainingDuration -= deltaTime * Game.Instance.worldTimeScale;
 
             if (remainingDuration <= 0)
             {
@@ -111,15 +113,20 @@ public class AC130Effect : MonoBehaviour
             }
         }
 
+        if (remainingDeadInputTime > 0)
+        {
+            remainingDeadInputTime -= deltaTime;
+        }
+
         if (remainingReloadTime > 0)
         {
-            remainingReloadTime -= Time.deltaTime * (scaleReloadTimeWithWorldTimescale ? Game.Instance.worldTimeScale : 1f);
+            remainingReloadTime -= deltaTime * (scaleReloadTimeWithWorldTimescale ? Game.Instance.worldTimeScale : 1f);
 
             //Si on a plus d'ammo, end
             if (remainingReloadTime <= 0 && ammo == 0)
                 End();
         }
-        else if (Toucher.GetTouchDown() && !ending)
+        else if (Toucher.GetTouchDown() && !ending && remainingDeadInputTime <= 0)
         {
             Shoot();
         }
@@ -172,6 +179,7 @@ public class AC130Effect : MonoBehaviour
             this.onComplete = onComplete;
             remainingDuration = duration;
             ending = false;
+            remainingDeadInputTime = 0.85f;
 
             gameObject.SetActive(true);
 

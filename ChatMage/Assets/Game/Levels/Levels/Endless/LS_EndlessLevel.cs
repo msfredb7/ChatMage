@@ -19,8 +19,8 @@ public class LS_EndlessLevel : LevelScript
         public int power;
         public int unlockAt = 0;
         public int cooldown = 0;
-        [HideInInspector]
-        public int counter = 0; // use to calculate the cooldown
+        [FullSerializer.fsIgnore, NonSerialized]
+        public int cooldownCounter = 0; // use to calculate the cooldown
         public float spawnInterval;
 
         public float Weight // Poid si jamais il n'y a aucun diversite
@@ -400,14 +400,14 @@ public class LS_EndlessLevel : LevelScript
         EnemyTypes chosenEnemy = enemyLot.Pick();
 
         // Est-ce que le cooldown empeche la selection de cette unité ?
-        if (chosenEnemy.counter > 0)
+        if (chosenEnemy.cooldownCounter > 0)
         {
             // Oui, on restart la selection
             return CreateUnitPack(ref pack, power, units, diversityFactor, ref spawnIntervals);
         }
         else
         {
-            chosenEnemy.counter = chosenEnemy.cooldown; // Reset cooldown après avoir choisit cette unité
+            chosenEnemy.cooldownCounter = chosenEnemy.cooldown; // Reset cooldown après avoir choisit cette unité
             pack.unit = chosenEnemy.unit;
             // On va en spawn le plus possible selon le power max de paquet d'ennemi
             pack.quantity = Mathf.RoundToInt(power / chosenEnemy.power);
@@ -590,7 +590,7 @@ public class LS_EndlessLevel : LevelScript
         for (int i = 0; i < possibleUnits.Count; i++)
         {
             if (possibleUnits[i].unit != unit)
-                possibleUnits[i].counter--;
+                possibleUnits[i].cooldownCounter--;
         }
     }
 
