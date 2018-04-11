@@ -26,11 +26,13 @@ namespace GameIntroOutro
 
         public void Restart()
         {
+            DefaultAudioSources.StopMusicFaded();
             Game.Instance.framework.RestartLevel();
         }
 
         public void GoBackToMenu()
         {
+            DefaultAudioSources.StopMusicFaded();
             LoadingScreen.TransitionTo(LevelSelect.LevelSelection.SCENENAME, null);
         }
     }

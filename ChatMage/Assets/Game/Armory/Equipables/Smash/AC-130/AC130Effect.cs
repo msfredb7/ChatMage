@@ -119,7 +119,7 @@ public class AC130Effect : MonoBehaviour
             if (remainingReloadTime <= 0 && ammo == 0)
                 End();
         }
-        else if (Toucher.IsTouching && !ending)
+        else if (Toucher.GetTouchDown() && !ending)
         {
             Shoot();
         }

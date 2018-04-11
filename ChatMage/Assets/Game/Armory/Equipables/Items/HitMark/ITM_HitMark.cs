@@ -63,4 +63,11 @@ public class ITM_HitMark : Item
         if (mutex.Value == this)
             mutex.Value = null;
     }
+
+    public override void PreGameClear()
+    {
+        base.PreGameClear();
+
+        mutex.Value = null;
+    }
 }
