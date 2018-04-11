@@ -410,7 +410,8 @@ public class ChainChomp : MovingUnit, IAttackable
 
         set
         {
-            base.TimeScale = value;
+            timeScale = value;
+            //base.TimeScale = value;
 
             var count = chainSpawner.ChainCount;
             for (int i = 0; i < count; i++)
