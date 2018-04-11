@@ -28,4 +28,9 @@ public class GameEvent : ScriptableObject
     {
         eventListeners.Remove(listener);
     }
+
+    public void UnsubscribeAll()
+    {
+        eventListeners.Clear();
+    }
 }

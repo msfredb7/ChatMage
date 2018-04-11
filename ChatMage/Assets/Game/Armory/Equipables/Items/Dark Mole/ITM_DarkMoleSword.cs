@@ -104,6 +104,17 @@ public class ITM_DarkMoleSword : Item
         equipped = false;
     }
 
+    public override void PreGameClear()
+    {
+        base.PreGameClear();
+
+        var tables = sharedSlots.GetTables();
+        foreach (var table in tables)
+        {
+            table.Clear();
+        }
+    }
+
     public override float GetWeight()
     {
         return 1;

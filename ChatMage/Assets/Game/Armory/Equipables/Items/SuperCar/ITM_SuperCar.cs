@@ -163,7 +163,7 @@ public class ITM_SuperCar : Item, ISpeedBuff
 
     private void DestroyVisuals()
     {
-        if(sharedCarVisuals.Value != null)
+        if (sharedCarVisuals.Value != null)
         {
             Destroy(SharedCarVisualsController.gameObject);
             originalCarVisuals.gameObject.SetActive(true);
@@ -193,5 +193,17 @@ public class ITM_SuperCar : Item, ISpeedBuff
     private bool IsController
     {
         get { return controller.Value == this; }
+    }
+
+    public override void PreGameClear()
+    {
+        base.PreGameClear();
+
+        remainingNitro.Value = 0;
+        nitroAudioTransition.Value = 0;
+        controller.Value = null;
+        findNewControllerEvent.UnsubscribeAll();
+        sharedAudioSource.Value = null;
+        sharedCarVisuals.Value = null;
     }
 }

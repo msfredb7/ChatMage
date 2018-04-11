@@ -69,4 +69,9 @@ public abstract class Item : Equipable, IItemWeight
     {
         return 1;
     }
+
+    public virtual void PreGameClear()
+    {
+
+    }
 }

@@ -26,6 +26,11 @@ public class ItemAvailableList : ScriptableObject
                 }
             }
         }
+
+        foreach (var item in availableItems)
+        {
+            item.PreGameClear();
+        }
     }
 
     public Item GetRandomAvailableItem()
