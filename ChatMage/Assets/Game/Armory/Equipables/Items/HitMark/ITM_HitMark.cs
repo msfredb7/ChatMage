@@ -17,10 +17,10 @@ public class ITM_HitMark : Item
     public override void Equip(int duplicateIndex)
     {
         base.Equip(duplicateIndex);
-        player.playerCarTriggers.onUnitKilled += PlayerCarTriggers_onUnitKilled;
+        player.playerStats.OnUnitKilled += PlayerCarTriggers_onUnitKilled;
     }
 
-    private void PlayerCarTriggers_onUnitKilled(Unit unit, CarSide carTrigger, ColliderInfo other, ColliderListener listener)
+    private void PlayerCarTriggers_onUnitKilled(Unit unit)
     {
         if (mutex.Value == null)
             mutex.Value = this;
@@ -57,8 +57,8 @@ public class ITM_HitMark : Item
     public override void Unequip()
     {
         base.Unequip();
-
-        player.playerCarTriggers.onUnitKilled -= PlayerCarTriggers_onUnitKilled;
+        
+        player.playerStats.OnUnitKilled -= PlayerCarTriggers_onUnitKilled;
 
         if (mutex.Value == this)
             mutex.Value = null;

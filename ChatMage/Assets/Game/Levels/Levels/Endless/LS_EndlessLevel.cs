@@ -206,7 +206,8 @@ public class LS_EndlessLevel : LevelScript
         else
             wave.spawnInterval = specificSpawnInterval;
 
-        UnityEngine.Random.InitState(Mathf.RoundToInt(difficulty.GetProgression(currentStep)));
+
+        UnityEngine.Random.InitState(currentStep*100);
 
         /*Debug.Log("Current Stage : " + currentStage + "\n" +
         "Current Step : " + currentStep + "\n" +
@@ -260,7 +261,7 @@ public class LS_EndlessLevel : LevelScript
             GiveCharge(charges[(currentStep - ((currentStage - 1) * (stepToResetSave - 1))) - 1]);
 
         // Music last level
-        if(((currentStep - ((currentStage - 1) * (stepToResetSave - 1))) - 1) >= 9)
+        if (((currentStep - ((currentStage - 1) * (stepToResetSave - 1))) - 1) >= 9)
             DefaultAudioSources.PlayMusic(finalSong);
 
         // Initialisation de la vague
@@ -283,7 +284,7 @@ public class LS_EndlessLevel : LevelScript
     {
         List<UnitPack> unitPack = new List<UnitPack>();
         spawnIntervals = new List<float>();
-        int difficultyTarget = Mathf.RoundToInt(difficulty.GetProgression(stepUsedForPowerMesure));
+        var difficultyTarget = difficulty.GetProgression(stepUsedForPowerMesure);
         int currentWavePower = Mathf.RoundToInt(wavePower.GetProgression(difficultyTarget));
 
         float currentDiversity = enemyDiversity.GetProgression(Mathf.RoundToInt(difficulty.GetProgression(stepUsedForPowerMesure)));
@@ -650,10 +651,10 @@ public class LS_EndlessLevel : LevelScript
     private void ClearTrails()
     {
         var player = Game.Instance.Player;
-        if(player != null)
+        if (player != null)
         {
             var trailsController = player.GetComponent<PlayerDriftTrails>();
-            if(trailsController != null)
+            if (trailsController != null)
             {
                 foreach (var trail in trailsController.standardTrailInstances)
                 {
