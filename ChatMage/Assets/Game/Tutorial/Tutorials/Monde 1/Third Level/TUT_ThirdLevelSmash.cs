@@ -22,6 +22,8 @@ namespace Tutorial
             Milestone secondIntersection = Game.Instance.map.roadPlayer.CurrentRoad.milestones.Find(
              (x) => x.GameObj.name == "Second Intersection") as Milestone;
 
+            Game.Instance.ui.smashDisplay.UseNotificationText = false;
+
             if (secondIntersection == null)
             {
                 Debug.LogError("On a pas pu trouver la milestone 'Second Intersection'");
@@ -67,9 +69,12 @@ namespace Tutorial
                 pc.playerStats.OnUnitKilled -= CheckLaunchTut;
             }
 
+            Game.Instance.ui.smashDisplay.UseNotificationText = true;
+
             canLaunchTut = false;
             modules.delayedAction.Do(1, P1_ShowSmashMeter);
         }
+
 
         void P1_ShowSmashMeter()
         {

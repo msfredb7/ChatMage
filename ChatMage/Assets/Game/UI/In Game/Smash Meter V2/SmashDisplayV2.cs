@@ -6,46 +6,38 @@ using UnityEngine.UI;
 
 public class SmashDisplayV2 : MonoBehaviour
 {
-    [SerializeField, Header("Juice")]
-    private RectTransform juiceTr;
-    [SerializeField]
-    private float fullJuiceAncPos;
-    [SerializeField]
-    private float maximalJuiceAncPos = 0;
-    [SerializeField]
-    private float minimalJuiceAncPos = -460;
-    [SerializeField]
-    private float noJuiceAncPos = -460;
-    [SerializeField]
-    private float juiceMoveDuration = 0.5f;
+    [SerializeField, Header("Juice")] private RectTransform juiceTr;
+    [SerializeField] private float fullJuiceAncPos;
+    [SerializeField] private float maximalJuiceAncPos = 0;
+    [SerializeField] private float minimalJuiceAncPos = -460;
+    [SerializeField] private float noJuiceAncPos = -460;
+    [SerializeField] private float juiceMoveDuration = 0.5f;
 
     [SerializeField, Header("Marker")]
     private RectTransform markerTr;
-    [SerializeField]
-    private float highMarkerAncPos = -460;
-    [SerializeField]
-    private float lowMarkerAncPos;
+    [SerializeField] private float highMarkerAncPos = -460;
+    [SerializeField] private float lowMarkerAncPos;
 
-    [SerializeField, Header("Glow Image")]
-    private Image glower;
-    [SerializeField]
-    private Color glowColor = Color.white;
-    [SerializeField]
-    private Color noGlowColor = Color.black;
-    [SerializeField]
-    private float glowChangeDuration = 0.5f;
+    [SerializeField, Header("Glow Image")] private Image glower;
+    [SerializeField] private Color glowColor = Color.white;
+    [SerializeField] private Color noGlowColor = Color.black;
+    [SerializeField] private float glowChangeDuration = 0.5f;
 
-    [SerializeField, Header("Glow Transform")]
-    private RectTransform glowTr;
-    [SerializeField]
-    private Vector2 fullGlowSize = new Vector2(-62, 430.9f);
-    [SerializeField]
-    private Vector2 noGlowSize = new Vector2(-62, 0);
+    [SerializeField, Header("Glow Transform")] private RectTransform glowTr;
+    [SerializeField] private Vector2 fullGlowSize = new Vector2(-62, 430.9f);
+    [SerializeField] private Vector2 noGlowSize = new Vector2(-62, 0);
 
-    [SerializeField, Header("Canvas Group")]
-    private CanvasGroup canvasGroup;
-    [SerializeField]
-    private float showTransitionDutation = 0.4f;
+    [SerializeField, Header("Notification Text")] private RectTransform notifTextprefab;
+    [SerializeField] private Vector2 notifTextMoveAmount;
+    [SerializeField] private float notifTextMoveDuration;
+    [SerializeField] private Ease notifTextMoveEase = Ease.OutQuad;
+    [SerializeField] private float notifTextFadeDuration = 0.35f;
+    public bool UseNotificationText = true;
+
+    [SerializeField, Header("Notification Text")] private SmashInstructions smashInstructions;
+
+    [SerializeField, Header("Canvas Group")] private CanvasGroup canvasGroup;
+    [SerializeField] private float showTransitionDutation = 0.4f;
 
 
     private Tween juiceMoveTween;
@@ -200,10 +192,31 @@ public class SmashDisplayV2 : MonoBehaviour
         {
             glower.enabled = true;
             glowChangeTween = glower.DOColor(glowColor, glowChangeDuration);
+
+            if (UseNotificationText)
+            {
+                // Notification text
+                var notifInstance = notifTextprefab.DuplicateGO(transform.parent);
+                notifInstance.localScale = Vector3.one * 0.01f;
+                notifInstance.DOScale(1, 0.2f);
+                notifInstance.DOAnchorPos(notifTextMoveAmount, notifTextMoveDuration).SetRelative().SetEase(notifTextMoveEase).OnComplete(() =>
+                {
+                    if (notifInstance != null)
+                        notifInstance.DestroyGO();
+                });
+                notifInstance.GetComponent<Text>().DOFade(0, notifTextFadeDuration).SetDelay(notifTextMoveDuration - notifTextFadeDuration);
+            }
+
+            // Smash instructions
+            smashInstructions.Show();
         }
         else
         {
             glowChangeTween = glower.DOColor(noGlowColor, glowChangeDuration).OnComplete(() => glower.enabled = false);
+
+            // Smash instructions
+            smashInstructions.Hide();
         }
+
     }
 }
