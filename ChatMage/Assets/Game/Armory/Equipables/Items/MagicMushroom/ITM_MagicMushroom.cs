@@ -40,7 +40,7 @@ public class ITM_MagicMushroom : Item, ISpeedBuff
         base.Unequip();
 
         DefaultAudioSources.PlaySFX(shrinkSFX);
-        if(player != null)
+        if (player != null)
         {
             player.body.DOBlendableScaleBy(Vector3.one * -scaleIncrease, animDuration).SetEase(Ease.OutElastic);
             player.vehicle.speedBuffs.Remove(this);
@@ -54,6 +54,12 @@ public class ITM_MagicMushroom : Item, ISpeedBuff
 
         if (itemCount >= 3)
             return 0;
+
+        if (itemCount == 2)
+            return 0.35f;
+
+        if (itemCount == 1)
+            return 0.7f;
 
         return 1;
     }
