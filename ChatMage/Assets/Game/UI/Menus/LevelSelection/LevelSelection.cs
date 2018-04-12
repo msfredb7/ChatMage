@@ -85,16 +85,6 @@ namespace LevelSelect
 
         void OnLevelSelected(Level level)
         {
-            //Go to loadout !
-            /*print("Level selected: " + level.name);
-
-			GameSaves.instance.SetString(GameSaves.Type.Levels, LASTLEVELSELECTED_KEY, level.name);
-
-			ToLoadoutMessage message = new ToLoadoutMessage(level.levelScriptName);
-			LoadingScreen.TransitionTo(LoadoutMenu.LoadoutUI.SCENENAME, message);*/
-
-            Debug.Log("LoadLevel");
-            //LoadingScreen.TransitionTo(Framework.SCENENAME, new ToGameMessage(level.levelScriptName, GetLoadout(), true));
             demoScript.LoadLevel(level.levelScriptName);
         }
 

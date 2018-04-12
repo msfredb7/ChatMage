@@ -15,10 +15,32 @@ public class AdsStarter : MonoBehaviour
     private string nextSceneName;
 
     private Action onAdComplete;
+    public bool IsConnected { get; private set; }
 
     private const string key = "previouslyDoneAd";
 
     // ADS
+    IEnumerator CheckInternetConnection(Action<bool> action)
+    {
+        WWW www = new WWW("http://google.com");
+        yield return www;
+        if (www.error != null)
+        {
+            action(false);
+        }
+        else
+        {
+            action(true);
+        }
+    }
+    void Start()
+    {
+        IsConnected = false;
+        StartCoroutine(CheckInternetConnection((isConnected) =>
+        {
+            IsConnected = isConnected;
+        }));
+    }
 
     public void ShowRewardedAd(/*AdsRelayer relayerMessage,*/ Action onComplete = null)
     {
@@ -44,7 +66,8 @@ public class AdsStarter : MonoBehaviour
                         onComplete();
                 });
             }
-        } else
+        }
+        else
         {
             PlayerPrefs.SetInt(key, 0);
         }

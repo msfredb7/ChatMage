@@ -39,8 +39,10 @@ namespace AI
                 target = veh.targets.TryToFindTarget(veh);
                 if(target != null)
                 {
-                    ArcherGoal_Battle battleGoal = new ArcherGoal_Battle(veh, target);
-                    battleGoal.onRemoved = (Goal g) => target = null;
+                    ArcherGoal_Battle battleGoal = new ArcherGoal_Battle(veh, target, attackRange)
+                    {
+                        onRemoved = (Goal g) => target = null
+                    };
                     AddGoal(battleGoal);
                 }
             }
@@ -65,17 +67,19 @@ namespace AI
         private void LaunchFlee()
         {
             hasFleeGoal = true;
-            Goal_Flee fleeGoal = new Goal_Flee(veh, target, fleeDistance);
-            fleeGoal.onActivated = (Goal g) =>
+            Goal_Flee fleeGoal = new Goal_Flee(veh, target, fleeDistance)
             {
-                veh.FleeMode();
-                veh.animator.FleeAnimation();
-            };
-            fleeGoal.onRemoved = (Goal g) =>
-            {
-                hasFleeGoal = false;
-                veh.WalkMode();
-                veh.animator.StopFleeAnimation();
+                onActivated = (Goal g) =>
+                {
+                    veh.FleeMode();
+                    veh.animator.FleeAnimation();
+                },
+                onRemoved = (Goal g) =>
+                {
+                    hasFleeGoal = false;
+                    veh.WalkMode();
+                    veh.animator.StopFleeAnimation();
+                }
             };
             AddForcedGoal(fleeGoal, -5);
         }

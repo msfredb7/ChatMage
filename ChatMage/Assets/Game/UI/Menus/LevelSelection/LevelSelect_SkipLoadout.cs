@@ -8,18 +8,18 @@ namespace LevelSelect
     public class LevelSelect_SkipLoadout : MonoBehaviour
     {
         public EquipablePreview[] equipables;
-        public DataSaver loadoutSaver;
         public AdsStarter adStarter;
 
         public void LoadLevel(string levelScriptName)
         {
-            DefaultAudioSources.StopMusicFaded(0.5f,delegate() {
-#if UNITY_ADS
+            DefaultAudioSources.StopMusicFaded(0.5f, delegate ()
+            {
                 LoadingScreen.TransitionTo(Framework.SCENENAME, new ToGameMessage(levelScriptName, GetLoadout(), true), true);
-                adStarter.ShowRewardedAd();
-                //LoadingScreen.TransitionTo(AdsRelayer.SCENENAME, new AdsRelayer(new ToGameMessage(levelScriptName, GetLoadout(), true),LevelSelection.SCENENAME,Framework.SCENENAME), false);
-#else
-            LoadingScreen.TransitionTo(Framework.SCENENAME, new ToGameMessage(levelScriptName, GetLoadout(), true), true);
+#if UNITY_ADS
+                if (Application.isMobilePlatform && adStarter != null && adStarter.IsConnected)
+                {
+                    adStarter.ShowRewardedAd();
+                }
 #endif
             });
         }

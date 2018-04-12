@@ -12,6 +12,7 @@ public class StageListDisplay : MonoBehaviour
     public Tower_SpeedRecorder tower_SpeedRecorder;
     public ScrollRect scrollRect;
     public DataSaver datasaver;
+    public AdsStarter adsStarter;
 
     [Header("Debug")]
     public bool useCheat = false;
@@ -73,7 +74,7 @@ public class StageListDisplay : MonoBehaviour
         for (int i = StageUnlocked; i > 0; i--)
         {
             StageButton newButton = Instantiate(buttonPrefab, countainer);
-            newButton.SetButtonInfo(i);
+            newButton.SetButtonInfo(i, adsStarter);
         }
         tower_SpeedRecorder.enabled = true;
         scrollRect.verticalNormalizedPosition = 0;

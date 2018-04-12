@@ -15,10 +15,12 @@ namespace AI
         private const float TOO_CLOSE_DIST = 10; //CETTE DISTANCE EST ^2
 
         Unit target;
+        private float attackRange;
 
-        public ArcherGoal_Battle(ArcherVehicle veh, Unit target) : base(veh)
+        public ArcherGoal_Battle(ArcherVehicle veh, Unit target, float attackRange) : base(veh)
         {
             this.target = target;
+            this.attackRange = attackRange;
         }
 
         public override void Activate()
@@ -42,12 +44,17 @@ namespace AI
                 AddSubGoal(reloadGoal);
             }
 
+            // Get close to it
+            AddSubGoal(new Goal_Follow(veh, target, attackRange));
+
             //Look at target
             AddSubGoal(new Goal_LookAt(veh, target));
 
             //Shoot
-            ArcherGoal_Shoot shootGoal = new ArcherGoal_Shoot(veh, target);
-            shootGoal.CanBeInterrupted = false;
+            ArcherGoal_Shoot shootGoal = new ArcherGoal_Shoot(veh, target)
+            {
+                CanBeInterrupted = false
+            };
 
             AddSubGoal(shootGoal);
         }
@@ -96,7 +103,14 @@ namespace AI
                 //____________>>>>>_____________________<<<<<__________________
             }
 
-            return deltaMove + veh.Position;
+            var endPos = deltaMove + veh.Position;
+
+            if (Game.Instance != null && Game.Instance.levelScript is LS_EndlessLevel)
+            {
+                endPos.x = Mathf.Clamp(endPos.x, -8.5f, 8.3f);
+            }
+
+            return endPos;
         }
     }
 }

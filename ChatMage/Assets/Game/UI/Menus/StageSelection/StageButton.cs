@@ -10,9 +10,11 @@ public class StageButton : MonoBehaviour {
     public Level endlessLevel;
 
     private int stageNumber;
+    private AdsStarter adsStarter;
 
-    public void SetButtonInfo(int stageNumber)
+    public void SetButtonInfo(int stageNumber, AdsStarter adsStarter)
     {
+        this.adsStarter = adsStarter;
         this.stageNumber = stageNumber;
         stageName.text = "LEVEL " + stageNumber;
         button.onClick.AddListener(GoToStage);
@@ -33,6 +35,11 @@ public class StageButton : MonoBehaviour {
         DefaultAudioSources.StopMusicFaded(1);
 
         LoadingScreen.TransitionTo(Framework.SCENENAME, gameMessage, true);
-        GetComponent<AdsStarter>().ShowRewardedAd();
+
+        if (Application.isMobilePlatform)
+        {
+            if(adsStarter != null && adsStarter.IsConnected)
+                adsStarter.ShowRewardedAd();
+        }
     }
 }
