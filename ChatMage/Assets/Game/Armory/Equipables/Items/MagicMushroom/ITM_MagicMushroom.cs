@@ -4,13 +4,15 @@ using UnityEngine;
 using DG.Tweening;
 using FullInspector;
 
-public class ITM_MagicMushroom : Item
+public class ITM_MagicMushroom : Item, ISpeedBuff
 {
     [InspectorHeader("Grow")]
     public AudioPlayable growSFX;
     public float growDelay;
     public float animDuration = 0.75f;
     public float scaleIncrease = 0.5f;
+    public float speedbuff;
+    public float weigthMultiplier = 1;
 
     [InspectorHeader("Shrink")]
     public AudioPlayable shrinkSFX;
@@ -22,8 +24,14 @@ public class ITM_MagicMushroom : Item
         //On utilise Delay manager et non InGameEvents parce qu'on veut pas que le delai scale avec le ZaWarudo
         Game.Instance.DelayedCall(() =>
         {
-            DefaultAudioSources.PlaySFX(growSFX);
-            player.body.DOBlendableScaleBy(Vector3.one * scaleIncrease, animDuration).SetEase(Ease.OutElastic);
+            if (player != null)
+            {
+                DefaultAudioSources.PlaySFX(growSFX);
+                player.body.DOBlendableScaleBy(Vector3.one * scaleIncrease, animDuration).SetEase(Ease.OutElastic);
+                player.vehicle.speedBuffs.Add(this);
+                player.vehicle.weight *= weigthMultiplier;
+            }
+
         }, growDelay);
     }
 
@@ -32,7 +40,12 @@ public class ITM_MagicMushroom : Item
         base.Unequip();
 
         DefaultAudioSources.PlaySFX(shrinkSFX);
-        player.body.DOBlendableScaleBy(Vector3.one * -scaleIncrease, animDuration).SetEase(Ease.OutElastic);
+        if(player != null)
+        {
+            player.body.DOBlendableScaleBy(Vector3.one * -scaleIncrease, animDuration).SetEase(Ease.OutElastic);
+            player.vehicle.speedBuffs.Remove(this);
+            player.vehicle.weight /= weigthMultiplier;
+        }
     }
 
     public override float GetWeight()
@@ -43,5 +56,10 @@ public class ITM_MagicMushroom : Item
             return 0;
 
         return 1;
+    }
+
+    public float GetAdditionalSpeed()
+    {
+        return speedbuff;
     }
 }
