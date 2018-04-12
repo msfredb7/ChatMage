@@ -10,6 +10,7 @@ namespace GameIntroOutro
     public class YouDiedOutro : BaseLoseOutro
     {
         public GameObject portalVFXPrefab;
+        public SceneInfo endlessMenu;
         public WinAnimation textAnimation;
         public Image bgImage;
         public Color bgImageTargetColor;
@@ -33,7 +34,14 @@ namespace GameIntroOutro
         public void GoBackToMenu()
         {
             DefaultAudioSources.StopMusicFaded();
-            LoadingScreen.TransitionTo(LevelSelect.LevelSelection.SCENENAME, null);
+            if (Game.Instance.levelScript is LS_EndlessLevel)
+            {
+                LoadingScreen.TransitionTo(endlessMenu.SceneName, null);
+            }
+            else
+            {
+                LoadingScreen.TransitionTo(LevelSelect.LevelSelection.SCENENAME, null);
+            }
         }
     }
 }

@@ -68,7 +68,7 @@ public class InGameOptions : WindowAnimation
 
     public void BackToLevelSelect()
     {
-        if(Game.Instance.levelScript.name == "LS_EndlessLevel")
+        if(Game.Instance.levelScript is LS_EndlessLevel)
             LoadingScreen.TransitionTo(endlessStageSelectionScreen.SceneName, null);
         else
             LoadingScreen.TransitionTo(LevelSelect.LevelSelection.SCENENAME, null);
