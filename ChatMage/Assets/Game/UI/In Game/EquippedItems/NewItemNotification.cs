@@ -26,6 +26,7 @@ public class NewItemNotification : MonoBehaviour
     public float pauseDuration = 2f;
 
     private bool animDone;
+    private float cantClickDelay = 0.5f;
 
     Queue<Item> notifQueue = new Queue<Item>();
     float blackBGDefaultAlpha;
@@ -50,6 +51,7 @@ public class NewItemNotification : MonoBehaviour
 
     public void Notify(Item item)
     {
+        cantClickDelay = 0.6f;
         animDone = false;
 
         gameObject.SetActive(true);
@@ -84,9 +86,12 @@ public class NewItemNotification : MonoBehaviour
 
     void Update()
     {
+        if (animDone)
+            cantClickDelay -= Time.deltaTime;
+
         if (Input.anyKeyDown)
         {
-            if (animDone)
+            if (animDone && cantClickDelay <= 0)
             {
                 // Close
                 var sq = DOTween.Sequence().SetUpdate(true);
