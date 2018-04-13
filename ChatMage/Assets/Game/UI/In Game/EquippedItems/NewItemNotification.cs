@@ -87,7 +87,7 @@ public class NewItemNotification : MonoBehaviour
     void Update()
     {
         if (animDone)
-            cantClickDelay -= Time.deltaTime;
+            cantClickDelay -= Time.unscaledDeltaTime;
 
         if (Input.anyKeyDown)
         {
