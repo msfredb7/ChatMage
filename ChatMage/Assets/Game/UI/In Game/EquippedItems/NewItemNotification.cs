@@ -21,6 +21,7 @@ public class NewItemNotification : MonoBehaviour
     public RectTransform container;
     public CanvasGroup content;
     public AudioAsset sfx;
+    public CanvasGroupBehaviour continueButton;
 
     [Header("Settings")]
     public float pauseDuration = 2f;
@@ -37,6 +38,7 @@ public class NewItemNotification : MonoBehaviour
     {
         blackBGDefaultAlpha = blackBG.color.a;
         gameObject.SetActive(false);
+        continueButton.HideInstant();
     }
 
     public void Init(PlayerItems playerItems)
@@ -76,6 +78,7 @@ public class NewItemNotification : MonoBehaviour
         // Pause
         sq.AppendInterval(pauseDuration);
         sq.AppendCallback(() => animDone = true);
+        sq.AppendCallback(() => continueButton.Show());
 
         introTween = sq;
 
@@ -84,28 +87,35 @@ public class NewItemNotification : MonoBehaviour
         godRays.DORotate(Vector3.forward * 360, sq.Duration() * 2, RotateMode.LocalAxisAdd).SetUpdate(true).SetLoops(-1);
     }
 
-    void Update()
-    {
-        if (animDone)
-            cantClickDelay -= Time.unscaledDeltaTime;
+    //void Update()
+    //{
+    //    if (animDone)
+    //        cantClickDelay -= Time.unscaledDeltaTime;
 
-        if (Input.anyKeyDown)
+    //    if (Input.anyKeyDown)
+    //    {
+    //        if (animDone && cantClickDelay <= 0)
+    //        {
+    //            // Close
+    //            Continue();
+    //        }
+    //    }
+    //}
+
+    public void Continue()
+    {
+        continueButton.Hide();
+
+        var sq = DOTween.Sequence().SetUpdate(true);
+        sq.Append(content.DOFade(0, 0.4f));
+        sq.Join(blackBG.DOFade(0, 0.4f));
+        sq.OnComplete(() =>
         {
-            if (animDone && cantClickDelay <= 0)
-            {
-                // Close
-                var sq = DOTween.Sequence().SetUpdate(true);
-                sq.Append(content.DOFade(0, 0.4f));
-                sq.Join(blackBG.DOFade(0, 0.4f));
-                sq.OnComplete(() =>
-                {
-                    Game.Instance.gameRunning.Unlock(GAMELOCK);
-                    gameObject.SetActive(false);
-                    CheckForNextInQueue();
-                });
-                outroTween = sq;
-            }
-        }
+            Game.Instance.gameRunning.Unlock(GAMELOCK);
+            gameObject.SetActive(false);
+            CheckForNextInQueue();
+        });
+        outroTween = sq;
     }
 
     private void OnDestroy()

@@ -18,7 +18,7 @@ public class ClickAnimation : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     private bool clickSequence = false;
     private Tween currentTween = null;
 
-    void Start()
+    void Awake()
     {
         if (GetComponent<RectTransform>() == null)
         {

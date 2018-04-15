@@ -10,6 +10,7 @@ public class DragThresholdFix : MonoBehaviour
 
     void Start()
     {
-        eventSystem.pixelDragThreshold *= Mathf.RoundToInt(Screen.height / referenceHeight);
+        float multiplier = Screen.height / referenceHeight;
+        eventSystem.pixelDragThreshold = Mathf.RoundToInt(eventSystem.pixelDragThreshold * multiplier);
     }
 }
