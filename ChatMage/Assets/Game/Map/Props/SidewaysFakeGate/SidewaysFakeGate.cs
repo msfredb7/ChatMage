@@ -19,6 +19,9 @@ public class SidewaysFakeGate : MonoBehaviour
     private Vector2 closedLocalPosition;
     private Tweener moveTween;
 
+    [HideInInspector]
+    public Locker canBeClose = new Locker();
+
     void Awake()
     {
         closedLocalPosition = rendering.localPosition;
@@ -31,11 +34,14 @@ public class SidewaysFakeGate : MonoBehaviour
 
     public void Close()
     {
-        if (moveTween != null)
-            moveTween.Kill();
-        moveTween = rendering.DOLocalMove(closedLocalPosition, animDuration).SetEase(ease);
-        if (enableDisableColliderOnAnimation)
-            collider.enabled = true;
+        if (canBeClose)
+        {
+            if (moveTween != null)
+                moveTween.Kill();
+            moveTween = rendering.DOLocalMove(closedLocalPosition, animDuration).SetEase(ease);
+            if (enableDisableColliderOnAnimation)
+                collider.enabled = true;
+        }
     }
 
     public void Open()

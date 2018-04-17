@@ -434,6 +434,7 @@ public class LS_EndlessLevel : LevelScript
             //waitingForExit = true;
             arrow.Show();
             topgate.Open();
+            topgate.canBeClose.Lock(stageKey);
             Game.Instance.playerBounds.top.gameObject.SetActive(false);
 
             Action onPlayerExit = ()=>
@@ -445,6 +446,7 @@ public class LS_EndlessLevel : LevelScript
                 // Apres un court delai (le temps qu'il rentre) on ferme tout et on teleporte le joueur
                 Game.Instance.DelayedCall(delegate ()
                 {
+                    topgate.canBeClose.Unlock(stageKey);
                     topgate.Close();
                     arrow.Hide();
                     Game.Instance.playerBounds.top.gameObject.SetActive(true);
