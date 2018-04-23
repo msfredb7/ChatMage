@@ -151,18 +151,18 @@ MonoBehaviour:
     serializedVersion: 2
     key0: {r: 0.22794116, g: 0.6805274, b: 1, a: 1}
     key1: {r: 0, g: 0.46206903, b: 1, a: 1}
-    key2: {r: 0.5, g: 0, b: 0, a: 0}
-    key3: {r: 0, g: 0, b: 0, a: 0}
+    key2: {r: 0.60294116, g: 0, b: 0, a: 0}
+    key3: {r: 0.53676474, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
     key5: {r: 0, g: 0, b: 0, a: 0}
     key6: {r: 0, g: 0, b: 0, a: 0}
     key7: {r: 0, g: 0, b: 0, a: 0}
-    ctime0: 11758
-    ctime1: 18890
-    ctime2: 24287
-    ctime3: 48959
-    ctime4: 0
-    ctime5: 0
+    ctime0: 8674
+    ctime1: 15035
+    ctime2: 18890
+    ctime3: 24287
+    ctime4: 30840
+    ctime5: 48959
     ctime6: 0
     ctime7: 0
     atime0: 0
@@ -174,24 +174,24 @@ MonoBehaviour:
     atime6: 0
     atime7: 0
     m_Mode: 0
-    m_NumColorKeys: 4
+    m_NumColorKeys: 6
     m_NumAlphaKeys: 2
   bottomGradient:
     serializedVersion: 2
     key0: {r: 1, g: 1, b: 1, a: 1}
     key1: {r: 0, g: 0.5448277, b: 1, a: 1}
-    key2: {r: 0.7800183, g: 0, b: 1, a: 0}
-    key3: {r: 1, g: 0, b: 0, a: 0}
-    key4: {r: 0.41176468, g: 0, b: 0, a: 0}
-    key5: {r: 0, g: 0, b: 0, a: 0}
+    key2: {r: 1, g: 0, b: 0, a: 0}
+    key3: {r: 0.9702699, g: 0, b: 0.13514793, a: 0}
+    key4: {r: 0.7800183, g: 0, b: 1, a: 0}
+    key5: {r: 0.41176468, g: 0, b: 0, a: 0}
     key6: {r: 0, g: 0, b: 0, a: 0}
     key7: {r: 0, g: 0, b: 0, a: 0}
-    ctime0: 14264
-    ctime1: 21781
-    ctime2: 23516
-    ctime3: 25443
-    ctime4: 65535
-    ctime5: 0
+    ctime0: 10794
+    ctime1: 19275
+    ctime2: 25250
+    ctime3: 29684
+    ctime4: 32768
+    ctime5: 65535
     ctime6: 0
     ctime7: 0
     atime0: 0
@@ -203,7 +203,7 @@ MonoBehaviour:
     atime6: 0
     atime7: 0
     m_Mode: 0
-    m_NumColorKeys: 5
+    m_NumColorKeys: 6
     m_NumAlphaKeys: 2
   gradientSpeed: -0.05
 --- !u!114 &5741917
@@ -1783,8 +1783,8 @@ MonoBehaviour:
   scrollRect: {fileID: 73274249}
   datasaver: {fileID: 11400000, guid: ddccaa3a858acc3458d9734bb2ec9d3e, type: 2}
   adsStarter: {fileID: 994835802}
-  useCheat: 0
-  cheatLevelCount: 10
+  useCheat: 1
+  cheatLevelCount: 100
   animMinButtons: 2
   animBaseDuration: 0.5
   animExtraDurationPerButton: 0.03
@@ -2045,7 +2045,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: -0.000030517578}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1136849443
@@ -2112,7 +2112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   recorder: {fileID: 707518151}
-  paralaxRatio: 0.07
+  paralaxRatio: 0.15
   tr: {fileID: 1260223749}
   spriteOffset: {fileID: 0}
   moveTransform: 1
@@ -2295,6 +2295,7 @@ GameObject:
   - component: {fileID: 1375509239}
   - component: {fileID: 1375509238}
   - component: {fileID: 1375509237}
+  - component: {fileID: 1375509242}
   m_Layer: 0
   m_Name: Cloud
   m_TagString: Untagged
@@ -2314,7 +2315,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   recorder: {fileID: 707518151}
-  paralaxRatio: 0.25
+  paralaxRatio: 0.3
   tr: {fileID: 1375509241}
   spriteOffset: {fileID: 1375509238}
   moveTransform: 0
@@ -2387,8 +2388,21 @@ Transform:
   m_LocalScale: {x: 17.75, y: 10, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1375509242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1375509236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0de0a7778e303f41a9edad630373a5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteOffset: {fileID: 1375509238}
+  speed: {x: 0.05, y: 0}
 --- !u!1 &1447495610
 GameObject:
   m_ObjectHideFlags: 0
@@ -2706,7 +2720,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   recorder: {fileID: 707518151}
-  paralaxRatio: 0.5
+  paralaxRatio: 0.6
   tr: {fileID: 1704461736}
   spriteOffset: {fileID: 1704461733}
   moveTransform: 0
@@ -3054,7 +3068,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   recorder: {fileID: 707518151}
-  paralaxRatio: 0.1
+  paralaxRatio: 0.12
   tr: {fileID: 1883560556}
   spriteOffset: {fileID: 1883560553}
   moveTransform: 0
@@ -3127,7 +3141,7 @@ Transform:
   m_LocalScale: {x: 17.75, y: 10, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1990459567
 GameObject:
