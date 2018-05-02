@@ -1,6 +1,3 @@
-using CompleteProject;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using CCC.Persistence;
 using System;
@@ -16,7 +13,6 @@ public class Account : MonoPersistent
     private int _coins = 0;
     public event SimpleEvent onCoinsChange;
 
-    private Purchaser purchaser;
     [SerializeField]
     DataSaver dataSaver;
 

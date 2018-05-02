@@ -1,7 +1,3 @@
-
-using CompleteProject;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 #if UNITY_ADS
 using UnityEngine.Advertisements;
