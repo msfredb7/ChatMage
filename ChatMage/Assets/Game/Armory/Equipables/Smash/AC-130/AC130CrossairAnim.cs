@@ -24,13 +24,14 @@ public class AC130CrossairAnim : MonoBehaviour
     public void Shoot(Vector2 pixelPosition, float reloadDuration)
     {
         //On trouve la position
-        Vector2 scaling = new Vector2(canvasScaler.referenceResolution.x / Screen.width, canvasScaler.referenceResolution.y / Screen.height);
-        Vector2 anchoredTouchPosition = new Vector2(pixelPosition.x * scaling.x, pixelPosition.y * scaling.y);
+        //Vector2 scaling = new Vector2(canvasScaler.referenceResolution.x / Screen.width, canvasScaler.referenceResolution.y / Screen.height);
+        //Vector2 anchoredTouchPosition = new Vector2(pixelPosition.x * scaling.x, pixelPosition.y * scaling.y);
 
 
         //Wtf unity.
-        container.anchoredPosition = Vector2.one;
-        container.anchoredPosition = anchoredTouchPosition;
+        //container.anchoredPosition = Vector2.one;
+        //container.anchoredPosition = anchoredTouchPosition;
+        container.position = pixelPosition;
 
         group.DOKill();
         group.alpha = 1;
