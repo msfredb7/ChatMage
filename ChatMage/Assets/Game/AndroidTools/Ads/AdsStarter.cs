@@ -22,16 +22,26 @@ public class AdsStarter : MonoBehaviour
     // ADS
     IEnumerator CheckInternetConnection(Action<bool> action)
     {
-        WWW www = new WWW("http://google.com");
-        yield return www;
-        if (www.error != null)
+        yield return null;
+        if (Application.internetReachability == NetworkReachability.NotReachable)
         {
+            Debug.Log("No internet connection");
             action(false);
         }
         else
         {
             action(true);
         }
+        //WWW www = new WWW("http://google.com");
+        //yield return www;
+        //if (www.error != null)
+        //{
+        //    action(false);
+        //}
+        //else
+        //{
+        //    action(true);
+        //}
     }
     void Start()
     {
