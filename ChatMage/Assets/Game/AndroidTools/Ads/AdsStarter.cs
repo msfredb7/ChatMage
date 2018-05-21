@@ -55,7 +55,7 @@ public class AdsStarter : MonoBehaviour
     public void ShowRewardedAd(/*AdsRelayer relayerMessage,*/ Action onComplete = null)
     {
 #if UNITY_ADS
-        bool doAd = (PlayerPrefs.GetInt(key, 0) == 0 ? true : false);
+        bool doAd = (PlayerPrefs.GetInt(key, 1) == 0 ? true : false);
         if (doAd)
         {
             PlayerPrefs.SetInt(key, 1);
@@ -81,6 +81,8 @@ public class AdsStarter : MonoBehaviour
         {
             PlayerPrefs.SetInt(key, 0);
         }
+
+        PlayerPrefs.Save();
 #endif
     }
 
